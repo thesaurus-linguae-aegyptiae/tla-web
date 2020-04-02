@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<html xmlns:th="http://thymeleaf.org">
+
+<body>
+
+    <!-- Verweise -->
+    <div th:fragment="external-references" id="external-references" th:if="${obj.externalReferences != null}">
+        <hr />
+        <p>
+            <strong th:text="#{object_property_external_references}" class="details-property-label">External
+                references</strong>
+        </p>
+        <div th:each="entry : ${obj.externalReferences}" class="row align-items-start">
+            <div class="col-4 my-0 py-0">
+                <span th:text="#{'external_reference_provider_' + ${entry.key}}" class="external-reference-provider">Provider</span>
+            </div>
+            <div class="col-8">
+                <div th:each="ref : ${entry.value}" class="external-reference">
+                    <a th:if="${ref.href} != null" th:href="${ref.href}">
+                        <span class="fas fa-arrow-circle-right red"></span>
+                        <span th:text="${ref.value}" class="external-reference-id">ext. Identifier</span>
+                        <span th:if="${ref.type} != null" th:text="${ref.type}" class="external-reference-type">Type</span>
+                    </a>
+                    <span th:unless="${ref.href} != null">
+                        <span th:text="${ref.value}" class="external-reference-id"></span>
+                        <span th:if="${ref.type} != null" th:text="${ref.type}" class="external-reference-type"/>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- translations -->
+    <div class="translations" th:fragment="translations" id="translations" th:if="${obj.translations != null}">
+        <hr />
+        <p>
+            <strong th:text="#{lemma_property_translation}" class="details-property-label">Translation</strong>
+        </p>
+        <div th:each="entry : ${obj.translations}">
+            <p th:each="translation : ${entry.value}" th:class="'translation-' + ${entry.key}">
+                <span class="lang-icon" th:text="${#strings.toUpperCase(entry.key)}">DE</span>
+                <span class="translation" th:text="${translation}">Translation</span>
+            </p>
+        </div>
+    </div>
+
+</body>
+
+</html>

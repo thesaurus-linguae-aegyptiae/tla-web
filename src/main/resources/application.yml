@@ -1,0 +1,41 @@
+---
+
+logging:
+    file:
+        name: app.log
+
+tla:
+    name: Thesaurus Linguae Aegyptiae (BETA)
+    base-url: https://tla.bbaw.de
+    backend-url: http://localhost:8090
+
+    assets:
+        bootstrap: /vendor/bootstrap-${bootstrapVersion}-dist
+        fontawesome: /vendor/fontawesome-free-${fontawesomeVersion}-web
+
+    link-formatters:
+        aaew:
+            type-formats:
+                hieratic_hieroglyphic: http://aaew.bbaw.de/tla/servlet/GetWcnDetails?u=guest&f=0&l=0&wn={id}&db=0
+                demotic: http://aaew.bbaw.de/tla/servlet/GetWcnDetails?u=guest&f=0&l=0&wn={id}&db=1
+                default: http://aaew.bbaw.de/tla/servlet/GetWcnDetails?u=guest&f=0&l=0&wn={id}&db=0
+            id-pattern: ^-?[1-9][0-9]*$
+        dza:
+            type-formats:
+                hieratic_hieroglyphic: http://aaew.bbaw.de/tla/servlet/DzaBrowser?u=guest&f=0&l=0&wn={id}
+        cfeetk:
+            default-format: http://sith.huma-num.fr/vocable/{id}
+            id-pattern: ^[1-9][0-9]*$
+        trismegistos:
+            default-format: https://www.trismegistos.org/{type}/{id}
+            id-pattern: ^[1-9][0-9]*$
+            type-pattern: ^(text|collection)$
+        topbib:
+            type-formats:
+                griffith: http://topbib.griffith.ox.ac.uk/dtb.html?topbib={id}
+                thot: http://thot.philo.ulg.ac.be/concept/{id}
+        thot:
+            default-format: http://thot.philo.ulg.ac.be/concept/{id}
+        met:
+            default-format: http://projetrosette.info/popup.php?Id=1004&MET={id}/2&Lang1=EN
+

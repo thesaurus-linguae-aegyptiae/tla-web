@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<html xmlns:th="http://thymeleaf.org">
+  <body>
+
+
+    <header id="header" class="header" th:fragment="header">
+      <!-- Navigation -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="/">TLA</a>
+          <h1 th:text="${env.appName}">Thesaurus Linguae Aegyptiae</h1>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"/>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/search">Search</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">TLA</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/info/introduction" th:text="#{menu_global_introduction}">Introduction</a>
+                  <a class="dropdown-item" href="/info/project">Project</a>
+                  <a class="dropdown-item" href="/info/collaboration">Collaboration</a>
+                  <a class="dropdown-item" href="/info/license">License</a>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/info/dictionary">Dictionary</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/info/text-corpus">Text Corpus</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/info/extras">Extras</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Help</a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown2">
+                  <a class="dropdown-item" href="/help">General help</a>
+                  <a class="dropdown-item" href="/help/bts-glossings">BTS glossing </a>
+                  <a class="dropdown-item" href="/help/ling-glossings">Linguistic glossing</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+
+    <footer class="py-5 bg-light" th:fragment="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-7 col-lg-4">
+            <address><strong>Thesaurus Linguae Aegyptiae</strong><br/>Strukturen und Transformationen des Wortschatzes der &#xE4;gyptischen Sprache
+                        <br/><br/><a href="/">https://tla.bbaw.de</a>
+                        </address>
+          </div>
+          <div class="col-sm-4 col-lg-2 contact">
+            <a href="/contact" target="_blank">Contact</a>
+            <br/>
+            <a href="/imprint" target="_blank">Imprint</a>
+            <br/>
+            <a href="/privacy-policy" target="_blank">Privacy policy</a>
+            <br/>
+            <span id="cookie-info">(Cookies not yet accepted)</span>
+          </div>
+          <div class="footer-logo col-sm-6 col-lg-3">
+            <a href="http://www.saw-leipzig.de" target="_blank">
+              <img class="logo-img" th:src="@{/img/logo_saw.png}"/>
+            </a>
+          </div>
+          <div class="footer-logo col-sm-6 col-lg-3">
+            <a href="http://www.bbaw.de" target="_blank">
+              <img class="logo-img" th:src="@{/img/logo_bbaw.png}"/>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+    <div id="breadcrumb" class="row" th:fragment="breadcrumbs">
+      <div class="col-12">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li th:each="item : ${breadcrumbs}" th:class="${itemStat.last} ? 'breadcrumb-item active' : 'breadcrumb-item'">
+              <a th:href="${item.link}" th:text="${item.label}"/>
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+
+
+  </body>
+</html>

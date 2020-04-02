@@ -1,0 +1,31 @@
+{
+    "groups": [
+        {
+            "name": "tla",
+            "type": "tla.web.config.ApplicationProperties",
+            "description": "Frontend application properties"
+        }
+    ],
+    "properties": [
+        {
+            "name": "tla.name",
+            "type": "java.lang.String"
+        },
+        {
+            "name": "tla.base-url",
+            "type": "java.lang.String"
+        },
+        {
+            "name": "tla.backend-url",
+            "type": "java.lang.String"
+        },
+        {
+            "name": "tla.link-formatters",
+            "type": "java.util.Map"
+        },
+        {
+            "name": "tla.assets",
+            "type": "tla.web.config.ApplicationProperties.Assets"
+        }
+    ]
+}
