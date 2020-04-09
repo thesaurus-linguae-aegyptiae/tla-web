@@ -18,6 +18,7 @@ public class TlaClient {
         this.backendUrl = backendUrl;
     }
 
+    @SuppressWarnings("unchecked")
     public SingleDocumentWrapper<LemmaDto> getLemma(String id) {
         return client.getForObject(
             String.format("%s/lemma/get/%s", this.backendUrl, id),

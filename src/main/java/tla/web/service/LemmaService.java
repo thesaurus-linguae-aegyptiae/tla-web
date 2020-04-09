@@ -25,4 +25,5 @@ public class LemmaService {
         return mapper.map(wrapper.getDoc(), Lemma.class);
     }
 
+
 }

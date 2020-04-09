@@ -34,7 +34,11 @@ public class MappingTest {
             () -> assertEquals(1, lemma.getWords().size(), "expect 1 word"),
             () -> assertNotNull(word.getTranscription(), "expect transcription"),
             () -> assertNotNull(word.getGlyphs(), "expect glyphs"),
-            () -> assertEquals("N35", word.getGlyphs().getMdc(), "mdc correct?")
+            () -> assertEquals("N35", word.getGlyphs().getMdc(), "mdc correct?"),
+            () -> assertTrue(
+                word.getGlyphs().getSvg().startsWith("<?xml version='1.0' encoding='UTF-8' standalone='yes'?>"),
+                "check svg xml JSesh rendering result"
+            )
         );
     }
     
