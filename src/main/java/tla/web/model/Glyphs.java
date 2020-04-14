@@ -25,5 +25,12 @@ public class Glyphs {
             .build();
     }
 
+    /**
+     * Returns true if all attributes are actually empty.
+     */
+    public boolean isEmpty() {
+        return this.unicode == null && this.mdc == null;
+    }
+
 }
 

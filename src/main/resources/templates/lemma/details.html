@@ -59,13 +59,13 @@
 
     <div class="row details-content">
       <div class="col-sm-12 col-lg-8">
-        <div class="lemma" th:unless="${#strings.startsWith(obj.id, 'd')}">
+        <div class="lemma" th:unless="${hieroglyphs} == null">
           <p>
             <strong th:text="#{lemma_property_hieroglyphs}" class="details-property-label">
               Hieroglyphic spelling(s):
             </strong>
-            <span th:each="word : ${obj.words}">
-              <span th:unless="${word.glyphs} == null" class="unicode-hieroglyphs" th:title="${word.glyphs.mdc}" th:utext="${word.glyphs.svg}"/>
+            <span th:each="glyphs : ${hieroglyphs}">
+              <span class="hieroglyphs" th:title="${glyphs.mdc}" th:utext="${glyphs.svg}"/>
             </span>
           </p>
           <hr/>
