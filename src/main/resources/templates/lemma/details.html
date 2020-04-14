@@ -65,7 +65,7 @@
               Hieroglyphic spelling(s):
             </strong>
             <span th:each="word : ${obj.words}">
-              <span th:unless="${word.glyphs} == null" class="unicode-hieroglyphs" th:title="${word.glyphs}" th:text="${word.glyphs}"/>
+              <span th:unless="${word.glyphs} == null" class="unicode-hieroglyphs" th:title="${word.glyphs.mdc}" th:utext="${word.glyphs.svg}"/>
             </span>
           </p>
           <hr/>

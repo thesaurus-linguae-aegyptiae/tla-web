@@ -19,7 +19,6 @@
                     <a th:if="${ref.href} != null" th:href="${ref.href}">
                         <span class="fas fa-arrow-circle-right red"></span>
                         <span th:text="${ref.value}" class="external-reference-id">ext. Identifier</span>
-                        <span th:if="${ref.type} != null" th:text="${ref.type}" class="external-reference-type">Type</span>
                     </a>
                     <span th:unless="${ref.href} != null">
                         <span th:text="${ref.value}" class="external-reference-id"></span>
