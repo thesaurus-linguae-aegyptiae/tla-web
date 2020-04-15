@@ -2,7 +2,7 @@ package tla.web.repo;
 
 import org.springframework.web.client.RestTemplate;
 
-import tla.domain.dto.LemmaDto;
+import tla.domain.dto.DocumentDto;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 
 
@@ -19,7 +19,7 @@ public class TlaClient {
     }
 
     @SuppressWarnings("unchecked")
-    public SingleDocumentWrapper<LemmaDto> getLemma(String id) {
+    public SingleDocumentWrapper<DocumentDto> getLemma(String id) {
         return client.getForObject(
             String.format("%s/lemma/get/%s", this.backendUrl, id),
             SingleDocumentWrapper.class

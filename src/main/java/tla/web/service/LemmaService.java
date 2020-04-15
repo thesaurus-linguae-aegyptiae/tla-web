@@ -1,10 +1,10 @@
 package tla.web.service;
 
-import tla.domain.dto.LemmaDto;
-import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.model.Passport;
 import tla.web.model.Glyphs;
 import tla.web.model.Lemma;
+import tla.web.model.ObjectDetails;
+import tla.web.model.TLAObject;
 import tla.web.model.Word;
 import tla.web.repo.TlaClient;
 
@@ -17,8 +17,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.modelmapper.ModelMapper;
-
 @Slf4j
 @Service
 public class LemmaService {
@@ -26,12 +24,19 @@ public class LemmaService {
     @Autowired
     private TlaClient api;
 
-    @Autowired
-    private ModelMapper mapper;
-
-    public Lemma getLemma(String id) {
-        SingleDocumentWrapper<LemmaDto> wrapper = api.getLemma(id);
-        return mapper.map(wrapper.getDoc(), Lemma.class);
+    public ObjectDetails<Lemma> getLemma(String id) {
+        ObjectDetails<TLAObject> container = ObjectDetails.from(
+            api.getLemma(id)
+        );
+        if (container.getObject() instanceof Lemma) {
+            return new ObjectDetails<Lemma>(
+                (Lemma) container.getObject(),
+                container.getRelatedObjects()
+            );
+        } else {
+            log.error("expected container with lemma in it, but it was {}", container.getObject().getClass());
+            return null;
+        }
     }
 
     /**
