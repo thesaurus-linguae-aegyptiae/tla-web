@@ -3,7 +3,6 @@ package tla.web.model;
 import java.util.List;
 import java.util.SortedMap;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -16,7 +15,6 @@ import tla.domain.model.meta.BTSeClass;
 @Data
 @SuperBuilder
 @NoArgsConstructor
-@AllArgsConstructor
 @BTSeClass("BTSLemmaEntry")
 @EqualsAndHashCode(callSuper = true)
 public class Lemma extends TLAObject {

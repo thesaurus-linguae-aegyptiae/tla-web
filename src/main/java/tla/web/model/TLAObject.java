@@ -3,7 +3,6 @@ package tla.web.model;
 import java.util.List;
 import java.util.TreeMap;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -15,7 +14,6 @@ import tla.domain.model.meta.AbstractBTSBaseClass;
 @Data
 @SuperBuilder
 @NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public abstract class TLAObject extends AbstractBTSBaseClass {
 

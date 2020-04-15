@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import tla.domain.dto.AnnotationDto;
 import tla.domain.dto.DocumentDto;
 import tla.domain.dto.LemmaDto;
 import tla.domain.model.LemmaWord;
@@ -50,22 +51,27 @@ public class MappingConfig {
     private ModelMapper initModelMapper() {
         modelClasses = new HashMap<>();
         List.of(
+            tla.web.model.Annotation.class,
             Lemma.class
         ).stream().forEach(
             modelClass -> registerModelClass(modelClass)
         );
         modelMapper = new ModelMapper();
         ExternalReferencesConverter externalReferencesConverter = externalReferencesConverter();
+        modelMapper.createTypeMap(AnnotationDto.class, tla.web.model.Annotation.class).addMapping(
+            AnnotationDto::getEditors, tla.web.model.Annotation::setEdited
+        );
         modelMapper.createTypeMap(LemmaDto.class, Lemma.class).addMappings(
             m -> m.using(externalReferencesConverter).map(
                 LemmaDto::getExternalReferences,
                 Lemma::setExternalReferences
             )
+        ).addMapping(
+            LemmaDto::getEditors, Lemma::setEdited
         );
         modelMapper.createTypeMap(LemmaWord.class, Word.class).addMappings(
             m -> m.using(new GlyphsConverter()).map(
-                LemmaWord::getGlyphs,
-                Word::setGlyphs
+                LemmaWord::getGlyphs, Word::setGlyphs
             )
         );
         return modelMapper;
