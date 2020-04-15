@@ -5,10 +5,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 import java.util.TreeSet;
 
+import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.ClassPathResource;
 
 import tla.domain.dto.LemmaDto;
 import tla.domain.model.ExternalReference;
@@ -20,8 +21,16 @@ import tla.web.model.mappings.MappingConfig;
 @SpringBootTest
 public class MappingTest {
 
-    @Autowired
-    private ModelMapper modelMapper;
+    @BeforeClass
+    public static void init() {
+        YamlPropertiesFactoryBean propertiesFactory = new YamlPropertiesFactoryBean();
+        propertiesFactory.setResources(new ClassPathResource("application.yml"));
+    }
+
+    @Test
+    void mappingConfigInitialized() {
+        assertEquals(Lemma.class, MappingConfig.getModelClass("BTSLemmaEntry"));
+    }
 
     @Test
     void lemma() throws Exception {
