@@ -181,6 +181,20 @@
             </div>
           </div>
 
+          <!-- Comments -->
+          <div th:unless="${annotations} == null" class="comment pb-2">
+            <hr/>
+            <strong th:text="#{lemma_property_annotations}">Comments</strong>
+            <div th:each="annotation : ${annotations}" class="comment-wrapper ml-3 hide-comment">
+              <p class="comment-content" th:utext="${annotation.body}">annotation body</p>
+              <p class="comment-author pt-1" th:text="#{lemma_property_editors}">
+                Edited by:
+                <strong th:text="${annotation.edited.author}">author</strong>
+              </p>
+
+            </div>
+          </div>
+
         </div>  <!-- close content col-sm-12 -->
 
         <!-- Sidebar large -->

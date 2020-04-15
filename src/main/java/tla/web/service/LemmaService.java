@@ -1,6 +1,7 @@
 package tla.web.service;
 
 import tla.domain.model.Passport;
+import tla.web.model.Annotation;
 import tla.web.model.Glyphs;
 import tla.web.model.Lemma;
 import tla.web.model.ObjectDetails;
@@ -15,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -35,6 +37,25 @@ public class LemmaService {
             );
         } else {
             log.error("expected container with lemma in it, but it was {}", container.getObject().getClass());
+            return null;
+        }
+    }
+
+    /**
+     * Tries to extract a list of annotations from a object details container. Might return null.
+     * TODO: should probably be a method of the object details container itself.
+     */
+    public List<Annotation> extractAnnotations(ObjectDetails<Lemma> container) {
+        Map<String, Map<String, TLAObject>> related = container.getRelatedObjects();
+        if (related != null && related.containsKey("BTSAnnotation") && !related.get("BTSAnnotation").isEmpty()) {
+            return related.get("BTSAnnotation").values().stream().map(
+                relatedObject -> relatedObject instanceof Annotation ? (Annotation) relatedObject : null
+            ).filter(
+                relatedObject -> relatedObject != null
+            ).collect(
+                Collectors.toList()
+            );
+        } else {
             return null;
         }
     }

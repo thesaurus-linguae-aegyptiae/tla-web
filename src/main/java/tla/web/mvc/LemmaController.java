@@ -34,6 +34,7 @@ public class LemmaController {
         model.addAttribute("hieroglyphs", lemmaService.extractHieroglyphs(lemma));
         model.addAttribute("bibliography", lemmaService.extractBibliography(lemma));
         model.addAttribute("related", container.getRelatedObjects());
+        model.addAttribute("annotations", lemmaService.extractAnnotations(container));
         return "lemma/details";
     }
 

@@ -5,9 +5,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import tla.domain.dto.DocumentDto;
@@ -17,9 +14,6 @@ import tla.web.model.mappings.MappingConfig;
 @Getter
 @AllArgsConstructor
 public class ObjectDetails<T extends TLAObject> {
-
-    @Autowired
-    private static ModelMapper mapper;
 
     private T object;
 
@@ -37,9 +31,8 @@ public class ObjectDetails<T extends TLAObject> {
      */
     public static ObjectDetails<TLAObject> from(SingleDocumentWrapper<DocumentDto> wrapper) {
         ObjectDetails<TLAObject> container = new ObjectDetails<TLAObject>(
-            mapper.map(
-                wrapper.getDoc(),
-                TLAObject.class
+            MappingConfig.convertDTO(
+                wrapper.getDoc()
             )
         );
         container.relatedObjects = new HashMap<String, Map<String, TLAObject>>();
