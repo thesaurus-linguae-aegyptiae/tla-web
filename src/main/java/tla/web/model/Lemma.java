@@ -11,11 +11,13 @@ import lombok.Singular;
 import lombok.experimental.SuperBuilder;
 import tla.domain.model.Language;
 import tla.domain.model.extern.AttestedTimespan;
+import tla.domain.model.meta.BTSeClass;
 
 @Data
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
+@BTSeClass("BTSLemmaEntry")
 @EqualsAndHashCode(callSuper = true)
 public class Lemma extends TLAObject {
 

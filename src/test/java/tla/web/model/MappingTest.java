@@ -3,6 +3,7 @@ package tla.web.model;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
+import java.util.TreeSet;
 
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
@@ -10,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import tla.domain.dto.LemmaDto;
+import tla.domain.model.ExternalReference;
 import tla.domain.model.Language;
 import tla.domain.model.LemmaWord;
 import tla.domain.model.Transcription;
+import tla.web.model.mappings.MappingConfig;
 
 @SpringBootTest
 public class MappingTest {
@@ -26,8 +29,11 @@ public class MappingTest {
             .id("ID")
             .word(new LemmaWord(new Transcription("nfr", "nfr"), "N35"))
             .translation(Language.FR, List.of("traduction"))
+            .externalReference("cfeetk", new TreeSet<>(List.of(new ExternalReference("1", null))))
             .build();
-        Lemma lemma = modelMapper.map(dto, Lemma.class);
+        TLAObject object = MappingConfig.convertDTO(dto);
+        assertTrue(object instanceof Lemma);
+        Lemma lemma = (Lemma) object;
         Word word = lemma.getWords().get(0);
         assertAll("test lemma mapping",
             () -> assertNotNull(lemma, "lemma DTO should be converted"),
@@ -38,6 +44,10 @@ public class MappingTest {
             () -> assertTrue(
                 word.getGlyphs().getSvg().startsWith("<?xml version='1.0' encoding='UTF-8' standalone='yes'?>"),
                 "check svg xml JSesh rendering result"
+            ),
+            () -> assertEquals(
+                "http://sith.huma-num.fr/vocable/1",
+                lemma.getExternalReferences().get("cfeetk").get(0).getHref()
             )
         );
     }

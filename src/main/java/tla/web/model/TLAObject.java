@@ -5,16 +5,19 @@ import java.util.TreeMap;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import tla.domain.model.EditorInfo;
 import tla.domain.model.Passport;
+import tla.domain.model.meta.AbstractBTSBaseClass;
 
 @Data
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class TLAObject {
+@EqualsAndHashCode(callSuper = true)
+public abstract class TLAObject extends AbstractBTSBaseClass {
 
     private String id;
 

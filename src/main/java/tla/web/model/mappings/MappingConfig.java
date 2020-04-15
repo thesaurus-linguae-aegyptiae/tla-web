@@ -4,12 +4,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import tla.domain.dto.DocumentDto;
 import tla.domain.dto.LemmaDto;
 import tla.domain.model.LemmaWord;
+import tla.domain.model.meta.BTSeClass;
 import tla.web.config.ApplicationProperties;
 import tla.web.model.Glyphs;
 import tla.web.model.Lemma;
+import tla.web.model.TLAObject;
 import tla.web.model.Word;
+
+import java.lang.annotation.Annotation;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.modelmapper.AbstractConverter;
 import org.modelmapper.ModelMapper;
@@ -27,6 +35,8 @@ public class MappingConfig {
     @Autowired
     private ApplicationProperties properties;
 
+    private static ModelMapper modelMapper;
+
     @Bean
     public ExternalReferencesConverter externalReferencesConverter() {
         return new ExternalReferencesConverter(properties);
@@ -34,7 +44,17 @@ public class MappingConfig {
 
     @Bean
     public ModelMapper modelMapper() {
-        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper != null ? modelMapper : initModelMapper();
+    }
+
+    private ModelMapper initModelMapper() {
+        modelClasses = new HashMap<>();
+        List.of(
+            Lemma.class
+        ).stream().forEach(
+            modelClass -> registerModelClass(modelClass)
+        );
+        modelMapper = new ModelMapper();
         ExternalReferencesConverter externalReferencesConverter = externalReferencesConverter();
         modelMapper.createTypeMap(LemmaDto.class, Lemma.class).addMappings(
             m -> m.using(externalReferencesConverter).map(
@@ -50,4 +70,26 @@ public class MappingConfig {
         );
         return modelMapper;
     }
+
+    private static Map<String, Class<? extends TLAObject>> modelClasses;
+
+    protected static void registerModelClass(Class<? extends TLAObject> modelClass) {
+        for (Annotation a : modelClass.getAnnotations()) {
+            if (a instanceof BTSeClass) {
+                modelClasses.put(((BTSeClass) a).value(), modelClass);
+            }
+        }
+    }
+
+    public static Class<? extends TLAObject> getModelClass(String eclass) {
+        return modelClasses.get(eclass);
+    }
+
+    public static TLAObject convertDTO(DocumentDto dto) {
+        return modelMapper.map(
+            dto,
+            getModelClass(dto.getEclass())
+        );
+    }
+
 }

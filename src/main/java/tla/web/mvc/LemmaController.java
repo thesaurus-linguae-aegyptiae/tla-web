@@ -1,14 +1,8 @@
 package tla.web.mvc;
 
-import tla.web.model.Glyphs;
 import tla.web.model.Lemma;
-import tla.web.model.Word;
 import tla.web.mvc.MvcConfig.TlaPageHeader;
 import tla.web.service.LemmaService;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,26 +25,12 @@ public class LemmaController {
 
     @RequestMapping(value = "/lemma/{id}", method = RequestMethod.GET)
     public String getLemmaDetails(Model model, @PathVariable String id) {
+        log.debug("Compile lemma detail view data for lemma {}", id);
         Lemma lemma = lemmaService.getLemma(id);
         model.addAttribute("obj", lemma);
         model.addAttribute("env", pageHeader);
-        List<Glyphs> hieroglyphs = lemma.getWords().stream().map(
-            Word::getGlyphs
-        ).filter(
-            glyphs -> glyphs != null && !glyphs.isEmpty()
-        ).collect(
-            Collectors.toList()
-        );
-        model.addAttribute("hieroglyphs", hieroglyphs.isEmpty() ? null : hieroglyphs);
-        try {
-            model.addAttribute(
-                "bibliography",
-                lemma.getPassport().extractProperty("bibliography.bibliographical_text_field")
-            );
-        } catch (Exception e) {
-            log.warn("could not extract bibliography from lemma {}", id);
-            model.addAttribute("bibliography", Collections.emptyList());
-        }
+        model.addAttribute("hieroglyphs", lemmaService.extractHieroglyphs(lemma));
+        model.addAttribute("bibliography", lemmaService.extractBibliography(lemma));
         return "lemma/details";
     }
 
