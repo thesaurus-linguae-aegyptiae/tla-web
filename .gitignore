@@ -3,3 +3,9 @@
 
 # Ignore Gradle build output directory
 build
+bin
+.env
+.settings
+
+# ignore third party assets which are installed via gradle task
+src/main/resources/static/vendor/

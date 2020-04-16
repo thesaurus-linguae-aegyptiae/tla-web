@@ -37,7 +37,7 @@
             <strong th:text="#{lemma_property_translation}" class="details-property-label">Translation</strong>
         </p>
         <div th:each="entry : ${obj.translations}">
-            <p th:each="translation : ${entry.value}" th:class="'translation-' + ${entry.key}">
+            <p th:each="translation : ${entry.value}" th:class="'lemma-translation-' + ${entry.key}">
                 <span class="lang-icon" th:text="${#strings.toUpperCase(entry.key)}">DE</span>
                 <span class="translation" th:text="${translation}">Translation</span>
             </p>

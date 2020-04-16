@@ -18,8 +18,10 @@ sourceCompatibility = '11'
 ext {
     fontawesomeVersion = env.FONTAWESOME_VERSION.orElse('5.12.1')
     bootstrapVersion = env.BOOTSTRAP_VERSION.orElse('4.4.1')
-    fontawesomeSrc = 'https://use.fontawesome.com/releases/v%s/fontawesome-free-%s-web.zip'
-    bootstrapSrc = 'https://github.com/twbs/bootstrap/releases/download/v%s/bootstrap-%s-dist.zip'
+    jqueryVersion = env.JQUERY_VERSION.orElse('3.5.0')
+    fontawesomeSrc = "https://use.fontawesome.com/releases/v${fontawesomeVersion}/fontawesome-free-${fontawesomeVersion}-web.zip"
+    bootstrapSrc = "https://github.com/twbs/bootstrap/releases/download/v${bootstrapVersion}/bootstrap-${bootstrapVersion}-dist.zip"
+    jquerySrc = "https://code.jquery.com/jquery-${jqueryVersion}.min.js"
 }
 
 publishing {
@@ -90,7 +92,7 @@ jacocoTestReport {
 task downloadFontAwesome(type: Download) {
     group = 'Init'
     description = 'Downloads fontawesome distribution for local hosting'
-    src String.format(fontawesomeSrc, fontawesomeVersion, fontawesomeVersion)
+    src fontawesomeSrc
     dest new File(buildDir, 'fontawesome.zip')
     onlyIfModified true
 }
@@ -98,8 +100,24 @@ task downloadFontAwesome(type: Download) {
 task downloadBootstrap(type: Download) {
     group = 'Init'
     description = 'Downloads bootstrap distribution for local hosting'
-    src String.format(bootstrapSrc, bootstrapVersion, bootstrapVersion)
+    src bootstrapSrc
     dest new File(buildDir, 'bootstrap.zip')
+    onlyIfModified true
+}
+
+task downloadJquery(type: Download) {
+    group = 'Init'
+    description = 'Download && install jquery minified production distro'
+    src jquerySrc
+    dest file('src/main/resources/static/vendor/jquery.min.js')
+    onlyIfModified true
+}
+
+task downloadHeadroom(type: Download) {
+    group = 'Init'
+    description = 'Download && install Headroom JS'
+    src 'https://unpkg.com/headroom.js/dist/headroom.min.js'
+    dest file('src/main/resources/static/vendor/headroom.min.js')
     onlyIfModified true
 }
 
@@ -107,14 +125,14 @@ task installFontAwesome(dependsOn: downloadFontAwesome, type: Copy) {
     group = 'Init'
     description = 'Installs fontawesome distribution into assets directory'
     from zipTree(downloadFontAwesome.dest)
-    into new File('src/main/resources/static/vendor/')
+    into file('src/main/resources/static/vendor/')
 }
 
 task installBootstrap(dependsOn: downloadBootstrap, type: Copy) {
     group = 'Init'
     description = 'Installs bootstrap distribution into assets directory'
     from zipTree(downloadBootstrap.dest)
-    into new File('src/main/resources/static/vendor/')
+    into file('src/main/resources/static/vendor/')
 }
 
 task installAssets {
@@ -122,9 +140,30 @@ task installAssets {
     description = 'Download and install bootstrap and fontawesome'
     dependsOn 'installBootstrap'
     dependsOn 'installFontAwesome'
+    dependsOn 'downloadJquery'
+    dependsOn 'downloadHeadroom'
+}
+
+task cleanAssets(type: Delete) {
+    group = 'Init'
+    description = 'Delete files added with :installAssets'
+    delete 'src/main/resources/static/vendor/'
+}
+
+cleanInstallAssets {
+    dependsOn 'cleanAssets'
+}
+
+clean {
+    dependsOn 'cleanAssets'
+}
+
+bootJar {
+    dependsOn 'installAssets'
 }
 
 bootRun {
     environment "bootstrapVersion", bootstrapVersion
     environment "fontawesomeVersion", fontawesomeVersion 
 }
+
