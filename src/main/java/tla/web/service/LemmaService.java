@@ -51,7 +51,7 @@ public class LemmaService {
             return related.get("BTSAnnotation").values().stream().map(
                 relatedObject -> relatedObject instanceof Annotation ? (Annotation) relatedObject : null
             ).filter(
-                relatedObject -> relatedObject != null
+                annotation -> annotation != null && (annotation.getName() != null && annotation.getBody() != null)
             ).collect(
                 Collectors.toList()
             );

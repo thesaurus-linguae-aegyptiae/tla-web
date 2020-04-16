@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import tla.domain.model.Passport;
 import tla.domain.model.meta.BTSeClass;
+import tla.web.model.mappings.Util;
 
 @Data
 @NoArgsConstructor
@@ -16,10 +17,19 @@ import tla.domain.model.meta.BTSeClass;
 public class Annotation extends TLAObject {
 
     /**
+     * Escape markup before returning value.
+     */
+    @Override
+    public String getName() {
+        return Util.escapeMarkup(super.getName());
+    }
+
+    /**
      * Lemma annotations have textual content in their passports
      * and we want to access that conveniently so just copy it
      * into here.
      * Might return null tho.
+     * Escapes markup.
      */
     public String getBody() {
         if (this.getPassport() != null) {
@@ -27,12 +37,14 @@ public class Annotation extends TLAObject {
                 "annotation.lemma"
             );
             if (!lemmaComments.isEmpty()) {
-                return String.join(
-                    "\n",
-                    lemmaComments.stream().map(
-                        node -> node.getLeafNodeValue()
-                    ).collect(
-                        Collectors.toList()
+                return Util.escapeMarkup(
+                    String.join(
+                        "\n",
+                        lemmaComments.stream().map(
+                            node -> node.getLeafNodeValue()
+                        ).collect(
+                            Collectors.toList()
+                        )
                     )
                 );
             }

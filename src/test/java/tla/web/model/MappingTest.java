@@ -7,6 +7,7 @@ import java.util.TreeSet;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.StringUtils;
 
 import tla.domain.dto.AnnotationDto;
 import tla.domain.dto.LemmaDto;
@@ -17,6 +18,7 @@ import tla.domain.model.LemmaWord;
 import tla.domain.model.Passport;
 import tla.domain.model.Transcription;
 import tla.web.model.mappings.MappingConfig;
+import tla.web.model.mappings.Util;
 
 @SpringBootTest
 public class MappingTest {
@@ -73,12 +75,14 @@ public class MappingTest {
         dto.setPassport(p);
         dto.setEditors(EditorInfo.builder().author("author").build());
         dto.setEclass("BTSAnnotation");
+        dto.setName("Annotation zu $jzr$");
         TLAObject object = MappingConfig.convertDTO(dto);
         assertTrue(object instanceof Annotation);
         Annotation a = (Annotation) object;
         assertAll("test annotation mapping",
             () -> assertNotNull(a, "model object should not be null"),
             () -> assertEquals("BTSAnnotation", a.getEclass(), "eclass should match"),
+            () -> assertTrue(a.getName().endsWith("span>"), "markup in name should be escaped"),
             () -> assertNotNull(a.getEdited(), "edit info should be there"),
             () -> assertEquals("author", a.getEdited().getAuthor(), "author should be as expected"),
             () -> assertNotNull(a.getPassport(), "metadata should be present"),
@@ -86,6 +90,23 @@ public class MappingTest {
             () -> assertEquals(1, a.getPassport().extractProperty("annotation.lemma").size(), "expect 1 leaf node under annotation.lemma"),
             () -> assertNotNull(a.getBody(), "lemma annotation body should be extractable from metadata"),
             () -> assertEquals("comment", a.getBody(), "see if lemma annotation body gets extracted")
+        );
+    }
+
+    @Test
+    void escapeMarkup() {
+        String escaped = Util.escapeMarkup("$jzr$: Die Identifizierung $nfr$ etc pp");
+        assertAll("test markup replacement",
+            () -> assertTrue(escaped.startsWith("<span"), "should start with HTML tag"),
+            () -> assertEquals(
+                4,
+                StringUtils.countOccurrencesOf(escaped, "span"),
+                "result should contain 4 html tags"
+            ),
+            () -> assertTrue(!escaped.contains("$"), "no $ markup delimiter should remain"),
+            () -> assertNull(Util.escapeMarkup(null), "nothing should happen if null"),
+            () -> assertEquals("input", Util.escapeMarkup("input")),
+            () -> assertEquals("$input", Util.escapeMarkup("$input"))
         );
     }
     

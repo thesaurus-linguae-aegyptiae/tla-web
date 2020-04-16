@@ -3,6 +3,8 @@ package tla.web.model.mappings;
 import java.io.StringWriter;
 
 import java.awt.geom.Rectangle2D;
+
+import org.apache.commons.lang3.RegExUtils;
 import org.qenherkhopeshef.graphics.svg.SVGGraphics2D;
 
 import jsesh.mdcDisplayer.draw.MDCDrawingFacade;
@@ -14,6 +16,9 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class Util {
+
+    public static final String SERIF_FONT_MARKUP_REGEX = "\\$([^$]+)\\$";
+    public static final String SERIF_FONT_MARKUP_REPLACEMENT = "<span class=\"bbaw-libertine\">$1</span>";
 
     /**
      * Tries to use JSesh in order to render an MdC hieroglyph encoding
@@ -47,6 +52,18 @@ public class Util {
             );
         }
         return writer.toString();
+    }
+
+    /**
+     * Parses the input and replaces <code>$nfr$</code> markup
+     * with HTML tags.
+     */
+    public static String escapeMarkup(String text) {
+        return RegExUtils.replacePattern(
+            text,
+            SERIF_FONT_MARKUP_REGEX,
+            SERIF_FONT_MARKUP_REPLACEMENT
+        );
     }
 
 }

@@ -188,12 +188,16 @@
           <!-- Comments -->
           <div th:unless="${annotations} == null" class="comment pb-2">
             <hr/>
-            <strong th:text="#{lemma_property_annotations}">Comments</strong>
-            <div th:each="annotation : ${annotations}" class="comment-wrapper ml-3 hide-comment">
+            <strong th:text="#{lemma_property_annotations}" class="details-property-label">Comments</strong>
+            <div th:each="annotation : ${annotations}" class="comment-wrapper ml-3">
+              <p>
+                <strong th:unless="${annotation.name} == null" th:utext="${annotation.name}">title</strong>
+              </p>
               <p class="comment-content" th:utext="${annotation.body}">annotation body</p>
-              <p class="comment-author pt-1" th:text="#{lemma_property_editors}">
-                Edited by:
+              <p class="comment-author pt-1">
+                <span th:text="#{lemma_property_editors}">Edited by:</span>
                 <strong th:text="${annotation.edited.author}">author</strong>
+                (<span th:text="${annotation.edited.updated}">date</span>)
               </p>
 
             </div>
