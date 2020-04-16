@@ -1,18 +1,33 @@
 ![java ci](https://github.com/JKatzwinkel/tla-web/workflows/java%20ci/badge.svg)
-![LINE](https://img.shields.io/badge/line--coverage-48%25-orange.svg)
-![METHOD](https://img.shields.io/badge/method--coverage-43%25-orange.svg)
+![LINE](https://img.shields.io/badge/line--coverage-47%25-orange.svg)
+![METHOD](https://img.shields.io/badge/method--coverage-44%25-orange.svg)
+
+TLA web frontend.
+
+## Installation
+
+Specify the following environment variables in a `.env` file, e.g.:
+
+    BOOTSTRAP_VERSION=4.4.1
+    FONTAWESOME_VERSION=5.12.1
+    JQUERY_VERSION=3.5.0
+
+Add these third-party JS/CSS libraries to your project like this:
+
+    ./gradlew installAssets
+
+Then run the application using the `bootRun` task:
+
+    ./gradlew bootRun
+
+
+## Misc
 
 You can check for the newest version of package dependencies by running:
 
     ./gradlew dependencyUpdates
 
-Download Bootstrap and Font Awesome:
-
-    ./gradlew installAssets
-
 Run the entire thing using Docker Compose:
 
     docker-compose up -d
 
-The following environment variables must be set (for docker setup): `BACKEND_PORT`, `ES_PORT`, `FRONTEND_POST`,
-`FONTAWESOME_VERSION`, `BOOTSTRAP_VERSION` (cf. to [`.env.template`](.env.template))
