@@ -14,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import lombok.extern.slf4j.Slf4j;
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 import tla.web.config.ApplicationProperties;
 
 @Slf4j
@@ -27,6 +28,11 @@ public class MvcConfig  implements WebMvcConfigurer {
     @Bean
     public TlaPageHeader tlaPageHeader() {
         return new TlaPageHeader(applicationProperties);
+    }
+
+    @Bean
+    public LayoutDialect layoutDialect() {
+        return new LayoutDialect();
     }
 
     @Override
