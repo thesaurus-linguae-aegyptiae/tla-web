@@ -37,7 +37,12 @@
 
     <div th:replace="fragments/common :: breadcrumbs"/>
 
-    <main layout:fragment="content">
+    <main>
+      <div id="printable-content" class="container content">
+        <div class="container content">
+            <div layout:fragment="content"/>
+        </div>
+      </div>
       <!-- Main content goes here -->
     </main>
 

@@ -9,7 +9,7 @@
 
   <body>
 
-    <main layout:fragment="content">
+    <div layout:fragment="content">
       <div class="row search-entries detail mb-3">
         <div class="col-sm-12 col-lg-8 result">
           <p th:text="#{caption_details_lemma}">Dictionary entry</p>
@@ -23,17 +23,7 @@
             </span>
           </a>
         </div>
-        <div class="button-bar col-md-4 align-right align-baseline d-none d-lg-block">
-          <div class="functional-icons ml-3 ">
-            <a href="#" class="btn btn-light solo-icon" role="button" data-toggle="modal" data-target="#modal_sharing">Share&nbsp;&nbsp;<i class="fa fa-share-alt share-results"></i></a>
-          </div>
-          <div class="functional-icons ml-3 ">
-          <a href="#" class="btn btn-light solo-icon" role="button" data-toggle="modal" data-target="#modal_comments">Comment&nbsp;&nbsp;<i class="far fa-comment"></i></a>
-          </div>
-          <div class="functional-icons mr-0 ">
-            <a class="btn btn-red text-left text-decoration-none solo-icon" role="button" href="/help/lemma" target="_blank">Page&nbsp;help&nbsp;&nbsp;<i class="fas fa-info-circle fa-lg"></i></a>
-          </div>
-        </div>
+        <div th:replace="fragments/common :: social"/>
       </div>
 
       <div class="row details-content">
@@ -50,156 +40,156 @@
             <hr/>
           </div>
 
-            <!-- persistente URL / ID -->
+          <!-- persistente URL / ID -->
+          <div>
+            <p>
+              <strong>Persistent lemma ID:</strong>
+              <span th:text="${obj.id}">Lemma ID</span>
+              <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard('{{obj.id}}')"><span class="fas fa-clipboard"></span>Copy ID</button>
+              <br/>
+              <strong>Persistent URL:</strong>
+              <span th:text="${env.baseUrl} + '/lemma/' + ${obj.id}">http://tla.bbaw.de/lemma/xxx</span>
+              <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard('TLA lemma ID {{obj.id}} ({{obj.name}}), &lt;{{env.baseUrl}}/lemma/{{obj.id}}&gt;, in: {{tlaTitle}} &lt;{{tlaBaseURL}}&gt;, Version {{tlaVersion}}.{{tlaIssue}}, {{tlaReleaseDate}}, ed. by {{tlaEditor}} (accessed: {{dateToday}})');">
+                <span class="fas fa-clipboard"></span>Copy citation
+              </button>
+            </p>
+          </div>
+
+          <!-- Sub-Wörterbuch hier./dem.  -->
+          <div>
+            <hr/>
+            <strong th:text="#{lemma_property_dict}" class="details-property-label"/>
+            <span th:text="#{'dict_' + ${obj.dictionaryName}}"/>
+          </div>
+
+          <!-- POS -->
+          <div class="grammar">
+            <hr/>
+            <p>
+              <strong th:text="#{lemma_property_pos}" class="details-property-label">Word Class</strong>&nbsp;
+              <span th:text="#{'pos_type_' + ${obj.type}}" class="lemma-type">Type</span>
+              <span th:if="${obj.subtype}">
+                (<span th:text="#{'pos_subtype_' + ${obj.subtype}}" class="lemma-subtype">Subtype</span>)
+              </span>
+            </p>
+          </div>
+
+          <!-- translations -->
+          <div class="translations" th:replace="fragments/details :: translations">
+            <hr />
+            <p>
+              <strong class="details-property-label">Translation</strong>
+            </p>
             <div>
-              <p>
-                <strong>Persistent lemma ID:</strong>
-                <span th:text="${obj.id}">Lemma ID</span>
-                <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard('{{obj.id}}')"><span class="fas fa-clipboard"></span>Copy ID</button>
-                <br/>
-                <strong>Persistent URL:</strong>
-                <span th:text="${env.baseUrl} + '/lemma/' + ${obj.id}">http://tla.bbaw.de/lemma/xxx</span>
-                <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard('TLA lemma ID {{obj.id}} ({{obj.name}}), &lt;{{env.baseUrl}}/lemma/{{obj.id}}&gt;, in: {{tlaTitle}} &lt;{{tlaBaseURL}}&gt;, Version {{tlaVersion}}.{{tlaIssue}}, {{tlaReleaseDate}}, ed. by {{tlaEditor}} (accessed: {{dateToday}})');">
-                  <span class="fas fa-clipboard"></span>Copy citation
-                </button>
+              <p class="translation-de">
+                <span class="lang-icon">DE</span>
+                <span class="translation">Úbersetzung 1</span>
               </p>
-            </div>
-
-            <!-- Sub-Wörterbuch hier./dem.  -->
-            <div>
-              <hr/>
-              <strong th:text="#{lemma_property_dict}" class="details-property-label"/>
-              <span th:text="#{'dict_' + ${obj.dictionaryName}}"/>
-            </div>
-
-            <!-- POS -->
-            <div class="grammar">
-              <hr/>
-              <p>
-                <strong th:text="#{lemma_property_pos}" class="details-property-label">Word Class</strong>&nbsp;
-                <span th:text="#{'pos_type_' + ${obj.type}}" class="lemma-type">Type</span>
-                <span th:if="${obj.subtype}">
-                  (<span th:text="#{'pos_subtype_' + ${obj.subtype}}" class="lemma-subtype">Subtype</span>)
-                </span>
-              </p>
-            </div>
-
-            <!-- translations -->
-            <div class="translations" th:replace="fragments/details :: translations">
-              <hr />
-              <p>
-                <strong class="details-property-label">Translation</strong>
-              </p>
-              <div>
-                <p class="translation-de">
+              <p class="translation-de">
                   <span class="lang-icon">DE</span>
-                  <span class="translation">Úbersetzung 1</span>
-                </p>
-                <p class="translation-de">
-                    <span class="lang-icon">DE</span>
-                    <span class="translation">Úbersetzung 2</span>
-                </p>
-              </div>
-              <div>
-                <p class="translation-en">
-                  <span class="lang-icon">EN</span>
-                  <span class="translation">Translation</span>
-                </p>
-              </div>
+                  <span class="translation">Úbersetzung 2</span>
+              </p>
             </div>
-
-            <!-- Beleglage -->
             <div>
-              <hr/>
-              <p>
-                <strong th:text="#{lemma_property_attestation}" class="details-property-label">Attestation</strong>
-                <br/>
-                <strong th:text="#{lemma_property_attestation_occurrences}" class="details-property-label">Occurrences:</strong>&nbsp;
-                <span th:text="${obj.attestationCount}"></span>
+              <p class="translation-en">
+                <span class="lang-icon">EN</span>
+                <span class="translation">Translation</span>
               </p>
-            </div>
-
-            <!-- Bibliographie -->
-            <div>
-              <hr/>
-              <p>
-                <strong th:text="#{lemma_property_bibliography}" class="details-property-label">Bibliography</strong>
-                <br/>
-                <span th:each="bib : ${bibliography}">
-                  <span class="fas fa-arrow-circle-right"></span>
-                  <span th:text="${bib}"></span>
-                </span>
-              </p>
-            </div>
-
-            <!-- Verweise -->
-            <div th:replace="fragments/details :: external-references">
-              <hr/>
-              <p>
-                <strong class="details-property-label">External references</strong>
-              </p>
-              <div class="row align-items-start">
-                <div class="col-4 my-0 py-0">
-                  <span class="external-reference-provider">Provider</span>
-                </div>
-                <div class="col-8">
-                  <div class="external-reference">
-                    <a href="http://google.com">
-                      <span class="fas fa-arrow-circle-right red"></span>
-                      <span class="external-reference-id">ext. Identifier</span>
-                      <span class="external-reference-type">Type</span>
-                    </a>
-                  </div>
-                  <div class="external-reference">
-                    <span>
-                      <span class="external-reference-id">ext. ID</span>
-                      <span class="external-reference-type">Type</span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Comments -->
-            <div th:unless="${annotations} == null" class="comment pb-2">
-              <hr/>
-              <strong th:text="#{lemma_property_annotations}" class="details-property-label">Comments</strong>
-              <div th:each="annotation : ${annotations}" class="comment-wrapper ml-3">
-                <p>
-                  <strong th:unless="${annotation.name} == null" th:utext="${annotation.name}">title</strong>
-                </p>
-                <p class="comment-content" th:utext="${annotation.body}">annotation body</p>
-                <p class="comment-author pt-1">
-                  <span th:text="#{lemma_property_editors}">Edited by:</span>
-                  <strong th:text="${annotation.edited.author}">author</strong>
-                  (<span th:text="${annotation.edited.updated}">date</span>)
-                </p>
-
-              </div>
-            </div>
-
-          </div>  <!-- close content col-sm-12 -->
-
-          <!-- Sidebar large -->
-          <div class="sidebar col-lg-4 d-none d-lg-block">
-            <div class="sticky-top">
-              <!-- Navigation -->
-              <br>
-
-              <!--
-              <button type="button" class="btn btn-block btn-light text-left text-decoration-none mb-2" disabled><span class="fas fa-search-plus"></span>Select for combination search</button>
-              -->
-              <!--
-              <a href="javascript:history.back()"><button type="button" class="btn btn-block btn-red text-left text-decoration-none mb-2"><i class="fas fa-arrow-circle-left"></i>Back</button></a>
-              -->
-
-              <!-- anstelle des historyBack sollte u.U. der Search-String verwendet werden -->
-              <a href="/search"><button type="button" class="btn btn-block btn-red text-left text-decoration-none modify-search-btn"><span class="fas fa-arrow-circle-left"></span>Modify search</button></a>
             </div>
           </div>
 
+          <!-- Beleglage -->
+          <div>
+            <hr/>
+            <p>
+              <strong th:text="#{lemma_property_attestation}" class="details-property-label">Attestation</strong>
+              <br/>
+              <strong th:text="#{lemma_property_attestation_occurrences}" class="details-property-label">Occurrences:</strong>&nbsp;
+              <span th:text="${obj.attestationCount}"></span>
+            </p>
+          </div>
+
+          <!-- Bibliographie -->
+          <div>
+            <hr/>
+            <p>
+              <strong th:text="#{lemma_property_bibliography}" class="details-property-label">Bibliography</strong>
+              <br/>
+              <span th:each="bib : ${bibliography}">
+                <span class="fas fa-arrow-circle-right"></span>
+                <span th:text="${bib}"></span>
+              </span>
+            </p>
+          </div>
+
+          <!-- Verweise -->
+          <div th:replace="fragments/details :: external-references">
+            <hr/>
+            <p>
+              <strong class="details-property-label">External references</strong>
+            </p>
+            <div class="row align-items-start">
+              <div class="col-4 my-0 py-0">
+                <span class="external-reference-provider">Provider</span>
+              </div>
+              <div class="col-8">
+                <div class="external-reference">
+                  <a href="http://google.com">
+                    <span class="fas fa-arrow-circle-right red"></span>
+                    <span class="external-reference-id">ext. Identifier</span>
+                    <span class="external-reference-type">Type</span>
+                  </a>
+                </div>
+                <div class="external-reference">
+                  <span>
+                    <span class="external-reference-id">ext. ID</span>
+                    <span class="external-reference-type">Type</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comments -->
+          <div th:unless="${annotations} == null" class="comment pb-2">
+            <hr/>
+            <strong th:text="#{lemma_property_annotations}" class="details-property-label">Comments</strong>
+            <div th:each="annotation : ${annotations}" class="comment-wrapper ml-3">
+              <p>
+                <strong th:unless="${annotation.name} == null" th:utext="${annotation.name}">title</strong>
+              </p>
+              <p class="comment-content" th:utext="${annotation.body}">annotation body</p>
+              <p class="comment-author pt-1">
+                <span th:text="#{lemma_property_editors}">Edited by:</span>
+                <strong th:text="${annotation.edited.author}">author</strong>
+                (<span th:text="${annotation.edited.updated}">date</span>)
+              </p>
+
+            </div>
+          </div>
+
+        </div>  <!-- close content col-sm-12 -->
+
+        <!-- Sidebar large -->
+        <div class="sidebar col-lg-4 d-none d-lg-block">
+          <div class="sticky-top">
+            <!-- Navigation -->
+            <br>
+
+            <!--
+            <button type="button" class="btn btn-block btn-light text-left text-decoration-none mb-2" disabled><span class="fas fa-search-plus"></span>Select for combination search</button>
+            -->
+            <!--
+            <a href="javascript:history.back()"><button type="button" class="btn btn-block btn-red text-left text-decoration-none mb-2"><i class="fas fa-arrow-circle-left"></i>Back</button></a>
+            -->
+
+            <!-- anstelle des historyBack sollte u.U. der Search-String verwendet werden -->
+            <a href="/search"><button type="button" class="btn btn-block btn-red text-left text-decoration-none modify-search-btn"><span class="fas fa-arrow-circle-left"></span>Modify search</button></a>
+          </div>
         </div>
-      </main>
+
+      </div>
+    </main>
 
   </body>
 </html>
