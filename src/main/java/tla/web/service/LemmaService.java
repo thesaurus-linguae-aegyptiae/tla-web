@@ -21,14 +21,15 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class LemmaService {
+public class LemmaService extends ObjectService<Lemma> {
 
     @Autowired
     private TlaClient api;
 
-    public ObjectDetails<Lemma> getLemma(String id) {
+    @Override
+    public ObjectDetails<Lemma> get(String id) {
         ObjectDetails<TLAObject> container = ObjectDetails.from(
-            api.getLemma(id)
+            api.retrieveObject(Lemma.class, id)
         );
         if (container.getObject() instanceof Lemma) {
             return new ObjectDetails<Lemma>(

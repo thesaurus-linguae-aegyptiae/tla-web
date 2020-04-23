@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@RequestMapping("/lemma")
 public class LemmaController {
 
     @Autowired
@@ -24,10 +25,10 @@ public class LemmaController {
     @Autowired
     private TlaPageHeader pageHeader;
 
-    @RequestMapping(value = "/lemma/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getLemmaDetails(Model model, @PathVariable String id) {
         log.debug("Compile lemma detail view data for lemma {}", id);
-        ObjectDetails<Lemma> container = lemmaService.getLemma(id);
+        ObjectDetails<Lemma> container = lemmaService.get(id);
         Lemma lemma = container.getObject();
         model.addAttribute("obj", lemma);
         model.addAttribute("env", pageHeader);

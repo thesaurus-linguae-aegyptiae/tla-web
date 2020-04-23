@@ -15,6 +15,7 @@ import tla.domain.model.meta.BTSeClass;
 @Data
 @SuperBuilder
 @NoArgsConstructor
+@BackendPath("lemma")
 @BTSeClass("BTSLemmaEntry")
 @EqualsAndHashCode(callSuper = true)
 public class Lemma extends TLAObject {
