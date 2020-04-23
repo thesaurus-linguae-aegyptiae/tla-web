@@ -59,11 +59,15 @@ public class Util {
      * with HTML tags.
      */
     public static String escapeMarkup(String text) {
-        return RegExUtils.replacePattern(
+        String escaped = RegExUtils.replacePattern(
             text,
             SERIF_FONT_MARKUP_REGEX,
             SERIF_FONT_MARKUP_REPLACEMENT
         );
+        if (escaped != null) {
+            return escaped.replaceAll("\\n", "<br/>");
+        }
+        return escaped;
     }
 
 }
