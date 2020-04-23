@@ -109,17 +109,7 @@
           </div>
 
           <!-- Bibliographie -->
-          <div>
-            <hr/>
-            <p>
-              <strong th:text="#{lemma_property_bibliography}" class="details-property-label">Bibliography</strong>
-              <br/>
-              <span th:each="bib : ${bibliography}">
-                <span class="fas fa-arrow-circle-right"></span>
-                <span th:text="${bib}"></span>
-              </span>
-            </p>
-          </div>
+          <div th:replace="fragments/details :: bibliography"/>
 
           <!-- Verweise -->
           <div th:replace="fragments/details :: external-references">
