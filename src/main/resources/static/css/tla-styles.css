@@ -91,8 +91,8 @@ a.navbar-brand {
 	color: white!important;
 	padding: 10px;
 	background-color: #C60C30; /* BBAW red*/
-	}
-	
+}
+
 .navbar h1 {
 	font-size: 1.5rem;
 	color: rgba(0, 0, 0, 0.5);
@@ -102,15 +102,11 @@ a.navbar-brand {
     background-color: #FFF;
 	padding: 1rem 0rem;
 	margin-bottom: 0;
-	}
+}
 
-.breadcrumb a{
-      color: #CCC;	  
-	}
-	
-.cookie-container {    
-    
-    }
+.breadcrumb a {
+    color: #CCC;
+}
 
 .cookie-wrapper {
     position: fixed;
@@ -593,6 +589,10 @@ footer.bg-light{background-color: #e0e6ed!important;}
     font-style: italic;
 }
 
+.details-content .bibliographic-reference {
+    margin-right: 1em;
+}
+
 .comment.content-field {
 	border-bottom: 0!important;
 	}
@@ -704,10 +704,10 @@ footer.bg-light{background-color: #e0e6ed!important;}
 }
 
 
-.svg-inline--fa{
+.svg-inline--fa {
 	margin-right: 0.5rem;
 	vertical-align: -.1em;
-	}
+}
 
 .id {
 	font-size: 1.5em;
@@ -941,7 +941,7 @@ span.multiselect-native-select select {
 @media print {
 	
   #cookie-container,
-  #breadcrumb,
+  #breadcrumbs,
   footer,
   header,
   .no-print,
@@ -950,19 +950,6 @@ span.multiselect-native-select select {
   .btn {
     display: none;
   }
-
-/*  body * {
-    visibility: hidden;
-  }
-  
-  #printable-content {
-    visibility: visible;
-  }
-  .printable-content {
-    position: absolute;
-    left: 0;
-    top: 0;
-  }*/
 
 }
 

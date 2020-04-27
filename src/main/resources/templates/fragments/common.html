@@ -54,9 +54,13 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-7 col-lg-4">
-            <address><strong>Thesaurus Linguae Aegyptiae</strong><br/>Strukturen und Transformationen des Wortschatzes der &#xE4;gyptischen Sprache
-                        <br/><br/><a href="/">https://tla.bbaw.de</a>
-                        </address>
+            <address>
+              <strong>Thesaurus Linguae Aegyptiae</strong>
+              <br/>
+              Strukturen und Transformationen des Wortschatzes der &#xE4;gyptischen Sprache
+              <br/><br/>
+              <a href="/">https://tla.bbaw.de</a>
+            </address>
           </div>
           <div class="col-sm-4 col-lg-2 contact">
             <a href="/contact" target="_blank">Contact</a>
@@ -82,15 +86,29 @@
     </footer>
 
 
-    <div id="breadcrumb" class="row" th:fragment="breadcrumbs">
+    <div id="breadcrumbs" class="row" th:fragment="breadcrumbs">
       <div class="col-12">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li th:each="item : ${breadcrumbs}" th:class="${itemStat.last} ? 'breadcrumb-item active' : 'breadcrumb-item'">
-              <a th:href="${item.link}" th:text="${item.label}"/>
+              <a th:unless="${item.href} == null" th:href="${item.href}" th:text="#{${item.label}}"></a>
+              <span th:unless="${item.href} != null" th:text="#{${item.label}}"></span>
             </li>
           </ol>
         </nav>
+      </div>
+    </div>
+
+
+    <div id="social" class="button-bar col-md-4 align-right align-baseline d-none d-lg-block" th:fragment="social">
+      <div class="functional-icons ml-3 ">
+        <a href="#" class="btn btn-light solo-icon" role="button" data-toggle="modal" data-target="#modal_sharing">Share&nbsp;&nbsp;<i class="fa fa-share-alt share-results"></i></a>
+      </div>
+      <div class="functional-icons ml-3 ">
+      <a href="#" class="btn btn-light solo-icon" role="button" data-toggle="modal" data-target="#modal_comments">Comment&nbsp;&nbsp;<i class="far fa-comment"></i></a>
+      </div>
+      <div class="functional-icons mr-0 ">
+        <a class="btn btn-red text-left text-decoration-none solo-icon" role="button" href="/help/lemma" target="_blank">Page&nbsp;help&nbsp;&nbsp;<i class="fas fa-info-circle fa-lg"></i></a>
       </div>
     </div>
 
