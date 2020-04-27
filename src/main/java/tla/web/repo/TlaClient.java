@@ -11,6 +11,7 @@ import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.web.model.BackendPath;
 import tla.web.model.Lemma;
 import tla.web.model.TLAObject;
+import tla.web.model.ThsEntry;
 
 /**
  * Put all your model classes on top of this in the {@link ModelClasses} annotation so that
@@ -18,7 +19,8 @@ import tla.web.model.TLAObject;
  * respective {@link BackendPath} annotations.
  */
 @ModelClasses({
-    Lemma.class
+    Lemma.class,
+    ThsEntry.class
 })
 public class TlaClient {
 
