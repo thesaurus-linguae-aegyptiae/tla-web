@@ -1,79 +1,43 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}"
+>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" th:href="@{/img/icon/favicon.ico}" href="../static/img/icon/favicon.ico"
-      sizes="16x16 24x24 32x32 64x64" type="image/vnd.microsoft.icon"/>
-
-    <link rel="stylesheet" th:href="@{${env.bootstrapCss}}"
-      href="../static/vendor/bootstrap-4.4.1-dist/css/bootstrap.min.css" type="text/css"/>
-    <link rel="stylesheet" th:href="@{${env.fontawesomeCss}}"
-      href="../static/vendor/fontawesome-free-5.7.0-web/css/all.css" type="text/css"/>
-
-    <script th:src="@{/vendor/jquery.min.js}"
-      src="../static/vendor/jquery.min.js"></script>
-    <script th:src="@{${env.bootstrapJs}}"
-      src="../static/vendor/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
-    <script th:src="@{${env.fontawesomeJs}}"
-      src="../static/vendor/fontawesome-free-5.7.0-web/js/all.js"></script>
-
-    <link rel="stylesheet" th:href="@{/css/tla-styles.css}"
-      href="../static/css/tla-styles.css" type="text/css"/>
-
-    <script th:src="@{/vendor/headroom.min.js}"
-      src="../static/nevdor/headroom.min.js"></script>
-    <script th:src="@{/js/tla-functions.js}"
-      src="../static/js/tla-functions.js"></script>
-
+    <title th:text="${obj.name} + ' (' + ${obj.id} + ')'"></title>
   </head>
 
   <body>
 
-    <header th:replace="fragments/common :: header"/>
-
-    <div th:replace="fragments/common :: breadcrumbs"/>
-
-    <div class="row search-entries detail mb-3">
-      <div class="col-sm-12 col-lg-8 result">
-        <p th:text="#{caption_details_lemma}">Dictionary entry</p>
-        <h2 class="id mt-1">
-          <span class="bbaw-libertine" th:text="${obj.name}">Lemma name</span>
-        </h2>
-        <a th:title="'Review state: ' + ${obj.reviewState}">
-          <span class="solo-icon red-status float-right">
-            <span class="fa-check-circle" th:classappend="${#strings.equals(obj.reviewState, 'published')} ? ok : pending">
+    <div layout:fragment="content">
+      <div class="row search-entries detail mb-3">
+        <div class="col-sm-12 col-lg-8 result">
+          <h2 class="id mt-1">
+            <span class="bbaw-libertine" th:text="${obj.name}">Lemma name</span>
+          </h2>
+          <a th:title="'Review state: ' + ${obj.reviewState}">
+            <span class="solo-icon red-status float-right">
+              <span class="fa-check-circle" th:classappend="${#strings.equals(obj.reviewState, 'published')} ? ok : pending">
+              </span>
             </span>
-          </span>
-        </a>
+          </a>
+        </div>
+        <div th:replace="fragments/common :: social"/>
       </div>
-      <div class="button-bar col-md-4 align-right align-baseline d-none d-lg-block">
-        <div class="functional-icons ml-3 ">
-          <a href="#" class="btn btn-light solo-icon" role="button" data-toggle="modal" data-target="#modal_sharing">Share&nbsp;&nbsp;<i class="fa fa-share-alt share-results"></i></a>
-        </div>
-        <div class="functional-icons ml-3 ">
-        <a href="#" class="btn btn-light solo-icon" role="button" data-toggle="modal" data-target="#modal_comments">Comment&nbsp;&nbsp;<i class="far fa-comment"></i></a>
-        </div>
-        <div class="functional-icons mr-0 ">
-          <a class="btn btn-red text-left text-decoration-none solo-icon" role="button" href="/help/lemma" target="_blank">Page&nbsp;help&nbsp;&nbsp;<i class="fas fa-info-circle fa-lg"></i></a>
-        </div>
-      </div>
-    </div>
 
-    <div class="row details-content">
-      <div class="col-sm-12 col-lg-8">
-        <div class="lemma" th:unless="${hieroglyphs} == null">
-          <p>
-            <strong th:text="#{lemma_property_hieroglyphs}" class="details-property-label">
-              Hieroglyphic spelling(s):
-            </strong>
-            <span th:each="glyphs : ${hieroglyphs}">
-              <span class="hieroglyphs" th:title="${glyphs.mdc}" th:utext="${glyphs.svg}"/>
-            </span>
-          </p>
-          <hr/>
-        </div>
+      <div class="row details-content">
+        <div class="col-sm-12 col-lg-8">
+          <div class="lemma" th:unless="${hieroglyphs} == null">
+            <p>
+              <strong th:text="#{lemma_property_hieroglyphs}" class="details-property-label">
+                Hieroglyphic spelling(s):
+              </strong>
+              <span th:each="glyphs : ${hieroglyphs}">
+                <span class="hieroglyphs" th:title="${glyphs.mdc}" th:utext="${glyphs.svg}"/>
+              </span>
+            </p>
+            <hr/>
+          </div>
 
           <!-- persistente URL / ID -->
           <div>
@@ -145,17 +109,7 @@
           </div>
 
           <!-- Bibliographie -->
-          <div>
-            <hr/>
-            <p>
-              <strong th:text="#{lemma_property_bibliography}" class="details-property-label">Bibliography</strong>
-              <br/>
-              <span th:each="bib : ${bibliography}">
-                <span class="fas fa-arrow-circle-right"></span>
-                <span th:text="${bib}"></span>
-              </span>
-            </p>
-          </div>
+          <div th:replace="fragments/details :: bibliography"/>
 
           <!-- Verweise -->
           <div th:replace="fragments/details :: external-references">
@@ -224,7 +178,7 @@
         </div>
 
       </div>
+    </main>
 
-    <footer th:replace="fragments/common :: footer"/>
   </body>
 </html>

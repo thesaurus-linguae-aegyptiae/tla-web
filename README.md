@@ -1,4 +1,4 @@
-![java ci](https://github.com/JKatzwinkel/tla-web/workflows/java%20ci/badge.svg)
+![Java CI](https://github.com/JKatzwinkel/tla-web/workflows/build/badge.svg)
 ![LINE](https://img.shields.io/badge/line--coverage-64%25-yellow.svg)
 ![METHOD](https://img.shields.io/badge/method--coverage-49%25-orange.svg)
 

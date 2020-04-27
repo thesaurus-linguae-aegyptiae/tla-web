@@ -2,7 +2,6 @@ package tla.web.service;
 
 import tla.domain.dto.DocumentDto;
 import tla.domain.dto.extern.SingleDocumentWrapper;
-import tla.domain.model.Passport;
 import tla.web.model.Annotation;
 import tla.web.model.Glyphs;
 import tla.web.model.Lemma;
@@ -14,7 +13,8 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -73,19 +73,31 @@ public class LemmaService extends ObjectService<Lemma> {
     }
 
     /**
-     * Extract bibliographic information from lemma passport.
+     * Extract bibliographic information from lemma.
      *
      * @param lemma Lemma object from internal model
-     * @return list of {@link Passport} leaf nodes containing textual bibliographic references
+     * @return list of textual bibliographic references or null
      */
-    public List<Passport> extractBibliography(Lemma lemma) {
+    public List<String> extractBibliography(Lemma lemma) {
         try {
-            return lemma.getPassport().extractProperty(
+            List<String> bibliography = new ArrayList<>();
+            lemma.getPassport().extractProperty(
                 "bibliography.bibliographical_text_field"
+            ).forEach(
+                node -> bibliography.addAll(
+                    Arrays.asList(
+                        node.getLeafNodeValue().split(";")
+                    ).stream().map(
+                        bibref -> bibref.strip()
+                    ).collect(
+                        Collectors.toList()
+                    )
+                )
             );
+            return bibliography;
         } catch (Exception e) {
             log.warn("could not extract bibliography from lemma {}", lemma.getId());
-            return Collections.emptyList();
+            return null;
         }
     }
 
