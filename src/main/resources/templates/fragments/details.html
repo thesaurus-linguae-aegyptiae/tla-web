@@ -3,6 +3,21 @@
 
 <body>
 
+    <div th:fragment="review-status" id="review-status" class="row search-entries detail mb-3">
+        <div class="col-sm-12 col-lg-8 result">
+          <h2 class="id mt-1">
+            <span class="bbaw-libertine" th:text="${obj.name}">Lemma name</span>
+          </h2>
+          <a th:title="'Review state: ' + ${obj.reviewState}">
+            <span class="solo-icon red-status float-right">
+              <span class="fa-check-circle" th:classappend="${#strings.equals(obj.reviewState, 'published')} ? ok : pending">
+              </span>
+            </span>
+          </a>
+        </div>
+        <div th:replace="fragments/common :: social"/>
+    </div>
+
     <!-- Verweise -->
     <div th:fragment="external-references" id="external-references" th:if="${obj.externalReferences != null}">
         <hr />
