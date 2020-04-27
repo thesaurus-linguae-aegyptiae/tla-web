@@ -7,12 +7,14 @@ import org.springframework.context.annotation.Configuration;
 import tla.domain.dto.AnnotationDto;
 import tla.domain.dto.DocumentDto;
 import tla.domain.dto.LemmaDto;
+import tla.domain.dto.ThsEntryDto;
 import tla.domain.model.LemmaWord;
 import tla.domain.model.meta.BTSeClass;
 import tla.web.config.ApplicationProperties;
 import tla.web.model.Glyphs;
 import tla.web.model.Lemma;
 import tla.web.model.TLAObject;
+import tla.web.model.ThsEntry;
 import tla.web.model.Word;
 
 import java.lang.annotation.Annotation;
@@ -52,7 +54,8 @@ public class MappingConfig {
         modelClasses = new HashMap<>();
         List.of(
             tla.web.model.Annotation.class,
-            Lemma.class
+            Lemma.class,
+            ThsEntry.class
         ).stream().forEach(
             modelClass -> registerModelClass(modelClass)
         );
@@ -68,6 +71,14 @@ public class MappingConfig {
             )
         ).addMapping(
             LemmaDto::getEditors, Lemma::setEdited
+        );
+        modelMapper.createTypeMap(ThsEntryDto.class, ThsEntry.class).addMapping(
+            ThsEntryDto::getEditors, ThsEntry::setEdited
+        ).addMappings(
+            m -> m.using(externalReferencesConverter).map(
+                ThsEntryDto::getExternalReferences,
+                ThsEntry::setExternalReferences
+            )
         );
         modelMapper.createTypeMap(LemmaWord.class, Word.class).addMappings(
             m -> m.using(new GlyphsConverter()).map(
