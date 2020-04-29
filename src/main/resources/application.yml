@@ -1,17 +1,13 @@
 ---
 
-logging:
-    file:
-        name: app.log
-
 tla:
     name: Thesaurus Linguae Aegyptiae (BETA)
     base-url: https://tla.bbaw.de
     backend-url: http://localhost:8090
 
     assets:
-        bootstrap: /vendor/bootstrap-${bootstrapVersion}-dist
-        fontawesome: /vendor/fontawesome-free-${fontawesomeVersion}-web
+        bootstrap: /vendor/bootstrap-${bootstrapVersion:4.4.1}-dist
+        fontawesome: /vendor/fontawesome-free-${fontawesomeVersion:5.12.1}-web
 
     link-formatters:
         aaew:
@@ -39,3 +35,23 @@ tla:
         met:
             default-format: http://projetrosette.info/popup.php?Id=1004&MET={id}/2&Lang1=EN
 
+---
+
+logging:
+    file:
+        name: app.log
+    level:
+        root: DEBUG
+
+spring:
+    profiles: dev
+    thymeleaf:
+        cache: false
+        prefix: file:./src/main/resources/templates/
+        check-template-location: true
+    resources:
+        static-locations: file:./src/main/resources/static/
+        cache:
+            period: 0
+
+...
