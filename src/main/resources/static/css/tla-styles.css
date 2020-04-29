@@ -14,19 +14,18 @@
 }
 
 .BBAWred {
-	color:#C60C30; /* BBAW red*/
-	}
+	color: var(--BBAWred);
+}
 	
 .highlight-latin {
 	background-color: #ffcccc; 
-	}
+}
 
 /* Container */
 
 .container {
 	max-width: 90%!important;
-	}
-
+}
 
 /* Typography */
 
@@ -590,6 +589,10 @@ footer.bg-light{background-color: #e0e6ed!important;}
 }
 
 .details-content .bibliographic-reference {
+    margin-right: 1em;
+}
+
+.details-content .editor {
     margin-right: 1em;
 }
 

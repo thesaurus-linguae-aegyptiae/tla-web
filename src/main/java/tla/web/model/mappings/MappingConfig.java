@@ -7,23 +7,31 @@ import org.springframework.context.annotation.Configuration;
 import tla.domain.dto.AnnotationDto;
 import tla.domain.dto.DocumentDto;
 import tla.domain.dto.LemmaDto;
+import tla.domain.dto.ThsEntryDto;
 import tla.domain.model.LemmaWord;
 import tla.domain.model.meta.BTSeClass;
 import tla.web.config.ApplicationProperties;
 import tla.web.model.Glyphs;
 import tla.web.model.Lemma;
 import tla.web.model.TLAObject;
+import tla.web.model.ThsEntry;
 import tla.web.model.Word;
+import tla.web.repo.ModelClasses;
 
 import java.lang.annotation.Annotation;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.modelmapper.AbstractConverter;
 import org.modelmapper.ModelMapper;
 
 @Configuration
+@ModelClasses({
+    tla.web.model.Annotation.class,
+    Lemma.class,
+    ThsEntry.class
+})
 public class MappingConfig {
 
     private class GlyphsConverter extends AbstractConverter<String, Glyphs> {
@@ -49,13 +57,7 @@ public class MappingConfig {
     }
 
     private ModelMapper initModelMapper() {
-        modelClasses = new HashMap<>();
-        List.of(
-            tla.web.model.Annotation.class,
-            Lemma.class
-        ).stream().forEach(
-            modelClass -> registerModelClass(modelClass)
-        );
+        registerModelClasses();
         modelMapper = new ModelMapper();
         ExternalReferencesConverter externalReferencesConverter = externalReferencesConverter();
         modelMapper.createTypeMap(AnnotationDto.class, tla.web.model.Annotation.class).addMapping(
@@ -69,6 +71,14 @@ public class MappingConfig {
         ).addMapping(
             LemmaDto::getEditors, Lemma::setEdited
         );
+        modelMapper.createTypeMap(ThsEntryDto.class, ThsEntry.class).addMapping(
+            ThsEntryDto::getEditors, ThsEntry::setEdited
+        ).addMappings(
+            m -> m.using(externalReferencesConverter).map(
+                ThsEntryDto::getExternalReferences,
+                ThsEntry::setExternalReferences
+            )
+        );
         modelMapper.createTypeMap(LemmaWord.class, Word.class).addMappings(
             m -> m.using(new GlyphsConverter()).map(
                 LemmaWord::getGlyphs, Word::setGlyphs
@@ -78,6 +88,19 @@ public class MappingConfig {
     }
 
     private static Map<String, Class<? extends TLAObject>> modelClasses;
+
+    protected static void registerModelClasses() {
+        modelClasses = new HashMap<>();
+        for (Annotation a : MappingConfig.class.getAnnotations()) {
+            if (a instanceof ModelClasses) {
+                Arrays.asList(
+                    ((ModelClasses) a).value()
+                ).forEach(
+                    modelClass -> registerModelClass(modelClass)
+                );
+            }
+        }
+    }
 
     protected static void registerModelClass(Class<? extends TLAObject> modelClass) {
         for (Annotation a : modelClass.getAnnotations()) {

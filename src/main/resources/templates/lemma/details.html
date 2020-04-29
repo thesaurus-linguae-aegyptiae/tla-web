@@ -10,20 +10,8 @@
   <body>
 
     <div layout:fragment="content">
-      <div class="row search-entries detail mb-3">
-        <div class="col-sm-12 col-lg-8 result">
-          <h2 class="id mt-1">
-            <span class="bbaw-libertine" th:text="${obj.name}">Lemma name</span>
-          </h2>
-          <a th:title="'Review state: ' + ${obj.reviewState}">
-            <span class="solo-icon red-status float-right">
-              <span class="fa-check-circle" th:classappend="${#strings.equals(obj.reviewState, 'published')} ? ok : pending">
-              </span>
-            </span>
-          </a>
-        </div>
-        <div th:replace="fragments/common :: social"/>
-      </div>
+
+      <div th:replace="fragments/details :: review-state"/>
 
       <div class="row details-content">
         <div class="col-sm-12 col-lg-8">
@@ -140,22 +128,10 @@
           </div>
 
           <!-- Comments -->
-          <div th:unless="${annotations} == null" class="comment pb-2">
-            <hr/>
-            <strong th:text="#{lemma_property_annotations}" class="details-property-label">Comments</strong>
-            <div th:each="annotation : ${annotations}" class="comment-wrapper ml-3">
-              <p>
-                <strong th:unless="${annotation.name} == null" th:utext="${annotation.name}">title</strong>
-              </p>
-              <p class="comment-content" th:utext="${annotation.body}">annotation body</p>
-              <p class="comment-author pt-1">
-                <span th:text="#{lemma_property_editors}">Edited by:</span>
-                <strong th:text="${annotation.edited.author}">author</strong>
-                (<span th:text="${annotation.edited.updated}">date</span>)
-              </p>
+          <div th:replace="fragments/details :: single-entry-annotations"/>
 
-            </div>
-          </div>
+          <!-- Editor, revision and review info -->
+          <div th:replace="fragments/details :: editor-info"/>
 
         </div>  <!-- close content col-sm-12 -->
 

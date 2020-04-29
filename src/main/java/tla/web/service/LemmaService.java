@@ -1,14 +1,14 @@
 package tla.web.service;
 
+import tla.domain.dto.DocumentDto;
+import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.web.model.Annotation;
 import tla.web.model.Glyphs;
 import tla.web.model.Lemma;
 import tla.web.model.ObjectDetails;
 import tla.web.model.TLAObject;
 import tla.web.model.Word;
-import tla.web.repo.TlaClient;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
@@ -21,24 +21,11 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class LemmaService {
+public class LemmaService extends ObjectService<Lemma> {
 
-    @Autowired
-    private TlaClient api;
-
-    public ObjectDetails<Lemma> getLemma(String id) {
-        ObjectDetails<TLAObject> container = ObjectDetails.from(
-            api.getLemma(id)
-        );
-        if (container.getObject() instanceof Lemma) {
-            return new ObjectDetails<Lemma>(
-                (Lemma) container.getObject(),
-                container.getRelatedObjects()
-            );
-        } else {
-            log.error("expected container with lemma in it, but it was {}", container.getObject().getClass());
-            return null;
-        }
+    @Override
+    protected SingleDocumentWrapper<DocumentDto> retrieveSingleDocument(String id) {
+        return backend.retrieveObject(Lemma.class, id);
     }
 
     /**
@@ -86,7 +73,7 @@ public class LemmaService {
     }
 
     /**
-     * Extract bibliographic information from lemma passport.
+     * Extract bibliographic information from lemma.
      *
      * @param lemma Lemma object from internal model
      * @return list of textual bibliographic references or null
