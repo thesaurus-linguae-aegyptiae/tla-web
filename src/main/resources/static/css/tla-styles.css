@@ -6,11 +6,12 @@
 :root {
 	--BBAWred: #C60C30; 
 	--BBAWdarkred: #B0152D;
-	--BBAWdarkgray: #3E4955;
-	--BBAWdarkbluegray: #4A5B70;
-	--BBAWmiddlegray: #687A90;
-	--BBAWlightbluegray: #C1C7CD;
-	--BBAWlightgray: #E0E0E0;
+	--BBAWdarkgrey: #3E4955;
+	--BBAWdarkbluegrey: #4A5B70;
+	--BBAWmiddlebluegrey: #687A90;
+	--BBAWmiddlegrey: #687A90;
+	--BBAWlightbluegrey: #C1C7CD;
+	--BBAWlightgrey: #E0E0E0;
 }
 
 .BBAWred {
@@ -50,11 +51,13 @@ body, a, p, h1, h2, h3, ul, li {
 
 .condensed {font-familiy:"Roboto Condensed";}
 
-a {color:#C60C30; /* BBAW red*/}	
+a {
+    color: var(--BBAWred);
+}
 a:hover {
 	text-decoration: none;
-	color:#C60C30; /* BBAW red*/	
-	}
+	color: var(--BBAWred);
+}
 	
 hr {
     border-top: 2px solid #EEE;
@@ -82,14 +85,14 @@ box-shadow: 0px 0px 19px 5px rgba(0,0,0,0.17);
 	}
 .navbar-light a {font-weight: bold;}
 .navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
-    color: #C60C30; /* BBAW red*/
+    color: var(--BBAWred);
 }
 a.navbar-brand {
 	font-weight: bold;
 	font-size: 1.5rem;
 	color: white!important;
 	padding: 10px;
-	background-color: #C60C30; /* BBAW red*/
+	background-color: var(--BBAWred);
 }
 
 .navbar h1 {
@@ -187,7 +190,7 @@ a.navbar-brand {
 	
 .result-list-item a.bibliography-list:hover{
     color: white;
-	background-color: #C60C30; /* BBAW red*/
+	background-color: var(--BBAWred);
 	cursor: pointer;
 	}		
 .result-list-item a.bibliography-list .svg-inline--fa{
@@ -231,7 +234,7 @@ a.navbar-brand {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1a000000', endColorstr='#00000000',GradientType=1 ); /* IE6-9 */
 	}
 .result-list-item h2{	
-	color: #C60C30; /* BBAW red*/
+	color: var(--BBAWred);
 	font-size: 1.4em;
 	}
 .result-list .indent-1{
@@ -277,11 +280,15 @@ a.navbar-brand {
     }
 
 
-a.share-results {color: grey!important;}
-a.share-results:hover {color: #C60C30; /* BBAW red*/}
+a.share-results {
+    color: grey!important;
+}
+a.share-results:hover {
+    color: var(--BBAWred);
+}
 
 .result-list-item .occ-tok.highlight-1 {
-	background-color: #C60C30; /* BBAW red*/
+	background-color: var(--BBAWred);
 	color: white;
 }
 .result-list-item .occ-tok.highlight-2 {
@@ -299,7 +306,7 @@ a.share-results:hover {color: #C60C30; /* BBAW red*/}
 }
 
 .corpus-path-element a:hover {
-	color: #C60C30!important; /* BBAW red*/
+	color: var(--BBAWred)!important;
 }
 
 a span.lc {
@@ -307,11 +314,11 @@ a span.lc {
     color: grey!important;
 }
 a span.lc:hover {
-	color: #C60C30!important; /* BBAW red*/
+	color: var(--BBAWred)!important;
 }
 .result-list-item img.occ-tok-glyphs.highlight-1,
 .result-list-item canvas.res.occ-tok-glyphs.highlight-1 {
-	border: 1px solid #C60C30; /* BBAW red*/
+	border: 1px solid var(--BBAWred);
 	border-radius: 2px;
 }
 /*.occ-list-item img.occ-tok-glyphs.highlight-1,
@@ -320,7 +327,7 @@ a span.lc:hover {
 	border-radius: 2px;
 }*/
 .occ-list-item .highlight-1 {
-	background-color: #E0E0E0; /* BBAW light gray*/
+	background-color: var(--BBAWlightgrey);
 }
 
 .unicode-hieroglyphs {
@@ -341,10 +348,10 @@ a span.lc:hover {
 	vertical-align: sub;
 }
 .philological {
-	color: gray;
+	color: grey;
 }
 .latin-in-hiero {
-	color: gray;
+	color: grey;
 	font-size: 0.5em;
 	vertical-align: 0.5em;
     padding: .1em; 
@@ -357,7 +364,7 @@ a span.lc:hover {
 }
 
 .token-destruction_marker {
-	color: gray!important;
+	color: grey!important;
     font-style: italic;
 }
 
@@ -366,7 +373,7 @@ a span.lc:hover {
     font-weight: bold;
 }
 .token-para {
-	color: #687A90!important; /* BBAW middle bluegrey */
+	color: var(--BBAWmiddlebluegrey)!important;
 }
 .token-para:before {content: "§";}
 	
@@ -405,7 +412,7 @@ a span.lc:hover {
 .result-list-item span.glyphbox img{
 }
 .result-list-item span.glyphbox img:hover {
-	border-bottom: 1px solid #C60C30; /* BBAW red*/
+	border-bottom: 1px solid var(--BBAWred);
 }
 
 .result-list hr {margin:0!important;}
@@ -452,7 +459,7 @@ ul.annotation-block:hover {
 }
 .annotation-block.active:hover {
     opacity: 1;
-    background-color: #C60C30; /* BBAW red*/
+    background-color: var(--BBAWred);
 }
 .annotation-block.active li{
     color: white!important;
@@ -475,7 +482,7 @@ ul.annotation-block li.translations {
 .annotation-block .transcription {
     font-family: "BBAWLibertine", serif;
     font-size: 1.2em;
-    color: #C60C30; /* BBAW red*/
+    color: var(--BBAWred);
 }
 
 .languages-btn {margin-bottom: .5em;}
@@ -552,7 +559,7 @@ footer.bg-light{background-color: #e0e6ed!important;}
 	
 #cookie-info {
 	font-size: 0.9em;
-	color: #3E4955; /* BBAW dark gray*/
+	color: var(--BBAWdarkgrey);
 }
 	
 /* Content - Detailseite */
@@ -660,13 +667,13 @@ footer.bg-light{background-color: #e0e6ed!important;}
 .card-header h2 .btn-link {
     font-weight: 400;
 	font-size: 1.2rem;
-    color: #C60C30; /* BBAW red*/    
+    color: var(--BBAWred);
 }
 .card-header h2 .btn-link:hover {
     text-decoration: none;   
 }
 .keyboardInputInitiator {
-  color: #C60C30; /* BBAW red*/
+  color: var(--BBAWred);
 }
 
 /* Forms */
@@ -690,19 +697,19 @@ footer.bg-light{background-color: #e0e6ed!important;}
 	border: 0;
 	}
 .btn-red {
-	color: #C60C30; /* BBAW red*/
+	color: var(--BBAWred);
 	background-color: white;
 	}
 .btn-red:hover {
     color: white;
-    background-color: #C60C30; /* BBAW red*/
+    background-color: var(--BBAWred);
 }
 .btn-danger {
     color: white;
-    background-color: #C60C30; /* BBAW red*/
+    background-color: var(--BBAWred);
 	}
 .btn-danger:hover {
-	color: #C60C30; /* BBAW red*/
+	color: var(--BBAWred);
 	background-color: white;
 }
 
@@ -716,7 +723,7 @@ footer.bg-light{background-color: #e0e6ed!important;}
 	font-size: 1.5em;
 	font-weight: 600;
 	padding: 0.6rem;
-	background-color: #C1C7CD; /* BBAW light bluegray*/
+	background-color: var(--BBAWlightbluegrey);
 	color: white;
     display: inline-block;
 }
@@ -781,7 +788,7 @@ footer.bg-light{background-color: #e0e6ed!important;}
 }
 .dropdown-item:hover {
     text-decoration: none;
-    background-color: #C1C7CD; /* BBAW light bluegray*/
+    background-color: var(--BBAWlightbluegrey);
 }
 
 .solo-icon {margin-left: .5em;}
