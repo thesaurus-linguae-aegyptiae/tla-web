@@ -9,3 +9,7 @@ bin
 
 # ignore third party assets which are installed via gradle task
 src/main/resources/static/vendor/
+
+# ignore IDE stuff
+.project
+WEB-INF/

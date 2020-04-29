@@ -3,6 +3,7 @@ package tla.web;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.env.Environment;
 
 import tla.web.config.ApplicationProperties;
 
@@ -14,6 +15,9 @@ class AppTest {
     @Autowired
     private ApplicationProperties properties;
 
+    @Autowired
+    private Environment env;
+
     @Test
     void properties() {
         assertAll("applicationproperties should be available to context",
@@ -21,6 +25,7 @@ class AppTest {
             () -> assertEquals("Thesaurus Linguae Aegyptiae (BETA)", properties.getName(), "application title should be set"),
             () -> assertTrue(properties.getAssets().getBootstrap() != null, "assets location configuration should be available")
         );
+        assertNull(env.getProperty("spring.thymeleaf.cache"), "thymeleaf uses cache in default profile");
     }
 
 }

@@ -4,30 +4,43 @@
 
 TLA web frontend.
 
-## Installation
+Depends on:
 
-Specify the following environment variables in a `.env` file, e.g.:
+- Spring Boot
+- [Thymeleaf Layout Dialect](https://ultraq.github.io/thymeleaf-layout-dialect/)
+- [Lombok](https://projectlombok.org/)
+- [JSesh](https://github.com/rosmord/jsesh)
+- [tla-common](https://github.com/JKatzwinkel/tla-common)
+- [tla-es](https://github.com/JKatzwinkel/tla-es)
+
+
+## Usage
+
+Install, populate, and run the [backend](https://github.com/JKatzwinkel/tla-es) first.
+
+
+To initialize the frontend project, install third-party JavaScript/CSS resources by running:
+
+    gradle installAssets
+
+This will download and install [Bootstrap](https://getbootstrap.com/), [Font Awesome](https://fontawesome.com/),
+[JQuery](https://jquery.com/), and [Headroom.js](https://wicky.nillia.ms/headroom.js/).
+In order to override the respective default bundle versions of some of these, you can use the environment variables
+shown in [`.env.template`](.env.template), e.g. by defining them in a `.env` file:
 
     BOOTSTRAP_VERSION=4.4.1
     FONTAWESOME_VERSION=5.12.1
     JQUERY_VERSION=3.5.0
 
-Add these third-party JS/CSS libraries to your project like this:
+With the necessary third-party resources in place, you can run the web frontend application using the `bootRun` task:
 
-    ./gradlew installAssets
+    gradle bootrun
 
-Then run the application using the `bootRun` task:
-
-    ./gradlew bootRun
 
 
 ## Misc
 
 You can check for the newest version of package dependencies by running:
 
-    ./gradlew dependencyUpdates
-
-Run the entire thing using Docker Compose:
-
-    docker-compose up -d
+    gradle dependencyUpdates
 
