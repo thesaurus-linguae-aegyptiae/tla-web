@@ -41,7 +41,3 @@ You can check for the newest version of package dependencies by running:
 
     gradle dependencyUpdates
 
-Run the entire thing using Docker Compose:
-
-    docker-compose up -d
-
