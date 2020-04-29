@@ -37,12 +37,12 @@
 
     <main>
       <div id="printable-content" class="container content">
-        <div class="container content">
+      <!-- Main content goes here -->
+      <div class="container content">
             <div th:replace="fragments/common :: breadcrumbs"/>
             <div layout:fragment="content"/>
         </div>
       </div>
-      <!-- Main content goes here -->
     </main>
 
     <footer th:replace="fragments/common :: footer"/>

@@ -2,47 +2,34 @@ package tla.web.mvc;
 
 import tla.web.model.Lemma;
 import tla.web.model.ObjectDetails;
-import tla.web.model.ui.BreadCrumb;
+import tla.web.model.ui.TemplateModelName;
 import tla.web.service.LemmaService;
-
-import java.util.List;
+import tla.web.service.ObjectService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Controller
 @RequestMapping("/lemma")
-public class LemmaController {
+@TemplateModelName("lemma")
+public class LemmaController extends ObjectController<Lemma> {
 
     @Autowired
     private LemmaService lemmaService;
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String getLemmaDetails(Model model, @PathVariable String id) {
-        log.debug("Compile lemma detail view data for lemma {}", id);
-        ObjectDetails<Lemma> container = lemmaService.get(id);
-        Lemma lemma = container.getObject();
-        model.addAttribute(
-            "breadcrumbs",
-            List.of(
-                BreadCrumb.of("/", "menu_global_home"),
-                BreadCrumb.of("/search", "menu_global_search"),
-                BreadCrumb.of("caption_details_lemma")
-            )
-        );
-        model.addAttribute("obj", lemma);
-        model.addAttribute("hieroglyphs", lemmaService.extractHieroglyphs(lemma));
-        model.addAttribute("bibliography", lemmaService.extractBibliography(lemma));
-        model.addAttribute("related", container.getRelatedObjects());
+    @Override
+    public ObjectService<Lemma> getService() {
+        return lemmaService;
+    }
+
+    @Override
+    protected Model compileSingleObjectDetailsModel(Model model, ObjectDetails<Lemma> container) {
+        model.addAttribute("hieroglyphs", lemmaService.extractHieroglyphs(container.getObject()));
+        model.addAttribute("bibliography", lemmaService.extractBibliography(container.getObject()));
         model.addAttribute("annotations", lemmaService.extractAnnotations(container));
-        return "lemma/details";
+        return model;
     }
 
 }

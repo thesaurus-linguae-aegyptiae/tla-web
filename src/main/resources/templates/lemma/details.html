@@ -11,7 +11,7 @@
 
     <div layout:fragment="content">
 
-      <div th:replace="fragments/details :: review-status"/>
+      <div th:replace="fragments/details :: review-state"/>
 
       <div class="row details-content">
         <div class="col-sm-12 col-lg-8">
@@ -128,22 +128,10 @@
           </div>
 
           <!-- Comments -->
-          <div th:unless="${annotations} == null" class="comment pb-2">
-            <hr/>
-            <strong th:text="#{lemma_property_annotations}" class="details-property-label">Comments</strong>
-            <div th:each="annotation : ${annotations}" class="comment-wrapper ml-3">
-              <p>
-                <strong th:unless="${annotation.name} == null" th:utext="${annotation.name}">title</strong>
-              </p>
-              <p class="comment-content" th:utext="${annotation.body}">annotation body</p>
-              <p class="comment-author pt-1">
-                <span th:text="#{lemma_property_editors}">Edited by:</span>
-                <strong th:text="${annotation.edited.author}">author</strong>
-                (<span th:text="${annotation.edited.updated}">date</span>)
-              </p>
+          <div th:replace="fragments/details :: single-entry-annotations"/>
 
-            </div>
-          </div>
+          <!-- Editor, revision and review info -->
+          <div th:replace="fragments/details :: editor-info"/>
 
         </div>  <!-- close content col-sm-12 -->
 

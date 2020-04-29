@@ -3,12 +3,12 @@
 
 <body>
 
-    <div th:fragment="review-status" id="review-status" class="row search-entries detail mb-3">
+    <div th:fragment="review-state" id="review-state" class="row search-entries detail mb-3">
         <div class="col-sm-12 col-lg-8 result">
           <h2 class="id mt-1">
             <span class="bbaw-libertine" th:text="${obj.name}">Lemma name</span>
           </h2>
-          <a th:title="'Review state: ' + ${obj.reviewState}">
+          <a th:title="'Review status: ' + ${obj.reviewState}">
             <span class="solo-icon red-status float-right">
               <span class="fa-check-circle" th:classappend="${#strings.equals(obj.reviewState, 'published')} ? ok : pending">
               </span>
@@ -49,7 +49,7 @@
     <div class="translations" th:fragment="translations" id="translations" th:if="${obj.translations} != null">
         <hr />
         <p>
-            <strong th:text="#{lemma_property_translation}" class="details-property-label">Translation</strong>
+            <strong th:text="#{object_property_translation}" class="details-property-label">Translation</strong>
         </p>
         <div th:each="entry : ${obj.translations}">
             <p th:each="translation : ${entry.value}" th:class="'lemma-translation-' + ${entry.key}">
@@ -71,6 +71,46 @@
             </span>
           </p>
       </div>
+
+    <!-- Lemma/Thesaurus entry annotations -->
+    <div class="comment pb-2" id="single-entry-annotations" th:fragment="single-entry-annotations" th:if="${annotations} != null">
+        <hr/>
+        <strong th:text="#{object_property_annotations}" class="details-property-label">Comments</strong>
+        <div th:each="annotation : ${annotations}" class="comment-wrapper ml-3">
+            <p>
+                <strong th:unless="${annotation.name} == null" th:utext="${annotation.name}">title</strong>
+            </p>
+            <p class="comment-content" th:utext="${annotation.body}">annotation body</p>
+            <p class="comment-author pt-1">
+                <span th:text="#{object_property_editors_author}">Author:</span>
+                <strong th:text="${annotation.edited.author}">author</strong>
+                (<span th:text="${annotation.edited.updated}">date</span>)
+            </p>
+
+        </div>
+    </div>
+
+
+    <div class="editor-info" id="editor-info" th:fragment="editor-info">
+        <hr/>
+        <div class="author">
+            <strong class="details-property-label" th:text="#{object_property_editors_author}">Author:</strong>
+            <span th:text="${obj.edited.author}">author</span>
+        </div>
+        <div th:unless="${obj.edited.contributors} == null" class="editors">
+            <strong class="details-property-label" th:text="#{object_property_editors}">Editors:</strong>
+            <span class="editor" th:each="editor : ${obj.edited.contributors}" th:text="${editor}"/>
+        </div>
+        <div class="updated">
+            <strong class="details-property-label" th:text="#{object_property_editors_updated}">Updated</strong>
+            <span th:text="${obj.edited.updated}">date</span>
+        </div>
+        <div class="review-state">
+            <strong class="details-property-label" th:text="#{object_property_review_state}">Review State:</strong>
+            <span th:text="#{'review_state_' + ${obj.reviewState}}">status</span>
+        </div>
+    </div>
+
 
 </body>
 
