@@ -7,16 +7,19 @@ TLA web frontend.
 Depends on:
 
 - Spring Boot
-- Thymeleaf Layout Dialect
-- Lombok
-- JSesh
-- tla-common
-- tla-es
+- [Thymeleaf Layout Dialect](https://ultraq.github.io/thymeleaf-layout-dialect/)
+- [Lombok](https://projectlombok.org/)
+- [JSesh](https://github.com/rosmord/jsesh)
+- [tla-common](https://github.com/JKatzwinkel/tla-common)
+- [tla-es](https://github.com/JKatzwinkel/tla-es)
 
 
 ## Usage
 
-First, install third-party JavaScript/CSS resources by running:
+Install, populate, and run the [backend](https://github.com/JKatzwinkel/tla-es) first.
+
+
+To initialize the frontend project, install third-party JavaScript/CSS resources by running:
 
     gradle installAssets
 
