@@ -13,3 +13,9 @@ src/main/resources/static/vendor/
 # ignore IDE stuff
 .project
 WEB-INF/
+
+# ignore devmode log file
+app.log
+
+# ignore resources
+sample.tar.gz
