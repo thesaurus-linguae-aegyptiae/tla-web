@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Singular;
 import lombok.experimental.SuperBuilder;
 import tla.domain.model.Language;
+import tla.domain.model.Script;
 import tla.domain.model.extern.AttestedTimespan;
 import tla.domain.model.meta.BTSeClass;
 
@@ -38,39 +39,8 @@ public class Lemma extends TLAObject {
     /**
     * Determines the language phase this lemma belongs to
     */
-    public Dictionary getDictionaryName() {
-        return Dictionary.ofLemma(this);
+    public Script getDictionaryName() {
+        return Script.ofLemmaId(this.getId());
     }
 
-    /**
-    * Enum specifying the different language phases.
-    */
-    public enum Dictionary {
-
-        HIERATIC("hieratic"),
-        DEMOTIC("demotic"),
-        COPTIC("coptic");
-
-        private String id;
-
-        private Dictionary(String id) {
-            this.id = id;
-        }
-
-        @Override
-        public String toString() {
-            return this.id;
-        }
-
-        public static Dictionary ofLemma(Lemma lemma) {
-            char c = lemma.getId().toLowerCase().charAt(0);
-            if (c == 'c') {
-                return Dictionary.COPTIC;
-            } else if (c == 'd') {
-                return Dictionary.DEMOTIC;
-            } else {
-                return Dictionary.HIERATIC;
-            }
-        }
-    }
 }

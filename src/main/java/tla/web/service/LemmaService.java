@@ -2,6 +2,7 @@ package tla.web.service;
 
 import tla.domain.dto.DocumentDto;
 import tla.domain.dto.extern.SingleDocumentWrapper;
+import tla.domain.model.Script;
 import tla.web.model.Annotation;
 import tla.web.model.Glyphs;
 import tla.web.model.Lemma;
@@ -55,7 +56,7 @@ public class LemmaService extends ObjectService<Lemma> {
      * @return List of all lemma word hieroglyphs, or null if there are no hieroglyphs at all
      */
     public List<Glyphs> extractHieroglyphs(Lemma lemma) {
-        if (!lemma.getDictionaryName().equals(Lemma.Dictionary.DEMOTIC)) {
+        if (!lemma.getDictionaryName().equals(Script.DEMOTIC)) {
             List<Glyphs> hieroglyphs = lemma.getWords().stream().map(
                 Word::getGlyphs
             ).collect(

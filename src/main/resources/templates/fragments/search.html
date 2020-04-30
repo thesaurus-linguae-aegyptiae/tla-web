@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<html xmlns:th="http://thymeleaf.org">
+
+  <body>
+
+    <form id="dict-search" name="dict-search" th:action="@{/lemma/search}" th:object="${lemmaSearchForm}" method="get">
+      <div class="form-group row bg-grey">
+        <label class="col-form-label col-xl-2" th:text="#{field_label_script}">Script</label>
+        <div class="col-xl-10">
+          <div th:each="script : ${allScripts}" class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" th:field="*{scripts}" th:value="${script}"/>
+            <label class="form-check-label" th:for="${#ids.prev('scripts')}" th:text="#{'dict_' + ${script}}"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-form-label col-xl-2" for="transcription" th:text="#{field_label_transcription}">Transcription</label>
+        <div class="col-xl-10">
+          <input class="bbaw-libertine form-control mb-3" type="text" th:field="*{transcription}" name="transcription"/>
+        </div>
+      </div>
+
+      <div class="form-group row bg-grey">
+        <label class="col-form-label col-xl-2" for="translation" th:text="#{field_label_translation}">Translation</label>
+        <div class="col-xl-10">
+          <input class="form-control mb-3" type="text" th:field="*{translation.text}" name="translation"/>
+          <div th:each="lang : ${allTranslationLanguages}" class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" th:field="*{translation.lang}" th:value="${lang}"/>
+            <label class="form-check-label" th:for="${#ids.prev('translation.lang')}" th:text="#{'lang_label_' + ${lang}}">Language</label>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </body>
+</html>
