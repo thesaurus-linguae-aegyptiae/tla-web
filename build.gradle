@@ -167,5 +167,6 @@ bootRun {
     environment 'bootstrapVersion', bootstrapVersion
     environment 'fontawesomeVersion', fontawesomeVersion
     systemProperty 'spring.profiles.active', 'dev'
+    dependsOn 'installAssets'
 }
 

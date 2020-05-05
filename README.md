@@ -19,11 +19,12 @@ Depends on:
 Install, populate, and run the [backend](https://github.com/JKatzwinkel/tla-es) first.
 
 
-To initialize the frontend project, install third-party JavaScript/CSS resources by running:
+Run the frontend application using the `bootRun` task from the spring boot gradle plugin
+(on windows, you will probably need to use the native wrapper `./gradlew.bat` instead):
 
-    gradle installAssets
+    gradle bootrun
 
-This will download and install [Bootstrap](https://getbootstrap.com/), [Font Awesome](https://fontawesome.com/),
+On its first run, this will download and install [Bootstrap](https://getbootstrap.com/), [Font Awesome](https://fontawesome.com/),
 [JQuery](https://jquery.com/), and [Headroom.js](https://wicky.nillia.ms/headroom.js/).
 In order to override the respective default bundle versions of some of these, you can use the environment variables
 shown in [`.env.template`](.env.template), e.g. by defining them in a `.env` file:
@@ -32,10 +33,7 @@ shown in [`.env.template`](.env.template), e.g. by defining them in a `.env` fil
     FONTAWESOME_VERSION=5.12.1
     JQUERY_VERSION=3.5.0
 
-With the necessary third-party resources in place, you can run the web frontend application using the `bootRun` task:
-
-    gradle bootrun
-
+However, this is of course optional.
 
 
 ## Misc
