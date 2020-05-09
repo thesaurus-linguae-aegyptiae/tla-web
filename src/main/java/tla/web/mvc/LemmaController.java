@@ -1,6 +1,8 @@
 package tla.web.mvc;
 
 import tla.domain.command.LemmaSearch;
+import tla.domain.dto.DocumentDto;
+import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.model.Language;
 import tla.domain.model.Script;
 import tla.web.model.Lemma;
@@ -17,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("/lemma")
 @TemplateModelName("lemma")
@@ -50,11 +55,12 @@ public class LemmaController extends ObjectController<Lemma> {
     }
 
     @RequestMapping(value="/search", method=RequestMethod.GET)
-    public @ResponseBody LemmaSearch search(
+    public @ResponseBody SearchResultsWrapper<DocumentDto> search(
         @ModelAttribute("lemmaSearchForm") LemmaSearch form
     )
     {
-        return form;
+        log.info("{}", form);
+        return lemmaService.search(form);
     }
 
 }

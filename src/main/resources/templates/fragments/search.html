@@ -7,9 +7,9 @@
       <div class="form-group row bg-grey">
         <label class="col-form-label col-xl-2" th:text="#{field_label_script}">Script</label>
         <div class="col-xl-10">
-          <div th:each="script : ${allScripts}" class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" th:field="*{scripts}" th:value="${script}"/>
-            <label class="form-check-label" th:for="${#ids.prev('scripts')}" th:text="#{'dict_' + ${script}}"/>
+          <div th:each="item : ${allScripts}" class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" th:field="*{script}" th:value="${item}"/>
+            <label class="form-check-label" th:for="${#ids.prev('script')}" th:text="#{'dict_' + ${item}}"/>
           </div>
         </div>
       </div>
@@ -22,6 +22,13 @@
       </div>
 
       <div class="form-group row bg-grey">
+        <label class="col-form-label col-xl-2" for="root_transcription" th:text="#{field_label_root_transcription}">Root</label>
+        <div class="col-xl-10">
+          <input class="bbaw-libertine form-control mb-3" type="text" th:field="*{root}" name="root_transcription"/>
+        </div>
+      </div>
+
+      <div class="form-group row">
         <label class="col-form-label col-xl-2" for="translation" th:text="#{field_label_translation}">Translation</label>
         <div class="col-xl-10">
           <input class="form-control mb-3" type="text" th:field="*{translation.text}" name="translation"/>
@@ -31,6 +38,14 @@
           </div>
         </div>
       </div>
+
+      <div class="form-group-row bg-grey">
+        <label class="col-form-label col-xl-2" for="bibliography" th:text="#{field_label_bibliography">Bibliography</label>
+        <div class="col-xl-10">
+          <input class="form-control mb-3" type="text" th:field="*{bibliography}" name="bibliography"/>
+        </div>
+      </div>
+
     </form>
 
   </body>

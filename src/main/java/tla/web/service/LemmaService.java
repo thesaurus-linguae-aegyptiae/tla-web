@@ -1,6 +1,8 @@
 package tla.web.service;
 
+import tla.domain.command.LemmaSearch;
 import tla.domain.dto.DocumentDto;
+import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.model.Script;
 import tla.web.model.Annotation;
@@ -100,6 +102,10 @@ public class LemmaService extends ObjectService<Lemma> {
             log.warn("could not extract bibliography from lemma {}", lemma.getId());
             return null;
         }
+    }
+
+    public SearchResultsWrapper<DocumentDto> search(LemmaSearch command) {
+        return backend.lemmaSearch(command);
     }
 
 }

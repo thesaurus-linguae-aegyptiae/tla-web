@@ -6,7 +6,10 @@ import java.util.Map;
 
 import org.springframework.web.client.RestTemplate;
 
+import lombok.extern.slf4j.Slf4j;
+import tla.domain.command.LemmaSearch;
 import tla.domain.dto.DocumentDto;
+import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.web.model.BackendPath;
 import tla.web.model.Lemma;
@@ -18,6 +21,7 @@ import tla.web.model.ThsEntry;
  * the backend path where instances of them can be retrieved can be extracted from their
  * respective {@link BackendPath} annotations.
  */
+@Slf4j
 @ModelClasses({
     Lemma.class,
     ThsEntry.class
@@ -63,6 +67,16 @@ public class TlaClient {
         return client.getForObject(
             String.format("%s/%s/get/%s", this.backendUrl, backendPath, id),
             SingleDocumentWrapper.class
+        );
+    }
+
+    @SuppressWarnings("unchecked")
+    public SearchResultsWrapper<DocumentDto> lemmaSearch(LemmaSearch command) {
+        log.info("{}", command);
+        return client.postForObject(
+            String.format("%s/lemma/search", this.backendUrl),
+            command,
+            SearchResultsWrapper.class
         );
     }
 
