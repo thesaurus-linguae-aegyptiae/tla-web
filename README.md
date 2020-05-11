@@ -1,6 +1,6 @@
 ![Java CI](https://github.com/JKatzwinkel/tla-web/workflows/build/badge.svg)
-![LINE](https://img.shields.io/badge/line--coverage-61%25-yellow.svg)
-![METHOD](https://img.shields.io/badge/method--coverage-47%25-orange.svg)
+![LINE](https://img.shields.io/badge/line--coverage-68%25-yellow.svg)
+![METHOD](https://img.shields.io/badge/method--coverage-52%25-orange.svg)
 
 TLA web frontend.
 
