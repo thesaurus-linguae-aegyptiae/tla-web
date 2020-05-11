@@ -22,13 +22,22 @@
       </div>
 
       <div class="form-group row bg-grey">
+        <label class="col-form-label col-xl-2" for="word-class-type" th:text="#{field_label_word_class_type}">Word Class</label>
+        <div class="col-xl-10">
+          <select class="form-control" id="word-class-type" name="word-class-type" th:field="*{pos.type}">
+            <option th:each="wordClass : ${wordClasses}" th:value="${wordClass.key}" th:text="#{'field_value_label_word_class_type_' + ${wordClass.key}}">Type</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
         <label class="col-form-label col-xl-2" for="root_transcription" th:text="#{field_label_root_transcription}">Root</label>
         <div class="col-xl-10">
           <input class="bbaw-libertine form-control mb-3" type="text" th:field="*{root}" name="root_transcription"/>
         </div>
       </div>
 
-      <div class="form-group row">
+      <div class="form-group row bg-grey">
         <label class="col-form-label col-xl-2" for="translation" th:text="#{field_label_translation}">Translation</label>
         <div class="col-xl-10">
           <input class="form-control mb-3" type="text" th:field="*{translation.text}" name="translation"/>
@@ -39,8 +48,8 @@
         </div>
       </div>
 
-      <div class="form-group-row bg-grey">
-        <label class="col-form-label col-xl-2" for="bibliography" th:text="#{field_label_bibliography">Bibliography</label>
+      <div class="form-group row">
+        <label class="col-form-label col-xl-2" for="bibliography" th:text="#{field_label_bibliography}">Bibliography</label>
         <div class="col-xl-10">
           <input class="form-control mb-3" type="text" th:field="*{bibliography}" name="bibliography"/>
         </div>
