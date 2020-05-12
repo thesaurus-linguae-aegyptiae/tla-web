@@ -4,6 +4,7 @@ import java.lang.annotation.Annotation;
 import java.util.List;
 
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,7 +29,8 @@ public abstract class ObjectController<T extends TLAObject> {
      * is being used in order to locate the HTML template for the single object details
      * view, and for message properties for i18n.
      */
-    protected String getTemplatePath() {
+    @ModelAttribute("objectType")
+    public String getTemplatePath() {
         if (this.templatePath == null) {
             for (Annotation a : getClass().getAnnotations()) {
                 if (a instanceof TemplateModelName) {

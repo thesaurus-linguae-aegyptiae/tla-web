@@ -780,11 +780,6 @@ footer.bg-light {
     color: var(--BBAWred);
 }
 
-/* Forms */
-.form-check-input {
-    margin-top: 7px;
-}
-
 .search .form-group {
     margin-bottom: 1rem;
     margin-left: 0;

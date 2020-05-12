@@ -4,6 +4,11 @@
             "name": "tla",
             "type": "tla.web.config.ApplicationProperties",
             "description": "Frontend application properties"
+        },
+        {
+            "name": "search",
+            "type": "tla.web.config.SearchProperties",
+            "description": "Configurations for search functions"
         }
     ],
     "properties": [
@@ -26,6 +31,10 @@
         {
             "name": "tla.assets",
             "type": "tla.web.config.ApplicationProperties.Assets"
+        },
+        {
+            "name": "search.word-classes",
+            "type": "java.util.Map"
         }
     ]
 }

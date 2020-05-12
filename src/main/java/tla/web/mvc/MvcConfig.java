@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -16,6 +17,8 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import lombok.extern.slf4j.Slf4j;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import tla.web.config.ApplicationProperties;
+import tla.web.model.mappings.LanguageFromStringConverter;
+import tla.web.model.mappings.ScriptFromStringConverter;
 
 @Slf4j
 @Configuration
@@ -44,12 +47,22 @@ public class MvcConfig  implements WebMvcConfigurer {
     }
 
     @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new ScriptFromStringConverter());
+        registry.addConverter(new LanguageFromStringConverter());
+    }
+
+    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
             .addResourceHandler("/resources/**")
             .addResourceLocations("/resources/");
     }
 
+    /**
+     * Contains information like static assets locations and such.
+     * All obtained from applicationproperties (prefix <code>tla</code>).
+     */
     public static class TlaPageHeader {
 
         private ApplicationProperties props;
@@ -97,6 +110,9 @@ public class MvcConfig  implements WebMvcConfigurer {
         }
     }
 
+    /**
+     * Injects a TLA page header into every response model.
+     */
     public class RequestMappingInterceptor extends HandlerInterceptorAdapter {
 
         private TlaPageHeader headerMetadata;

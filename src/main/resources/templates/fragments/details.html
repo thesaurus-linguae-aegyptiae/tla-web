@@ -6,7 +6,7 @@
     <div th:fragment="review-state" id="review-state" class="row search-entries detail mb-3">
         <div class="col-sm-12 col-lg-8 result">
           <h2 class="id mt-1">
-            <span class="bbaw-libertine" th:text="${obj.name}">Lemma name</span>
+            <span class="bbaw-libertine" th:text="${obj.name}">Object name</span>
           </h2>
           <a th:title="'Review status: ' + ${obj.reviewState}">
             <span class="solo-icon red-status float-right">
@@ -19,7 +19,7 @@
     </div>
 
     <!-- Verweise -->
-    <div th:fragment="external-references" id="external-references" th:if="${obj.externalReferences != null}">
+    <div th:fragment="external-references" id="external-references" th:if="${obj.externalReferences} != null">
         <hr />
         <p>
             <strong th:text="#{object_property_external_references}" class="details-property-label">External
