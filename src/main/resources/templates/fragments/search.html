@@ -27,6 +27,26 @@
           <select class="form-control" id="word-class-type" name="word-class-type" th:field="*{pos.type}">
             <option th:each="wordClass : ${wordClasses}" th:value="${wordClass.key}" th:text="#{'field_value_label_word_class_type_' + ${wordClass.key}}">Type</option>
           </select>
+          <select th:each="wordClass : ${wordClasses}" th:id="'word-class-type-hidden-options-' + ${wordClass.key}" hidden>
+            <option th:each="subtype : ${wordClass.value}" th:value="${subtype}" th:text="${subtype}">Subtype</option>
+          </select>
+        </div>
+        <label class="col-form-label col-xl-2" for="word-class-subtype" th:text="#{field_label_word_class_subtype}">Subtype</label>
+        <div class="col-xl-10">
+          <select class="form-control" id="word-class-subtype" name="word-class-subtype" th:field="*{pos.subtype}">
+            <script th:inline="javascript">
+              $('#word-class-type').on('input', () => {
+                let options = $('#word-class-type-hidden-options-' + $('#word-class-type').val());
+                let dropdown = $('#word-class-subtype');
+                if (options.children('option').length > 0) {
+                  dropdown.html(options.html());
+                } else {
+                  dropdown.html('');
+                }
+                dropdown.attr('hidden', options.children('option').length < 1);
+              });
+            </script>
+          </select>
         </div>
       </div>
 
