@@ -1,12 +1,11 @@
 package tla.web.mvc;
 
 import tla.domain.command.LemmaSearch;
-import tla.domain.dto.DocumentDto;
-import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.model.Language;
 import tla.domain.model.Script;
 import tla.web.model.Lemma;
 import tla.web.model.ObjectDetails;
+import tla.web.model.SearchResults;
 import tla.web.model.ui.TemplateModelName;
 import tla.web.service.LemmaService;
 import tla.web.service.ObjectService;
@@ -55,7 +54,7 @@ public class LemmaController extends ObjectController<Lemma> {
     }
 
     @RequestMapping(value="/search", method=RequestMethod.GET)
-    public @ResponseBody SearchResultsWrapper<DocumentDto> search(
+    public @ResponseBody SearchResults search(
         @ModelAttribute("lemmaSearchForm") LemmaSearch form
     )
     {

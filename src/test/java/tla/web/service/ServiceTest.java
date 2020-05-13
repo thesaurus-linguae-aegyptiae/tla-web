@@ -6,6 +6,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import tla.web.model.Annotation;
 import tla.web.model.Lemma;
 import tla.web.model.ObjectDetails;
+import tla.web.model.SearchResults;
 import tla.web.model.TLAObject;
 import tla.web.model.ThsEntry;
 import tla.web.repo.TlaClient;
+import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
+import tla.domain.command.LemmaSearch;
 import tla.domain.dto.DocumentDto;
 
 @SpringBootTest
@@ -58,11 +62,13 @@ public class ServiceTest {
     @Test
     @SuppressWarnings("unchecked")
     void thsService() {
-        when(backend.retrieveObject(any(), anyString())).thenReturn(
+        when(
+            backend.retrieveObject(ThsEntry.class, "KQY2F5SJVBBN7GRO5WUXKG5M6M")
+        ).thenReturn(
             tla.domain.util.IO.loadFromFile(
-            "src/test/resources/sample/data/ths/details/KQY2F5SJVBBN7GRO5WUXKG5M6M.json",
-            SingleDocumentWrapper.class
-        )
+                "src/test/resources/sample/data/ths/details/KQY2F5SJVBBN7GRO5WUXKG5M6M.json",
+                SingleDocumentWrapper.class
+            )
         );
         assertTrue(
             backend.retrieveObject(ThsEntry.class, "KQY2F5SJVBBN7GRO5WUXKG5M6M") instanceof SingleDocumentWrapper,
@@ -71,6 +77,35 @@ public class ServiceTest {
         ObjectDetails<ThsEntry> details = thsService.get("KQY2F5SJVBBN7GRO5WUXKG5M6M");
         assertAll("test service method for thesaurus entry details retrieval",
             () -> assertNotNull(details.getObject())
+        );
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    void lemmaSearchResultsMapping() throws Exception {
+        SearchResultsWrapper<DocumentDto> wrap = tla.domain.util.IO.loadFromFile(
+            "src/test/resources/sample/data/lemma/search/demotic_translation_de.json",
+            SearchResultsWrapper.class
+        );
+        when(
+            backend.lemmaSearch(any())
+        ).thenReturn(
+            wrap
+        );
+        assertNotNull(wrap);
+        SearchResultsWrapper<DocumentDto> dto = backend.lemmaSearch(new LemmaSearch());
+        assertAll("assert that deserialization from file works",
+            () -> assertNotNull(dto),
+            () -> assertNotNull(dto.getContent())
+        );
+        SearchResults result = lemmaService.search(new LemmaSearch());
+        assertAll("test mapping from DTO to search result page frontend model",
+            () -> assertNotNull(result.getObjects(), "search hits not null"),
+            () -> assertNotNull(result.getQuery(), "query not null"),
+            () -> assertNotNull(result.getPage(),"page not null")
+        );
+        result.getObjects().stream().forEach(
+            o -> assertTrue(o instanceof Lemma, o.getName() + " should be of class lemma")
         );
     }
 

@@ -9,6 +9,7 @@ import tla.web.model.Annotation;
 import tla.web.model.Glyphs;
 import tla.web.model.Lemma;
 import tla.web.model.ObjectDetails;
+import tla.web.model.SearchResults;
 import tla.web.model.TLAObject;
 import tla.web.model.Word;
 
@@ -104,8 +105,10 @@ public class LemmaService extends ObjectService<Lemma> {
         }
     }
 
-    public SearchResultsWrapper<DocumentDto> search(LemmaSearch command) {
-        return backend.lemmaSearch(command);
+    public SearchResults search(LemmaSearch command) {
+        SearchResultsWrapper<DocumentDto> response = backend.lemmaSearch(command);
+        SearchResults container = SearchResults.from(response);
+        return container;
     }
 
 }

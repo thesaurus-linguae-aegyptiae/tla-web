@@ -40,6 +40,11 @@ public class TlaClient {
         registerModelClasses();
     }
 
+    /**
+     * Takes all model classes listed in the {@link ModelClasses} annotation
+     * of this class, retrieves the value of their respective {@link BackendPath}
+     * annotations, and stores these value pairs for later lookup. 
+     */
     private void registerModelClasses() {
         for (Annotation a : TlaClient.class.getAnnotations()) {
             if (a instanceof ModelClasses) {
@@ -61,6 +66,12 @@ public class TlaClient {
         }
     }
 
+    /**
+     * Retrieves a single object from the backend application.
+     *
+     * In order for this to work, the requested object's type must be registered via {@link ModelClasses}
+     * annotation on {@link TlaClient}, and must itself be annotated with a {@link BackendPath} annotation.
+     */
     @SuppressWarnings("unchecked")
     public SingleDocumentWrapper<DocumentDto> retrieveObject(Class<? extends TLAObject> modelClass, String id) {
         String backendPath = backendPaths.get(modelClass);
