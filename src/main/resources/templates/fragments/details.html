@@ -25,7 +25,7 @@
             <strong th:text="#{object_property_external_references}" class="details-property-label">External
                 references</strong>
         </p>
-        <div th:each="entry : ${obj.externalReferences}" class="row align-items-start">
+        <div th:each="entry : ${obj.externalReferences}" class="row align-items-start" th:id="'external-references-' + ${entry.key}">
             <div class="col-4 my-0 py-0">
                 <span th:text="#{'external_reference_provider_' + ${entry.key}}" class="external-reference-provider">Provider</span>
             </div>
