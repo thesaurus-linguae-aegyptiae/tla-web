@@ -15,6 +15,7 @@
 
       <div class="row details-content">
         <div class="col-sm-12 col-lg-8">
+
           <div class="lemma" th:unless="${hieroglyphs} == null">
             <p>
               <strong th:text="#{lemma_property_hieroglyphs}" class="details-property-label">
@@ -53,7 +54,7 @@
           <div class="grammar">
             <hr/>
             <p>
-              <strong th:text="#{lemma_property_pos}" class="details-property-label">Word Class</strong>&nbsp;
+              <strong th:text="#{lemma_property_pos}" class="details-property-label">Word Class</strong>
               <span th:text="#{'pos_type_' + ${obj.type}}" class="lemma-type">Type</span>
               <span th:if="${obj.subtype}">
                 (<span th:text="#{'pos_subtype_' + ${obj.subtype}}" class="lemma-subtype">Subtype</span>)
@@ -91,7 +92,7 @@
             <p>
               <strong th:text="#{lemma_property_attestation}" class="details-property-label">Attestation</strong>
               <br/>
-              <strong th:text="#{lemma_property_attestation_occurrences}" class="details-property-label">Occurrences:</strong>&nbsp;
+              <strong th:text="#{lemma_property_attestation_occurrences}" class="details-property-label">Occurrences:</strong>
               <span th:text="${obj.attestationCount}"></span>
             </p>
           </div>
@@ -139,7 +140,6 @@
         <div class="sidebar col-lg-4 d-none d-lg-block">
           <div class="sticky-top">
             <!-- Navigation -->
-            <br>
 
             <!--
             <button type="button" class="btn btn-block btn-light text-left text-decoration-none mb-2" disabled><span class="fas fa-search-plus"></span>Select for combination search</button>
@@ -152,7 +152,7 @@
             <a href="/search"><button type="button" class="btn btn-block btn-red text-left text-decoration-none modify-search-btn"><span class="fas fa-arrow-circle-left"></span>Modify search</button></a>
           </div>
         </div>
-
+        </div>
       </div>
     </main>
 
