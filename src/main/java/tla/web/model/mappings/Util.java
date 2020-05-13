@@ -20,6 +20,8 @@ public class Util {
     public static final String SERIF_FONT_MARKUP_REGEX = "\\$([^$]+)\\$";
     public static final String SERIF_FONT_MARKUP_REPLACEMENT = "<span class=\"bbaw-libertine\">$1</span>";
 
+    private static final String XML_HEAD = "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>";
+
     /**
      * Tries to use JSesh in order to render an MdC hieroglyph encoding
      * into an SVG vector graphic.
@@ -51,7 +53,14 @@ public class Util {
                 e.toString()
             );
         }
-        return writer.toString();
+        String jsesh = writer.toString();
+        if (jsesh.length() > XML_HEAD.length()) {
+            jsesh = String.format(
+                "%s</svg>",
+                jsesh.substring(XML_HEAD.length())
+            );
+        }
+        return jsesh;
     }
 
     /**

@@ -51,7 +51,7 @@ public class MappingTest {
             () -> assertNotNull(word.getGlyphs(), "expect glyphs"),
             () -> assertEquals("N35", word.getGlyphs().getMdc(), "mdc correct?"),
             () -> assertTrue(
-                word.getGlyphs().getSvg().startsWith("<?xml version='1.0' encoding='UTF-8' standalone='yes'?>"),
+                word.getGlyphs().getSvg().startsWith("<svg xmlns"),
                 "check svg xml JSesh rendering result"
             ),
             () -> assertEquals(
