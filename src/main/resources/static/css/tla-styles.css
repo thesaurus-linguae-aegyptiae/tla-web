@@ -665,33 +665,33 @@ footer.bg-light {
     text-decoration: none;
 }
 
-.details-content .row {
+#details-content .row {
     margin: 0 !important;
 }
 
-.details-content div.row {
+#details-content div.row {
     padding: 1rem 0 !important;
 
 }
 
-.details-content .content-field {
+#details-content .content-field {
     border-bottom: 2px solid #EEE !important;
     padding-top: 1rem;
 }
 
-.details-content .details-property-label::after {
+#details-content .details-property-label::after {
     content: ":";
 }
 
-.details-content .external-reference-id {
+#details-content .external-reference-id {
     font-style: italic;
 }
 
-.details-content .bibliographic-reference {
+#details-content .bibliographic-reference {
     margin-right: 1em;
 }
 
-.details-content .editor {
+#details-content .editor {
     margin-right: 1em;
 }
 
@@ -727,7 +727,7 @@ footer.bg-light {
     z-index: 50;
 }
 
-.details-content p.relations span {
+#details-content p.relations span {
     font-style: italic;
     font-weight: bold;
     padding-left: .5rem;

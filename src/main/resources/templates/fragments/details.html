@@ -11,6 +11,7 @@
           </h2>
           <a th:title="'Review status: ' + ${obj.reviewState}">
             <span class="solo-icon red-status float-right">
+              <span th:text="#{'review_state_' + ${obj.reviewState}}"></span>
               <span class="fa-check-circle" th:classappend="${#strings.equals(obj.reviewState, 'published')} ? ok : pending">
               </span>
             </span>
@@ -69,8 +70,8 @@
                 <span class="fas fa-arrow-circle-right"></span>
                 <span class="bibliographic-reference" th:text="${bib}"></span>
             </span>
-          </p>
-      </div>
+        </p>
+    </div>
 
     <!-- Lemma/Thesaurus entry annotations -->
     <div class="comment pb-2" id="single-entry-annotations" th:fragment="single-entry-annotations" th:if="${annotations} != null">
@@ -139,7 +140,7 @@
     </div>
 
     <!-- Lemma Attestations -->
-    <div th:fragment="lemma-property-attestations" id="lemma-property-attestations"/>
+    <div th:fragment="lemma-property-attestations" id="lemma-property-attestations">
         <hr/>
         <p>
             <strong th:text="#{lemma_property_attestation}" class="details-property-label">Attestation</strong>
