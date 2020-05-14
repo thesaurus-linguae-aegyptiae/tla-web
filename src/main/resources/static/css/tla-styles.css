@@ -200,7 +200,7 @@ a.navbar-brand {
     cursor: pointer;
 }
 
-.result-list-item:hover h2 .hieroglyph .res {
+.result-list-item:hover h2 .hieroglyph {
     background-color: white;
 }
 
@@ -396,8 +396,7 @@ a span.lc:hover {
     line-height: 1;
 }
 
-.container-annotation-switch-lines .unicode-hieroglyphs,
-.lemma .unicode-hieroglyphs {
+.unicode-hieroglyphs {
     font-size: 2.5em;
     color: black !important;
 }

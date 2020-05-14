@@ -3,6 +3,7 @@
 
 <body>
 
+    <!-- Object details header (name && review state) -->
     <div th:fragment="review-state" id="review-state" class="row search-entries detail mb-3">
         <div class="col-sm-12 col-lg-8 result">
           <h2 class="id mt-1">
@@ -43,7 +44,6 @@
             </div>
         </div>
     </div>
-
 
     <!-- translations -->
     <div class="translations" th:fragment="translations" id="translations" th:if="${obj.translations} != null">
@@ -90,7 +90,7 @@
         </div>
     </div>
 
-
+    <!-- Editor information -->
     <div class="editor-info" id="editor-info" th:fragment="editor-info">
         <hr/>
         <div class="author">
@@ -110,6 +110,55 @@
             <span th:text="#{'review_state_' + ${obj.reviewState}}">status</span>
         </div>
     </div>
+
+    <!-- Lemma details part of speech -->
+    <div th:fragment="lemma-property-part-of-speech" id="lemma-property-part-of-speech">
+        <hr/>
+        <p>
+          <strong th:text="#{lemma_property_pos}" class="details-property-label">Word Class</strong>
+          <span th:replace=" :: lemma-pos"/>
+        </p>
+    </div>
+
+    <!-- Lemma details hieroglyphs -->
+    <div th:fragment="lemma-property-hieroglyphs" id="lemma-property-hieroglyphs" th:unless="${hieroglyphs} == null">
+        <p>
+            <strong th:text="#{lemma_property_hieroglyphs}" class="details-property-label">Hieroglyphic spelling(s):</strong>
+            <span th:each="glyphs : ${hieroglyphs}">
+              <span class="hieroglyphs" th:title="${glyphs.mdc}" th:utext="${glyphs.svg}"/>
+            </span>
+          </p>
+    </div>
+
+    <!-- Lemma language phase / script / subdict -->
+    <div th:fragment="lemma-property-dict" id="lemma-property-dict">
+        <hr/>
+        <strong th:text="#{lemma_property_dict}" class="details-property-label">Dictionary:</strong>
+        <span th:text="#{'dict_' + ${obj.dictionaryName}}">Hieratic/Demotic/Coptic</span>
+      </div>
+    </div>
+
+    <!-- Lemma Attestations -->
+    <div th:fragment="lemma-property-attestations" id="lemma-property-attestations"/>
+        <hr/>
+        <p>
+            <strong th:text="#{lemma_property_attestation}" class="details-property-label">Attestation</strong>
+            <br/>
+            <strong th:text="#{lemma_property_attestation_occurrences}" class="details-property-label">Occurrences:</strong>
+            <span th:text="${obj.attestationCount}"></span>
+        </p>
+    </div>
+
+
+    <!-- "Atoms" -->
+
+    <!-- POS/type -->
+    <span th:fragment="lemma-pos" id="lemma-pos">
+        <span th:text="#{'pos_type_' + ${obj.type}}" class="lemma-type">Type</span>
+        <span th:if="${obj.subtype}">
+          (<span th:text="#{'pos_subtype_' + ${obj.subtype}}" class="lemma-subtype">Subtype</span>)
+        </span>
+    </span>
 
 
 </body>
