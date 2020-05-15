@@ -58,7 +58,7 @@ public class LemmaDetailsTest {
         respondToDetailsRequestWithLemma(id);
         // There is no 'vega' provider in the application properties but vega external reference should be displayed regardlesz
         ResultActions testResponse = makeDetailsRequest(id);
-        XpathResultMatchers vega = xpath("//div[@id='external-references-vega']/div/span[@class='external-reference-provider']/text()");
+        XpathResultMatchers vega = xpath("//div[@id='external-references-vega']/span[contains(@class,'external-reference-provider')]/text()");
         testResponse.andExpect(
             vega.exists()
         ).andExpect(
