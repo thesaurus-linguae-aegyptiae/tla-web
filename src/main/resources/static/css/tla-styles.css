@@ -200,7 +200,7 @@ a.navbar-brand {
     cursor: pointer;
 }
 
-.result-list-item:hover h2 .hieroglyph .res {
+.result-list-item:hover h2 .hieroglyph {
     background-color: white;
 }
 
@@ -396,8 +396,7 @@ a span.lc:hover {
     line-height: 1;
 }
 
-.container-annotation-switch-lines .unicode-hieroglyphs,
-.lemma .unicode-hieroglyphs {
+.unicode-hieroglyphs {
     font-size: 2.5em;
     color: black !important;
 }
@@ -675,9 +674,8 @@ footer.bg-light {
 
 }
 
-.details-content .content-field {
+.details-header {
     border-bottom: 2px solid #EEE !important;
-    padding-top: 1rem;
 }
 
 .details-content .details-property-label::after {
@@ -694,10 +692,6 @@ footer.bg-light {
 
 .details-content .editor {
     margin-right: 1em;
-}
-
-.comment.content-field {
-    border-bottom: 0 !important;
 }
 
 .comment-wrapper.hide-comment {

@@ -1,6 +1,6 @@
 ![Java CI](https://github.com/JKatzwinkel/tla-web/workflows/build/badge.svg)
-![LINE](https://img.shields.io/badge/line--coverage-73%25-yellow.svg)
-![METHOD](https://img.shields.io/badge/method--coverage-57%25-orange.svg)
+![LINE](https://img.shields.io/badge/line--coverage-88%25-brightgreen.svg)
+![METHOD](https://img.shields.io/badge/method--coverage-66%25-yellow.svg)
 
 TLA web frontend.
 
@@ -24,8 +24,9 @@ Run the frontend application using the `bootRun` task from the spring boot gradl
 
     gradle bootrun
 
-On its first run, this will download and install [Bootstrap](https://getbootstrap.com/), [Font Awesome](https://fontawesome.com/),
-[JQuery](https://jquery.com/), and [Headroom.js](https://wicky.nillia.ms/headroom.js/).
+On its first run, this will download and install third-party JS/CSS frameworks and libraries such as
+[Bootstrap](https://getbootstrap.com/), [Font Awesome](https://fontawesome.com/), and
+[JQuery](https://jquery.com/).
 In order to override the respective default bundle versions of some of these, you can use the environment variables
 shown in [`.env.template`](.env.template), e.g. by defining them in a `.env` file:
 
@@ -33,7 +34,8 @@ shown in [`.env.template`](.env.template), e.g. by defining them in a `.env` fil
     FONTAWESOME_VERSION=5.12.1
     JQUERY_VERSION=3.5.0
 
-However, this is of course optional.
+However, this is of course optional as default versions are being defined in the
+[build file](build.gradle).
 
 
 ## Misc

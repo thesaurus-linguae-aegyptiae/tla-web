@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html xml:lang="en"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{base}"
 >
@@ -11,24 +12,16 @@
 
     <div layout:fragment="content">
 
-      <div th:replace="fragments/details :: review-state"/>
+      <div th:replace="fragments/details :: details-page-header"/>
 
       <div class="row details-content">
         <div class="col-sm-12 col-lg-8">
-          <div class="lemma" th:unless="${hieroglyphs} == null">
-            <p>
-              <strong th:text="#{lemma_property_hieroglyphs}" class="details-property-label">
-                Hieroglyphic spelling(s):
-              </strong>
-              <span th:each="glyphs : ${hieroglyphs}">
-                <span class="hieroglyphs" th:title="${glyphs.mdc}" th:utext="${glyphs.svg}"/>
-              </span>
-            </p>
-            <hr/>
-          </div>
+
+          <div th:replace="fragments/details :: lemma-property-hieroglyphs"/>
 
           <!-- persistente URL / ID -->
           <div>
+            <hr/>
             <p>
               <strong>Persistent lemma ID:</strong>
               <span th:text="${obj.id}">Lemma ID</span>
@@ -43,94 +36,13 @@
           </div>
 
           <!-- Sub-Wörterbuch hier./dem.  -->
-          <div>
-            <hr/>
-            <strong th:text="#{lemma_property_dict}" class="details-property-label"/>
-            <span th:text="#{'dict_' + ${obj.dictionaryName}}"/>
-          </div>
-
-          <!-- POS -->
-          <div class="grammar">
-            <hr/>
-            <p>
-              <strong th:text="#{lemma_property_pos}" class="details-property-label">Word Class</strong>&nbsp;
-              <span th:text="#{'pos_type_' + ${obj.type}}" class="lemma-type">Type</span>
-              <span th:if="${obj.subtype}">
-                (<span th:text="#{'pos_subtype_' + ${obj.subtype}}" class="lemma-subtype">Subtype</span>)
-              </span>
-            </p>
-          </div>
-
-          <!-- translations -->
-          <div class="translations" th:replace="fragments/details :: translations">
-            <hr />
-            <p>
-              <strong class="details-property-label">Translation</strong>
-            </p>
-            <div>
-              <p class="translation-de">
-                <span class="lang-icon">DE</span>
-                <span class="translation">Úbersetzung 1</span>
-              </p>
-              <p class="translation-de">
-                  <span class="lang-icon">DE</span>
-                  <span class="translation">Úbersetzung 2</span>
-              </p>
-            </div>
-            <div>
-              <p class="translation-en">
-                <span class="lang-icon">EN</span>
-                <span class="translation">Translation</span>
-              </p>
-            </div>
-          </div>
-
-          <!-- Beleglage -->
-          <div>
-            <hr/>
-            <p>
-              <strong th:text="#{lemma_property_attestation}" class="details-property-label">Attestation</strong>
-              <br/>
-              <strong th:text="#{lemma_property_attestation_occurrences}" class="details-property-label">Occurrences:</strong>&nbsp;
-              <span th:text="${obj.attestationCount}"></span>
-            </p>
-          </div>
-
-          <!-- Bibliographie -->
+          <div th:replace="fragments/details :: lemma-property-dict"/>
+          <div th:replace="fragments/details :: lemma-property-part-of-speech"/>
+          <div th:replace="fragments/details :: translations"/>
+          <div th:replace="fragments/details :: lemma-property-attestations"/>
           <div th:replace="fragments/details :: bibliography"/>
-
-          <!-- Verweise -->
-          <div th:replace="fragments/details :: external-references">
-            <hr/>
-            <p>
-              <strong class="details-property-label">External references</strong>
-            </p>
-            <div class="row align-items-start">
-              <div class="col-4 my-0 py-0">
-                <span class="external-reference-provider">Provider</span>
-              </div>
-              <div class="col-8">
-                <div class="external-reference">
-                  <a href="http://google.com">
-                    <span class="fas fa-arrow-circle-right red"></span>
-                    <span class="external-reference-id">ext. Identifier</span>
-                    <span class="external-reference-type">Type</span>
-                  </a>
-                </div>
-                <div class="external-reference">
-                  <span>
-                    <span class="external-reference-id">ext. ID</span>
-                    <span class="external-reference-type">Type</span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Comments -->
+          <div th:replace="fragments/details :: external-references"/>
           <div th:replace="fragments/details :: single-entry-annotations"/>
-
-          <!-- Editor, revision and review info -->
           <div th:replace="fragments/details :: editor-info"/>
 
         </div>  <!-- close content col-sm-12 -->
@@ -139,7 +51,6 @@
         <div class="sidebar col-lg-4 d-none d-lg-block">
           <div class="sticky-top">
             <!-- Navigation -->
-            <br>
 
             <!--
             <button type="button" class="btn btn-block btn-light text-left text-decoration-none mb-2" disabled><span class="fas fa-search-plus"></span>Select for combination search</button>
@@ -152,9 +63,8 @@
             <a href="/search"><button type="button" class="btn btn-block btn-red text-left text-decoration-none modify-search-btn"><span class="fas fa-arrow-circle-left"></span>Modify search</button></a>
           </div>
         </div>
-
       </div>
-    </main>
+    </div>
 
   </body>
 </html>
