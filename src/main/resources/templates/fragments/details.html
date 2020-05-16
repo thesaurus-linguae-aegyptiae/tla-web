@@ -68,8 +68,8 @@
                 <span class="fas fa-arrow-circle-right"></span>
                 <span class="bibliographic-reference" th:text="${bib}"></span>
             </span>
-          </p>
-      </div>
+        </p>
+    </div>
 
     <!-- Lemma/Thesaurus entry annotations -->
     <div class="comment pb-2" id="single-entry-annotations" th:fragment="single-entry-annotations" th:if="${annotations} != null">
@@ -85,7 +85,6 @@
                 <strong th:text="${annotation.edited.author}">author</strong>
                 (<span th:text="${annotation.edited.updated}">date</span>)
             </p>
-
         </div>
     </div>
 
@@ -126,7 +125,7 @@
             <span th:each="glyphs : ${hieroglyphs}">
               <span class="hieroglyphs" th:title="${glyphs.mdc}" th:utext="${glyphs.svg}"/>
             </span>
-          </p>
+        </p>
     </div>
 
     <!-- Lemma language phase / script / subdict -->
@@ -134,7 +133,6 @@
         <hr/>
         <strong th:text="#{lemma_property_dict}" class="details-property-label">Dictionary:</strong>
         <span th:text="#{'dict_' + ${obj.dictionaryName}}">Hieratic/Demotic/Coptic</span>
-      </div>
     </div>
 
     <!-- Lemma Attestations -->
@@ -146,6 +144,25 @@
             <strong th:text="#{lemma_property_attestation_occurrences}" class="details-property-label">Occurrences:</strong>
             <span th:text="${obj.attestationCount}"></span>
         </p>
+    </div>
+
+    <!-- Related Lemmata -->
+    <div th:fragment="lemma-property-related-objects" id="lemma-property-related-objects" th:unless="${#maps.isEmpty(obj.relations)}">
+        <hr/>
+        <strong th:text="#{lemma_property_related_objects}" class="details-property-label">Related Lemmata</strong>
+        <div class="row py-1" th:each="predicate : ${obj.relations}">
+            <div class="pl-0 col-md-2">
+                <span th:text="#{${objectType} + '_relation_predicate_' + ${predicate.key}}" class="details-property-label">Predicate</span>
+            </div>
+            <div class="col-md-10">
+                <div class="d-flex justify-content-between" th:each="relatedObject : ${predicate.value}" th:object="${relatedObject}">
+                    <span class="bbaw-libertine" th:text="*{name}"></span>
+                    <span th:text="'(' + *{id} + ')'"></span>
+                    <span th:text="*{eclass}"></span>
+                    <span th:text="*{type}"/>
+                </div>
+            </div>
+        </div>
     </div>
 
 
