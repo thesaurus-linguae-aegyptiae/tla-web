@@ -19,13 +19,16 @@ ext {
     fontawesomeVersion = env.FONTAWESOME_VERSION.orElse('5.12.1')
     bootstrapVersion = env.BOOTSTRAP_VERSION.orElse('4.4.1')
     jqueryVersion = env.JQUERY_VERSION.orElse('3.5.0')
+    cookieJsVersion = env.COOKIEJS_VERSION.orElse('2.2.1')
     fontawesomeSrc = "https://use.fontawesome.com/releases/v${fontawesomeVersion}/fontawesome-free-${fontawesomeVersion}-web.zip"
     bootstrapSrc = "https://github.com/twbs/bootstrap/releases/download/v${bootstrapVersion}/bootstrap-${bootstrapVersion}-dist.zip"
     jquerySrc = "https://code.jquery.com/jquery-${jqueryVersion}.min.js"
+    cookieJsSrc = "https://github.com/js-cookie/js-cookie/releases/download/v${cookieJsVersion}/js.cookie-${cookieJsVersion}.min.js"
     staticDir = 'src/main/resources/static'
 }
 
 def assets = [
+  'cookieJs' : [cookieJsSrc, 'js.cookie.min.js'],
   'jquery': [jquerySrc, 'jquery.min.js'],
   'headroomJs': ['https://unpkg.com/headroom.js/dist/headroom.min.js', 'headroom.min.js']
 ]
