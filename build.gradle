@@ -109,7 +109,7 @@ task installAssets {
 def createDownloadAssetTask(String name, String url, String destFile) {
   return tasks.create("download${name.capitalize()}", Download) {
     doFirst {
-      mkdir '${staticDir}/vendor'
+      mkdir "${staticDir}/vendor"
     }
     group = 'Init'
     description = "Download && install ${name}"
