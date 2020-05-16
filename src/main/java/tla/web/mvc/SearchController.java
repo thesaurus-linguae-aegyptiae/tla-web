@@ -37,6 +37,11 @@ public class SearchController {
         return searchConfig.getWordClasses();
     }
 
+    @ModelAttribute("lemmaAnnotationTypes")
+    public Map<String, List<String>> getLemmaAnnotationTypes() {
+        return searchConfig.getAnnotationTypes();
+    }
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String mainSearchPage(Model model) {
         model.addAttribute("lemmaSearchForm", new LemmaSearch());
