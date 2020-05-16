@@ -37,7 +37,7 @@ public class ServiceTest {
 
     @Test
     @SuppressWarnings("unchecked")
-    void lemmaService() {
+    void lemmaService() throws Exception {
         SingleDocumentWrapper<DocumentDto> dto = tla.domain.util.IO.loadFromFile(
             "src/test/resources/sample/data/lemma/details/31610.json",
             SingleDocumentWrapper.class
@@ -59,7 +59,7 @@ public class ServiceTest {
 
     @Test
     @SuppressWarnings("unchecked")
-    void thsService() {
+    void thsService() throws Exception {
         when(
             backend.retrieveObject(ThsEntry.class, "KQY2F5SJVBBN7GRO5WUXKG5M6M")
         ).thenReturn(
