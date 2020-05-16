@@ -147,6 +147,11 @@ task installFontAwesome(dependsOn: downloadFontAwesome, type: Copy) {
     description = 'Installs fontawesome distribution into assets directory'
     from zipTree(downloadFontAwesome.dest)
     into file("${staticDir}/vendor")
+    doLast {
+      file("${staticDir}/vendor/fontawesome-free-${bootstrapVersion}-web").renameTo(
+        file("${staticDir}/vendor/fontawesome")
+      )
+    }
 }
 
 task installBootstrap(dependsOn: downloadBootstrap, type: Copy) {
@@ -154,6 +159,11 @@ task installBootstrap(dependsOn: downloadBootstrap, type: Copy) {
     description = 'Installs bootstrap distribution into assets directory'
     from zipTree(downloadBootstrap.dest)
     into file("${staticDir}/vendor")
+    doLast {
+      file("${staticDir}/vendor/bootstrap-${bootstrapVersion}-dist").renameTo(
+        file("${staticDir}/vendor/bootstrap")
+      )
+    }
 }
 
 task cleanAssets(type: Delete) {
