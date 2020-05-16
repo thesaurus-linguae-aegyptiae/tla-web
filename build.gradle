@@ -22,7 +22,13 @@ ext {
     fontawesomeSrc = "https://use.fontawesome.com/releases/v${fontawesomeVersion}/fontawesome-free-${fontawesomeVersion}-web.zip"
     bootstrapSrc = "https://github.com/twbs/bootstrap/releases/download/v${bootstrapVersion}/bootstrap-${bootstrapVersion}-dist.zip"
     jquerySrc = "https://code.jquery.com/jquery-${jqueryVersion}.min.js"
+    staticDir = 'src/main/resources/static'
 }
+
+def assets = [
+  'jquery': [jquerySrc, 'jquery.min.js'],
+  'headroomJs': ['https://unpkg.com/headroom.js/dist/headroom.min.js', 'headroom.min.js']
+]
 
 publishing {
     publications {
@@ -90,6 +96,33 @@ jacocoTestReport {
     finalizedBy 'generateJacocoBadge'
 }
 
+task installAssets {
+    group = 'Init'
+    description = 'Download and install third-party JS/CSS frameworks and libraries'
+    dependsOn 'installBootstrap'
+    dependsOn 'installFontAwesome'
+}
+
+def createDownloadAssetTask(String name, String url, String destFile) {
+  return tasks.create("download${name.capitalize()}", Download) {
+    doFirst {
+      mkdir '${staticDir}/vendor'
+    }
+    group = 'Init'
+    description = "Download && install ${name}"
+    src "${url}"
+    dest file("${staticDir}/vendor/${destFile}")
+  }
+}
+
+assets.each{
+  entry -> installAssets.dependsOn createDownloadAssetTask(
+    entry.key,
+    entry.value[0],
+    entry.value[1]
+  )
+}
+
 task downloadFontAwesome(type: Download) {
     group = 'Init'
     description = 'Downloads fontawesome distribution for local hosting'
@@ -106,49 +139,24 @@ task downloadBootstrap(type: Download) {
     onlyIfModified true
 }
 
-task downloadJquery(type: Download) {
-    group = 'Init'
-    description = 'Download && install jquery minified production distro'
-    src jquerySrc
-    dest file('src/main/resources/static/vendor/jquery.min.js')
-    onlyIfModified true
-}
-
-task downloadHeadroom(type: Download) {
-    group = 'Init'
-    description = 'Download && install Headroom JS'
-    src 'https://unpkg.com/headroom.js/dist/headroom.min.js'
-    dest file('src/main/resources/static/vendor/headroom.min.js')
-    onlyIfModified true
-}
-
 task installFontAwesome(dependsOn: downloadFontAwesome, type: Copy) {
     group = 'Init'
     description = 'Installs fontawesome distribution into assets directory'
     from zipTree(downloadFontAwesome.dest)
-    into file('src/main/resources/static/vendor/')
+    into file("${staticDir}/vendor")
 }
 
 task installBootstrap(dependsOn: downloadBootstrap, type: Copy) {
     group = 'Init'
     description = 'Installs bootstrap distribution into assets directory'
     from zipTree(downloadBootstrap.dest)
-    into file('src/main/resources/static/vendor/')
-}
-
-task installAssets {
-    group = 'Init'
-    description = 'Download and install bootstrap and fontawesome'
-    dependsOn 'installBootstrap'
-    dependsOn 'installFontAwesome'
-    dependsOn 'downloadJquery'
-    dependsOn 'downloadHeadroom'
+    into file("${staticDir}/vendor")
 }
 
 task cleanAssets(type: Delete) {
     group = 'Init'
     description = 'Delete files added with :installAssets'
-    delete 'src/main/resources/static/vendor/'
+    delete "${staticDir}/vendor/"
 }
 
 cleanInstallAssets {
