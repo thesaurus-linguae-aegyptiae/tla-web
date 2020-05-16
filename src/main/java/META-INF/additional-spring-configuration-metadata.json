@@ -35,6 +35,10 @@
         {
             "name": "search.word-classes",
             "type": "java.util.Map"
+        },
+        {
+            "name": "search.annotation-types",
+            "type": "java.util.Map"
         }
     ]
 }

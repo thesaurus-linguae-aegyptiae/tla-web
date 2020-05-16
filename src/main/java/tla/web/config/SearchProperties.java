@@ -15,4 +15,6 @@ public class SearchProperties {
 
     private Map<String, List<String>> wordClasses;
 
+    private Map<String, List<String>> annotationTypes;
+
 }

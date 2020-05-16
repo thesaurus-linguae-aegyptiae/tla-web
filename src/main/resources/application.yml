@@ -98,6 +98,9 @@ search:
             - verb_5-inf
             - verb_caus_3-gem
 
+    annotation-types:
+        lemma: []
+
 ---
 
 logging:
