@@ -1,12 +1,12 @@
 package tla.web.mvc;
 
 import tla.domain.command.LemmaSearch;
-import tla.domain.dto.DocumentDto;
-import tla.domain.dto.extern.SearchResultsWrapper;
+import tla.domain.dto.extern.PageInfo;
 import tla.domain.model.Language;
 import tla.domain.model.Script;
 import tla.web.model.Lemma;
 import tla.web.model.ObjectDetails;
+import tla.web.model.SearchResults;
 import tla.web.model.ui.TemplateModelName;
 import tla.web.service.LemmaService;
 import tla.web.service.ObjectService;
@@ -17,7 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -55,12 +54,18 @@ public class LemmaController extends ObjectController<Lemma> {
     }
 
     @RequestMapping(value="/search", method=RequestMethod.GET)
-    public @ResponseBody SearchResultsWrapper<DocumentDto> search(
-        @ModelAttribute("lemmaSearchForm") LemmaSearch form
-    )
-    {
-        log.info("{}", form);
-        return lemmaService.search(form);
+    public String search(
+        @ModelAttribute("lemmaSearchForm") LemmaSearch form,
+        @ModelAttribute("page") PageInfo page,
+        Model model
+    ) {
+        log.info("form: {}", form);
+        log.info("page: {}", page);
+        SearchResults results = lemmaService.search(form);
+        model.addAttribute("searchResults", results.getObjects());
+        model.addAttribute("searchQuery", results.getQuery());
+        model.addAttribute("page", results.getPage());
+        return String.format("%s/search_results", getTemplatePath());
     }
 
 }

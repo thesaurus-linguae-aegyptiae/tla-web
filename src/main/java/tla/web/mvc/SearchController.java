@@ -14,6 +14,7 @@ import tla.domain.command.LemmaSearch;
 import tla.domain.model.Language;
 import tla.domain.model.Script;
 import tla.web.config.SearchProperties;
+import tla.web.model.ui.BreadCrumb;
 
 @Controller
 @RequestMapping("/search")
@@ -37,9 +38,21 @@ public class SearchController {
         return searchConfig.getWordClasses();
     }
 
+    @ModelAttribute("lemmaAnnotationTypes")
+    public Map<String, List<String>> getLemmaAnnotationTypes() {
+        return searchConfig.getAnnotationTypes();
+    }
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String mainSearchPage(Model model) {
         model.addAttribute("lemmaSearchForm", new LemmaSearch());
+        model.addAttribute(
+            "breadcrumbs",
+            List.of(
+                BreadCrumb.of("/", "menu_global_home"),
+                BreadCrumb.of("/search", "menu_global_search")
+            )
+        );
         return "search";
     }
 
