@@ -32,7 +32,7 @@ public class LemmaDetailsTest {
     private TlaClient backendClient;
 
     @SuppressWarnings("unchecked")
-    private SingleDocumentWrapper<DocumentDto> lemmaDetails(String id) {
+    private SingleDocumentWrapper<DocumentDto> lemmaDetails(String id) throws Exception {
         return tla.domain.util.IO.loadFromFile(
             String.format(
                 "src/test/resources/sample/data/lemma/details/%s.json",
@@ -42,7 +42,7 @@ public class LemmaDetailsTest {
         );
     }
 
-    private void respondToDetailsRequestWithLemma(String id) {
+    private void respondToDetailsRequestWithLemma(String id) throws Exception {
         when(backendClient.retrieveObject(Lemma.class, id)).thenReturn(lemmaDetails(id));
     }
 
