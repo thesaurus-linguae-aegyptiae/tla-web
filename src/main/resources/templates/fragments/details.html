@@ -14,7 +14,7 @@
         <h2 class="id mt-1">
         <span class="bbaw-libertine" th:text="${obj.name}">Object name</span>
         </h2>
-        <a th:title="'Review status: ' + ${obj.reviewState}">
+        <a th:title="|Review status: ${obj.reviewState}|">
         <span class="solo-icon red-status float-right">
             <span class="fa-check-circle" th:classappend="${#strings.equals(obj.reviewState, 'published')} ? ok : pending">
             </span>
@@ -29,8 +29,8 @@
             <strong th:text="#{object_property_external_references}" class="details-property-label">External
                 references</strong>
         </p>
-        <div th:each="entry : ${obj.externalReferences}" class="align-items-start" th:id="'external-references-' + ${entry.key}">
-            <span th:text="#{'external_reference_provider_' + ${entry.key}}" class="external-reference-provider pr-2">Provider</span>
+        <div th:each="entry : ${obj.externalReferences}" class="align-items-start" th:id="|external-references-${entry.key}|">
+            <span th:text="#{|external_reference_provider_${entry.key}|}" class="external-reference-provider pr-2">Provider</span>
             <span class="external-reference" th:each="ref : ${entry.value}">
                 <a th:if="${ref.href} != null" th:href="${ref.href}">
                     <span class="fas fa-arrow-circle-right red"></span>
@@ -105,7 +105,7 @@
         </div>
         <div class="review-state">
             <strong class="details-property-label" th:text="#{object_property_review_state}">Review State:</strong>
-            <span th:text="#{'review_state_' + ${obj.reviewState}}">status</span>
+            <span th:text="#{|review_state_${obj.reviewState}|}">status</span>
         </div>
     </div>
 
@@ -132,7 +132,7 @@
     <div th:fragment="lemma-property-dict" id="lemma-property-dict">
         <hr/>
         <strong th:text="#{lemma_property_dict}" class="details-property-label">Dictionary:</strong>
-        <span th:text="#{'dict_' + ${obj.dictionaryName}}">Hieratic/Demotic/Coptic</span>
+        <span th:text="#{|dict_${obj.dictionaryName}|}">Hieratic/Demotic/Coptic</span>
     </div>
 
     <!-- Lemma Attestations -->
@@ -152,12 +152,12 @@
         <strong th:text="#{lemma_property_related_objects}" class="details-property-label">Related Lemmata</strong>
         <div class="row py-1" th:each="predicate : ${obj.relations}">
             <div class="pl-0 col-md-2">
-                <span th:text="#{${objectType} + '_relation_predicate_' + ${predicate.key}}" class="details-property-label">Predicate</span>
+                <span th:text="#{|${objectType}_relation_predicate_${predicate.key}|}" class="details-property-label">Predicate</span>
             </div>
             <div class="col-md-10">
                 <div class="d-flex justify-content-between" th:each="relatedObject : ${predicate.value}" th:object="${relatedObject}">
                     <span class="bbaw-libertine" th:text="*{name}"></span>
-                    <span th:text="'(' + *{id} + ')'"></span>
+                    <span th:text="|(*{id})|"></span>
                     <span th:text="*{eclass}"></span>
                     <span th:text="*{type}"/>
                 </div>
@@ -170,9 +170,9 @@
 
     <!-- POS/type -->
     <span th:fragment="lemma-pos" id="lemma-pos">
-        <span th:text="#{'pos_type_' + ${obj.type}}" class="lemma-type">Type</span>
+        <span th:text="#{|pos_type_${obj.type}|}" class="lemma-type">Type</span>
         <span th:if="${obj.subtype}">
-          (<span th:text="#{'pos_subtype_' + ${obj.subtype}}" class="lemma-subtype">Subtype</span>)
+          (<span th:text="#{|pos_subtype_${obj.subtype}|}" class="lemma-subtype">Subtype</span>)
         </span>
     </span>
 

@@ -28,7 +28,7 @@
               <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard('{{obj.id}}')"><span class="fas fa-clipboard"></span>Copy ID</button>
               <br/>
               <strong>Persistent URL:</strong>
-              <span th:text="${env.baseUrl} + '/lemma/' + ${obj.id}">http://tla.bbaw.de/lemma/xxx</span>
+              <span th:text="|${env.baseUrl}/lemma/${obj.id}|">http://tla.bbaw.de/lemma/xxx</span>
               <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard('TLA lemma ID {{obj.id}} ({{obj.name}}), &lt;{{env.baseUrl}}/lemma/{{obj.id}}&gt;, in: {{tlaTitle}} &lt;{{tlaBaseURL}}&gt;, Version {{tlaVersion}}.{{tlaIssue}}, {{tlaReleaseDate}}, ed. by {{tlaEditor}} (accessed: {{dateToday}})');">
                 <span class="fas fa-clipboard"></span>Copy citation
               </button>
