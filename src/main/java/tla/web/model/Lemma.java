@@ -8,15 +8,18 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Singular;
 import lombok.experimental.SuperBuilder;
+import tla.domain.dto.LemmaDto;
 import tla.domain.model.Language;
 import tla.domain.model.Script;
 import tla.domain.model.extern.AttestedTimespan;
 import tla.domain.model.meta.BTSeClass;
+import tla.domain.model.meta.TLADTO;
 
 @Data
 @SuperBuilder
 @NoArgsConstructor
 @BackendPath("lemma")
+@TLADTO(LemmaDto.class)
 @BTSeClass("BTSLemmaEntry")
 @EqualsAndHashCode(callSuper = true)
 public class Lemma extends TLAObject {

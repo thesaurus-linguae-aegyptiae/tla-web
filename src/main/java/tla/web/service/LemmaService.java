@@ -37,7 +37,7 @@ public class LemmaService extends ObjectService<Lemma> {
      * TODO: should probably be a method of the object details container itself.
      */
     public List<Annotation> extractAnnotations(ObjectDetails<Lemma> container) {
-        Map<String, Map<String, TLAObject>> related = container.getRelatedObjects();
+        Map<String, Map<String, TLAObject>> related = container.getRelated();
         if (related != null && related.containsKey("BTSAnnotation") && !related.get("BTSAnnotation").isEmpty()) {
             return related.get("BTSAnnotation").values().stream().map(
                 relatedObject -> relatedObject instanceof Annotation ? (Annotation) relatedObject : null
