@@ -77,7 +77,7 @@ public class LemmaDetailsTest {
         testResponse.andExpect(
             xpath("//div[@id='lemma-property-part-of-speech']").exists()
         ).andExpect(
-            xpath("//span[@id='lemma-pos']").exists()
+            xpath("//div[@id='lemma-property-part-of-speech']//span[@id='object-type-subtype']").exists()
         );
     }
 

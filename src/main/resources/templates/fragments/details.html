@@ -177,7 +177,7 @@
     <!-- "Atoms" -->
 
     <!-- POS/type -->
-    <span th:fragment="lemma-pos">
+    <span th:fragment="lemma-pos" id="object-type-subtype">
         <span th:text="#{|pos_type_${obj.type}|}" class="lemma-type">Type</span>
         <span th:if="${obj.subtype}">
           (<span th:text="#{|pos_subtype_${obj.subtype}|}" class="lemma-subtype">Subtype</span>)
