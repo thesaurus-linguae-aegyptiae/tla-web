@@ -674,9 +674,8 @@ footer.bg-light {
 
 }
 
-#details-content .content-field {
+.details-header {
     border-bottom: 2px solid #EEE !important;
-    padding-top: 1rem;
 }
 
 #details-content .details-property-label::after {
@@ -693,10 +692,6 @@ footer.bg-light {
 
 #details-content .editor {
     margin-right: 1em;
-}
-
-.comment.content-field {
-    border-bottom: 0 !important;
 }
 
 .comment-wrapper.hide-comment {

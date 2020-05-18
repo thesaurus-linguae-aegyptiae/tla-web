@@ -42,7 +42,7 @@ public class LemmaDetailsTest {
     };
 
     @SuppressWarnings("unchecked")
-    private SingleDocumentWrapper<DocumentDto> lemmaDetails(String id) {
+    private SingleDocumentWrapper<DocumentDto> lemmaDetails(String id) throws Exception {
         return tla.domain.util.IO.loadFromFile(
             String.format(
                 "src/test/resources/sample/data/lemma/details/%s.json",
@@ -52,7 +52,7 @@ public class LemmaDetailsTest {
         );
     }
 
-    private void respondToDetailsRequestWithLemma(String id) {
+    private void respondToDetailsRequestWithLemma(String id) throws Exception {
         when(backendClient.retrieveObject(Lemma.class, id)).thenReturn(lemmaDetails(id));
     }
 
@@ -78,8 +78,8 @@ public class LemmaDetailsTest {
         respondToDetailsRequestWithLemma(id);
         // There is no 'vega' provider in the application properties but vega external reference should be displayed regardlesz
         ResultActions testResponse = makeDetailsRequest(id);
-        //testBasicStructure(testResponse);
-        XpathResultMatchers vega = xpath("//div[@id='external-references-vega']/div/span[@class='external-reference-provider']/text()");
+        testBasicStructure(testResponse);
+        XpathResultMatchers vega = xpath("//div[@id='external-references-vega']/span[contains(@class,'external-reference-provider')]/text()");
         testResponse.andExpect(
             vega.exists()
         ).andExpect(

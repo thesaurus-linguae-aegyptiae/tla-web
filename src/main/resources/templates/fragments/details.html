@@ -3,46 +3,45 @@
 
 <body>
 
-    <!-- Object details header (name && review state) -->
-    <div th:fragment="review-state" id="review-state" class="row search-entries detail mb-3">
-        <div class="col-sm-12 col-lg-8 result">
-          <h2 class="id mt-1">
-            <span class="bbaw-libertine" th:text="${obj.name}">Object name</span>
-          </h2>
-          <a th:title="'Review status: ' + ${obj.reviewState}">
-            <span class="solo-icon red-status float-right">
-              <span th:text="#{'review_state_' + ${obj.reviewState}}"></span>
-              <span class="fa-check-circle" th:classappend="${#strings.equals(obj.reviewState, 'published')} ? ok : pending">
-              </span>
-            </span>
-          </a>
-        </div>
+    <!-- Object details page header (incl. social media stuff) -->
+    <div th:fragment="details-page-header" class="row mb-3 details-header">
+        <div th:replace=" :: review-state"/>
         <div th:replace="fragments/common :: social"/>
     </div>
 
-    <!-- Verweise -->
+    <!-- Object details header (name && review state) -->
+    <div th:fragment="review-state" id="review-state" class="col-sm-12 col-lg-8 d-flex justify-content-between align-items-end">
+        <h2 class="id mt-1">
+          <span class="bbaw-libertine" th:text="${obj.name}">Object name</span>
+        </h2>
+        <a th:title="'Review status: ' + ${obj.reviewState}">
+          <span class="solo-icon red-status float-right">
+            <span class="fa-check-circle" th:classappend="${#strings.equals(obj.reviewState, 'published')} ? ok : pending">
+            <span th:text="#{'review_state_' + ${obj.reviewState}}"></span>
+            </span>
+        </span>
+        </a>
+    </div>
+
+    <!-- External references -->
     <div th:fragment="external-references" id="external-references" th:if="${obj.externalReferences} != null">
         <hr />
         <p>
             <strong th:text="#{object_property_external_references}" class="details-property-label">External
                 references</strong>
         </p>
-        <div th:each="entry : ${obj.externalReferences}" class="row align-items-start" th:id="'external-references-' + ${entry.key}">
-            <div class="col-4 my-0 py-0">
-                <span th:text="#{'external_reference_provider_' + ${entry.key}}" class="external-reference-provider">Provider</span>
-            </div>
-            <div class="col-8">
-                <div th:each="ref : ${entry.value}" class="external-reference">
-                    <a th:if="${ref.href} != null" th:href="${ref.href}">
-                        <span class="fas fa-arrow-circle-right red"></span>
-                        <span th:text="${ref.value}" class="external-reference-id">ext. Identifier</span>
-                    </a>
-                    <span th:unless="${ref.href} != null">
-                        <span th:text="${ref.value}" class="external-reference-id"></span>
-                        <span th:if="${ref.type} != null" th:text="${ref.type}" class="external-reference-type"/>
-                    </span>
-                </div>
-            </div>
+        <div th:each="entry : ${obj.externalReferences}" class="align-items-start" th:id="'external-references-' + ${entry.key}">
+            <span th:text="#{'external_reference_provider_' + ${entry.key}}" class="external-reference-provider pr-2">Provider</span>
+            <span class="external-reference" th:each="ref : ${entry.value}">
+                <a th:if="${ref.href} != null" th:href="${ref.href}">
+                    <span class="fas fa-arrow-circle-right red"></span>
+                    <span th:text="${ref.value}" class="external-reference-id">ext. Identifier</span>
+                </a>
+                <span th:unless="${ref.href} != null">
+                    <span th:text="${ref.value}" class="external-reference-id"></span>
+                    <span th:if="${ref.type} != null" th:text="${ref.type}" class="external-reference-type"/>
+                </span>
+            </span>
         </div>
     </div>
 

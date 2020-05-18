@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}"
+>
+  <head>
+    <title>Lemma Search</title>
+  </head>
+
+  <body>
+
+    <div layout:fragment="content">
+      <div th:each="obj : ${searchResults}" class="search-result" th:id="${obj.id}">
+        <div class="search-result-id" th:text="${obj.id}"/>
+        <div class="search-result-name" th:text="${obj.name}"/>
+      </div>
+
+    </div>
+
+  </body>
+</html>
