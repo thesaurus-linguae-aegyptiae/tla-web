@@ -105,8 +105,8 @@ public class LemmaService extends ObjectService<Lemma> {
         }
     }
 
-    public SearchResults search(LemmaSearch command) {
-        SearchResultsWrapper<DocumentDto> response = backend.lemmaSearch(command);
+    public SearchResults search(LemmaSearch command, Integer page) {
+        SearchResultsWrapper<DocumentDto> response = backend.lemmaSearch(command, page);
         SearchResults container = SearchResults.from(response);
         return container;
     }

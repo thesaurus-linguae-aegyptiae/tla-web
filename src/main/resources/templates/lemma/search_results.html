@@ -15,6 +15,16 @@
         <div class="search-result-name" th:text="${obj.name}"/>
       </div>
 
+      <nav aria-label="Pagination" th:object="${pagination}">
+        <span th:text="*{currentPage}"/>
+        <span th:text="*{pages}"/>
+        <ul class="pagination" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder)}">
+          <li th:each="page : *{pages}" class="page-item">
+            <a class="page-link" th:href="${urlBuilder.fromCurrentRequest().replaceQueryParam('page', page).toUriString()}" th:text="${page}">Page#</a>
+          </li>
+        </ul>
+      </nav>
+
     </div>
 
   </body>

@@ -11,7 +11,7 @@ import tla.domain.dto.DocumentDto;
 import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.web.repo.TlaClient;
 
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -37,7 +37,7 @@ public class LemmaSearchResultsTest {
             SearchResultsWrapper.class
         );
         when(
-            backendClient.lemmaSearch(any())
+            backendClient.lemmaSearch(any(), anyInt())
         ).thenReturn(
             dto
         );
