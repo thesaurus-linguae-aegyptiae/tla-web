@@ -4,14 +4,11 @@ import tla.domain.command.LemmaSearch;
 import tla.domain.dto.DocumentDto;
 import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
-import tla.domain.model.Script;
 import tla.web.model.Annotation;
-import tla.web.model.Glyphs;
 import tla.web.model.Lemma;
 import tla.web.model.ObjectDetails;
 import tla.web.model.SearchResults;
 import tla.web.model.TLAObject;
-import tla.web.model.Word;
 
 import org.springframework.stereotype.Service;
 
@@ -49,31 +46,6 @@ public class LemmaService extends ObjectService<Lemma> {
         } else {
             return null;
         }
-    }
-
-    /**
-     * Extract hieroglyphs from lemma words.
-     * Return null if only empty hieroglyphs can be found.
-     *
-     * @param lemma Lemma object from internal model
-     * @return List of all lemma word hieroglyphs, or null if there are no hieroglyphs at all
-     */
-    public List<Glyphs> extractHieroglyphs(Lemma lemma) {
-        if (!lemma.getDictionaryName().equals(Script.DEMOTIC)) {
-            List<Glyphs> hieroglyphs = lemma.getWords().stream().map(
-                Word::getGlyphs
-            ).collect(
-                Collectors.toList()
-            );
-            if (hieroglyphs.stream().allMatch(
-                glyphs -> glyphs == null || glyphs.isEmpty()
-            )) {
-                return null;
-            } else {
-                return hieroglyphs;
-            }
-        }
-        return null;
     }
 
     /**

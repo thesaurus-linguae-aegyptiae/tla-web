@@ -121,12 +121,10 @@
     </div>
 
     <!-- Lemma details hieroglyphs -->
-    <div th:fragment="lemma-property-hieroglyphs" id="lemma-property-hieroglyphs" th:unless="${hieroglyphs} == null">
+    <div th:fragment="lemma-property-hieroglyphs" id="lemma-property-hieroglyphs" th:unless="${obj.hieroglyphs} == null">
         <p>
             <strong th:text="#{lemma_property_hieroglyphs}" class="details-property-label">Hieroglyphic spelling(s):</strong>
-            <span th:each="glyphs : ${hieroglyphs}">
-              <span class="hieroglyphs" th:title="${glyphs.mdc}" th:utext="${glyphs.svg}"/>
-            </span>
+            <span th:replace=" :: hieroglyphs(${obj.hieroglyphs})"/>
           </p>
     </div>
 
@@ -158,6 +156,11 @@
         <span th:if="${obj.subtype}">
           (<span th:text="#{'pos_subtype_' + ${obj.subtype}}" class="lemma-subtype">Subtype</span>)
         </span>
+    </span>
+
+    <!-- hieroglyph list -->
+    <span th:fragment="hieroglyphs(hieroglyphs)" th:each="glyphs : ${hieroglyphs}">
+        <span class="hieroglyphs" th:title="${glyphs.mdc}" th:utext="${glyphs.svg}"/>
     </span>
 
 

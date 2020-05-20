@@ -45,7 +45,6 @@ public class LemmaController extends ObjectController<Lemma> {
 
     @Override
     protected Model compileSingleObjectDetailsModel(Model model, ObjectDetails<Lemma> container) {
-        model.addAttribute("hieroglyphs", lemmaService.extractHieroglyphs(container.getObject()));
         model.addAttribute("bibliography", lemmaService.extractBibliography(container.getObject()));
         model.addAttribute("annotations", lemmaService.extractAnnotations(container));
         return model;

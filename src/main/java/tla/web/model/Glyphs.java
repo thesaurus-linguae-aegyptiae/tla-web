@@ -21,6 +21,7 @@ public class Glyphs {
     public static Glyphs of(String mdc) {
         return Glyphs.builder()
             .mdc(mdc)
+            .unicode(mdc)
             .svg(Util.jseshRender(mdc))
             .build();
     }
@@ -29,7 +30,8 @@ public class Glyphs {
      * Returns true if all attributes are actually empty.
      */
     public boolean isEmpty() {
-        return this.unicode == null && this.mdc == null;
+        return (this.unicode == null || this.unicode.isBlank())
+            && (this.mdc == null || this.mdc.isBlank());
     }
 
 }
