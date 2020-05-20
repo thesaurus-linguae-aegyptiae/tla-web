@@ -18,6 +18,8 @@ import java.util.Map.Entry;
 import org.springframework.http.HttpHeaders;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 @SpringBootTest
 public class SearchFormTest extends ViewTest {
@@ -43,10 +45,11 @@ public class SearchFormTest extends ViewTest {
         return null;
     }
 
-    @Test
-    void searchPage() throws Exception {
+    @ParameterizedTest
+    @EnumSource(Language.class)
+    void searchPage(Language lang) throws Exception {
         ResultActions result = mockMvc.perform(
-                get("/search").header(HttpHeaders.ACCEPT_LANGUAGE, "en")
+                get("/search").header(HttpHeaders.ACCEPT_LANGUAGE, lang)
             ).andDo(print());
         result.andExpect(status().isOk())
             .andExpect(
@@ -55,7 +58,7 @@ public class SearchFormTest extends ViewTest {
             .andExpect(
                 xpath("//select[@id='word-class-type-hidden-options-entity_name']").exists()
             );
-        testLocalization(result, "en");
+        testLocalization(result, lang);
         String emptyWordClass = getWordClassWithoutSubtypes();
         if (emptyWordClass != null) {
             result.andExpect(

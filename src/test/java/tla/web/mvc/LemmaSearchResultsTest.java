@@ -15,7 +15,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 @SpringBootTest
 public class LemmaSearchResultsTest extends ViewTest {
@@ -23,9 +24,10 @@ public class LemmaSearchResultsTest extends ViewTest {
     @MockBean
     private TlaClient backendClient;
 
-    @Test
     @SuppressWarnings("unchecked")
-    void countSearchResults() throws Exception {
+    @ParameterizedTest
+    @EnumSource(Language.class)
+    void countSearchResults(Language lang) throws Exception {
         SearchResultsWrapper<DocumentDto> dto = tla.domain.util.IO.loadFromFile(
             "src/test/resources/sample/data/lemma/search/demotic_translation_de.json",
             SearchResultsWrapper.class
@@ -36,11 +38,11 @@ public class LemmaSearchResultsTest extends ViewTest {
             dto
         );
         ResultActions testResponse = mockMvc.perform(
-            get("/lemma/search").header(HttpHeaders.ACCEPT_LANGUAGE, "en")
+            get("/lemma/search").header(HttpHeaders.ACCEPT_LANGUAGE, lang)
         ).andDo(print()).andExpect(
             status().isOk()
         );
-        testLocalization(testResponse, "en");
+        testLocalization(testResponse, lang);
         testResponse.andExpect(
             xpath("//div[contains(@class,'result-list-item')]").nodeCount(dto.getContent().size())
         ).andExpect(

@@ -12,10 +12,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class ViewTest {
 
+    public static enum Language {
+        en;
+    }
+
     @Autowired
     protected MockMvc mockMvc;
 
-    void testLocalization(ResultActions testResponse, String lang) throws Exception {
+    void testLocalization(ResultActions testResponse, Language lang) throws Exception {
         testResponse.andExpect(
             content().string(
                 not(containsString(
