@@ -6,10 +6,13 @@ import tla.domain.model.Script;
 import tla.web.model.Lemma;
 import tla.web.model.ObjectDetails;
 import tla.web.model.SearchResults;
+import tla.web.model.ui.BreadCrumb;
 import tla.web.model.ui.Pagination;
 import tla.web.model.ui.TemplateModelName;
 import tla.web.service.LemmaService;
 import tla.web.service.ObjectService;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +21,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/lemma")
@@ -57,6 +63,19 @@ public class LemmaController extends ObjectController<Lemma> {
         Model model
     ) throws Exception {
         SearchResults results = lemmaService.search(form, Integer.parseInt(page));
+        model.addAttribute("breadcrumbs",
+            List.of(
+                BreadCrumb.of("/", "menu_global_home"),
+                BreadCrumb.of(
+                    ServletUriComponentsBuilder.fromCurrentRequest().replacePath("search").toUriString(),
+                    "menu_global_search"
+                ),
+                BreadCrumb.of(
+                    ServletUriComponentsBuilder.fromCurrentRequest().replaceQueryParam("page", "1").toUriString(),
+                    "menu_global_search_lemma"
+                )
+            )
+        );
         model.addAttribute("searchResults", results.getObjects());
         model.addAttribute("searchQuery", results.getQuery());
         model.addAttribute("page", results.getPage());
