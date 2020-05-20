@@ -1,3 +1,5 @@
+@import url("roboto.css");
+
 /*!
  * TLA - styles
  */
@@ -202,6 +204,11 @@ a.navbar-brand {
 
 .result-list-item:hover h2 .hieroglyph {
     background-color: white;
+}
+
+.result-list-item .lemma-pos {
+    font-weight: 300;
+    font-style: italic;
 }
 
 .result-list-item h2.word .svg-inline--fa {
@@ -591,11 +598,6 @@ ul.annotation-block li.translations {
 .sentence-id-button {
     /* BUG: ragt in nächste Zeile */
     /*float: right;*/
-}
-
-.word-class-type {
-    font-style: italic;
-    font-weight: 100;
 }
 
 .word-class-subtype {

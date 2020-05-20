@@ -104,6 +104,7 @@ task installAssets {
     description = 'Download and install third-party JS/CSS frameworks and libraries'
     dependsOn 'installBootstrap'
     dependsOn 'installFontAwesome'
+    dependsOn 'installFontRoboto'
 }
 
 def createDownloadAssetTask(String name, String url, String destFile) {
@@ -115,6 +116,7 @@ def createDownloadAssetTask(String name, String url, String destFile) {
     description = "Download && install ${name}"
     src "${url}"
     dest file("${staticDir}/vendor/${destFile}")
+    onlyIfModified true
   }
 }
 
@@ -142,6 +144,14 @@ task downloadBootstrap(type: Download) {
     onlyIfModified true
 }
 
+task downloadFontRoboto(type: Download) {
+    group = 'Init'
+    description = 'Download Google Roboto font'
+    src 'https://google-webfonts-helper.herokuapp.com/api/fonts/roboto?download=zip&subsets=latin&variants=300,500,700,300italic,regular,italic,700italic'
+    dest new File(buildDir, 'roboto.zip')
+    onlyIfModified true
+}
+
 task installFontAwesome(dependsOn: downloadFontAwesome, type: Copy) {
     group = 'Init'
     description = 'Installs fontawesome distribution into assets directory'
@@ -154,6 +164,13 @@ task installBootstrap(dependsOn: downloadBootstrap, type: Copy) {
     description = 'Installs bootstrap distribution into assets directory'
     from zipTree(downloadBootstrap.dest)
     into file("${staticDir}/vendor")
+}
+
+task installFontRoboto(dependsOn: downloadFontRoboto, type: Copy) {
+    group = 'Init'
+    description = 'Installs Google Roboto font'
+    from zipTree(downloadFontRoboto.dest)
+    into file("${staticDir}/font")
 }
 
 task cleanAssets(type: Delete) {

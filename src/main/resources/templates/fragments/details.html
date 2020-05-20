@@ -150,8 +150,8 @@
 
     <!-- "Atoms" -->
 
-    <!-- POS/type -->
-    <span th:fragment="lemma-pos" id="lemma-pos">
+    <!-- Lemma Part of Speech -->
+    <span th:fragment="lemma-pos" id="lemma-pos" class="lemma-pos">
         <span th:text="#{'pos_type_' + ${obj.type}}" class="lemma-type">Type</span>
         <span th:if="${obj.subtype}">
           (<span th:text="#{'pos_subtype_' + ${obj.subtype}}" class="lemma-subtype">Subtype</span>)
