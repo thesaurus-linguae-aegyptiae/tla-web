@@ -3,6 +3,8 @@
 
   <body>
 
+    <!-- dictionary search form -->
+
     <form id="dict-search" name="dict-search" th:action="@{/lemma/search}" th:object="${lemmaSearchForm}" method="get">
       <div class="form-group row bg-grey">
         <label class="col-form-label col-xl-2" th:text="#{field_label_script}">Script</label>
@@ -140,6 +142,15 @@
       </nav>
 
 
+      <!-- result page description -->
+
+      <p class="result-page-desc" th:object="${pagination}" th:fragment="result-page-desc">
+        <span th:text="#{result_page_description_left}">Results:</span>
+        <b th:text="|*{fromResult} - *{toResult}|">1 - 24</b>
+        <span th:text="#{result_page_description_middle}">of</span>
+        <b th:text="*{totalResults}">140</b>
+        <span th:text="#{|result_page_description_right_${objectType}|}">dictionary entries</span>
+      </p>
 
 
   </body>

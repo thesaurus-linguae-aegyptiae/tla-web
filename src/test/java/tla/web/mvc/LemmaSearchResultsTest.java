@@ -1,10 +1,8 @@
 package tla.web.mvc;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.ResultActions;
 
 import tla.domain.dto.DocumentDto;
@@ -20,11 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.jupiter.api.Test;
 
 @SpringBootTest
-@AutoConfigureMockMvc
-public class LemmaSearchResultsTest {
-
-    @Autowired
-    private MockMvc mockMvc;
+public class LemmaSearchResultsTest extends ViewTest {
 
     @MockBean
     private TlaClient backendClient;
@@ -42,12 +36,17 @@ public class LemmaSearchResultsTest {
             dto
         );
         ResultActions testResponse = mockMvc.perform(
-            get("/lemma/search")
+            get("/lemma/search").header(HttpHeaders.ACCEPT_LANGUAGE, "en")
         ).andDo(print()).andExpect(
             status().isOk()
         );
+        testLocalization(testResponse, "en");
         testResponse.andExpect(
-            xpath("//div[@class='search-result']").nodeCount(dto.getContent().size())
+            xpath("//div[contains(@class,'result-list-item')]").nodeCount(dto.getContent().size())
+        ).andExpect(
+            xpath("//p[contains(@class,'result-page-desc')]").exists()
+        ).andExpect(
+            xpath("//p[contains(@class,'result-page-desc')]/b[1]/text()").string("21 - 38")
         );
     }
 

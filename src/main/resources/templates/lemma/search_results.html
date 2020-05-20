@@ -11,6 +11,10 @@
 
     <div layout:fragment="content">
 
+      <div class="search-header">
+        <p th:replace="fragments/search :: result-page-desc"/>
+      </div>
+
       <div class="row">
         <div class="col-lg-8 result-list">
           <nav th:replace="fragments/search :: search-results-pagination"/>

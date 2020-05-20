@@ -674,7 +674,7 @@ footer.bg-light {
 
 }
 
-.details-header {
+.details-header, .search-header {
     border-bottom: 2px solid #EEE !important;
 }
 
