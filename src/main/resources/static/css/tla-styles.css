@@ -1,3 +1,5 @@
+@import url("roboto.css");
+
 /*!
  * TLA - styles
  */
@@ -202,6 +204,11 @@ a.navbar-brand {
 
 .result-list-item:hover h2 .hieroglyph {
     background-color: white;
+}
+
+.result-list-item .object-type-subtype {
+    font-weight: 300;
+    font-style: italic;
 }
 
 .result-list-item h2.word .svg-inline--fa {
@@ -593,11 +600,6 @@ ul.annotation-block li.translations {
     /*float: right;*/
 }
 
-.word-class-type {
-    font-style: italic;
-    font-weight: 100;
-}
-
 .word-class-subtype {
     font-weight: 100;
     font-family: "Roboto Condensed";
@@ -665,7 +667,7 @@ footer.bg-light {
     text-decoration: none;
 }
 
-.details-content .row {
+#details-content .row {
     margin: 0 !important;
 }
 
@@ -674,23 +676,23 @@ footer.bg-light {
 
 }
 
-.details-header {
+.details-header, .search-header {
     border-bottom: 2px solid #EEE !important;
 }
 
-.details-content .details-property-label::after {
+#details-content .details-property-label::after {
     content: ":";
 }
 
-.details-content .external-reference-id {
+#details-content .external-reference-id {
     font-style: italic;
 }
 
-.details-content .bibliographic-reference {
+#details-content .bibliographic-reference {
     margin-right: 1em;
 }
 
-.details-content .editor {
+#details-content .editor {
     margin-right: 1em;
 }
 
@@ -722,7 +724,7 @@ footer.bg-light {
     z-index: 50;
 }
 
-.details-content p.relations span {
+#details-content p.relations span {
     font-style: italic;
     font-weight: bold;
     padding-left: .5rem;

@@ -2,6 +2,7 @@ package tla.web.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -93,17 +94,17 @@ public class ServiceTest {
             SearchResultsWrapper.class
         );
         when(
-            backend.lemmaSearch(any())
+            backend.lemmaSearch(any(), anyInt())
         ).thenReturn(
             wrap
         );
         assertNotNull(wrap);
-        SearchResultsWrapper<DocumentDto> dto = backend.lemmaSearch(new LemmaSearch());
+        SearchResultsWrapper<DocumentDto> dto = backend.lemmaSearch(new LemmaSearch(), 1);
         assertAll("assert that deserialization from file works",
             () -> assertNotNull(dto),
             () -> assertNotNull(dto.getContent())
         );
-        SearchResults result = lemmaService.search(new LemmaSearch());
+        SearchResults result = lemmaService.search(new LemmaSearch(), 1);
         assertAll("test mapping from DTO to search result page frontend model",
             () -> assertNotNull(result.getObjects(), "search hits not null"),
             () -> assertNotNull(result.getQuery(), "query not null"),

@@ -29,7 +29,7 @@ public abstract class ObjectController<T extends TLAObject> {
      * is being used in order to locate the HTML template for the single object details
      * view, and for message properties for i18n.
      */
-    @ModelAttribute("objectType")
+    @ModelAttribute("objectType") // TODO: objecttype und template path trennen
     public String getTemplatePath() {
         if (this.templatePath == null) {
             for (Annotation a : getClass().getAnnotations()) {
