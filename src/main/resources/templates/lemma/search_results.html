@@ -10,20 +10,24 @@
   <body>
 
     <div layout:fragment="content">
-      <div th:each="obj : ${searchResults}" class="search-result" th:id="${obj.id}">
-        <div class="search-result-id" th:text="${obj.id}"/>
-        <div class="search-result-name" th:text="${obj.name}"/>
-      </div>
 
-      <nav aria-label="Pagination" th:object="${pagination}">
-        <span th:text="*{currentPage}"/>
-        <span th:text="*{pages}"/>
-        <ul class="pagination" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder)}">
-          <li th:each="page : *{pages}" class="page-item">
-            <a class="page-link" th:href="${urlBuilder.fromCurrentRequest().replaceQueryParam('page', page).toUriString()}" th:text="${page}">Page#</a>
-          </li>
-        </ul>
-      </nav>
+      <div class="row">
+        <div class="col-lg-8 result-list">
+          <nav th:replace="fragments/search :: search-results-pagination"/>
+
+          <div th:each="obj : ${searchResults}" class="result-list-item row" th:id="${obj.id}">
+            <span class="result-list-item-element" th:text="${obj.id}"/>
+            <h2 class="result-list-item-element bbaw-libertine" th:text="${obj.name}"/>
+          </div>
+
+          <nav th:replace="fragments/search :: search-results-pagination"/>
+        </div>
+
+        <!-- sidebar -->
+        <div class="col-lg-4 sidebar">
+
+        </div>
+      </div>
 
     </div>
 
