@@ -60,12 +60,12 @@
     </div>
 
     <!-- bibliography -->
-    <div class="bibliography" th:fragment="bibliography" id="bibliography" th:if="${bibliography} != null">
+    <div class="bibliography" th:fragment="bibliography" id="bibliography" th:if="${obj.bibliography} != null">
         <hr/>
         <p>
             <strong th:text="#{object_property_bibliography}" class="details-property-label">Bibliography</strong>
             <br/>
-            <span th:each="bib : ${bibliography}">
+            <span th:each="bib : ${obj.bibliography}">
                 <span class="fas fa-arrow-circle-right"></span>
                 <span class="bibliographic-reference" th:text="${bib}"></span>
             </span>

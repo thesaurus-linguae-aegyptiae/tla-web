@@ -96,6 +96,12 @@ public class LemmaDetailsTest extends ViewTest {
             xpath("//div[@id='lemma-property-part-of-speech']//span[@id='object-type-subtype']").exists()
         ).andExpect(
             xpath("//div[@id='details-content']/div[@id='lemma-property-attestations']").exists()
+        ).andExpect(
+            xpath("//div[contains(@class,'bibliography')]/p/span/span[contains(@class,'bibliographic-reference')]").nodeCount(3)
+		).andExpect(
+            xpath("//div[contains(@class,'bibliography')]/p/span/span[contains(@class,'bibliographic-reference')]/text()").string(
+                "Wb 1, 130.1-5"
+            )
         );
     }
 

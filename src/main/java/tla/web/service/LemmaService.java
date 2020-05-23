@@ -48,35 +48,6 @@ public class LemmaService extends ObjectService<Lemma> {
         }
     }
 
-    /**
-     * Extract bibliographic information from lemma.
-     *
-     * @param lemma Lemma object from internal model
-     * @return list of textual bibliographic references or null
-     */
-    public List<String> extractBibliography(Lemma lemma) {
-        try {
-            List<String> bibliography = new ArrayList<>();
-            lemma.getPassport().extractProperty(
-                "bibliography.bibliographical_text_field"
-            ).forEach(
-                node -> bibliography.addAll(
-                    Arrays.asList(
-                        node.getLeafNodeValue().split(";")
-                    ).stream().map(
-                        bibref -> bibref.strip()
-                    ).collect(
-                        Collectors.toList()
-                    )
-                )
-            );
-            return bibliography;
-        } catch (Exception e) {
-            log.warn("could not extract bibliography from lemma {}", lemma.getId());
-            return null;
-        }
-    }
-
     public SearchResults search(LemmaSearch command, Integer page) {
         SearchResultsWrapper<DocumentDto> response = backend.lemmaSearch(command, page);
         SearchResults container = SearchResults.from(response);
