@@ -23,8 +23,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Controller
 @RequestMapping("/lemma")
 @TemplateModelName("lemma")
