@@ -671,9 +671,8 @@ footer.bg-light {
     margin: 0 !important;
 }
 
-#details-content div.row {
+.details-content > div.row {
     padding: 1rem 0 !important;
-
 }
 
 .details-header, .search-header {
