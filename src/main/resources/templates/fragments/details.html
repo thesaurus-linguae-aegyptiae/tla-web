@@ -124,7 +124,7 @@
         <p>
             <strong th:text="#{lemma_property_hieroglyphs}" class="details-property-label">Hieroglyphic spelling(s):</strong>
             <span th:replace=" :: hieroglyphs(${obj.hieroglyphs})"/>
-          </p>
+        </p>
     </div>
 
     <!-- Lemma language phase / script / subdict -->
@@ -147,7 +147,6 @@
 
     <!-- Related Lemmata -->
     <div th:fragment="lemma-property-related-objects" id="lemma-property-related-objects" th:unless="${#maps.isEmpty(relations)}">
-
         <hr/>
         <strong th:text="#{lemma_property_related_objects}" class="details-property-label">Related Lemmata</strong>
         <div class="row py-1" th:each="predicate : ${relations}">

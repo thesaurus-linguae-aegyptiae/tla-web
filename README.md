@@ -4,17 +4,13 @@
 
 TLA web frontend.
 
-Depends on:
-
-- Spring Boot
-- [Thymeleaf Layout Dialect](https://ultraq.github.io/thymeleaf-layout-dialect/)
-- [Lombok](https://projectlombok.org/)
-- [JSesh](https://github.com/rosmord/jsesh)
-- [tla-common](https://github.com/JKatzwinkel/tla-common)
-- [tla-es](https://github.com/JKatzwinkel/tla-es)
-
 
 ## Usage
+
+Prerequisites:
+
+- Java 11
+- [tla-es](https://github.com/JKatzwinkel/tla-es)
 
 Install, populate, and run the [backend](https://github.com/JKatzwinkel/tla-es) first.
 
