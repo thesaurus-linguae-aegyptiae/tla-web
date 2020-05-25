@@ -44,8 +44,10 @@ public class SearchController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String mainSearchPage(Model model) {
-        model.addAttribute("lemmaSearchForm", new LemmaSearch());
+    public String mainSearchPage(
+        @ModelAttribute("lemmaSearchForm") LemmaSearch form,
+        Model model
+    ) {
         model.addAttribute(
             "breadcrumbs",
             List.of(

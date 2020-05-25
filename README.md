@@ -1,20 +1,16 @@
 ![Java CI](https://github.com/JKatzwinkel/tla-web/workflows/build/badge.svg)
-![LINE](https://img.shields.io/badge/line--coverage-90%25-brightgreen.svg)
-![METHOD](https://img.shields.io/badge/method--coverage-67%25-yellow.svg)
+![LINE](https://img.shields.io/badge/line--coverage-91%25-brightgreen.svg)
+![METHOD](https://img.shields.io/badge/method--coverage-73%25-yellow.svg)
 
 TLA web frontend.
 
-Depends on:
-
-- Spring Boot
-- [Thymeleaf Layout Dialect](https://ultraq.github.io/thymeleaf-layout-dialect/)
-- [Lombok](https://projectlombok.org/)
-- [JSesh](https://github.com/rosmord/jsesh)
-- [tla-common](https://github.com/JKatzwinkel/tla-common)
-- [tla-es](https://github.com/JKatzwinkel/tla-es)
-
 
 ## Usage
+
+Prerequisites:
+
+- Java 11
+- [tla-es](https://github.com/JKatzwinkel/tla-es)
 
 Install, populate, and run the [backend](https://github.com/JKatzwinkel/tla-es) first.
 

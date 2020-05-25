@@ -14,8 +14,8 @@
 
       <div th:replace="fragments/details :: details-page-header"/>
 
-      <div class="row details-content">
-        <div class="col-sm-12 col-lg-8">
+      <div class="row">
+        <div class="col-sm-12 col-lg-8" id="details-content">
 
           <div th:replace="fragments/details :: lemma-property-hieroglyphs"/>
 
@@ -51,15 +51,6 @@
         <!-- Sidebar large -->
         <div class="sidebar col-lg-4 d-none d-lg-block">
           <div class="sticky-top">
-            <!-- Navigation -->
-
-            <!--
-            <button type="button" class="btn btn-block btn-light text-left text-decoration-none mb-2" disabled><span class="fas fa-search-plus"></span>Select for combination search</button>
-            -->
-            <!--
-            <a href="javascript:history.back()"><button type="button" class="btn btn-block btn-red text-left text-decoration-none mb-2"><i class="fas fa-arrow-circle-left"></i>Back</button></a>
-            -->
-
             <!-- anstelle des historyBack sollte u.U. der Search-String verwendet werden -->
             <a href="/search"><button type="button" class="btn btn-block btn-red text-left text-decoration-none modify-search-btn"><span class="fas fa-arrow-circle-left"></span>Modify search</button></a>
           </div>

@@ -12,11 +12,12 @@
     <!-- Object details header (name && review state) -->
     <div th:fragment="review-state" id="review-state" class="col-sm-12 col-lg-8 d-flex justify-content-between align-items-end">
         <h2 class="id mt-1">
-        <span class="bbaw-libertine" th:text="${obj.name}">Object name</span>
+          <span class="bbaw-libertine" th:text="${obj.name}">Object name</span>
         </h2>
         <a th:title="'Review status: ' + ${obj.reviewState}">
-        <span class="solo-icon red-status float-right">
+          <span class="solo-icon red-status float-right">
             <span class="fa-check-circle" th:classappend="${#strings.equals(obj.reviewState, 'published')} ? ok : pending">
+            <span th:text="#{'review_state_' + ${obj.reviewState}}"></span>
             </span>
         </span>
         </a>
@@ -119,12 +120,10 @@
     </div>
 
     <!-- Lemma details hieroglyphs -->
-    <div th:fragment="lemma-property-hieroglyphs" id="lemma-property-hieroglyphs" th:unless="${hieroglyphs} == null">
+    <div th:fragment="lemma-property-hieroglyphs" id="lemma-property-hieroglyphs" th:unless="${obj.hieroglyphs} == null">
         <p>
             <strong th:text="#{lemma_property_hieroglyphs}" class="details-property-label">Hieroglyphic spelling(s):</strong>
-            <span th:each="glyphs : ${hieroglyphs}">
-              <span class="hieroglyphs" th:title="${glyphs.mdc}" th:utext="${glyphs.svg}"/>
-            </span>
+            <span th:replace=" :: hieroglyphs(${obj.hieroglyphs})"/>
         </p>
     </div>
 
@@ -168,12 +167,17 @@
 
     <!-- "Atoms" -->
 
-    <!-- POS/type -->
-    <span th:fragment="lemma-pos" id="lemma-pos">
+    <!-- Lemma Part of Speech -->
+    <span th:fragment="lemma-pos" id="lemma-pos" class="lemma-pos">
         <span th:text="#{'pos_type_' + ${obj.type}}" class="lemma-type">Type</span>
         <span th:if="${obj.subtype}">
           (<span th:text="#{'pos_subtype_' + ${obj.subtype}}" class="lemma-subtype">Subtype</span>)
         </span>
+    </span>
+
+    <!-- hieroglyph list -->
+    <span th:fragment="hieroglyphs(hieroglyphs)" th:each="glyphs : ${hieroglyphs}">
+        <span class="hieroglyphs" th:title="${glyphs.mdc}" th:utext="${glyphs.svg}"/>
     </span>
 
 

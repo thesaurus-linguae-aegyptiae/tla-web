@@ -2,6 +2,7 @@ package tla.web.model;
 
 import java.util.List;
 import java.util.SortedMap;
+import java.util.stream.Collectors;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -41,6 +42,30 @@ public class Lemma extends TLAObject {
     */
     public Script getDictionaryName() {
         return Script.ofLemmaId(this.getId());
+    }
+
+    /**
+     * Extract hieroglyphs from lemma words.
+     * Return null if only empty hieroglyphs can be found.
+     *
+     * @return List of all lemma word hieroglyphs, or null if there are no hieroglyphs at all
+     */
+    public List<Glyphs> getHieroglyphs() {
+        if (!this.getDictionaryName().equals(Script.DEMOTIC)) {
+            List<Glyphs> hieroglyphs = this.getWords().stream().map(
+                Word::getGlyphs
+            ).collect(
+                Collectors.toList()
+            );
+            if (hieroglyphs.stream().allMatch(
+                glyphs -> glyphs == null || glyphs.isEmpty()
+            )) {
+                return null;
+            } else {
+                return hieroglyphs;
+            }
+        }
+        return null;
     }
 
 }

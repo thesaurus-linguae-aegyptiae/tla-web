@@ -10,9 +10,38 @@
   <body>
 
     <div layout:fragment="content">
-      <div th:each="obj : ${searchResults}" class="search-result" th:id="${obj.id}">
-        <div class="search-result-id" th:text="${obj.id}"/>
-        <div class="search-result-name" th:text="${obj.name}"/>
+
+      <div class="search-header">
+        <p th:replace="fragments/search :: result-page-desc"/>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-8 result-list">
+          <nav th:replace="fragments/search :: search-results-pagination"/>
+
+          <div th:each="obj : ${searchResults}" class="result-list-item" th:id="${obj.id}" th:object="${obj}">
+            <div>
+              <h2 class="result-list-item-element transcription bbaw-libertine" th:text="*{name}">nfr</h2>
+              <span class="result-list-item-element hieroglyph" th:unless="*{hieroglyphs} == null">
+                <span th:replace="fragments/details :: hieroglyphs(*{hieroglyphs})">N35:G43</span>
+              </span>
+              <span class="result-list-item-element lemma-id badge badge-pill badge-secondary" th:text="*{id}">33410</span>
+            </div>
+
+            <div>
+              <span class="result-list-item-element word-class font-italic font-weight-light">
+                <span th:replace="fragments/details :: lemma-pos">Part of speech</span>
+              </span>
+            </div>
+          </div>
+
+          <nav th:replace="fragments/search :: search-results-pagination"/>
+        </div>
+
+        <!-- sidebar -->
+        <div class="col-lg-4 sidebar">
+
+        </div>
       </div>
 
     </div>
