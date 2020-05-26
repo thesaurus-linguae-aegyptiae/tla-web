@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import tla.domain.model.Passport;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LemmaTest {
@@ -41,4 +43,32 @@ public class LemmaTest {
         );
     }
 
+    @Test
+    void getBibliography() throws Exception {
+        Passport p = new Passport();
+        Passport b = new Passport();
+        b.add(
+            "bibliographical_text_field",
+            new Passport(
+                "Wb 1, 130.1-5; Germer, Flora, 125; LÄ II, 1265"
+            )
+        );
+        p.add("bibliography", b);
+        assertAll("test passport",
+            () -> assertTrue(!b.isEmpty(), "subnode not empty"),
+            () -> assertTrue(b.containsKey("bibliographical_text_field"), "subnode key"),
+            () -> assertEquals(1, p.size(), "root size"),
+            () -> assertEquals(List.of("bibliography"), p.getFields(), "root keys"),
+            () -> assertTrue(p.containsKey("bibliography"), "root key"),
+            () -> assertTrue(!p.getProperties().get("bibliography").isEmpty(), "subnodes exist"),
+            () -> assertTrue(p.getProperties().get("bibliography").get(0).containsKey("bibliographical_text_field"))
+        );
+        Lemma l = Lemma.builder().passport(p).build();
+        assertAll("see if bibliography can be extracted",
+            () -> assertNotNull(l.getBibliography(), "bibliography not null"),
+            () -> assertTrue(!l.getBibliography().isEmpty(), "bibl not empty"),
+            () -> assertEquals(3, l.getBibliography().size(), "3 bibl entries"),
+            () -> assertEquals("Germer, Flora, 125", l.getBibliography().get(1), "value trimmed")
+        );
+    }
 }

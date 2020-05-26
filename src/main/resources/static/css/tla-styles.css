@@ -206,7 +206,7 @@ a.navbar-brand {
     background-color: white;
 }
 
-.result-list-item .lemma-pos {
+.result-list-item .object-type-subtype {
     font-weight: 300;
     font-style: italic;
 }
@@ -824,17 +824,16 @@ footer.bg-light {
 }
 
 .id {
-    font-size: 1.5em;
     font-weight: 600;
-    padding: 0.6rem;
+    padding: 0em 0.2em;
     background-color: var(--BBAWlightbluegrey);
     color: white;
     display: inline-block;
 }
 
-.id h2 span {
+h2.id span {
     font-family: "BBAWLibertine" !important;
-    font-weight: 200;
+    padding: 0.6rem;
 }
 
 

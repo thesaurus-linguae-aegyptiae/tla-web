@@ -59,7 +59,8 @@ public abstract class ObjectController<T extends TLAObject> {
             )
         );
         model.addAttribute("obj", container.getObject());
-        model.addAttribute("related", container.getRelatedObjects());
+        model.addAttribute("related", container.getRelated());
+        model.addAttribute("relations", container.extractRelatedObjects());
         return String.format("%s/details", getTemplatePath());
     }
 
