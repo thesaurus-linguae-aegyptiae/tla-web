@@ -1,7 +1,8 @@
 package tla.web.service;
 
 import tla.domain.command.LemmaSearch;
-import tla.domain.dto.DocumentDto;
+import tla.domain.dto.meta.AbstractDto;
+import tla.domain.dto.meta.DocumentDto;
 import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.web.model.Annotation;
@@ -25,7 +26,7 @@ import java.util.stream.Collectors;
 public class LemmaService extends ObjectService<Lemma> {
 
     @Override
-    protected SingleDocumentWrapper<DocumentDto> retrieveSingleDocument(String id) {
+    protected SingleDocumentWrapper<AbstractDto> retrieveSingleDocument(String id) {
         return backend.retrieveObject(Lemma.class, id);
     }
 

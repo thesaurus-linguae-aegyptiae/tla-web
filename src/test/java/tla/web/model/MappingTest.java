@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.StringUtils;
 
 import tla.domain.dto.AnnotationDto;
-import tla.domain.dto.DocumentDto;
+import tla.domain.dto.meta.DocumentDto;
 import tla.domain.dto.LemmaDto;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.model.EditorInfo;

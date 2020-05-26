@@ -22,7 +22,7 @@ import tla.web.repo.TlaClient;
 import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.command.LemmaSearch;
-import tla.domain.dto.DocumentDto;
+import tla.domain.dto.meta.DocumentDto;
 
 @SpringBootTest
 public class ServiceTest {

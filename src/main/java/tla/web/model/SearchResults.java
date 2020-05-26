@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import tla.domain.command.LemmaSearch;
-import tla.domain.dto.DocumentDto;
+import tla.domain.dto.meta.DocumentDto;
 import tla.domain.dto.extern.PageInfo;
 import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.web.model.mappings.MappingConfig;

@@ -7,7 +7,8 @@ import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import tla.domain.dto.DocumentDto;
+import tla.domain.dto.meta.AbstractDto;
+import tla.domain.dto.meta.DocumentDto;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.web.model.mappings.MappingConfig;
 
@@ -29,7 +30,7 @@ public class ObjectDetails<T extends TLAObject> {
     /**
      * Map payload and related objects from DTO to domain model types.
      */
-    public static ObjectDetails<TLAObject> from(SingleDocumentWrapper<DocumentDto> wrapper) {
+    public static ObjectDetails<TLAObject> from(SingleDocumentWrapper<? extends AbstractDto> wrapper) {
         ObjectDetails<TLAObject> container = new ObjectDetails<TLAObject>(
             MappingConfig.convertDTO(
                 wrapper.getDoc()

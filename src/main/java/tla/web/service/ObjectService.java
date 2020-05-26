@@ -2,7 +2,7 @@ package tla.web.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import tla.domain.dto.DocumentDto;
+import tla.domain.dto.meta.AbstractDto;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.web.model.ObjectDetails;
 import tla.web.model.TLAObject;
@@ -22,7 +22,7 @@ public abstract class ObjectService<T extends TLAObject> {
      * @param id document ID
      * @return DTO wrapped inside a {@link SingleDocumentWrapper} container
      */
-    protected abstract SingleDocumentWrapper<DocumentDto> retrieveSingleDocument(String id);
+    protected abstract SingleDocumentWrapper<AbstractDto> retrieveSingleDocument(String id);
 
     /**
      * Retrieve a container with a single domain model class instance.

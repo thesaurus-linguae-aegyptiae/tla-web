@@ -5,7 +5,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.ResultActions;
 
-import tla.domain.dto.DocumentDto;
+import tla.domain.dto.meta.DocumentDto;
 import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.web.repo.TlaClient;
 
