@@ -34,7 +34,7 @@ public class LemmaService extends ObjectService<Lemma> {
      * TODO: should probably be a method of the object details container itself.
      */
     public List<Annotation> extractAnnotations(ObjectDetails<Lemma> container) {
-        Map<String, Map<String, TLAObject>> related = container.getRelatedObjects();
+        Map<String, Map<String, TLAObject>> related = container.getRelated();
         if (related != null && related.containsKey("BTSAnnotation") && !related.get("BTSAnnotation").isEmpty()) {
             return related.get("BTSAnnotation").values().stream().map(
                 relatedObject -> relatedObject instanceof Annotation ? (Annotation) relatedObject : null
@@ -44,35 +44,6 @@ public class LemmaService extends ObjectService<Lemma> {
                 Collectors.toList()
             );
         } else {
-            return null;
-        }
-    }
-
-    /**
-     * Extract bibliographic information from lemma.
-     *
-     * @param lemma Lemma object from internal model
-     * @return list of textual bibliographic references or null
-     */
-    public List<String> extractBibliography(Lemma lemma) {
-        try {
-            List<String> bibliography = new ArrayList<>();
-            lemma.getPassport().extractProperty(
-                "bibliography.bibliographical_text_field"
-            ).forEach(
-                node -> bibliography.addAll(
-                    Arrays.asList(
-                        node.getLeafNodeValue().split(";")
-                    ).stream().map(
-                        bibref -> bibref.strip()
-                    ).collect(
-                        Collectors.toList()
-                    )
-                )
-            );
-            return bibliography;
-        } catch (Exception e) {
-            log.warn("could not extract bibliography from lemma {}", lemma.getId());
             return null;
         }
     }

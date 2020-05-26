@@ -6,6 +6,7 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +48,15 @@ public class ServiceTest {
         assertTrue(objectDetails.getObject() instanceof Lemma);
         ObjectDetails<Lemma> lemmaDetails = new ObjectDetails<Lemma>(
             (Lemma) objectDetails.getObject(),
-            objectDetails.getRelatedObjects()
+            objectDetails.getRelated()
         );
         assertNotNull(lemmaDetails);
+        Map<String, List<TLAObject>> relatedObjects = lemmaDetails.extractRelatedObjects();
+        assertAll("test related objects extraction",
+            () -> assertEquals(dto.getDoc().getRelations().size(), relatedObjects.size(), "predicate count"),
+            () -> assertEquals(2, relatedObjects.get("contains").size(), "relations of predicate 'contains'"),
+            () -> assertTrue(relatedObjects.get("contains").get(0) instanceof Annotation, "reference reified to Annotation instance")
+        );
         List<Annotation> annotations = lemmaService.extractAnnotations(lemmaDetails);
         assertAll("test lemma annotations extraction",
             () -> assertNotNull(annotations),
