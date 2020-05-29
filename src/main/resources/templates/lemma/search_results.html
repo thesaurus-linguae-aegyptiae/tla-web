@@ -16,33 +16,49 @@
       </div>
 
       <div class="row">
-        <div class="col-lg-8 result-list">
-          <nav th:replace="fragments/search :: search-results-pagination"/>
+        <div class="col-lg-8 content">
+          <div class= "result-list m-4">
+            <nav th:replace="fragments/search :: search-results-pagination"/>
 
-          <div th:each="obj : ${searchResults}" class="result-list-item" th:id="${obj.id}" th:object="${obj}">
-            <div>
-              <h2 class="result-list-item-element transcription bbaw-libertine" th:text="*{name}">nfr</h2>
-              <span class="result-list-item-element hieroglyph" th:unless="*{hieroglyphs} == null">
-                <span th:replace="fragments/details :: hieroglyphs(*{hieroglyphs})">N35:G43</span>
-              </span>
-              <span class="result-list-item-element lemma-id badge badge-pill badge-secondary" th:text="*{id}">33410</span>
+            <div th:each="obj : ${searchResults}" class="result-list-item" th:id="${obj.id}" th:object="${obj}">
+
+              <a th:replace="fragments/common :: review-state(${obj})"/>
+
+              <div>
+                <!-- line 1 -->
+                <h2 class="result-list-item-element transcription bbaw-libertine" th:text="*{name}">nfr</h2>
+                <span class="result-list-item-element hieroglyph">
+                  <span th:replace="fragments/details :: hieroglyphs(*{hieroglyphs})">N35:G43</span>
+                </span>
+                (ID<span class="result-list-item-element lemma-id ml-1" th:text="*{id}">33410</span>)
+              </div>
+
+              <div>
+                <!-- line 2 -->
+                <span class="result-list-item-element word-class font-italic font-weight-light">
+                  <span th:replace="fragments/details :: lemma-pos">Part of speech</span>
+                </span>
+                <span class="result-list-item-element translations">
+                  <th:block th:each="entry : *{translations}" th:insert="fragments/common :: single-lang-translation(${entry})"/>
+                </span>
+                <span class="result-list-item-element bibliography">
+                  (<span th:each="bibl : *{bibliography}" class="bibliographic-reference" th:text="${bibl}">Bib. ref</span>)
+                </span>
+              </div>
+
+              <hr/>
             </div>
 
-            <div>
-              <span class="result-list-item-element word-class font-italic font-weight-light">
-                <span th:replace="fragments/details :: lemma-pos">Part of speech</span>
-              </span>
-            </div>
+            <nav th:replace="fragments/search :: search-results-pagination"/>
           </div>
-
-          <nav th:replace="fragments/search :: search-results-pagination"/>
         </div>
 
         <!-- sidebar -->
         <div class="col-lg-4 sidebar">
-          <div class="sticky-top">
+          <div class="sticky-top m-4">
 
             <div style="display: none">
+              <!-- hidden form for storage of search parameters -->
               <form th:replace="fragments/search :: #dict-search"/>
             </div>
 
@@ -51,8 +67,7 @@
                 <label class="input-group-text" for="select-sort-order">Order by</label>
               </div>
               <select class="custom-select select-sort-order" id="select-sort-order" th:field="${searchQuery.sort}" form="dict-search">
-                <option value="sortKey.asc">Alphabetic asc.</option>
-                <option value="sortKey.desc">Alphabetic desc.</option>
+                <option th:each="value : ${sortOrders}" th:value="${value}" th:text="#{|field_value_label_sort_by_${value}_type_lemma|}">Alphabetic asc.</option>
                 <script th:inline="javascript">
                   //<![CDATA[
                   $('#select-sort-order').change(

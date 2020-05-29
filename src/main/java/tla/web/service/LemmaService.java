@@ -13,15 +13,10 @@ import tla.web.model.TLAObject;
 
 import org.springframework.stereotype.Service;
 
-import lombok.extern.slf4j.Slf4j;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Slf4j
 @Service
 public class LemmaService extends ObjectService<Lemma> {
 

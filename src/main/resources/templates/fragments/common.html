@@ -119,5 +119,22 @@
       </div>
     </div>
 
+
+    <!-- icon indicating review state -->
+    <a th:fragment="review-state(obj)" class="review-state" th:title="|Review status: ${obj.reviewState}|">
+      <span class="solo-icon red-status float-right">
+        <span th:text="#{|review_state_${obj.reviewState}}|"></span>
+        <span class="fa-check-circle" th:classappend="${#strings.equals(obj.reviewState, 'published')} ? ok : pending"/>
+      </span>
+    </a>
+
+    <!-- translation for a single language -->
+    <span th:fragment="single-lang-translation(entry)">
+      <span class="lang-icon text-uppercase" th:text="${entry.key}">DE</span>
+      <span th:each="translation : ${entry.value}" th:class="|object-translation-${entry.key}|">
+        <span class="translation" th:text="${translation}">Translation</span>
+      </span>
+    </span>
+
   </body>
 </html>

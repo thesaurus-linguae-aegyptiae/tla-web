@@ -3,6 +3,7 @@ package tla.web.mvc;
 import tla.domain.command.LemmaSearch;
 import tla.domain.model.Language;
 import tla.domain.model.Script;
+import tla.web.config.LemmaSearchProperties;
 import tla.web.model.Lemma;
 import tla.web.model.ObjectDetails;
 import tla.web.model.SearchResults;
@@ -31,6 +32,9 @@ public class LemmaController extends ObjectController<Lemma> {
     @Autowired
     private LemmaService lemmaService;
 
+    @Autowired
+    private LemmaSearchProperties searchConfig;
+
     public static final Script[] SEARCHABLE_SCRIPTS = {
         Script.HIERATIC,
         Script.DEMOTIC
@@ -56,6 +60,11 @@ public class LemmaController extends ObjectController<Lemma> {
     @ModelAttribute("modifySearchUrl")
     public String modifySearchUrl() {
         return ServletUriComponentsBuilder.fromCurrentRequest().replacePath("search").toUriString();
+    }
+
+    @ModelAttribute("sortOrders")
+    public List<String> getSortOrders() {
+        return searchConfig.getSortOrders();
     }
 
     @RequestMapping(value="/search", method=RequestMethod.GET)

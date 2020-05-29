@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import tla.domain.command.LemmaSearch;
 import tla.domain.model.Language;
 import tla.domain.model.Script;
-import tla.web.config.SearchProperties;
+import tla.web.config.LemmaSearchProperties;
 import tla.web.model.ui.BreadCrumb;
 
 @Controller
@@ -21,7 +21,7 @@ import tla.web.model.ui.BreadCrumb;
 public class SearchController {
 
     @Autowired
-    private SearchProperties searchConfig;
+    private LemmaSearchProperties lemmaSearchConf;
 
     @ModelAttribute("allScripts")
     public Script[] getAllScripts() {
@@ -35,12 +35,12 @@ public class SearchController {
 
     @ModelAttribute("wordClasses")
     public Map<String, List<String>> getWordClasses() {
-        return searchConfig.getWordClasses();
+        return lemmaSearchConf.getWordClasses();
     }
 
     @ModelAttribute("lemmaAnnotationTypes")
     public Map<String, List<String>> getLemmaAnnotationTypes() {
-        return searchConfig.getAnnotationTypes();
+        return lemmaSearchConf.getAnnotationTypes();
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)

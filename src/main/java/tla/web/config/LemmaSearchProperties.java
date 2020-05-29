@@ -10,10 +10,12 @@ import lombok.Data;
 
 @Data
 @Component
-@ConfigurationProperties(prefix = "search")
-public class SearchProperties {
+@ConfigurationProperties(prefix = "search.lemma")
+public class LemmaSearchProperties {
 
     private Map<String, List<String>> wordClasses;
+
+    private List<String> sortOrders;
 
     private Map<String, List<String>> annotationTypes;
 

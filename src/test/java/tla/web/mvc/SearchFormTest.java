@@ -5,7 +5,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import tla.web.config.SearchProperties;
+import tla.web.config.LemmaSearchProperties;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -28,7 +28,7 @@ public class SearchFormTest extends ViewTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private SearchProperties searchConf;
+    private LemmaSearchProperties searchConf;
 
     @Test
     void root() throws Exception {
