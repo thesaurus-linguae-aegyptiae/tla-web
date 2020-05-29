@@ -134,6 +134,103 @@
       </div>
 
 
+      <!-- LEMMA search result -->
+
+      <div th:fragment="lemma-search-result" class="result-list-item" th:id="${obj.id}" th:object="${obj}">
+        <a th:replace="fragments/common :: review-state(${obj})"/>
+
+        <div>
+          <!-- line 1 -->
+          <h2 class="result-list-item-element transcription bbaw-libertine" th:text="*{name}">nfr</h2>
+          <span class="result-list-item-element hieroglyphs">
+            <span th:replace="fragments/details :: hieroglyphs">N35:G43</span>
+          </span>
+          <span class="result-list-item-element lemma-id">
+            (ID<span class="ml-1" th:text="*{id}">33410</span>)
+          </span>
+        </div>
+
+        <div>
+          <!-- line 2 -->
+          <span class="result-list-item-element word-class font-italic font-weight-light">
+            <span th:replace="fragments/details :: lemma-pos">Part of speech</span>
+          </span>
+          <span class="result-list-item-element translations">
+            <th:block th:each="entry : *{translations}" th:insert="fragments/common :: single-lang-translation(${entry})"/>
+          </span>
+          <span class="result-list-item-element attested-timespan" th:unless="*{timespan} == null">
+            <span th:text="*{timespan.begin}">begin</span>
+            <span>&mdash;</span>
+            <span th:text="*{timespan.end}">end</span>
+          </span>
+          <span class="result-list-item-element bibliography">
+            (<span th:each="bibl : *{bibliography}" class="bibliographic-reference" th:text="${bibl}">Bib. ref</span>)
+          </span>
+        </div>
+
+        <hr/>
+      </div>
+
+
+      <!-- LEMMA search results sort order select -->
+
+      <div th:fragment="lemma-sort-order-select">
+        <div style="display: none">
+          <!-- hidden form for storage of search parameters -->
+          <form th:replace="fragments/search :: #dict-search"/>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="select-sort-order">Order by</label>
+          </div>
+          <select class="custom-select select-sort-order" id="select-sort-order" th:field="${searchQuery.sort}" form="dict-search">
+            <option th:each="value : ${sortOrders}" th:value="${value}" th:text="#{|field_value_label_sort_by_${value}_type_lemma|}">Alphabetic asc.</option>
+            <script th:inline="javascript">
+              //<![CDATA[
+              $('#select-sort-order').change(
+                () => {
+                  $('form#dict-search').submit();
+                }
+              );
+              //]]>
+            </script>
+          </select>
+          <div class="input-group-append" style="display: none">
+            <button class="btn btn-block btn-secondary text-left text-decoration-none" form="dict-search" id="submit-sort-order" type="submit">
+              <span class="fas fa-arrow-circle-right"></span>
+              <span>Apply</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- hide search results properties button rack -->
+
+      <div th:fragment="hide-properties-buttons" class="hide-properties-buttons">
+        <button th:each="property : ${hideableProperties}" type="button" class="btn btn-secondary btn-block text-left" th:id="|hide-property-button-${property}|">
+          <i class="fas on" th:classappend="fa-plus-circle"></i>
+          <i class="fas off" th:classappend="fa-minus-circle"></i>
+          <span th:text="#{|button_label_hide_property_${property}|}">Property name</span>
+          <script th:inline="javascript">
+            //<![CDATA[
+            {
+              let name = /*[[${property}]]*/ null;
+              let button = $(`#hide-property-button-${name}`);
+              button.children('i.on').toggle();
+              button.click(() => {
+                $(`.result-list-item-element.${name}`).toggle();
+                button.children('svg').toggle();
+              });
+            }
+            //]]>
+          </script>
+        </button>
+      </div>
+
+
+
       <!-- pagination -->
 
       <nav aria-label="Pagination" th:object="${pagination}" th:fragment="search-results-pagination" class="search-results-pagination m-2">
@@ -155,6 +252,17 @@
         <b class="mx-1" th:text="*{totalResults}">140</b>
         <span th:text="#{|result_page_description_right_${objectType}|}">dictionary entries</span>
       </div>
+
+      <!-- Modify/Back to Search button -->
+      <div th:fragment="modify-search-button(modifySearchUrl)">
+        <a th:href="${modifySearchUrl}">
+          <button type="button" class="btn btn-block btn-red text-left text-decoration-none modify-search-btn">
+            <span class="fas fa-arrow-circle-left"></span>
+            <span>Modify search</span>
+          </button>
+        </a>
+      </div>
+
 
 
   </body>
