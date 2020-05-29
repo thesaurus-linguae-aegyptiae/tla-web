@@ -91,6 +91,8 @@ public class LemmaController extends ObjectController<Lemma> {
         model.addAttribute("searchQuery", results.getQuery());
         model.addAttribute("page", results.getPage());
         model.addAttribute("pagination", new Pagination(results.getPage()));
+        model.addAttribute("allTranslationLanguages", form.getTranslation().getLang());
+        model.addAttribute("allScripts", form.getScript());
         return String.format("%s/search_results", getTemplatePath());
     }
 
