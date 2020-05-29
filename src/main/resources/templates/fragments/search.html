@@ -229,19 +229,41 @@
       <!-- hide search results properties button rack -->
 
       <div th:fragment="hide-properties-buttons" class="hide-properties-buttons">
+        <script th:inline="javascript">
+          //<![CDATA[
+          {
+            let objectType = /*[[${objectType}]]*/ null;
+            function saveHideButtonState(name, state) {
+              Cookies.set(
+                `${objectType}-results-hide-property-${name}`,
+                state,
+                {expires: 1, path: `/${objectType}/search`}
+              );
+            }
+          }
+          //]]>
+        </script>
         <button th:each="property : ${hideableProperties}" type="button" class="btn btn-secondary btn-block text-left" th:id="|hide-property-button-${property}|">
-          <i class="fas on" th:classappend="fa-plus-circle"></i>
-          <i class="fas off" th:classappend="fa-minus-circle"></i>
+          <i class="fas fa-plus-circle" id="off"></i>
+          <i class="fas fa-minus-circle" id="on"></i>
           <span th:text="#{|button_label_hide_property_${property}|}">Property name</span>
           <script th:inline="javascript">
             //<![CDATA[
             {
               let name = /*[[${property}]]*/ null;
+              let objectType = /*[[${objectType}]]*/ null;
               let button = $(`#hide-property-button-${name}`);
-              button.children('i.on').toggle();
+              button.children('i#off').toggle();
               button.click(() => {
-                $(`.result-list-item-element.${name}`).toggle();
+                $(`.result-list-item-element.${name}`).slideToggle('slow');
                 button.children('svg').toggle();
+                saveHideButtonState(name, button.children('svg#off').attr('style') == 'display: none;');
+              });
+              $(window).on('pageshow', () => {
+                let initState = Cookies.get(`${objectType}-results-hide-property-${name}`);
+                if (initState) {
+                  $(`#hide-property-button-${name}`).trigger("click");
+                }
               });
             }
             //]]>
