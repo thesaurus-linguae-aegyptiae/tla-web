@@ -690,31 +690,7 @@ function init() {
             $('.indented-buttons-annotation').slideToggle('slow');
         });	
     
-    // Indented Annotation-Buttons
- /*       $('html').not('.anno-block-btn').click(function (e) {
-		 if ($('.indented-buttons-annotation').is(':visible') && !e.target == '.indented-buttons-annotation') {
-                $('.indented-buttons-annotation').slideUp('ease-out');
-            }
-        });
-        $('.anno-block-btn').click(function (e) {
-			e.preventDefault();
-            $('.indented-buttons-annotation').slideToggle('slow');
-        });*/
-    
-	// Clear all Button   
-$('#clear-form-btn').click(function(e) {
-	e.preventDefault();
-    $('#dict-search-transcription').val('');
-    $('#word_class_types').val('(any_but_names)');
-    $('#word_class_subtypes').val('');
-    $('#dict-search-root').val('');
-    $('#dict-search-translation').val('');
-    $('#dict-search-translation-lang').val('de');
-    $('#dict-search-bibliography').val('');
-    $('#dict-search-lemma-id').val('');
-    $('#dict-search-sentence-id').val('');
-});
-    
+
 	// Show/Hide Comments
         
             $('.show-comment-button').click(function()  {    
