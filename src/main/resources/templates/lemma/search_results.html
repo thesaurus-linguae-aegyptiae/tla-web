@@ -40,7 +40,47 @@
 
         <!-- sidebar -->
         <div class="col-lg-4 sidebar">
+          <div class="sticky-top">
 
+            <div style="display: none">
+              <form th:replace="fragments/search :: #dict-search"/>
+            </div>
+
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="select-sort-order">Order by</label>
+              </div>
+              <select class="custom-select select-sort-order" id="select-sort-order" th:field="${searchQuery.sort}" form="dict-search">
+                <option value="sortKey.asc">Alphabetic asc.</option>
+                <option value="sortKey.desc">Alphabetic desc.</option>
+                <script th:inline="javascript">
+                  //<![CDATA[
+                  $('#select-sort-order').change(
+                    () => {
+                      $('form#dict-search').submit();
+                    }
+                  );
+                  //]]>
+                </script>
+              </select>
+              <div class="input-group-append" style="display: none">
+                <button class="btn btn-block btn-secondary text-left text-decoration-none" form="dict-search" id="submit-sort-order" type="submit">
+                  <span class="fas fa-arrow-circle-right"></span>
+                  <span>Apply</span>
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <a th:href="${modifySearchUrl}">
+                <button type="button" class="btn btn-block btn-red text-left text-decoration-none modify-search-btn">
+                  <span class="fas fa-arrow-circle-left"></span>
+                  <span>Modify search</span>
+                </button>
+              </a>
+            </div>
+
+          </div>
         </div>
       </div>
 

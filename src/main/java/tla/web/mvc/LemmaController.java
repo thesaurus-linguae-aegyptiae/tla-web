@@ -53,6 +53,11 @@ public class LemmaController extends ObjectController<Lemma> {
         return model;
     }
 
+    @ModelAttribute("modifySearchUrl")
+    public String modifySearchUrl() {
+        return ServletUriComponentsBuilder.fromCurrentRequest().replacePath("search").toUriString();
+    }
+
     @RequestMapping(value="/search", method=RequestMethod.GET)
     public String search(
         @ModelAttribute("lemmaSearchForm") LemmaSearch form,
@@ -64,7 +69,7 @@ public class LemmaController extends ObjectController<Lemma> {
             List.of(
                 BreadCrumb.of("/", "menu_global_home"),
                 BreadCrumb.of(
-                    ServletUriComponentsBuilder.fromCurrentRequest().replacePath("search").toUriString(),
+                    modifySearchUrl(),
                     "menu_global_search"
                 ),
                 BreadCrumb.of(

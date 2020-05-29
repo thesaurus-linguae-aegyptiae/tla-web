@@ -102,7 +102,7 @@ public class ServiceTest {
         SearchResultsWrapper<DocumentDto> dto = backend.lemmaSearch(new LemmaSearch(), 1);
         assertAll("assert that deserialization from file works",
             () -> assertNotNull(dto),
-            () -> assertNotNull(dto.getContent())
+            () -> assertNotNull(dto.getResults())
         );
         SearchResults result = lemmaService.search(new LemmaSearch(), 1);
         assertAll("test mapping from DTO to search result page frontend model",

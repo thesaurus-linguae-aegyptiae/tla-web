@@ -35,7 +35,7 @@ public class SearchResults {
      * @return Search result page
      */
     public static SearchResults from(SearchResultsWrapper<DocumentDto> dto) {
-        List<TLAObject> objects = dto.getContent().stream().map(
+        List<TLAObject> objects = dto.getResults().stream().map(
             d -> MappingConfig.convertDTO(d)
         ).collect(
             Collectors.toList()

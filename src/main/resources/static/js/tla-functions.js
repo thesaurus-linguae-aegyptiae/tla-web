@@ -58,10 +58,6 @@ function setCookie(Bezeichner, Wert) {
 }
 
 function init() {	
-	// Modify search Button ausblenden, wenn keine Daten vorhanden
-    var sessionVal = sessionStorage.getItem('dictSearchValuesExist');
-    if (sessionVal == null) $('.modify-search-btn').hide();
-
 
     // Cookie Acceptance Banner ausblenden
 

@@ -44,7 +44,7 @@ public class LemmaSearchResultsTest extends ViewTest {
         );
         testLocalization(testResponse, lang);
         testResponse.andExpect(
-            xpath("//div[contains(@class,'result-list-item')]").nodeCount(dto.getContent().size())
+            xpath("//div[contains(@class,'result-list-item')]").nodeCount(dto.getResults().size())
         ).andExpect(
             xpath("//p[contains(@class,'result-page-desc')]").exists()
         ).andExpect(
