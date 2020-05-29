@@ -49,6 +49,11 @@ public class Lemma extends TLAObject {
     @Singular
     private List<AttestedTimespan> attestations;
 
+    /**
+     * first and last year
+     */
+    private AttestedTimespan.Period timespan;
+
     public Long getAttestationCount() {
         return this.attestations.stream().mapToLong(
             timespan -> timespan.getAttestations().getCount()

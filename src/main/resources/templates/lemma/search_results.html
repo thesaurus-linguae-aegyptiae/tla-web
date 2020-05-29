@@ -27,10 +27,12 @@
               <div>
                 <!-- line 1 -->
                 <h2 class="result-list-item-element transcription bbaw-libertine" th:text="*{name}">nfr</h2>
-                <span class="result-list-item-element hieroglyph">
-                  <span th:replace="fragments/details :: hieroglyphs(*{hieroglyphs})">N35:G43</span>
+                <span class="result-list-item-element hieroglyphs">
+                  <span th:replace="fragments/details :: hieroglyphs">N35:G43</span>
                 </span>
-                (ID<span class="result-list-item-element lemma-id ml-1" th:text="*{id}">33410</span>)
+                <span class="result-list-item-element lemma-id">
+                  (ID<span class="ml-1" th:text="*{id}">33410</span>)
+                </span>
               </div>
 
               <div>
@@ -40,6 +42,11 @@
                 </span>
                 <span class="result-list-item-element translations">
                   <th:block th:each="entry : *{translations}" th:insert="fragments/common :: single-lang-translation(${entry})"/>
+                </span>
+                <span class="result-list-item-element attested-timespan" th:unless="*{timespan} == null">
+                  <span th:text="*{timespan.begin}">begin</span>
+                  <span>&mdash;</span>
+                  <span th:text="*{timespan.end}">end</span>
                 </span>
                 <span class="result-list-item-element bibliography">
                   (<span th:each="bibl : *{bibliography}" class="bibliographic-reference" th:text="${bibl}">Bib. ref</span>)
@@ -84,6 +91,27 @@
                   <span>Apply</span>
                 </button>
               </div>
+            </div>
+
+            <div class="hide-properties-buttons">
+              <button th:each="property : ${hideableProperties}" type="button" class="btn btn-secondary btn-block text-left" th:id="|hide-property-button-${property}|">
+                <i class="fas on" th:classappend="fa-plus-circle"></i>
+                <i class="fas off" th:classappend="fa-minus-circle"></i>
+                <span th:text="#{|button_label_hide_property_${property}|}">Property name</span>
+                <script th:inline="javascript">
+                  //<![CDATA[
+                  {
+                    let name = /*[[${property}]]*/ null;
+                    let button = $(`#hide-property-button-${name}`);
+                    button.children('i.on').toggle();
+                    button.click(() => {
+                      $(`.result-list-item-element.${name}`).toggle();
+                      button.children('svg').toggle();
+                    });
+                  }
+                  //]]>
+                </script>
+              </button>
             </div>
 
             <div>
