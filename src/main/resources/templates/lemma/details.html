@@ -15,7 +15,7 @@
       <div th:replace="fragments/details :: details-page-header"/>
 
       <div class="row">
-        <div class="col-sm-12 col-lg-8" id="details-content">
+        <div class="col-sm-12 col-lg-8" id="details-content" th:object="${obj}">
 
           <div th:replace="fragments/details :: lemma-property-hieroglyphs"/>
 

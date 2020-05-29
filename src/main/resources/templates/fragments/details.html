@@ -114,7 +114,7 @@
     <div th:fragment="lemma-property-hieroglyphs" id="lemma-property-hieroglyphs" th:unless="${obj.hieroglyphs} == null">
         <p>
             <strong th:text="#{lemma_property_hieroglyphs}" class="details-property-label">Hieroglyphic spelling(s):</strong>
-            <span th:replace=" :: hieroglyphs(${obj.hieroglyphs})"/>
+            <span th:replace=" :: hieroglyphs"/>
         </p>
     </div>
 
@@ -174,11 +174,11 @@
     </span>
 
     <!-- hieroglyphs (pass list) or a 'demotic' badge -->
-    <th:block th:fragment="hieroglyphs(hieroglyphs)">
-        <span th:unless="${#lists.isEmpty(hieroglyphs)}" th:each="glyphs : ${hieroglyphs}">
+    <th:block th:fragment="hieroglyphs">
+        <span th:unless="${#lists.isEmpty(obj.hieroglyphs)}" th:each="glyphs : ${obj.hieroglyphs}">
             <span class="hieroglyphs" th:title="${glyphs.mdc}" th:utext="${glyphs.svg}"/>
         </span>
-        <span th:if="${#lists.isEmpty(hieroglyphs)}" class="subcorpus" th:text="#{dict_demotic}">Demotic</span>
+        <span th:if="${#lists.isEmpty(obj.hieroglyphs) and obj.dictionaryName != 'hieratic'}" class="subcorpus" th:text="#{|dict_${obj.dictionaryName}|}">Demotic</span>
     </th:block>
 
 

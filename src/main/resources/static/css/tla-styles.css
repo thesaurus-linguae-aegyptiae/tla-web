@@ -49,7 +49,6 @@
 }
 
 body,
-a,
 p,
 h1,
 h2,
@@ -124,13 +123,20 @@ a.navbar-brand {
 }
 
 .breadcrumb {
-    background-color: #FFF;
+    background-color: white;
     padding: 1rem 0rem;
     margin-bottom: 0;
 }
 
-.breadcrumb a {
-    color: #CCC;
+.breadcrumb-item,
+.breadcrumb-item a {
+    color: var(--BBAWlightbluegrey);
+    font-weight: 300;
+}
+.breadcrumb-item.active,
+.breadcrumb-item.active a {
+    font-weight: 400;
+    color: var(--BBAWmiddlegrey);
 }
 
 .cookie-wrapper {
@@ -320,21 +326,21 @@ a.navbar-brand {
     font-family: "Font Awesome 5 Free" !important;
     font-weight: 900;
     content: "\f058";
-    color: green;
+    color: var(--success);
 }
 
 .red-status span.pending:before {
     font-family: "Font Awesome 5 Free" !important;
     font-weight: 900;
     content: "\f059";
-    color: orange !important;
+    color: var(--warning) !important;
 }
 
 .red-status span.notok:before {
     font-family: "Font Awesome 5 Free" !important;
     font-weight: 900;
     content: "\f05e";
-    color: red !important;
+    color: var(--danger) !important;
 }
 
 
@@ -1014,7 +1020,7 @@ span.multiselect-native-select select {
     margin: .62em 0 0 -3.8em;
     font-style: italic;
     font-size: .9em;
-    color: grey;
+    color: var(--BBAWmiddlegrey);
 }
 
 .root:before {
