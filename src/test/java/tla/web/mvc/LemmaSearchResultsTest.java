@@ -46,9 +46,9 @@ public class LemmaSearchResultsTest extends ViewTest {
         testResponse.andExpect(
             xpath("//div[contains(@class,'result-list-item')]").nodeCount(dto.getResults().size())
         ).andExpect(
-            xpath("//p[contains(@class,'result-page-desc')]").exists()
+            xpath("//div[contains(@class,'result-page-desc')]").exists()
         ).andExpect(
-            xpath("//p[contains(@class,'result-page-desc')]/b[1]/text()").string("21 - 38")
+            xpath("//div[contains(@class,'result-page-desc')]/b[1]/text()").string("21 - 38")
         );
     }
 

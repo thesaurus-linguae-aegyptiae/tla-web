@@ -13,6 +13,7 @@ import tla.web.model.ui.TemplateModelName;
 import tla.web.service.LemmaService;
 import tla.web.service.ObjectService;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,7 +93,10 @@ public class LemmaController extends ObjectController<Lemma> {
         model.addAttribute("page", results.getPage());
         model.addAttribute("pagination", new Pagination(results.getPage()));
         model.addAttribute("hideableProperties", List.of("hieroglyphs", "lemma-id", "word-class", "bibliography", "attested-timespan"));
-        model.addAttribute("allTranslationLanguages", form.getTranslation().getLang());
+        model.addAttribute(
+            "allTranslationLanguages",
+            (form.getTranscription() != null) ? form.getTranslation().getLang() : Collections.EMPTY_LIST
+        );
         model.addAttribute("allScripts", form.getScript());
         return String.format("%s/search_results", getTemplatePath());
     }
