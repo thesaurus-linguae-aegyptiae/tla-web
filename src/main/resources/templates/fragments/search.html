@@ -90,6 +90,7 @@
           </select>
           <!-- create hidden subtype menu for each type -->
           <select th:unless="${#lists.isEmpty(type.value)}" th:each="type : ${typeMap}" th:id="|${name}-type-hidden-options-${type.key}|" hidden="true">
+            <option value=""/>
             <option th:each="subtype : ${type.value}" th:value="${subtype}" th:text="#{|field_value_label_${name}_subtype_${subtype}|}" th:selected="${subtype} == ${__${bind}__.subtype}">Subtype</option>
           </select>
         </div>
