@@ -1,7 +1,6 @@
 package tla.web.mvc;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -16,15 +15,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.List;
 import java.util.Map.Entry;
 
-import static org.hamcrest.Matchers.*;
-
 import org.springframework.http.HttpHeaders;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 @SpringBootTest
-@AutoConfigureMockMvc
-public class SearchFormTest {
+public class SearchFormTest extends ViewTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -47,21 +45,20 @@ public class SearchFormTest {
         return null;
     }
 
-    @Test
-    void searchPage() throws Exception {
+    @ParameterizedTest
+    @EnumSource(Language.class)
+    void searchPage(Language lang) throws Exception {
         ResultActions result = mockMvc.perform(
-                get("/search").header(HttpHeaders.ACCEPT_LANGUAGE, "en")
+                get("/search").header(HttpHeaders.ACCEPT_LANGUAGE, lang)
             ).andDo(print());
         result.andExpect(status().isOk())
             .andExpect(
                 content().string(containsString("<option value=\"any\""))
             )
             .andExpect(
-                content().string(not(containsString("_en??")))
-            )
-            .andExpect(
                 xpath("//select[@id='word-class-type-hidden-options-entity_name']").exists()
             );
+        testLocalization(result, lang);
         String emptyWordClass = getWordClassWithoutSubtypes();
         if (emptyWordClass != null) {
             result.andExpect(

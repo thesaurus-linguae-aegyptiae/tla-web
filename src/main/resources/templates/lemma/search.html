@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html
+    xml:lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link rel="icon" th:href="@{/img/icon/favicon.ico}" href="../static/img/icon/favicon.ico"
+      sizes="16x16 24x24 32x32 64x64" type="image/x-icon"/>
+
+    <link rel="stylesheet" th:href="@{${env.bootstrapCss}}"
+      href="../static/vendor/bootstrap-4.4.1-dist/css/bootstrap.min.css" type="text/css"/>
+    <link rel="stylesheet" th:href="@{${env.fontawesomeCss}}"
+      href="../static/vendor/fontawesome-free-5.7.0-web/css/all.css" type="text/css"/>
+
+    <script th:src="@{/vendor/jquery.min.js}"
+      src="../static/vendor/jquery.min.js"></script>
+    <script th:src="@{${env.bootstrapJs}}"
+      src="../static/vendor/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    <script th:src="@{${env.fontawesomeJs}}"
+      src="../static/vendor/fontawesome-free-5.7.0-web/js/all.js"></script>
+
+    <link rel="stylesheet" th:href="@{/css/tla-styles.css}"
+      href="../static/css/tla-styles.css" type="text/css"/>
+
+    <script th:src="@{/vendor/headroom.min.js}"
+      src="../static/nevdor/headroom.min.js"></script>
+    <script th:src="@{/js/tla-functions.js}"
+      src="../static/js/tla-functions.js"></script>
+  </head>
+
+  <body>
+
+    <header th:replace="fragments/common :: header"/>
+
+    <main id="printable-content" class="container content">
+
+      <!-- Main content goes here -->
+      <div class="container content">
+          <div th:replace="fragments/common :: breadcrumbs"/>
+          <div layout:fragment="content">
+            <div class="row details-content">
+              <div class="col-sm-12 col-lg-8">
+                
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <div class="sidebar col-lg-4 d-none d-lg-block">
+        <div class="sticky-top">
+          <!-- Navigation -->
+
+          <!--
+          <button type="button" class="btn btn-block btn-light text-left text-decoration-none mb-2" disabled><span class="fas fa-search-plus"></span>Select for combination search</button>
+          -->
+          <!--
+          <a href="javascript:history.back()"><button type="button" class="btn btn-block btn-red text-left text-decoration-none mb-2"><i class="fas fa-arrow-circle-left"></i>Back</button></a>
+          -->
+
+          <!-- anstelle des historyBack sollte u.U. der Search-String verwendet werden -->
+          <a href="/search"><button type="button" class="btn btn-block btn-red text-left text-decoration-none modify-search-btn"><span class="fas fa-arrow-circle-left"></span>Modify search</button></a>
+        </div>
+      </div>
+
+    </main>
+
+    <footer th:replace="fragments/common :: footer"/>
+
+  </body>
+</html>
