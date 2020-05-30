@@ -60,17 +60,19 @@
     <!-- clear form button -->
 
     <div th:fragment="clear-form-button(form)">
-      <button id="clear-form-btn" type="button" class="btn btn-block btn-secondary text-left text-decoration-none">
+      <button th:id="|clear-form-button-${form}|" type="button" class="btn btn-block btn-secondary text-left text-decoration-none">
         <span class="fas fa-times-circle"></span>
         <span th:text="#{button_label_clear_form}">Clear all</span>
         <script th:inline="javascript">
           //<![CDATA[
-          $('#clear-form-btn').click(() => {
+          {
             let form = /*[[${form}]]*/ null;
-            $(`form#${form} input[type="text"]`).val('');
-            $(`form#${form} input[type="checkbox"]`).prop('checked', false);
-            $(`form#${form} select`).val('');
-          });
+            $(`#clear-form-button-${form}`).click(() => {
+              $(`form#${form} input[type="text"]`).val('');
+              $(`form#${form} input[type="checkbox"]`).prop('checked', false);
+              $(`form#${form} select`).val('');
+            });
+          }
           //]]>
         </script>
       </button>
