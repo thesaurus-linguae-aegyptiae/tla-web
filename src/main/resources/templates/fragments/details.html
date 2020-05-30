@@ -75,11 +75,11 @@
     <div class="comment pb-2" id="single-entry-annotations" th:fragment="single-entry-annotations" th:if="${annotations} != null">
         <hr/>
         <strong th:text="#{object_property_annotations}" class="details-property-label">Comments</strong>
-        <div th:each="annotation : ${annotations}" class="comment-wrapper ml-3">
+        <div th:each="annotation : ${annotations}" class="comment-wrapper">
             <p>
                 <strong th:unless="${annotation.name} == null" th:utext="${annotation.name}">title</strong>
             </p>
-            <p class="comment-content" th:utext="${annotation.body}">annotation body</p>
+            <p class="comment-content text-justify" th:utext="${annotation.body}">annotation body</p>
             <p class="comment-author pt-1">
                 <span th:text="#{object_property_editors_author}">Author:</span>
                 <strong th:text="${annotation.edited.author}">author</strong>
