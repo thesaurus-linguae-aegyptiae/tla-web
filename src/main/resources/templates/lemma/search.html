@@ -1,58 +1,48 @@
 <!DOCTYPE html>
-<html
-    xml:lang="en"
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}"
 >
-
   <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <link rel="icon" th:href="@{/img/icon/favicon.ico}" href="../static/img/icon/favicon.ico"
-      sizes="16x16 24x24 32x32 64x64" type="image/x-icon"/>
-
-    <link rel="stylesheet" th:href="@{${env.bootstrapCss}}"
-      href="../static/vendor/bootstrap-4.4.1-dist/css/bootstrap.min.css" type="text/css"/>
-    <link rel="stylesheet" th:href="@{${env.fontawesomeCss}}"
-      href="../static/vendor/fontawesome-free-5.7.0-web/css/all.css" type="text/css"/>
-
-    <script th:src="@{/vendor/jquery.min.js}"
-      src="../static/vendor/jquery.min.js"></script>
-    <script th:src="@{${env.bootstrapJs}}"
-      src="../static/vendor/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
-    <script th:src="@{${env.fontawesomeJs}}"
-      src="../static/vendor/fontawesome-free-5.7.0-web/js/all.js"></script>
-
-    <link rel="stylesheet" th:href="@{/css/tla-styles.css}"
-      href="../static/css/tla-styles.css" type="text/css"/>
-
-    <script th:src="@{/vendor/headroom.min.js}"
-      src="../static/nevdor/headroom.min.js"></script>
-    <script th:src="@{/js/tla-functions.js}"
-      src="../static/js/tla-functions.js"></script>
+    <title>Lemma Search</title>
   </head>
 
   <body>
 
-    <header th:replace="fragments/common :: header"/>
+    <div layout:fragment="content">
 
-    <main id="printable-content" class="container content">
-
-      <!-- Main content goes here -->
-      <div class="container content">
-          <div th:replace="fragments/common :: breadcrumbs"/>
-          <div layout:fragment="content">
-            <div class="row details-content">
-              <div class="col-sm-12 col-lg-8">
-                
-              </div>
-            </div>
-          </div>
+      <!-- result page heading -->
+      <div class="search-header row mb-3">
+        <p th:replace="fragments/search :: result-page-desc"/>
+        <div th:replace="fragments/common :: social"/>
       </div>
 
-    </main>
+      <div class="row">
 
-    <footer th:replace="fragments/common :: footer"/>
+        <!-- search results -->
+        <div class="col-lg-8 content">
+          <div class= "result-list m-4">
+            <nav th:replace="fragments/search :: search-results-pagination"/>
+
+            <th:block th:each="obj : ${searchResults}" th:insert="fragments/search :: lemma-search-result"/>
+
+            <nav th:replace="fragments/search :: search-results-pagination"/>
+          </div>
+        </div>
+
+        <!-- sidebar -->
+        <div class="col-lg-4 sidebar">
+          <div class="sticky-top m-4">
+
+            <div th:replace="fragments/search :: lemma-sort-order-select"/>
+            <div th:replace="fragments/search :: hide-properties-buttons"/>
+            <div th:replace="fragments/search :: modify-search-button(${modifySearchUrl})"/>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
 
   </body>
 </html>

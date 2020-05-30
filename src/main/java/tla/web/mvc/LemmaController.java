@@ -98,7 +98,7 @@ public class LemmaController extends ObjectController<Lemma> {
             (form.getTranscription() != null) ? form.getTranslation().getLang() : Collections.EMPTY_LIST
         );
         model.addAttribute("allScripts", form.getScript());
-        return String.format("%s/search_results", getTemplatePath());
+        return String.format("%s/search", getTemplatePath());
     }
 
 }
