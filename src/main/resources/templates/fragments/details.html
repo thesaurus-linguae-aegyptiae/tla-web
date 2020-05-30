@@ -173,7 +173,7 @@
         </span>
     </span>
 
-    <!-- hieroglyphs (pass list) or a 'demotic' badge -->
+    <!-- hieroglyphs or a badge telling which script a lemma is of -->
     <th:block th:fragment="hieroglyphs">
         <span th:unless="${#lists.isEmpty(obj.hieroglyphs)}" th:each="glyphs : ${obj.hieroglyphs}">
             <span class="hieroglyphs" th:title="${glyphs.mdc}" th:utext="${glyphs.svg}"/>
