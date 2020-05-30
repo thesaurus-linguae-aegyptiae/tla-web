@@ -10,7 +10,7 @@
 
   <body>
 
-    <div layout:fragment="content">
+    <div layout:fragment="content" th:object="*{obj}">
 
       <div th:replace="fragments/details :: review-state"/>
       <div th:replace="fragments/details :: translations"/>

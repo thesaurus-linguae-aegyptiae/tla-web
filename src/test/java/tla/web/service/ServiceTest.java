@@ -23,7 +23,7 @@ import tla.web.repo.TlaClient;
 import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.command.LemmaSearch;
-import tla.domain.dto.DocumentDto;
+import tla.domain.dto.meta.DocumentDto;
 
 @SpringBootTest
 public class ServiceTest {
@@ -102,7 +102,7 @@ public class ServiceTest {
         SearchResultsWrapper<DocumentDto> dto = backend.lemmaSearch(new LemmaSearch(), 1);
         assertAll("assert that deserialization from file works",
             () -> assertNotNull(dto),
-            () -> assertNotNull(dto.getContent())
+            () -> assertNotNull(dto.getResults())
         );
         SearchResults result = lemmaService.search(new LemmaSearch(), 1);
         assertAll("test mapping from DTO to search result page frontend model",

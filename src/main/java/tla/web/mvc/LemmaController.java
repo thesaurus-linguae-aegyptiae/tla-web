@@ -3,6 +3,7 @@ package tla.web.mvc;
 import tla.domain.command.LemmaSearch;
 import tla.domain.model.Language;
 import tla.domain.model.Script;
+import tla.web.config.LemmaSearchProperties;
 import tla.web.model.Lemma;
 import tla.web.model.ObjectDetails;
 import tla.web.model.SearchResults;
@@ -12,6 +13,7 @@ import tla.web.model.ui.TemplateModelName;
 import tla.web.service.LemmaService;
 import tla.web.service.ObjectService;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class LemmaController extends ObjectController<Lemma> {
 
     @Autowired
     private LemmaService lemmaService;
+
+    @Autowired
+    private LemmaSearchProperties searchConfig;
 
     public static final Script[] SEARCHABLE_SCRIPTS = {
         Script.HIERATIC,
@@ -53,6 +58,16 @@ public class LemmaController extends ObjectController<Lemma> {
         return model;
     }
 
+    @ModelAttribute("modifySearchUrl")
+    public String modifySearchUrl() {
+        return ServletUriComponentsBuilder.fromCurrentRequest().replacePath("search").toUriString();
+    }
+
+    @ModelAttribute("sortOrders")
+    public List<String> getSortOrders() {
+        return searchConfig.getSortOrders();
+    }
+
     @RequestMapping(value="/search", method=RequestMethod.GET)
     public String search(
         @ModelAttribute("lemmaSearchForm") LemmaSearch form,
@@ -64,7 +79,7 @@ public class LemmaController extends ObjectController<Lemma> {
             List.of(
                 BreadCrumb.of("/", "menu_global_home"),
                 BreadCrumb.of(
-                    ServletUriComponentsBuilder.fromCurrentRequest().replacePath("search").toUriString(),
+                    modifySearchUrl(),
                     "menu_global_search"
                 ),
                 BreadCrumb.of(
@@ -77,7 +92,13 @@ public class LemmaController extends ObjectController<Lemma> {
         model.addAttribute("searchQuery", results.getQuery());
         model.addAttribute("page", results.getPage());
         model.addAttribute("pagination", new Pagination(results.getPage()));
-        return String.format("%s/search_results", getTemplatePath());
+        model.addAttribute("hideableProperties", List.of("hieroglyphs", "lemma-id", "word-class", "bibliography", "attested-timespan"));
+        model.addAttribute(
+            "allTranslationLanguages",
+            (form.getTranscription() != null) ? form.getTranslation().getLang() : Collections.EMPTY_LIST
+        );
+        model.addAttribute("allScripts", form.getScript());
+        return String.format("%s/search", getTemplatePath());
     }
 
 }

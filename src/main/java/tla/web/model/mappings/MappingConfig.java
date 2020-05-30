@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import tla.domain.dto.AnnotationDto;
-import tla.domain.dto.DocumentDto;
+import tla.domain.dto.meta.AbstractDto;
 import tla.domain.dto.LemmaDto;
 import tla.domain.dto.ThsEntryDto;
 import tla.domain.model.LemmaWord;
@@ -26,6 +26,13 @@ import java.util.Map;
 import org.modelmapper.AbstractConverter;
 import org.modelmapper.ModelMapper;
 
+/**
+ * This class is used to keep record of domain model classes and their DTO type
+ * counterparts associated with them via their respective {@link BTSeClass} annotations.
+ *
+ * Its model class registry allows for conversion of incoming DTO into instances of
+ * the model class they represent, using {@link #convertDTO(AbstractDto)}.
+ */
 @Configuration
 @ModelClasses({
     tla.web.model.Annotation.class,
@@ -89,6 +96,12 @@ public class MappingConfig {
 
     private static Map<String, Class<? extends TLAObject>> modelClasses;
 
+    /**
+     * Registers the domain model classes listed in {@link MappingConfig}'s
+     * {@link ModelClasses} annotation.
+     *
+     * @see #registerModelClass(Class)
+     */
     protected static void registerModelClasses() {
         modelClasses = new HashMap<>();
         for (Annotation a : MappingConfig.class.getAnnotations()) {
@@ -102,6 +115,12 @@ public class MappingConfig {
         }
     }
 
+    /**
+     * Registers a given model class under the <code>eclass</code> value specified in
+     * the {@link BTSeClass} annotation of the model class.
+     *
+     * @param modelClass some {@link TLAObject} subclass with a {@link BTSeClass} annotation
+     */
     protected static void registerModelClass(Class<? extends TLAObject> modelClass) {
         for (Annotation a : modelClass.getAnnotations()) {
             if (a instanceof BTSeClass) {
@@ -110,11 +129,31 @@ public class MappingConfig {
         }
     }
 
+    /**
+     * Look up application domain model class corresponding to the specified
+     * <code>eclass</code>. Domain model classes must be registered via
+     * {@link MappingConfig}'s {@link ModelClasses} annotation in order to be
+     * able to be looked up. Also they need to have a {@link BTSeClass} annotation
+     * obviously.
+     *
+     * @param eclass BTS <code>eclass</code> identifier
+     * @return {@link TLAObject} subclass from the domain model
+     */
     public static Class<? extends TLAObject> getModelClass(String eclass) {
         return modelClasses.get(eclass);
     }
 
-    public static TLAObject convertDTO(DocumentDto dto) {
+    /**
+     * Maps a DTO to the corresponding application domain model class,
+     * which gets determined by the DTO's <code>eclass</code>.
+     * In order to be able to look up the model class, it must be among
+     * the values passed via {@link ModelClasses} annotation on top of
+     * {@link MappingConfig}.
+     *
+     * @param dto an {@link AbstractDto} instance
+     * @return model class ({@link TLAObject} subclass) corresponding to the DTO's <code>eclass</code>
+     */
+    public static TLAObject convertDTO(AbstractDto dto) {
         return modelMapper.map(
             dto,
             getModelClass(dto.getEclass())

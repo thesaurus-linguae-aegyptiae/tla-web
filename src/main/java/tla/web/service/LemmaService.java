@@ -1,7 +1,8 @@
 package tla.web.service;
 
 import tla.domain.command.LemmaSearch;
-import tla.domain.dto.DocumentDto;
+import tla.domain.dto.meta.AbstractDto;
+import tla.domain.dto.meta.DocumentDto;
 import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.web.model.Annotation;
@@ -12,20 +13,15 @@ import tla.web.model.TLAObject;
 
 import org.springframework.stereotype.Service;
 
-import lombok.extern.slf4j.Slf4j;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Slf4j
 @Service
 public class LemmaService extends ObjectService<Lemma> {
 
     @Override
-    protected SingleDocumentWrapper<DocumentDto> retrieveSingleDocument(String id) {
+    protected SingleDocumentWrapper<AbstractDto> retrieveSingleDocument(String id) {
         return backend.retrieveObject(Lemma.class, id);
     }
 

@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
 import lombok.Singular;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
@@ -48,6 +48,11 @@ public class Lemma extends TLAObject {
 
     @Singular
     private List<AttestedTimespan> attestations;
+
+    /**
+     * first and last year
+     */
+    private AttestedTimespan.Period timespan;
 
     public Long getAttestationCount() {
         return this.attestations.stream().mapToLong(

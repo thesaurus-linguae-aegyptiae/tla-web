@@ -6,7 +6,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.XpathResultMatchers;
 
-import tla.domain.dto.DocumentDto;
+import tla.domain.dto.meta.AbstractDto;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.web.model.Lemma;
 import tla.web.repo.TlaClient;
@@ -35,7 +35,7 @@ public class LemmaDetailsTest extends ViewTest {
     };
 
     @SuppressWarnings("unchecked")
-    private SingleDocumentWrapper<DocumentDto> lemmaDetails(String id) throws Exception {
+    private SingleDocumentWrapper<AbstractDto> lemmaDetails(String id) throws Exception {
         return tla.domain.util.IO.loadFromFile(
             String.format(
                 "src/test/resources/sample/data/lemma/details/%s.json",

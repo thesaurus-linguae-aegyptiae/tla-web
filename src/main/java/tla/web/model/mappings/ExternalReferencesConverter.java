@@ -42,7 +42,7 @@ public class ExternalReferencesConverter extends AbstractConverter<
         if (linkFormatters.containsKey(provider)) {
             return linkFormatters.get(provider).format(id, type);
         }
-        log.warn("could not find link format configuration for provider " + provider);
+        log.debug("no link format configuration for provider {}", provider);
         return null;
     }
 

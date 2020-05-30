@@ -7,7 +7,8 @@ import java.util.Map;
 import org.springframework.web.client.RestTemplate;
 
 import tla.domain.command.LemmaSearch;
-import tla.domain.dto.DocumentDto;
+import tla.domain.dto.meta.AbstractDto;
+import tla.domain.dto.meta.DocumentDto;
 import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.web.model.BackendPath;
@@ -71,7 +72,7 @@ public class TlaClient {
      * annotation on {@link TlaClient}, and must itself be annotated with a {@link BackendPath} annotation.
      */
     @SuppressWarnings("unchecked")
-    public SingleDocumentWrapper<DocumentDto> retrieveObject(Class<? extends TLAObject> modelClass, String id) {
+    public SingleDocumentWrapper<AbstractDto> retrieveObject(Class<? extends TLAObject> modelClass, String id) {
         String backendPath = backendPaths.get(modelClass);
         return client.getForObject(
             String.format("%s/%s/get/%s", this.backendUrl, backendPath, id),

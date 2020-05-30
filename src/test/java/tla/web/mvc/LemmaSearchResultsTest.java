@@ -5,7 +5,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.ResultActions;
 
-import tla.domain.dto.DocumentDto;
+import tla.domain.dto.meta.DocumentDto;
 import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.web.repo.TlaClient;
 
@@ -44,11 +44,11 @@ public class LemmaSearchResultsTest extends ViewTest {
         );
         testLocalization(testResponse, lang);
         testResponse.andExpect(
-            xpath("//div[contains(@class,'result-list-item')]").nodeCount(dto.getContent().size())
+            xpath("//div[contains(@class,'result-list-item')]").nodeCount(dto.getResults().size())
         ).andExpect(
-            xpath("//p[contains(@class,'result-page-desc')]").exists()
+            xpath("//div[contains(@class,'result-page-desc')]").exists()
         ).andExpect(
-            xpath("//p[contains(@class,'result-page-desc')]/b[1]/text()").string("21 - 38")
+            xpath("//div[contains(@class,'result-page-desc')]/b[1]/text()").string("21 - 38")
         );
     }
 

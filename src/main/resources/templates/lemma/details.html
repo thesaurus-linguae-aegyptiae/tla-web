@@ -15,7 +15,7 @@
       <div th:replace="fragments/details :: details-page-header"/>
 
       <div class="row">
-        <div class="col-sm-12 col-lg-8" id="details-content">
+        <div class="col-sm-12 col-lg-8" id="details-content" th:object="${obj}">
 
           <div th:replace="fragments/details :: lemma-property-hieroglyphs"/>
 
@@ -51,8 +51,7 @@
         <!-- Sidebar large -->
         <div class="sidebar col-lg-4 d-none d-lg-block">
           <div class="sticky-top">
-            <!-- anstelle des historyBack sollte u.U. der Search-String verwendet werden -->
-            <a href="/search"><button type="button" class="btn btn-block btn-red text-left text-decoration-none modify-search-btn"><span class="fas fa-arrow-circle-left"></span>Modify search</button></a>
+
           </div>
         </div>
       </div>

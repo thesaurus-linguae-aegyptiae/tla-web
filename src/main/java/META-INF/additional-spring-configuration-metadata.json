@@ -33,8 +33,12 @@
             "type": "tla.web.config.ApplicationProperties.Assets"
         },
         {
-            "name": "search.word-classes",
+            "name": "search.lemma.word-classes",
             "type": "java.util.Map"
+        },
+        {
+            "name": "search.lemma.sort-orders",
+            "type": "java.util.List"
         },
         {
             "name": "search.annotation-types",
