@@ -100,10 +100,12 @@ jacocoTestReport {
 }
 
 task installAssets {
-    group = 'Init'
     description = 'Download and install third-party JS/CSS frameworks and libraries'
     dependsOn 'installBootstrap'
     dependsOn 'installFontAwesome'
+    outputs.files(
+        file("${staticDir}/vendor/")
+    )
 }
 
 def createDownloadAssetTask(String name, String url, String destFile) {
@@ -111,7 +113,6 @@ def createDownloadAssetTask(String name, String url, String destFile) {
     doFirst {
       mkdir "${staticDir}/vendor"
     }
-    group = 'Init'
     description = "Download && install ${name}"
     src "${url}"
     dest file("${staticDir}/vendor/${destFile}")
@@ -127,7 +128,6 @@ assets.each{
 }
 
 task downloadFontAwesome(type: Download) {
-    group = 'Init'
     description = 'Downloads fontawesome distribution for local hosting'
     src fontawesomeSrc
     dest new File(buildDir, 'fontawesome.zip')
@@ -135,7 +135,6 @@ task downloadFontAwesome(type: Download) {
 }
 
 task downloadBootstrap(type: Download) {
-    group = 'Init'
     description = 'Downloads bootstrap distribution for local hosting'
     src bootstrapSrc
     dest new File(buildDir, 'bootstrap.zip')
@@ -166,22 +165,24 @@ task installBootstrap(dependsOn: downloadBootstrap, type: Copy) {
     }
 }
 
-task cleanAssets(type: Delete) {
-    group = 'Init'
-    description = 'Delete files added with :installAssets'
-    delete "${staticDir}/vendor/"
-}
-
-cleanInstallAssets {
-    dependsOn 'cleanAssets'
-}
-
 clean {
-    dependsOn 'cleanAssets'
+    dependsOn 'cleanInstall'
+}
+
+task install {
+    inputs.files(
+      file('.env')
+    )
+    group = 'Init'
+    description = 'Installs additional resources required for running the app'
+    dependsOn 'installAssets'
+    outputs.files(
+      file("${staticDir}/vendor/")
+    )
 }
 
 bootJar {
-    dependsOn 'installAssets'
+    dependsOn 'install'
 }
 
 bootRun {
