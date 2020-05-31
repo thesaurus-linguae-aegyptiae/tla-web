@@ -12,12 +12,16 @@ tla:
                 demotic: http://aaew.bbaw.de/tla/servlet/GetWcnDetails?u=guest&f=0&l=0&wn={id}&db=1
                 default: http://aaew.bbaw.de/tla/servlet/GetWcnDetails?u=guest&f=0&l=0&wn={id}&db=0
             id-pattern: ^-?[1-9][0-9]*$
+        aegyptiaca:
+            default-format: https://aegyptiaca.uni-muenster.de/Record/{id}
         dza:
             type-formats:
                 hieratic_hieroglyphic: http://aaew.bbaw.de/tla/servlet/DzaBrowser?u=guest&f=0&l=0&wn={id}
         cfeetk:
             default-format: http://sith.huma-num.fr/vocable/{id}
             id-pattern: ^[1-9][0-9]*$
+        oeb:
+            default-format: http://oeb.griffith.ox.ac.uk/oeb_entry.aspx?item={id}
         trismegistos:
             default-format: https://www.trismegistos.org/{type}/{id}
             id-pattern: ^[1-9][0-9]*$
@@ -32,70 +36,77 @@ tla:
             default-format: http://projetrosette.info/popup.php?Id=1004&MET={id}/2&Lang1=EN
 
 search:
-    word-classes:
-        any: []
-        excl_names: []
-        adjective:
-            - nisbe_adjective_substantive
-            - nisbe_adjective_preposition
-        adverb:
-            - prepositional_adverb
-        entity_name:
-            - person_name
-            - gods_name
-            - place_name
-            - artifact_name
-            - kings_name
-            - org_name
-            - animal_name
-        epitheton_title:
-            - epith_god
-            - title
-            - epith_king
-        interjection: []
-        numeral:
-            - cardinal
-            - ordinal
-        particle:
-            - particle_enclitic
-            - particle_nonenclitic
-        preposition: []
-        pronoun:
-            - personal_pronoun
-            - demonstrative_pronoun
-            - relative_pronoun
-            - interrogative_pronoun
-        root:
-            - substantive_fem
-        substantive:
-            - substantive_masc
-            - substantive_fem
-        undefined:
-            - gods_name
-            - substantive_masc
-        verb:
-            - verb_3-lit
-            - verb_2-lit
-            - verb_3-inf
-            - verb_4-lit
-            - verb_caus_3-lit
-            - verb_4-inf
-            - verb_2-gem
-            - verb_caus_3-inf
-            - verb_5-lit
-            - verb_caus_2-lit
-            - verb_3-gem
-            - verb_caus_2-gem
-            - verb_caus_4-lit
-            - verb_caus_4-inf
-            - verb_6-lit
-            - verb_irr
-            - verb_caus_5-lit
-            - verb_5-inf
-            - verb_caus_3-gem
+    lemma:
+        sort-orders:
+            - sortKey_asc
+            - sortKey_desc
+            - timeSpan.begin_asc
+            - timeSpan.end_desc
 
-    annotation-types:
-        lemma: []
+        word-classes:
+            any: []
+            excl_names: []
+            adjective:
+                - nisbe_adjective_substantive
+                - nisbe_adjective_preposition
+            adverb:
+                - prepositional_adverb
+            entity_name:
+                - person_name
+                - gods_name
+                - place_name
+                - artifact_name
+                - kings_name
+                - org_name
+                - animal_name
+            epitheton_title:
+                - epith_god
+                - title
+                - epith_king
+            interjection: []
+            numeral:
+                - cardinal
+                - ordinal
+            particle:
+                - particle_enclitic
+                - particle_nonenclitic
+            preposition: []
+            pronoun:
+                - personal_pronoun
+                - demonstrative_pronoun
+                - relative_pronoun
+                - interrogative_pronoun
+            root:
+                - substantive_fem
+            substantive:
+                - substantive_masc
+                - substantive_fem
+            undefined:
+                - gods_name
+                - substantive_masc
+            verb:
+                - verb_3-lit
+                - verb_2-lit
+                - verb_3-inf
+                - verb_4-lit
+                - verb_caus_3-lit
+                - verb_4-inf
+                - verb_2-gem
+                - verb_caus_3-inf
+                - verb_5-lit
+                - verb_caus_2-lit
+                - verb_3-gem
+                - verb_caus_2-gem
+                - verb_caus_4-lit
+                - verb_caus_4-inf
+                - verb_6-lit
+                - verb_irr
+                - verb_caus_5-lit
+                - verb_5-inf
+                - verb_caus_3-gem
+
+        annotation-types:
+            lemma: []
 
 ---
 

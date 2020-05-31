@@ -6,9 +6,9 @@ import java.util.Map;
 
 import org.springframework.web.client.RestTemplate;
 
-import lombok.extern.slf4j.Slf4j;
 import tla.domain.command.LemmaSearch;
-import tla.domain.dto.DocumentDto;
+import tla.domain.dto.meta.AbstractDto;
+import tla.domain.dto.meta.DocumentDto;
 import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.web.model.BackendPath;
@@ -21,7 +21,6 @@ import tla.web.model.ThsEntry;
  * the backend path where instances of them can be retrieved can be extracted from their
  * respective {@link BackendPath} annotations.
  */
-@Slf4j
 @ModelClasses({
     Lemma.class,
     ThsEntry.class
@@ -73,7 +72,7 @@ public class TlaClient {
      * annotation on {@link TlaClient}, and must itself be annotated with a {@link BackendPath} annotation.
      */
     @SuppressWarnings("unchecked")
-    public SingleDocumentWrapper<DocumentDto> retrieveObject(Class<? extends TLAObject> modelClass, String id) {
+    public SingleDocumentWrapper<AbstractDto> retrieveObject(Class<? extends TLAObject> modelClass, String id) {
         String backendPath = backendPaths.get(modelClass);
         return client.getForObject(
             String.format("%s/%s/get/%s", this.backendUrl, backendPath, id),
@@ -82,12 +81,12 @@ public class TlaClient {
     }
 
     @SuppressWarnings("unchecked")
-    public SearchResultsWrapper<DocumentDto> lemmaSearch(LemmaSearch command) {
-        log.info("{}", command);
+    public SearchResultsWrapper<DocumentDto> lemmaSearch(LemmaSearch command, int page) {
         return client.postForObject(
-            String.format("%s/lemma/search", this.backendUrl),
+            String.format("%s/lemma/search?page={page}", this.backendUrl),
             command,
-            SearchResultsWrapper.class
+            SearchResultsWrapper.class,
+            Map.of("page", Math.max(0, page - 1))
         );
     }
 
