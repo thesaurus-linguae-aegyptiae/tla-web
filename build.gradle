@@ -189,6 +189,13 @@ bootRun {
     environment 'bootstrapVersion', bootstrapVersion
     environment 'fontawesomeVersion', fontawesomeVersion
     systemProperty 'spring.profiles.active', 'dev'
-    dependsOn 'installAssets'
+    doFirst {
+      if ( !file("${staticDir}/vendor/").exists() ) {
+        println ' ======================================'
+        println ' !!!  Must run task :install first  !!!'
+        println ' ======================================'
+        throw new StopExecutionException()
+      }
+    }
 }
 
