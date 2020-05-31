@@ -5,10 +5,6 @@ tla:
     base-url: https://tla.bbaw.de
     backend-url: http://localhost:${BACKEND_PORT:8090}
 
-    assets:
-        bootstrap: /vendor/bootstrap-${bootstrapVersion:4.4.1}-dist
-        fontawesome: /vendor/fontawesome-free-${fontawesomeVersion:5.12.1}-web
-
     link-formatters:
         aaew:
             type-formats:

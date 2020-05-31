@@ -186,8 +186,6 @@ bootJar {
 }
 
 bootRun {
-    environment 'bootstrapVersion', bootstrapVersion
-    environment 'fontawesomeVersion', fontawesomeVersion
     systemProperty 'spring.profiles.active', 'dev'
     doFirst {
       if ( !file("${staticDir}/vendor/").exists() ) {
