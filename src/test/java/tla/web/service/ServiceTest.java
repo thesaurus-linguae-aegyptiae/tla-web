@@ -2,9 +2,11 @@ package tla.web.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ import tla.web.repo.TlaClient;
 import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.command.LemmaSearch;
-import tla.domain.dto.DocumentDto;
+import tla.domain.dto.meta.DocumentDto;
 
 @SpringBootTest
 public class ServiceTest {
@@ -46,9 +48,15 @@ public class ServiceTest {
         assertTrue(objectDetails.getObject() instanceof Lemma);
         ObjectDetails<Lemma> lemmaDetails = new ObjectDetails<Lemma>(
             (Lemma) objectDetails.getObject(),
-            objectDetails.getRelatedObjects()
+            objectDetails.getRelated()
         );
         assertNotNull(lemmaDetails);
+        Map<String, List<TLAObject>> relatedObjects = lemmaDetails.extractRelatedObjects();
+        assertAll("test related objects extraction",
+            () -> assertEquals(dto.getDoc().getRelations().size(), relatedObjects.size(), "predicate count"),
+            () -> assertEquals(2, relatedObjects.get("contains").size(), "relations of predicate 'contains'"),
+            () -> assertTrue(relatedObjects.get("contains").get(0) instanceof Annotation, "reference reified to Annotation instance")
+        );
         List<Annotation> annotations = lemmaService.extractAnnotations(lemmaDetails);
         assertAll("test lemma annotations extraction",
             () -> assertNotNull(annotations),
@@ -86,17 +94,17 @@ public class ServiceTest {
             SearchResultsWrapper.class
         );
         when(
-            backend.lemmaSearch(any())
+            backend.lemmaSearch(any(), anyInt())
         ).thenReturn(
             wrap
         );
         assertNotNull(wrap);
-        SearchResultsWrapper<DocumentDto> dto = backend.lemmaSearch(new LemmaSearch());
+        SearchResultsWrapper<DocumentDto> dto = backend.lemmaSearch(new LemmaSearch(), 1);
         assertAll("assert that deserialization from file works",
             () -> assertNotNull(dto),
-            () -> assertNotNull(dto.getContent())
+            () -> assertNotNull(dto.getResults())
         );
-        SearchResults result = lemmaService.search(new LemmaSearch());
+        SearchResults result = lemmaService.search(new LemmaSearch(), 1);
         assertAll("test mapping from DTO to search result page frontend model",
             () -> assertNotNull(result.getObjects(), "search hits not null"),
             () -> assertNotNull(result.getQuery(), "query not null"),

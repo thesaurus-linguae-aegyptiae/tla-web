@@ -6,7 +6,7 @@ plugins {
     id 'maven-publish'
     id 'co.uzzu.dotenv.gradle' version '1.1.0'
     id 'de.undercouch.download' version '4.0.4'
-    id 'org.springframework.boot' version '2.2.7.RELEASE'
+    id 'org.springframework.boot' version '2.3.0.RELEASE'
     id 'com.github.ben-manes.versions' version '0.28.0'
     id 'com.github.dawnwords.jacoco.badge' version '0.2.0'
 }
@@ -68,15 +68,15 @@ dependencies {
 
     implementation 'org.modelmapper:modelmapper:2.3.7'
 
-    implementation 'org.springframework.boot:spring-boot-starter-web:2.3.0.M1'
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.3.0.M3'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.3.0.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.3.0.RELEASE'
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.4.1'
     implementation 'org.slf4j:slf4j-simple:2.0.0-alpha1'
 
     implementation 'com.github.jkatzwinkel:tla-common:master-SNAPSHOT'
     implementation 'com.github.rosmord:jsesh:7.3.1'
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.2.4.RELEASE'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.3.0.RELEASE'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0-M1'
 }
 
@@ -103,6 +103,7 @@ task installAssets {
     description = 'Download and install third-party JS/CSS frameworks and libraries'
     dependsOn 'installBootstrap'
     dependsOn 'installFontAwesome'
+    dependsOn 'installFontRoboto'
     outputs.files(
         file("${staticDir}/vendor/")
     )
@@ -116,6 +117,7 @@ def createDownloadAssetTask(String name, String url, String destFile) {
     description = "Download && install ${name}"
     src "${url}"
     dest file("${staticDir}/vendor/${destFile}")
+    onlyIfModified true
   }
 }
 
@@ -138,6 +140,14 @@ task downloadBootstrap(type: Download) {
     description = 'Downloads bootstrap distribution for local hosting'
     src bootstrapSrc
     dest new File(buildDir, 'bootstrap.zip')
+    onlyIfModified true
+}
+
+task downloadFontRoboto(type: Download) {
+    group = 'Init'
+    description = 'Download Google Roboto font'
+    src 'https://google-webfonts-helper.herokuapp.com/api/fonts/roboto?download=zip&subsets=latin&variants=300,500,700,300italic,regular,italic,700italic'
+    dest new File(buildDir, 'roboto.zip')
     onlyIfModified true
 }
 
@@ -165,8 +175,11 @@ task installBootstrap(dependsOn: downloadBootstrap, type: Copy) {
     }
 }
 
-clean {
-    dependsOn 'cleanInstall'
+task installFontRoboto(dependsOn: downloadFontRoboto, type: Copy) {
+    group = 'Init'
+    description = 'Installs Google Roboto font'
+    from zipTree(downloadFontRoboto.dest)
+    into file("${staticDir}/font")
 }
 
 task install {
@@ -179,6 +192,16 @@ task install {
     outputs.files(
       file("${staticDir}/vendor/")
     )
+}
+
+task cleanAssets(type: Delete) {
+    group = 'Init'
+    description = 'Delete files added with :installAssets'
+    delete "${staticDir}/vendor/"
+}
+
+clean {
+    dependsOn 'cleanInstall'
 }
 
 bootJar {

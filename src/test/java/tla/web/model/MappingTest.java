@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.StringUtils;
 
 import tla.domain.dto.AnnotationDto;
-import tla.domain.dto.DocumentDto;
+import tla.domain.dto.meta.DocumentDto;
 import tla.domain.dto.LemmaDto;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.model.EditorInfo;
@@ -51,7 +51,7 @@ public class MappingTest {
             () -> assertNotNull(word.getGlyphs(), "expect glyphs"),
             () -> assertEquals("N35", word.getGlyphs().getMdc(), "mdc correct?"),
             () -> assertTrue(
-                word.getGlyphs().getSvg().startsWith("<?xml version='1.0' encoding='UTF-8' standalone='yes'?>"),
+                word.getGlyphs().getSvg().startsWith("<svg xmlns"),
                 "check svg xml JSesh rendering result"
             ),
             () -> assertEquals(

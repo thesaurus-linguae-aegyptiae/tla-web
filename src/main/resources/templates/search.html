@@ -12,10 +12,13 @@
 
       <div class="sidebar col-lg-4">
         <div class="stick-top">
-          <button class="btn btn-block btn-danger text-left text-decoration-none mt-4" id="submit-dict-search" form="dict-search" type="submit">
-            <span class="fas fa-arrow-circle-right"></span>
-            <span th:text="#{button_label_dict_search}">Search Dict</span>
-          </button>
+          <div>
+            <button class="btn btn-block btn-danger text-left text-decoration-none mt-4" id="submit-dict-search" form="dict-search" type="submit">
+              <span class="fas fa-arrow-circle-right"></span>
+              <span th:text="#{button_label_dict_search}">Search Dict</span>
+            </button>
+          </div>
+          <div th:replace="fragments/search :: clear-form-button(dict-search)"/>
         </div>
       </div>
     </div>

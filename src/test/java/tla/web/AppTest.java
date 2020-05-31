@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
 
 import tla.web.config.ApplicationProperties;
-import tla.web.config.SearchProperties;
+import tla.web.config.LemmaSearchProperties;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,7 +17,7 @@ class AppTest {
     private ApplicationProperties properties;
 
     @Autowired
-    private SearchProperties searchConf;
+    private LemmaSearchProperties lemmaSearchConf;
 
     @Autowired
     private Environment env;
@@ -30,11 +30,11 @@ class AppTest {
             () -> assertTrue(properties.getAssets().getBootstrap() != null, "assets location configuration should be available")
         );
         assertAll("search properties should be available to context",
-            () -> assertNotNull(searchConf, "search configurations should not be null"),
-            () -> assertNotNull(searchConf.getWordClasses(), "searchable word classes"),
-            () -> assertTrue(searchConf.getWordClasses().get("adjective").size() > 1, "adjective word class has subtypes"),
-            () -> assertTrue(searchConf.getWordClasses().containsKey("interjection"), "word class interjection present"),
-            () -> assertEquals(0, searchConf.getWordClasses().get("interjection").size(), "interjection word classes has no subtypes")
+            () -> assertNotNull(lemmaSearchConf, "lemma search configurations should not be null"),
+            () -> assertNotNull(lemmaSearchConf.getWordClasses(), "searchable word classes"),
+            () -> assertTrue(lemmaSearchConf.getWordClasses().get("adjective").size() > 1, "adjective word class has subtypes"),
+            () -> assertTrue(lemmaSearchConf.getWordClasses().containsKey("interjection"), "word class interjection present"),
+            () -> assertEquals(0, lemmaSearchConf.getWordClasses().get("interjection").size(), "interjection word classes has no subtypes")
         );
         assertNull(env.getProperty("spring.thymeleaf.cache"), "thymeleaf uses cache in default profile");
     }
