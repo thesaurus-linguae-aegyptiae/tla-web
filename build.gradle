@@ -148,7 +148,7 @@ task installFontAwesome(dependsOn: downloadFontAwesome, type: Copy) {
     from zipTree(downloadFontAwesome.dest)
     into file("${staticDir}/vendor")
     doLast {
-      file("${staticDir}/vendor/fontawesome-free-${bootstrapVersion}-web").renameTo(
+      file("${staticDir}/vendor/fontawesome-free-${fontawesomeVersion}-web").renameTo(
         file("${staticDir}/vendor/fontawesome")
       )
     }
