@@ -100,11 +100,13 @@ jacocoTestReport {
 }
 
 task installAssets {
-    group = 'Init'
     description = 'Download and install third-party JS/CSS frameworks and libraries'
     dependsOn 'installBootstrap'
     dependsOn 'installFontAwesome'
     dependsOn 'installFontRoboto'
+    outputs.files(
+        file("${staticDir}/vendor/")
+    )
 }
 
 def createDownloadAssetTask(String name, String url, String destFile) {
@@ -112,7 +114,6 @@ def createDownloadAssetTask(String name, String url, String destFile) {
     doFirst {
       mkdir "${staticDir}/vendor"
     }
-    group = 'Init'
     description = "Download && install ${name}"
     src "${url}"
     dest file("${staticDir}/vendor/${destFile}")
@@ -129,7 +130,6 @@ assets.each{
 }
 
 task downloadFontAwesome(type: Download) {
-    group = 'Init'
     description = 'Downloads fontawesome distribution for local hosting'
     src fontawesomeSrc
     dest new File(buildDir, 'fontawesome.zip')
@@ -137,7 +137,6 @@ task downloadFontAwesome(type: Download) {
 }
 
 task downloadBootstrap(type: Download) {
-    group = 'Init'
     description = 'Downloads bootstrap distribution for local hosting'
     src bootstrapSrc
     dest new File(buildDir, 'bootstrap.zip')
@@ -157,6 +156,11 @@ task installFontAwesome(dependsOn: downloadFontAwesome, type: Copy) {
     description = 'Installs fontawesome distribution into assets directory'
     from zipTree(downloadFontAwesome.dest)
     into file("${staticDir}/vendor")
+    doLast {
+      file("${staticDir}/vendor/fontawesome-free-${fontawesomeVersion}-web").renameTo(
+        file("${staticDir}/vendor/fontawesome")
+      )
+    }
 }
 
 task installBootstrap(dependsOn: downloadBootstrap, type: Copy) {
@@ -164,6 +168,11 @@ task installBootstrap(dependsOn: downloadBootstrap, type: Copy) {
     description = 'Installs bootstrap distribution into assets directory'
     from zipTree(downloadBootstrap.dest)
     into file("${staticDir}/vendor")
+    doLast {
+      file("${staticDir}/vendor/bootstrap-${bootstrapVersion}-dist").renameTo(
+        file("${staticDir}/vendor/bootstrap")
+      )
+    }
 }
 
 task installFontRoboto(dependsOn: downloadFontRoboto, type: Copy) {
@@ -173,28 +182,41 @@ task installFontRoboto(dependsOn: downloadFontRoboto, type: Copy) {
     into file("${staticDir}/font")
 }
 
+task install {
+    inputs.files(
+      file('.env')
+    )
+    group = 'Init'
+    description = 'Installs additional resources required for running the app'
+    dependsOn 'installAssets'
+    outputs.files(
+      file("${staticDir}/vendor/")
+    )
+}
+
 task cleanAssets(type: Delete) {
     group = 'Init'
     description = 'Delete files added with :installAssets'
     delete "${staticDir}/vendor/"
 }
 
-cleanInstallAssets {
-    dependsOn 'cleanAssets'
-}
-
 clean {
-    dependsOn 'cleanAssets'
+    dependsOn 'cleanInstall'
 }
 
 bootJar {
-    dependsOn 'installAssets'
+    dependsOn 'install'
 }
 
 bootRun {
-    environment 'bootstrapVersion', bootstrapVersion
-    environment 'fontawesomeVersion', fontawesomeVersion
     systemProperty 'spring.profiles.active', 'dev'
-    dependsOn 'installAssets'
+    doFirst {
+      if ( !file("${staticDir}/vendor/").exists() ) {
+        println ' ======================================'
+        println ' !!!  Must run task :install first  !!!'
+        println ' ======================================'
+        throw new StopExecutionException()
+      }
+    }
 }
 

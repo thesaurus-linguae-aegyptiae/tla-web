@@ -26,8 +26,7 @@ class AppTest {
     void properties() {
         assertAll("applicationproperties should be available to context",
             () -> assertNotNull(properties, "application properties should not be null"),
-            () -> assertEquals("Thesaurus Linguae Aegyptiae (BETA)", properties.getName(), "application title should be set"),
-            () -> assertTrue(properties.getAssets().getBootstrap() != null, "assets location configuration should be available")
+            () -> assertEquals("Thesaurus Linguae Aegyptiae (BETA)", properties.getName(), "application title should be set")
         );
         assertAll("search properties should be available to context",
             () -> assertNotNull(lemmaSearchConf, "lemma search configurations should not be null"),
