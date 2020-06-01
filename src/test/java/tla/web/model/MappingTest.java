@@ -54,6 +54,9 @@ public class MappingTest {
                 word.getGlyphs().getSvg().startsWith("<svg xmlns"),
                 "check svg xml JSesh rendering result"
             ),
+            () -> assertTrue(
+                lemma.getExternalReferences().get("cfeetk").get(0) instanceof tla.web.model.ExternalReference
+            ),
             () -> assertEquals(
                 "http://sith.huma-num.fr/vocable/1",
                 lemma.getExternalReferences().get("cfeetk").get(0).getHref()

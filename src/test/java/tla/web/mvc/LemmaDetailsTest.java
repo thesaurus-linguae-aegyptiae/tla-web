@@ -20,7 +20,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
 @SpringBootTest
-
 public class LemmaDetailsTest extends ViewTest {
 
     @MockBean

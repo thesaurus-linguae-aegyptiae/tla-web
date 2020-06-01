@@ -22,7 +22,7 @@ import tla.web.model.mappings.ScriptFromStringConverter;
 @Configuration
 @ControllerAdvice
 @Import(ApplicationProperties.class)
-public class MvcConfig  implements WebMvcConfigurer {
+public class MvcConfig implements WebMvcConfigurer {
 
     @Autowired
     private ApplicationProperties applicationProperties;
