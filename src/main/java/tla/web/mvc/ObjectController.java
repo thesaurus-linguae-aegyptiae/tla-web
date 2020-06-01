@@ -44,7 +44,7 @@ public abstract class ObjectController<T extends TLAObject> {
     public abstract ObjectService<T> getService();
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String getSingleObjectDetailsPage(Model model, @PathVariable String id) {
+    public String getSingleObjectDetailsPage(@PathVariable String id, Model model) {
         log.debug("Compile lemma detail view data for {} {}", getTemplatePath(), id);
         ObjectDetails<T> container = getService().get(id);
         model = compileSingleObjectDetailsModel(model, container);
