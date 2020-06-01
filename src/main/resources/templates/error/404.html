@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xml:lang="en"
+      layout:decorate="~{base}"
+>
+  <head>
+    <title th:text="#{error_404_title}"/>
+  </head>
+
+  <body>
+
+    <div layout:fragment="content">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="button btn-danger" th:text="#{error_404_message}">Fehlermeldung</div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
