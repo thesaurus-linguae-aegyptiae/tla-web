@@ -176,7 +176,7 @@
         <div>
           <!-- line 2 -->
           <span class="result-list-item-element word-class font-italic font-weight-light">
-            <span th:replace="fragments/details :: lemma-pos">Part of speech</span>
+            <span th:replace="fragments/details :: type-subtype">Part of speech</span>
           </span>
           <span class="result-list-item-element translations">
             <th:block th:each="entry : *{translations}" th:insert="fragments/common :: single-lang-translation(${entry})"/>

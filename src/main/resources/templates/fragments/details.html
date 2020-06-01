@@ -101,12 +101,12 @@
         </div>
     </div>
 
-    <!-- Lemma details part of speech -->
-    <div th:fragment="lemma-property-part-of-speech" id="lemma-property-part-of-speech">
+    <!-- Object details type & subtype -->
+    <div th:fragment="object-property-type-subtype(objType)" th:id="|${objType}-property-type-subtype|">
         <hr/>
         <p>
-          <strong th:text="#{lemma_property_pos}" class="details-property-label">Word Class</strong>
-          <span th:replace=" :: lemma-pos"/>
+            <strong th:text="#{|${objType}_property_type|}" class="details-property-label">Type</strong>
+            <span th:replace=" :: type-subtype"/>
         </p>
     </div>
 
@@ -166,10 +166,10 @@
     <!-- "Atoms" -->
 
     <!-- POS/type -->
-    <span th:fragment="lemma-pos" id="object-type-subtype" class="object-type-subtype">
-        <span th:text="#{|pos_type_${obj.type}|}" class="lemma-type">Type</span>
+    <span th:fragment="type-subtype" id="type-subtype" class="type-subtype" th:classappend="${objectType}">
+        <span th:text="#{|${objectType}_type_${obj.type}|}">Type</span>
         <span th:if="${obj.subtype}">
-          (<span th:text="#{|pos_subtype_${obj.subtype}|}" class="lemma-subtype">Subtype</span>)
+          (<span th:text="#{|${objectType}_subtype_${obj.subtype}|}">Subtype</span>)
         </span>
     </span>
 

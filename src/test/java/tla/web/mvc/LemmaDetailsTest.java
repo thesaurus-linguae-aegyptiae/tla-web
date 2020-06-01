@@ -28,7 +28,7 @@ public class LemmaDetailsTest extends ViewTest {
 
     private static final String[] EXPECT_TOP_LEVEL_ELEM_IDS = {
         "lemma-property-dict",
-        "lemma-property-part-of-speech",
+        "lemma-property-type-subtype",
         "external-references",
         "translations",
         "bibliography"
@@ -91,9 +91,9 @@ public class LemmaDetailsTest extends ViewTest {
         // check if POS fragments get compiled correctly
         testBasicStructure(testResponse, lang);
         testResponse.andExpect(
-            xpath("//div[@id='lemma-property-part-of-speech']").exists()
+            xpath("//div[@id='lemma-property-type-subtype']").exists()
         ).andExpect(
-            xpath("//div[@id='lemma-property-part-of-speech']//span[@id='object-type-subtype']").exists()
+            xpath("//div[@id='lemma-property-type-subtype']//span[@id='type-subtype']").exists()
         ).andExpect(
             xpath("//div[@id='details-content']/div[@id='lemma-property-attestations']").exists()
         ).andExpect(

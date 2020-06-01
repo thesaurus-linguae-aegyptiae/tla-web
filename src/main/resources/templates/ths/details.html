@@ -10,12 +10,20 @@
 
   <body>
 
-    <div layout:fragment="content" th:object="*{obj}">
+    <div layout:fragment="content">
 
-      <div th:replace="fragments/details :: review-state"/>
-      <div th:replace="fragments/details :: translations"/>
-      <div th:replace="fragments/details :: external-references"/>
-      <div th:replace="fragments/details :: editor-info"/>
+      <div th:replace="fragments/details :: details-page-header"/>
+
+      <div class="row">
+        <div class="col-sm-12 col-lg-8" id="details-content" th:object="${obj}">
+
+          <div th:replace="fragments/details :: object-property-type-subtype('object')"/>
+          <div th:replace="fragments/details :: translations"/>
+          <div th:replace="fragments/details :: external-references"/>
+          <div th:replace="fragments/details :: editor-info"/>
+
+        </div>
+      </div>
 
     </div>
   </body>
