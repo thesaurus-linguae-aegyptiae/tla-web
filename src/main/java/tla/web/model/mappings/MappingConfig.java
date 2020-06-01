@@ -121,7 +121,7 @@ public class MappingConfig {
      *
      * @param modelClass some {@link TLAObject} subclass with a {@link BTSeClass} annotation
      */
-    protected static void registerModelClass(Class<? extends TLAObject> modelClass) {
+    public static void registerModelClass(Class<? extends TLAObject> modelClass) {
         for (Annotation a : modelClass.getAnnotations()) {
             if (a instanceof BTSeClass) {
                 modelClasses.put(((BTSeClass) a).value(), modelClass);
