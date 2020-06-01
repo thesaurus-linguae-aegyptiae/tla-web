@@ -6,18 +6,26 @@
       xml:lang="en"
 >
   <head>
-    <title th:text="|#{|error_${error.code}|} (${error.code})|"/>
+    <title th:text="|#{|error_${code}|} (${code})|"/>
   </head>
 
   <body>
 
-    <div layout:fragment="content" class="vh-100">
+    <div layout:fragment="content" style="min-height: 500px">
 
-      <div th:replace="fragments/details :: details-page-header"/>
+      <h1 th:text="${url}"/>
+      <div class="row mb-3 details-header">
+         <div id="review-state-header" class="col-sm-12 col-lg-8 d-flex justify-content-between align-items-end">
+            <h2 class="id mt-1">
+              <span class="bbaw-libertine" th:text="${msg}">Object name</span>
+            </h2>
+         </div>
+         <h3 class="float-right font-weight-bold" th:text="${code}"/>
+      </div>
 
       <div class="row">
-        <div class="col-sm-12 col-lg-8" id="details-content" th:object="${obj}">
-          <div class="error-msg" th:text="#{|error_${error.code}_desc|}">Feherbeschreibung</div>
+        <div class="col-sm-12 col-lg-8" id="details-content">
+          <div class="error-msg" th:text="#{|error_${code}_desc|}">Feherbeschreibung</div>
         </div>
       </div>
     </div>

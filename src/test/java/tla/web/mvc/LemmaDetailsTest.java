@@ -16,6 +16,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
@@ -113,6 +114,17 @@ public class LemmaDetailsTest extends ViewTest {
         testBasicStructure(testResponse, lang);
         testResponse.andExpect(
             xpath("//div[@id='lemma-property-hieroglyphs']").doesNotExist()
+        );
+    }
+
+    @Test
+    void testModel() throws Exception {
+        respondToDetailsRequestWithLemma("31610");
+        ResultActions testResponse = makeDetailsRequest("31610", Language.en);
+        testResponse.andExpect(
+            model().attributeExists("annotations")
+        ).andExpect(
+            model().attributeExists("relations")
         );
     }
 }
