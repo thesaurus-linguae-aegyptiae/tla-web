@@ -12,24 +12,21 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import lombok.extern.slf4j.Slf4j;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import tla.web.config.ApplicationProperties;
 import tla.web.model.mappings.LanguageFromStringConverter;
 import tla.web.model.mappings.ScriptFromStringConverter;
 
-@Slf4j
 @Configuration
 @ControllerAdvice
 @Import(ApplicationProperties.class)
-public class MvcConfig  implements WebMvcConfigurer {
+public class MvcConfig implements WebMvcConfigurer {
 
     @Autowired
     private ApplicationProperties applicationProperties;
 
     @ModelAttribute("env")
     public Map<String, String> appVars() {
-        log.info("app properties available? {}", applicationProperties != null);
         return Map.of(
             "baseUrl", applicationProperties.getBaseUrl(),
             "appName", applicationProperties.getName()

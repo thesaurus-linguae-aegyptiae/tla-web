@@ -86,8 +86,6 @@ application {
 
 test {
     useJUnitPlatform()
-    environment "bootstrapVersion", bootstrapVersion
-    environment "fontawesomeVersion", fontawesomeVersion 
     finalizedBy 'jacocoTestReport'
 }
 
