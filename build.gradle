@@ -63,8 +63,9 @@ configurations {
 }
 
 dependencies {
-    compileOnly 'org.projectlombok:lombok:1.18.12'
+    implementation 'org.projectlombok:lombok:1.18.12'
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
 
     implementation 'org.modelmapper:modelmapper:2.3.7'
 
@@ -86,8 +87,6 @@ application {
 
 test {
     useJUnitPlatform()
-    environment "bootstrapVersion", bootstrapVersion
-    environment "fontawesomeVersion", fontawesomeVersion 
     finalizedBy 'jacocoTestReport'
 }
 

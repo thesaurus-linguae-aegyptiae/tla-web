@@ -5,12 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
@@ -37,6 +38,7 @@ import tla.web.service.ThsService;
     MappingConfig.class,
     ApplicationProperties.class
 })
+@TestInstance(Lifecycle.PER_CLASS)
 public class ThsEntryDetailsTest {
 
     @MockBean
@@ -48,7 +50,7 @@ public class ThsEntryDetailsTest {
     private MockMvc mockMvc;
 
 
-    @BeforeEach
+    @BeforeAll
     void init() {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
@@ -78,9 +80,8 @@ public class ThsEntryDetailsTest {
     }
 
 
-    @ParameterizedTest
-    @ValueSource(strings = {"744HIAA6FRHBROALBB3DV4VV3I", "KQY2F5SJVBBN7GRO5WUXKG5M6M"})
-    void getThsEntryDetails_exists(String id) throws Exception {
+    void getThsEntryDetails_exists() throws Exception {
+        String id = "744HIAA6FRHBROALBB3DV4VV3I"; // "KQY2F5SJVBBN7GRO5WUXKG5M6M";
         assertNotNull(controller);
         doReturn(
             mapDetailsDTO(
@@ -99,7 +100,7 @@ public class ThsEntryDetailsTest {
             ).header(
                 HttpHeaders.ACCEPT_LANGUAGE, "en"
             )
-        );
+        ).andDo(print());
 
         testResult.andExpect(
             status().isOk()
@@ -109,6 +110,10 @@ public class ThsEntryDetailsTest {
                     String.format("_%s??", "en")
                 ))
             )
+        ).andExpect(
+            xpath("//div[@id='type-subtype']").exists()
+        ).andExpect(
+            xpath("//div[@id='details-content']/div[@id='translation']").exists()
         );
     }
 
