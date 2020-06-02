@@ -1,3 +1,5 @@
+@import url("roboto.css");
+
 /*!
  * TLA - styles
  */
@@ -47,7 +49,6 @@
 }
 
 body,
-a,
 p,
 h1,
 h2,
@@ -122,13 +123,20 @@ a.navbar-brand {
 }
 
 .breadcrumb {
-    background-color: #FFF;
+    background-color: white;
     padding: 1rem 0rem;
     margin-bottom: 0;
 }
 
-.breadcrumb a {
-    color: #CCC;
+.breadcrumb-item,
+.breadcrumb-item a {
+    color: var(--BBAWlightbluegrey);
+    font-weight: 300;
+}
+.breadcrumb-item.active,
+.breadcrumb-item.active a {
+    font-weight: 400;
+    color: var(--BBAWmiddlegrey);
 }
 
 .cookie-wrapper {
@@ -191,17 +199,23 @@ a.navbar-brand {
     background-color: #888;
 }
 
-.result-list-item h2 {
+.result-list-item h2,
+.related-objects-item h2 {
     display: inline-block;
 }
 
 .result-list-item:hover {
-
     cursor: pointer;
 }
 
-.result-list-item:hover h2 .hieroglyph .res {
+.result-list-item:hover h2 .hieroglyph {
     background-color: white;
+}
+
+.result-list-item .object-type-subtype ,
+.related-objects-item .object-type-subtype {
+    font-weight: 300;
+    font-style: italic;
 }
 
 .result-list-item h2.word .svg-inline--fa {
@@ -217,7 +231,8 @@ a.navbar-brand {
     color: white;
 }
 
-.result-list-item a.bibliography-list {
+.result-list-item a.bibliography-list,
+.related-objects-item a.bibliography-list {
     padding: 3px 1px 3px 10px;
     margin-left: -9px;
 }
@@ -255,7 +270,8 @@ a.navbar-brand {
 }
 
 .result-list-item:first-child,
-.occ-list-item:first-child {
+.occ-list-item:first-child,
+.related-objects-item:first-child {
     border-top: 2px solid #BBB;
 }
 
@@ -280,7 +296,8 @@ a.navbar-brand {
     /* IE6-9 */
 }
 
-.result-list-item h2 {
+.result-list-item h2,
+.related-objects-item h2 {
     color: var(--BBAWred);
     font-size: 1.4em;
 }
@@ -313,21 +330,21 @@ a.navbar-brand {
     font-family: "Font Awesome 5 Free" !important;
     font-weight: 900;
     content: "\f058";
-    color: green;
+    color: var(--success);
 }
 
 .red-status span.pending:before {
     font-family: "Font Awesome 5 Free" !important;
     font-weight: 900;
     content: "\f059";
-    color: orange !important;
+    color: var(--warning) !important;
 }
 
 .red-status span.notok:before {
     font-family: "Font Awesome 5 Free" !important;
     font-weight: 900;
     content: "\f05e";
-    color: red !important;
+    color: var(--danger) !important;
 }
 
 
@@ -372,7 +389,7 @@ a span.lc:hover {
 }
 
 .result-list-item img.occ-tok-glyphs.highlight-1,
-.result-list-item canvas.res.occ-tok-glyphs.highlight-1 {
+.result-list-item svg.occ-tok-glyphs.highlight-1 {
     border: 1px solid var(--BBAWred);
     border-radius: 2px;
 }
@@ -396,8 +413,7 @@ a span.lc:hover {
     line-height: 1;
 }
 
-.container-annotation-switch-lines .unicode-hieroglyphs,
-.lemma .unicode-hieroglyphs {
+.unicode-hieroglyphs {
     font-size: 2.5em;
     color: black !important;
 }
@@ -469,6 +485,7 @@ a span.lc:hover {
 
 .subcorpus {
     background-color: #E0E0E0;
+    color: var(--BBAWdarkbluegrey);
     font-size: .65em;
     padding: .2em;
     border-radius: .2em;
@@ -477,13 +494,12 @@ a span.lc:hover {
     position: relative;
 }
 
-.result-list-item span.glyphbox img {}
-
 .result-list-item span.glyphbox img:hover {
     border-bottom: 1px solid var(--BBAWred);
 }
 
-.result-list hr {
+.result-list-item hr,
+.related-objects-item hr {
     margin: 0 !important;
 }
 
@@ -594,11 +610,6 @@ ul.annotation-block li.translations {
     /*float: right;*/
 }
 
-.word-class-type {
-    font-style: italic;
-    font-weight: 100;
-}
-
 .word-class-subtype {
     font-weight: 100;
     font-family: "Roboto Condensed";
@@ -666,38 +677,32 @@ footer.bg-light {
     text-decoration: none;
 }
 
-.details-content .row {
+#details-content .row {
     margin: 0 !important;
 }
 
-.details-content div.row {
+.details-content > div.row {
     padding: 1rem 0 !important;
-
 }
 
-.details-content .content-field {
+.details-header, .search-header {
     border-bottom: 2px solid #EEE !important;
-    padding-top: 1rem;
 }
 
-.details-content .details-property-label::after {
+#details-content .details-property-label::after {
     content: ":";
 }
 
-.details-content .external-reference-id {
+#details-content .external-reference-id {
     font-style: italic;
 }
 
-.details-content .bibliographic-reference {
+#details-content .bibliographic-reference {
     margin-right: 1em;
 }
 
-.details-content .editor {
+#details-content .editor {
     margin-right: 1em;
-}
-
-.comment.content-field {
-    border-bottom: 0 !important;
 }
 
 .comment-wrapper.hide-comment {
@@ -728,7 +733,7 @@ footer.bg-light {
     z-index: 50;
 }
 
-.details-content p.relations span {
+#details-content p.relations span {
     font-style: italic;
     font-weight: bold;
     padding-left: .5rem;
@@ -780,11 +785,6 @@ footer.bg-light {
     color: var(--BBAWred);
 }
 
-/* Forms */
-.form-check-input {
-    margin-top: 7px;
-}
-
 .search .form-group {
     margin-bottom: 1rem;
     margin-left: 0;
@@ -834,17 +834,16 @@ footer.bg-light {
 }
 
 .id {
-    font-size: 1.5em;
     font-weight: 600;
-    padding: 0.6rem;
+    padding: 0em 0.2em;
     background-color: var(--BBAWlightbluegrey);
     color: white;
     display: inline-block;
 }
 
-.id h2 span {
+h2.id span {
     font-family: "BBAWLibertine" !important;
-    font-weight: 200;
+    padding: 0.6rem;
 }
 
 
@@ -1025,7 +1024,7 @@ span.multiselect-native-select select {
     margin: .62em 0 0 -3.8em;
     font-style: italic;
     font-size: .9em;
-    color: grey;
+    color: var(--BBAWmiddlegrey);
 }
 
 .root:before {

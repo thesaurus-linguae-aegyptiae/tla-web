@@ -1,3 +1,5 @@
+.gitattributes
+
 # Ignore Gradle project-specific cache directory
 .gradle
 
@@ -6,16 +8,20 @@ build
 bin
 .env
 .settings
+settings.gradle
 
 # ignore third party assets which are installed via gradle task
 src/main/resources/static/vendor/
+src/main/resources/static/font/
 
 # ignore IDE stuff
 .project
 WEB-INF/
+.vscode/
 
 # ignore devmode log file
 app.log
 
 # ignore resources
 sample.tar.gz
+.gradletasknamecache

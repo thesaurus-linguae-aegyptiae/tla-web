@@ -6,7 +6,10 @@ import java.util.Map;
 
 import org.springframework.web.client.RestTemplate;
 
-import tla.domain.dto.DocumentDto;
+import tla.domain.command.LemmaSearch;
+import tla.domain.dto.meta.AbstractDto;
+import tla.domain.dto.meta.DocumentDto;
+import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.web.model.BackendPath;
 import tla.web.model.Lemma;
@@ -36,6 +39,11 @@ public class TlaClient {
         registerModelClasses();
     }
 
+    /**
+     * Takes all model classes listed in the {@link ModelClasses} annotation
+     * of this class, retrieves the value of their respective {@link BackendPath}
+     * annotations, and stores these value pairs for later lookup. 
+     */
     private void registerModelClasses() {
         for (Annotation a : TlaClient.class.getAnnotations()) {
             if (a instanceof ModelClasses) {
@@ -57,12 +65,28 @@ public class TlaClient {
         }
     }
 
+    /**
+     * Retrieves a single object from the backend application.
+     *
+     * In order for this to work, the requested object's type must be registered via {@link ModelClasses}
+     * annotation on {@link TlaClient}, and must itself be annotated with a {@link BackendPath} annotation.
+     */
     @SuppressWarnings("unchecked")
-    public SingleDocumentWrapper<DocumentDto> retrieveObject(Class<? extends TLAObject> modelClass, String id) {
+    public SingleDocumentWrapper<AbstractDto> retrieveObject(Class<? extends TLAObject> modelClass, String id) {
         String backendPath = backendPaths.get(modelClass);
         return client.getForObject(
             String.format("%s/%s/get/%s", this.backendUrl, backendPath, id),
             SingleDocumentWrapper.class
+        );
+    }
+
+    @SuppressWarnings("unchecked")
+    public SearchResultsWrapper<DocumentDto> lemmaSearch(LemmaSearch command, int page) {
+        return client.postForObject(
+            String.format("%s/lemma/search?page={page}", this.backendUrl),
+            command,
+            SearchResultsWrapper.class,
+            Map.of("page", Math.max(0, page - 1))
         );
     }
 

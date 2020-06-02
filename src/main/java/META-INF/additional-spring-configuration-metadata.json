@@ -4,6 +4,11 @@
             "name": "tla",
             "type": "tla.web.config.ApplicationProperties",
             "description": "Frontend application properties"
+        },
+        {
+            "name": "search",
+            "type": "tla.web.config.SearchProperties",
+            "description": "Configurations for search functions"
         }
     ],
     "properties": [
@@ -26,6 +31,18 @@
         {
             "name": "tla.assets",
             "type": "tla.web.config.ApplicationProperties.Assets"
+        },
+        {
+            "name": "search.lemma.word-classes",
+            "type": "java.util.Map"
+        },
+        {
+            "name": "search.lemma.sort-orders",
+            "type": "java.util.List"
+        },
+        {
+            "name": "search.annotation-types",
+            "type": "java.util.Map"
         }
     ]
 }

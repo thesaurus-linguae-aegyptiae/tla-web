@@ -2,6 +2,7 @@
 <html xmlns:th="http://thymeleaf.org">
   <body>
 
+    <!-- Header containing main navigational menu -->
 
     <header id="header" class="header" th:fragment="header">
       <!-- Navigation -->
@@ -50,6 +51,8 @@
     </header>
 
 
+    <!-- page footer-->
+
     <footer class="py-5 bg-light" th:fragment="footer">
       <div class="container">
         <div class="row">
@@ -86,11 +89,13 @@
     </footer>
 
 
+    <!-- page breadcrumbs -->
+
     <div id="breadcrumbs" class="row" th:fragment="breadcrumbs">
       <div class="col-12">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li th:each="item : ${breadcrumbs}" th:class="${itemStat.last} ? 'breadcrumb-item active' : 'breadcrumb-item'">
+            <li th:each="item : ${breadcrumbs}" class="breadcrumb-item" th:classappend="${itemStat.last} ? 'active' : ''">
               <a th:unless="${item.href} == null" th:href="${item.href}" th:text="#{${item.label}}"></a>
               <span th:unless="${item.href} != null" th:text="#{${item.label}}"></span>
             </li>
@@ -100,18 +105,42 @@
     </div>
 
 
+    <!-- social media stuff for top right header placement -->
+
     <div id="social" class="button-bar col-md-4 align-right align-baseline d-none d-lg-block" th:fragment="social">
-      <div class="functional-icons ml-3 ">
-        <a href="#" class="btn btn-light solo-icon" role="button" data-toggle="modal" data-target="#modal_sharing">Share&nbsp;&nbsp;<i class="fa fa-share-alt share-results"></i></a>
+      <div class="functional-icons">
+        <a href="#" class="btn btn-light solo-icon" role="button" data-toggle="modal" data-target="#modal_sharing">
+          <span class="mr-2">Share</span>
+          <i class="fa fa-share-alt share-results"></i></a>
       </div>
-      <div class="functional-icons ml-3 ">
-      <a href="#" class="btn btn-light solo-icon" role="button" data-toggle="modal" data-target="#modal_comments">Comment&nbsp;&nbsp;<i class="far fa-comment"></i></a>
+      <div class="functional-icons">
+        <a href="#" class="btn btn-light solo-icon" role="button" data-toggle="modal" data-target="#modal_comments">
+          <span class="mr-2">Comment</span>
+          <i class="far fa-comment"></i></a>
       </div>
-      <div class="functional-icons mr-0 ">
-        <a class="btn btn-red text-left text-decoration-none solo-icon" role="button" href="/help/lemma" target="_blank">Page&nbsp;help&nbsp;&nbsp;<i class="fas fa-info-circle fa-lg"></i></a>
+      <div class="functional-icons">
+        <a class="btn btn-red text-left text-decoration-none solo-icon" role="button" href="/help/lemma" target="_blank">
+          <span class="mr-2">Pagehelp</span>
+          <i class="fas fa-info-circle"></i></a>
       </div>
     </div>
 
+
+    <!-- icon indicating review state -->
+    <a th:fragment="review-state(obj)" class="review-state" th:title="|Review status: ${obj.reviewState}|">
+      <span class="solo-icon red-status float-right badge badge-pill badge-light">
+        <span class="font-weight-light" th:text="#{|review_state_${obj.reviewState}}|">Reviewed</span>
+        <span class="fa-check-circle" th:classappend="${#strings.equals(obj.reviewState, 'published')} ? ok : pending"/>
+      </span>
+    </a>
+
+    <!-- translation for a single language -->
+    <span th:fragment="single-lang-translation(entry)">
+      <span class="lang-icon text-uppercase" th:text="${entry.key}">DE</span>
+      <span th:each="translation : ${entry.value}" th:class="|translation-${entry.key}|">
+        <span class="translation" th:text="${translation}">Translation</span>
+      </span>
+    </span>
 
   </body>
 </html>

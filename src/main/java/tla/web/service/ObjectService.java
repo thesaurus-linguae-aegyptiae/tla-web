@@ -1,12 +1,15 @@
 package tla.web.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
-import tla.domain.dto.DocumentDto;
 import tla.domain.dto.extern.SingleDocumentWrapper;
+import tla.domain.dto.meta.AbstractDto;
 import tla.web.model.ObjectDetails;
 import tla.web.model.TLAObject;
 import tla.web.repo.TlaClient;
+
 
 public abstract class ObjectService<T extends TLAObject> {
 
@@ -22,7 +25,7 @@ public abstract class ObjectService<T extends TLAObject> {
      * @param id document ID
      * @return DTO wrapped inside a {@link SingleDocumentWrapper} container
      */
-    protected abstract SingleDocumentWrapper<DocumentDto> retrieveSingleDocument(String id);
+    protected abstract SingleDocumentWrapper<AbstractDto> retrieveSingleDocument(String id);
 
     /**
      * Retrieve a container with a single domain model class instance.
@@ -30,14 +33,20 @@ public abstract class ObjectService<T extends TLAObject> {
      * @return model object wrapped inside an {@link ObjectDetails} container
      */
     @SuppressWarnings("unchecked")
-    public ObjectDetails<T> get(String id) {
-        ObjectDetails<TLAObject> container = ObjectDetails.from(
-            retrieveSingleDocument(id)
-        );
-        return new ObjectDetails<T>(
-            (T) container.getObject(),
-            container.getRelatedObjects()
-        );
+    public Optional<ObjectDetails<T>> getDetails(String id) {
+        try {
+            ObjectDetails<TLAObject> container = ObjectDetails.from(
+                retrieveSingleDocument(id)
+            );
+            return Optional.of(
+                new ObjectDetails<T>(
+                    (T) container.getObject(),
+                    container.getRelated()
+                )
+            );
+        } catch (Exception e) {
+            return Optional.empty();
+        }
     }
 
 }

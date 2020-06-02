@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}"
+>
+  <head>
+    <title>Lemma Search</title>
+  </head>
+
+  <body>
+
+    <div layout:fragment="content">
+
+      <!-- result page heading -->
+      <div class="search-header row mb-3">
+        <p th:replace="fragments/search :: result-page-desc"/>
+        <div th:replace="fragments/common :: social"/>
+      </div>
+
+      <div class="row">
+
+        <!-- search results -->
+        <div class="col-lg-8 content">
+          <div class= "result-list m-4">
+            <nav th:replace="fragments/search :: search-results-pagination"/>
+
+            <th:block th:each="obj : ${searchResults}" th:insert="fragments/search :: lemma-search-result"/>
+
+            <nav th:replace="fragments/search :: search-results-pagination"/>
+          </div>
+        </div>
+
+        <!-- sidebar -->
+        <div class="col-lg-4 sidebar">
+          <div class="sticky-top m-4">
+
+            <div th:replace="fragments/search :: lemma-sort-order-select"/>
+            <div th:replace="fragments/search :: hide-properties-buttons"/>
+            <div th:replace="fragments/search :: modify-search-button(${modifySearchUrl})"/>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </body>
+</html>

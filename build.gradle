@@ -6,7 +6,7 @@ plugins {
     id 'maven-publish'
     id 'co.uzzu.dotenv.gradle' version '1.1.0'
     id 'de.undercouch.download' version '4.0.4'
-    id 'org.springframework.boot' version '2.2.6.RELEASE'
+    id 'org.springframework.boot' version '2.3.0.RELEASE'
     id 'com.github.ben-manes.versions' version '0.28.0'
     id 'com.github.dawnwords.jacoco.badge' version '0.2.0'
 }
@@ -19,10 +19,19 @@ ext {
     fontawesomeVersion = env.FONTAWESOME_VERSION.orElse('5.12.1')
     bootstrapVersion = env.BOOTSTRAP_VERSION.orElse('4.4.1')
     jqueryVersion = env.JQUERY_VERSION.orElse('3.5.0')
+    cookieJsVersion = env.COOKIEJS_VERSION.orElse('2.2.1')
     fontawesomeSrc = "https://use.fontawesome.com/releases/v${fontawesomeVersion}/fontawesome-free-${fontawesomeVersion}-web.zip"
     bootstrapSrc = "https://github.com/twbs/bootstrap/releases/download/v${bootstrapVersion}/bootstrap-${bootstrapVersion}-dist.zip"
     jquerySrc = "https://code.jquery.com/jquery-${jqueryVersion}.min.js"
+    cookieJsSrc = "https://github.com/js-cookie/js-cookie/releases/download/v${cookieJsVersion}/js.cookie-${cookieJsVersion}.min.js"
+    staticDir = 'src/main/resources/static'
 }
+
+def assets = [
+  'cookieJs' : [cookieJsSrc, 'js.cookie.min.js'],
+  'jquery': [jquerySrc, 'jquery.min.js'],
+  'headroomJs': ['https://unpkg.com/headroom.js/dist/headroom.min.js', 'headroom.min.js']
+]
 
 publishing {
     publications {
@@ -54,21 +63,22 @@ configurations {
 }
 
 dependencies {
-    compileOnly 'org.projectlombok:lombok:1.18.12'
+    implementation 'org.projectlombok:lombok:1.18.12'
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
 
     implementation 'org.modelmapper:modelmapper:2.3.7'
 
-    implementation 'org.springframework.boot:spring-boot-starter-web:2.3.0.M1'
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.3.0.M3'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.3.0.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.3.0.RELEASE'
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.4.1'
     implementation 'org.slf4j:slf4j-simple:2.0.0-alpha1'
 
     implementation 'com.github.jkatzwinkel:tla-common:master-SNAPSHOT'
     implementation 'com.github.rosmord:jsesh:7.3.1'
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.2.4.RELEASE'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.3.0.RELEASE'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0-M1'
 }
 
 application {
@@ -77,8 +87,6 @@ application {
 
 test {
     useJUnitPlatform()
-    environment "bootstrapVersion", bootstrapVersion
-    environment "fontawesomeVersion", fontawesomeVersion 
     finalizedBy 'jacocoTestReport'
 }
 
@@ -90,8 +98,37 @@ jacocoTestReport {
     finalizedBy 'generateJacocoBadge'
 }
 
+task installAssets {
+    description = 'Download and install third-party JS/CSS frameworks and libraries'
+    dependsOn 'installBootstrap'
+    dependsOn 'installFontAwesome'
+    dependsOn 'installFontRoboto'
+    outputs.files(
+        file("${staticDir}/vendor/")
+    )
+}
+
+def createDownloadAssetTask(String name, String url, String destFile) {
+  return tasks.create("download${name.capitalize()}", Download) {
+    doFirst {
+      mkdir "${staticDir}/vendor"
+    }
+    description = "Download && install ${name}"
+    src "${url}"
+    dest file("${staticDir}/vendor/${destFile}")
+    onlyIfModified true
+  }
+}
+
+assets.each{
+  entry -> installAssets.dependsOn createDownloadAssetTask(
+    entry.key,
+    entry.value[0],
+    entry.value[1]
+  )
+}
+
 task downloadFontAwesome(type: Download) {
-    group = 'Init'
     description = 'Downloads fontawesome distribution for local hosting'
     src fontawesomeSrc
     dest new File(buildDir, 'fontawesome.zip')
@@ -99,26 +136,17 @@ task downloadFontAwesome(type: Download) {
 }
 
 task downloadBootstrap(type: Download) {
-    group = 'Init'
     description = 'Downloads bootstrap distribution for local hosting'
     src bootstrapSrc
     dest new File(buildDir, 'bootstrap.zip')
     onlyIfModified true
 }
 
-task downloadJquery(type: Download) {
+task downloadFontRoboto(type: Download) {
     group = 'Init'
-    description = 'Download && install jquery minified production distro'
-    src jquerySrc
-    dest file('src/main/resources/static/vendor/jquery.min.js')
-    onlyIfModified true
-}
-
-task downloadHeadroom(type: Download) {
-    group = 'Init'
-    description = 'Download && install Headroom JS'
-    src 'https://unpkg.com/headroom.js/dist/headroom.min.js'
-    dest file('src/main/resources/static/vendor/headroom.min.js')
+    description = 'Download Google Roboto font'
+    src 'https://google-webfonts-helper.herokuapp.com/api/fonts/roboto?download=zip&subsets=latin&variants=300,500,700,300italic,regular,italic,700italic'
+    dest new File(buildDir, 'roboto.zip')
     onlyIfModified true
 }
 
@@ -126,46 +154,70 @@ task installFontAwesome(dependsOn: downloadFontAwesome, type: Copy) {
     group = 'Init'
     description = 'Installs fontawesome distribution into assets directory'
     from zipTree(downloadFontAwesome.dest)
-    into file('src/main/resources/static/vendor/')
+    into file("${staticDir}/vendor")
+    doLast {
+      file("${staticDir}/vendor/fontawesome-free-${fontawesomeVersion}-web").renameTo(
+        file("${staticDir}/vendor/fontawesome")
+      )
+    }
 }
 
 task installBootstrap(dependsOn: downloadBootstrap, type: Copy) {
     group = 'Init'
     description = 'Installs bootstrap distribution into assets directory'
     from zipTree(downloadBootstrap.dest)
-    into file('src/main/resources/static/vendor/')
+    into file("${staticDir}/vendor")
+    doLast {
+      file("${staticDir}/vendor/bootstrap-${bootstrapVersion}-dist").renameTo(
+        file("${staticDir}/vendor/bootstrap")
+      )
+    }
 }
 
-task installAssets {
+task installFontRoboto(dependsOn: downloadFontRoboto, type: Copy) {
     group = 'Init'
-    description = 'Download and install bootstrap and fontawesome'
-    dependsOn 'installBootstrap'
-    dependsOn 'installFontAwesome'
-    dependsOn 'downloadJquery'
-    dependsOn 'downloadHeadroom'
+    description = 'Installs Google Roboto font'
+    from zipTree(downloadFontRoboto.dest)
+    into file("${staticDir}/font")
+}
+
+task install {
+    inputs.files(
+      file('.env')
+    )
+    group = 'Init'
+    description = 'Installs additional resources required for running the app'
+    dependsOn 'installAssets'
+    outputs.files(
+      file("${staticDir}/vendor/")
+    )
 }
 
 task cleanAssets(type: Delete) {
     group = 'Init'
     description = 'Delete files added with :installAssets'
-    delete 'src/main/resources/static/vendor/'
-}
-
-cleanInstallAssets {
-    dependsOn 'cleanAssets'
+    delete "${staticDir}/vendor/"
 }
 
 clean {
-    dependsOn 'cleanAssets'
+    dependsOn 'cleanInstall'
 }
 
 bootJar {
-    dependsOn 'installAssets'
+    dependsOn 'install'
 }
 
 bootRun {
-    environment 'bootstrapVersion', bootstrapVersion
-    environment 'fontawesomeVersion', fontawesomeVersion
     systemProperty 'spring.profiles.active', 'dev'
+    doFirst {
+      if ( !file("${staticDir}/vendor/").exists() ) {
+        println ' ======================================'
+        println ' !!!  Must run task :install first: !!!'
+        println ' !!!                                !!!'
+        println ' !!!     ./gradlew.bat install      !!!'
+        println ' ======================================'
+        throw new StopExecutionException()
+      }
+    }
 }
 

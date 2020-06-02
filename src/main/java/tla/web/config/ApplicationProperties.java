@@ -4,11 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
 import lombok.Data;
 
 @Data
+@Component
 @ConfigurationProperties(prefix = "tla")
+@PropertySource("classpath:application.yml")
 public class ApplicationProperties {
 
     private String name;
@@ -18,16 +22,5 @@ public class ApplicationProperties {
     private String backendURL = "http://tladev.bbaw.de:8080";
 
     private Map<String, LinkFormatter> linkFormatters = new HashMap<>();
-
-    private Assets assets;
-
-    @Data
-    public static class Assets {
-
-        private String bootstrap;
-
-        private String fontawesome;
-
-    }
 
 }
