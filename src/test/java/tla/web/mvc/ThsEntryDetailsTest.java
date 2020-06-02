@@ -4,9 +4,12 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.AbstractDto;
+import tla.error.ObjectNotFoundException;
 import tla.web.model.ObjectDetails;
 import tla.web.model.TLAObject;
 import tla.web.model.ThsEntry;
@@ -80,13 +84,19 @@ public class ThsEntryDetailsTest extends ViewTest {
     })
     void getThsEntryDetails_exists(String id) throws Exception {
         assertNotNull(controller);
-        doReturn(
-            mapDetailsDTO(
-                thsEntryDetailsDTO(id)
+        when(
+            service.getDetails(id)
+        ).thenReturn(
+            Optional.of(
+                mapDetailsDTO(
+                    thsEntryDetailsDTO(id)
+                )
             )
-        ).when(service).get(id);
+        );
 
-        ObjectDetails<ThsEntry> details = service.get(id);
+        ObjectDetails<ThsEntry> details = service.getDetails(id).orElseThrow(
+            () -> new ObjectNotFoundException(id, "BTSThsEntry")
+        );
         assertAll("assume mock service does as told",
             () -> assertNotNull(details),
             () -> assertNotNull(details.getObject())
@@ -121,11 +131,19 @@ public class ThsEntryDetailsTest extends ViewTest {
     @Test
     void getThsEntryDetails_unknown() throws Exception {
         doReturn(
-            null
-        ).when(service).get(null);
+            Optional.empty()
+        ).when(
+            service
+        ).getDetails("x");
         mockMvc.perform(
-            get("/thesaurus/")
-        ).andDo(print()).andExpect(status().isNotFound());
+            get("/thesaurus/x")
+        ).andDo(print()).andExpect(status().isOk())
+        .andExpect(
+            view().name("error/404")
+        )
+        .andExpect(
+            model().attribute("env", aMapWithSize(2))
+        );
     }
 
 }
