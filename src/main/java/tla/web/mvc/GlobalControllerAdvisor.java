@@ -61,5 +61,13 @@ public class GlobalControllerAdvisor extends DefaultHandlerExceptionResolver {
         return new ModelAndView("error/404", model.asMap(), HttpStatus.OK);
     }
 
+    @ExceptionHandler(Exception.class)
+    public ModelAndView handleAnything(Exception e, HttpServletRequest request, Model model) {
+        model.addAttribute("code", 500);
+        model.addAttribute("name", e.getClass().getCanonicalName());
+        model.addAttribute("url", request.getRequestURI());
+        model.addAttribute("msg", "Coulnd't process your request.");
+        return new ModelAndView("error/404", model.asMap(), HttpStatus.OK);
+    }
 
 }

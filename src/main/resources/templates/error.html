@@ -2,32 +2,49 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{base}"
       xml:lang="en"
+      layout:decorate="~{base}"
 >
   <head>
-    <title th:text="|#{|error_${code}|} (${code})|"/>
+    <title th:text="#{error_500}"/>
   </head>
 
   <body>
 
     <div layout:fragment="content" style="min-height: 500px">
 
-      <h1 th:text="${url}"/>
       <div class="row mb-3 details-header">
          <div id="review-state-header" class="col-sm-12 col-lg-8 d-flex justify-content-between align-items-end">
-            <h2 class="id mt-1">
-              <span class="bbaw-libertine" th:text="${msg}">Object name</span>
-            </h2>
+            <h3 class="mt-1">
+              <span class="text-monospace text-muted text-uppercase font-weight-bold">Error</span>
+              <span class="id bbaw-libertine" th:text="${name}" th:if="${#ctx.containsVariable('name')}">Object name</span>
+            </h3>
          </div>
-         <h3 class="float-right font-weight-bold" th:text="${code}"/>
+         <h3 class="float-right font-weight-bold text-danger text-uppercase" th:text="|Error ${code != null ? code : '500'}|"/>
       </div>
 
       <div class="row">
         <div class="col-sm-12 col-lg-8" id="details-content">
-          <div class="error-msg" th:text="#{|error_${code}_desc|}">Feherbeschreibung</div>
+          <h6 class="border-bottom">
+            <span class="text-danger">
+              The server failed to process your request!
+              <span class="text-monospace" th:text="${url}"/>!
+            </span>
+          </h6>
+          <div class="my-5"/>
+            <h2 class="error-msg border-bottom" th:text="#{error_500}">Feherbeschreibung</h2>
+            <h6 class="error-msg text-muted" th:text="${msg}" th:if="${#ctx.containsVariable('msg')}">error message</h6>
+          </div>
+        </div>
+
+        <div class="sidebar col-lg-4 d-none d-lg-block">
+          <div class="sticky-top">
+
+
+          </div>
         </div>
       </div>
+
     </div>
 
   </body>
