@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link rel="icon" th:href="@{/img/icon/favicon.ico}" href="../static/img/icon/favicon.ico" sizes="16x16 24x24 32x32 64x64" type="image/x-icon"/>
+
+    <link rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" href="../static/vendor/bootstrap/css/bootstrap.min.css" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/vendor/fontawesome/css/all.css}" href="../static/vendor/fontawesome/css/all.css" type="text/css"/>
+
+    <script th:src="@{/vendor/jquery.min.js}" src="../static/vendor/jquery.min.js"></script>
+    <script th:src="@{/vendor/headroom.min.js}" src="../static/vendor/headroom.min.js"></script>
+    <script th:src="@{/vendor/js.cookie.min.js}" src="../static/vendor/js.cookie.min.js"></script>
+
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}" src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script th:src="@{/vendor/fontawesome/js/all.js}" src="../static/vendor/fontawesome/js/all.js"></script>
+
+    <link rel="stylesheet" th:href="@{/css/tla-styles.css}" href="../static/css/tla-styles.css" type="text/css"/>
+    <script th:src="@{/js/tla-functions.js}" src="../static/js/tla-functions.js"></script>
+  </head>
+
+  <body>
+
+    <header th:replace="fragments/common :: header"/>
+
+    <main id="printable-content" class="container content">
+      <div th:replace="fragments/common :: breadcrumbs"/>
+      <div layout:fragment="content"/>
+    </main>
+
+    <footer th:replace="fragments/common :: footer"/>
+
+  </body>
+</html>

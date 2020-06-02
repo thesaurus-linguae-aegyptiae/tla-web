@@ -1,68 +1,57 @@
 package tla.web.mvc;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.format.FormatterRegistry;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import lombok.extern.slf4j.Slf4j;
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 import tla.web.config.ApplicationProperties;
+import tla.web.model.mappings.LanguageFromStringConverter;
+import tla.web.model.mappings.ScriptFromStringConverter;
 
+@Slf4j
 @Configuration
+@ControllerAdvice
 @Import(ApplicationProperties.class)
-public class MvcConfig {
+public class MvcConfig  implements WebMvcConfigurer {
 
     @Autowired
     private ApplicationProperties applicationProperties;
 
+    @ModelAttribute("env")
+    public Map<String, String> appVars() {
+        log.info("app properties available? {}", applicationProperties != null);
+        return Map.of(
+            "baseUrl", applicationProperties.getBaseUrl(),
+            "appName", applicationProperties.getName()
+        );
+    }
+
     @Bean
-    public TlaPageHeader tlaPageHeader() {
-        return new TlaPageHeader(applicationProperties);
+    public LayoutDialect layoutDialect() {
+        return new LayoutDialect();
     }
 
-    public static class TlaPageHeader {
-
-        private ApplicationProperties props;
-        private ApplicationProperties.Assets assets;
-
-        public TlaPageHeader(ApplicationProperties applicationProperties) {
-            this.props = applicationProperties;
-            this.assets = applicationProperties.getAssets();
-        }
-
-        public String getBootstrapCss() {
-            return String.format(
-                "%s/css/bootstrap.min.css",
-                this.assets.getBootstrap()
-            );
-        }
-
-        public String getFontawesomeCss() {
-            return String.format(
-                "%s/css/all.css",
-                this.assets.getFontawesome()
-            );
-        }
-
-        public String getBootstrapJs() {
-            return String.format(
-                "%s/js/bootstrap.min.js",
-                this.assets.getBootstrap()
-            );
-        }
-
-        public String getFontawesomeJs() {
-            return String.format(
-                "%s/js/all.js",
-                this.assets.getFontawesome()
-            );
-        }
-
-        public String getBaseUrl() {
-            return props.getBaseUrl();
-        }
-
-        public String getAppName() {
-            return props.getName();
-        }
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new ScriptFromStringConverter());
+        registry.addConverter(new LanguageFromStringConverter());
     }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry
+            .addResourceHandler("/resources/**")
+            .addResourceLocations("/resources/");
+    }
+
 }

@@ -10,7 +10,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.StringUtils;
 
 import tla.domain.dto.AnnotationDto;
+import tla.domain.dto.meta.DocumentDto;
 import tla.domain.dto.LemmaDto;
+import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.model.EditorInfo;
 import tla.domain.model.ExternalReference;
 import tla.domain.model.Language;
@@ -49,13 +51,32 @@ public class MappingTest {
             () -> assertNotNull(word.getGlyphs(), "expect glyphs"),
             () -> assertEquals("N35", word.getGlyphs().getMdc(), "mdc correct?"),
             () -> assertTrue(
-                word.getGlyphs().getSvg().startsWith("<?xml version='1.0' encoding='UTF-8' standalone='yes'?>"),
+                word.getGlyphs().getSvg().startsWith("<svg xmlns"),
                 "check svg xml JSesh rendering result"
             ),
             () -> assertEquals(
                 "http://sith.huma-num.fr/vocable/1",
                 lemma.getExternalReferences().get("cfeetk").get(0).getHref()
             )
+        );
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    void ths() throws Exception {
+        SingleDocumentWrapper<DocumentDto> dto = tla.domain.util.IO.loadFromFile(
+            "src/test/resources/sample/data/ths/details/KQY2F5SJVBBN7GRO5WUXKG5M6M.json",
+            SingleDocumentWrapper.class
+        );
+        ObjectDetails<TLAObject> objectDetails = ObjectDetails.from(dto);
+        assertTrue(objectDetails.getObject() instanceof ThsEntry);
+        ThsEntry t = (ThsEntry) objectDetails.getObject();
+        assertAll("test mapping from DTO to thesaurus object",
+            () -> assertNotNull(t.getTranslations()),
+            () -> assertTrue(t.getTranslations().containsKey(Language.FR)),
+            () -> assertEquals(1, t.getTranslations().get(Language.FR).size()),
+            () -> assertNotNull(t.getExternalReferences()),
+            () -> assertNotNull(t.getEdited())
         );
     }
 

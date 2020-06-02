@@ -1,33 +1,42 @@
-![java ci](https://github.com/JKatzwinkel/tla-web/workflows/java%20ci/badge.svg)
-![LINE](https://img.shields.io/badge/line--coverage-47%25-orange.svg)
-![METHOD](https://img.shields.io/badge/method--coverage-44%25-orange.svg)
+![Java CI](https://github.com/JKatzwinkel/tla-web/workflows/build/badge.svg)
+![LINE](https://img.shields.io/badge/line--coverage-92%25-brightgreen.svg)
+![METHOD](https://img.shields.io/badge/method--coverage-74%25-yellow.svg)
 
 TLA web frontend.
 
-## Installation
 
-Specify the following environment variables in a `.env` file, e.g.:
+## Usage
+
+Prerequisites:
+
+- Java 11
+- [tla-es](https://github.com/JKatzwinkel/tla-es)
+
+Install, populate, and run the [backend](https://github.com/JKatzwinkel/tla-es) first.
+
+
+Run the frontend application using the `bootRun` task from the spring boot gradle plugin
+(on windows, you will probably need to use the native wrapper `./gradlew.bat` instead):
+
+    gradle bootrun
+
+On its first run, this will download and install third-party JS/CSS frameworks and libraries such as
+[Bootstrap](https://getbootstrap.com/), [Font Awesome](https://fontawesome.com/), and
+[JQuery](https://jquery.com/).
+In order to override the respective default bundle versions of some of these, you can use the environment variables
+shown in [`.env.template`](.env.template), e.g. by defining them in a `.env` file:
 
     BOOTSTRAP_VERSION=4.4.1
     FONTAWESOME_VERSION=5.12.1
     JQUERY_VERSION=3.5.0
 
-Add these third-party JS/CSS libraries to your project like this:
-
-    ./gradlew installAssets
-
-Then run the application using the `bootRun` task:
-
-    ./gradlew bootRun
+However, this is of course optional as default versions are being defined in the
+[build file](build.gradle).
 
 
 ## Misc
 
 You can check for the newest version of package dependencies by running:
 
-    ./gradlew dependencyUpdates
-
-Run the entire thing using Docker Compose:
-
-    docker-compose up -d
+    gradle dependencyUpdates
 

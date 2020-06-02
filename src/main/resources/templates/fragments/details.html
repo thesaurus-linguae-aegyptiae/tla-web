@@ -3,46 +3,184 @@
 
 <body>
 
-    <!-- Verweise -->
-    <div th:fragment="external-references" id="external-references" th:if="${obj.externalReferences != null}">
+    <!-- Object details page header (incl. social media stuff) -->
+    <div th:fragment="details-page-header" class="row mb-3 details-header">
+        <div th:replace=" :: review-state-header"/>
+        <div th:replace="fragments/common :: social"/>
+    </div>
+
+    <!-- Object details header (name && review state) -->
+    <div th:fragment="review-state-header" id="review-state-header" class="col-sm-12 col-lg-8 d-flex justify-content-between align-items-end">
+        <h2 class="id mt-1">
+          <span class="bbaw-libertine" th:text="${obj.name}">Object name</span>
+        </h2>
+        <a th:replace="fragments/common :: review-state(${obj})"/>
+    </div>
+
+
+    <!-- External references -->
+    <div th:fragment="external-references" id="external-references" th:if="${obj.externalReferences} != null">
         <hr />
         <p>
             <strong th:text="#{object_property_external_references}" class="details-property-label">External
                 references</strong>
         </p>
-        <div th:each="entry : ${obj.externalReferences}" class="row align-items-start">
-            <div class="col-4 my-0 py-0">
-                <span th:text="#{'external_reference_provider_' + ${entry.key}}" class="external-reference-provider">Provider</span>
+        <div th:each="entry : ${obj.externalReferences}" class="align-items-start" th:id="|external-references-${entry.key}|">
+            <span th:text="#{|external_reference_provider_${entry.key}|}" class="external-reference-provider pr-2">Provider</span>
+            <span class="external-reference" th:each="ref : ${entry.value}">
+                <a th:if="${ref.href} != null" th:href="${ref.href}">
+                    <span class="fas fa-arrow-circle-right red"></span>
+                    <span th:text="${ref.value}" class="external-reference-id">ext. Identifier</span>
+                </a>
+                <span th:unless="${ref.href} != null">
+                    <span th:text="${ref.value}" class="external-reference-id"></span>
+                    <span th:if="${ref.type} != null" th:text="${ref.type}" class="external-reference-type"/>
+                </span>
+            </span>
+        </div>
+    </div>
+
+    <!-- translations -->
+    <div class="translations" th:fragment="translations" id="translations" th:if="${obj.translations} != null">
+        <hr />
+        <p>
+            <strong th:text="#{object_property_translation}" class="details-property-label">Translation</strong>
+        </p>
+        <div th:each="entry : ${obj.translations}" th:insert="fragments/common :: single-lang-translation(${entry})">
+        </div>
+    </div>
+
+    <!-- bibliography -->
+    <div class="bibliography" th:fragment="bibliography" id="bibliography" th:if="${obj.bibliography} != null">
+        <hr/>
+        <p>
+            <strong th:text="#{object_property_bibliography}" class="details-property-label">Bibliography</strong>
+            <br/>
+            <span th:each="bib : ${obj.bibliography}">
+                <span class="fas fa-arrow-circle-right"></span>
+                <span class="bibliographic-reference" th:text="${bib}"></span>
+            </span>
+        </p>
+    </div>
+
+    <!-- Lemma/Thesaurus entry annotations -->
+    <div class="comment pb-2" id="single-entry-annotations" th:fragment="single-entry-annotations" th:if="${annotations} != null">
+        <hr/>
+        <strong th:text="#{object_property_annotations}" class="details-property-label">Comments</strong>
+        <div th:each="annotation : ${annotations}" class="comment-wrapper">
+            <p>
+                <strong th:unless="${annotation.name} == null" th:utext="${annotation.name}">title</strong>
+            </p>
+            <p class="comment-content text-justify" th:utext="${annotation.body}">annotation body</p>
+            <p class="comment-author pt-1">
+                <span th:text="#{object_property_editors_author}">Author:</span>
+                <strong th:text="${annotation.edited.author}">author</strong>
+                (<span th:text="${annotation.edited.updated}">date</span>)
+            </p>
+        </div>
+    </div>
+
+    <!-- Editor information -->
+    <div class="editor-info" id="editor-info" th:fragment="editor-info">
+        <hr/>
+        <div class="author">
+            <strong class="details-property-label" th:text="#{object_property_editors_author}">Author:</strong>
+            <span th:text="${obj.edited.author}">author</span>
+        </div>
+        <div th:unless="${obj.edited.contributors} == null" class="editors">
+            <strong class="details-property-label" th:text="#{object_property_editors}">Editors:</strong>
+            <span class="editor" th:each="editor : ${obj.edited.contributors}" th:text="${editor}"/>
+        </div>
+        <div class="updated">
+            <strong class="details-property-label" th:text="#{object_property_editors_updated}">Updated</strong>
+            <span th:text="${#dates.formatISO(obj.edited.updated)}">date</span>
+        </div>
+        <div class="review-state">
+            <strong class="details-property-label" th:text="#{object_property_review_state}">Review State:</strong>
+            <span th:text="#{|review_state_${obj.reviewState}|}">status</span>
+        </div>
+    </div>
+
+    <!-- Lemma details part of speech -->
+    <div th:fragment="lemma-property-part-of-speech" id="lemma-property-part-of-speech">
+        <hr/>
+        <p>
+          <strong th:text="#{lemma_property_pos}" class="details-property-label">Word Class</strong>
+          <span th:replace=" :: lemma-pos"/>
+        </p>
+    </div>
+
+    <!-- Lemma details hieroglyphs -->
+    <div th:fragment="lemma-property-hieroglyphs" id="lemma-property-hieroglyphs" th:unless="${obj.hieroglyphs} == null">
+        <p>
+            <strong th:text="#{lemma_property_hieroglyphs}" class="details-property-label">Hieroglyphic spelling(s):</strong>
+            <span th:replace=" :: hieroglyphs"/>
+        </p>
+    </div>
+
+    <!-- Lemma language phase / script / subdict -->
+    <div th:fragment="lemma-property-dict" id="lemma-property-dict">
+        <hr/>
+        <strong th:text="#{lemma_property_dict}" class="details-property-label">Dictionary:</strong>
+        <span th:text="#{|dict_${obj.dictionaryName}|}">Hieratic/Demotic/Coptic</span>
+    </div>
+
+    <!-- Lemma Attestations -->
+    <div th:fragment="lemma-property-attestations" id="lemma-property-attestations">
+        <hr/>
+        <p>
+            <strong th:text="#{lemma_property_attestation}" class="details-property-label">Attestation</strong>
+            <br/>
+            <strong th:text="#{lemma_property_attestation_occurrences}" class="details-property-label">Occurrences:</strong>
+            <span th:text="${obj.attestationCount}"></span>
+        </p>
+    </div>
+
+    <!-- Related Lemmata -->
+    <div th:fragment="lemma-property-related-objects" id="lemma-property-related-objects" th:unless="${#maps.isEmpty(relations)}">
+        <hr/>
+        <strong th:text="#{lemma_property_related_objects}" class="details-property-label">Related Lemmata</strong>
+        <div class="row py-1" th:each="predicate : ${relations}">
+            <div class="pl-0 col-md-2">
+                <span th:text="#{|${objectType}_relation_predicate_${predicate.key}|}" class="details-property-label">Predicate</span>
             </div>
-            <div class="col-8">
-                <div th:each="ref : ${entry.value}" class="external-reference">
-                    <a th:if="${ref.href} != null" th:href="${ref.href}">
-                        <span class="fas fa-arrow-circle-right red"></span>
-                        <span th:text="${ref.value}" class="external-reference-id">ext. Identifier</span>
-                    </a>
-                    <span th:unless="${ref.href} != null">
-                        <span th:text="${ref.value}" class="external-reference-id"></span>
-                        <span th:if="${ref.type} != null" th:text="${ref.type}" class="external-reference-type"/>
-                    </span>
+            <div class="col-md-10">
+                <div class="row related-object" th:each="relatedObject : ${predicate.value}" th:object="${relatedObject}" th:unless="${relatedObject.eclass} == 'BTSAnnotation'">
+                    <div class="col-sm d-flex  align-items-center">
+                      <span class="font-weight-bold bbaw-libertine" th:text="*{name}">nfr</span>
+                    <span class="col-sm">
+                      <span class="badge badge-secondary text-left text-wrap" th:text="|*{id}|">ID</span>
+                      <span class="badge badge-light" th:text=" #{|dict_*{dictionaryName}|}|">Script</span>
+                      </span>
+                    </div>
+                    <div class="col-sm d-flex align-items-center">
+                      <span th:each="translation : *{translations['de']}" th:text="${translation}">translation</span>
+                    </div>
+                    <div class="col-sm" th:text="*{type}"/>
                 </div>
             </div>
         </div>
     </div>
 
 
-    <!-- translations -->
-    <div class="translations" th:fragment="translations" id="translations" th:if="${obj.translations != null}">
-        <hr />
-        <p>
-            <strong th:text="#{lemma_property_translation}" class="details-property-label">Translation</strong>
-        </p>
-        <div th:each="entry : ${obj.translations}">
-            <p th:each="translation : ${entry.value}" th:class="'lemma-translation-' + ${entry.key}">
-                <span class="lang-icon" th:text="${#strings.toUpperCase(entry.key)}">DE</span>
-                <span class="translation" th:text="${translation}">Translation</span>
-            </p>
-        </div>
-    </div>
+    <!-- "Atoms" -->
+
+    <!-- POS/type -->
+    <span th:fragment="lemma-pos" id="object-type-subtype" class="object-type-subtype">
+        <span th:text="#{|pos_type_${obj.type}|}" class="lemma-type">Type</span>
+        <span th:if="${obj.subtype}">
+          (<span th:text="#{|pos_subtype_${obj.subtype}|}" class="lemma-subtype">Subtype</span>)
+        </span>
+    </span>
+
+    <!-- hieroglyphs or a badge telling which script a lemma is of -->
+    <th:block th:fragment="hieroglyphs">
+        <span th:unless="${#lists.isEmpty(obj.hieroglyphs)}" th:each="glyphs : ${obj.hieroglyphs}">
+            <span class="hieroglyphs" th:title="${glyphs.mdc}" th:utext="${glyphs.svg}"/>
+        </span>
+        <span th:if="${#lists.isEmpty(obj.hieroglyphs) and obj.dictionaryName != 'hieratic'}" class="subcorpus" th:text="#{|dict_${obj.dictionaryName}|}">Demotic</span>
+    </th:block>
+
 
 </body>
 

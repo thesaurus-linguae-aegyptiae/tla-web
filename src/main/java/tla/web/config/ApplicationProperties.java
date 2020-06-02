@@ -19,15 +19,4 @@ public class ApplicationProperties {
 
     private Map<String, LinkFormatter> linkFormatters = new HashMap<>();
 
-    private Assets assets;
-
-    @Data
-    public static class Assets {
-
-        private String bootstrap;
-
-        private String fontawesome;
-
-    }
-
 }

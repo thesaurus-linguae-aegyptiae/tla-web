@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import tla.domain.model.EditorInfo;
+import tla.domain.model.ObjectReference;
 import tla.domain.model.Passport;
 import tla.domain.model.meta.AbstractBTSBaseClass;
 
@@ -30,6 +31,8 @@ public abstract class TLAObject extends AbstractBTSBaseClass {
     private EditorInfo edited;
 
     private String reviewState;
+
+    private TreeMap<String, List<ObjectReference>> relations;
 
     private TreeMap<String, List<ExternalReference>> externalReferences;
 

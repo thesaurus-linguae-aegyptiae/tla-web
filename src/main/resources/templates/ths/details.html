@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}"
+      xml:lang="en"
+>
+  <head>
+    <title th:text="${obj.name} + ' (' + ${obj.id} + ')'"></title>
+  </head>
+
+  <body>
+
+    <div layout:fragment="content" th:object="*{obj}">
+
+      <div th:replace="fragments/details :: review-state"/>
+      <div th:replace="fragments/details :: translations"/>
+      <div th:replace="fragments/details :: external-references"/>
+      <div th:replace="fragments/details :: editor-info"/>
+
+    </div>
+  </body>
+</html>
