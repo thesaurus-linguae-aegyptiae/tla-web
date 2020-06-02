@@ -136,27 +136,17 @@
         </p>
     </div>
 
-    <!-- Related Lemmata -->
-    <div th:fragment="lemma-property-related-objects" id="lemma-property-related-objects" th:unless="${#maps.isEmpty(relations)}">
+    <!-- Related Objects -->
+    <div th:fragment="object-property-related-objects" id="object-property-related-objects" th:unless="${#maps.isEmpty(relations)}">
         <hr/>
-        <strong th:text="#{lemma_property_related_objects}" class="details-property-label">Related Lemmata</strong>
+        <strong th:text="#{|${objectType}_property_related_objects|}" class="border-bottom details-property-label">Related Objects</strong>
         <div class="row py-1" th:each="predicate : ${relations}">
-            <div class="pl-0 col-md-2">
+            <div class="pl-0 col-md-12 border-bottom">
                 <span th:text="#{|${objectType}_relation_predicate_${predicate.key}|}" class="details-property-label">Predicate</span>
             </div>
-            <div class="col-md-10">
-                <div class="row related-object" th:each="relatedObject : ${predicate.value}" th:object="${relatedObject}" th:unless="${relatedObject.eclass} == 'BTSAnnotation'">
-                    <div class="col-sm d-flex  align-items-center">
-                      <span class="font-weight-bold bbaw-libertine" th:text="*{name}">nfr</span>
-                    <span class="col-sm">
-                      <span class="badge badge-secondary text-left text-wrap" th:text="|*{id}|">ID</span>
-                      <span class="badge badge-light" th:text=" #{|dict_*{dictionaryName}|}|">Script</span>
-                      </span>
-                    </div>
-                    <div class="col-sm d-flex align-items-center">
-                      <span th:each="translation : *{translations['de']}" th:text="${translation}">translation</span>
-                    </div>
-                    <div class="col-sm" th:text="*{type}"/>
+            <div class="col-md-12">
+                <div class="related-objects-item" th:each="obj : ${predicate.value}" th:object="${obj}"
+                    th:unless="${obj == null || obj.eclass == 'BTSAnnotation'}" th:include="fragments/search :: |${objectType}-search-result|">
                 </div>
             </div>
         </div>
