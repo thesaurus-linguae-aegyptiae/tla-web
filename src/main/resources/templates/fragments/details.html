@@ -19,7 +19,7 @@
 
 
     <!-- External references -->
-    <div th:fragment="external-references" id="external-references" th:if="${obj.externalReferences} != null">
+    <div th:fragment="external-references" id="external-references" th:unless="${#maps.isEmpty(obj.externalReferences)}">
         <hr />
         <p>
             <strong th:text="#{object_property_external_references}" class="details-property-label">External
@@ -41,7 +41,7 @@
     </div>
 
     <!-- translations -->
-    <div class="translations" th:fragment="translations" id="translations" th:if="${obj.translations} != null">
+    <div class="translations" th:fragment="translations" id="translations" th:unless="${#maps.isEmpty(obj.translations)}">
         <hr />
         <p>
             <strong th:text="#{object_property_translation}" class="details-property-label">Translation</strong>
@@ -51,7 +51,7 @@
     </div>
 
     <!-- bibliography -->
-    <div class="bibliography" th:fragment="bibliography" id="bibliography" th:if="${obj.bibliography} != null">
+    <div class="bibliography" th:fragment="bibliography" id="bibliography" th:unless="${#lists.isEmpty(obj.bibliography)}">
         <hr/>
         <p>
             <strong th:text="#{object_property_bibliography}" class="details-property-label">Bibliography</strong>
@@ -64,7 +64,7 @@
     </div>
 
     <!-- Lemma/Thesaurus entry annotations -->
-    <div class="comment pb-2" id="single-entry-annotations" th:fragment="single-entry-annotations" th:if="${annotations} != null">
+    <div class="comment pb-2" id="single-entry-annotations" th:fragment="single-entry-annotations" th:if="${#lists.isEmpty(annotations)}">
         <hr/>
         <strong th:text="#{object_property_annotations}" class="details-property-label">Comments</strong>
         <div th:each="annotation : ${annotations}" class="comment-wrapper">
