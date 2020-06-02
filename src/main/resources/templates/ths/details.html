@@ -5,7 +5,7 @@
       xml:lang="en"
 >
   <head>
-    <title th:text="${obj.name} + ' (' + ${obj.id} + ')'"></title>
+    <title th:text="|${obj.name} (${obj.id})|"></title>
   </head>
 
   <body>
@@ -21,6 +21,7 @@
           <div th:replace="fragments/details :: translations"/>
           <div th:replace="fragments/details :: external-references"/>
           <div th:replace="fragments/details :: editor-info"/>
+          <div th:replace="fragments/details :: object-property-related-objects"/>
 
         </div>
       </div>
