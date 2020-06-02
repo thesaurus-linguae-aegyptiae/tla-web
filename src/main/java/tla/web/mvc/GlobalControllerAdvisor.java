@@ -28,13 +28,21 @@ public class GlobalControllerAdvisor extends DefaultHandlerExceptionResolver {
         this.applicationProperties = properties;
     }
 
-    @ModelAttribute ("env")
+    @ModelAttribute("env")
     public Map<String, String> appVars() {
         return Map.of(
             "baseUrl", applicationProperties.getBaseUrl(),
             "appName", applicationProperties.getName()
         );
     }
+
+    @ModelAttribute("breadcrumbs")
+    public List<BreadCrumb> basicBreadcrumb() {
+        return List.of(
+            BreadCrumb.of("/", "menu_global_home")
+        );
+    }
+
 
     @ExceptionHandler(ObjectNotFoundException.class)
     public ModelAndView handleObjectNotFound(ObjectNotFoundException e, HttpServletRequest request, Model model) {
@@ -50,7 +58,8 @@ public class GlobalControllerAdvisor extends DefaultHandlerExceptionResolver {
                 BreadCrumb.of("/search", "menu_global_search")
             )
         );
-        return new ModelAndView("error/404", model.asMap(), HttpStatus.NO_CONTENT);
+        return new ModelAndView("error/404", model.asMap(), HttpStatus.OK);
     }
+
 
 }
