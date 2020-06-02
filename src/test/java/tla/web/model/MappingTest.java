@@ -3,6 +3,7 @@ package tla.web.model;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.TreeSet;
 
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ import tla.domain.model.EditorInfo;
 import tla.domain.model.ExternalReference;
 import tla.domain.model.Language;
 import tla.domain.model.LemmaWord;
+import tla.domain.model.ObjectReference;
 import tla.domain.model.Passport;
 import tla.domain.model.Transcription;
 import tla.web.model.mappings.MappingConfig;
@@ -80,6 +82,47 @@ public class MappingTest {
             () -> assertEquals(1, t.getTranslations().get(Language.FR).size()),
             () -> assertNotNull(t.getExternalReferences()),
             () -> assertNotNull(t.getEdited())
+        );
+        Map<String, Map<String, TLAObject>> related = objectDetails.getRelated();
+        ObjectReference ref = t.getRelations().get("partOf").get(0);
+        assertAll("expect related objects",
+            () -> assertNotNull(t.getRelations(), "wrapped dto has relations"),
+            () -> assertTrue(t.getRelations().containsKey("partOf"), "partOf relation"),
+            () -> assertEquals(1, t.getRelations().get("partOf").size(), "1 related object"),
+            () -> assertNotNull(ref, "objectreference present"),
+            () -> assertNotNull(related, "related objects reified"),
+            () -> assertTrue(related.containsKey("BTSThsEntry"), "related ths entries"),
+            () -> assertEquals(1, related.get("BTSThsEntry").size(), "1 related object"),
+            () -> assertNotNull(related.get("BTSThsEntry").get(ref.getId()), "related object"),
+            () -> assertTrue(related.get("BTSThsEntry").get(ref.getId()) instanceof ThsEntry, "rel obj is ths entry")
+        );
+        Map<String, List<TLAObject>> objects = objectDetails.extractRelatedObjects();
+        assertAll("expect related objects in order",
+            () -> assertNotNull(objects.get("partOf").get(0), "parent object present"),
+            () -> assertTrue(objects.get("partOf").get(0) instanceof ThsEntry, "parent is ths entry")
+        );
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    void thsRelatedObjects() throws Exception {
+        SingleDocumentWrapper<DocumentDto> dto = tla.domain.util.IO.loadFromFile(
+            "src/test/resources/sample/data/ths/details/IMBHKBIKV5AUHEAAU2DL2K2GN4.json",
+            SingleDocumentWrapper.class
+        );
+        ObjectDetails<TLAObject> details = ObjectDetails.from(dto);
+        Map<String, List<TLAObject>> related = details.extractRelatedObjects();
+        assertDoesNotThrow(
+            () -> {
+                related.entrySet().forEach(
+                    e -> {
+                        e.getValue().forEach(
+                            v -> v.getEclass()
+                        );
+                    }
+                );
+            },
+            "no null elements should be in structure"
         );
     }
 
