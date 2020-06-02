@@ -208,7 +208,7 @@
             <i class="text-muted fas fa-book mr-0 ml-2"></i>
             <span th:each="bibl : *{bibliography}" class="bibliographic-reference">
               <span class="font-weight-light" th:text="${bibl}">Bib. ref</span>
-              <small th:unless="${biblStat.last}" class="text-muted">&bull;</small>
+              <small th:unless="${biblStat.last}" class="text-muted" th:text="'&bull;'"/>
             </span>
           </span>
         </div>
