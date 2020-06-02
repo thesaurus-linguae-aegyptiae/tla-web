@@ -213,7 +213,9 @@ bootRun {
     doFirst {
       if ( !file("${staticDir}/vendor/").exists() ) {
         println ' ======================================'
-        println ' !!!  Must run task :install first  !!!'
+        println ' !!!  Must run task :install first: !!!'
+        println ' !!!                                !!!'
+        println ' !!!     ./gradlew.bat install      !!!'
         println ' ======================================'
         throw new StopExecutionException()
       }
