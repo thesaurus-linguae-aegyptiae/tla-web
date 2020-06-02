@@ -156,27 +156,45 @@
         </div>
       </div>
 
+      <!-- Ths Entry search result -->
+
+      <div th:fragment="ths-search-result" class="result-list-item" th:id="${obj.id}" th:object="${obj}">
+        <span class="float-right result-list-item-element type-subtype font-italic font-weight-light">
+          <span th:replace="fragments/details :: type-subtype">Term category</span>
+        </span>
+        <a th:href="${(#mvc.url('TC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">
+          <h2 class="result-list-item-element label bbaw-libertine" th:text="*{name}">Theben</h2>
+        </a>
+        <small class="text-muted text-monospace d-flex" th:text="*{id}">ID</small>
+
+        <div>
+          <th:block th:each="entry : *{translations}" th:unless="*{translations} == null" th:insert="fragments/common :: single-lang-translation(${entry})"/>
+        </div>
+
+        <hr/>
+      </div>
+
 
       <!-- LEMMA search result -->
 
       <div th:fragment="lemma-search-result" class="result-list-item" th:id="${obj.id}" th:object="${obj}">
         <a th:replace="fragments/common :: review-state(${obj})"/>
 
-        <div>
+        <a th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">
           <!-- line 1 -->
           <h2 class="result-list-item-element transcription bbaw-libertine" th:text="*{name}">nfr</h2>
           <span class="result-list-item-element hieroglyphs">
             <span th:replace="fragments/details :: hieroglyphs">N35:G43</span>
           </span>
-          <span class="result-list-item-element lemma-id">
+          <span class="result-list-item-element lemma-id text-muted">
             (ID<span class="ml-1" th:text="*{id}">33410</span>)
           </span>
-        </div>
+        </a>
 
         <div>
           <!-- line 2 -->
           <span class="result-list-item-element word-class font-italic font-weight-light">
-            <span th:replace="fragments/details :: lemma-pos">Part of speech</span>
+            <span th:replace="fragments/details :: type-subtype">Part of speech</span>
           </span>
           <span class="result-list-item-element translations">
             <th:block th:each="entry : *{translations}" th:insert="fragments/common :: single-lang-translation(${entry})"/>
@@ -190,7 +208,7 @@
             <i class="text-muted fas fa-book mr-0 ml-2"></i>
             <span th:each="bibl : *{bibliography}" class="bibliographic-reference">
               <span class="font-weight-light" th:text="${bibl}">Bib. ref</span>
-              <small th:unless="${biblStat.last}" class="text-muted">&bull;</small>
+              <small th:unless="${biblStat.last}" class="text-muted" th:text="'&bull;'"/>
             </span>
           </span>
         </div>

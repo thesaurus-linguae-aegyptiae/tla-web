@@ -5,7 +5,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,8 +20,7 @@ import tla.web.model.mappings.ScriptFromStringConverter;
 @Slf4j
 @Configuration
 @ControllerAdvice
-@Import(ApplicationProperties.class)
-public class MvcConfig  implements WebMvcConfigurer {
+public class MvcConfig implements WebMvcConfigurer {
 
     @Autowired
     private ApplicationProperties applicationProperties;
