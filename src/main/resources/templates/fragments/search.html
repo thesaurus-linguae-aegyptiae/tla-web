@@ -204,7 +204,7 @@
             <span>&mdash;</span>
             <span th:text="*{timespan.end}">end</span>
           </span>
-          <span class="result-list-item-element bibliography">
+          <span class="result-list-item-element bibliography" th:unless="${#lists.isEmpty(obj.bibliography)}">
             <i class="text-muted fas fa-book mr-0 ml-2"></i>
             <span th:each="bibl : *{bibliography}" class="bibliographic-reference">
               <span class="font-weight-light" th:text="${bibl}">Bib. ref</span>

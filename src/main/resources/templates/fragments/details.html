@@ -64,7 +64,7 @@
     </div>
 
     <!-- Lemma/Thesaurus entry annotations -->
-    <div class="comment pb-2" id="single-entry-annotations" th:fragment="single-entry-annotations" th:if="${#lists.isEmpty(annotations)}">
+    <div class="comment pb-2" id="single-entry-annotations" th:fragment="single-entry-annotations" th:unless="${#lists.isEmpty(annotations)}">
         <hr/>
         <strong th:text="#{object_property_annotations}" class="details-property-label">Comments</strong>
         <div th:each="annotation : ${annotations}" class="comment-wrapper">
