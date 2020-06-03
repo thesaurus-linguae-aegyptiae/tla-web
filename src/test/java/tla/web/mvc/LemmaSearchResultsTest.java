@@ -71,6 +71,8 @@ public class LemmaSearchResultsTest extends ViewTest {
             xpath("//div[@id='dm2434']//span[contains(@class,'subcorpus')]").exists()
         ).andExpect(
             xpath("//div[@id='dm2434']//span[contains(@class,'hieroglyphs')]").doesNotExist()
+        ).andExpect(
+            xpath("//div[@id='dm529']/a[contains(@class,'review-state')]//span[contains(@class,'notok')]").exists()
         );
     }
 
