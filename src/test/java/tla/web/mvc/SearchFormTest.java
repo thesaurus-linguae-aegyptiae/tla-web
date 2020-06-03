@@ -67,7 +67,7 @@ public class SearchFormTest extends ViewTest {
                 content().string(containsString("<option value=\"any\""))
             )
             .andExpect(
-                xpath("//select[@id='word-class-type-hidden-options-entity_name']").exists()
+                xpath("//select[@id='wordClass-type-hidden-options-entity_name']").exists()
             );
         testLocalization(result, lang);
         String emptyWordClass = getWordClassWithoutSubtypes();
@@ -75,7 +75,7 @@ public class SearchFormTest extends ViewTest {
             result.andExpect(
                 xpath(
                     String.format(
-                        "//select[@id='word-class-type-hidden-options-%s']",
+                        "//select[@id='wordClass-type-hidden-options-%s']",
                         emptyWordClass
                     )
                 ).doesNotExist()
