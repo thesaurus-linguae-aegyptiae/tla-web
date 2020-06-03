@@ -158,12 +158,14 @@
     <!-- POS/type -->
     <span th:fragment="type-subtype" id="type-subtype" class="type-subtype" th:classappend="${objectType}">
         <th:block th:with="key=|${objectType}_fulltype_${obj.type}_${obj.subtype}|">
-            <span th:with="label=${#messages.msgOrNull(key)}" th:if="${label} != null" th:text="${label}">Type/subtype</span>
-            <th:block th:unless="${label} == null">
-                <span th:text="#{|${objectType}_type_${obj.type}|}">Type</span>
-                <span th:if="${obj.subtype}">
-                    (<span th:text="#{|${objectType}_subtype_${obj.subtype}|}">Subtype</span>)
-                </span>
+            <th:block th:with="label=${#messages.msgOrNull(key)}">
+                <span th:if="${label} != null" th:text="${label}">Type/subtype</span>
+                <th:block th:unless="${label} != null">
+                    <span th:text="#{|${objectType}_type_${obj.type}|}">Type</span>
+                    <span th:if="${obj.subtype}">
+                        (<span th:text="#{|${objectType}_subtype_${obj.subtype}|}">Subtype</span>)
+                    </span>
+                </th:block>
             </th:block>
         </th:block>
     </span>
