@@ -15,6 +15,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
@@ -24,14 +25,26 @@ public class LemmaSearchResultsTest extends ViewTest {
     @MockBean
     private TlaClient backendClient;
 
+    /**
+     * load search results transfer object from file.
+     */
+    @SuppressWarnings("unchecked")
+    SearchResultsWrapper<DocumentDto> loadDto(String filename) throws Exception {
+        return tla.domain.util.IO.loadFromFile(
+            String.format(
+                "src/test/resources/sample/data/lemma/search/%s",
+                filename
+            ),
+            SearchResultsWrapper.class
+        );
+    }
+
+
     @SuppressWarnings("unchecked")
     @ParameterizedTest
     @EnumSource(Language.class)
-    void countSearchResults(Language lang) throws Exception {
-        SearchResultsWrapper<DocumentDto> dto = tla.domain.util.IO.loadFromFile(
-            "src/test/resources/sample/data/lemma/search/demotic_translation_de.json",
-            SearchResultsWrapper.class
-        );
+    void testSearchResults(Language lang) throws Exception {
+        SearchResultsWrapper<DocumentDto> dto = loadDto("demotic_translation_de.json");
         when(
             backendClient.lemmaSearch(any(), anyInt())
         ).thenReturn(
@@ -56,5 +69,22 @@ public class LemmaSearchResultsTest extends ViewTest {
         );
     }
 
+    @Test
+    void testFulltypeLabels() throws Exception {
+        SearchResultsWrapper<DocumentDto> dto = loadDto("demotic_translation_de.json");
+        when(
+            backendClient.lemmaSearch(any(), anyInt())
+        ).thenReturn(
+            dto
+        );
+        ResultActions testResponse = mockMvc.perform(
+            get("/lemma/search").header(HttpHeaders.ACCEPT_LANGUAGE, "en")
+        ).andDo(print()).andExpect(
+            status().isOk()
+        );
+        testResponse.andExpect(
+            xpath("//div[@id='dm2254']//span[contains(@class,'type-subtype')/span/text()").string("Animal Name")
+        );
+    }
 
 }
