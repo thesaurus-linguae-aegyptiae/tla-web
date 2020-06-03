@@ -158,7 +158,7 @@
 
       <!-- Ths Entry search result -->
 
-      <div th:fragment="ths-search-result" class="result-list-item" th:id="${obj.id}" th:object="${obj}">
+      <div th:fragment="ths-search-result" class="result-list-item" th:object="${obj}">
         <span class="float-right result-list-item-element type-subtype font-italic font-weight-light">
           <span th:replace="fragments/details :: type-subtype">Term category</span>
         </span>
