@@ -1,7 +1,9 @@
 package tla.web.mvc;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -15,6 +17,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.Locale;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
@@ -24,6 +28,9 @@ public class LemmaSearchResultsTest extends ViewTest {
 
     @MockBean
     private TlaClient backendClient;
+
+    @Autowired
+    private MessageSource messages;
 
     /**
      * load search results transfer object from file.
@@ -39,8 +46,6 @@ public class LemmaSearchResultsTest extends ViewTest {
         );
     }
 
-
-    @SuppressWarnings("unchecked")
     @ParameterizedTest
     @EnumSource(Language.class)
     void testSearchResults(Language lang) throws Exception {
@@ -83,7 +88,14 @@ public class LemmaSearchResultsTest extends ViewTest {
             status().isOk()
         );
         testResponse.andExpect(
-            xpath("//div[@id='dm2254']//span[contains(@class,'type-subtype')/span/text()").string("Animal Name")
+            xpath(
+                "//div[@id='dm2254']//span[contains(@class,'type-subtype')]/span/text()"
+            ).string(
+                messages.getMessage(
+                    "lemma_fulltype_entity_name_person_name",
+                    null, Locale.ENGLISH
+                )
+            )
         );
     }
 
