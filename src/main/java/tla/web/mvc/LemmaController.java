@@ -90,9 +90,10 @@ public class LemmaController extends ObjectController<Lemma> {
         );
         model.addAttribute("searchResults", results.getObjects());
         model.addAttribute("searchQuery", results.getQuery());
+        model.addAttribute("facets", results.getFacets());
         model.addAttribute("page", results.getPage());
         model.addAttribute("pagination", new Pagination(results.getPage()));
-        model.addAttribute("hideableProperties", List.of("hieroglyphs", "lemma-id", "word-class", "bibliography", "attested-timespan"));
+        model.addAttribute("hideableProperties", List.of("hieroglyphs", "lemma-id", "wordClass", "bibliography", "attested-timespan"));
         model.addAttribute(
             "allTranslationLanguages",
             (form.getTranscription() != null) ? form.getTranslation().getLang() : Collections.EMPTY_LIST

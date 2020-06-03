@@ -6,11 +6,11 @@ import java.util.Map;
 
 import org.springframework.web.client.RestTemplate;
 
-import tla.domain.command.LemmaSearch;
-import tla.domain.dto.meta.AbstractDto;
-import tla.domain.dto.meta.DocumentDto;
+import tla.domain.command.SearchCommand;
+import tla.domain.dto.LemmaDto;
 import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
+import tla.domain.dto.meta.AbstractDto;
 import tla.web.model.BackendPath;
 import tla.web.model.Lemma;
 import tla.web.model.TLAObject;
@@ -81,7 +81,7 @@ public class TlaClient {
     }
 
     @SuppressWarnings("unchecked")
-    public SearchResultsWrapper<DocumentDto> lemmaSearch(LemmaSearch command, int page) {
+    public SearchResultsWrapper<LemmaDto> lemmaSearch(SearchCommand<LemmaDto> command, int page) {
         return client.postForObject(
             String.format("%s/lemma/search?page={page}", this.backendUrl),
             command,

@@ -23,7 +23,7 @@
         </div>
       </div>
 
-      <div th:replace=" :: type-spec('word-class', 'lemmaSearchForm.pos', ${wordClasses})"/>
+      <div th:replace=" :: type-spec('wordClass', 'lemmaSearchForm.wordClass', ${wordClasses})"/>
 
       <div class="form-group row">
         <label class="col-form-label col-xl-2" for="root_transcription" th:text="#{field_label_root_transcription}">Root</label>
@@ -194,7 +194,7 @@
 
         <div>
           <!-- line 2 -->
-          <span class="result-list-item-element word-class font-italic font-weight-light">
+          <span class="result-list-item-element wordClass font-italic font-weight-light">
             <span th:replace="fragments/details :: type-subtype">Part of speech</span>
           </span>
           <span class="result-list-item-element translations">
@@ -248,6 +248,25 @@
         </div>
       </div>
 
+
+      <!-- search facets -->
+
+      <div th:fragment="search-facets">
+        <hr/>
+        <strong th:text="#{result_page_facets}">Facets</strong>
+        <div th:each="facet : ${facets}" th:with="label=|lemma_search_facet_${facet.key}|">
+          <span th:with="label=#{${#strings.replace(label,'.','_')}}" th:text="${label}">Facet name</span>
+          <ul th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder)}">
+            <li th:each="termcount : ${facet.value}" th:with="label=|field_value_label_${facet.key}_${termcount.key}|">
+              <a th:href="${urlBuilder.fromCurrentRequest().replaceQueryParam(facet.key, termcount.key).toUriString()}">
+                <span th:with="label=${#messages.msgOrNull(#strings.replace(label,'.','_'))}" th:text="${label != null ? label : termcount.key}">term</span>
+              </a>
+              <span th:text="${termcount.value}" class="font-italic">count</span>
+            </li>
+          </ul>
+
+        </div>
+      </div>
 
       <!-- hide search results properties button rack -->
 
