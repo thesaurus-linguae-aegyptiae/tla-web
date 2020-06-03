@@ -177,13 +177,14 @@
 
       <!-- LEMMA search result -->
 
-      <div th:fragment="lemma-search-result" class="result-list-item" th:id="${obj.id}" th:object="${obj}">
+      <div th:fragment="lemma-search-result" class="result-list-item" th:object="${obj}" th:id="${obj.id}">
         <a th:replace="fragments/common :: review-state(${obj})"/>
 
         <a th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">
           <!-- line 1 -->
           <h2 class="result-list-item-element transcription bbaw-libertine" th:text="*{name}">nfr</h2>
-          <span class="result-list-item-element hieroglyphs">
+          <span th:unless="${obj.type == 'root'}" class="subcorpus" th:text="#{|dict_${obj.dictionaryName}|}">Demotic</span>>
+          <span class="result-list-item-element hieroglyphs" th:if="${obj.hieroglyphs != null}">
             <span th:replace="fragments/details :: hieroglyphs">N35:G43</span>
           </span>
           <span class="result-list-item-element lemma-id text-muted">

@@ -163,12 +163,11 @@
         </span>
     </span>
 
-    <!-- hieroglyphs or a badge telling which script a lemma is of -->
-    <th:block th:fragment="hieroglyphs">
-        <span th:unless="${#lists.isEmpty(obj.hieroglyphs)}" th:each="glyphs : ${obj.hieroglyphs}">
+    <!-- hieroglyphs -->
+    <th:block th:fragment="hieroglyphs" th:if="${obj.hieroglyphs != null}">
+        <span th:each="glyphs : ${obj.hieroglyphs}">
             <span class="hieroglyphs" th:title="${glyphs.mdc}" th:utext="${glyphs.svg}"/>
         </span>
-        <span th:if="${#lists.isEmpty(obj.hieroglyphs) and obj.dictionaryName != 'hieratic'}" class="subcorpus" th:text="#{|dict_${obj.dictionaryName}|}">Demotic</span>
     </th:block>
 
 

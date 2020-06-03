@@ -49,6 +49,10 @@ public class LemmaSearchResultsTest extends ViewTest {
             xpath("//div[contains(@class,'result-page-desc')]").exists()
         ).andExpect(
             xpath("//div[contains(@class,'result-page-desc')]/b[1]/text()").string("21 - 38")
+        ).andExpect(
+            xpath("//div[@id='dm2434']//span[contains(@class,'subcorpus')]").exists()
+        ).andExpect(
+            xpath("//div[@id='dm2434']//span[contains(@class,'hieroglyphs')]").doesNotExist()
         );
     }
 
