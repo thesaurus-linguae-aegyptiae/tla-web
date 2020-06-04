@@ -17,6 +17,10 @@
       <div class="row">
         <div class="col-sm-12 col-lg-8" id="details-content" th:object="${obj}">
 
+          <div class="object-property-id">
+            <strong th:text="#{object_property_id}" class="details-property-label">ID</strong>
+            <span class="font-monospace text-muted" th:text="${obj.id}">ID</span>
+          </div>
           <div th:replace="fragments/details :: object-property-type-subtype('object')"/>
           <div th:replace="fragments/details :: translations"/>
           <div th:replace="fragments/details :: external-references"/>

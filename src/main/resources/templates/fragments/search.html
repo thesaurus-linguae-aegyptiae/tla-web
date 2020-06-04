@@ -159,16 +159,24 @@
       <!-- Ths Entry search result -->
 
       <div th:fragment="ths-search-result" class="result-list-item" th:object="${obj}">
-        <span class="float-right result-list-item-element type-subtype font-italic font-weight-light">
-          <span th:replace="fragments/details :: type-subtype">Term category</span>
-        </span>
-        <a th:href="${(#mvc.url('TC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">
-          <h2 class="result-list-item-element label bbaw-libertine" th:text="*{name}">Theben</h2>
-        </a>
-        <small class="text-muted text-monospace d-flex" th:text="*{id}">ID</small>
+        <div class="d-flex">
+          <div class="flex-grow-1">
+            <a th:href="${(#mvc.url('TC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">
+              <h2 class="result-list-item-element label bbaw-libertine" th:text="*{name}">Theben</h2>
+            </a>
+            <span class="text-muted text-monospace">
+              <small th:text="*{id}">ID</small>
+            </span>
+          </div>
+        </div>
 
-        <div>
-          <th:block th:each="entry : *{translations}" th:unless="*{translations} == null" th:insert="fragments/common :: single-lang-translation(${entry})"/>
+        <div class="d-flex">
+          <div class="flex-grow-1">
+            <span class="result-list-item-element type-subtype font-italic font-weight-light">
+              <span th:replace="fragments/details :: type-subtype">Term category</span>
+            </span>
+            <th:block th:each="entry : *{translations}" th:unless="*{translations} == null" th:insert="fragments/common :: single-lang-translation(${entry})"/>
+          </div>
         </div>
 
         <hr/>
