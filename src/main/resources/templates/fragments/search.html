@@ -193,6 +193,9 @@
         </a>
 
         <div>
+          <span class="float-right text-muted" th:if="${obj.annotated}">
+            <i class="far fa-comment-alt"></i>
+          </span>
           <!-- line 2 -->
           <span class="result-list-item-element wordClass font-italic font-weight-light">
             <span th:replace="fragments/details :: type-subtype">Part of speech</span>
