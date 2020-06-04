@@ -251,21 +251,28 @@
 
       <!-- search facets -->
 
-      <div th:fragment="search-facets">
+      <div th:fragment="search-facets" th:if="${facets} != null and ${!#maps.isEmpty(facets)}">
         <hr/>
-        <strong th:text="#{result_page_facets}">Facets</strong>
+        <div class="btn btn-block btn-secondary disabled text-right" th:text="#{result_page_facets}">Facets</div>
         <div th:each="facet : ${facets}" th:with="label=|lemma_search_facet_${facet.key}|">
-          <span th:with="label=#{${#strings.replace(label,'.','_')}}" th:text="${label}">Facet name</span>
-          <ul th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder)}">
-            <li th:each="termcount : ${facet.value}" th:with="label=|field_value_label_${facet.key}_${termcount.key}|">
-              <a th:href="${urlBuilder.fromCurrentRequest().replaceQueryParam(facet.key, termcount.key).toUriString()}">
-                <span th:with="label=${#messages.msgOrNull(#strings.replace(label,'.','_'))}" th:text="${label != null ? label : termcount.key}">term</span>
-              </a>
-              <span th:text="${termcount.value}" class="font-italic">count</span>
-            </li>
-          </ul>
+          <div class="btn btn-block btn-secondary text-left" th:with="label=#{${#strings.replace(label,'.','_')}}" th:text="${label}">Facet name</div>
+          <th:block th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder)}">
+            <div class="mx-3 text-left d-flex" th:each="termcount : ${facet.value}"
+                th:with="label=|field_value_label_${facet.key}_${termcount.key}|">
+              <div class="btn btn-inline btn-red text-left p-2">
+                <span class="fas fa-arrow-circle-right red"></span>
+                <a th:href="${urlBuilder.fromCurrentRequest().replaceQueryParam(facet.key, termcount.key).toUriString()}">
+                  <span th:with="label=${#messages.msgOrNull(#strings.replace(label,'.','_'))}" th:text="${label != null ? label : termcount.key}">term</span>
+                </a>
+              </div>
+              <div class="p-2">
+                <span th:text="${termcount.value}" class="badge badge-light badge-pill border font-italic">count</span>
+              </div>
+            </div>
+          </th:block>
 
         </div>
+        <hr/>
       </div>
 
       <!-- hide search results properties button rack -->

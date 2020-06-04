@@ -797,6 +797,11 @@ footer.bg-light {
 
 /* Sidebar */
 
+.sidebar > div > .btn,
+.sidebar > div > div > .btn {
+    margin: .5rem 0rem;
+}
+
 .btn-secondary {
     color: white;
 }
@@ -812,8 +817,11 @@ footer.bg-light {
     background-color: white;
 }
 
-.btn-red:hover {
+.btn-red:hover,
+.btn-red:hover a {
     color: white;
+}
+.btn-red:hover {
     background-color: var(--BBAWred);
 }
 
