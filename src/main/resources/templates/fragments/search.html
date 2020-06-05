@@ -164,7 +164,9 @@
 
         <div>
           <!-- line 1 -->
-          <h2 class="result-list-item-element transcription bbaw-libertine" th:text="*{name}">nfr</h2>
+          <a th:href="*{id}" target="_blank">
+             <h2 class="result-list-item-element transcription bbaw-libertine" th:text="*{name}">nfr</h2>
+          </a>
           <span class="result-list-item-element hieroglyphs">
             <span th:replace="fragments/details :: hieroglyphs">N35:G43</span>
           </span>
