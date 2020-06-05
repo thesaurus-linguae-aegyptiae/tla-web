@@ -1,5 +1,10 @@
 ---
 
+server:
+    error:
+        whitelabel:
+            enabled: false
+
 tla:
     name: Thesaurus Linguae Aegyptiae (BETA)
     base-url: https://tla.bbaw.de

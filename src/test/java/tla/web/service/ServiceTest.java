@@ -80,7 +80,7 @@ public class ServiceTest {
             backend.retrieveObject(ThsEntry.class, "KQY2F5SJVBBN7GRO5WUXKG5M6M") instanceof SingleDocumentWrapper,
             "check if mockup backend client works"
         );
-        ObjectDetails<ThsEntry> details = thsService.get("KQY2F5SJVBBN7GRO5WUXKG5M6M");
+        ObjectDetails<ThsEntry> details = thsService.getDetails("KQY2F5SJVBBN7GRO5WUXKG5M6M").get();
         assertAll("test service method for thesaurus entry details retrieval",
             () -> assertNotNull(details.getObject())
         );

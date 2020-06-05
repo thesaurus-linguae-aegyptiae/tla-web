@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import lombok.extern.slf4j.Slf4j;
+import tla.error.ObjectNotFoundException;
 import tla.web.model.ObjectDetails;
 import tla.web.model.TLAObject;
 import tla.web.model.ui.BreadCrumb;
@@ -44,10 +45,11 @@ public abstract class ObjectController<T extends TLAObject> {
     public abstract ObjectService<T> getService();
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String getSingleObjectDetailsPage(Model model, @PathVariable String id) {
+    public String getSingleObjectDetailsPage(@PathVariable String id, Model model) {
         log.debug("Compile lemma detail view data for {} {}", getTemplatePath(), id);
-        ObjectDetails<T> container = getService().get(id);
-        model = compileSingleObjectDetailsModel(model, container);
+        ObjectDetails<T> container = getService().getDetails(id).orElseThrow(
+            () -> new ObjectNotFoundException(id, getTemplatePath())
+        );
         model.addAttribute(
             "breadcrumbs",
             List.of(
@@ -61,6 +63,7 @@ public abstract class ObjectController<T extends TLAObject> {
         model.addAttribute("obj", container.getObject());
         model.addAttribute("related", container.getRelated());
         model.addAttribute("relations", container.extractRelatedObjects());
+        model = compileSingleObjectDetailsModel(model, container);
         return String.format("%s/details", getTemplatePath());
     }
 

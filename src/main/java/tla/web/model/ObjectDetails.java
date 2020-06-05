@@ -80,6 +80,8 @@ public class ObjectDetails<T extends TLAObject> {
                 entry -> entry.getKey(),
                 entry -> entry.getValue().stream().map(
                     reference -> this.expandRelatedObject(reference)
+                ).filter(
+                    o -> o != null
                 ).collect(
                     Collectors.toList()
                 )

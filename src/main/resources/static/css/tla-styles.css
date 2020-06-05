@@ -199,12 +199,12 @@ a.navbar-brand {
     background-color: #888;
 }
 
-.result-list-item h2 {
+.result-list-item h2,
+.related-objects-item h2 {
     display: inline-block;
 }
 
 .result-list-item:hover {
-
     cursor: pointer;
 }
 
@@ -212,7 +212,8 @@ a.navbar-brand {
     background-color: white;
 }
 
-.result-list-item .object-type-subtype {
+.result-list-item .object-type-subtype ,
+.related-objects-item .object-type-subtype {
     font-weight: 300;
     font-style: italic;
 }
@@ -230,7 +231,8 @@ a.navbar-brand {
     color: white;
 }
 
-.result-list-item a.bibliography-list {
+.result-list-item a.bibliography-list,
+.related-objects-item a.bibliography-list {
     padding: 3px 1px 3px 10px;
     margin-left: -9px;
 }
@@ -268,7 +270,8 @@ a.navbar-brand {
 }
 
 .result-list-item:first-child,
-.occ-list-item:first-child {
+.occ-list-item:first-child,
+.related-objects-item:first-child {
     border-top: 2px solid #BBB;
 }
 
@@ -293,7 +296,8 @@ a.navbar-brand {
     /* IE6-9 */
 }
 
-.result-list-item h2 {
+.result-list-item h2,
+.related-objects-item h2 {
     color: var(--BBAWred);
     font-size: 1.4em;
 }
@@ -385,7 +389,7 @@ a span.lc:hover {
 }
 
 .result-list-item img.occ-tok-glyphs.highlight-1,
-.result-list-item canvas.res.occ-tok-glyphs.highlight-1 {
+.result-list-item svg.occ-tok-glyphs.highlight-1 {
     border: 1px solid var(--BBAWred);
     border-radius: 2px;
 }
@@ -481,6 +485,7 @@ a span.lc:hover {
 
 .subcorpus {
     background-color: #E0E0E0;
+    color: var(--BBAWdarkbluegrey);
     font-size: .65em;
     padding: .2em;
     border-radius: .2em;
@@ -489,13 +494,12 @@ a span.lc:hover {
     position: relative;
 }
 
-.result-list-item span.glyphbox img {}
-
 .result-list-item span.glyphbox img:hover {
     border-bottom: 1px solid var(--BBAWred);
 }
 
-.result-list hr {
+.result-list-item hr,
+.related-objects-item hr {
     margin: 0 !important;
 }
 
