@@ -130,7 +130,7 @@
     <a th:fragment="review-state(obj)" class="review-state" th:title="|Review status: ${obj.reviewState}|">
       <span class="solo-icon red-status float-right badge badge-pill badge-light">
         <span class="font-weight-light" th:text="#{|review_state_${obj.reviewState}}|">Reviewed</span>
-        <span class="fa-check-circle" th:classappend="${#strings.equals(obj.reviewState, 'published')} ? ok : pending"/>
+        <span class="fa-check-circle" th:classappend="${#strings.equals(obj.reviewState, 'published')} ? ok : (${#strings.equals(obj.reviewState, 'published-awaiting-review')} ? pending : notok)"/>
       </span>
     </a>
 
