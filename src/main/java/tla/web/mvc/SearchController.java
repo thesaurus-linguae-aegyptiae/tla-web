@@ -58,4 +58,14 @@ public class SearchController {
         return "search";
     }
 
+    /**
+     * This is for testing obviously.
+     *
+     * @throws Exception
+     */
+    @RequestMapping(value = "fail", method = RequestMethod.GET)
+    public void failWithError(Model model) throws Exception {
+        throw new Exception("something went wrong!");
+    }
+
 }

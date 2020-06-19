@@ -19,7 +19,7 @@
 
 
     <!-- External references -->
-    <div th:fragment="external-references" id="external-references" th:if="${obj.externalReferences} != null">
+    <div th:fragment="external-references" id="external-references" th:unless="${#maps.isEmpty(obj.externalReferences)}">
         <hr />
         <p>
             <strong th:text="#{object_property_external_references}" class="details-property-label">External
@@ -41,7 +41,7 @@
     </div>
 
     <!-- translations -->
-    <div class="translations" th:fragment="translations" id="translations" th:if="${obj.translations} != null">
+    <div class="translations" th:fragment="translations" id="translations" th:unless="${#maps.isEmpty(obj.translations)}">
         <hr />
         <p>
             <strong th:text="#{object_property_translation}" class="details-property-label">Translation</strong>
@@ -51,7 +51,7 @@
     </div>
 
     <!-- bibliography -->
-    <div class="bibliography" th:fragment="bibliography" id="bibliography" th:if="${obj.bibliography} != null">
+    <div class="bibliography" th:fragment="bibliography" id="bibliography" th:unless="${#lists.isEmpty(obj.bibliography)}">
         <hr/>
         <p>
             <strong th:text="#{object_property_bibliography}" class="details-property-label">Bibliography</strong>
@@ -64,7 +64,7 @@
     </div>
 
     <!-- Lemma/Thesaurus entry annotations -->
-    <div class="comment pb-2" id="single-entry-annotations" th:fragment="single-entry-annotations" th:if="${annotations} != null">
+    <div class="comment pb-2" id="single-entry-annotations" th:fragment="single-entry-annotations" th:unless="${#lists.isEmpty(annotations)}">
         <hr/>
         <strong th:text="#{object_property_annotations}" class="details-property-label">Comments</strong>
         <div th:each="annotation : ${annotations}" class="comment-wrapper">
@@ -101,12 +101,12 @@
         </div>
     </div>
 
-    <!-- Lemma details part of speech -->
-    <div th:fragment="lemma-property-part-of-speech" id="lemma-property-part-of-speech">
+    <!-- Object details type & subtype -->
+    <div th:fragment="object-property-type-subtype(objType)" th:id="|${objType}-property-type-subtype|">
         <hr/>
         <p>
-          <strong th:text="#{lemma_property_pos}" class="details-property-label">Word Class</strong>
-          <span th:replace=" :: lemma-pos"/>
+            <strong th:text="#{|${objType}_property_type|}" class="details-property-label">Type</strong>
+            <span th:replace=" :: type-subtype"/>
         </p>
     </div>
 
@@ -136,27 +136,17 @@
         </p>
     </div>
 
-    <!-- Related Lemmata -->
-    <div th:fragment="lemma-property-related-objects" id="lemma-property-related-objects" th:unless="${#maps.isEmpty(relations)}">
+    <!-- Related Objects -->
+    <div th:fragment="object-property-related-objects" id="object-property-related-objects" th:unless="${#maps.isEmpty(relations)}">
         <hr/>
-        <strong th:text="#{lemma_property_related_objects}" class="details-property-label">Related Lemmata</strong>
+        <strong th:text="#{|${objectType}_property_related_objects|}" class="border-bottom details-property-label">Related Objects</strong>
         <div class="row py-1" th:each="predicate : ${relations}">
-            <div class="pl-0 col-md-2">
+            <div class="pl-0 col-md-12 border-bottom">
                 <span th:text="#{|${objectType}_relation_predicate_${predicate.key}|}" class="details-property-label">Predicate</span>
             </div>
-            <div class="col-md-10">
-                <div class="row related-object" th:each="relatedObject : ${predicate.value}" th:object="${relatedObject}" th:unless="${relatedObject.eclass} == 'BTSAnnotation'">
-                    <div class="col-sm d-flex  align-items-center">
-                      <span class="font-weight-bold bbaw-libertine" th:text="*{name}">nfr</span>
-                    <span class="col-sm">
-                      <span class="badge badge-secondary text-left text-wrap" th:text="|*{id}|">ID</span>
-                      <span class="badge badge-light" th:text=" #{|dict_*{dictionaryName}|}|">Script</span>
-                      </span>
-                    </div>
-                    <div class="col-sm d-flex align-items-center">
-                      <span th:each="translation : *{translations['de']}" th:text="${translation}">translation</span>
-                    </div>
-                    <div class="col-sm" th:text="*{type}"/>
+            <div class="col-md-12">
+                <div class="related-objects-item" th:each="obj : ${predicate.value}" th:object="${obj}" th:id="${obj.id}"
+                    th:unless="${obj == null || obj.eclass == 'BTSAnnotation'}" th:include="fragments/search :: |${objectType}-search-result|">
                 </div>
             </div>
         </div>
@@ -166,19 +156,18 @@
     <!-- "Atoms" -->
 
     <!-- POS/type -->
-    <span th:fragment="lemma-pos" id="object-type-subtype" class="object-type-subtype">
-        <span th:text="#{|pos_type_${obj.type}|}" class="lemma-type">Type</span>
+    <span th:fragment="type-subtype" id="type-subtype" class="type-subtype" th:classappend="${objectType}">
+        <span th:text="#{|${objectType}_type_${obj.type}|}">Type</span>
         <span th:if="${obj.subtype}">
-          (<span th:text="#{|pos_subtype_${obj.subtype}|}" class="lemma-subtype">Subtype</span>)
+          (<span th:text="#{|${objectType}_subtype_${obj.subtype}|}">Subtype</span>)
         </span>
     </span>
 
-    <!-- hieroglyphs or a badge telling which script a lemma is of -->
-    <th:block th:fragment="hieroglyphs">
-        <span th:unless="${#lists.isEmpty(obj.hieroglyphs)}" th:each="glyphs : ${obj.hieroglyphs}">
+    <!-- hieroglyphs -->
+    <th:block th:fragment="hieroglyphs" th:if="${obj.hieroglyphs != null}">
+        <span th:each="glyphs : ${obj.hieroglyphs}">
             <span class="hieroglyphs" th:title="${glyphs.mdc}" th:utext="${glyphs.svg}"/>
         </span>
-        <span th:if="${#lists.isEmpty(obj.hieroglyphs) and obj.dictionaryName != 'hieratic'}" class="subcorpus" th:text="#{|dict_${obj.dictionaryName}|}">Demotic</span>
     </th:block>
 
 

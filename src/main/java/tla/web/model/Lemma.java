@@ -74,19 +74,15 @@ public class Lemma extends TLAObject {
      * @return List of all lemma word hieroglyphs, or null if there are no hieroglyphs at all
      */
     public List<Glyphs> getHieroglyphs() {
-        if (!this.getDictionaryName().equals(Script.DEMOTIC)) {
+        if (this.getDictionaryName().equals(Script.HIERATIC)) {
             List<Glyphs> hieroglyphs = this.getWords().stream().map(
                 Word::getGlyphs
             ).collect(
                 Collectors.toList()
             );
-            if (hieroglyphs.stream().allMatch(
+            return (hieroglyphs.stream().allMatch(
                 glyphs -> glyphs == null || glyphs.isEmpty()
-            )) {
-                return null;
-            } else {
-                return hieroglyphs;
-            }
+            )) ? null : hieroglyphs;
         }
         return null;
     }
