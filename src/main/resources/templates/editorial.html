@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xml:lang="en"
+      layout:decorate="~{base}"
+>
+  <head>
+    <title th:text="${env.appName}">Title</title>
+  </head>
+  <body>
+
+    <div layout:fragment="content">
+
+      <div class="row">
+        <div class="col-sm-12 col-lg-8" id="details-content">
+          <th:block th:include="'en' + ${templatePath} :: body"/>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
