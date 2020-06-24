@@ -11,7 +11,7 @@ tla:
     backend-url: http://localhost:${BACKEND_PORT:8090}
     editorials:
         path: pages
-        default-lang: en
+        lang-default: en
 
     link-formatters:
         aaew:

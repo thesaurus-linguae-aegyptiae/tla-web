@@ -43,7 +43,6 @@ public class GlobalControllerAdvisor extends DefaultHandlerExceptionResolver {
         );
     }
 
-
     @ExceptionHandler(ObjectNotFoundException.class)
     public ModelAndView handleObjectNotFound(ObjectNotFoundException e, HttpServletRequest request, Model model) {
         model.addAttribute("env", appVars());
@@ -63,6 +62,7 @@ public class GlobalControllerAdvisor extends DefaultHandlerExceptionResolver {
 
     @ExceptionHandler(Exception.class)
     public ModelAndView handleAnything(Exception e, HttpServletRequest request, Model model) {
+        model.addAttribute("env", appVars());
         model.addAttribute("code", 500);
         model.addAttribute("name", e.getClass().getCanonicalName());
         model.addAttribute("url", request.getRequestURI());

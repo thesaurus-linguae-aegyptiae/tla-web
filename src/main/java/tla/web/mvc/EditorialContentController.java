@@ -7,7 +7,6 @@ import java.util.Locale;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -24,6 +23,9 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 import lombok.extern.slf4j.Slf4j;
 import tla.web.config.EditorialConfig.EditorialRegistry;
 
+/**
+ * Uses dynamic mappings to handle requests for quote unquote "<em>static</em>" pages.
+ */
 @Slf4j
 @Controller
 @RequestMapping("/")
@@ -42,20 +44,19 @@ public class EditorialContentController {
     private String negiotiateContentLanguage(String path, HttpHeaders header) {
         List<Locale.LanguageRange> requested = header.getAcceptLanguage();
         requested.sort(
-            Comparator.comparing(Locale.LanguageRange::getWeight)
+            Comparator.comparing(
+                Locale.LanguageRange::getWeight
+            ).reversed()
         );
-        log.info("accepted languages: {}", requested);
         Set<String> supported = editorialRegistry.getSupportedLanguages(
             path
         );
-        log.info("supported languages for {}: {}", path, supported);
         for (Locale.LanguageRange lang : requested) {
-            log.info("lang: {}, weight: {}", lang, lang.getWeight());
-            if (supported.contains(lang.toString())) {
-                return lang.toString();
+            if (supported.contains(lang.getRange())) {
+                return lang.getRange();
             }
         }
-        return "en"; // TODO default
+        return editorialRegistry.getLangDefault();
     }
 
     /**
@@ -71,23 +72,16 @@ public class EditorialContentController {
     public String renderEditorial(
         HttpServletRequest request,
         @RequestHeader HttpHeaders header,
-        HttpServletResponse response,
         Model model
     ) throws Exception {
         String path = request.getRequestURI();
         String contentLang = negiotiateContentLanguage(path, header);
-        log.info("handling request for static page {}", path);
-        log.info("accepted language: {}", request.getHeader(HttpHeaders.ACCEPT_LANGUAGE));
-        log.info("negotiated language: {}", contentLang);
-        String tp = templatePath(contentLang, path);
-        log.info("template path: {}", tp);
-        model.addAttribute("templatePath", tp);
+        log.info(
+            "serving request for static page {} with accepted languages {} with negotiated language",
+            path, request.getHeader(HttpHeaders.ACCEPT_LANGUAGE), contentLang
+        );
+        model.addAttribute("templatePath", templatePath(contentLang, path));
         model.addAttribute("contentLang", contentLang);
-        // setting content lang header value does not have any effect for whatever reason
-        // response.addHeader(
-        //     HttpHeaders.CONTENT_LANGUAGE,
-        //     contentLang
-        // );
         return "editorial";
     }
 
@@ -102,7 +96,6 @@ public class EditorialContentController {
             "renderEditorial",
             HttpServletRequest.class,
             HttpHeaders.class,
-            HttpServletResponse.class,
             Model.class
         );
         try {

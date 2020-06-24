@@ -15,6 +15,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.ResultActions;
@@ -25,6 +26,9 @@ import tla.web.config.EditorialConfig.EditorialRegistry;
 public class EditorialPagesTest extends ViewTest {
 
     static final String NO_SUPPORT_LANG = "es";
+
+    @Value("${tla.editorials.lang-default}")
+    private String fallback;
 
     @Autowired
     private EditorialRegistry pages;
@@ -38,6 +42,9 @@ public class EditorialPagesTest extends ViewTest {
                 Set.of("de", "en"),
                 pages.getSupportedLanguages("/legal/imprint"),
                 "languages in which imprint is available"
+            ),
+            () -> assertEquals(
+                fallback, pages.getLangDefault(), "editorial page fallback language"
             )
         );
     }
@@ -46,10 +53,6 @@ public class EditorialPagesTest extends ViewTest {
     void testLocalization(ResultActions testResponse, String lang) throws Exception {
         super.testLocalization(testResponse, lang);
         testResponse.andExpect(
-            header().exists(HttpHeaders.CONTENT_LANGUAGE)
-        // ).andExpect(
-        //     header().string(HttpHeaders.CONTENT_LANGUAGE, lang)  // spring seems to snatch specified content lang somehow so ignore it for the time being
-        ).andExpect(
             model().attribute("contentLang", lang)
         ).andExpect(
             xpath("/html/@lang").string(lang)
@@ -94,7 +97,31 @@ public class EditorialPagesTest extends ViewTest {
         ).andDo(
             print()
         );
-        testLocalization(test, "en"); // TODO default
+        testLocalization(test, pages.getLangDefault());
+    }
+
+    @Test
+    void someAcceptedLanguagesSupported() throws Exception {
+        ResultActions test = mockMvc.perform(
+            get(
+                "/legal/imprint"
+            ).header(
+                HttpHeaders.ACCEPT_LANGUAGE, "en-US,en;q=0.9,de;q=0.8"
+            )
+        );
+        testLocalization(test, "en");
+    }
+
+    @Test
+    void weightedAcceptedLanguagesSupported() throws Exception {
+        ResultActions test = mockMvc.perform(
+            get(
+                "/legal/imprint"
+            ).header(
+                HttpHeaders.ACCEPT_LANGUAGE, "en-US;q=0.8,en;q=0.8,de;q=0.9"
+            )
+        );
+        testLocalization(test, "de");
     }
 
 }

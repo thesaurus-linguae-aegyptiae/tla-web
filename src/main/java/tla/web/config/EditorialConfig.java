@@ -50,6 +50,9 @@ public class EditorialConfig {
     @Getter
     public class EditorialRegistry {
 
+        @Value("${tla.editorials.lang-default}")
+        private String langDefault;
+
         private Map<String, Set<String>> langSupport = new HashMap<>();
 
         private Path getRelativeEditorialPath(Resource editorialResource) throws IOException {
@@ -102,16 +105,19 @@ public class EditorialConfig {
          */
         public Set<String> getSupportedLanguages(String path) {
             return this.langSupport.getOrDefault(
-                path.substring(path.startsWith("/") ? 1 : 0),
-                Set.of("en")
-            ); // TODO default
+                path.substring(
+                    path.startsWith("/") ? 1 : 0
+                ),
+                Set.of(
+                    this.langDefault
+                )
+            );
         }
     }
 
     @EventListener
     public void onContextRefresh(ContextRefreshedEvent event) {
-        log.info("register editorial templates");
-        log.info("editorials dir: {}", editorialsDir);
+        log.info("register editorial templates inside of editorials dir {}.", editorialsDir);
         if (editorialFiles != null) {
             log.info(
                 "registry: {}",
