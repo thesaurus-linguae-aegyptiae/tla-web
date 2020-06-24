@@ -1,7 +1,6 @@
 package tla.web.config;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -67,8 +66,7 @@ public class EditorialConfig {
 
         private String getEditorialPathMapping(Path editorialPath) {
             Path path = editorialPath.subpath(
-                1,
-                editorialPath.getNameCount()
+                1, editorialPath.getNameCount()
             );
             return path.toString().replaceAll("\\.[Hh][Tt][Mm][Ll]$", "");
         }
@@ -89,16 +87,29 @@ public class EditorialConfig {
             }
         }
 
+        /**
+         * Registers a whole bunch of <pre>HTML</pre> files.
+         */
         public Map<String, Set<String>> registerAll(Resource[] editorialResources) {
             for (Resource r : editorialResources) {
                 this.registerEditorialFile(r);
             }
             return this.langSupport;
         }
+
+        /**
+         * Looks up the languages in which a given editorial page is available.
+         */
+        public Set<String> getSupportedLanguages(String path) {
+            return this.langSupport.getOrDefault(
+                path.substring(path.startsWith("/") ? 1 : 0),
+                Set.of("en")
+            ); // TODO default
+        }
     }
 
     @EventListener
-    public void onContextRefresh(ContextRefreshedEvent event) throws IOException, NoSuchMethodException {
+    public void onContextRefresh(ContextRefreshedEvent event) {
         log.info("register editorial templates");
         log.info("editorials dir: {}", editorialsDir);
         if (editorialFiles != null) {
