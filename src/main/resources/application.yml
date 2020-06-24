@@ -129,7 +129,9 @@ spring:
         prefix: file:./src/main/resources/templates/
         check-template-location: true
     resources:
-        static-locations: file:./src/main/resources/static/
+        static-locations:
+          - file:./src/main/resources/static/
+          - file:./src/main/resources/pages/
         cache:
             period: 0
 

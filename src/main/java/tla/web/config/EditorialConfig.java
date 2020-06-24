@@ -15,12 +15,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.io.Resource;
-import org.thymeleaf.templatemode.TemplateMode;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Maintains an inventory of semi-static templates written for editorial web pages.
+ * Runs when the {@link ContextRefreshedEvent} is being broadcasted, and registers
+ * all <pre>HTML</pre> files inside of the directory specified via the
+ * <pre>tla.editorials.path</pre> application property, alongside their respective
+ * available languages.
+ * The registry is then added to the context in the {@link EditorialRegistry} bean.
+ */
 @Slf4j
 @Configuration
 public class EditorialConfig {
@@ -38,18 +44,10 @@ public class EditorialConfig {
         return this.editorialRegistry;
     }
 
-    @Bean
-    public ClassLoaderTemplateResolver editorialTemplatesResolver() {
-        ClassLoaderTemplateResolver resolver = new ClassLoaderTemplateResolver();
-        resolver.setSuffix(".html");
-        resolver.setPrefix("pages/");
-        resolver.setTemplateMode(TemplateMode.HTML);
-        resolver.setCharacterEncoding(StandardCharsets.UTF_8.name());
-        resolver.setCheckExistence(true);
-        resolver.setOrder(1);
-        return resolver;
-    }
-
+    /**
+     * Contains an inventory of all editorial pages and the languages in which they
+     * are available.
+     */
     @Getter
     public class EditorialRegistry {
 
