@@ -42,8 +42,18 @@ public abstract class ObjectController<T extends TLAObject> {
         return this.templatePath;
     }
 
+    /**
+     * Must return an appropriate {@link ObjectService} instance for a particular controller
+     * to be able to invoke operations targeting the entity model class it has been typed for.
+     * @return An {@link ObjectService} instance providing access to entities of the specific type
+     * required by this controller.
+     */
     public abstract ObjectService<T> getService();
 
+    /**
+     * Retrieves the requested plus relevant related entites, and renders the results into the
+     * single object details template defined for the entity type supported.
+     */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getSingleObjectDetailsPage(@PathVariable String id, Model model) {
         log.debug("Compile lemma detail view data for {} {}", getTemplatePath(), id);
