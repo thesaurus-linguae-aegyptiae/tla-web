@@ -2,7 +2,9 @@ package tla.web.config;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -19,25 +21,34 @@ public class TestEditorialsRegistry {
 
     static List<Arguments> urlPathTestParams() {
         return List.of(
-            Arguments.of("/en/legal/imprint.html", "legal/imprint"),
-            Arguments.of("de/legal/imprint.html", "legal/imprint"),
-            Arguments.of("\\en\\legal\\imprint.html", "legal/imprint"),
-            Arguments.of("fr\\legal\\imprint.HTML", "legal/imprint"),
-            Arguments.of("de\\legal\\imprint.htm", "legal/imprint"),
-            Arguments.of("en/help/search/dictionary.html", "help/search/dictionary")
+            Arguments.of("de/legal/imprint.html", "legal/imprint", "de"),
+            Arguments.of("fr/legal/imprint.HTML", "legal/imprint", "fr"),
+            Arguments.of("de/legal/imprint.htm", "legal/imprint", "de"),
+            Arguments.of("en/help/search/dictionary.html", "help/search/dictionary", "en")
         );
     }
 
     @ParameterizedTest
     @MethodSource("urlPathTestParams")
-    void urlPathExtraction(String filePath, String urlPath) {
-        assertAll("come up with proper URL paths for editorial file paths",
+    void extract_urlPath_langId(String filePath, String urlPath, String lang) {
+        String[] segm = filePath.split("/");
+        Path nativePath = Path.of(
+            segm[0],
+            Seq.of(segm).slice(1, segm.length).toArray(String[]::new)
+        );
+        assertEquals(filePath.charAt(0), nativePath.toString().charAt(0));
+        assertAll("URL path & lang ID extraction from file path",
+            () -> assertTrue(
+                nativePath.toString().contains(File.separator),
+                String.format("native path be native (contains %s separator)", File.separator)
+            ),
             () -> assertEquals(
-                urlPath,
-                pages.createURLPath(Path.of(filePath)),
-                "extracted URL path"
+                urlPath, pages.createURLPath(nativePath), "extracted URL path"
+            ),
+            () -> assertEquals(
+                lang, pages.extractLanguageID(nativePath), "extracted language ID"
             )
         );
     }
-    
+
 }
