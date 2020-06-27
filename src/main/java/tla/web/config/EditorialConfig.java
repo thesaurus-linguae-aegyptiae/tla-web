@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.jooq.lambda.Seq;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,6 +42,23 @@ public class EditorialConfig {
     @Bean
     public EditorialRegistry editorialRegistry() {
         return this.editorialRegistry;
+    }
+
+    /**
+     * Hook for the {@link ContextRefreshedEvent} (taking place when application context
+     * has been initialized) scanning editorials folder and registering its contents and the
+     * languages in which they are available.
+     * @param event
+     */
+    @EventListener
+    public void scanEditorials(ContextRefreshedEvent event) {
+        log.info("register editorial templates inside of editorials dir {}.", editorialsDir);
+        if (editorialFiles != null) {
+            log.info(
+                "registry: {}",
+                this.editorialRegistry.registerAll(editorialFiles)
+            );
+        }
     }
 
     /**
@@ -102,13 +120,18 @@ public class EditorialConfig {
          * @see #getRelativeEditorialPath(Resource)
          */
         String createURLPath(Path editorialPath) {
-            Path path = editorialPath.subpath(
-                1, editorialPath.getNameCount()
+            String path = Seq.toString(
+                Seq.seq(
+                    editorialPath.subpath(
+                        1, editorialPath.getNameCount()
+                    )
+                ),
+                "/"
             );
             return path.toString().replaceAll(
                 "\\.[Hh][Tt][Mm][Ll]?$", ""
-            ).replace(
-                "\\", "/"
+            ).replaceAll(
+                "\\s+", "-"
             );
         }
 
@@ -166,23 +189,6 @@ public class EditorialConfig {
                 Set.of(
                     this.langDefault
                 )
-            );
-        }
-    }
-
-    /**
-     * Hook for the {@link ContextRefreshedEvent} (taking place when application context
-     * has been initialized) scanning editorials folder and registering its contents and the
-     * languages in which they are available.
-     * @param event
-     */
-    @EventListener
-    public void onContextRefresh(ContextRefreshedEvent event) {
-        log.info("register editorial templates inside of editorials dir {}.", editorialsDir);
-        if (editorialFiles != null) {
-            log.info(
-                "registry: {}",
-                this.editorialRegistry.registerAll(editorialFiles)
             );
         }
     }

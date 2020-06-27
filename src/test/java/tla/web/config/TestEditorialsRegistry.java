@@ -21,6 +21,8 @@ public class TestEditorialsRegistry {
 
     static List<Arguments> urlPathTestParams() {
         return List.of(
+            Arguments.of("en/home.html", "home", "en"),
+            Arguments.of("de/project summary.html", "project-summary", "de"),
             Arguments.of("de/legal/imprint.html", "legal/imprint", "de"),
             Arguments.of("fr/legal/imprint.HTML", "legal/imprint", "fr"),
             Arguments.of("de/legal/imprint.htm", "legal/imprint", "de"),
