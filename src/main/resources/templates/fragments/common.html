@@ -62,15 +62,15 @@
               <br/>
               Strukturen und Transformationen des Wortschatzes der &#xE4;gyptischen Sprache
               <br/><br/>
-              <a href="/">https://tla.bbaw.de</a>
+              <a href="/" th:text="${env.baseUrl}">https://tla.bbaw.de</a>
             </address>
           </div>
           <div class="col-sm-4 col-lg-2 contact">
             <a href="/contact" target="_blank">Contact</a>
             <br/>
-            <a href="/imprint" target="_blank">Imprint</a>
+            <a href="/legal/imprint" target="_blank">Imprint</a>
             <br/>
-            <a href="/privacy-policy" target="_blank">Privacy policy</a>
+            <a href="/legal/privacy" target="_blank">Privacy policy</a>
             <br/>
             <span id="cookie-info">(Cookies not yet accepted)</span>
           </div>
@@ -127,7 +127,7 @@
 
 
     <!-- icon indicating review state -->
-    <a th:fragment="review-state(obj)" class="review-state" th:title="|Review status: ${obj.reviewState}|">
+    <a th:fragment="review-state(obj)" class="review-state" th:title="|Review status: #{|review_state_${obj.reviewState}}|">
       <span class="solo-icon red-status float-right badge badge-pill badge-light">
         <span class="font-weight-light" th:text="#{|review_state_${obj.reviewState}}|">Reviewed</span>
         <span class="fa-check-circle" th:classappend="${#strings.equals(obj.reviewState, 'published')} ? ok : (${#strings.endsWith(obj.reviewState, 'obsolete')} ? notok : pending)"/>

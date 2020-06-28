@@ -9,6 +9,9 @@ tla:
     name: Thesaurus Linguae Aegyptiae (BETA)
     base-url: https://tla.bbaw.de
     backend-url: http://localhost:${BACKEND_PORT:8090}
+    editorials:
+        path: pages
+        lang-default: en
 
     link-formatters:
         aaew:
@@ -47,28 +50,28 @@ search:
             - sortKey_desc
             - timeSpan.begin_asc
             - timeSpan.end_desc
+            - root_asc
 
         word-classes:
             any: []
             excl_names: []
             adjective:
-                - nisbe_adjective_substantive
                 - nisbe_adjective_preposition
+                - nisbe_adjective_substantive
             adverb:
                 - prepositional_adverb
             entity_name:
-                - person_name
-                - gods_name
-                - place_name
+                - animal_name
                 - artifact_name
+                - gods_name
                 - kings_name
                 - org_name
-                - animal_name
-            epitheton_title:
-                - epith_god
-                - title
-                - epith_king
+                - person_name
+                - place_name
             interjection: []
+            substantive:
+                - substantive_masc
+                - substantive_fem
             numeral:
                 - cardinal
                 - ordinal
@@ -77,38 +80,36 @@ search:
                 - particle_nonenclitic
             preposition: []
             pronoun:
-                - personal_pronoun
                 - demonstrative_pronoun
-                - relative_pronoun
                 - interrogative_pronoun
-            root:
-                - substantive_fem
-            substantive:
-                - substantive_masc
-                - substantive_fem
-            undefined:
-                - gods_name
-                - substantive_masc
+                - personal_pronoun
+                - relative_pronoun
+            root: []
+            epitheton_title:
+                - title
+                - epith_god
+                - epith_king
             verb:
-                - verb_3-lit
                 - verb_2-lit
-                - verb_3-inf
+                - verb_3-lit
                 - verb_4-lit
-                - verb_caus_3-lit
-                - verb_4-inf
-                - verb_2-gem
-                - verb_caus_3-inf
                 - verb_5-lit
-                - verb_caus_2-lit
-                - verb_3-gem
-                - verb_caus_2-gem
-                - verb_caus_4-lit
-                - verb_caus_4-inf
                 - verb_6-lit
-                - verb_irr
-                - verb_caus_5-lit
+                - verb_2-gem
+                - verb_3-gem
+                - verb_3-inf
+                - verb_4-inf
                 - verb_5-inf
+                - verb_caus_2-lit
+                - verb_caus_3-lit
+                - verb_caus_4-lit
+                - verb_caus_5-lit
+                - verb_caus_2-gem
                 - verb_caus_3-gem
+                - verb_caus_3-inf
+                - verb_caus_4-inf
+                - verb_irr
+            undefined: []
 
         annotation-types:
             lemma: []
@@ -128,7 +129,9 @@ spring:
         prefix: file:./src/main/resources/templates/
         check-template-location: true
     resources:
-        static-locations: file:./src/main/resources/static/
+        static-locations:
+          - file:./src/main/resources/static/
+          - file:./src/main/resources/pages/
         cache:
             period: 0
 
