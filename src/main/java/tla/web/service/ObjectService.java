@@ -10,7 +10,9 @@ import tla.web.model.ObjectDetails;
 import tla.web.model.TLAObject;
 import tla.web.repo.TlaClient;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public abstract class ObjectService<T extends TLAObject> {
 
     @Autowired
@@ -45,6 +47,8 @@ public abstract class ObjectService<T extends TLAObject> {
                 )
             );
         } catch (Exception e) {
+            log.error("failed to obtain details for object {}!", id);
+            log.error("cause: ", e);
             return Optional.empty();
         }
     }
