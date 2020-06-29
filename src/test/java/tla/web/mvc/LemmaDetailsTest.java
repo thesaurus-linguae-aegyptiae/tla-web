@@ -19,6 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 @SpringBootTest
 public class LemmaDetailsTest extends ViewTest {
@@ -127,4 +128,14 @@ public class LemmaDetailsTest extends ViewTest {
             model().attributeExists("relations")
         );
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"100090"})
+    void testResponseOk(String id) throws Exception {
+        respondToDetailsRequestWithLemma(id);
+        makeDetailsRequest(id, Language.en).andExpect(
+            xpath("//div[@id='lemma-property-dict']").exists()
+        );
+    }
+
 }
