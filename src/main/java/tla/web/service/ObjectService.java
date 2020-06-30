@@ -11,6 +11,9 @@ import tla.web.model.ObjectDetails;
 import tla.web.model.TLAObject;
 import tla.web.repo.TlaClient;
 
+/**
+ * Generic TLA domain model type object operations component.
+ */
 @Slf4j
 public abstract class ObjectService<T extends TLAObject> {
 

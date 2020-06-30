@@ -6,7 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -37,7 +38,13 @@ public class EditorialPagesTest extends ViewTest {
     void registryAvailable() {
         assertAll("editorial registry properly injected",
             () -> assertNotNull(pages),
-            () -> assertEquals(2, pages.getLangSupport().keySet().size(), "2 pages"),
+            () -> assertEquals(2, pages.getLangSupport().keySet().size(), "2 pages")
+        );
+    }
+
+    @Test
+    void registryProperlyInitialized() {
+        assertAll("registry populated with contents of editorials folder",
             () -> assertEquals(
                 Set.of("de", "en"),
                 pages.getSupportedLanguages("/legal/imprint"),
