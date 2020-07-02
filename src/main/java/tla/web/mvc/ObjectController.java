@@ -18,7 +18,10 @@ import tla.web.model.ui.TemplateModelName;
 import tla.web.service.ObjectService;
 
 /**
- * Controllers implementing this class must be annotated with {@link Controller}, {@link TemplateModelName}, and {@link RequestMapping}.
+ * Generic view controller with standard request handlers.
+ *
+ * Controllers implementing this class must be annotated with {@link Controller},
+ * {@link TemplateModelName}, and {@link RequestMapping}.
  */
 @Slf4j
 public abstract class ObjectController<T extends TLAObject> {

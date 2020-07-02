@@ -177,7 +177,8 @@
 
       <!-- LEMMA search result -->
 
-      <div th:fragment="lemma-search-result" class="result-list-item" th:object="${obj}" th:id="${obj.id}">
+      <div th:fragment="lemma-search-result" class="result-list-item"
+          th:classappend="${#strings.endsWith(obj.reviewState,'obsolete')} ? 'obsolete' : ''" th:object="${obj}" th:id="${obj.id}">
         <a th:replace="fragments/common :: review-state(${obj})"/>
 
         <a th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">

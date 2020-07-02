@@ -39,17 +39,19 @@ public class ObjectDetails<T extends TLAObject> {
             )
         );
         container.related = new HashMap<String, Map<String, TLAObject>>();
-        for (Entry<String, Map<String, DocumentDto>> eclassEntry : wrapper.getRelated().entrySet()) {
-            String eclass = eclassEntry.getKey();
-            container.related.put(
-                eclass,
-                eclassEntry.getValue().values().stream().collect(
-                    Collectors.toMap(
-                        DocumentDto::getId,
-                        dto -> MappingConfig.convertDTO(dto)
+        if (wrapper.getRelated() != null) {
+            for (Entry<String, Map<String, DocumentDto>> eclassEntry : wrapper.getRelated().entrySet()) {
+                String eclass = eclassEntry.getKey();
+                container.related.put(
+                    eclass,
+                    eclassEntry.getValue().values().stream().collect(
+                        Collectors.toMap(
+                            DocumentDto::getId,
+                            dto -> MappingConfig.convertDTO(dto)
+                        )
                     )
-                )
-            );
+                );
+            }
         }
         return container;
     }
