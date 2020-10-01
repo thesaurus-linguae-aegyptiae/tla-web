@@ -42,6 +42,10 @@ tla:
             default-format: http://thot.philo.ulg.ac.be/concept/{id}
         met:
             default-format: http://projetrosette.info/popup.php?Id=1004&MET={id}/2&Lang1=EN
+        gnd:
+            default-format: http://d-nb.info/gnd/{id}
+        zdb:
+            default-format: https://ld.zdb-services.de/resource/{id}
 
 search:
     lemma:
