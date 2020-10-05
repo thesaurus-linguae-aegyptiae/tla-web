@@ -38,7 +38,7 @@ public class EditorialPagesTest extends ViewTest {
     void registryAvailable() {
         assertAll("editorial registry properly injected",
             () -> assertNotNull(pages),
-            () -> assertEquals(2, pages.getLangSupport().keySet().size(), "2 pages")
+            () -> assertTrue(pages.getLangSupport().keySet().size() > 2, "more than 2 pages registered")
         );
     }
 
