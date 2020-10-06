@@ -131,4 +131,18 @@ public class EditorialPagesTest extends ViewTest {
         testLocalization(test, "de");
     }
 
+    @Test
+    void weightedAcceptedLanguages_langParam() throws Exception {
+        ResultActions test = mockMvc.perform(
+            get(
+                "/legal/imprint"
+            ).header(
+                HttpHeaders.ACCEPT_LANGUAGE, "en,en-US;q=1.0,de;q=0.9"
+            ).param(
+                "lang", "de"
+            )
+        );
+        testLocalization(test, "de");
+    }
+
 }

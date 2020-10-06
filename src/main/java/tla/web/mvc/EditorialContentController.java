@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
@@ -41,7 +42,7 @@ public class EditorialContentController {
      * Select one of the languages in which a requested editorial page is available
      * under consideration of the <pre>Appect-Language</pre> values passed.
      */
-    private String negiotiateContentLanguage(String path, HttpHeaders header) {
+    private String negotiateContentLanguage(String path, HttpHeaders header) {
         List<Locale.LanguageRange> requested = header.getAcceptLanguage();
         requested.sort(
             Comparator.comparing(
@@ -60,6 +61,20 @@ public class EditorialContentController {
     }
 
     /**
+     * Add specified language with a weight of 1.0 to the language specifier list
+     * in the accepted languages header field.
+     */
+    private HttpHeaders preferContentLanguage(String lang, HttpHeaders header) {
+        List<Locale.LanguageRange> requested = header.getAcceptLanguage();
+        requested.add(
+            0,
+            new Locale.LanguageRange(lang, 1.0f)
+        );
+        header.setAcceptLanguage(requested);
+        return header;
+    }
+
+    /**
      * Puts together the path where to find the negoriated template.
      */
     private String templatePath(String lang, String path) {
@@ -71,14 +86,18 @@ public class EditorialContentController {
      */
     public String renderEditorial(
         HttpServletRequest request,
+        @RequestParam(required = false) String lang,
         @RequestHeader HttpHeaders header,
         Model model
     ) throws Exception {
         String path = request.getRequestURI();
-        String contentLang = negiotiateContentLanguage(path, header);
+        if (lang != null) {
+            preferContentLanguage(lang, header);
+        }
+        String contentLang = negotiateContentLanguage(path, header);
         log.info(
-            "serving request for static page {} with accepted languages {} with negotiated language",
-            path, request.getHeader(HttpHeaders.ACCEPT_LANGUAGE), contentLang
+            "serving request for static page {} with accepted languages {} with negotiated language {}.",
+            path, header.getAcceptLanguage(), contentLang
         );
         model.addAttribute("templatePath", templatePath(contentLang, path));
         model.addAttribute("contentLang", contentLang);
@@ -95,6 +114,7 @@ public class EditorialContentController {
         Method handlerMethod = EditorialContentController.class.getDeclaredMethod(
             "renderEditorial",
             HttpServletRequest.class,
+            String.class,
             HttpHeaders.class,
             Model.class
         );
