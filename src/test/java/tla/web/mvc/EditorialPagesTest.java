@@ -15,6 +15,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -131,18 +133,21 @@ public class EditorialPagesTest extends ViewTest {
         testLocalization(test, "de");
     }
 
-    @Test
-    void weightedAcceptedLanguages_langParam() throws Exception {
+    @ParameterizedTest
+    @ValueSource(strings = {"de->de", ";->en", "no->en", "->en"})
+    void weightedAcceptedLanguages_langParam(String spec) throws Exception {
+        String param = spec.split("->")[0];
+        String negotiated = spec.split("->")[1];
         ResultActions test = mockMvc.perform(
             get(
                 "/legal/imprint"
             ).header(
                 HttpHeaders.ACCEPT_LANGUAGE, "en,en-US;q=1.0,de;q=0.9"
             ).param(
-                "lang", "de"
+                "lang", param
             )
         );
-        testLocalization(test, "de");
+        testLocalization(test, negotiated);
     }
 
 }
