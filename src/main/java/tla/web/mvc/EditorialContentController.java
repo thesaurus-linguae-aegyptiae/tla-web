@@ -5,11 +5,14 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.jooq.lambda.Seq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.MessageSource;
 import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
@@ -31,6 +34,9 @@ import tla.web.config.EditorialConfig.EditorialRegistry;
 @Controller
 @RequestMapping("/")
 public class EditorialContentController {
+
+    @Autowired
+    private MessageSource l10n;
 
     @Autowired
     private EditorialRegistry editorialRegistry;
@@ -83,7 +89,32 @@ public class EditorialContentController {
     }
 
     /**
+     * Looks up the page title as defined in <code>messages.properties</code>.
+     *
+     * Example: Title for <code>legal/imprint</code> is defined via message key
+     * <code>editorial_title_legal_imprint</code>.
+     */
+    public String getPageTitle(String path, String lang) {
+        String msgKey = "editorial_title_" + Seq.toString(
+            Stream.of(
+                path.split("/")
+            ).filter(
+                segm -> !segm.isBlank()
+            ),
+            "_"
+        );
+        return l10n.getMessage(
+            msgKey,
+            null,
+            path,
+            new Locale(lang)
+        );
+    }
+
+    /**
      * Puts together the path where to find the negoriated template.
+     *
+     * TODO get subdir from ${tla.editorials.path}
      */
     private String templatePath(String lang, String path) {
         return "../pages/" + lang + path;
@@ -109,6 +140,10 @@ public class EditorialContentController {
         );
         model.addAttribute("templatePath", templatePath(contentLang, path));
         model.addAttribute("contentLang", contentLang);
+        model.addAttribute(
+            "pageTitle",
+            getPageTitle(path, contentLang)
+        );
         return "editorial";
     }
 
