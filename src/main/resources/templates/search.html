@@ -3,26 +3,27 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{base}"
 >
-<body>
-  <div layout:fragment="content">
-    <div class="row search my-4">
-      <div class="col-lg-8">
-        <form th:replace="fragments/search :: #dict-search"/>
-      </div>
+  <body>
+    <div layout:fragment="content">
+      <div class="row search my-4">
+        <div class="col-lg-8">
+          <form th:replace="fragments/search :: #dict-search"/>
+        </div>
 
-      <div class="sidebar col-lg-4">
-        <div class="stick-top">
-          <div>
-            <button class="btn btn-block btn-danger text-left text-decoration-none mt-4" id="submit-dict-search" form="dict-search" type="submit">
-              <span class="fas fa-arrow-circle-right"></span>
-              <span th:text="#{button_label_dict_search}">Search Dict</span>
-            </button>
+        <div class="sidebar col-lg-4">
+          <div class="stick-top">
+            <div>
+              <button class="btn btn-block btn-danger text-left text-decoration-none mt-4" id="submit-dict-search" form="dict-search" type="submit">
+                <span class="fas fa-arrow-circle-right"></span>
+                <span th:text="#{button_label_dict_search}">Search Dict</span>
+              </button>
+            </div>
+            <div th:replace="fragments/search :: clear-form-button(dict-search)"/>
           </div>
-          <div th:replace="fragments/search :: clear-form-button(dict-search)"/>
         </div>
       </div>
+
     </div>
 
-  </div>
-
-</body>
+  </body>
+</html>
