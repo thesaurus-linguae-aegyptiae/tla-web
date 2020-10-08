@@ -15,8 +15,8 @@ jobs:
     - name: install xmllint
       run: sudo apt-get install --no-install-recommends -y libxml2-utils
 
-    - name: validate editorials
-      run: find src/main/resources -type f -iname "*.html" -exec xmllint --noout {} \;
+    - name: validate HTML templates
+      run: find src/main/resources/{templates,pages} -type f -iname "*.html" -exec xmllint --noout {} \;
 
     - name: set up jdk
       uses: actions/setup-java@v1
