@@ -81,14 +81,6 @@ public class EditorialContentController {
     }
 
     /**
-     * Determines whether a language specifier is even worth considering
-     * during content negotiation (i.e. <code>ISO 639-1</code> conformity).
-     */
-    private boolean isValidContentLanguage(String lang) {
-        return lang != null && lang.matches("[A-Za-z]{2}");
-    }
-
-    /**
      * Looks up the page title as defined in <code>messages.properties</code>.
      *
      * Example: Title for <code>legal/imprint</code> is defined via message key
@@ -130,7 +122,7 @@ public class EditorialContentController {
         Model model
     ) throws Exception {
         String path = request.getRequestURI();
-        if (isValidContentLanguage(lang)) {
+        if (TLALocaleResolver.isValidContentLanguage(lang)) {
             preferContentLanguage(lang, header);
         }
         String contentLang = negotiateContentLanguage(path, header);
