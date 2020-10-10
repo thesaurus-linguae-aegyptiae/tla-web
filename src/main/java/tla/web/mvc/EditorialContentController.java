@@ -55,15 +55,19 @@ public class EditorialContentController {
                 Locale.LanguageRange::getWeight
             ).reversed()
         );
-        Set<String> supported = editorialRegistry.getSupportedLanguages(
-            path
-        );
+        var supported = getSupportedLanguages(path);
         for (Locale.LanguageRange lang : requested) {
             if (supported.contains(lang.getRange())) {
                 return lang.getRange();
             }
         }
         return editorialRegistry.getLangDefault();
+    }
+
+    private Set<String> getSupportedLanguages(String path) {
+        return  editorialRegistry.getSupportedLanguages(
+            path
+        );
     }
 
     /**
@@ -130,8 +134,10 @@ public class EditorialContentController {
             "serving request for static page {} with accepted languages {} with negotiated language {}.",
             path, header.getAcceptLanguage(), contentLang
         );
+        var availableLanguages = getSupportedLanguages(path);
         model.addAttribute("templatePath", templatePath(contentLang, path));
         model.addAttribute("contentLang", contentLang);
+        model.addAttribute("contentLanguages", availableLanguages);
         model.addAttribute(
             "pageTitle",
             getPageTitle(path, contentLang)

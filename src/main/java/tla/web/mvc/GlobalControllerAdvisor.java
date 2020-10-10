@@ -32,7 +32,8 @@ public class GlobalControllerAdvisor extends DefaultHandlerExceptionResolver {
     public Map<String, String> appVars() {
         return Map.of(
             "baseUrl", applicationProperties.getBaseUrl(),
-            "appName", applicationProperties.getName()
+            "appName", applicationProperties.getName(),
+            "contentLanguages", List.of()
         );
     }
 
