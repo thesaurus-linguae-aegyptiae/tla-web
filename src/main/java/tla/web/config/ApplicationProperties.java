@@ -2,6 +2,7 @@ package tla.web.config;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
@@ -19,8 +20,10 @@ public class ApplicationProperties {
 
     private String baseUrl;
 
-    private String backendURL = "http://tladev.bbaw.de:8080";
+    private String backendURL = "http://localhost:8080";
 
     private Map<String, LinkFormatter> linkFormatters = new HashMap<>();
+
+    private Set<String> l10n;
 
 }

@@ -142,7 +142,16 @@ public class ThsEntryDetailsTest extends ViewTest {
             view().name("error/404")
         )
         .andExpect(
-            model().attribute("env", aMapWithSize(2))
+            model().attribute("env", aMapWithSize(greaterThan(2)))
+        )
+        .andExpect(
+            model().attribute("env", hasEntry(containsString("baseUrl"), containsString("")))
+        )
+        .andExpect(
+            model().attribute("env", hasKey("contentLanguages"))
+        )
+        .andExpect(
+            model().attribute("env", hasEntry(containsString("contentLanguages"), hasItem("en")))
         );
     }
 

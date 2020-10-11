@@ -101,7 +101,7 @@ public class EditorialConfig {
          * </p>
          *
          * @param editorialPath path to editorial file (relative to editorials template folder)
-         * @return two-char identifier (e.b. <code>en</code>, <code>de</code>, ...)
+         * @return ISO-639-2 style two-char identifier (e.g. <code>en</code>, <code>de</code>, ...)
          * @see #getRelativeEditorialPath(Resource)
          */
         protected String extractLanguageID(Path editorialPath) {

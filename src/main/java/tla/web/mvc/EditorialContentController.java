@@ -1,6 +1,7 @@
 package tla.web.mvc;
 
 import java.lang.reflect.Method;
+import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.jooq.lambda.Seq;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.MessageSource;
 import org.springframework.context.event.EventListener;
@@ -43,6 +45,9 @@ public class EditorialContentController {
 
     @Autowired
     private RequestMappingHandlerMapping handlerMapping;
+
+    @Value("${tla.editorials.path}")
+    private String editorialsDir;
 
     /**
      * Select one of the languages in which a requested editorial page is available
@@ -108,12 +113,18 @@ public class EditorialContentController {
     }
 
     /**
-     * Puts together the path where to find the negoriated template.
+     * Puts together the file system path where to find the negotiated template.
      *
      * TODO get subdir from ${tla.editorials.path}
+     * TODO account for path not being prefixed by slash
      */
     private String templatePath(String lang, String path) {
-        return "../pages/" + lang + path;
+        return Path.of(
+            "..",
+            editorialsDir,
+            lang,
+            path
+        ).toString();
     }
 
     /**

@@ -29,11 +29,11 @@ public class GlobalControllerAdvisor extends DefaultHandlerExceptionResolver {
     }
 
     @ModelAttribute("env")
-    public Map<String, String> appVars() {
+    public Map<String, Object> appVars() {
         return Map.of(
             "baseUrl", applicationProperties.getBaseUrl(),
             "appName", applicationProperties.getName(),
-            "contentLanguages", List.of()
+            "contentLanguages", applicationProperties.getL10n()
         );
     }
 
