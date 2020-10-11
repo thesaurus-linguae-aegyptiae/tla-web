@@ -148,10 +148,10 @@ public class ThsEntryDetailsTest extends ViewTest {
             model().attribute("env", hasEntry(containsString("baseUrl"), containsString("")))
         )
         .andExpect(
-            model().attribute("env", hasKey("contentLanguages"))
+            model().attribute("env", hasKey("l10n"))
         )
         .andExpect(
-            model().attribute("env", hasEntry(containsString("contentLanguages"), hasItem("en")))
+            model().attribute("env", hasEntry(containsString("l10n"), hasItem("en")))
         );
     }
 

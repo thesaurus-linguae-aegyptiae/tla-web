@@ -148,7 +148,7 @@ public class EditorialContentController {
         var availableLanguages = getSupportedLanguages(path);
         model.addAttribute("templatePath", templatePath(contentLang, path));
         model.addAttribute("contentLang", contentLang);
-        model.addAttribute("contentLanguages", availableLanguages);
+        model.addAttribute("env.l10n", availableLanguages);
         model.addAttribute(
             "pageTitle",
             getPageTitle(path, contentLang)

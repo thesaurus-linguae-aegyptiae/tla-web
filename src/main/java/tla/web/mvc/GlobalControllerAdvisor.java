@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +34,8 @@ public class GlobalControllerAdvisor extends DefaultHandlerExceptionResolver {
         return Map.of(
             "baseUrl", applicationProperties.getBaseUrl(),
             "appName", applicationProperties.getName(),
-            "contentLanguages", applicationProperties.getL10n()
+            "l10n", applicationProperties.getL10n(),
+            "lang", LocaleContextHolder.getLocale().getLanguage()
         );
     }
 

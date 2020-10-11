@@ -45,6 +45,18 @@
                   <a class="dropdown-item" href="/help/ling-glossings" th:text="#{editorial_title_help_ling-glossings}">Linguistic glossing</a>
                 </div>
               </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="far fa-flag"></i>
+                  <span th:text="#{menu_global_lang}">Language</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="langDropdown"
+                    th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder)}">
+                  <a th:each="lang : ${env.l10n}" href="#" class="dropdown-item" th:text="#{|lang_label_${lang}}"
+                      th:href="${urlBuilder.fromCurrentRequest().replaceQueryParam('lang', lang).toUriString()}">English</a>
+                </div>
+              </li>
             </ul>
           </div>
         </div>
@@ -61,7 +73,7 @@
             <address>
               <strong>Thesaurus Linguae Aegyptiae</strong>
               <br/>
-              Strukturen und Transformationen des Wortschatzes der &#xE4;gyptischen Sprache
+              Strukturen und Transformationen des Wortschatzes der ägyptischen Sprache
               <br/><br/>
               <a href="/" th:text="${env.baseUrl}">https://tla.bbaw.de</a>
             </address>

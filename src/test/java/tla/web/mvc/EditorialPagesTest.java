@@ -1,5 +1,7 @@
 package tla.web.mvc;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -47,10 +49,9 @@ public class EditorialPagesTest extends ViewTest {
     @Test
     void registryProperlyInitialized() {
         assertAll("registry populated with contents of editorials folder",
-            () -> assertEquals(
-                Set.of("de", "en"),
+            () -> assertThat(
                 pages.getSupportedLanguages("/legal/imprint"),
-                "languages in which imprint is available"
+                hasItems("de", "en")
             ),
             () -> assertEquals(
                 fallback, pages.getLangDefault(), "editorial page fallback language"
