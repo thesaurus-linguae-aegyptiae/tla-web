@@ -12,6 +12,9 @@ tla:
     editorials:
         path: pages
         lang-default: en
+    l10n:
+        - en
+        - de
 
     link-formatters:
         aaew:

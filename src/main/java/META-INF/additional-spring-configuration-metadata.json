@@ -25,6 +25,10 @@
             "type": "java.lang.String"
         },
         {
+            "name": "tla.l10n",
+            "type": "java.util.Set"
+        },
+        {
             "name": "tla.link-formatters",
             "type": "java.util.Map"
         },

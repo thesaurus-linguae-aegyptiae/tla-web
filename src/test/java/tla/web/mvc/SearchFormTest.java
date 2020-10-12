@@ -28,7 +28,7 @@ public class SearchFormTest extends ViewTest {
     @Test
     void root() throws Exception {
         mockMvc.perform(get("/"))
-            .andExpect(status().isNotFound());
+            .andExpect(status().isOk());
     }
 
     private String getWordClassWithoutSubtypes() {

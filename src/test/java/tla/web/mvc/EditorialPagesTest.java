@@ -1,5 +1,7 @@
 package tla.web.mvc;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -15,6 +17,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -45,10 +49,9 @@ public class EditorialPagesTest extends ViewTest {
     @Test
     void registryProperlyInitialized() {
         assertAll("registry populated with contents of editorials folder",
-            () -> assertEquals(
-                Set.of("de", "en"),
+            () -> assertThat(
                 pages.getSupportedLanguages("/legal/imprint"),
-                "languages in which imprint is available"
+                hasItems("de", "en")
             ),
             () -> assertEquals(
                 fallback, pages.getLangDefault(), "editorial page fallback language"
@@ -129,6 +132,23 @@ public class EditorialPagesTest extends ViewTest {
             )
         );
         testLocalization(test, "de");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"de->de", ";->en", "no->en", "->en"})
+    void weightedAcceptedLanguages_langParam(String spec) throws Exception {
+        String param = spec.split("->")[0];
+        String negotiated = spec.split("->")[1];
+        ResultActions test = mockMvc.perform(
+            get(
+                "/legal/imprint"
+            ).header(
+                HttpHeaders.ACCEPT_LANGUAGE, "en,en-US;q=1.0,de;q=0.9"
+            ).param(
+                "lang", param
+            )
+        );
+        testLocalization(test, negotiated);
     }
 
 }
