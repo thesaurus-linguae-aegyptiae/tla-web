@@ -76,7 +76,7 @@ dependencies {
     implementation 'org.slf4j:slf4j-simple:2.0.0-alpha1'
     implementation 'org.apache.commons:commons-lang3:3.11'
 
-    implementation 'com.github.jkatzwinkel:tla-common:master-SNAPSHOT'
+    implementation 'com.github.jkatzwinkel:tla-common:2742fe8e4e'
     implementation 'com.github.rosmord:jsesh:7.3.1'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.4.0'
