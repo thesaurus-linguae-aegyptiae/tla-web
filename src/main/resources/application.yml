@@ -49,6 +49,8 @@ tla:
             default-format: http://d-nb.info/gnd/{id}
         zdb:
             default-format: https://ld.zdb-services.de/resource/{id}
+        wikidata:
+            default-format: https://www.wikidata.org/wiki/{id}
 
 search:
     lemma:

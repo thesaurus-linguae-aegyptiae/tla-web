@@ -12,7 +12,7 @@ plugins {
 }
 
 group = 'org.bbaw.aaew.tla'
-version = '0.0.800-SNAPSHOT'
+version = '0.0.801-SNAPSHOT'
 sourceCompatibility = '11'
 
 ext {
