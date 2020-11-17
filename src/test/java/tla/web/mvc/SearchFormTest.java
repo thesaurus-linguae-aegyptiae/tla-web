@@ -1,12 +1,5 @@
 package tla.web.mvc;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-
-import tla.web.config.LemmaSearchProperties;
-
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -16,17 +9,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.List;
 import java.util.Map.Entry;
 
-import org.springframework.http.HttpHeaders;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
+import org.springframework.test.web.servlet.ResultActions;
+
+import tla.web.config.LemmaSearchProperties;
 
 @SpringBootTest
 public class SearchFormTest extends ViewTest {
-
-    @Autowired
-    private MockMvc mockMvc;
 
     @Autowired
     private LemmaSearchProperties searchConf;
@@ -34,7 +28,7 @@ public class SearchFormTest extends ViewTest {
     @Test
     void root() throws Exception {
         mockMvc.perform(get("/"))
-            .andExpect(status().isNotFound());
+            .andExpect(status().isOk());
     }
 
     private String getWordClassWithoutSubtypes() {

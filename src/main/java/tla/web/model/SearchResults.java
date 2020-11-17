@@ -11,6 +11,7 @@ import tla.domain.command.SearchCommand;
 import tla.domain.dto.extern.PageInfo;
 import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.meta.AbstractDto;
+import tla.domain.dto.meta.DocumentDto;
 import tla.web.model.mappings.MappingConfig;
 
 @Getter
@@ -25,6 +26,12 @@ public class SearchResults {
     private PageInfo page;
 
     private Map<String, Map<String, Long>> facets;
+    
+    public SearchResults(List<TLAObject> objects, SearchCommand<? extends AbstractDto> query, PageInfo page) {
+        this.objects = objects;
+        this.query = query;
+        this.page = page;
+    }
 
     /**
      * Converts search results in a paged DTO to their respective frontend model

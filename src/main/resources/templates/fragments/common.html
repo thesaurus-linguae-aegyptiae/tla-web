@@ -16,32 +16,45 @@
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a class="nav-link" href="/search">Search</a>
+                <a class="nav-link" href="/search" th:text="#{menu_global_search}">Search</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">TLA</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/info/introduction" th:text="#{menu_global_introduction}">Introduction</a>
-                  <a class="dropdown-item" href="/info/project">Project</a>
-                  <a class="dropdown-item" href="/info/collaboration">Collaboration</a>
-                  <a class="dropdown-item" href="/info/license">License</a>
+                  <a class="dropdown-item" href="/info/introduction" th:text="#{editorial_title_info_introduction}">Introduction</a>
+                  <a class="dropdown-item" href="/info/project" th:text="#{editorial_title_info_project}">Project</a>
+                  <a class="dropdown-item" href="/info/collaboration" th:text="#{editorial_title_info_collaboration}">Collaboration</a>
+                  <a class="dropdown-item" href="/info/license" th:text="#{editorial_title_info_license}">License</a>
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/info/dictionary">Dictionary</a>
+                <a class="nav-link" href="/info/dictionary" th:text="#{editorial_title_info_dictionary}">Dictionary</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/info/text-corpus">Text Corpus</a>
+                <a class="nav-link" href="/info/text-corpus" th:text="#{editorial_title_info_text-corpus}">Text Corpus</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/info/extras">Extras</a>
+                <a class="nav-link" href="/info/extras" th:text="#{editorial_title_info_extras}">Extras</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Help</a>
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{menu_global_help}">Help</a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown2">
-                  <a class="dropdown-item" href="/help">General help</a>
-                  <a class="dropdown-item" href="/help/bts-glossings">BTS glossing </a>
-                  <a class="dropdown-item" href="/help/ling-glossings">Linguistic glossing</a>
+                  <a class="dropdown-item" href="/help" th:text="#{editorial_title_help}">General help</a>
+                  <a class="dropdown-item" href="/help/bts-glossings" th:text="#{editorial_title_help_bts-glossings}">BTS glossing</a>
+                  <a class="dropdown-item" href="/help/ling-glossings" th:text="#{editorial_title_help_ling-glossings}">Linguistic glossing</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="far fa-flag"></i>
+                  <span th:text="#{menu_global_lang}">Language</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="langDropdown"
+                    th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder)}">
+                  <a th:each="lang : ${env.l10n}" href="#" class="dropdown-item" th:text="#{|lang_label_${lang}}"
+                      th:href="${urlBuilder.fromCurrentRequest().replaceQueryParam('lang', lang).toUriString()}">English</a>
                 </div>
               </li>
             </ul>
@@ -60,17 +73,17 @@
             <address>
               <strong>Thesaurus Linguae Aegyptiae</strong>
               <br/>
-              Strukturen und Transformationen des Wortschatzes der &#xE4;gyptischen Sprache
+              Strukturen und Transformationen des Wortschatzes der ägyptischen Sprache
               <br/><br/>
-              <a href="/">https://tla.bbaw.de</a>
+              <a href="/" th:text="${env.baseUrl}">https://tla.bbaw.de</a>
             </address>
           </div>
           <div class="col-sm-4 col-lg-2 contact">
-            <a href="/contact" target="_blank">Contact</a>
+            <a href="/contact" target="_blank" th:text="#{editorial_title_contact}">Contact</a>
             <br/>
-            <a href="/imprint" target="_blank">Imprint</a>
+            <a href="/legal/imprint" target="_blank" th:text="#{editorial_title_legal_imprint}">Imprint</a>
             <br/>
-            <a href="/privacy-policy" target="_blank">Privacy policy</a>
+            <a href="/legal/privacy" target="_blank" th:text="#{editorial_title_legal_privacy}">Privacy policy</a>
             <br/>
             <span id="cookie-info">(Cookies not yet accepted)</span>
           </div>
@@ -127,7 +140,7 @@
 
 
     <!-- icon indicating review state -->
-    <a th:fragment="review-state(obj)" class="review-state" th:title="|Review status: ${obj.reviewState}|">
+    <a th:fragment="review-state(obj)" class="review-state" th:title="|Review status: #{|review_state_${obj.reviewState}}|">
       <span class="solo-icon red-status float-right badge badge-pill badge-light">
         <span class="font-weight-light" th:text="#{|review_state_${obj.reviewState}}|">Reviewed</span>
         <span class="fa-check-circle" th:classappend="${#strings.equals(obj.reviewState, 'published')} ? ok : (${#strings.endsWith(obj.reviewState, 'obsolete')} ? notok : pending)"/>

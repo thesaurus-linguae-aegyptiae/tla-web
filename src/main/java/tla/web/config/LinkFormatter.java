@@ -7,7 +7,8 @@ import java.util.regex.Pattern;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.util.UriTemplate;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -26,8 +27,9 @@ import lombok.extern.slf4j.Slf4j;
  * Either <code>default-format</code> or <code>type-formats.default</code> should be defined.
  * 
  */
-@Data
 @Slf4j
+@Getter
+@Setter
 @Validated
 public class LinkFormatter {
 

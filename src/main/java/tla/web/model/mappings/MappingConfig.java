@@ -8,7 +8,7 @@ import tla.domain.dto.AnnotationDto;
 import tla.domain.dto.meta.AbstractDto;
 import tla.domain.dto.LemmaDto;
 import tla.domain.dto.ThsEntryDto;
-import tla.domain.model.LemmaWord;
+import tla.domain.model.SentenceToken;
 import tla.domain.model.meta.BTSeClass;
 import tla.web.config.ApplicationProperties;
 import tla.web.model.Glyphs;
@@ -86,9 +86,9 @@ public class MappingConfig {
                 ThsEntry::setExternalReferences
             )
         );
-        modelMapper.createTypeMap(LemmaWord.class, Word.class).addMappings(
+        modelMapper.createTypeMap(SentenceToken.class, Word.class).addMappings(
             m -> m.using(new GlyphsConverter()).map(
-                LemmaWord::getGlyphs, Word::setGlyphs
+                SentenceToken::getGlyphs, Word::setGlyphs
             )
         );
         return modelMapper;

@@ -46,7 +46,7 @@ public class ObjectDetails<T extends TLAObject> {
                 if (objects != null && !objects.isEmpty()) {
                     container.related.put(
                         eclass,
-                        objects.values().stream().collect(
+                        eclassEntry.getValue().values().stream().collect(
                             Collectors.toMap(
                                 DocumentDto::getId,
                                 dto -> MappingConfig.convertDTO(dto)

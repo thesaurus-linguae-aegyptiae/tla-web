@@ -17,7 +17,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import tla.domain.command.LemmaSearch;
-import tla.domain.dto.LemmaDto;
 import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.DocumentDto;
@@ -93,7 +92,7 @@ public class ServiceTest {
     @Test
     @SuppressWarnings("unchecked")
     void lemmaSearchResultsMapping() throws Exception {
-        SearchResultsWrapper<LemmaDto> wrap = tla.domain.util.IO.loadFromFile(
+        SearchResultsWrapper<DocumentDto> wrap = tla.domain.util.IO.loadFromFile(
             "src/test/resources/sample/data/lemma/search/demotic_translation_de.json",
             SearchResultsWrapper.class
         );

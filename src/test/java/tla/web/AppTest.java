@@ -1,5 +1,6 @@
 package tla.web;
 
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,7 +27,8 @@ class AppTest {
     void properties() {
         assertAll("applicationproperties should be available to context",
             () -> assertNotNull(properties, "application properties should not be null"),
-            () -> assertEquals("Thesaurus Linguae Aegyptiae (BETA)", properties.getName(), "application title should be set")
+            () -> assertNotNull(properties.getName(), "application title should be set"),
+            () -> assertTrue(properties.getL10n().contains("en"), "supported languages set")
         );
         assertAll("search properties should be available to context",
             () -> assertNotNull(lemmaSearchConf, "lemma search configurations should not be null"),

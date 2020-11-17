@@ -20,6 +20,10 @@ public class ViewTest {
     protected MockMvc mockMvc;
 
     void testLocalization(ResultActions testResponse, Language lang) throws Exception {
+        testLocalization(testResponse, lang.toString());
+    }
+
+    void testLocalization(ResultActions testResponse, String lang) throws Exception {
         testResponse.andExpect(
             content().string(
                 not(containsString(

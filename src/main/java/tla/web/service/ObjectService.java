@@ -12,6 +12,9 @@ import tla.web.repo.TlaClient;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Generic TLA domain model type object operations component.
+ */
 @Slf4j
 public abstract class ObjectService<T extends TLAObject> {
 

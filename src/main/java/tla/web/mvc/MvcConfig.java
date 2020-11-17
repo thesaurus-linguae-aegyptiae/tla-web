@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -19,6 +20,14 @@ public class MvcConfig implements WebMvcConfigurer {
     @Autowired
     public GlobalControllerAdvisor globalAdvisoryController(ApplicationProperties applicationProperties) {
         return new GlobalControllerAdvisor(applicationProperties);
+    }
+
+    /**
+     * Locale resolver is being called multiple times per request, mysteriously...
+     */
+    @Bean
+    public LocaleResolver localeResolver() {
+        return new TLALocaleResolver();
     }
 
     @Bean

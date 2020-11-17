@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,12 +15,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver;
 
-import lombok.extern.slf4j.Slf4j;
 import tla.error.ObjectNotFoundException;
 import tla.web.config.ApplicationProperties;
 import tla.web.model.ui.BreadCrumb;
 
-@Slf4j
 @Controller
 @ControllerAdvice
 public class GlobalControllerAdvisor extends DefaultHandlerExceptionResolver {
@@ -31,10 +30,12 @@ public class GlobalControllerAdvisor extends DefaultHandlerExceptionResolver {
     }
 
     @ModelAttribute("env")
-    public Map<String, String> appVars() {
+    public Map<String, Object> appVars() {
         return Map.of(
             "baseUrl", applicationProperties.getBaseUrl(),
-            "appName", applicationProperties.getName()
+            "appName", applicationProperties.getName(),
+            "l10n", applicationProperties.getL10n(),
+            "lang", LocaleContextHolder.getLocale().getLanguage()
         );
     }
 
@@ -44,7 +45,6 @@ public class GlobalControllerAdvisor extends DefaultHandlerExceptionResolver {
             BreadCrumb.of("/", "menu_global_home")
         );
     }
-
 
     @ExceptionHandler(ObjectNotFoundException.class)
     public ModelAndView handleObjectNotFound(ObjectNotFoundException e, HttpServletRequest request, Model model) {
@@ -65,7 +65,6 @@ public class GlobalControllerAdvisor extends DefaultHandlerExceptionResolver {
 
     @ExceptionHandler(Exception.class)
     public ModelAndView handleAnything(Exception e, HttpServletRequest request, Model model) {
-        log.error("An Error occured:", e);
         model.addAttribute("env", appVars());
         model.addAttribute("code", 500);
         model.addAttribute("name", e.getClass().getCanonicalName());

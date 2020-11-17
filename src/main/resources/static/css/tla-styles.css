@@ -253,8 +253,9 @@ a.navbar-brand {
     color: white;
 }
 
-.result-list-item.notok {
-    color: #A9A9A9;
+.result-list-item.obsolete {
+    opacity: .4;
+    filter: grayscale(100%);
 }
 
 .result-list-item.successor {
@@ -1082,6 +1083,25 @@ span.multiselect-native-select select {
 /* Superordinates */
 
 
+
+#editorial-content section {
+    margin-bottom: 2rem;
+}
+
+#editorial-content h1 {
+    font-size: 2rem;
+    margin: 1rem 0;
+}
+
+#editorial-content h2 {
+    font-size: 1.4rem;
+    margin: .7rem 0;
+}
+
+#editorial-content h3 {
+    font-size: 1.3rem;
+    margin: .4rem 0;
+}
 
 
 /**************/

@@ -1,23 +1,27 @@
 package tla.web.mvc;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
-
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.EnumSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.ResultActions;
 
-import tla.domain.dto.LemmaDto;
 import tla.domain.dto.extern.SearchResultsWrapper;
+import tla.domain.dto.meta.DocumentDto;
 import tla.web.repo.TlaClient;
+
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import java.util.Locale;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 @SpringBootTest
 public class LemmaSearchResultsTest extends ViewTest {
@@ -25,14 +29,27 @@ public class LemmaSearchResultsTest extends ViewTest {
     @MockBean
     private TlaClient backendClient;
 
+    @Autowired
+    private MessageSource messages;
+
+    /**
+     * load search results transfer object from file.
+     */
     @SuppressWarnings("unchecked")
-    @ParameterizedTest
-    @EnumSource(Language.class)
-    void countSearchResults(Language lang) throws Exception {
-        SearchResultsWrapper<LemmaDto> dto = tla.domain.util.IO.loadFromFile(
-            "src/test/resources/sample/data/lemma/search/demotic_translation_de.json",
+    SearchResultsWrapper<DocumentDto> loadDto(String filename) throws Exception {
+        return tla.domain.util.IO.loadFromFile(
+            String.format(
+                "src/test/resources/sample/data/lemma/search/%s",
+                filename
+            ),
             SearchResultsWrapper.class
         );
+    }
+
+    @ParameterizedTest
+    @EnumSource(Language.class)
+    void testSearchResults(Language lang) throws Exception {
+        SearchResultsWrapper<DocumentDto> dto = loadDto("demotic_translation_de.json");
         when(
             backendClient.lemmaSearch(any(), anyInt())
         ).thenReturn(
@@ -59,5 +76,29 @@ public class LemmaSearchResultsTest extends ViewTest {
         );
     }
 
+    @Test
+    void testFulltypeLabels() throws Exception {
+        SearchResultsWrapper<DocumentDto> dto = loadDto("demotic_translation_de.json");
+        when(
+            backendClient.lemmaSearch(any(), anyInt())
+        ).thenReturn(
+            dto
+        );
+        ResultActions testResponse = mockMvc.perform(
+            get("/lemma/search").header(HttpHeaders.ACCEPT_LANGUAGE, "en")
+        ).andDo(print()).andExpect(
+            status().isOk()
+        );
+        testResponse.andExpect(
+            xpath(
+                "//div[@id='dm2254']//span[contains(@class,'type-subtype')]/span/text()"
+            ).string(
+                messages.getMessage(
+                    "lemma_fulltype_entity_name_person_name",
+                    null, Locale.ENGLISH
+                )
+            )
+        );
+    }
 
 }

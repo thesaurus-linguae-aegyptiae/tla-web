@@ -11,6 +11,7 @@ import tla.domain.dto.LemmaDto;
 import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.AbstractDto;
+import tla.domain.dto.meta.DocumentDto;
 import tla.web.model.BackendPath;
 import tla.web.model.Lemma;
 import tla.web.model.TLAObject;
@@ -81,7 +82,7 @@ public class TlaClient {
     }
 
     @SuppressWarnings("unchecked")
-    public SearchResultsWrapper<LemmaDto> lemmaSearch(SearchCommand<LemmaDto> command, int page) {
+    public SearchResultsWrapper<DocumentDto> lemmaSearch(SearchCommand<LemmaDto> command, int page) {
         return client.postForObject(
             String.format("%s/lemma/search?page={page}", this.backendUrl),
             command,
