@@ -30,7 +30,7 @@ jobs:
         JQUERY_VERSION: 3.5.0
         COOKIEJS_VERSION: 2.2.1
 
-    - name: wait for frontend to start up
+    - name: wait for frontend to respond
       uses: "cygnetdigital/wait_for_response@v2.0.0"
       with:
         url: http://localhost:8080
@@ -38,15 +38,29 @@ jobs:
         interval: 2000
         timeout: 60000
 
-    - name: take screnshot
+    - name: wait for backend to be populated with corpus data
+      uses: "cygnetdigital/wait_for_response@v2.0.0"
+      with:
+        url: http://localhost:8090/lemma/get/100690
+        responseCode: 200
+        interval: 5000
+        timeout: 100000
+
+    - name: screenshot search form
       uses: "lannonbr/puppeteer-screenshot-action@1.3.1"
       with:
         url: http://localhost:8080/search
 
-    - name: more screnshops
+    - name: screenshot lemma search results page
       uses: "flameddd/screenshots-ci-action@v1.1.1"
       with:
-        url: http://localhost:8080/lemma/878615
+        url: http://localhost:8080/lemma/search/
+        devices: iPhone 6,iPhone 6 landscape,Nexus 7,Pad Pro,Galaxy S III landscape,iPad Pro landscape
+
+    - name: screenshot lemma details page
+      uses: "flameddd/screenshots-ci-action@v1.1.1"
+      with:
+        url: http://localhost:8080/lemma/100690
         devices: iPhone 6,iPhone 6 landscape,Nexus 7,Pad Pro,Galaxy S III landscape,iPad Pro landscape
 
     - name: upload screenies
