@@ -1,0 +1,43 @@
+name: Stack Integration
+
+on: [pull_request]
+
+jobs:
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - uses: "actions/checkout@v2"
+
+    - name: start backend containers
+      run: docker-compose up -d backend
+      env:
+        SAMPLE_URL: http://aaew64.bbaw.de/resources/tla-data/tla-sample-20201117-5000t.tar.gz
+        ES_PORT: 9201
+        BACKEND_PORT: 8090
+
+    - name: start frontend container
+      run: docker-compose up -d frontend
+      env:
+        BACKEND_PORT: 8090
+        LISTEN_PORT: 8080
+        FONTAWESOME_VERSION: 5.12.1
+        BOOTSTRAP_VERSION: 4.4.1
+        JQUERY_VERSION: 3.5.0
+        COOKIEJS_VERSION: 2.2.1
+
+    - name: wait for frontend to start up
+      uses: "cygnetdigital/wait_for_response@v2.0.0"
+      with:
+        url: http://localhost:8080
+        responseCode: 200
+        interval: 2000
+        timeout: 60000
+
+    - name: take screnshot
+      uses: "lannonbr/puppeteer-screenshot-action@1.0.0"
+      with:
+        url: http://localhost:8080/search
+
