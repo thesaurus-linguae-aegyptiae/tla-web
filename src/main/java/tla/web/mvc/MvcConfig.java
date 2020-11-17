@@ -22,11 +22,13 @@ public class MvcConfig implements WebMvcConfigurer {
         return new GlobalControllerAdvisor(applicationProperties);
     }
 
+    /**
+     * Locale resolver is being called multiple times per request, mysteriously...
+     */
     @Bean
     public LocaleResolver localeResolver() {
         return new TLALocaleResolver();
     }
-
 
     @Bean
     public LayoutDialect layoutDialect() {
