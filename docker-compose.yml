@@ -52,6 +52,10 @@ services:
             context: .
         environment:
             - BACKEND_PORT
+            - JQUERY_VERSION
+            - COOKIEJS_VERSION
+            - FONTAWESOME_VERSION
+            - BOOTSTRAP_VERSION
         ports:
             - ${LISTEN_PORT}:8080
         tty: true

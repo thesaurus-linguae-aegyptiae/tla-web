@@ -17,6 +17,7 @@ jobs:
         SAMPLE_URL: http://aaew64.bbaw.de/resources/tla-data/tla-sample-20201117-5000t.tar.gz
         ES_PORT: 9201
         BACKEND_PORT: 8090
+        LISTEN_PORT: 8080
 
     - name: start frontend container
       run: docker-compose up -d frontend
