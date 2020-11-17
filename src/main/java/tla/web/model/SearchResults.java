@@ -5,7 +5,8 @@ import java.util.stream.Collectors;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import tla.domain.command.LemmaSearch;
+import tla.domain.command.SearchCommand;
+import tla.domain.dto.meta.AbstractDto;
 import tla.domain.dto.meta.DocumentDto;
 import tla.domain.dto.extern.PageInfo;
 import tla.domain.dto.extern.SearchResultsWrapper;
@@ -17,11 +18,11 @@ public class SearchResults {
 
     private List<TLAObject> objects;
 
-    private LemmaSearch query;
+    private SearchCommand<? extends AbstractDto> query;
 
     private PageInfo page;
 
-    public SearchResults(List<TLAObject> objects, LemmaSearch query, PageInfo page) {
+    public SearchResults(List<TLAObject> objects, SearchCommand<? extends AbstractDto> query, PageInfo page) {
         this.objects = objects;
         this.query = query;
         this.page = page;

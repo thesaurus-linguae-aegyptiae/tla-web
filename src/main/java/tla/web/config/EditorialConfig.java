@@ -1,6 +1,7 @@
 package tla.web.config;
 
 import java.io.IOException;
+import java.nio.file.FileSystemNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -85,11 +86,19 @@ public class EditorialConfig {
          * (configured in <code>tla.editorials.path</code> application property).
          */
         protected Path getRelativeEditorialPath(Resource editorialResource) throws IOException {
-            return Paths.get(
-                editorialsDir.getURI()
-            ).relativize(
-                Paths.get(editorialResource.getURI())
-            );
+            try {
+                return Paths.get(
+                    editorialsDir.getURI()
+                ).relativize(
+                    Paths.get(editorialResource.getURI())
+                );
+            } catch (FileSystemNotFoundException e) {
+                return Path.of(
+                    editorialResource.getURI().toString().substring(
+                        editorialsDir.getURI().toString().length()
+                    )
+                );
+            }
         }
 
         /**
@@ -101,7 +110,7 @@ public class EditorialConfig {
          * </p>
          *
          * @param editorialPath path to editorial file (relative to editorials template folder)
-         * @return ISO-639-2 style two-char identifier (e.g. <code>en</code>, <code>de</code>, ...)
+         * @return ISO 639-1 style two-char identifier (e.g. <code>en</code>, <code>de</code>, ...)
          * @see #getRelativeEditorialPath(Resource)
          */
         protected String extractLanguageID(Path editorialPath) {
@@ -148,9 +157,9 @@ public class EditorialConfig {
          */
         private void registerEditorialFile(Resource editorialResource) {
             try {
-                Path editorialPath = getRelativeEditorialPath(editorialResource);
-                String editorialID = createURLPath(editorialPath);
-                String lang = extractLanguageID(editorialPath);
+                var editorialPath = getRelativeEditorialPath(editorialResource);
+                var editorialID = createURLPath(editorialPath);
+                var lang = extractLanguageID(editorialPath);
                 this.langSupport.putIfAbsent(
                     editorialID,
                     new TreeSet<>()
