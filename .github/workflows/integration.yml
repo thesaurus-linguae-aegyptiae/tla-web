@@ -31,12 +31,10 @@ jobs:
         COOKIEJS_VERSION: 2.2.1
 
     - name: wait for frontend to start up
-      uses: "cygnetdigital/wait_for_response@v2.0.0"
-      with:
-        url: http://localhost:8080
-        responseCode: 200
-        interval: 2000
-        timeout: 60000
+      run: |
+        while [ $(curl -o /dev/null -Isw '%{http_code}' localhost:8080) -lt 200 ]; do
+          sleep 2; [ $((c++)) -gt 10 ] && break
+        done
 
     - name: take screnshot
       uses: "lannonbr/puppeteer-screenshot-action@1.0.0"
