@@ -2,7 +2,6 @@ bin
 build
 docker-compose.yml
 .dockerignore
-.env.template
 .git
 .gitattributes
 .github
