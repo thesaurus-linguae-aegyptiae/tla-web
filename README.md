@@ -1,13 +1,36 @@
-![Java CI](https://github.com/JKatzwinkel/tla-web/workflows/build/badge.svg)
+![build](https://github.com/JKatzwinkel/tla-web/workflows/build/badge.svg)
+![deploy](https://github.com/JKatzwinkel/tla-web/workflows/deploy/badge.svg)
 ![LINE](https://img.shields.io/badge/line--coverage-89%25-brightgreen.svg)
 ![METHOD](https://img.shields.io/badge/method--coverage-76%25-yellow.svg)
 
 TLA web frontend.
 
 
-## Usage
+## Installation
 
-Prerequisites:
+There are 2 options.
+
+
+### 1. Docker
+
+Requirements:
+
+- Docker Compose
+
+Set the environment variables `ES_PORT`, `BACKEND_PORT`, and `LISTEN_PORT` to your liking.
+Specify a URL where a `.tar.gz` archive containing TLA corpus data can be downloaded via
+the environment variable `SAMPLE_URL`. Start docker containers for the entire stack with:
+
+    docker-compose up -d
+
+This will run Elasticsearch, a TLA backend for handling document retrieval, a temporary 
+second instance of the backend used for corpus data import, and last not least the TLA
+web frontend.
+
+
+### 2. Gradle
+
+Requirements:
 
 - Java 11
 - [tla-es](https://github.com/JKatzwinkel/tla-es)

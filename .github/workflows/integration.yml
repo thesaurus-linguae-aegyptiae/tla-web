@@ -1,10 +1,10 @@
-name: Stack Integration
+name: deploy
 
 on: [pull_request]
 
 jobs:
 
-  deploy:
+  docker:
     runs-on: ubuntu-latest
 
     steps:
