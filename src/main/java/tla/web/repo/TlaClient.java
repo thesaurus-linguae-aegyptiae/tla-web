@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.web.client.RestTemplate;
 
+import lombok.extern.slf4j.Slf4j;
 import tla.domain.command.SearchCommand;
 import tla.domain.dto.LemmaDto;
 import tla.domain.dto.extern.SearchResultsWrapper;
@@ -22,6 +23,7 @@ import tla.web.model.ThsEntry;
  * the backend path where instances of them can be retrieved can be extracted from their
  * respective {@link BackendPath} annotations.
  */
+@Slf4j
 @ModelClasses({
     Lemma.class,
     ThsEntry.class
@@ -35,6 +37,7 @@ public class TlaClient {
     private static Map<Class<? extends TLAObject>, String> backendPaths = new HashMap<>();
 
     public TlaClient(String backendUrl) {
+        log.info("create client for backend at {}", backendUrl);
         this.client = new RestTemplate();
         this.backendUrl = backendUrl;
         registerModelClasses();
