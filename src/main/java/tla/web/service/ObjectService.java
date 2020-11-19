@@ -4,12 +4,13 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import lombok.extern.slf4j.Slf4j;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.AbstractDto;
 import tla.web.model.ObjectDetails;
 import tla.web.model.TLAObject;
 import tla.web.repo.TlaClient;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Generic TLA domain model type object operations component.
@@ -49,7 +50,8 @@ public abstract class ObjectService<T extends TLAObject> {
                 )
             );
         } catch (Exception e) {
-            log.warn("mapping of object details DTO failed!", e);
+            log.error("failed to obtain details for object {}!", id);
+            log.error("cause: ", e);
             return Optional.empty();
         }
     }

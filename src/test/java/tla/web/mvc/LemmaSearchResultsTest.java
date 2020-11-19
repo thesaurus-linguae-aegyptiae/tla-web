@@ -7,8 +7,8 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.ResultActions;
 
-import tla.domain.dto.meta.DocumentDto;
 import tla.domain.dto.extern.SearchResultsWrapper;
+import tla.domain.dto.meta.DocumentDto;
 import tla.web.repo.TlaClient;
 
 import static org.mockito.ArgumentMatchers.*;

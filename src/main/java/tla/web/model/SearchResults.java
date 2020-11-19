@@ -1,19 +1,22 @@
 package tla.web.model;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import tla.domain.command.SearchCommand;
-import tla.domain.dto.meta.AbstractDto;
-import tla.domain.dto.meta.DocumentDto;
 import tla.domain.dto.extern.PageInfo;
 import tla.domain.dto.extern.SearchResultsWrapper;
+import tla.domain.dto.meta.AbstractDto;
+import tla.domain.dto.meta.DocumentDto;
 import tla.web.model.mappings.MappingConfig;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class SearchResults {
 
     private List<TLAObject> objects;
@@ -22,6 +25,8 @@ public class SearchResults {
 
     private PageInfo page;
 
+    private Map<String, Map<String, Long>> facets;
+    
     public SearchResults(List<TLAObject> objects, SearchCommand<? extends AbstractDto> query, PageInfo page) {
         this.objects = objects;
         this.query = query;
@@ -35,7 +40,7 @@ public class SearchResults {
      * @param dto Search result page DTO.
      * @return Search result page
      */
-    public static SearchResults from(SearchResultsWrapper<DocumentDto> dto) {
+    public static SearchResults from(SearchResultsWrapper<? extends AbstractDto> dto) {
         List<TLAObject> objects = dto.getResults().stream().map(
             d -> MappingConfig.convertDTO(d)
         ).collect(
@@ -44,7 +49,8 @@ public class SearchResults {
         return new SearchResults(
             objects,
             dto.getQuery(),
-            dto.getPage()
+            dto.getPage(),
+            dto.getFacets()
         );
     }
     

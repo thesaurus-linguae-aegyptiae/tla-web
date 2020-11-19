@@ -131,4 +131,15 @@ public class Lemma extends TLAObject {
         return bibliography;
     }
 
+    /**
+     * Checks whether there is an annotation or two among a lemma's relations.
+     */
+    public boolean isAnnotated() {
+        return this.getRelations().values().stream().anyMatch(
+            refs -> refs.stream().anyMatch(
+                ref -> ref.getEclass().equals("BTSAnnotation")
+            )
+        );
+    }
+
 }

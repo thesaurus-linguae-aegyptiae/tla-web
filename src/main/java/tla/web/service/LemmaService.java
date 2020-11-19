@@ -1,21 +1,20 @@
 package tla.web.service;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
 import tla.domain.command.LemmaSearch;
-import tla.domain.dto.meta.AbstractDto;
-import tla.domain.dto.meta.DocumentDto;
 import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
+import tla.domain.dto.meta.AbstractDto;
 import tla.web.model.Annotation;
 import tla.web.model.Lemma;
 import tla.web.model.ObjectDetails;
 import tla.web.model.SearchResults;
 import tla.web.model.TLAObject;
-
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class LemmaService extends ObjectService<Lemma> {
@@ -45,7 +44,7 @@ public class LemmaService extends ObjectService<Lemma> {
     }
 
     public SearchResults search(LemmaSearch command, Integer page) {
-        SearchResultsWrapper<DocumentDto> response = backend.lemmaSearch(command, page);
+        SearchResultsWrapper<?> response = backend.lemmaSearch(command, page);
         SearchResults container = SearchResults.from(response);
         return container;
     }

@@ -1,6 +1,9 @@
 package tla.web.service;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
@@ -13,6 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import tla.domain.command.LemmaSearch;
+import tla.domain.dto.extern.SearchResultsWrapper;
+import tla.domain.dto.extern.SingleDocumentWrapper;
+import tla.domain.dto.meta.DocumentDto;
 import tla.web.model.Annotation;
 import tla.web.model.Lemma;
 import tla.web.model.ObjectDetails;
@@ -20,10 +27,6 @@ import tla.web.model.SearchResults;
 import tla.web.model.TLAObject;
 import tla.web.model.ThsEntry;
 import tla.web.repo.TlaClient;
-import tla.domain.dto.extern.SearchResultsWrapper;
-import tla.domain.dto.extern.SingleDocumentWrapper;
-import tla.domain.command.LemmaSearch;
-import tla.domain.dto.meta.DocumentDto;
 
 @SpringBootTest
 public class ServiceTest {
@@ -99,7 +102,7 @@ public class ServiceTest {
             wrap
         );
         assertNotNull(wrap);
-        SearchResultsWrapper<DocumentDto> dto = backend.lemmaSearch(new LemmaSearch(), 1);
+        SearchResultsWrapper<?> dto = backend.lemmaSearch(new LemmaSearch(), 1);
         assertAll("assert that deserialization from file works",
             () -> assertNotNull(dto),
             () -> assertNotNull(dto.getResults())

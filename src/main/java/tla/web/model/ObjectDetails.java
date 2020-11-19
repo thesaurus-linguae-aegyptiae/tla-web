@@ -42,15 +42,18 @@ public class ObjectDetails<T extends TLAObject> {
         if (wrapper.getRelated() != null) {
             for (Entry<String, Map<String, DocumentDto>> eclassEntry : wrapper.getRelated().entrySet()) {
                 String eclass = eclassEntry.getKey();
-                container.related.put(
-                    eclass,
-                    eclassEntry.getValue().values().stream().collect(
-                        Collectors.toMap(
-                            DocumentDto::getId,
-                            dto -> MappingConfig.convertDTO(dto)
+                Map<String, DocumentDto> objects = eclassEntry.getValue();
+                if (objects != null && !objects.isEmpty()) {
+                    container.related.put(
+                        eclass,
+                        eclassEntry.getValue().values().stream().collect(
+                            Collectors.toMap(
+                                DocumentDto::getId,
+                                dto -> MappingConfig.convertDTO(dto)
+                            )
                         )
-                    )
-                );
+                    );
+                }
             }
         }
         return container;

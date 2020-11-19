@@ -17,9 +17,9 @@ import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.model.EditorInfo;
 import tla.domain.model.ExternalReference;
 import tla.domain.model.Language;
-import tla.domain.model.LemmaWord;
 import tla.domain.model.ObjectReference;
 import tla.domain.model.Passport;
+import tla.domain.model.SentenceToken;
 import tla.domain.model.Transcription;
 import tla.web.model.mappings.MappingConfig;
 import tla.web.model.mappings.Util;
@@ -34,7 +34,7 @@ public class MappingTest {
         LemmaDto dto = LemmaDto.builder()
             .id("ID")
             .editors(EditorInfo.builder().author("author").build())
-            .word(new LemmaWord(new Transcription("nfr", "nfr"), "N35"))
+            .word(new SentenceToken(new Transcription("nfr", "nfr"), "N35"))
             .translation(Language.FR, List.of("traduction"))
             .passport(p)
             .externalReference("cfeetk", new TreeSet<>(List.of(new ExternalReference("1", null))))

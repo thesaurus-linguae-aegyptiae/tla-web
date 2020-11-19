@@ -1,0 +1,61 @@
+---
+version: '3.7'
+
+services:
+
+    es:
+        container_name: tla-es
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
+        environment:
+            ES_JAVA_OPTS: -Xms512m -Xmx512m
+            discovery.type: single-node
+        ports:
+            - ${ES_PORT}:9200
+        stdin_open: true
+        tty: true
+        restart: unless-stopped
+
+
+    populate:
+        container_name: tla-ingest
+        depends_on:
+            - es
+        build:
+            context: https://github.com/JKatzwinkel/tla-es.git
+        environment:
+            - ES_HOST=es
+            - ES_PORT=9200
+            - SAMPLE_URL
+        tty: true
+        command: "ingest"
+
+
+    backend:
+        container_name: tla-backend
+        depends_on:
+            - populate
+        build:
+            context: https://github.com/JKatzwinkel/tla-es.git
+        environment:
+            - ES_HOST=localhost
+            - ES_PORT
+        ports:
+            - ${BACKEND_PORT}:8090
+        tty: true
+        network_mode: host
+        restart: unless-stopped
+
+
+    frontend:
+        container_name: tla-web
+        build:
+            context: .
+        environment:
+            - BACKEND_PORT
+        ports:
+            - ${LISTEN_PORT}:8080
+        tty: true
+        network_mode: host
+        restart: unless-stopped
+
+...
