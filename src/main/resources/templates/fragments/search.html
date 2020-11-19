@@ -258,8 +258,12 @@
       <div th:fragment="search-facets" th:if="${facets} != null and ${!#maps.isEmpty(facets)}">
         <hr/>
         <div class="btn btn-block btn-secondary disabled text-right" th:text="#{result_page_facets}">Facets</div>
-        <div th:each="facet : ${facets}" th:with="label=|lemma_search_facet_${facet.key}|">
-          <div class="btn btn-block btn-secondary text-left" th:with="label=#{${#strings.replace(label,'.','_')}}" th:text="${label}">Facet name</div>
+        <div th:each="facet : ${facets}" th:with="label=|${objectType}_search_facet_${facet.key}|">
+          <div class="btn btn-block btn-secondary text-left"
+               th:with="label=#{${#strings.replace(label,'.','_')}}"
+               th:text="${label}">
+            Facet name
+          </div>
           <th:block th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder)}">
             <div class="mx-3 text-left d-flex" th:each="termcount : ${facet.value}"
                 th:with="label=|field_value_label_${facet.key}_${termcount.key}|">
