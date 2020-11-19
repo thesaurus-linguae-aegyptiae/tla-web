@@ -265,16 +265,23 @@
             Facet name
           </div>
           <th:block th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder)}">
-            <div class="mx-3 text-left d-flex" th:each="termcount : ${facet.value}"
-                th:with="label=|field_value_label_${facet.key}_${termcount.key}|">
+            <div class="mx-3 text-left d-flex"
+                 th:each="termcount : ${facet.value}"
+                 th:with="label=|field_value_label_${facet.key}_${termcount.key}|">
               <div class="btn btn-inline btn-red text-left p-2">
                 <span class="fas fa-arrow-circle-right red"></span>
-                <a th:href="${urlBuilder.fromCurrentRequest().replaceQueryParam(facet.key, termcount.key).toUriString()}">
-                  <span th:with="label=${#messages.msgOrNull(#strings.replace(label,'.','_'))}" th:text="${label != null ? label : termcount.key}">term</span>
+                <a th:href="${urlBuilder.fromCurrentRequest().replaceQueryParam(facet.key, termcount.key).replaceQueryParam('page').toUriString()}">
+                  <span th:with="label=${#messages.msgOrNull(#strings.replace(label,'.','_'))}"
+                        th:text="${label != null ? label : termcount.key}">
+                    term
+                  </span>
                 </a>
               </div>
               <div class="p-2">
-                <span th:text="${termcount.value}" class="badge badge-light badge-pill border font-italic">count</span>
+                <span th:text="${termcount.value}"
+                      class="badge badge-light badge-pill border font-italic">
+                  count
+                </span>
               </div>
             </div>
           </th:block>
