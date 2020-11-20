@@ -12,9 +12,9 @@ import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.AbstractDto;
 import tla.web.model.Annotation;
 import tla.web.model.Lemma;
-import tla.web.model.ObjectDetails;
-import tla.web.model.SearchResults;
-import tla.web.model.TLAObject;
+import tla.web.model.meta.ObjectDetails;
+import tla.web.model.meta.SearchResults;
+import tla.web.model.meta.TLAObject;
 
 @Service
 public class LemmaService extends ObjectService<Lemma> {

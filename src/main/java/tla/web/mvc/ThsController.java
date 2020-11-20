@@ -5,9 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import tla.web.model.ObjectDetails;
 import tla.web.model.ThsEntry;
-import tla.web.model.ui.TemplateModelName;
+import tla.web.model.meta.ObjectDetails;
+import tla.web.model.meta.TemplateModelName;
 import tla.web.service.ObjectService;
 import tla.web.service.ThsService;
 

@@ -1,4 +1,4 @@
-package tla.web.model.ui;
+package tla.web.model.meta;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

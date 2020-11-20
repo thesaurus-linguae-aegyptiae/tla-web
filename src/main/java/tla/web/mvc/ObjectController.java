@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import lombok.extern.slf4j.Slf4j;
 import tla.error.ObjectNotFoundException;
-import tla.web.model.ObjectDetails;
-import tla.web.model.TLAObject;
 import tla.web.model.ui.BreadCrumb;
-import tla.web.model.ui.TemplateModelName;
+import tla.web.model.meta.ObjectDetails;
+import tla.web.model.meta.TemplateModelName;
+import tla.web.model.meta.TLAObject;
 import tla.web.service.ObjectService;
 
 /**

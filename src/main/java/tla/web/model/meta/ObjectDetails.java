@@ -1,4 +1,4 @@
-package tla.web.model;
+package tla.web.model.meta;
 
 import java.util.HashMap;
 import java.util.List;

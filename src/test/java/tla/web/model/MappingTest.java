@@ -23,6 +23,9 @@ import tla.domain.model.SentenceToken;
 import tla.domain.model.Transcription;
 import tla.web.model.mappings.MappingConfig;
 import tla.web.model.mappings.Util;
+import tla.web.model.meta.ObjectDetails;
+import tla.web.model.meta.TLAObject;
+import tla.web.model.parts.Word;
 
 @SpringBootTest
 public class MappingTest {
@@ -57,7 +60,7 @@ public class MappingTest {
                 "check svg xml JSesh rendering result"
             ),
             () -> assertTrue(
-                lemma.getExternalReferences().get("cfeetk").get(0) instanceof tla.web.model.ExternalReference
+                lemma.getExternalReferences().get("cfeetk").get(0) instanceof tla.web.model.parts.ExternalReference
             ),
             () -> assertEquals(
                 "http://sith.huma-num.fr/vocable/1",

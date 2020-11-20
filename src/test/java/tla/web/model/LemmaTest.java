@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import tla.domain.model.Passport;
+import tla.web.model.parts.Glyphs;
+import tla.web.model.parts.Word;
 
 import static org.junit.jupiter.api.Assertions.*;
 

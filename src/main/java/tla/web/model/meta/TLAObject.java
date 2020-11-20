@@ -1,4 +1,4 @@
-package tla.web.model;
+package tla.web.model.meta;
 
 import java.util.List;
 import java.util.TreeMap;
@@ -11,6 +11,7 @@ import tla.domain.model.EditorInfo;
 import tla.domain.model.ObjectReference;
 import tla.domain.model.Passport;
 import tla.domain.model.meta.AbstractBTSBaseClass;
+import tla.web.model.parts.ExternalReference;
 
 @Data
 @SuperBuilder

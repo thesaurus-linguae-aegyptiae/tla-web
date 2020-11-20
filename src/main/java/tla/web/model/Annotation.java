@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import tla.domain.model.Passport;
 import tla.domain.model.meta.BTSeClass;
 import tla.web.model.mappings.Util;
+import tla.web.model.meta.TLAObject;
 
 @Data
 @NoArgsConstructor

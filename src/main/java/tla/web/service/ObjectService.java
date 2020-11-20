@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.AbstractDto;
-import tla.web.model.ObjectDetails;
-import tla.web.model.TLAObject;
+import tla.web.model.meta.ObjectDetails;
+import tla.web.model.meta.TLAObject;
 import tla.web.repo.TlaClient;
 
 import lombok.extern.slf4j.Slf4j;

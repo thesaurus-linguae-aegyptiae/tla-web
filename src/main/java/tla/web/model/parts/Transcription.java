@@ -1,4 +1,4 @@
-package tla.web.model;
+package tla.web.model.parts;
 
 import lombok.Data;
 import lombok.AllArgsConstructor;

@@ -11,11 +11,11 @@ import tla.domain.dto.ThsEntryDto;
 import tla.domain.model.SentenceToken;
 import tla.domain.model.meta.BTSeClass;
 import tla.web.config.ApplicationProperties;
-import tla.web.model.Glyphs;
 import tla.web.model.Lemma;
-import tla.web.model.TLAObject;
 import tla.web.model.ThsEntry;
-import tla.web.model.Word;
+import tla.web.model.meta.TLAObject;
+import tla.web.model.parts.Glyphs;
+import tla.web.model.parts.Word;
 import tla.web.repo.ModelClasses;
 
 import java.lang.annotation.Annotation;

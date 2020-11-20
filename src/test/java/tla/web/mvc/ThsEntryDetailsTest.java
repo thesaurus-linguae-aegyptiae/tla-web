@@ -27,8 +27,8 @@ import lombok.extern.slf4j.Slf4j;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.AbstractDto;
 import tla.error.ObjectNotFoundException;
-import tla.web.model.ObjectDetails;
-import tla.web.model.TLAObject;
+import tla.web.model.meta.ObjectDetails;
+import tla.web.model.meta.TLAObject;
 import tla.web.model.ThsEntry;
 import tla.web.service.ThsService;
 

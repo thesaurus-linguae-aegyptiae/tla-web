@@ -21,6 +21,10 @@ import tla.domain.model.Script;
 import tla.domain.model.extern.AttestedTimespan;
 import tla.domain.model.meta.BTSeClass;
 import tla.domain.model.meta.TLADTO;
+import tla.web.model.meta.TLAObject;
+import tla.web.model.parts.Glyphs;
+import tla.web.model.parts.Word;
+import tla.web.model.meta.BackendPath;
 
 @Data
 @Slf4j
