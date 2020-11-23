@@ -9,13 +9,13 @@ import lombok.Singular;
 import tla.domain.model.Language;
 import tla.domain.model.meta.BTSeClass;
 import tla.web.model.meta.BackendPath;
-import tla.web.model.meta.TLAObject;
+import tla.web.model.meta.BTSObject;
 
 @Data
 @BackendPath("ths")
 @BTSeClass("BTSThsEntry")
 @EqualsAndHashCode(callSuper = true)
-public class ThsEntry extends TLAObject {
+public class ThsEntry extends BTSObject {
 
     @Singular
     private SortedMap<Language, List<String>> translations;

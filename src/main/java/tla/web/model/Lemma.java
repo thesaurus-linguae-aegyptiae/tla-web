@@ -7,34 +7,34 @@ import java.util.SortedMap;
 import java.util.stream.Collectors;
 
 import lombok.AccessLevel;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Setter;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.Singular;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
-
 import tla.domain.dto.LemmaDto;
 import tla.domain.model.Language;
 import tla.domain.model.Script;
 import tla.domain.model.extern.AttestedTimespan;
 import tla.domain.model.meta.BTSeClass;
 import tla.domain.model.meta.TLADTO;
-import tla.web.model.meta.TLAObject;
+import tla.web.model.meta.BTSObject;
+import tla.web.model.meta.BackendPath;
 import tla.web.model.parts.Glyphs;
 import tla.web.model.parts.Word;
-import tla.web.model.meta.BackendPath;
 
-@Data
 @Slf4j
+@Getter
+@Setter
 @SuperBuilder
 @NoArgsConstructor
 @BackendPath("lemma")
 @TLADTO(LemmaDto.class)
 @BTSeClass("BTSLemmaEntry")
 @EqualsAndHashCode(callSuper = true)
-public class Lemma extends TLAObject {
+public class Lemma extends BTSObject {
 
     /**
      * The passport locator where bibliographical information should be stored.

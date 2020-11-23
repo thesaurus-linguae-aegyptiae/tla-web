@@ -12,6 +12,7 @@ import tla.domain.dto.meta.AbstractDto;
 import tla.domain.dto.meta.DocumentDto;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.model.ObjectReference;
+import tla.domain.model.meta.Resolvable;
 import tla.web.model.mappings.MappingConfig;
 
 @Getter
@@ -64,7 +65,7 @@ public class ObjectDetails<T extends TLAObject> {
     * <code>related</code> map. Returns null if the <code>related</code>
     * map does not contain such an object.
     */
-    private TLAObject expandRelatedObject(ObjectReference reference) {
+    private TLAObject expandRelatedObject(Resolvable reference) {
         if (this.related.containsKey(reference.getEclass())) {
             return this.related.get(reference.getEclass()).getOrDefault(
                 reference.getId(),

@@ -114,7 +114,7 @@ public class ServiceTest {
             () -> assertNotNull(result.getPage(),"page not null")
         );
         result.getObjects().stream().forEach(
-            o -> assertTrue(o instanceof Lemma, o.getName() + " should be of class lemma")
+            o -> assertTrue(o instanceof Lemma, o.getId() + " should be of class lemma")
         );
     }
 

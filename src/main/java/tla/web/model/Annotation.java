@@ -13,13 +13,13 @@ import lombok.NoArgsConstructor;
 import tla.domain.model.Passport;
 import tla.domain.model.meta.BTSeClass;
 import tla.web.model.mappings.Util;
-import tla.web.model.meta.TLAObject;
+import tla.web.model.meta.BTSObject;
 
 @Data
 @NoArgsConstructor
 @BTSeClass("BTSAnnotation")
 @EqualsAndHashCode(callSuper = true)
-public class Annotation extends TLAObject {
+public class Annotation extends BTSObject {
 
     @Getter(AccessLevel.NONE)
     private Collection<String> body;
