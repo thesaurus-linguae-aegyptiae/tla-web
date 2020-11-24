@@ -1,0 +1,1324 @@
+{
+ "doc": {
+  "eclass": "BTSSentence",
+  "id": "IBcCBpKz4FWJo0yOhxfTNEhx5J0",
+  "relations": {
+   "partOf": [
+    {
+     "id": "2SQY75KWF5HUXBJCDHOUZPKT3E",
+     "eclass": "BTSText",
+     "type": "Text",
+     "name": "90,6-90,14 = Eb 757-760: Heilmittel gegen $rwy.t$-Ausfluss"
+    }
+   ],
+   "contains": [
+    {
+     "id": "6YTC7NGBFNEUZJV4RFMX7XAGC4",
+     "eclass": "BTSText",
+     "type": "subtext",
+     "name": "Paginierung: Seite 90"
+    }
+   ]
+  },
+  "context": {
+   "textId": "2SQY75KWF5HUXBJCDHOUZPKT3E",
+   "textType": "Text",
+   "line": "[90,11]",
+   "paragraph": "Eb 758",
+   "variants": 1,
+   "pos": 5
+  },
+  "translations": {
+   "de": [
+    "(Die K\u00f6rperh\u00e4lfte) werde dar\u00fcber verbunden."
+   ]
+  },
+  "transcription": {
+   "unicode": "wt \u1e25r =s",
+   "mdc": "wt Hr =s"
+  },
+  "tokens": [
+   {
+    "id": "IBcCBuGhVQyoFU2ogxwsuWFAVdk",
+    "type": "word",
+    "label": "wt",
+    "lemma": {
+     "id": "50980",
+     "POS": {
+      "type": "verb",
+      "subtype": "verb_2-lit"
+     }
+    },
+    "flexion": {
+     "numeric": 10910,
+     "btsGloss": "SC.pass.ngem.impers",
+     "lingGloss": "V\\tam.pass"
+    },
+    "glyphs": "Aa2:D36",
+    "transcription": {
+     "unicode": "wt",
+     "mdc": "wt"
+    },
+    "translations": {
+     "de": [
+      "verbinden"
+     ]
+    },
+    "annoTypes": [
+     "subtext"
+    ]
+   },
+   {
+    "id": "IBcCBjDyXZsYqkJwj0NZqMRy6E8",
+    "type": "word",
+    "label": "\u1e25r",
+    "lemma": {
+     "id": "400090",
+     "POS": {
+      "type": "preposition"
+     }
+    },
+    "flexion": {
+     "numeric": 93005,
+     "btsGloss": "Prep.stpr.3sgf ",
+     "lingGloss": "PREP:stpr"
+    },
+    "glyphs": "D2:D21",
+    "transcription": {
+     "unicode": "\u1e25r",
+     "mdc": "Hr"
+    },
+    "translations": {
+     "de": [
+      "auf; \u00fcber"
+     ]
+    },
+    "annoTypes": [
+     "subtext"
+    ]
+   },
+   {
+    "id": "IBcCBnNnoSMeP0FyvUMYdrGVBNA",
+    "type": "word",
+    "label": "=s",
+    "lemma": {
+     "id": "10090",
+     "POS": {
+      "type": "pronoun",
+      "subtype": "personal_pronoun"
+     }
+    },
+    "flexion": {
+     "numeric": 3,
+     "btsGloss": "n/a",
+     "lingGloss": "-3sg.f"
+    },
+    "glyphs": "S29",
+    "transcription": {
+     "unicode": "=s",
+     "mdc": "=s"
+    },
+    "translations": {
+     "de": [
+      "[Suffix Pron.sg.3.f.]"
+     ]
+    },
+    "annoTypes": [
+     "subtext"
+    ]
+   }
+  ],
+  "wordCount": 3
+ },
+ "related": {
+  "BTSThsEntry": {
+   "GJKKSU5V6VHKBPVTIYQ4PFOBJ4": {
+    "eclass": "BTSThsEntry",
+    "id": "GJKKSU5V6VHKBPVTIYQ4PFOBJ4",
+    "relations": {
+     "partOf": [
+      {
+       "id": "2MWPAPVOK5EORDGYCLKVMF2EPU",
+       "eclass": "BTSThsEntry",
+       "type": "language",
+       "name": "Mittel\u00e4gyptisch"
+      }
+     ]
+    },
+    "reviewState": "published",
+    "editors": {
+     "author": "Alt\u00e4gyptisches W\u00f6rterbuch",
+     "type": "user",
+     "contributors": [
+      "L. Popko",
+      "Angela B\u00f6hme"
+     ],
+     "updated": "2019-12-19",
+     "created": "2015-06-26"
+    },
+    "name": "fr\u00fches und klassisches Mittel\u00e4gyptisch",
+    "type": "language",
+    "passport": {
+     "thesaurus": [
+      {
+       "main_group": [
+        {
+         "termsort": [
+          "fruehes und klassisches mittelaegyptisch"
+         ],
+         "old_id": [
+          "19"
+         ],
+         "old_thesaurus_number": [
+          "4"
+         ]
+        }
+       ]
+      }
+     ],
+     "thesaurus_date": [
+      {
+       "main_group": [
+        {
+         "beginning": [
+          "0"
+         ],
+         "end": [
+          "0"
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "externalReferences": {
+     "aaew": [
+      {
+       "id": "4/19"
+      }
+     ],
+     "thot": [
+      {
+       "id": "thot-11"
+      }
+     ]
+    },
+    "paths": [
+     [
+      {
+       "id": "OQCVRKIWEBFTHMH5XORMHYCMRM",
+       "eclass": "BTSThsEntry",
+       "type": "language",
+       "name": "4 = Sprachen"
+      },
+      {
+       "id": "IBMOCXFSHFFYXNIJ4M6LKU7ODM",
+       "eclass": "BTSThsEntry",
+       "type": "language",
+       "name": "\u00c4gyptisch-Koptisch"
+      },
+      {
+       "id": "3UOTPOGTZVBXJBAEKNXMOPSNG4",
+       "eclass": "BTSThsEntry",
+       "type": "language",
+       "name": "\u00c4gyptisch"
+      },
+      {
+       "id": "2MWPAPVOK5EORDGYCLKVMF2EPU",
+       "eclass": "BTSThsEntry",
+       "type": "language",
+       "name": "Mittel\u00e4gyptisch"
+      }
+     ]
+    ],
+    "suid": "sxeic4"
+   },
+   "NUW3K7UK3BBUFDPHZDD2ZZ3LYI": {
+    "eclass": "BTSThsEntry",
+    "id": "NUW3K7UK3BBUFDPHZDD2ZZ3LYI",
+    "relations": {
+     "partOf": [
+      {
+       "id": "WX32K2TQTRETLDX2IO6SL5DDBU",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Neues Reich"
+      }
+     ],
+     "contains": [
+      {
+       "id": "4EVBMCD2U5GQPBJ6QS622PTSQQ",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Amenhotep IV. / Echnaton Nefercheperure"
+      },
+      {
+       "id": "4QEIACZDZ5F7ZHVQCMJKSBMZXM",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Thutmosis III. Mencheperre (Gesamtzeitraum)"
+      },
+      {
+       "id": "BVENTZHAEJERXCJI2Y45XAYKN4",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Amenhotep I. Djeserkare"
+      },
+      {
+       "id": "DTH6NOX35ZBYNMGQH4SCKDS4GQ",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Ahmose Nebpehtire"
+      },
+      {
+       "id": "F52ILUTH6RBWJI36ENPFTB22SI",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Thutmosis I. Aacheperkare"
+      },
+      {
+       "id": "KMQ26R2F3VEJDIOTNUTDWO4Z4Y",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Amenhotep II. Aacheperure"
+      },
+      {
+       "id": "MOFI6DFV5VD7RBARIW4TL33IZE",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Semenchkare Anchcheperure"
+      },
+      {
+       "id": "OTRTLZKGRRDPHBUHJSQIXO4UA4",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Neferneferuaton Anchetcheperure"
+      },
+      {
+       "id": "PRDOZUMR2FDPNKK2OV6TUS4XEA",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Thutmosis II. Aacheperenre"
+      },
+      {
+       "id": "QYLA6ANYSRER7I3JFTCKIPRHOY",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Hatschepsut Maatkare"
+      },
+      {
+       "id": "TGGVPV3PMFAP5O5OBSMOIKEX74",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Amenhotep III. Nebmaatre"
+      },
+      {
+       "id": "U3LID524EVGI7MWJUIJYNLNSAE",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Haremhab Djesercheperure"
+      },
+      {
+       "id": "WMSRSEY4LBALVAQEKU4GKNLTMU",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Thutmosis IV. Mencheperure"
+      },
+      {
+       "id": "Z45USXGJBNCVZLOVM5CRMAAL3Y",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Tutanchamun Nebcheperure"
+      },
+      {
+       "id": "ZHZNTKKCLJFT5FUOH2Y7QESCWM",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Aja Chepercheperure"
+      }
+     ]
+    },
+    "reviewState": "published",
+    "editors": {
+     "author": "Alt\u00e4gyptisches W\u00f6rterbuch",
+     "type": "user",
+     "contributors": [
+      "L. Popko"
+     ],
+     "updated": "2019-12-19",
+     "created": "2015-06-26"
+    },
+    "name": "18. Dynastie",
+    "type": "date",
+    "passport": {
+     "synonyms": [
+      {
+       "synonym_group": [
+        {
+         "synonym": [
+          "18th Dynasty"
+         ],
+         "language": [
+          "en"
+         ]
+        },
+        {
+         "synonym": [
+          "18e dynastie"
+         ],
+         "language": [
+          "fr"
+         ]
+        }
+       ]
+      }
+     ],
+     "thesaurus": [
+      {
+       "main_group": [
+        {
+         "termsort": [
+          "18. dyn."
+         ],
+         "old_id": [
+          "107"
+         ],
+         "old_thesaurus_number": [
+          "9"
+         ]
+        }
+       ]
+      }
+     ],
+     "thesaurus_date": [
+      {
+       "main_group": [
+        {
+         "beginning": [
+          "-1539"
+         ],
+         "end": [
+          "-1292"
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "externalReferences": {
+     "aaew": [
+      {
+       "id": "9/107"
+      }
+     ],
+     "thot": [
+      {
+       "id": "thot-366"
+      }
+     ]
+    },
+    "paths": [
+     [
+      {
+       "id": "MXWX4WG43ZHI7D4RLTGK3IBGXY",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "9 = Datierungen"
+      },
+      {
+       "id": "DUVGWT7GSRCKDM5LFTGU6MZ3GY",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "(Epochen und Dynastien)"
+      },
+      {
+       "id": "N673TBXEGJDDBO6B6DZXKT64YQ",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Pharaonische Zeit"
+      },
+      {
+       "id": "WX32K2TQTRETLDX2IO6SL5DDBU",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Neues Reich"
+      }
+     ]
+    ],
+    "translations": {
+     "en": [
+      "18th Dynasty"
+     ],
+     "fr": [
+      "18e dynastie"
+     ]
+    },
+    "suid": "s1wxfc"
+   },
+   "E4VXX5LISZC2XIR6AYPM3Y3TQI": {
+    "eclass": "BTSThsEntry",
+    "id": "E4VXX5LISZC2XIR6AYPM3Y3TQI",
+    "relations": {
+     "partOf": [
+      {
+       "id": "3GGZCLNRQVF6PAEQA6LCFBNE6M",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Zweite Zwischenzeit"
+      }
+     ],
+     "contains": [
+      {
+       "id": "5ADIEPFNN5G7JAG7KAP72DFZGM",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Antef Sechemre Heruhermaat"
+      },
+      {
+       "id": "5FF457IWZJF47EVSHXSKET7MRM",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Antef Sechemre Wepmaat"
+      },
+      {
+       "id": "5UN6U4W63VATVLQCP26TGVMUHU",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Sobekemsaef Sechemre Wadjchau"
+      },
+      {
+       "id": "6RFSTCUVPVHM3DD3GCBTOOXIOY",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Ahmose Senachtenre"
+      },
+      {
+       "id": "CZGQVTSGLFBPPHOGRAKFVJZTWY",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Ta\ua725a (Djehuti-aa) Seqenenre"
+      },
+      {
+       "id": "DKMP5GO5MZBJJJ57QREYPJA3TU",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Sobekemsaef Sechemre Schedtaui"
+      },
+      {
+       "id": "N5G2NAFFLRFIBGC53IC5FAO57M",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Kamose"
+      },
+      {
+       "id": "Q67XFSLMCFC5TBB3YV3YTHY5EM",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Antef Nubcheperre"
+      },
+      {
+       "id": "VJKPBGDPRNAYVPRHEJL2QMNSNA",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Rahotep Sechemre Wahchau"
+      }
+     ]
+    },
+    "reviewState": "published",
+    "editors": {
+     "author": "Alt\u00e4gyptisches W\u00f6rterbuch",
+     "type": "user",
+     "contributors": [
+      "L. Popko"
+     ],
+     "updated": "2020-05-23",
+     "created": "2015-06-26"
+    },
+    "name": "17. Dynastie",
+    "type": "date",
+    "passport": {
+     "bibliography": [
+      {
+       "bibliographical_text_field": [
+        "- Ryholt, K. S. B., The Political Situation in Egypt during the Second Intermediate Period c. 1800-1550 B.C. (CNI Publications 20), Copenhagen 1997.\r\n- Polz, D. Der Beginn des Neuen Reiches. Zur Vorgeschichte einer Zeitenwende (SDAIK 31), Berlin/New York 2007."
+       ]
+      }
+     ],
+     "synonyms": [
+      {
+       "synonym_group": [
+        {
+         "synonym": [
+          "17th Dynasty"
+         ],
+         "language": [
+          "en"
+         ]
+        },
+        {
+         "synonym": [
+          "17e dynastie"
+         ],
+         "language": [
+          "fr"
+         ]
+        }
+       ]
+      }
+     ],
+     "thesaurus": [
+      {
+       "main_group": [
+        {
+         "termsort": [
+          "15. / 16. / 17. Dynastie"
+         ],
+         "old_id": [
+          "283"
+         ],
+         "old_thesaurus_number": [
+          "9"
+         ]
+        }
+       ]
+      }
+     ],
+     "definition": [
+      {
+       "main_group": [
+        {
+         "definition": [
+          "Die \"kurze 17. Dynastie\" nach Ryholt, K. S. B., The Political Situation in Egypt during the Second Intermediate Period c. 1800-1550 B.C. (CNI Publications 20), Copenhagen 1997 und Polz, D. Der Beginn des Neuen Reiches. Zur Vorgeschichte einer Zeitenwende (SDAIK 31), Berlin/New York 2007."
+         ]
+        }
+       ]
+      }
+     ],
+     "thesaurus_date": [
+      {
+       "main_group": [
+        {
+         "reference": [
+          "Anfangsdatum nach Polz, Beginn des Neuen Reiches, 5; Enddatum entspricht logisch dem Anfangsdatum des Neuen Reiches als nachfolgender Epoche."
+         ],
+         "beginning": [
+          "-1580"
+         ],
+         "end": [
+          "-1539"
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "externalReferences": {
+     "aaew": [
+      {
+       "id": "9/283"
+      }
+     ],
+     "thot": [
+      {
+       "id": "thot-355"
+      }
+     ]
+    },
+    "paths": [
+     [
+      {
+       "id": "MXWX4WG43ZHI7D4RLTGK3IBGXY",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "9 = Datierungen"
+      },
+      {
+       "id": "DUVGWT7GSRCKDM5LFTGU6MZ3GY",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "(Epochen und Dynastien)"
+      },
+      {
+       "id": "N673TBXEGJDDBO6B6DZXKT64YQ",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Pharaonische Zeit"
+      },
+      {
+       "id": "3GGZCLNRQVF6PAEQA6LCFBNE6M",
+       "eclass": "BTSThsEntry",
+       "type": "date",
+       "name": "Zweite Zwischenzeit"
+      }
+     ]
+    ],
+    "translations": {
+     "en": [
+      "17th Dynasty"
+     ],
+     "fr": [
+      "17e dynastie"
+     ]
+    },
+    "suid": "kol1zu"
+   },
+   "N2T36QN2JRDVHGNTDG6ZR3FF6Q": {
+    "eclass": "BTSThsEntry",
+    "id": "N2T36QN2JRDVHGNTDG6ZR3FF6Q",
+    "relations": {
+     "partOf": [
+      {
+       "id": "FFA2PGLQSNHMJFJP2RKAOMK43E",
+       "eclass": "BTSThsEntry",
+       "type": "script",
+       "name": "Mittelhieratisch"
+      }
+     ]
+    },
+    "reviewState": "published",
+    "editors": {
+     "author": "Alt\u00e4gyptisches W\u00f6rterbuch",
+     "type": "user",
+     "contributors": [
+      "Angela B\u00f6hme"
+     ],
+     "updated": "2019-12-19",
+     "created": "2015-06-26"
+    },
+    "name": "Mittelhieratische Buchschrift",
+    "type": "script",
+    "passport": {
+     "thesaurus": [
+      {
+       "main_group": [
+        {
+         "termsort": [
+          "mittelhieratische buchschrift"
+         ],
+         "old_id": [
+          "29"
+         ],
+         "old_thesaurus_number": [
+          "5"
+         ]
+        }
+       ]
+      }
+     ],
+     "thesaurus_date": [
+      {
+       "main_group": [
+        {
+         "beginning": [
+          "0"
+         ],
+         "end": [
+          "0"
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "externalReferences": {
+     "aaew": [
+      {
+       "id": "5/29"
+      }
+     ],
+     "thot": [
+      {
+       "id": "thot-76"
+      }
+     ]
+    },
+    "paths": [
+     [
+      {
+       "id": "IOOFFM7DCJGJFIP5MPUNO55RVE",
+       "eclass": "BTSThsEntry",
+       "type": "script",
+       "name": "5 = Schriftformen"
+      },
+      {
+       "id": "MRV4NILEZNFS7O5LIZAMJZKPLE",
+       "eclass": "BTSThsEntry",
+       "type": "script",
+       "name": "Hieratisch"
+      },
+      {
+       "id": "FFA2PGLQSNHMJFJP2RKAOMK43E",
+       "eclass": "BTSThsEntry",
+       "type": "script",
+       "name": "Mittelhieratisch"
+      }
+     ]
+    ],
+    "suid": "rxixy1"
+   },
+   "LJHMV4523JB7NBGAJRDTS3H27Y": {
+    "eclass": "BTSThsEntry",
+    "id": "LJHMV4523JB7NBGAJRDTS3H27Y",
+    "relations": {
+     "partOf": [
+      {
+       "id": "5IKOLHCGXFAWFPL2F464TXOBDU",
+       "eclass": "BTSThsEntry",
+       "type": "location",
+       "name": "Leipzig"
+      }
+     ]
+    },
+    "reviewState": "published",
+    "editors": {
+     "author": "P. Dils",
+     "type": "user",
+     "contributors": [
+      "Alt\u00e4gyptisches W\u00f6rterbuch"
+     ],
+     "updated": "2019-12-19",
+     "created": "2018-02-01"
+    },
+    "name": "Bibliotheca Albertina, Papyrus- und Ostrakasammlung",
+    "type": "location",
+    "externalReferences": {
+     "thot": [
+      {
+       "id": "thot-4469"
+      }
+     ]
+    },
+    "paths": [
+     [
+      {
+       "id": "RJLJDROM3ZAH7DOSBYM3YZC5XY",
+       "eclass": "BTSThsEntry",
+       "type": "location",
+       "name": "2 = Aufbewahrungsorte, Museen"
+      },
+      {
+       "id": "HPUFUHJMEZF7ZGM2VXBQNHZUYM",
+       "eclass": "BTSThsEntry",
+       "type": "location",
+       "name": "Europa"
+      },
+      {
+       "id": "YZQDJLLFXRE6HFGT5P5FF55OMU",
+       "eclass": "BTSThsEntry",
+       "type": "location",
+       "name": "Deutschland"
+      },
+      {
+       "id": "DZE367XTXJCS7AY7HGEMQ3GZBY",
+       "eclass": "BTSThsEntry",
+       "type": "location",
+       "name": "(St\u00e4dte H-M)"
+      },
+      {
+       "id": "5IKOLHCGXFAWFPL2F464TXOBDU",
+       "eclass": "BTSThsEntry",
+       "type": "location",
+       "name": "Leipzig"
+      }
+     ]
+    ],
+    "suid": "wtr1in"
+   },
+   "RGS2OLARZRFTHEFGRYNKB6YJ5E": {
+    "eclass": "BTSThsEntry",
+    "id": "RGS2OLARZRFTHEFGRYNKB6YJ5E",
+    "relations": {
+     "partOf": [
+      {
+       "id": "HKPRMC5M5JHDHACZICND5E3NJE",
+       "eclass": "BTSThsEntry",
+       "type": "findSpot",
+       "name": "Niltal s\u00fcdlich von Assiut bis zum 1. Katarakt"
+      }
+     ],
+     "contains": [
+      {
+       "id": "CLFZC44SZ5C6FJHKC3YBOLHHXI",
+       "eclass": "BTSThsEntry",
+       "type": "findSpot",
+       "name": "\u00f6stliches Ufer"
+      },
+      {
+       "id": "VHGZGISIMJG6NBSUYALIZI4TIQ",
+       "eclass": "BTSThsEntry",
+       "type": "findSpot",
+       "name": "westliches Ufer"
+      }
+     ]
+    },
+    "reviewState": "published",
+    "editors": {
+     "author": "Alt\u00e4gyptisches W\u00f6rterbuch",
+     "type": "user",
+     "contributors": [
+      "Angela B\u00f6hme",
+      "Jakob Hoeper",
+      "Jonas Treptow"
+     ],
+     "updated": "2020-11-16",
+     "created": "2015-06-26"
+    },
+    "name": "Theben",
+    "type": "findSpot",
+    "passport": {
+     "thesaurus": [
+      {
+       "main_group": [
+        {
+         "termsort": [
+          "\u23294\u232a theben"
+         ],
+         "old_id": [
+          "484"
+         ],
+         "old_thesaurus_number": [
+          "3"
+         ]
+        }
+       ]
+      }
+     ],
+     "thesaurus_date": [
+      {
+       "main_group": [
+        {
+         "beginning": [
+          "0"
+         ],
+         "end": [
+          "0"
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "externalReferences": {
+     "aaew": [
+      {
+       "id": "3/484"
+      }
+     ],
+     "thot": [
+      {
+       "id": "thot-19281"
+      }
+     ],
+     "wikidata": [
+      {
+       "id": "Q101583"
+      }
+     ]
+    },
+    "paths": [
+     [
+      {
+       "id": "EM7EXOH7ONGGFBP3SB3YHS426M",
+       "eclass": "BTSThsEntry",
+       "type": "findSpot",
+       "name": "3 = Fundstellen"
+      },
+      {
+       "id": "HKPRMC5M5JHDHACZICND5E3NJE",
+       "eclass": "BTSThsEntry",
+       "type": "findSpot",
+       "name": "Niltal s\u00fcdlich von Assiut bis zum 1. Katarakt"
+      }
+     ]
+    ],
+    "suid": "5i3lw7"
+   },
+   "6HRN4262MRB7ZJCTZKSQ33LLE4": {
+    "eclass": "BTSThsEntry",
+    "id": "6HRN4262MRB7ZJCTZKSQ33LLE4",
+    "relations": {
+     "partOf": [
+      {
+       "id": "EXOGLBOMINDV5L67RDNSKEYJMI",
+       "eclass": "BTSThsEntry",
+       "type": "material",
+       "name": "Faser, Pflanzliche Und Tierische"
+      }
+     ]
+    },
+    "reviewState": "published",
+    "editors": {
+     "author": "P. Dils",
+     "type": "user",
+     "contributors": [
+      "Theresa Annacker",
+      "Alt\u00e4gyptisches W\u00f6rterbuch"
+     ],
+     "updated": "2019-12-19",
+     "created": "2016-06-20"
+    },
+    "name": "Papyrus",
+    "type": "material",
+    "passport": {
+     "synonyms": [
+      {
+       "synonym_group": [
+        {
+         "synonym": [
+          "Papyrus"
+         ],
+         "language": [
+          "en"
+         ]
+        },
+        {
+         "synonym": [
+          "Papyrus"
+         ],
+         "language": [
+          "fr"
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "externalReferences": {
+     "thot": [
+      {
+       "id": "thot-6351"
+      }
+     ]
+    },
+    "paths": [
+     [
+      {
+       "id": "7LANG42J4FH5XOJL7VIHZKH5FA",
+       "eclass": "BTSThsEntry",
+       "type": "material",
+       "name": "24 = Material"
+      },
+      {
+       "id": "ZTRMCWGQ7JGCNCQJZTF74WFBKU",
+       "eclass": "BTSThsEntry",
+       "type": "material",
+       "name": "Organisch"
+      },
+      {
+       "id": "EXOGLBOMINDV5L67RDNSKEYJMI",
+       "eclass": "BTSThsEntry",
+       "type": "material",
+       "name": "Faser, Pflanzliche Und Tierische"
+      }
+     ]
+    ],
+    "translations": {
+     "en": [
+      "Papyrus"
+     ],
+     "fr": [
+      "Papyrus"
+     ]
+    },
+    "suid": "d7llrl"
+   },
+   "5QIW3ZRHQFGINHBP4GI2GI4LFA": {
+    "eclass": "BTSThsEntry",
+    "id": "5QIW3ZRHQFGINHBP4GI2GI4LFA",
+    "relations": {
+     "partOf": [
+      {
+       "id": "64Y2SM2JZ5AIPMQGOLBC36323Q",
+       "eclass": "BTSThsEntry",
+       "type": "objecttype",
+       "name": "Schriftmedien"
+      }
+     ]
+    },
+    "reviewState": "published",
+    "editors": {
+     "author": "Alt\u00e4gyptisches W\u00f6rterbuch",
+     "type": "user",
+     "contributors": [
+      "Angela B\u00f6hme"
+     ],
+     "updated": "2019-12-19",
+     "created": "2015-06-26"
+    },
+    "name": "Schriftrolle",
+    "type": "objecttype",
+    "passport": {
+     "thesaurus": [
+      {
+       "main_group": [
+        {
+         "old_id": [
+          "220"
+         ],
+         "old_thesaurus_number": [
+          "21"
+         ]
+        }
+       ]
+      }
+     ],
+     "thesaurus_date": [
+      {
+       "main_group": [
+        {
+         "beginning": [
+          "0"
+         ],
+         "end": [
+          "0"
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "externalReferences": {
+     "aaew": [
+      {
+       "id": "21/220"
+      }
+     ],
+     "thot": [
+      {
+       "id": "thot-15963"
+      }
+     ]
+    },
+    "paths": [
+     [
+      {
+       "id": "P33RJ7RXYRHW7FU4BA2BULCCCI",
+       "eclass": "BTSThsEntry",
+       "type": "objectType",
+       "name": "21 = Objekttyp"
+      },
+      {
+       "id": "NWXI27WQTVAMLFBD5HNFNJLFPE",
+       "eclass": "BTSThsEntry",
+       "type": "objecttype",
+       "name": "Artefakt"
+      },
+      {
+       "id": "64Y2SM2JZ5AIPMQGOLBC36323Q",
+       "eclass": "BTSThsEntry",
+       "type": "objecttype",
+       "name": "Schriftmedien"
+      }
+     ]
+    ],
+    "suid": "nsdpxp"
+   }
+  },
+  "BTSText": {
+   "2SQY75KWF5HUXBJCDHOUZPKT3E": {
+    "eclass": "BTSText",
+    "id": "2SQY75KWF5HUXBJCDHOUZPKT3E",
+    "relations": {
+     "partOf": [
+      {
+       "id": "FA5AXVOIIREOBJT2MOXMQRQQPA",
+       "eclass": "BTSTCObject",
+       "type": "TCObject",
+       "name": "Papyrus Ebers"
+      }
+     ]
+    },
+    "reviewState": "published",
+    "editors": {
+     "author": "L. Popko",
+     "type": "user",
+     "contributors": [
+      "Florence Langermann",
+      "Alt\u00e4gyptisches W\u00f6rterbuch"
+     ],
+     "updated": "2020-10-25",
+     "created": "2017-07-25"
+    },
+    "name": "90,6-90,14 = Eb 757-760: Heilmittel gegen $rwy.t$-Ausfluss",
+    "type": "text",
+    "passport": {
+     "date": [
+      {
+       "date": [
+        {
+         "date": [
+          {
+           "eclass": "BTSThsEntry",
+           "id": "E4VXX5LISZC2XIR6AYPM3Y3TQI",
+           "name": "17. Dynastie",
+           "type": "date"
+          },
+          {
+           "eclass": "BTSThsEntry",
+           "id": "NUW3K7UK3BBUFDPHZDD2ZZ3LYI",
+           "name": "18. Dynastie",
+           "type": "date"
+          }
+         ],
+         "comment": [
+          "Die Datierung des Papyrus Ebers basiert im Wesentlichen auf der Pal\u00e4ographie, wof\u00fcr Ebers Handschriften der 18. Dynastie zum Vergleich heranzieht, namentlich pBoulaq 18 (inzwischen jedoch in die 2. Zwischenzeit datiert), das Amenophis-Ritual des pTurin Cat. 1876 (inzwischen jedoch in die 20. Dynastie datiert) sowie die Berliner Lederrolle (Ebers, Papyros Ebers, Bd. 1, 3-4). Erman argumentiert aus pal\u00e4ographischen und orthographischen Gr\u00fcnden daf\u00fcr, die Papyri Rhind (aufgrund einer Datierungsangabe in die ausgehende Hyksoszeit zu datieren), Westcar und Ebers als etwa zeitgleich anzusehen (Erman, Die M\u00e4rchen des Papyrus Westcar, Bd. 2, Glossar, Palaeographische Bemerkungen und Feststellung des Textes, K\u00f6nigliche Museen zu Berlin. Mittheilungen aus den orientalischen Sammlungen 4, Berlin 1890, 38-44 und 54). Dem schlie\u00dft sich auch M\u00f6ller an (M\u00f6ller, Hieratische Pal\u00e4ographie I, 20).\nDer Ebers-Kalender auf der R\u00fcckseite des Papyrus wird als Hinweis f\u00fcr die zeitliche Einordnung des Textes gewertet. Dabei verkompliziert die Einbeziehung des Kalendariums und des darin eingebetteten K\u00f6nigsnamens die Redaktionsgeschichte des Papyrus. Eisenlohr datiert die Niederschrift des Kalenders in das 2. Jh. v. Chr. und vermutet in der Kartusche eine Schreibung des Namens von Kleopatra III.: \"Die Schrift ist sp\u00e4t hieratisch und n\u00e4hert sich derart dem Demotischen, dass sie eher nach als vor 200 ante Chr. gesetzt werden d\u00fcrfte.\" (Eisenlohr, in: Z\u00c4S 8, 1870, 165. Zu einer Sp\u00e4tdatierung des Kalenders siehe au\u00dferdem: K. Riehl, Das Sonnen- und Siriusjahr der Ramessiden mit dem Geheimniss der Schaltung und das Jahr des Julius C\u00e4sar, Leipzig 1875, 349-363 und D. Dimitriadis, \u00dcber fremde K\u00f6rper, W\u00fcrmer und Insekten im menschlichen Ohr und ihre Behandlung von der \u00e4ltesten Zeit bis heute, Athen 1909, 191 (Hinweis R. Scholl)). \u00dcber die Abfassungszeit des medizinischen Textes \u00e4u\u00dfert Eisenlohr sich aber nicht. Ebers schlie\u00dft dagegen kategorisch aus, dass der Text aus der Ptolem\u00e4erzeit stammt (Ebers, in: Z\u00c4S 11, 1873, 41). Er schreibt zwar, dass der Schreiber der Seitenzahlen von 1-60 mit dem des Kalenders identisch sein muss, trifft jedoch zun\u00e4chst keine Aussagen \u00fcber dessen zeitliches Verh\u00e4ltnis zum Schreiber des medizinischen Textes (Ebers, in: Z\u00c4S 12, 1874, 3-4). Sp\u00e4ter zieht er die Zahlen der Paginierung und den Haupttext gleicherma\u00dfen f\u00fcr seinen pal\u00e4ographischen Abgleich heran und datiert den Kalender explizit in das 16. Jh. v. Chr. und die 18. Dynastie, also ungef\u00e4hr zeitgleich mit dem medizinischen Hauptteil (Papyros Ebers, Bd. 1, 3-4, 9). Da die Nummerierung der Seitenzahlen bis 60 nach dem Abfassen des Haupttextes hinzugef\u00fcgt wurde und das Kalendarium von der gleichen Hand geschrieben worden ist wie die Seitenzahlen, kann man davon ausgehen, dass das Kalendarium sp\u00e4ter als der Haupttext niedergeschrieben worden ist. Zur Lesung des K\u00f6nigsnamens im Kalendarium hat schlie\u00dflich Erman nachgewiesen, dass er Djeser-ka-Re zu lesen und damit Amenophis I. gemeint ist (Erman, M\u00e4rchen des Papyrus Westcar, Bd. 2, 56-60)."
+         ]
+        }
+       ]
+      }
+     ],
+     "present_location": [
+      {
+       "location": [
+        {
+         "is_present_location": [
+          "true"
+         ],
+         "inventory_number": [
+          "[ohne Inventarnummer]"
+         ],
+         "location": [
+          {
+           "eclass": "BTSThsEntry",
+           "id": "LJHMV4523JB7NBGAJRDTS3H27Y",
+           "name": "Bibliotheca Albertina, Papyrus- und Ostrakasammlung",
+           "type": "location"
+          }
+         ]
+        }
+       ]
+      }
+     ],
+     "bibliography": [
+      {
+       "bibliographical_text_field": [
+        "- https://papyri.uni-leipzig.de/receive/UBLPapyri_fragment_00000790 [*P]\r\n- http://papyrusebers.de [*P]\r\n- G. Ebers, Papyros Ebers. Das hermetische Buch \u00fcber die Arzneimittel der alten \u00c4gypter in hieratischer Schrift, Leipzig 1875, Tf. 90 [*F]\r\n- H. Grapow, Grundri\u00df der Medizin der alten \u00c4gypter V. Die medizinischen Texte in hieroglyphischer Umschreibung autographiert, Berlin 1958, 175[*T]\r\n- W. Wreszinski, Der Papyrus Ebers: Umschrift, \u00dcbersetzung und Kommentar (Die Medizin der alten \u00c4gypter 3), Leipzig 1913, 185-186 [*T]\r\n\r\n- T. Bardinet, Les papyrus m\u00e9dicaux de l\u2019Egypte pharaonique. Traduction int\u00e9grale et commentaire, Paris 1995, 356-357 [*\u00dc,*K]\r\n- H. von Deines, H. Grapow, W. Westendorf, Grundri\u00df der Medizin der alten \u00c4gypter. \u00dcbersetzung der medizinischen Texte, Berlin 1958, IV/1, 100-101; IV/2, 95 [*\u00dc,*K]\r\n- B. Ebbell, The Papyrus Ebers. The Greatest Egyptian Medical Document, Copenhagen 1937, 105 [\u00dc]\r\n- W. Westendorf, Handbuch der alt\u00e4gyptischen Medizin (HdO I.36.1+2), Leiden u.a. 1999, 674-675 [*\u00dc]\r\n\r\n- T. Pommerening, Neues zu den Hohlma\u00dfen und zum Medizinalma\u00dfsystem, in: S. Bickel, A. Loprieno (Hgg.), Basel Egyptology Prize 1. Junior Research in Egyptian History, Archaeology, and Philology (Aegyptiaca Helvetica 17), Basel 2003, 201-219 [*K zum Ma\u00dfsystem]"
+       ]
+      }
+     ],
+     "definition": [
+      {
+       "main_group": [
+        {
+         "protocol": [
+          "L. Popko, Erstaufnahme, 25. Juli 2017."
+         ],
+         "line_count": [
+          "Kolumnenz\u00e4hlung nach Originalpaginierung; Zeilenz\u00e4hlung nach Original, Rezeptz\u00e4hlung nach Wreszinski. Die Aufteilung in Rezeptgruppen erfolgt provisorisch vornehmlich nach den $\u1e25\ua723.t-\ua725-m$-Anf\u00e4ngen."
+         ]
+        }
+       ]
+      }
+     ],
+     "find_spot": [
+      {
+       "find_spot": [
+        {
+         "place": [
+          {
+           "comment": [
+            "Georg Ebers kaufte den Papyrus im Winter 1872/1873 in Theben; sein \u00e4gyptischer H\u00e4ndler berichtet ihm, der Papyrus w\u00e4re \"vor nunmehr 14 Jahren in einem Grab des el-Assassif (...) zwischen den Beinen einer Mumie\" gefunden worden (Ebers, Papyrus Ebers, 2). Ausgehend vom Datum der Publikation, 1875, w\u00e4re der Papyrus also 1861 gefunden worden. Ein Auktionskatalog von 1869 erw\u00e4hnt einen medizinischen Papyrus mit einem Kalender auf der R\u00fcckseite, der sich im Besitz des Amerikaners Smith bef\u00e4nde (non vidi, zitiert nach B. Holmes, P. Gad Kitterman, Medicine in Ancient Egypt. The Hieratic Material, Cincinnati 1914, 17 und Breasted, Surgical Papyrus, 24, Anm. 1) und Eisenlohr schreibt (Z\u00c4S 8, 1870, 165-167), dass ihm im Februar 1870 von Smith zwei \"von ihm erworbene\" medizinische Papyrusrollen gezeigt worden seien, von denen eine \u00fcber 100 Seiten lang sei und die damit nur der Papyrus Ebers sein kann. Eisenlohr fertigt daraufhin, wie er weiter schreibt, ein Faksimile des Kalenders an, allerdings nach einer Durchzeichnung, nicht nach dem Original. Es ist diese Abschrift gewesen, die in verschiedenen Z\u00c4S-Artikeln der fr\u00fchen 1870er zu der Vermutung f\u00fchrte, dieser Papyrus sei im Besitz von Smith, wogegen sich Ebers vehement wehrte: \"Mit dem h\u00f6chsten Interesse habe ich Mr. Goodwins Aufsatz \u00fcber die calendarische Notiz auf der R\u00fcckseite des nunmehr der Leipziger Universit\u00e4tsbibliothek angeh\u00f6renden grossen medicinischen Papyros gelesen, den es mir im vorigen Winter im Theben zu erwerben gelungen ist und der, was ich hier ausdr\u00fccklich wiederhole, $Mr. Smith niemals geh\u00f6rt hat$.\" (Ebers, in: Z\u00c4S 12, 1874, 3; Hervorhebung i.O.). Nach Ausweis eines Briefes von Ebers an seine Frau von 1873 (Scholl, Papyrus Ebers, 29-30) war es Edwin Smith lediglich gelungen, eine Abschrift vom Kalender und von einigen weiteren Seiten anzufertigen, w\u00e4hrend das Original beim H\u00e4ndler verblieb und erst von Ebers erworben werden konnte."
+           ],
+           "place": [
+            {
+             "eclass": "BTSThsEntry",
+             "id": "RGS2OLARZRFTHEFGRYNKB6YJ5E",
+             "name": "Theben",
+             "type": "findSpot"
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ],
+     "text": [
+      {
+       "textual_metadata": [
+        {
+         "language": [
+          {
+           "eclass": "BTSThsEntry",
+           "id": "GJKKSU5V6VHKBPVTIYQ4PFOBJ4",
+           "name": "fr\u00fches und klassisches Mittel\u00e4gyptisch",
+           "type": "language"
+          }
+         ],
+         "script": [
+          {
+           "eclass": "BTSThsEntry",
+           "id": "N2T36QN2JRDVHGNTDG6ZR3FF6Q",
+           "name": "Mittelhieratische Buchschrift",
+           "type": "script"
+          }
+         ]
+        }
+       ]
+      }
+     ],
+     "object": [
+      {
+       "description_of_object": [
+        {
+         "type": [
+          {
+           "eclass": "BTSThsEntry",
+           "id": "5QIW3ZRHQFGINHBP4GI2GI4LFA",
+           "name": "Schriftrolle",
+           "type": "objecttype"
+          }
+         ]
+        }
+       ],
+       "technical_details": [
+        {
+         "material": [
+          {
+           "eclass": "BTSThsEntry",
+           "id": "6HRN4262MRB7ZJCTZKSQ33LLE4",
+           "name": "Papyrus",
+           "type": "material"
+          }
+         ],
+         "dimensions": [
+          {
+           "h": [
+            "30"
+           ],
+           "l": [
+            "1863"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "paths": [
+     [
+      {
+       "id": "HTRIEAWSWRDEXA64SRMW7C5WJU",
+       "eclass": "BTSTCObject",
+       "type": "Caption",
+       "name": "\u2329Medizinische Texte\u232a"
+      },
+      {
+       "id": "FA5AXVOIIREOBJT2MOXMQRQQPA",
+       "eclass": "BTSTCObject",
+       "type": "TCObject",
+       "name": "Papyrus Ebers"
+      }
+     ]
+    ],
+    "corpus": "sawmedizin",
+    "wordCount": {
+     "min": 99,
+     "max": 99
+    },
+    "suid": "cid79n"
+   }
+  }
+ }
+}

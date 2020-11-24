@@ -11,7 +11,6 @@ import lombok.experimental.SuperBuilder;
 import tla.domain.model.ObjectReference;
 import tla.domain.model.meta.AbstractBTSBaseClass;
 import tla.domain.model.meta.Relatable;
-import tla.web.model.parts.ExternalReference;
 
 @Getter
 @Setter
@@ -25,7 +24,5 @@ public abstract class TLAObject extends AbstractBTSBaseClass implements Relatabl
     private String type;
 
     private TreeMap<String, List<ObjectReference>> relations;
-
-    private TreeMap<String, List<ExternalReference>> externalReferences;
 
 }

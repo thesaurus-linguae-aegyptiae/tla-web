@@ -25,7 +25,7 @@ import tla.web.model.mappings.MappingConfig;
 import tla.web.model.mappings.Util;
 import tla.web.model.meta.ObjectDetails;
 import tla.web.model.meta.TLAObject;
-import tla.web.model.parts.Word;
+import tla.web.model.parts.Token;
 
 @SpringBootTest
 public class MappingTest {
@@ -45,7 +45,7 @@ public class MappingTest {
         TLAObject object = MappingConfig.convertDTO(dto);
         assertTrue(object instanceof Lemma);
         Lemma lemma = (Lemma) object;
-        Word word = lemma.getWords().get(0);
+        Token word = lemma.getWords().get(0);
         assertAll("test lemma mapping",
             () -> assertNotNull(lemma, "lemma DTO should be converted"),
             () -> assertNotNull(lemma.getEdited(), "edit info expected"),
@@ -179,5 +179,41 @@ public class MappingTest {
             () -> assertEquals("$input", Util.escapeMarkup("$input"))
         );
     }
-    
+
+    @Test
+    void sentenceFromJSON() throws Exception {
+        var w = tla.domain.util.IO.loadFromFile(
+            "src/test/resources/sample/data/sentence/details/IBcCBpKz4FWJo0yOhxfTNEhx5J0.json",
+            SingleDocumentWrapper.class
+        );
+        assertAll("DTO deserialized",
+            () -> assertNotNull(w, "sentence wrapper deserialized"),
+            () -> assertNotNull(w.getDoc(), "payload received")
+        );
+        TLAObject o = MappingConfig.convertDTO(w.getDoc());
+        Sentence s = (Sentence) o;
+        assertAll("DTO import into UI model",
+            () -> assertNotNull(s, "sentence instantiated"),
+            () -> assertNotNull(s.getContext(), "sentence context"),
+            () -> assertEquals(5, s.getContext().getPosition(), "sentence position"),
+            () -> assertNotNull(s.getRelations(), "sentence object references"),
+            () -> assertEquals(2, s.getRelations().size(), "2 relation types"),
+            () -> assertNotNull(s.getTranslations(), "sentence translations"),
+            () -> assertNotNull(s.getTranslations().get(Language.DE).get(0), "german translation"),
+            () -> assertNotNull(s.getTranscription(), "sentence transcription"),
+            () -> assertNotNull(s.getTranscription().getUnicode(), "sentence transcription"),
+            () -> assertNotNull(s.getTokens(), "sentence tokens"),
+            () -> assertFalse(s.getTokens().isEmpty(), "token received"),
+            () -> assertTrue(s.getWordCount() <= s.getTokens().size(), "sentence proper word count")
+        );
+        Token t = s.getTokens().get(0);
+        assertAll("UI model sentence first token",
+            () -> assertNotNull(t.getId(), "ID"),
+            () -> assertNotNull(t.getLabel(), "label"),
+            () -> assertNotNull(t.getType(), "type"),
+            () -> assertNotNull(t.getFlexion(), "flexion information"),
+            () -> assertNotNull(t.getTranslations(), "translation"),
+            () -> assertNotNull(t.getLemma(), "lemmatization information")
+        );
+    }
 }

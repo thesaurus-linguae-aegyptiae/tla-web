@@ -1,13 +1,17 @@
 package tla.web.model.parts;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import tla.web.model.mappings.Util;
 import lombok.AllArgsConstructor;
 
-@Data
+@Getter
+@Setter
 @Builder
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class Glyphs {

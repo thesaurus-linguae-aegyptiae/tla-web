@@ -23,7 +23,7 @@ import tla.domain.model.meta.TLADTO;
 import tla.web.model.meta.BTSObject;
 import tla.web.model.meta.BackendPath;
 import tla.web.model.parts.Glyphs;
-import tla.web.model.parts.Word;
+import tla.web.model.parts.Token;
 
 @Slf4j
 @Getter
@@ -48,7 +48,7 @@ public class Lemma extends BTSObject {
     private SortedMap<Language, List<String>> translations;
 
     @Singular
-    private List<Word> words;
+    private List<Token> words;
 
     @Singular
     private List<AttestedTimespan> attestations;
@@ -80,7 +80,7 @@ public class Lemma extends BTSObject {
     public List<Glyphs> getHieroglyphs() {
         if (this.getDictionaryName().equals(Script.HIERATIC)) {
             List<Glyphs> hieroglyphs = this.getWords().stream().map(
-                Word::getGlyphs
+                Token::getGlyphs
             ).collect(
                 Collectors.toList()
             );

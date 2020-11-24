@@ -12,10 +12,11 @@ import tla.domain.model.SentenceToken;
 import tla.domain.model.meta.BTSeClass;
 import tla.web.config.ApplicationProperties;
 import tla.web.model.Lemma;
+import tla.web.model.Sentence;
 import tla.web.model.ThsEntry;
 import tla.web.model.meta.TLAObject;
 import tla.web.model.parts.Glyphs;
-import tla.web.model.parts.Word;
+import tla.web.model.parts.Token;
 import tla.web.repo.ModelClasses;
 
 import java.lang.annotation.Annotation;
@@ -37,7 +38,8 @@ import org.modelmapper.ModelMapper;
 @ModelClasses({
     tla.web.model.Annotation.class,
     Lemma.class,
-    ThsEntry.class
+    ThsEntry.class,
+    Sentence.class
 })
 public class MappingConfig {
 
@@ -86,9 +88,9 @@ public class MappingConfig {
                 ThsEntry::setExternalReferences
             )
         );
-        modelMapper.createTypeMap(SentenceToken.class, Word.class).addMappings(
+        modelMapper.createTypeMap(SentenceToken.class, Token.class).addMappings(
             m -> m.using(new GlyphsConverter()).map(
-                SentenceToken::getGlyphs, Word::setGlyphs
+                SentenceToken::getGlyphs, Token::setGlyphs
             )
         );
         return modelMapper;

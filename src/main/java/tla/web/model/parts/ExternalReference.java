@@ -3,9 +3,11 @@ package tla.web.model.parts;
 import com.fasterxml.jackson.annotation.JsonAlias;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Builder
 public class ExternalReference {
 
