@@ -17,15 +17,20 @@ Requirements:
 
 - Docker Compose
 
-Set the environment variables `ES_PORT`, `BACKEND_PORT`, and `LISTEN_PORT` to your liking.
 Specify a URL where a `.tar.gz` archive containing TLA corpus data can be downloaded via
-the environment variable `SAMPLE_URL`. Start docker containers for the entire stack with:
+the environment variable `SAMPLE_URL` (for instance in a `.env` file).
+Start docker containers for the entire stack with:
 
     docker-compose up -d
 
 This will run Elasticsearch, a TLA backend for handling document retrieval, a temporary 
 second instance of the backend used for corpus data import, and last not least the TLA
 web frontend.
+
+By default, the frontend's web interface can be accessed at port `8080`, the backend
+at `8090`, and the backend's Elasticsearch instance at `9200`, but you may configure these
+values to your liking via the environment variables `LISTEN_PORT`, `BACKEND_PORT`, and
+`ES_PORT`, respectively.
 
 
 ### 2. Gradle
