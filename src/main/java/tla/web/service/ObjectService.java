@@ -1,11 +1,14 @@
 package tla.web.service;
 
+import java.lang.annotation.Annotation;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.AbstractDto;
+import tla.web.model.mappings.MappingConfig;
+import tla.web.model.meta.ModelClass;
 import tla.web.model.meta.ObjectDetails;
 import tla.web.model.meta.TLAObject;
 import tla.web.repo.TlaClient;
@@ -21,16 +24,38 @@ public abstract class ObjectService<T extends TLAObject> {
     @Autowired
     protected TlaClient backend;
 
+    private Class<T> modelClass;
+
+    @SuppressWarnings("unchecked")
+    public ObjectService() {
+        for (Annotation a : this.getClass().getAnnotationsByType(ModelClass.class)) {
+            Class<? extends TLAObject> modelClass = ((ModelClass) a).value();
+            this.modelClass = (Class<T>) modelClass;
+            log.info("register {}", modelClass.getSimpleName());
+            MappingConfig.registerModelClass(modelClass);
+            TlaClient.registerModelclass(modelClass);
+        }
+    }
+
     /**
-     * Subclasses must implement this method by calling:
-     * <code>
-     * backend.retrieveObject(ModelClass.class, id)
-     * </code>
-     * where <code>ModelClass</code> is the model class they are typed with.
+     * Returns the domain model class of which a service is taking care of and which has been
+     * specified via a {@link ModelClass} annotation on top of that service.
+     */
+    public Class<T> getModelClass() {
+        return this.modelClass;
+    }
+
+    /**
+     * Retrieve document details (document itself plus related objects) from backend.
+     *
      * @param id document ID
      * @return DTO wrapped inside a {@link SingleDocumentWrapper} container
      */
-    protected abstract SingleDocumentWrapper<AbstractDto> retrieveSingleDocument(String id);
+    public SingleDocumentWrapper<AbstractDto> retrieveSingleDocument(String id) {
+        return backend.retrieveObject(
+            this.getModelClass(), id
+        );
+    }
 
     /**
      * Retrieve a container with a single domain model class instance.

@@ -1,31 +1,28 @@
 package tla.web.model.mappings;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-import tla.domain.dto.AnnotationDto;
-import tla.domain.dto.meta.AbstractDto;
-import tla.domain.dto.LemmaDto;
-import tla.domain.dto.ThsEntryDto;
-import tla.domain.model.SentenceToken;
-import tla.domain.model.meta.BTSeClass;
-import tla.web.config.ApplicationProperties;
-import tla.web.model.Lemma;
-import tla.web.model.Sentence;
-import tla.web.model.ThsEntry;
-import tla.web.model.meta.TLAObject;
-import tla.web.model.parts.Glyphs;
-import tla.web.model.parts.Token;
-import tla.web.repo.ModelClasses;
-
 import java.lang.annotation.Annotation;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.modelmapper.AbstractConverter;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import tla.domain.dto.AnnotationDto;
+import tla.domain.dto.LemmaDto;
+import tla.domain.dto.ThsEntryDto;
+import tla.domain.dto.meta.AbstractDto;
+import tla.domain.model.SentenceToken;
+import tla.domain.model.meta.BTSeClass;
+import tla.web.config.ApplicationProperties;
+import tla.web.model.Lemma;
+import tla.web.model.ThsEntry;
+import tla.web.model.meta.BTSObject;
+import tla.web.model.meta.TLAObject;
+import tla.web.model.parts.Glyphs;
+import tla.web.model.parts.Token;
 
 /**
  * This class is used to keep record of domain model classes and their DTO type
@@ -35,12 +32,6 @@ import org.modelmapper.ModelMapper;
  * the model class they represent, using {@link #convertDTO(AbstractDto)}.
  */
 @Configuration
-@ModelClasses({
-    tla.web.model.Annotation.class,
-    Lemma.class,
-    ThsEntry.class,
-    Sentence.class
-})
 public class MappingConfig {
 
     private class GlyphsConverter extends AbstractConverter<String, Glyphs> {
@@ -55,6 +46,8 @@ public class MappingConfig {
 
     private static ModelMapper modelMapper;
 
+    private static Map<String, Class<? extends TLAObject>> modelClasses = new HashMap<>();
+
     @Bean
     public ExternalReferencesConverter externalReferencesConverter() {
         return new ExternalReferencesConverter(properties);
@@ -66,7 +59,6 @@ public class MappingConfig {
     }
 
     private ModelMapper initModelMapper() {
-        registerModelClasses();
         modelMapper = new ModelMapper();
         ExternalReferencesConverter externalReferencesConverter = externalReferencesConverter();
         modelMapper.createTypeMap(AnnotationDto.class, tla.web.model.Annotation.class).addMapping(
@@ -96,32 +88,11 @@ public class MappingConfig {
         return modelMapper;
     }
 
-    private static Map<String, Class<? extends TLAObject>> modelClasses;
-
-    /**
-     * Registers the domain model classes listed in {@link MappingConfig}'s
-     * {@link ModelClasses} annotation.
-     *
-     * @see #registerModelClass(Class)
-     */
-    protected static void registerModelClasses() {
-        modelClasses = new HashMap<>();
-        for (Annotation a : MappingConfig.class.getAnnotations()) {
-            if (a instanceof ModelClasses) {
-                Arrays.asList(
-                    ((ModelClasses) a).value()
-                ).forEach(
-                    modelClass -> registerModelClass(modelClass)
-                );
-            }
-        }
-    }
-
     /**
      * Registers a given model class under the <code>eclass</code> value specified in
      * the {@link BTSeClass} annotation of the model class.
      *
-     * @param modelClass some {@link TLAObject} subclass with a {@link BTSeClass} annotation
+     * @param modelClass some {@link BTSObject} subclass with a {@link BTSeClass} annotation
      */
     public static void registerModelClass(Class<? extends TLAObject> modelClass) {
         for (Annotation a : modelClass.getAnnotations()) {

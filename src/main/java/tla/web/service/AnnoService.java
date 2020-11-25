@@ -2,9 +2,8 @@ package tla.web.service;
 
 import org.springframework.stereotype.Service;
 
-import tla.web.model.ThsEntry;
 import tla.web.model.meta.ModelClass;
 
 @Service
-@ModelClass(ThsEntry.class)
-public class ThsService extends ObjectService<ThsEntry> {}
+@ModelClass(tla.web.model.Annotation.class)
+public class AnnoService extends ObjectService<tla.web.model.Annotation> {}

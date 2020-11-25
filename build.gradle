@@ -12,7 +12,7 @@ plugins {
 }
 
 group = 'org.bbaw.aaew.tla'
-version = '0.0.807-SNAPSHOT'
+version = '0.0.808-SNAPSHOT'
 sourceCompatibility = '11'
 
 ext {
@@ -66,7 +66,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.16'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
 
-    implementation 'org.modelmapper:modelmapper:2.3.8'
+    implementation 'org.modelmapper:modelmapper:2.3.9'
     implementation 'org.jooq:jool:0.9.14'
 
     implementation 'org.springframework.boot:spring-boot-starter-web:2.4.0'
