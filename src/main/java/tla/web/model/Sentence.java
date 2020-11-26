@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Singular;
 import tla.domain.dto.SentenceDto.SentenceContext;
+import tla.domain.model.EditorInfo;
 import tla.domain.model.Language;
 import tla.domain.model.meta.BTSeClass;
 import tla.web.model.meta.BackendPath;
@@ -30,7 +31,21 @@ public class Sentence extends TLAObject {
 
     private Transcription transcription;
 
+    private Text text;
+
     @Singular
     private SortedMap<Language, List<String>> translations;
+
+    public String getName() {
+        return this.getText() != null ? this.getText().getName() : null;
+    }
+
+    public String reviewState() {
+        return this.getText() != null ? this.getText().getReviewState() : "published";
+    }
+
+    public EditorInfo getEdited() {
+        return this.getText() != null ? this.getText().getEdited() : null;
+    }
 
 }

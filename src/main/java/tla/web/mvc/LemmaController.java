@@ -53,7 +53,7 @@ public class LemmaController extends ObjectController<Lemma> {
     }
 
     @Override
-    protected Model compileSingleObjectDetailsModel(Model model, ObjectDetails<Lemma> container) {
+    protected Model extendSingleObjectDetailsModel(Model model, ObjectDetails<Lemma> container) {
         model.addAttribute("annotations", lemmaService.extractAnnotations(container));
         return model;
     }

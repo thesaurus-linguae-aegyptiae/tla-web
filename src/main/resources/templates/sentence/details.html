@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xml:lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}"
+>
+  <head>
+    <title th:text="|Sentence ${obj.id}|"></title>
+  </head>
+
+  <body>
+
+    <div layout:fragment="content">
+
+      <div th:replace="fragments/details :: details-page-header"/>
+
+      <div class="row">
+        <div class="col-sm-12 col-lg-8" id="details-content" th:object="${obj}">
+
+          <div th:replace="fragments/details :: translations"/>
+          <div th:replace="fragments/details :: editor-info"/>
+
+        </div>
+
+        <!-- Sidebar large -->
+        <div class="sidebar col-lg-4 d-none d-lg-block">
+          <div class="sticky-top">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

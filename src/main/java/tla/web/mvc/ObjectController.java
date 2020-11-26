@@ -55,7 +55,13 @@ public abstract class ObjectController<T extends TLAObject> {
 
     /**
      * Retrieves the requested plus relevant related entites, and renders the results into the
-     * single object details template defined for the entity type supported.
+     * single object details template defined for the entity type supported. To this end, it is
+     * necessary that a template file <code>details.html</code> exists within a templates folder
+     * subdirectory whose name matches the value given in the controller's {@link TemplateModelName}
+     * annotation. So the template to be used for rendering the lemma details view must be in the file
+     * <code>src/main/resources/templates/lemma/details.html</code> so that the controller
+     * <code>@TemplateModelName("lemma") class LemmaController extends ObjectController<Lemma></code>
+     * can use it.
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getSingleObjectDetailsPage(@PathVariable String id, Model model) {
@@ -76,13 +82,15 @@ public abstract class ObjectController<T extends TLAObject> {
         model.addAttribute("obj", container.getObject());
         model.addAttribute("related", container.getRelated());
         model.addAttribute("relations", container.extractRelatedObjects());
-        model = compileSingleObjectDetailsModel(model, container);
+        model = extendSingleObjectDetailsModel(model, container);
         return String.format("%s/details", getTemplatePath());
     }
 
     /**
-     * Subclasses must return model object, regardless of whether they add attributes to it.
+     * Subclasses can extend the view model by overriding this method.
      */
-    protected abstract Model compileSingleObjectDetailsModel(Model model, ObjectDetails<T> container);
+    protected Model extendSingleObjectDetailsModel(Model model, ObjectDetails<T> container) {
+        return model;
+    }
 
 }

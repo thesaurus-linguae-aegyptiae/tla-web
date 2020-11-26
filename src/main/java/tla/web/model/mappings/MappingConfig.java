@@ -10,14 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import lombok.extern.slf4j.Slf4j;
 import tla.domain.dto.AnnotationDto;
 import tla.domain.dto.LemmaDto;
+import tla.domain.dto.TextDto;
 import tla.domain.dto.ThsEntryDto;
 import tla.domain.dto.meta.AbstractDto;
 import tla.domain.model.SentenceToken;
 import tla.domain.model.meta.BTSeClass;
 import tla.web.config.ApplicationProperties;
 import tla.web.model.Lemma;
+import tla.web.model.Text;
 import tla.web.model.ThsEntry;
 import tla.web.model.meta.BTSObject;
 import tla.web.model.meta.TLAObject;
@@ -31,6 +34,7 @@ import tla.web.model.parts.Token;
  * Its model class registry allows for conversion of incoming DTO into instances of
  * the model class they represent, using {@link #convertDTO(AbstractDto)}.
  */
+@Slf4j
 @Configuration
 public class MappingConfig {
 
@@ -85,6 +89,14 @@ public class MappingConfig {
                 SentenceToken::getGlyphs, Token::setGlyphs
             )
         );
+        modelMapper.createTypeMap(TextDto.class, Text.class).addMappings(
+            m -> m.using(externalReferencesConverter).map(
+                TextDto::getExternalReferences,
+                Text::setExternalReferences
+            )
+        ).addMapping(
+            TextDto::getEditors, Text::setEdited
+        );
         return modelMapper;
     }
 
@@ -127,10 +139,15 @@ public class MappingConfig {
      * @return model class ({@link TLAObject} subclass) corresponding to the DTO's <code>eclass</code>
      */
     public static TLAObject convertDTO(AbstractDto dto) {
-        return modelMapper.map(
-            dto,
-            getModelClass(dto.getEclass())
-        );
+        try {
+            return modelMapper.map(
+                dto,
+                getModelClass(dto.getEclass())
+            );
+        } catch (IllegalArgumentException e) {
+            log.error("No model mapping for DTO type {}!", dto.getEclass());
+            return new TLAObject(){};
+        }
     }
 
 }
