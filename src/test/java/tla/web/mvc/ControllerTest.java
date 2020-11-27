@@ -13,9 +13,9 @@ public class ControllerTest {
         var route = ObjectController.getRequestMapping("BTSLemmaEntry");
         assertAll("test view controller domain model mapping",
             () -> assertNotNull(route, "request mapping for eclass"),
-            () -> assertEquals(1, ObjectController.eClassRequestMappings.size(), "1 route registered"),
+            () -> assertTrue(ObjectController.eClassRequestMappings.containsKey("BTSLemmaEntry"), "lemma eclass route registered"),
             () -> assertEquals("/thesaurus/ID", ObjectController.getDetailsViewPath("BTSThsEntry", "ID"), "produces object details page URL path"),
-            () -> assertEquals(2, ObjectController.eClassRequestMappings.size(), "2 routes registered")
+            () -> assertTrue(ObjectController.eClassRequestMappings.size() > 1, "at least 2 routes registered") // TODO this is kinda messy because it might vary depending on in which order the other controller tests are run
         );
     }
 

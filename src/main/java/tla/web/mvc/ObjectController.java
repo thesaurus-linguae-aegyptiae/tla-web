@@ -13,11 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import lombok.extern.slf4j.Slf4j;
+import tla.domain.model.meta.Resolvable;
 import tla.error.ObjectNotFoundException;
+import tla.web.model.mappings.Util;
 import tla.web.model.meta.ObjectDetails;
 import tla.web.model.meta.TLAObject;
 import tla.web.model.meta.TemplateModelName;
 import tla.web.model.ui.BreadCrumb;
+import tla.web.model.ui.CorpusPathSegment;
 import tla.web.service.ObjectService;
 
 /**
@@ -93,6 +96,20 @@ public abstract class ObjectController<T extends TLAObject> {
     }
 
     /**
+     * Create a breadcrumb-like link container from an object reference.
+     * @param ref
+     * @return
+     */
+    public static BreadCrumb createLink(Resolvable ref) {
+        return CorpusPathSegment.of(
+            getDetailsViewPath(ref.getEclass(), ref.getId()),
+            Util.escapeMarkup(ref.getName()),
+            ref.getEclass(),
+            ref.getType()
+        );
+    }
+
+    /**
      * Extract template path from {@link TemplateModelName} annotation. Template path
      * is being used in order to locate the HTML template for the single object details
      * view, and for message properties for i18n.
@@ -144,6 +161,7 @@ public abstract class ObjectController<T extends TLAObject> {
             )
         );
         model.addAttribute("obj", container.getObject());
+        model.addAttribute("caption", getService().getLabel(container.getObject()));
         model.addAttribute("related", container.getRelated());
         model.addAttribute("relations", container.extractRelatedObjects());
         model = extendSingleObjectDetailsModel(model, container);

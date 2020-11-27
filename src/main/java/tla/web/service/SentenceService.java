@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import tla.web.model.Sentence;
 import tla.web.model.Text;
+import tla.web.model.mappings.Util;
 import tla.web.model.meta.ModelClass;
 import tla.web.model.meta.ObjectDetails;
 
@@ -36,6 +37,13 @@ public class SentenceService extends ObjectService<Sentence> {
             this.injectTextObject(
                 super.getDetails(id).orElseThrow()
             )
+        );
+    }
+
+    @Override
+    public String getLabel(Sentence object) {
+        return Util.escapeMarkup(
+            object.getName()
         );
     }
 

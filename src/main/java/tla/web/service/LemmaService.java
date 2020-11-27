@@ -44,4 +44,9 @@ public class LemmaService extends ObjectService<Lemma> {
         return container;
     }
 
+    @Override
+    public String getLabel(Lemma object) {
+        return object.getName();
+    }
+
 }

@@ -380,12 +380,12 @@ a.share-results:hover {
     color: var(--BBAWred) !important;
 }
 
-a span.lc {
+span.lc {
     font-weight: 500 !important;
     color: grey !important;
 }
 
-a span.lc:hover {
+span.lc:hover {
     color: var(--BBAWred) !important;
 }
 
@@ -604,24 +604,9 @@ ul.annotation-block li.translations {
     font-weight: 100 !important;
 }
 
-/*.word-class {float: left;}*/
-
-.sentence-id-button {
-    /* BUG: ragt in nächste Zeile */
-    /*float: right;*/
-}
-
 .word-class-subtype {
     font-weight: 100;
     font-family: "Roboto Condensed";
-}
-
-
-
-/* Pagination */
-.pag-container {
-    border-top: 2px solid #DDD;
-
 }
 
 
@@ -730,7 +715,6 @@ footer.bg-light {
     background: url(../img/hg_comment_hide.png) repeat-x;
     position: relative;
     height: 80px;
-    vertical-align: bottom;
     z-index: 50;
 }
 

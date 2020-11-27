@@ -10,7 +10,9 @@ import lombok.Singular;
 import tla.domain.dto.SentenceDto.SentenceContext;
 import tla.domain.model.EditorInfo;
 import tla.domain.model.Language;
+import tla.domain.model.ObjectPath;
 import tla.domain.model.meta.BTSeClass;
+import tla.domain.model.meta.Hierarchic;
 import tla.web.model.meta.BackendPath;
 import tla.web.model.meta.TLAObject;
 import tla.web.model.parts.Transcription;
@@ -21,7 +23,7 @@ import tla.web.model.parts.Token;
 @NoArgsConstructor
 @BackendPath("sentence")
 @BTSeClass("BTSSentence")
-public class Sentence extends TLAObject {
+public class Sentence extends TLAObject implements Hierarchic {
 
     private SentenceContext context;
 
@@ -46,6 +48,11 @@ public class Sentence extends TLAObject {
 
     public EditorInfo getEdited() {
         return this.getText() != null ? this.getText().getEdited() : null;
+    }
+
+    @Override
+    public List<ObjectPath> getPaths() {
+        return this.getText() != null ? this.getText().getPaths() : null;
     }
 
 }

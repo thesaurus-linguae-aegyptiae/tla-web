@@ -94,4 +94,9 @@ public abstract class ObjectService<T extends TLAObject> {
         }
     }
 
+    /**
+     * Generate a label for an object (used as caption in object detail pages).
+     */
+    public abstract String getLabel(T object);
+
 }

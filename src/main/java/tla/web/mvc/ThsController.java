@@ -12,7 +12,7 @@ import tla.web.service.ThsService;
 @Controller
 @TemplateModelName("ths")
 @RequestMapping("/thesaurus")
-public class ThsController extends ObjectController<ThsEntry> {
+public class ThsController extends HierarchicObjectController<ThsEntry> {
 
     @Autowired
     private ThsService thsService;

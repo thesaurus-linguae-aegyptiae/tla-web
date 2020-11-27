@@ -12,7 +12,7 @@
     <!-- Object details header (name && review state) -->
     <div th:fragment="review-state-header" id="review-state-header" class="col-sm-12 col-lg-8 d-flex justify-content-between align-items-end">
         <h2 class="id mt-1">
-          <span class="bbaw-libertine" th:text="${obj.name}">Object name</span>
+          <span class="bbaw-libertine" th:utext="${caption}">Object name</span>
         </h2>
         <a th:replace="fragments/common :: review-state(${obj})"/>
     </div>
@@ -107,6 +107,17 @@
         <p>
             <strong th:text="#{|${objType}_property_type|}" class="details-property-label">Type</strong>
             <span th:replace=" :: type-subtype"/>
+        </p>
+    </div>
+
+    <!-- Object details corpus/thesaurus path -->
+    <div th:fragment="object-property-object-paths(objType)" th:id="|${objType}-property-object-paths|">
+        <hr/>
+        <p>
+            <strong th:text="#{|${objType}_property_object_paths|}" class="details-property-label">
+                Object path
+            </strong>
+            <div th:replace="fragments/common::object-paths(${objectPaths},false)"/>
         </p>
     </div>
 

@@ -1,20 +1,23 @@
 package tla.web.mvc;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import tla.domain.model.meta.Hierarchic;
 import tla.web.model.Sentence;
-import tla.web.model.meta.ObjectDetails;
 import tla.web.model.meta.TemplateModelName;
+import tla.web.model.ui.BreadCrumb;
+import tla.web.model.ui.CorpusPathSegment;
 import tla.web.service.ObjectService;
 import tla.web.service.SentenceService;
 
 @Controller
 @RequestMapping("/sentence")
 @TemplateModelName("sentence")
-public class SentenceController extends ObjectController<Sentence> {
+public class SentenceController extends HierarchicObjectController<Sentence> {
 
     @Autowired
     private SentenceService service;
@@ -25,8 +28,24 @@ public class SentenceController extends ObjectController<Sentence> {
     }
 
     @Override
-    protected Model extendSingleObjectDetailsModel(Model model, ObjectDetails<Sentence> container) {
-        return model;
+    public List<List<BreadCrumb>> createObjectPathLinks(Hierarchic object) {
+        var sentence = ((Sentence) object);
+        var paths = super.createObjectPathLinks(sentence);
+        paths.forEach(
+            links -> {
+                links.add(
+                    ObjectController.createLink(
+                        sentence.getText().toObjectReference()
+                    )
+                );
+                links.add(
+                    CorpusPathSegment.of(
+                        sentence.getContext().getLine()
+                    )
+                );
+            }
+        );
+        return paths;
     }
 
 }

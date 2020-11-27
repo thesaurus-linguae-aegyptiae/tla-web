@@ -11,6 +11,7 @@ import lombok.experimental.SuperBuilder;
 import tla.domain.model.ObjectReference;
 import tla.domain.model.meta.AbstractBTSBaseClass;
 import tla.domain.model.meta.Relatable;
+import tla.domain.model.meta.Resolvable;
 
 @Getter
 @Setter
@@ -24,5 +25,18 @@ public abstract class TLAObject extends AbstractBTSBaseClass implements Relatabl
     private String type;
 
     private TreeMap<String, List<ObjectReference>> relations;
+
+    /**
+     * Creates an {@link ObjectReference} instance identifying this object.
+     */
+    public Resolvable toObjectReference() {
+        return ObjectReference.builder()
+            .id(this.id)
+            .eclass(this.getEclass())
+            .type(this.getType())
+            .name(
+                this instanceof BTSObject ? ((BTSObject) this).getName() : null
+            ).build();
+    }
 
 }
