@@ -20,23 +20,23 @@ public class SentenceService extends ObjectService<Sentence> {
      *
      * @see ObjectDetails#getRelated()
      */
-    Sentence injectTextObject(ObjectDetails<Sentence> container) {
+    ObjectDetails<Sentence> injectTextObject(ObjectDetails<Sentence> container) {
         var sentence = container.getObject();
         sentence.setText(
             (Text) container.getRelated().get("BTSText").getOrDefault(
                 sentence.getContext().getTextId(), null
             )
         );
-        return sentence;
+        return container;
     }
 
     @Override
     public Optional<ObjectDetails<Sentence>> getDetails(String id) {
-        var od = super.getDetails(id);
-        var sentence = this.injectTextObject(
-            od.orElseThrow()
+        return Optional.of(
+            this.injectTextObject(
+                super.getDetails(id).orElseThrow()
+            )
         );
-        return od;
     }
 
 }

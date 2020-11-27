@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.AbstractDto;
+import tla.domain.model.meta.BTSeClass;
 import tla.web.model.mappings.MappingConfig;
 import tla.web.model.meta.ModelClass;
 import tla.web.model.meta.ObjectDetails;
@@ -43,6 +44,18 @@ public abstract class ObjectService<T extends TLAObject> {
      */
     public Class<T> getModelClass() {
         return this.modelClass;
+    }
+
+    /**
+     * Returns {@link BTSeClass} value of a service's domain model class.
+     *
+     * @see #getModelClass()
+     */
+    public String getModelEClass() {
+        for (Annotation a : getModelClass().getAnnotationsByType(BTSeClass.class)) {
+            return ((BTSeClass) a).value();
+        }
+        return null;
     }
 
     /**
