@@ -131,7 +131,9 @@ logging:
         root: DEBUG
 
 spring:
-    profiles: dev
+    config:
+        activate:
+            on-profile: dev
     thymeleaf:
         cache: false
         prefix: file:./src/main/resources/templates/
