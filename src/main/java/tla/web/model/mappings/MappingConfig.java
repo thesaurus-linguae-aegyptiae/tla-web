@@ -38,10 +38,13 @@ import tla.web.model.parts.Token;
 @Configuration
 public class MappingConfig {
 
-    private class GlyphsConverter extends AbstractConverter<String, Glyphs> {
+    private class TokenGlyphsConverter extends AbstractConverter<SentenceToken, Glyphs> {
         @Override
-        protected Glyphs convert(String source) {
-            return Glyphs.of(source);
+        protected Glyphs convert(SentenceToken source) {
+            return Glyphs.of(
+                source.getGlyphs(),
+                source.getAnnoTypes() != null && source.getAnnoTypes().contains("rubrum")
+            );
         }
     }
 
@@ -85,8 +88,8 @@ public class MappingConfig {
             )
         );
         modelMapper.createTypeMap(SentenceToken.class, Token.class).addMappings(
-            m -> m.using(new GlyphsConverter()).map(
-                SentenceToken::getGlyphs, Token::setGlyphs
+            m -> m.using(new TokenGlyphsConverter()).map(
+                dto -> dto, Token::setGlyphs
             )
         );
         modelMapper.createTypeMap(TextDto.class, Text.class).addMappings(
@@ -116,8 +119,8 @@ public class MappingConfig {
 
     /**
      * Look up application domain model class corresponding to the specified
-     * <code>eclass</code>. Domain model classes must be registered via
-     * {@link MappingConfig}'s {@link ModelClasses} annotation in order to be
+     * <code>eclass</code>. Domain model classes must be registered using
+     * a {@link ModelClass} annotation in order to be
      * able to be looked up. Also they need to have a {@link BTSeClass} annotation
      * obviously.
      *

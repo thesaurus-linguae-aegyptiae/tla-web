@@ -1,12 +1,15 @@
 package tla.web.model.mappings;
 
-import java.io.StringWriter;
-
 import java.awt.geom.Rectangle2D;
+import java.io.StringWriter;
+import java.util.List;
 
 import org.apache.commons.lang3.RegExUtils;
 import org.qenherkhopeshef.graphics.svg.SVGGraphics2D;
 
+import jsesh.mdc.MDCParserModelGenerator;
+import jsesh.mdc.model.TopItem;
+import jsesh.mdc.model.TopItemList;
 import jsesh.mdcDisplayer.draw.MDCDrawingFacade;
 import jsesh.utils.DoubleDimensions;
 import lombok.extern.slf4j.Slf4j;
@@ -26,9 +29,10 @@ public class Util {
      * Tries to use JSesh in order to render an MdC hieroglyph encoding
      * into an SVG vector graphic.
      * @param mdc hieroglyph sequence in Manuel de Codage (MdC)
+     * @param rubrum whether to render entire MdC sequence in red
      * @return textual serialization of SVG vector graphic or null
      */
-    public static String jseshRender(String mdc) {
+    public static String jseshRender(String mdc, boolean rubrum) {
         if (mdc != null) {
             MDCDrawingFacade facade = new MDCDrawingFacade();
             StringWriter writer = new StringWriter();
@@ -36,8 +40,12 @@ public class Util {
                 Rectangle2D boundingBox = facade.getBounds(
                     mdc, 0, 0
                 );
+                List<TopItem> parsed = new MDCParserModelGenerator().parse(mdc).asList();
+                parsed.forEach(item -> item.setRed(rubrum));
+                TopItemList topItems = new TopItemList();
+                topItems.addAll(parsed);
                 facade.draw(
-                    mdc,
+                    topItems,
                     new SVGGraphics2D(
                         writer,
                         new DoubleDimensions(
@@ -65,6 +73,16 @@ public class Util {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Render Manuel de Codage hieroglyph encoding to SVG.
+     * @param mdc
+     * @return SVG serialization
+     * @see #jseshRender(String, boolean)
+     */
+    public static String jseshRender(String mdc) {
+        return jseshRender(mdc, false);
     }
 
     /**

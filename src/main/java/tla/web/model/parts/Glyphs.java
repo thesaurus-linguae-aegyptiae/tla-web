@@ -22,11 +22,22 @@ public class Glyphs {
 
     private String svg;
 
+    /**
+     * Creates UI hieroglyphs representation of Manuel de Codage encoding.
+     */
     public static Glyphs of(String mdc) {
+        return of(mdc, false);
+    }
+
+    /**
+     * Creates UI hieroglyphs representation of Manuel de Codage encoding.
+     * @param rubrum whether or not to render the entire thing in red
+     */
+    public static Glyphs of(String mdc, boolean rubrum) {
         return Glyphs.builder()
             .mdc(mdc)
             .unicode(mdc)
-            .svg(Util.jseshRender(mdc))
+            .svg(Util.jseshRender(mdc, rubrum))
             .build();
     }
 

@@ -37,4 +37,13 @@ public class Token {
     @Singular
     private SortedMap<Language, List<String>> translations;
 
+    @Singular
+    private List<String> annoTypes;
+
+    public boolean isRubrum() {
+        return this.annoTypes != null ? this.annoTypes.contains(
+            "rubrum"
+        ) : false;
+    }
+
 }

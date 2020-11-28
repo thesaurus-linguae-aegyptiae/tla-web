@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import tla.domain.model.meta.Hierarchic;
 import tla.web.model.Sentence;
+import tla.web.model.meta.ObjectDetails;
 import tla.web.model.meta.TemplateModelName;
 import tla.web.model.ui.BreadCrumb;
 import tla.web.model.ui.CorpusPathSegment;
