@@ -21,8 +21,7 @@ tla:
             type-formats:
                 hieratic_hieroglyphic: http://aaew.bbaw.de/tla/servlet/GetWcnDetails?u=guest&f=0&l=0&wn={id}&db=0
                 demotic: http://aaew.bbaw.de/tla/servlet/GetWcnDetails?u=guest&f=0&l=0&wn={id}&db=1
-            default-format: http://aaew.bbaw.de/tla/servlet/GetWcnDetails?u=guest&f=0&l=0&wn={id}&db=0
-            id-pattern: ^-?[1-9][/0-9]*$
+            id-pattern: ^-?[1-9][0-9]*$
         aegyptiaca:
             default-format: https://aegyptiaca.uni-muenster.de/Record/{id}
         dza:
