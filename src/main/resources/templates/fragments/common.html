@@ -150,8 +150,11 @@
     <!-- translation for a single language -->
     <span th:fragment="single-lang-translation(entry)">
       <span class="lang-icon text-uppercase" th:text="${entry.key}">DE</span>
-      <span th:each="translation : ${entry.value}" th:class="|translation-${entry.key}|">
-        <span class="translation" th:text="${translation}">Translation</span>
+      <span th:each="translation,iter : ${entry.value}" th:class="|translation-${entry.key}|">
+        <span class="translation" th:text="${translation}">
+          Translation
+        </span>
+        <span th:unless="${iter.last}">|</span>
       </span>
     </span>
 
