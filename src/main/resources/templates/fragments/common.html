@@ -143,7 +143,7 @@
     <a th:fragment="review-state(obj)" class="review-state" th:title="|Review status: #{|review_state_${obj.reviewState}}|">
       <span class="solo-icon red-status float-right badge badge-pill badge-light">
         <span class="font-weight-light" th:text="#{|review_state_${obj.reviewState}}|">Reviewed</span>
-        <span class="fa-check-circle" th:classappend="${#strings.equals(obj.reviewState, 'published')} ? ok : (${#strings.endsWith(obj.reviewState, 'obsolete')} ? notok : pending)"/>
+        <span class="icon" th:classappend="${#strings.equals(obj.reviewState, 'published')} ? ok : (${#strings.endsWith(obj.reviewState, 'obsolete')} ? notok : pending)"/>
       </span>
     </a>
 
@@ -156,20 +156,20 @@
     </span>
 
     <!-- object path (thesaurus, text corpus, sentences) -->
-    <div th:fragment="object-paths(objectPaths, collapse)" class="corpus-paths mt-2">
-      <div th:each="objectPath, outerIter : ${objectPaths}" class="corpus-path">
-        <div th:each="item, iter : ${objectPath}" class="corpus-path-element">
+    <div th:fragment="object-paths(objectPaths, collapse)" class="object-paths mt-2">
+      <div th:each="objectPath, outerIter : ${objectPaths}" class="object-path">
+        <div th:each="item, iter : ${objectPath}" class="object-path-element">
+          <i th:class="|object-path-icon ${item.eclass} ${item.type}|"></i>
           <a th:if="${item.href} != null" th:href="${item.href}">
             <span th:utext="${item.label}">
               corpus path segment
             </span>
           </a>
           <span th:unless="${item.href} != null">
-            <span th:utext="${item.label}" th:class="${iter.last} ? 'lc'">
+            <span th:utext="${item.label}" th:class="${iter.last} ? lc">
               corpus path segment
             </span>
           </span>
-          <i th:unless="${iter.last}" class="fas fa-arrow-circle-right"></i>
         </div>
       </div>
     </div>

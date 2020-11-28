@@ -38,9 +38,18 @@ public class SentenceController extends HierarchicObjectController<Sentence> {
                         sentence.getText().toObjectReference()
                     )
                 );
+                if (sentence.getContext().getParagraph() != null) {
+                    links.add(
+                        new CorpusPathSegment(
+                            null, sentence.getContext().getParagraph(),
+                            null, "paragraph"
+                        )
+                    );
+                }
                 links.add(
-                    CorpusPathSegment.of(
-                        sentence.getContext().getLine()
+                    new CorpusPathSegment(
+                        null, sentence.getContext().getLine(),
+                        null, "line"
                     )
                 );
             }

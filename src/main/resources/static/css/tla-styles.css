@@ -316,11 +316,9 @@ a.navbar-brand {
 }
 
 .icon:before {
-    display: inline-block;
-    font-style: normal;
-    font-variant: normal;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
+    display: none;
+    font-family: "Font Awesome 5 Free" !important;
+    font-weight: 900;
 }
 
 .red-status span {
@@ -328,26 +326,25 @@ a.navbar-brand {
 }
 
 .red-status span.ok:before {
-    font-family: "Font Awesome 5 Free" !important;
-    font-weight: 900;
     content: "\f058";
+}
+.red-status span.ok svg {
     color: var(--success);
 }
 
 .red-status span.pending:before {
-    font-family: "Font Awesome 5 Free" !important;
-    font-weight: 900;
     content: "\f059";
-    color: var(--warning) !important;
+}
+.red-status span.pending svg {
+    color: var(--warning);
 }
 
 .red-status span.notok:before {
-    font-family: "Font Awesome 5 Free" !important;
-    font-weight: 900;
     content: "\f05e";
-    color: var(--danger) !important;
 }
-
+.red-status span.notok svg {
+    color: var(--danger);
+}
 
 a.share-results {
     color: grey !important;
@@ -362,21 +359,15 @@ a.share-results:hover {
     color: white;
 }
 
-.result-list-item .occ-tok.highlight-2 {
-    background-color: grey;
-    color: white;
-}
-
-.corpus-path-element {
+.object-path-element {
     display: inline;
 }
 
-
-.corpus-path-element a {
+.occ-list-item .object-path-element a {
     color: grey !important;
 }
 
-.corpus-path-element a:hover {
+.object-path-element a:hover {
     color: var(--BBAWred) !important;
 }
 
@@ -389,17 +380,35 @@ span.lc:hover {
     color: var(--BBAWred) !important;
 }
 
-.result-list-item img.occ-tok-glyphs.highlight-1,
-.result-list-item svg.occ-tok-glyphs.highlight-1 {
+.object-path-icon:before {
+    display: none;
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+}
+.object-path-icon svg {
+    color: var(--BBAWlightbluegrey);
+}
+.object-path-icon.BTSThsEntry:before {
+    content: '\f02b';
+}
+.object-path-icon.BTSText:before {
+    content: '\f15c';
+}
+.object-path-icon.BTSTCObject:before {
+    content: '\f07c';
+}
+.object-path-icon.paragraph:before {
+    content: '\f1dd';
+}
+.object-path-icon.line:before {
+    content: '\f03c';
+}
+
+.result-list-item svg.sentence-token-glyphs.highlight-1 {
     border: 1px solid var(--BBAWred);
     border-radius: 2px;
 }
 
-/*.occ-list-item img.occ-tok-glyphs.highlight-1,
-.occ-list-item canvas.res.occ-tok-glyphs.highlight-1 {
-	border: 1px solid #C60C30; 
-	border-radius: 2px;
-}*/
 .occ-list-item .highlight-1 {
     background-color: var(--BBAWlightgrey);
 }
@@ -822,7 +831,6 @@ footer.bg-light {
 
 
 .svg-inline--fa {
-    margin-right: 0.5rem;
     vertical-align: -.1em;
 }
 

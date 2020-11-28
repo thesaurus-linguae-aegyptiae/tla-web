@@ -2,6 +2,7 @@ package tla.web.model.ui;
 
 import lombok.Getter;
 import lombok.Setter;
+import tla.web.service.CorpusObjectService;
 
 @Getter
 @Setter
@@ -9,6 +10,10 @@ public class CorpusPathSegment extends BreadCrumb {
 
     private String type;
     private String eclass;
+
+    public CorpusPathSegment(String label) {
+        super(null, label);
+    }
 
     public CorpusPathSegment(String href, String label) {
         super(href, label);

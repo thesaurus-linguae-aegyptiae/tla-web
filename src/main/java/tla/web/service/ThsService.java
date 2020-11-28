@@ -12,7 +12,7 @@ public class ThsService extends ObjectService<ThsEntry> {
 
     @Override
     public String getLabel(ThsEntry object) {
-        return Util.jseshRender(
+        return Util.escapeMarkup(
             object.getName()
         );
     }
