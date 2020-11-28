@@ -208,7 +208,7 @@ a.navbar-brand {
     cursor: pointer;
 }
 
-.result-list-item:hover h2 .hieroglyph {
+.result-list-item:hover h2 .hieroglyphs {
     background-color: white;
 }
 
@@ -354,7 +354,7 @@ a.share-results:hover {
     color: var(--BBAWred);
 }
 
-.result-list-item .occ-tok.highlight-1 {
+.result-list-item .sentence-token.highlight {
     background-color: var(--BBAWred);
     color: white;
 }
@@ -450,6 +450,23 @@ span.lc:hover {
     position: relative;
 }
 
+.sentence-line-mode .transcription {
+    font-size: 1.25rem;
+    line-height: 1.2;
+    padding-left: 0.25rem;
+}
+.transcription .sentence-token.rubrum {
+    color: var(--BBAWred);
+}
+.transcription a {
+    color: var(--BBAWdarkgrey);
+}
+.sentence-line-mode :target span svg {
+    background-color: yellow;
+    border: 1px solid var(--BBAWmiddlebluegrey);
+    border-radius: 3px;
+}
+
 .token-destruction_marker {
     color: grey !important;
     font-style: italic;
@@ -504,7 +521,7 @@ span.lc:hover {
     position: relative;
 }
 
-.result-list-item span.glyphbox img:hover {
+span.token-glyphs svg:hover {
     border-bottom: 1px solid var(--BBAWred);
 }
 

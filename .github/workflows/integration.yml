@@ -1,3 +1,5 @@
+---
+
 name: deploy
 
 on: [pull_request]
@@ -14,7 +16,7 @@ jobs:
     - name: start backend containers
       run: docker-compose up -d backend
       env:
-        SAMPLE_URL: http://aaew64.bbaw.de/resources/tla-data/tla-sample-20201117-5000t.tar.gz
+        SAMPLE_URL: http://aaew64.bbaw.de/resources/tla-data/tla-sample-20201122-100t.tar.gz
         ES_PORT: 9201
         BACKEND_PORT: 8090
         LISTEN_PORT: 8080
@@ -49,21 +51,6 @@ jobs:
         interval: 5000
         timeout: 100000
 
-    - name: screenshot search form
-      uses: "lannonbr/puppeteer-screenshot-action@1.3.1"
-      with:
-        url: http://localhost:8080/search
-
-    - name: screenshot search form german
-      uses: "lannonbr/puppeteer-screenshot-action@1.3.1"
-      with:
-        url: http://localhost:8080/search?lang=de
-
-    - name: screenshot backend response
-      uses: "lannonbr/puppeteer-screenshot-action@1.3.1"
-      with:
-        url: http://localhost:8090/lemma/get/100690
-
     - name: screenshot lemma search results page
       uses: "flameddd/screenshots-ci-action@v1.1.1"
       with:
@@ -71,7 +58,7 @@ jobs:
         devices: iPhone 6,iPhone 6 landscape,Nexus 7,Pad Pro,Galaxy S III landscape,iPad Pro landscape
         type: png
 
-    - name: upload screenies
+    - name: upload screenshots
       uses: "actions/upload-artifact@v2"
       with:
         path: screenshots
@@ -84,8 +71,36 @@ jobs:
         devices: iPhone 6,iPhone 6 landscape,Nexus 7,Pad Pro,Galaxy S III landscape,iPad Pro landscape
         type: png
 
-    - name: upload screenies
+    - name: upload screenshots
       uses: "actions/upload-artifact@v2"
       with:
         path: screenshots
         name: lemma-details
+
+    - name: screenshot sentence details page
+      uses: "flameddd/screenshots-ci-action@v1.1.1"
+      with:
+        url: http://localhost:8080/sentence/IBcCBk4iMpj3kkQdjh2n8l45qDk#IBcCBltDRvxankRbqiB3PeRy9R4
+        devices: iPhone 6,iPhone 6 landscape,Nexus 7,Pad Pro,Galaxy S III landscape,iPad Pro landscape
+        type: png
+
+    - name: upload screenshots
+      uses: "actions/upload-artifact@v2"
+      with:
+        path: screenshots
+        name: sentence-details
+
+    - name: screenshot ths details page
+      uses: "flameddd/screenshots-ci-action@v1.1.1"
+      with:
+        url: http://localhost:8080/thesaurus/7pupjz
+        devices: iPhone 6,iPhone 6 landscape,Nexus 7,Pad Pro,Galaxy S III landscape,iPad Pro landscape
+        type: png
+
+    - name: upload screenshots
+      uses: "actions/upload-artifact@v2"
+      with:
+        path: screenshots
+        name: ths-details
+
+...

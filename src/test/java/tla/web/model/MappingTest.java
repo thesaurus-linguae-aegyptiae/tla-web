@@ -213,7 +213,8 @@ public class MappingTest {
             () -> assertNotNull(t.getType(), "type"),
             () -> assertNotNull(t.getFlexion(), "flexion information"),
             () -> assertNotNull(t.getTranslations(), "translation"),
-            () -> assertNotNull(t.getLemma(), "lemmatization information")
+            () -> assertNotNull(t.getLemma(), "lemmatization information"),
+            () -> assertTrue(t.getAnnoTypes().contains("subtext"), "annotation types")
         );
     }
 }

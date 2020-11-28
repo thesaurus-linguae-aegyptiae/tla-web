@@ -38,6 +38,15 @@ public class Sentence extends TLAObject implements Hierarchic {
     @Singular
     private SortedMap<Language, List<String>> translations;
 
+    /**
+     * Determine whether any of a sentence's tokens have any hieroglyph encodings.
+     */
+    public boolean hasGlyphs() {
+        return this.tokens.stream().anyMatch(
+            token -> !token.getGlyphs().isEmpty()
+        );
+    }
+
     public String getName() {
         return this.getText() != null ? this.getText().getName() : null;
     }
