@@ -1,8 +1,7 @@
 package tla.web.mvc;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -23,7 +22,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.context.WebApplicationContext;
 
 import lombok.extern.slf4j.Slf4j;
-
+import tla.domain.dto.ThsEntryDto;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.AbstractDto;
 import tla.error.ObjectNotFoundException;
@@ -45,13 +44,6 @@ public class ThsEntryDetailsTest extends ViewTest {
     @Autowired
     private WebApplicationContext ctx;
 
-    @BeforeEach
-    void init() {
-        for (String s : ctx.getBeanDefinitionNames()) {
-            log.warn("TEST BEAN: " + s);
-        }
-    }
-
     @SuppressWarnings("unchecked")
     private SingleDocumentWrapper<AbstractDto> thsEntryDetailsDTO(String id) throws Exception {
         return tla.domain.util.IO.loadFromFile(
@@ -65,10 +57,19 @@ public class ThsEntryDetailsTest extends ViewTest {
 
     private ObjectDetails<ThsEntry> mapDetailsDTO(SingleDocumentWrapper<AbstractDto> dto) {
         log.info("map object details DTO to domain model");
-        assertNotNull(dto);
-        assertNotNull(dto.getDoc());
+        assertAll("wrapper DTO should contain thesaurus entry DTO",
+            () -> assertNotNull(dto),
+            () -> assertNotNull(dto.getDoc()),
+            () -> assertEquals(ThsEntryDto.class, dto.getDoc().getClass())
+        );
         ObjectDetails<TLAObject> container = ObjectDetails.from(
             dto
+        );
+        assertAll("wrapper DTO should be mapped to object details container",
+            () -> assertNotNull(container),
+            () -> assertNotNull(container.getObject()),
+            () -> assertEquals(ThsEntry.class, container.getObject().getClass()),
+            () -> assertTrue(container.getObject() instanceof ThsEntry)
         );
         return new ObjectDetails<ThsEntry>(
             (ThsEntry) container.getObject(),
