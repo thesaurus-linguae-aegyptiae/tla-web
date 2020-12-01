@@ -408,6 +408,16 @@ span.lc:hover {
     border: 1px solid var(--BBAWred);
     border-radius: 2px;
 }
+.result-list-item-element .hieroglyphs svg {
+    height: 2rem;
+}
+.hieroglyphs svg {
+    vertical-align: text-bottom;
+    height: 4rem;
+}
+.hieroglyphs .token-glyphs svg {
+    height: 2.4rem;
+}
 
 .occ-list-item .highlight-1 {
     background-color: var(--BBAWlightgrey);

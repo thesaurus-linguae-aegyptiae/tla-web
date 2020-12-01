@@ -57,7 +57,11 @@ public class MappingTest {
             () -> assertEquals("N35", word.getGlyphs().getMdc(), "mdc correct?"),
             () -> assertTrue(
                 word.getGlyphs().getSvg().startsWith("<svg xmlns"),
-                "check svg xml JSesh rendering result"
+                "<?xml> tag removed from jsesh svg export"
+            ),
+            () -> assertTrue(
+                word.getGlyphs().getSvg().contains("viewBox=\""),
+                "jsesh svg export patched with viewBox attribute"
             ),
             () -> assertTrue(
                 lemma.getExternalReferences().get("cfeetk").get(0) instanceof tla.web.model.parts.ExternalReference

@@ -2,12 +2,14 @@ package tla.web.model.mappings;
 
 import java.awt.geom.Rectangle2D;
 import java.io.StringWriter;
+import java.io.Writer;
 import java.util.List;
 
 import org.apache.commons.lang3.RegExUtils;
 import org.qenherkhopeshef.graphics.svg.SVGGraphics2D;
 
 import jsesh.mdc.MDCParserModelGenerator;
+import jsesh.mdc.MDCSyntaxError;
 import jsesh.mdc.model.TopItem;
 import jsesh.mdc.model.TopItemList;
 import jsesh.mdcDisplayer.draw.MDCDrawingFacade;
@@ -23,7 +25,35 @@ public class Util {
     public static final String SERIF_FONT_MARKUP_REGEX = "\\$([^$]+)\\$";
     public static final String SERIF_FONT_MARKUP_REPLACEMENT = "<span class=\"bbaw-libertine\">$1</span>";
 
-    private static final String XML_HEAD = "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>";
+    public static final String XML_HEAD = "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>";
+    public static final String SVG_ATTR_REGEX = "width=.([0-9.]+). height=.([0-9.]+).";
+    public static final String SVG_ATTR_REPLACEMENT = "viewBox=\"0 0 $1 $2\"";
+    private static MDCDrawingFacade facade = new MDCDrawingFacade();
+
+    public static String patchSVG(Writer writer) {
+        var jsesh = writer.toString();
+        if (jsesh.startsWith("<?xml")) {
+            jsesh = jsesh.substring(
+                XML_HEAD.length()
+            );
+        }
+        return RegExUtils.replacePattern(
+            jsesh, SVG_ATTR_REGEX, SVG_ATTR_REPLACEMENT
+        );
+    }
+
+    private static TopItemList topItems(String mdc, boolean rubrum) throws MDCSyntaxError {
+        TopItemList topItems;
+        if (rubrum) {
+            List<TopItem> parsed = new MDCParserModelGenerator().parse(mdc).asList();
+            parsed.forEach(item -> item.setRed(rubrum));
+            topItems = new TopItemList();
+            topItems.addAll(parsed);
+        } else  {
+            topItems = new MDCParserModelGenerator().parse(mdc);
+        }
+        return topItems;
+    }
 
     /**
      * Tries to use JSesh in order to render an MdC hieroglyph encoding
@@ -33,46 +63,31 @@ public class Util {
      * @return textual serialization of SVG vector graphic or null
      */
     public static String jseshRender(String mdc, boolean rubrum) {
-        if (mdc != null) {
-            MDCDrawingFacade facade = new MDCDrawingFacade();
-            StringWriter writer = new StringWriter();
-            try {
+        if (mdc != null && !mdc.isBlank()) {
+            try (StringWriter writer = new StringWriter()) {
                 Rectangle2D boundingBox = facade.getBounds(
                     mdc, 0, 0
                 );
-                List<TopItem> parsed = new MDCParserModelGenerator().parse(mdc).asList();
-                parsed.forEach(item -> item.setRed(rubrum));
-                TopItemList topItems = new TopItemList();
-                topItems.addAll(parsed);
-                facade.draw(
-                    topItems,
-                    new SVGGraphics2D(
-                        writer,
-                        new DoubleDimensions(
-                            boundingBox.getWidth(),
-                            boundingBox.getHeight()
-                        )
-                    ),
-                    0, 0
+                var svg = new SVGGraphics2D(
+                    writer,
+                    new DoubleDimensions(
+                        boundingBox.getWidth(),
+                        boundingBox.getHeight()
+                    )
                 );
+                facade.draw(
+                    topItems(mdc, rubrum), svg, 0, 0
+                );
+                svg.dispose();
+                return patchSVG(writer);
             } catch (Exception e) {
                 log.warn(
                     "Jsesh could not render hieroglyph encoding '{}': {}",
-                    mdc,
-                    e.toString()
+                    mdc, e.toString()
                 );
             }
-            String jsesh = writer.toString();
-            if (jsesh.length() > XML_HEAD.length()) {
-                jsesh = String.format(
-                    "%s</svg>",
-                    jsesh.substring(XML_HEAD.length())
-                );
-            }
-            return jsesh;
-        } else {
-            return null;
         }
+        return null;
     }
 
     /**
