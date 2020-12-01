@@ -91,9 +91,9 @@
             <strong class="details-property-label" th:text="#{object_property_editors}">Editors:</strong>
             <span class="editor" th:each="editor : ${obj.edited.contributors}" th:text="${editor}"/>
         </div>
-        <div class="updated">
+        <div class="updated" th:with="formatter=#{date_formatter}">
             <strong class="details-property-label" th:text="#{object_property_editors_updated}">Updated</strong>
-            <span th:text="${#dates.formatISO(obj.edited.updated)}">date</span>
+            <span th:text="${#calendars.format(obj.edited.updated, formatter)}">date</span>
         </div>
         <div class="review-state">
             <strong class="details-property-label" th:text="#{object_property_review_state}">Review State:</strong>
