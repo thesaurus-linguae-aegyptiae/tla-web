@@ -151,7 +151,7 @@
     <span th:fragment="single-lang-translation(entry)">
       <span class="lang-icon text-uppercase" th:text="${entry.key}">DE</span>
       <span th:each="translation,iter : ${entry.value}" th:class="|translation-${entry.key}|">
-        <span class="translation" th:text="${translation}">
+        <span class="translation" th:utext="${{translation}}">
           Translation
         </span>
         <span th:unless="${iter.last}">|</span>
@@ -164,12 +164,12 @@
         <div th:each="item, iter : ${objectPath}" class="object-path-element">
           <i th:class="|object-path-icon ${item.eclass} ${item.type}|"></i>
           <a th:if="${item.href} != null" th:href="${item.href}">
-            <span th:utext="${item.label}">
+            <span th:utext="${{item.label}}">
               corpus path segment
             </span>
           </a>
           <span th:unless="${item.href} != null">
-            <span th:utext="${item.label}" th:class="${iter.last} ? lc">
+            <span th:utext="${{item.label}}" th:class="${iter.last} ? lc">
               corpus path segment
             </span>
           </span>

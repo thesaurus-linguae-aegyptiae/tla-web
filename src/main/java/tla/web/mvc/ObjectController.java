@@ -103,7 +103,7 @@ public abstract class ObjectController<T extends TLAObject> {
     public static BreadCrumb createLink(Resolvable ref) {
         return CorpusPathSegment.of(
             getDetailsViewPath(ref.getEclass(), ref.getId()),
-            Util.escapeMarkup(ref.getName()),
+            ref.getName(),
             ref.getEclass(),
             ref.getType()
         );

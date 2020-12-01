@@ -10,6 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import tla.web.config.ApplicationProperties;
+import tla.web.model.mappings.BTSMarkupConverter;
 import tla.web.model.mappings.LanguageFromStringConverter;
 import tla.web.model.mappings.ScriptFromStringConverter;
 
@@ -39,6 +40,7 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new ScriptFromStringConverter());
         registry.addConverter(new LanguageFromStringConverter());
+        registry.addConverter(new BTSMarkupConverter());
     }
 
     @Override
