@@ -16,6 +16,8 @@ import tla.domain.dto.LemmaDto;
 import tla.domain.dto.TextDto;
 import tla.domain.dto.ThsEntryDto;
 import tla.domain.dto.meta.AbstractDto;
+import tla.domain.dto.meta.DocumentDto;
+import tla.domain.dto.meta.NamedDocumentDto;
 import tla.domain.model.SentenceToken;
 import tla.domain.model.meta.BTSeClass;
 import tla.web.config.ApplicationProperties;
@@ -23,6 +25,7 @@ import tla.web.model.Lemma;
 import tla.web.model.Text;
 import tla.web.model.ThsEntry;
 import tla.web.model.meta.BTSObject;
+import tla.web.model.meta.ModelClass;
 import tla.web.model.meta.TLAObject;
 import tla.web.model.parts.Glyphs;
 import tla.web.model.parts.Token;
@@ -68,38 +71,31 @@ public class MappingConfig {
     private ModelMapper initModelMapper() {
         modelMapper = new ModelMapper();
         ExternalReferencesConverter externalReferencesConverter = externalReferencesConverter();
-        modelMapper.createTypeMap(AnnotationDto.class, tla.web.model.Annotation.class).addMapping(
-            AnnotationDto::getEditors, tla.web.model.Annotation::setEdited
-        );
-        modelMapper.createTypeMap(LemmaDto.class, Lemma.class).addMappings(
+        modelMapper.createTypeMap(NamedDocumentDto.class, BTSObject.class).addMappings(
             m -> m.using(externalReferencesConverter).map(
-                LemmaDto::getExternalReferences,
-                Lemma::setExternalReferences
-            )
-        ).addMapping(
-            LemmaDto::getEditors, Lemma::setEdited
-        );
-        modelMapper.createTypeMap(ThsEntryDto.class, ThsEntry.class).addMapping(
-            ThsEntryDto::getEditors, ThsEntry::setEdited
-        ).addMappings(
-            m -> m.using(externalReferencesConverter).map(
-                ThsEntryDto::getExternalReferences,
-                ThsEntry::setExternalReferences
+                NamedDocumentDto::getExternalReferences,
+                BTSObject::setExternalReferences
             )
         );
+        modelMapper.createTypeMap(DocumentDto.class, BTSObject.class).addMapping(
+            DocumentDto::getEditors, BTSObject::setEdited
+        );
+        /* annotation */
+        modelMapper.createTypeMap(
+            AnnotationDto.class, tla.web.model.Annotation.class
+        ).includeBase(DocumentDto.class, BTSObject.class);
+        /* lemma */
+        modelMapper.createTypeMap(LemmaDto.class, Lemma.class).includeBase(NamedDocumentDto.class, BTSObject.class).includeBase(DocumentDto.class, BTSObject.class);
+        /* thesaurus entry */
+        modelMapper.createTypeMap(ThsEntryDto.class, ThsEntry.class).includeBase(NamedDocumentDto.class, BTSObject.class).includeBase(DocumentDto.class, BTSObject.class);
+        /* sentence */
         modelMapper.createTypeMap(SentenceToken.class, Token.class).addMappings(
             m -> m.using(new TokenGlyphsConverter()).map(
                 dto -> dto, Token::setGlyphs
             )
         );
-        modelMapper.createTypeMap(TextDto.class, Text.class).addMappings(
-            m -> m.using(externalReferencesConverter).map(
-                TextDto::getExternalReferences,
-                Text::setExternalReferences
-            )
-        ).addMapping(
-            TextDto::getEditors, Text::setEdited
-        );
+        /* text */
+        modelMapper.createTypeMap(TextDto.class, Text.class).includeBase(NamedDocumentDto.class, BTSObject.class).includeBase(DocumentDto.class, BTSObject.class);
         return modelMapper;
     }
 

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import lombok.extern.slf4j.Slf4j;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.AbstractDto;
 import tla.domain.model.meta.BTSeClass;
@@ -14,10 +15,12 @@ import tla.web.model.meta.ObjectDetails;
 import tla.web.model.meta.TLAObject;
 import tla.web.repo.TlaClient;
 
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * Generic TLA domain model type object operations component.
+ *
+ * Subclasses are expected to specify their resptive domain model types in a {@link ModelClass}
+ * annotation, so that it can be registered with automatic DTO model mapping and the
+ * TLA backend API client.
  */
 @Slf4j
 public abstract class ObjectService<T extends TLAObject> {
