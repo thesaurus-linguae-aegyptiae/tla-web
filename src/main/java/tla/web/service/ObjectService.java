@@ -50,15 +50,13 @@ public abstract class ObjectService<T extends TLAObject> {
     }
 
     /**
-     * Returns {@link BTSeClass} value of a service's domain model class.
+     * Returns {@link BTSeClass} value of a service's domain model class or the {@link TLADTO}
+     * it is annotated with.
      *
      * @see #getModelClass()
      */
     public String getModelEClass() {
-        for (Annotation a : getModelClass().getAnnotationsByType(BTSeClass.class)) {
-            return ((BTSeClass) a).value();
-        }
-        return null;
+        return MappingConfig.extractEclass(this.getModelClass());
     }
 
     /**

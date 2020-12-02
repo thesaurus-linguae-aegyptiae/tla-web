@@ -166,15 +166,21 @@ public class MappingConfig {
     }
 
     /**
+     * get eclass specifier either from {@link BTSeClass} annotation or via {@link TLADTO} annotation.
+     */
+    public static String extractEclass(Class<?> clazz) {
+        return tla.domain.model.meta.Util.extractEclass(clazz);
+    }
+
+    /**
      * Registers a given model class under the <code>eclass</code> value specified in
-     * the {@link BTSeClass} annotation of the model class.
+     * the {@link BTSeClass} annotation of the model class, <em>or</em> of the DTO class
+     * specified in the {@link TLADTO} annotation of the model class.
      *
-     * @param modelClass some {@link BTSObject} subclass with a {@link BTSeClass} annotation
+     * @param modelClass some {@link TLAObject} subclass with {@link BTSeClass} or {@link TLADTO} annotation
      */
     public static void registerModelClass(Class<? extends TLAObject> modelClass) {
-        for (Annotation a : modelClass.getAnnotationsByType(BTSeClass.class)) {
-            modelClasses.put(((BTSeClass) a).value(), modelClass);
-        }
+        modelClasses.put(extractEclass(modelClass), modelClass);
     }
 
     /**
