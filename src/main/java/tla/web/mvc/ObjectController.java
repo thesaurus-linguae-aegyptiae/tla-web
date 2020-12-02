@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import lombok.extern.slf4j.Slf4j;
 import tla.domain.model.meta.Resolvable;
 import tla.error.ObjectNotFoundException;
-import tla.web.model.mappings.Util;
 import tla.web.model.meta.ObjectDetails;
 import tla.web.model.meta.TLAObject;
 import tla.web.model.meta.TemplateModelName;
