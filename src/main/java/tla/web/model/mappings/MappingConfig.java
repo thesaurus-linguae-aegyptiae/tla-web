@@ -1,29 +1,25 @@
 package tla.web.model.mappings;
 
 import java.lang.annotation.Annotation;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.modelmapper.AbstractConverter;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import lombok.extern.slf4j.Slf4j;
-import tla.domain.dto.AnnotationDto;
-import tla.domain.dto.LemmaDto;
-import tla.domain.dto.TextDto;
-import tla.domain.dto.ThsEntryDto;
 import tla.domain.dto.meta.AbstractDto;
 import tla.domain.dto.meta.DocumentDto;
 import tla.domain.dto.meta.NamedDocumentDto;
 import tla.domain.model.SentenceToken;
 import tla.domain.model.meta.BTSeClass;
+import tla.domain.model.meta.TLADTO;
 import tla.web.config.ApplicationProperties;
-import tla.web.model.Lemma;
-import tla.web.model.Text;
-import tla.web.model.ThsEntry;
 import tla.web.model.meta.BTSObject;
 import tla.web.model.meta.ModelClass;
 import tla.web.model.meta.TLAObject;
@@ -31,17 +27,31 @@ import tla.web.model.parts.Glyphs;
 import tla.web.model.parts.Token;
 
 /**
- * This class is used to keep record of domain model classes and their DTO type
- * counterparts associated with them via their respective {@link BTSeClass} annotations.
+ * This component is used to keep record of domain model classes and their DTO type
+ * counterparts associated with them via their respective {@link BTSeClass} and {@link TLADTO} annotations.
+ * This enables object services to convert incoming DTO sent by the TLA backend into instances of corresponding
+ * classes from the web frontend model (using )
  *
- * Its model class registry allows for conversion of incoming DTO into instances of
- * the model class they represent, using {@link #convertDTO(AbstractDto)}.
+ * <p>Domain model classes get registered by their respective object service, as long as the service's default
+ * constructor is being invoked (e.g. by virtue of being a spring service). Such a domain model class
+ * <strong>must</strong> be annotated with a {@link BTSeClass} annotation in order to enable object services
+ * to process DTO responses from the TLA backend (services use the method {@link #convertDTO(AbstractDto)}
+ * for this). Model classes should also be annotated with a {@link TLADTO} annotation specifying the DTO
+ * type they correspond to, so that a model mapping can automatically be created for conversion from such DTO
+ * to domain model class instances. </p>
+ *
+ * <p>Generic mappings can be specified for DTO and domain model superclasses in {@link #initModelMapper()},
+ * and then automatically be inherited by subclassing domain model classes (cf.
+ * {@link #registerModelMapping(Class, Class)})). Specific model mappings can also be customized in
+ * {@link #initModelMapper()}. However, mappings for model components must be declared before mappings for
+ * model classes containing those components (e.g. token mappings must be declared <em>before</em> lemma and
+ * sentence mappings, because token mappings would reset lemma and sentence mappings otherweise). </p>
  */
 @Slf4j
 @Configuration
 public class MappingConfig {
 
-    private class TokenGlyphsConverter extends AbstractConverter<SentenceToken, Glyphs> {
+    private static class TokenGlyphsConverter extends AbstractConverter<SentenceToken, Glyphs> {
         @Override
         protected Glyphs convert(SentenceToken source) {
             return Glyphs.of(
@@ -65,12 +75,18 @@ public class MappingConfig {
 
     @Bean
     public ModelMapper modelMapper() {
-        return modelMapper != null ? modelMapper : initModelMapper();
+        return modelMapper != null ? modelMapper : this.initModelMapper();
     }
 
+    /**
+     * Creates a new model mapper and configures type maps for converting DTO to domain model
+     * class instances.
+     */
     private ModelMapper initModelMapper() {
         modelMapper = new ModelMapper();
+        log.info("registered model classes: {}", modelClasses.values());
         ExternalReferencesConverter externalReferencesConverter = externalReferencesConverter();
+        /* general base type mappings */
         modelMapper.createTypeMap(NamedDocumentDto.class, BTSObject.class).addMappings(
             m -> m.using(externalReferencesConverter).map(
                 NamedDocumentDto::getExternalReferences,
@@ -80,23 +96,73 @@ public class MappingConfig {
         modelMapper.createTypeMap(DocumentDto.class, BTSObject.class).addMapping(
             DocumentDto::getEditors, BTSObject::setEdited
         );
-        /* annotation */
-        modelMapper.createTypeMap(
-            AnnotationDto.class, tla.web.model.Annotation.class
-        ).includeBase(DocumentDto.class, BTSObject.class);
-        /* lemma */
-        modelMapper.createTypeMap(LemmaDto.class, Lemma.class).includeBase(NamedDocumentDto.class, BTSObject.class).includeBase(DocumentDto.class, BTSObject.class);
-        /* thesaurus entry */
-        modelMapper.createTypeMap(ThsEntryDto.class, ThsEntry.class).includeBase(NamedDocumentDto.class, BTSObject.class).includeBase(DocumentDto.class, BTSObject.class);
-        /* sentence */
+        /* specific type mappings */ 
         modelMapper.createTypeMap(SentenceToken.class, Token.class).addMappings(
             m -> m.using(new TokenGlyphsConverter()).map(
                 dto -> dto, Token::setGlyphs
             )
         );
-        /* text */
-        modelMapper.createTypeMap(TextDto.class, Text.class).includeBase(NamedDocumentDto.class, BTSObject.class).includeBase(DocumentDto.class, BTSObject.class);
+        /* add mappings for registered model classes and apply base type mappings */
+        this.registerModelMappings();
         return modelMapper;
+    }
+
+    /**
+     * Returns all model classes previously registered via {@link #registerModelClass(Class)}.
+     */
+    public static Collection<Class<? extends TLAObject>> getRegisteredModelClasses() {
+        return modelClasses.values();
+    }
+
+    /**
+     * Register mappings for all previously registered model classes..
+     */
+    private void registerModelMappings() {
+        for (Class<? extends TLAObject> modelClass : getRegisteredModelClasses()) {
+            for (Annotation a : modelClass.getAnnotationsByType(TLADTO.class)) {
+                registerModelMapping(((TLADTO) a).value(), modelClass);
+            }
+        }
+    }
+
+    /**
+     * Produces the model mapper's type map for the specified DTO type and model class.
+     * If the model mapper doesn't already have a type map for those two specific classes,
+     * it will create an empty one and return the result.
+     */
+    private TypeMap<?, ?> getDTOModelTypeMap(
+        Class<? extends AbstractDto> dtoClass, Class<? extends TLAObject> modelClass
+    ) {
+        TypeMap<?, ?> typemap = modelMapper().getTypeMap(
+            dtoClass.asSubclass(AbstractDto.class), modelClass.asSubclass(TLAObject.class)
+        );
+        if (typemap == null) {
+            typemap = modelMapper().createTypeMap(
+                dtoClass.asSubclass(AbstractDto.class), modelClass.asSubclass(TLAObject.class)
+            );
+        }
+        return typemap;
+    }
+
+    /**
+     * Register mappings from DTO to domain model class instances by creating a type map
+     * in the {@link ModelMapper} for the specified classes.
+     */
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    protected <D extends AbstractDto, T extends TLAObject> TypeMap<D, T> registerModelMapping(
+        Class<D> dtoClass, Class<T> modelClass
+    ) {
+        log.info("register model mappings from {} to {}", dtoClass, modelClass);
+        TypeMap typemap = getDTOModelTypeMap(dtoClass, modelClass);
+        if (BTSObject.class.isAssignableFrom(modelClass)) {
+            if (DocumentDto.class.isAssignableFrom(dtoClass)) {
+                typemap.includeBase(DocumentDto.class, BTSObject.class);
+            }
+            if (NamedDocumentDto.class.isAssignableFrom(dtoClass)) {
+                typemap.includeBase(NamedDocumentDto.class, BTSObject.class);
+            }
+        }
+        return typemap;
     }
 
     /**
@@ -106,10 +172,8 @@ public class MappingConfig {
      * @param modelClass some {@link BTSObject} subclass with a {@link BTSeClass} annotation
      */
     public static void registerModelClass(Class<? extends TLAObject> modelClass) {
-        for (Annotation a : modelClass.getAnnotations()) {
-            if (a instanceof BTSeClass) {
-                modelClasses.put(((BTSeClass) a).value(), modelClass);
-            }
+        for (Annotation a : modelClass.getAnnotationsByType(BTSeClass.class)) {
+            modelClasses.put(((BTSeClass) a).value(), modelClass);
         }
     }
 
@@ -146,6 +210,9 @@ public class MappingConfig {
         } catch (IllegalArgumentException e) {
             log.error("No model mapping for DTO type {}!", dto.getEclass());
             return new TLAObject(){};
+        } catch (NullPointerException e) {
+            log.error("Could not map DTO to web model. Model mapper not yet initialized!");
+            return null;
         }
     }
 

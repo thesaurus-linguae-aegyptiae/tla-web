@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import tla.domain.dto.TextDto;
 import tla.domain.model.meta.BTSeClass;
+import tla.domain.model.meta.TLADTO;
 import tla.web.model.meta.BackendPath;
 
 @Getter
@@ -12,6 +13,7 @@ import tla.web.model.meta.BackendPath;
 @NoArgsConstructor
 @BackendPath("text")
 @BTSeClass("BTSText")
+@TLADTO(TextDto.class)
 public class Text extends CorpusObject {
 
     private TextDto.WordCount wordCount;
