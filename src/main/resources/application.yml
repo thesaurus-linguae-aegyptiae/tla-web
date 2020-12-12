@@ -24,6 +24,9 @@ tla:
             id-pattern: ^-?[1-9][0-9]*$
         aegyptiaca:
             default-format: https://aegyptiaca.uni-muenster.de/Record/{id}
+        bm:
+            type-formats:
+                object: https://www.britishmuseum.org/collection/object/{id}
         dza:
             type-formats:
                 hieratic_hieroglyphic: http://aaew.bbaw.de/tla/servlet/DzaBrowser?u=guest&f=0&l=0&wn={id}

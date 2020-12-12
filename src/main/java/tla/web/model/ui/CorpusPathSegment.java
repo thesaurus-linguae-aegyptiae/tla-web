@@ -2,7 +2,6 @@ package tla.web.model.ui;
 
 import lombok.Getter;
 import lombok.Setter;
-import tla.web.service.CorpusObjectService;
 
 @Getter
 @Setter

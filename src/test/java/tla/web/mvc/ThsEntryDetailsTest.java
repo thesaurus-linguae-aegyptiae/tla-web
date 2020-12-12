@@ -2,15 +2,13 @@ package tla.web.mvc;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.Optional;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -19,16 +17,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.web.context.WebApplicationContext;
 
 import lombok.extern.slf4j.Slf4j;
 import tla.domain.dto.ThsEntryDto;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.AbstractDto;
 import tla.error.ObjectNotFoundException;
+import tla.web.model.ThsEntry;
 import tla.web.model.meta.ObjectDetails;
 import tla.web.model.meta.TLAObject;
-import tla.web.model.ThsEntry;
 import tla.web.service.ThsService;
 
 @Slf4j
@@ -40,9 +37,6 @@ public class ThsEntryDetailsTest extends ViewTest {
 
     @Autowired
     private ThsController controller;
-
-    @Autowired
-    private WebApplicationContext ctx;
 
     @SuppressWarnings("unchecked")
     private SingleDocumentWrapper<AbstractDto> thsEntryDetailsDTO(String id) throws Exception {
