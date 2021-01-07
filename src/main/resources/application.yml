@@ -27,6 +27,8 @@ tla:
         bm:
             type-formats:
                 object: https://www.britishmuseum.org/collection/object/{id}
+        dwl:
+            default-format: https://www.dwl.aegyptologie.lmu.de/suche.php?nummer={id}
         dza:
             type-formats:
                 hieratic_hieroglyphic: http://aaew.bbaw.de/tla/servlet/DzaBrowser?u=guest&f=0&l=0&wn={id}
