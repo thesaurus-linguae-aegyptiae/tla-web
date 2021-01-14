@@ -71,11 +71,11 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-web:2.4.1'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.4.1'
-    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.5.1'
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.5.2'
     implementation 'org.slf4j:slf4j-simple:2.0.0-alpha1'
     implementation 'org.apache.commons:commons-lang3:3.11'
 
-    implementation 'com.github.jkatzwinkel:tla-common:etl-model-SNAPSHOT'
+    implementation 'com.github.thesaurus-linguae-aegyptiae:tla-common:master-SNAPSHOT'
     implementation 'com.github.rosmord.jsesh:jsesh:release-7.5.5'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.4.1'

@@ -54,7 +54,7 @@
      "btsGloss": "SC.pass.ngem.impers",
      "lingGloss": "V\\tam.pass"
     },
-    "glyphs": "Aa2:D36",
+    "glyphs": {"mdc":"Aa2:D36"},
     "transcription": {
      "unicode": "wt",
      "mdc": "wt"
@@ -83,7 +83,7 @@
      "btsGloss": "Prep.stpr.3sgf ",
      "lingGloss": "PREP:stpr"
     },
-    "glyphs": "D2:D21",
+    "glyphs": {"mdc":"D2:D21"},
     "transcription": {
      "unicode": "\u1e25r",
      "mdc": "Hr"
@@ -113,7 +113,7 @@
      "btsGloss": "n/a",
      "lingGloss": "-3sg.f"
     },
-    "glyphs": "S29",
+    "glyphs": {"mdc":"S29"},
     "transcription": {
      "unicode": "=s",
      "mdc": "=s"

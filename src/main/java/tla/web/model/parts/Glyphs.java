@@ -16,6 +16,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class Glyphs {
 
+    public static final Glyphs EMPTY = new Glyphs();
+
     private String unicode;
 
     private String mdc;
@@ -39,6 +41,22 @@ public class Glyphs {
             .unicode(mdc)
             .svg(Util.jseshRender(mdc, rubrum))
             .build();
+    }
+
+    /**
+     * Creates UI hieroglyphs representation for DTO glyphs object, i.e. renders SVG graphics
+     * using JSesh with optional rubrum characteristics.
+     */
+    public static Glyphs of(tla.domain.model.SentenceToken.Glyphs dto, boolean rubrum) {
+        if (dto != null) {
+            return Glyphs.builder()
+                .mdc(dto.getMdc())
+                .unicode(dto.getUnicode())
+                .svg(Util.jseshRender(dto.getMdc(), rubrum))
+                .build();
+        } else {
+            return Glyphs.EMPTY;
+        }
     }
 
     /**
