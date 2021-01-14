@@ -16,7 +16,7 @@ jobs:
     - name: start backend containers
       run: docker-compose up -d backend
       env:
-        SAMPLE_URL: http://aaew64.bbaw.de/resources/tla-data/tla-sample-20201122-100t.tar.gz
+        SAMPLE_URL: http://aaew64.bbaw.de/resources/tla-data/tla-sample-20210113-1000t.tar.gz
         ES_PORT: 9201
         BACKEND_PORT: 8090
         LISTEN_PORT: 8080
@@ -80,7 +80,7 @@ jobs:
     - name: screenshot sentence details page
       uses: "flameddd/screenshots-ci-action@v1.1.1"
       with:
-        url: http://localhost:8080/sentence/IBcCBk4iMpj3kkQdjh2n8l45qDk#IBcCBltDRvxankRbqiB3PeRy9R4
+        url: http://localhost:8080/sentence/IBUBd2wlqrfGukOksfYWn6WXJWU#IBUBd7n4lcbxgkCyu0OfgWHfdWA
         devices: iPhone 6,iPhone 6 landscape,Nexus 7,Pad Pro,Galaxy S III landscape,iPad Pro landscape
         type: png
 
