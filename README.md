@@ -5,6 +5,7 @@
 
 TLA web frontend.
 
+Copyright (C) 2019-2021 Berlin-Brandenburgische Akademie der Wissenschaften
 
 ## Installation
 
