@@ -37,12 +37,11 @@ services:
         build:
             context: https://github.com/JKatzwinkel/tla-es.git#query-expansion
         environment:
-            - ES_HOST=localhost
-            - ES_PORT=${ES_PORT:-9200}
+            - ES_HOST=es
+            - ES_PORT=9200
         ports:
             - ${BACKEND_PORT:-8090}:8090
         tty: true
-        network_mode: host
         restart: unless-stopped
 
 
@@ -51,8 +50,8 @@ services:
         build:
             context: .
         environment:
-            - BACKEND_PORT=${BACKEND_PORT:-8090}
-            - BACKEND_HOST=${BACKEND_HOST:-localhost}
+            - BACKEND_PORT=8090
+            - BACKEND_HOST=backend
             - JQUERY_VERSION
             - COOKIEJS_VERSION
             - FONTAWESOME_VERSION
@@ -60,7 +59,6 @@ services:
         ports:
             - ${LISTEN_PORT:-8080}:8080
         tty: true
-        network_mode: host
         restart: unless-stopped
 
 ...
