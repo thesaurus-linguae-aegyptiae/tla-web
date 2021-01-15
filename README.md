@@ -1,5 +1,5 @@
-![build](https://github.com/JKatzwinkel/tla-web/workflows/build/badge.svg)
-![deploy](https://github.com/JKatzwinkel/tla-web/workflows/deploy/badge.svg)
+![build](https://github.com/thesaurus-linguae-aegyptiae/tla-web/workflows/build/badge.svg)
+![deploy](https://github.com/thesaurus-linguae-aegyptiae/tla-web/workflows/deploy/badge.svg)
 ![LINE](https://img.shields.io/badge/line--coverage-84%25-brightgreen.svg)
 ![METHOD](https://img.shields.io/badge/method--coverage-75%25-yellow.svg)
 
@@ -39,9 +39,9 @@ values to your liking via the environment variables `LISTEN_PORT`, `BACKEND_PORT
 Requirements:
 
 - Java 11
-- [tla-es](https://github.com/JKatzwinkel/tla-es)
+- [tla-es](https://github.com/thesaurus-linguae-aegyptiae/tla-es)
 
-Install, populate, and run the [backend](https://github.com/JKatzwinkel/tla-es) first.
+Install, populate, and run the [backend](https://github.com/thesaurus-linguae-aegyptiae/tla-es) first.
 
 
 Run the frontend application using the `bootRun` task from the spring boot gradle plugin
