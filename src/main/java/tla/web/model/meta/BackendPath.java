@@ -1,16 +1,18 @@
-package tla.web.repo;
+package tla.web.model.meta;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import tla.web.model.TLAObject;
-
+/**
+ * Put this on top of model class in order to assign a URL path where objects
+ * of that model can be retrieved from the backend.
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface ModelClasses {
+public @interface BackendPath {
 
-    public Class<? extends TLAObject>[] value();
+    public String value();
 
 }

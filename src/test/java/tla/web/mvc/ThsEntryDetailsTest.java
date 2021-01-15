@@ -1,17 +1,14 @@
 package tla.web.mvc;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.Optional;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -20,16 +17,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.web.context.WebApplicationContext;
 
 import lombok.extern.slf4j.Slf4j;
-
+import tla.domain.dto.ThsEntryDto;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.AbstractDto;
 import tla.error.ObjectNotFoundException;
-import tla.web.model.ObjectDetails;
-import tla.web.model.TLAObject;
 import tla.web.model.ThsEntry;
+import tla.web.model.meta.ObjectDetails;
+import tla.web.model.meta.TLAObject;
 import tla.web.service.ThsService;
 
 @Slf4j
@@ -41,16 +37,6 @@ public class ThsEntryDetailsTest extends ViewTest {
 
     @Autowired
     private ThsController controller;
-
-    @Autowired
-    private WebApplicationContext ctx;
-
-    @BeforeEach
-    void init() {
-        for (String s : ctx.getBeanDefinitionNames()) {
-            log.warn("TEST BEAN: " + s);
-        }
-    }
 
     @SuppressWarnings("unchecked")
     private SingleDocumentWrapper<AbstractDto> thsEntryDetailsDTO(String id) throws Exception {
@@ -65,10 +51,19 @@ public class ThsEntryDetailsTest extends ViewTest {
 
     private ObjectDetails<ThsEntry> mapDetailsDTO(SingleDocumentWrapper<AbstractDto> dto) {
         log.info("map object details DTO to domain model");
-        assertNotNull(dto);
-        assertNotNull(dto.getDoc());
+        assertAll("wrapper DTO should contain thesaurus entry DTO",
+            () -> assertNotNull(dto),
+            () -> assertNotNull(dto.getDoc()),
+            () -> assertEquals(ThsEntryDto.class, dto.getDoc().getClass())
+        );
         ObjectDetails<TLAObject> container = ObjectDetails.from(
             dto
+        );
+        assertAll("wrapper DTO should be mapped to object details container",
+            () -> assertNotNull(container),
+            () -> assertNotNull(container.getObject()),
+            () -> assertEquals(ThsEntry.class, container.getObject().getClass()),
+            () -> assertTrue(container.getObject() instanceof ThsEntry)
         );
         return new ObjectDetails<ThsEntry>(
             (ThsEntry) container.getObject(),

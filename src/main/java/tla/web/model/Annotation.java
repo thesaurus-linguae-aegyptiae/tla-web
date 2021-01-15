@@ -10,15 +10,19 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import tla.domain.dto.AnnotationDto;
 import tla.domain.model.Passport;
 import tla.domain.model.meta.BTSeClass;
+import tla.domain.model.meta.TLADTO;
 import tla.web.model.mappings.Util;
+import tla.web.model.meta.BTSObject;
 
 @Data
 @NoArgsConstructor
 @BTSeClass("BTSAnnotation")
+@TLADTO(AnnotationDto.class)
 @EqualsAndHashCode(callSuper = true)
-public class Annotation extends TLAObject {
+public class Annotation extends BTSObject {
 
     @Getter(AccessLevel.NONE)
     private Collection<String> body;

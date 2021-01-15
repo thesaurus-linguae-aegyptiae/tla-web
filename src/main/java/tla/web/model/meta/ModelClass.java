@@ -1,4 +1,4 @@
-package tla.web.model;
+package tla.web.model.meta;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,13 +6,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Put this on top of model class in order to assign a URL path where objects
- * of that model can be retrieved from the backend.
+ * Put on top of object service in order to register the domain model class it is responsible for.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface BackendPath {
+public @interface ModelClass {
 
-    public String value();
+    public Class<? extends TLAObject> value();
 
 }

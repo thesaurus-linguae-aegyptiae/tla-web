@@ -5,12 +5,12 @@ services:
 
     es:
         container_name: tla-es
-        image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
         environment:
             ES_JAVA_OPTS: -Xms512m -Xmx512m
             discovery.type: single-node
         ports:
-            - ${ES_PORT}:9200
+            - ${ES_PORT:-9200}:9200
         stdin_open: true
         tty: true
         restart: unless-stopped
@@ -21,7 +21,7 @@ services:
         depends_on:
             - es
         build:
-            context: https://github.com/JKatzwinkel/tla-es.git
+            context: https://github.com/JKatzwinkel/tla-es.git#query-expansion
         environment:
             - ES_HOST=es
             - ES_PORT=9200
@@ -35,14 +35,13 @@ services:
         depends_on:
             - populate
         build:
-            context: https://github.com/JKatzwinkel/tla-es.git
+            context: https://github.com/JKatzwinkel/tla-es.git#query-expansion
         environment:
-            - ES_HOST=localhost
-            - ES_PORT
+            - ES_HOST=es
+            - ES_PORT=9200
         ports:
-            - ${BACKEND_PORT}:8090
+            - ${BACKEND_PORT:-8090}:8090
         tty: true
-        network_mode: host
         restart: unless-stopped
 
 
@@ -51,15 +50,15 @@ services:
         build:
             context: .
         environment:
-            - BACKEND_PORT
+            - BACKEND_PORT=8090
+            - BACKEND_HOST=backend
             - JQUERY_VERSION
             - COOKIEJS_VERSION
             - FONTAWESOME_VERSION
             - BOOTSTRAP_VERSION
         ports:
-            - ${LISTEN_PORT}:8080
+            - ${LISTEN_PORT:-8080}:8080
         tty: true
-        network_mode: host
         restart: unless-stopped
 
 ...

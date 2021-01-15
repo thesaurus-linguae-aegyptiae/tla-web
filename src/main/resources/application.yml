@@ -21,10 +21,14 @@ tla:
             type-formats:
                 hieratic_hieroglyphic: http://aaew.bbaw.de/tla/servlet/GetWcnDetails?u=guest&f=0&l=0&wn={id}&db=0
                 demotic: http://aaew.bbaw.de/tla/servlet/GetWcnDetails?u=guest&f=0&l=0&wn={id}&db=1
-                default: http://aaew.bbaw.de/tla/servlet/GetWcnDetails?u=guest&f=0&l=0&wn={id}&db=0
             id-pattern: ^-?[1-9][0-9]*$
         aegyptiaca:
             default-format: https://aegyptiaca.uni-muenster.de/Record/{id}
+        bm:
+            type-formats:
+                object: https://www.britishmuseum.org/collection/object/{id}
+        dwl:
+            default-format: https://www.dwl.aegyptologie.lmu.de/suche.php?nummer={id}
         dza:
             type-formats:
                 hieratic_hieroglyphic: http://aaew.bbaw.de/tla/servlet/DzaBrowser?u=guest&f=0&l=0&wn={id}
@@ -132,7 +136,9 @@ logging:
         root: DEBUG
 
 spring:
-    profiles: dev
+    config:
+        activate:
+            on-profile: dev
     thymeleaf:
         cache: false
         prefix: file:./src/main/resources/templates/

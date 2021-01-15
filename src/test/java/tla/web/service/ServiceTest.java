@@ -22,9 +22,10 @@ import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.DocumentDto;
 import tla.web.model.Annotation;
 import tla.web.model.Lemma;
-import tla.web.model.ObjectDetails;
-import tla.web.model.SearchResults;
-import tla.web.model.TLAObject;
+import tla.web.model.Sentence;
+import tla.web.model.meta.ObjectDetails;
+import tla.web.model.meta.SearchResults;
+import tla.web.model.meta.TLAObject;
 import tla.web.model.ThsEntry;
 import tla.web.repo.TlaClient;
 
@@ -39,6 +40,9 @@ public class ServiceTest {
 
     @Autowired
     private ThsService thsService;
+
+    @Autowired
+    private SentenceService sentenceService;
 
     @Test
     @SuppressWarnings("unchecked")
@@ -114,7 +118,28 @@ public class ServiceTest {
             () -> assertNotNull(result.getPage(),"page not null")
         );
         result.getObjects().stream().forEach(
-            o -> assertTrue(o instanceof Lemma, o.getName() + " should be of class lemma")
+            o -> assertTrue(o instanceof Lemma, o.getId() + " should be of class lemma")
+        );
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    void sentenceServiceTextInjection() throws Exception {
+        when(
+            backend.retrieveObject(Sentence.class, "IBcCBpKz4FWJo0yOhxfTNEhx5J0")
+        ).thenReturn(
+            tla.domain.util.IO.loadFromFile(
+                "src/test/resources/sample/data/sentence/details/IBcCBpKz4FWJo0yOhxfTNEhx5J0.json",
+                SingleDocumentWrapper.class
+            )
+        );
+        var container = sentenceService.getDetails("IBcCBpKz4FWJo0yOhxfTNEhx5J0").orElseThrow();
+        var sent = container.getObject();
+        assertAll("test sentence details retrieval and processing",
+            () -> assertNotNull(sent, "sentence received"),
+            () -> assertNotNull(sent.getText(), "text injected"),
+            () -> assertEquals(sent.getContext().getTextId(), sent.getText().getId(), "correct text injected"),
+            () -> assertNotNull(sent.getEdited(), "editing information available")
         );
     }
 

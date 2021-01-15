@@ -1,4 +1,4 @@
-package tla.web.model;
+package tla.web.model.meta;
 
 import java.util.List;
 import java.util.Map;
@@ -11,7 +11,6 @@ import tla.domain.command.SearchCommand;
 import tla.domain.dto.extern.PageInfo;
 import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.meta.AbstractDto;
-import tla.domain.dto.meta.DocumentDto;
 import tla.web.model.mappings.MappingConfig;
 
 @Getter

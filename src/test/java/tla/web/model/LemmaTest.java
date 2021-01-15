@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import tla.domain.model.Passport;
+import tla.web.model.parts.Glyphs;
+import tla.web.model.parts.Token;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,7 +18,8 @@ public class LemmaTest {
         Glyphs g1 = Glyphs.of(null);
         assertAll("creator should accept null value",
             () -> assertNotNull(g1, "should return object"),
-            () -> assertTrue(g1.isEmpty(), "should be considered empty tho")
+            () -> assertTrue(g1.isEmpty(), "should be considered empty tho"),
+            () -> assertEquals(g1, Glyphs.of(null), "empty hieros should always be equal")
         );
         Glyphs g2 = Glyphs.of(" ");
         assertAll("creator should accept empty value",
@@ -32,14 +35,15 @@ public class LemmaTest {
             .id("1")
             .words(
                 wordGlyphs.stream().map(
-                    mdc -> Word.builder().glyphs(Glyphs.of(mdc)).build()
+                    mdc -> Token.builder().glyphs(Glyphs.of(mdc)).build()
                 ).collect(Collectors.toList())
             ).build();
         List<Glyphs> glyphs = l.getHieroglyphs();
         assertAll("test hieroglyphs from lemma extraction",
             () -> assertEquals(3, glyphs.size(), "item count"),
             () -> assertTrue(glyphs.get(1).isEmpty(), "second item empty"),
-            () -> assertEquals(Glyphs.of("N35"), glyphs.get(0), "first item")
+            () -> assertEquals(Glyphs.of("N35"), glyphs.get(0), "first item"),
+            () -> assertEquals(Glyphs.of("N35").hashCode(), glyphs.get(0).hashCode(), "first item hashcode")
         );
     }
 

@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ExternalReferencesConverter extends AbstractConverter<
     SortedMap<String, SortedSet<tla.domain.model.ExternalReference>>,
-    SortedMap<String, List<tla.web.model.ExternalReference>>
+    SortedMap<String, List<tla.web.model.parts.ExternalReference>>
 > {
 
     private Map<String, LinkFormatter> linkFormatters;
@@ -47,10 +47,10 @@ public class ExternalReferencesConverter extends AbstractConverter<
     }
 
     @Override
-    protected SortedMap<String, List<tla.web.model.ExternalReference>> convert(
+    protected SortedMap<String, List<tla.web.model.parts.ExternalReference>> convert(
         SortedMap<String, SortedSet<tla.domain.model.ExternalReference>> source
     ) {
-        TreeMap<String, List<tla.web.model.ExternalReference>> res = new TreeMap<>();
+        TreeMap<String, List<tla.web.model.parts.ExternalReference>> res = new TreeMap<>();
         if (source != null) {
             source.forEach(
                 (provider, refs) -> {
@@ -58,7 +58,7 @@ public class ExternalReferencesConverter extends AbstractConverter<
                         provider,
                         refs.stream().map(
                             dto -> {
-                                return tla.web.model.ExternalReference.builder().href(
+                                return tla.web.model.parts.ExternalReference.builder().href(
                                     formatLink(
                                         provider,
                                         dto.getId(),

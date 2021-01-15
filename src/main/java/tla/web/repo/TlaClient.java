@@ -13,10 +13,8 @@ import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.AbstractDto;
 import tla.domain.dto.meta.DocumentDto;
-import tla.web.model.BackendPath;
-import tla.web.model.Lemma;
-import tla.web.model.TLAObject;
-import tla.web.model.ThsEntry;
+import tla.web.model.meta.BackendPath;
+import tla.web.model.meta.TLAObject;
 
 /**
  * Put all your model classes on top of this in the {@link ModelClasses} annotation so that
@@ -24,10 +22,6 @@ import tla.web.model.ThsEntry;
  * respective {@link BackendPath} annotations.
  */
 @Slf4j
-@ModelClasses({
-    Lemma.class,
-    ThsEntry.class
-})
 public class TlaClient {
 
     private RestTemplate client;
@@ -40,25 +34,16 @@ public class TlaClient {
         log.info("create client for backend at {}", backendUrl);
         this.client = new RestTemplate();
         this.backendUrl = backendUrl;
-        registerModelClasses();
     }
 
     /**
-     * Takes all model classes listed in the {@link ModelClasses} annotation
-     * of this class, retrieves the value of their respective {@link BackendPath}
-     * annotations, and stores these value pairs for later lookup. 
+     * Register the backend API endpoint path prefix necessary for retrieval of documents of the type
+     * represented by a given domain model class.
+     * This path prefix is being specified via the {@link BackendPath} annotation on domain model
+     * class declarations. Registration is being triggered the moment spring initiates the service
+     * beans corresponding to those domain model classes.
      */
-    private void registerModelClasses() {
-        for (Annotation a : TlaClient.class.getAnnotations()) {
-            if (a instanceof ModelClasses) {
-                for (Class<? extends TLAObject> modelClass : ((ModelClasses) a).value()) {
-                    registerModelclass(modelClass);
-                }
-            }
-        }
-    }
-
-    private static void registerModelclass(Class<? extends TLAObject> modelClass) {
+    public static void registerModelclass(Class<? extends TLAObject> modelClass) {
         for (Annotation a: modelClass.getAnnotations()) {
             if (a instanceof BackendPath) {
                 backendPaths.put(
@@ -70,6 +55,24 @@ public class TlaClient {
     }
 
     /**
+     * Return backend API endpoint path prefix for given domain model class.
+     */
+    public static String getBackendPathPrefix(Class<? extends TLAObject> modelClass) {
+        return backendPaths.get(modelClass);
+    }
+
+    /**
+     * Return backend API endpoint URL prefix for given domain model class retrieval.
+     */
+    public String getEndpointURLPrefix(Class<? extends TLAObject> modelClass) {
+        return String.format(
+            "%s/%s",
+            this.backendUrl,
+            getBackendPathPrefix(modelClass)
+        );
+    }
+
+    /**
      * Retrieves a single object from the backend application.
      *
      * In order for this to work, the requested object's type must be registered via {@link ModelClasses}
@@ -77,9 +80,12 @@ public class TlaClient {
      */
     @SuppressWarnings("unchecked")
     public SingleDocumentWrapper<AbstractDto> retrieveObject(Class<? extends TLAObject> modelClass, String id) {
-        String backendPath = backendPaths.get(modelClass);
         return client.getForObject(
-            String.format("%s/%s/get/%s", this.backendUrl, backendPath, id),
+            String.format(
+                "%s/get/%s",
+                this.getEndpointURLPrefix(modelClass),
+                id
+            ),
             SingleDocumentWrapper.class
         );
     }

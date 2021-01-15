@@ -8,21 +8,16 @@ import org.springframework.stereotype.Service;
 
 import tla.domain.command.LemmaSearch;
 import tla.domain.dto.extern.SearchResultsWrapper;
-import tla.domain.dto.extern.SingleDocumentWrapper;
-import tla.domain.dto.meta.AbstractDto;
 import tla.web.model.Annotation;
 import tla.web.model.Lemma;
-import tla.web.model.ObjectDetails;
-import tla.web.model.SearchResults;
-import tla.web.model.TLAObject;
+import tla.web.model.meta.ModelClass;
+import tla.web.model.meta.ObjectDetails;
+import tla.web.model.meta.SearchResults;
+import tla.web.model.meta.TLAObject;
 
 @Service
+@ModelClass(Lemma.class)
 public class LemmaService extends ObjectService<Lemma> {
-
-    @Override
-    protected SingleDocumentWrapper<AbstractDto> retrieveSingleDocument(String id) {
-        return backend.retrieveObject(Lemma.class, id);
-    }
 
     /**
      * Tries to extract a list of annotations from a object details container. Might return null.
@@ -47,6 +42,11 @@ public class LemmaService extends ObjectService<Lemma> {
         SearchResultsWrapper<?> response = backend.lemmaSearch(command, page);
         SearchResults container = SearchResults.from(response);
         return container;
+    }
+
+    @Override
+    public String getLabel(Lemma object) {
+        return object.getName();
     }
 
 }

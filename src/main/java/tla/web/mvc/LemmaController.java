@@ -5,11 +5,11 @@ import tla.domain.model.Language;
 import tla.domain.model.Script;
 import tla.web.config.LemmaSearchProperties;
 import tla.web.model.Lemma;
-import tla.web.model.ObjectDetails;
-import tla.web.model.SearchResults;
+import tla.web.model.meta.ObjectDetails;
+import tla.web.model.meta.SearchResults;
+import tla.web.model.meta.TemplateModelName;
 import tla.web.model.ui.BreadCrumb;
 import tla.web.model.ui.Pagination;
-import tla.web.model.ui.TemplateModelName;
 import tla.web.service.LemmaService;
 import tla.web.service.ObjectService;
 
@@ -53,7 +53,7 @@ public class LemmaController extends ObjectController<Lemma> {
     }
 
     @Override
-    protected Model compileSingleObjectDetailsModel(Model model, ObjectDetails<Lemma> container) {
+    protected Model extendSingleObjectDetailsModel(Model model, ObjectDetails<Lemma> container) {
         model.addAttribute("annotations", lemmaService.extractAnnotations(container));
         return model;
     }
