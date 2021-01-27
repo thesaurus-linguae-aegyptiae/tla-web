@@ -65,7 +65,7 @@ TLA frontend version at hand would be:
 export SAMPLE_URL=http://aaew64.bbaw.de/resources/tla-data/tla-sample-20210115-1000t.tar.gz
 ```
 
-Alternatively, you can create a file named `.env` right inside your local folder containing this
+Alternatively, you can create a file named `.env` within the same local folder that contains this
 `README.md`, and insert the following line:
 
 ```ini
@@ -76,7 +76,7 @@ Having set the `SAMPLE_URL` variable one way or another, you are ready to use Do
 all of the containers defined (including the TLA frontend), or all those required to get a TLA backend up and running
 on your local machine.
 
-For building and executing the entire stack, *including the TLA fontend*, run this command in your terminal:
+For building and executing the entire stack, *including the TLA frontend*, run this command in your terminal:
 
 ```bash
 docker-compose up --build --force-recreate -d
