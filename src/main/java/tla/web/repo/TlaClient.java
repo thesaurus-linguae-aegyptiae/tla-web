@@ -8,11 +8,9 @@ import org.springframework.web.client.RestTemplate;
 
 import lombok.extern.slf4j.Slf4j;
 import tla.domain.command.SearchCommand;
-import tla.domain.dto.LemmaDto;
 import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.AbstractDto;
-import tla.domain.dto.meta.DocumentDto;
 import tla.web.model.meta.BackendPath;
 import tla.web.model.meta.TLAObject;
 
@@ -90,12 +88,18 @@ public class TlaClient {
         );
     }
 
-    @SuppressWarnings("unchecked")
-    public SearchResultsWrapper<DocumentDto> lemmaSearch(SearchCommand<LemmaDto> command, int page) {
+    /**
+     * Send search form/command to backend endpoint configured for specified frontend
+     * model class. The endpoint path is taken from the frontend model class's
+     * {@link BackendPath} annotation.
+     * @see #retrieveObject(Class, String)
+     */
+    public <T extends TLAObject> SearchResultsWrapper<?> searchObjects(
+        Class<? extends T> modelClass, SearchCommand<?> searchForm, int page
+    ) {
         return client.postForObject(
-            String.format("%s/lemma/search?page={page}", this.backendUrl),
-            command,
-            SearchResultsWrapper.class,
+            String.format("%s/search?page={page}", this.getEndpointURLPrefix(modelClass)),
+            searchForm, SearchResultsWrapper.class,
             Map.of("page", Math.max(0, page - 1))
         );
     }

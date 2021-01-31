@@ -23,10 +23,10 @@ import tla.domain.dto.meta.DocumentDto;
 import tla.web.model.Annotation;
 import tla.web.model.Lemma;
 import tla.web.model.Sentence;
+import tla.web.model.ThsEntry;
 import tla.web.model.meta.ObjectDetails;
 import tla.web.model.meta.SearchResults;
 import tla.web.model.meta.TLAObject;
-import tla.web.model.ThsEntry;
 import tla.web.repo.TlaClient;
 
 @SpringBootTest
@@ -96,17 +96,17 @@ public class ServiceTest {
     @Test
     @SuppressWarnings("unchecked")
     void lemmaSearchResultsMapping() throws Exception {
-        SearchResultsWrapper<DocumentDto> wrap = tla.domain.util.IO.loadFromFile(
+        var wrap = tla.domain.util.IO.loadFromFile(
             "src/test/resources/sample/data/lemma/search/demotic_translation_de.json",
             SearchResultsWrapper.class
         );
         when(
-            backend.lemmaSearch(any(), anyInt())
+            backend.searchObjects(any(), any(), anyInt())
         ).thenReturn(
             wrap
         );
         assertNotNull(wrap);
-        SearchResultsWrapper<?> dto = backend.lemmaSearch(new LemmaSearch(), 1);
+        SearchResultsWrapper<?> dto = backend.searchObjects(Lemma.class, new LemmaSearch(), 1);
         assertAll("assert that deserialization from file works",
             () -> assertNotNull(dto),
             () -> assertNotNull(dto.getResults())

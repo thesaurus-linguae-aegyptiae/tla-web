@@ -1,5 +1,19 @@
 package tla.web.mvc;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
+
+import java.util.Locale;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -8,20 +22,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.ResultActions;
 
 import tla.domain.dto.extern.SearchResultsWrapper;
-import tla.domain.dto.meta.DocumentDto;
 import tla.web.repo.TlaClient;
-
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import java.util.Locale;
-
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.EnumSource;
 
 @SpringBootTest
 public class LemmaSearchResultsTest extends ViewTest {
@@ -35,8 +36,8 @@ public class LemmaSearchResultsTest extends ViewTest {
     /**
      * load search results transfer object from file.
      */
-    @SuppressWarnings("unchecked")
-    SearchResultsWrapper<DocumentDto> loadDto(String filename) throws Exception {
+    @SuppressWarnings("rawtypes")
+    SearchResultsWrapper loadDto(String filename) throws Exception {
         return tla.domain.util.IO.loadFromFile(
             String.format(
                 "src/test/resources/sample/data/lemma/search/%s",
@@ -48,10 +49,12 @@ public class LemmaSearchResultsTest extends ViewTest {
 
     @ParameterizedTest
     @EnumSource(Language.class)
+    @SuppressWarnings("unchecked")
     void testSearchResults(Language lang) throws Exception {
-        SearchResultsWrapper<DocumentDto> dto = loadDto("demotic_translation_de.json");
+        var dto = loadDto("demotic_translation_de.json");
+        assertNotNull(dto);
         when(
-            backendClient.lemmaSearch(any(), anyInt())
+            backendClient.searchObjects(any(), any(), anyInt())
         ).thenReturn(
             dto
         );
@@ -77,10 +80,11 @@ public class LemmaSearchResultsTest extends ViewTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void testFulltypeLabels() throws Exception {
-        SearchResultsWrapper<DocumentDto> dto = loadDto("demotic_translation_de.json");
+        var dto = loadDto("demotic_translation_de.json");
         when(
-            backendClient.lemmaSearch(any(), anyInt())
+            backendClient.searchObjects(any(), any(), anyInt())
         ).thenReturn(
             dto
         );
