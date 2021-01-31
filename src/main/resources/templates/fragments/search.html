@@ -3,6 +3,52 @@
 
   <body>
 
+    <!-- sentence/occurrence search form -->
+    <form id="sentence-search" name="sentence-search"
+    th:action="@{/sentence/search}" th:object="${sentenceSearchForm}" method="get">
+      <div th:replace=" :: translation-spec(${allTranslationLanguages})"/>
+      <div>
+        <div th:each="token, i : *{tokens}" class="form-group row">
+          <label class="col-form-label col-xl-2" th:text="#{field_label_lemma}">Lemma</label>
+          <div class="col-xl-10">
+            <input class="form-control mb-3" type="text" th:field="*{tokens[__${i.index}__].lemma.id}"
+                th:id="|token-${i.index}-lemma|" th:list="|token-${i.index}-lemma-suggestions|">
+              <script th:inline="javascript">
+                //<![CDATA[
+                {
+                  let index = /*[[${i.index}]]*/ null;
+                  $(`#token-${index}-lemma`).on('input', (e) => {
+                    $.ajax(
+                      {
+                        url: 'http://localhost:8090/lemma/complete', // TODO
+                        data: {
+                          q: $(`#token-${index}-lemma`).val()
+                        },
+                        success: (result) => {
+                          $(`#token-${index}-lemma-suggestions`).empty();
+                          result.forEach((i) => {
+                            $('<option/>').text(i.name).attr('value', i.id).attr('label', i.name).appendTo(
+                              $(`#token-${index}-lemma-suggestions`)
+                            );
+                          });
+                        }
+                      }
+                    );
+                  });
+                }
+                //]]>
+              </script>
+            </input>
+            <datalist th:id="|token-${i.index}-lemma-suggestions|"/>
+          </div>
+          <label class="col-form-label col-xl-2" th:text="#{field_label_hieroglyphs}">Hieroglyphs</label>
+          <div class="col-xl-10">
+            <input class="form-control mb-3" type="text" th:field="*{tokens[__${i.index}__].glyphs}"/>
+          </div>
+        </div>
+      </div>
+    </form>
+
     <!-- dictionary search form -->
 
     <form id="dict-search" name="dict-search" th:action="@{/lemma/search}" th:object="${lemmaSearchForm}" method="get">
@@ -32,16 +78,7 @@
         </div>
       </div>
 
-      <div class="form-group row bg-grey">
-        <label class="col-form-label col-xl-2" for="translation" th:text="#{field_label_translation}">Translation</label>
-        <div class="col-xl-10">
-          <input class="form-control mb-3" type="text" th:field="*{translation.text}" name="translation"/>
-          <div th:each="lang : ${allTranslationLanguages}" class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" th:field="*{translation.lang}" th:value="${lang}"/>
-            <label class="form-check-label" th:for="${#ids.prev('translation.lang')}" th:text="#{|lang_label_${lang}|}">Language</label>
-          </div>
-        </div>
-      </div>
+      <div th:replace=" :: translation-spec(${allTranslationLanguages})"/>
 
       <div class="form-group row">
         <label class="col-form-label col-xl-2" for="bibliography" th:text="#{field_label_bibliography}">Bibliography</label>
@@ -78,6 +115,18 @@
       </button>
     </div>
 
+    <!-- Translation field and languages checkboxes widget -->
+
+    <div class="form-group row bg-grey" th:fragment="translation-spec(languages)">
+      <label class="col-form-label col-xl-2" for="translation" th:text="#{field_label_translation}">Translation</label>
+      <div class="col-xl-10">
+        <input class="form-control mb-3" type="text" th:field="*{translation.text}" name="translation"/>
+        <div th:each="lang : ${languages}" class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" th:field="*{translation.lang}" th:value="${lang}"/>
+          <label class="form-check-label" th:for="${#ids.prev('translation.lang')}" th:text="#{|lang_label_${lang}|}">Language</label>
+        </div>
+      </div>
+    </div>
 
     <!-- Type / Subtype selection multi-dropdown composite -->
 

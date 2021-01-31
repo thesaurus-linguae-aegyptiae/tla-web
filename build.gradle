@@ -18,7 +18,7 @@ sourceCompatibility = '11'
 ext {
     fontawesomeVersion = env.FONTAWESOME_VERSION.orElse('5.12.1')
     bootstrapVersion = env.BOOTSTRAP_VERSION.orElse('4.4.1')
-    jqueryVersion = env.JQUERY_VERSION.orElse('3.5.0')
+    jqueryVersion = env.JQUERY_VERSION.orElse('3.5.1')
     cookieJsVersion = env.COOKIEJS_VERSION.orElse('2.2.1')
     fontawesomeSrc = "https://use.fontawesome.com/releases/v${fontawesomeVersion}/fontawesome-free-${fontawesomeVersion}-web.zip"
     bootstrapSrc = "https://github.com/twbs/bootstrap/releases/download/v${bootstrapVersion}/bootstrap-${bootstrapVersion}-dist.zip"
