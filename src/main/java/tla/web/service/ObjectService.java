@@ -6,12 +6,15 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.extern.slf4j.Slf4j;
+import tla.domain.command.SearchCommand;
+import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.AbstractDto;
 import tla.domain.model.meta.BTSeClass;
 import tla.web.model.mappings.MappingConfig;
 import tla.web.model.meta.ModelClass;
 import tla.web.model.meta.ObjectDetails;
+import tla.web.model.meta.SearchResults;
 import tla.web.model.meta.TLAObject;
 import tla.web.repo.TlaClient;
 
@@ -99,5 +102,16 @@ public abstract class ObjectService<T extends TLAObject> {
      * Generate a label for an object (used as caption in object detail pages).
      */
     public abstract String getLabel(T object);
+
+    /**
+     * Send search form to backend and convert results from DTO to frontend model objects.
+     */
+    public SearchResults search(SearchCommand<?> command, Integer page) {
+        SearchResultsWrapper<?> response = backend.searchObjects(
+            this.getModelClass(), command, page
+        );
+        SearchResults container = SearchResults.from(response);
+        return container;
+    }
 
 }
