@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import tla.domain.command.LemmaSearch;
+import tla.domain.command.SentenceSearch;
+import tla.domain.command.SentenceSearch.TokenSpec;
 import tla.domain.model.Language;
 import tla.domain.model.Script;
 import tla.web.config.LemmaSearchProperties;
@@ -45,7 +47,8 @@ public class SearchController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String mainSearchPage(
-        @ModelAttribute("lemmaSearchForm") LemmaSearch form,
+        @ModelAttribute("lemmaSearchForm") LemmaSearch lemmaForm,
+        @ModelAttribute("sentenceSearchForm") SentenceSearch sentenceForm,
         Model model
     ) {
         model.addAttribute(
@@ -55,6 +58,11 @@ public class SearchController {
                 BreadCrumb.of("/search", "menu_global_search")
             )
         );
+        if (sentenceForm.getTokens() == null || sentenceForm.getTokens().isEmpty()) {
+            sentenceForm.setTokens(
+                List.of(new TokenSpec(), new TokenSpec())
+            );
+        }
         return "search";
     }
 
