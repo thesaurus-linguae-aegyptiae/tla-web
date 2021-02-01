@@ -49,7 +49,7 @@ jobs:
         url: http://localhost:8090/lemma/get/100690
         responseCode: 200
         interval: 5000
-        timeout: 100000
+        timeout: 240000
 
     - name: screenshot lemma search results page
       uses: "flameddd/screenshots-ci-action@v1.1.1"
