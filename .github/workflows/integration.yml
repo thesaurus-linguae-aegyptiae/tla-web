@@ -40,8 +40,14 @@ jobs:
         interval: 2000
         timeout: 60000
 
-    - name: log ES ingestion status
-      run: curl -s localhost:9201/_cat/indices
+    - name: show tla-ingest container logs
+      run: docker-compose logs populate
+
+    - name: show tla-backend container logs
+      run: docker-compose logs backend
+
+    - name: curl frontend from shell
+      run: curl -s localhost:8080/
 
     - name: wait for backend to be populated with corpus data
       uses: "cygnetdigital/wait_for_response@v2.0.0"
@@ -50,6 +56,12 @@ jobs:
         responseCode: 200
         interval: 5000
         timeout: 100000
+
+    - name: query backend endpoint URL paths list
+      run: curl -s localhost:8090/
+
+    - name: query backend version info
+      run: curl -s localhost:8090/version
 
     - name: screenshot lemma search results page
       uses: "flameddd/screenshots-ci-action@v1.1.1"
