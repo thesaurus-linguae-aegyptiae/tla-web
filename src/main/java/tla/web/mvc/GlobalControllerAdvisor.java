@@ -63,7 +63,7 @@ public class GlobalControllerAdvisor extends DefaultHandlerExceptionResolver {
         return new ModelAndView("error/404", model.asMap(), HttpStatus.OK);
     }
 
-    @ExceptionHandler(Exception.class)
+    //@ExceptionHandler(Exception.class) TODO: re-enable
     public ModelAndView handleAnything(Exception e, HttpServletRequest request, Model model) {
         model.addAttribute("env", appVars());
         model.addAttribute("code", 500);
