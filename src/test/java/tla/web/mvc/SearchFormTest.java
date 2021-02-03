@@ -83,5 +83,20 @@ public class SearchFormTest extends ViewTest {
         }
     }
 
+    @Test
+    void searchPageSelectForm() throws Exception {
+        ResultActions result = mockMvc.perform(
+            get("/search").param("sentence", "")
+        ).andDo(print());
+        result.andExpect(
+            xpath(
+                "//button[@id='toggle-dict-search-form-button']/span[1]/@class"
+            ).string("icon collapsed")
+        ).andExpect(
+            xpath(
+                "//button[@id='toggle-dict-search-form-button']/@aria-expanded"
+            ).booleanValue(false)
+        );
+    }
 
 }

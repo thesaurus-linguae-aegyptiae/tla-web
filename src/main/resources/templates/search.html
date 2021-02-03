@@ -8,57 +8,60 @@
       <div class="row search my-4">
         <div class="col-lg-8 col-sm-12">
           <div class="accordion" id="search-forms-container">
-            <div class="card">
-              <div class="card-header" id="dict-search-heading">
+
+            <div class="card" th:each="searchForm : ${forms}">
+              <div class="card-header" th:id="|${searchForm.key}-search-heading|">
                 <h2 class="mb-0">
-                  <button class="btn btn-link" type="button" data-toggle="collapse"
-                      data-target="#dict-search-collapsible" aria-controls="#dict-search-collapsible"
-                      aria-expanded="true">
-                    <span class="fas fa-arrow-circle-down"></span>
-                    <span th:text="#{form_label_dict-search}">Dictionary entries</span>
+                  <button class="btn btn-link toggle-collapsible" type="button" data-toggle="collapse"
+                      th:id="|toggle-${searchForm.key}-search-form-button|"
+                      th:data-target="|#${searchForm.key}-search-collapsible|"
+                      th:aria-controls="|#${searchForm.key}-search-collapsible|"
+                      th:aria-expanded="${searchForm.expanded}">
+                    <span class="icon" th:classappend="${searchForm.expanded == true ? 'expanded' : 'collapsed'}"></span>
+                    <span th:text="#{|form_label_${searchForm.key}-search|}">Dictionary entries</span>
+                    <script th:inline="javascript">
+                      //<![CDATA[
+                      {
+                        let key = /*[[${searchForm.key}]]*/ null;
+                        let buttonId = `#toggle-${key}-search-form-button`;
+                        $(buttonId).click(() => {
+                          let span = $(`${buttonId} span:first-child`);
+                          let expanded = span.attr('class').endsWith('expanded');
+                          if (!expanded) {
+                            $('button.btn.toggle-collapsible').attr('aria-expanded', false);
+                            $('button.btn.toggle-collapsible span:first-child').attr('class', 'icon collapsed');
+                          }
+                          span.attr('class', `icon ${expanded ? 'collapsed' : 'expanded'}`);
+                          $(this).attr('aria-expanded', expanded);
+                        });
+                      }
+                      //]]>
+                    </script>
                   </button>
                 </h2>
               </div>
 
-              <div id="dict-search-collapsible" class="collapse show" aria-labelledby="#dict-search-heading"
+              <div class="collapse" th:classappend="${searchForm.expanded}? 'show'"
+                  th:id="|${searchForm.key}-search-collapsible|"
+                  th:aria-labelledby="|#${searchForm.key}-search-heading|"
                   data-parent="#search-forms-container"
-                  th:insert="fragments/search :: #dict-search"/>
+                  th:insert="fragments/search :: #__${searchForm.key}__-search"/>
             </div>
-
-
-            <div class="card">
-              <div class="card-header" id="sentence-search-heading">
-                <h2 class="mb-0">
-                  <button class="btn btn-link" type="button" data-toggle="collapse"
-                      data-target="#sentence-search-collapsible" aria-controls="#sentence-search-collapsible"
-                      aria-expanded="false">
-                    <span class="fas fa-arrow-circle-right"></span>
-                    <span th:text="#{form_label_sentence-search}">Text corpus</span>
-                  </button>
-                </h2>
-              </div>
-              <div id="sentence-search-collapsible" class="collapse" aria-labelledby="#sentence-search-heading"
-                  data-parent="#search-forms-container"
-                  th:insert="fragments/search :: #sentence-search"/>
-            </div>
-
           </div>
         </div>
 
         <div class="sidebar col-lg-4">
           <div class="stick-top">
-            <div>
-              <button class="btn btn-block btn-danger text-left text-decoration-none mt-4" id="submit-dict-search" form="dict-search" type="submit">
-                <span class="fas fa-arrow-circle-right"></span>
-                <span th:text="#{button_label_dict_search}">Search Dict</span>
-              </button>
-            </div>
-            <div th:replace="fragments/search :: clear-form-button(dict-search)"/>
-            <div>
-              <button class="btn btn-block btn-danger text-left text-decoration-none mt-4" id="submit-sentence-search" form="sentence-search" type="submit">
-                <span class="fas fa-arrow-circle-right"></span>
-                <span th:text="#{button_label_sentence_search}">Search Text Corpus</span>
-              </button>
+            <div th:each="searchForm : ${forms}" th:with="formId=|${searchForm.key}-search|">
+              <div>
+                <button class="btn btn-block btn-danger text-left text-decoration-none mt-4 mb-2"
+                    th:id="|submit-${searchForm.key}-search|"
+                    th:form="|${searchForm.key}-search|" type="submit">
+                  <span class="fas fa-arrow-circle-right"></span>
+                  <span th:text="#{|button_label_${searchForm.key}_search|}">Search Dict</span>
+                </button>
+              </div>
+              <div th:replace="fragments/search :: clear-form-button(__${formId}__)"/>
             </div>
           </div>
         </div>
