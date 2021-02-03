@@ -71,25 +71,25 @@
       <div class="form-group row">
         <label class="col-form-label col-xl-2" for="transcription" th:text="#{field_label_transcription}">Transcription</label>
         <div class="col-xl-10">
-          <input class="bbaw-libertine form-control mb-3" type="text" th:field="*{transcription}" name="transcription"/>
+          <input class="bbaw-libertine form-control mb-3" type="text" th:field="*{transcription}"/>
         </div>
       </div>
 
       <div th:replace=" :: type-spec('wordClass', 'lemmaSearchForm.wordClass', ${wordClasses})"/>
 
       <div class="form-group row">
-        <label class="col-form-label col-xl-2" for="root_transcription" th:text="#{field_label_root_transcription}">Root</label>
+        <label class="col-form-label col-xl-2" th:for="*{root}" th:text="#{field_label_root_transcription}">Root</label>
         <div class="col-xl-10">
-          <input class="bbaw-libertine form-control mb-3" type="text" th:field="*{root}" name="root_transcription"/>
+          <input class="bbaw-libertine form-control mb-3" type="text" th:field="*{root}"/>
         </div>
       </div>
 
       <div th:replace=" :: translation-spec('dict', 'lemmaSearchForm', ${allTranslationLanguages})"/>
 
       <div class="form-group row">
-        <label class="col-form-label col-xl-2" for="bibliography" th:text="#{field_label_bibliography}">Bibliography</label>
+        <label class="col-form-label col-xl-2" th:for="*{bibliography}" th:text="#{field_label_bibliography}">Bibliography</label>
         <div class="col-xl-10">
-          <input class="form-control mb-3" type="text" th:field="*{bibliography}" name="bibliography"/>
+          <input class="form-control mb-3" type="text" th:field="*{bibliography}"/>
         </div>
       </div>
 
@@ -144,7 +144,7 @@
       <div class="form-group row bg-grey" th:fragment="type-spec(name, bind, typeMap)" th:object="${__${bind}__}">
         <label class="col-form-label col-xl-2" th:for="|${name}-type|" th:text="#{|field_label_${name}_type|}">Type/Subtype specification</label>
         <div class="col-xl-10">
-          <select class="form-control" th:id="|${name}-type|" name="|${name}-type|" th:field="*{type}">
+          <select class="form-control" th:id="|${name}-type|" th:field="*{type}">
             <option value=""/>
             <option th:each="type : ${typeMap}" th:value="${type.key}" th:text="#{|field_value_label_${name}_type_${type.key}|}" th:selected="${type.key} == ${__${bind}__.type}">Type</option>
           </select>
@@ -156,7 +156,7 @@
         </div>
         <label class="col-form-label col-xl-2" th:for="|${name}-subtype|" th:text="#{|field_label_${name}_subtype|}">Subtype</label>
         <div class="col-xl-10">
-          <select class="form-control" th:id="|${name}-subtype|" th:name="|${name}-subtype|" th:field="*{subtype}">
+          <select class="form-control" th:id="|${name}-subtype|" th:field="*{subtype}">
             <script th:inline="javascript">
               //<![CDATA[
               function populateSubTypeDropDown(name) {
@@ -367,7 +367,8 @@
           }
           //]]>
         </script>
-        <button th:each="property : ${hideableProperties}" type="button" class="btn btn-secondary btn-block text-left" th:id="|hide-property-button-${property}|">
+        <button th:each="property : ${hideableProperties}" type="button"
+            class="btn btn-secondary btn-block text-left" th:id="|hide-property-button-${property}|">
           <i class="fas fa-plus-circle" id="on"></i>
           <i class="fas fa-minus-circle" id="off"></i>
           <span th:text="#{|button_label_hide_property_${property}|}">Property name</span>
