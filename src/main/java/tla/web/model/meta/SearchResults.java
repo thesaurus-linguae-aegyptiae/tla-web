@@ -40,17 +40,21 @@ public class SearchResults {
      * @return Search result page
      */
     public static SearchResults from(SearchResultsWrapper<? extends AbstractDto> dto) {
-        List<TLAObject> objects = dto.getResults().stream().map(
-            d -> MappingConfig.convertDTO(d)
-        ).collect(
-            Collectors.toList()
-        );
-        return new SearchResults(
-            objects,
-            dto.getQuery(),
-            dto.getPage(),
-            dto.getFacets()
-        );
+        if (dto != null && dto.getResults() != null) {
+            List<TLAObject> objects = dto.getResults().stream().map(
+                d -> MappingConfig.convertDTO(d)
+            ).collect(
+                Collectors.toList()
+            );
+            return new SearchResults(
+                objects,
+                dto.getQuery(),
+                dto.getPage(),
+                dto.getFacets()
+            );
+        } else {
+            return new SearchResults();
+        }
     }
-    
+
 }
