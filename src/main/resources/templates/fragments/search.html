@@ -8,8 +8,13 @@
     th:action="@{/sentence/search}" th:object="${sentenceSearchForm}" method="get">
       <div th:replace=" :: translation-spec('sentence', 'sentenceSearchForm', ${allTranslationLanguages})"/>
       <div>
-        <div th:each="token, i : *{tokens}" class="form-group row">
+        <!--<div class="form-group row">
+          <input class="form-control mb-3 col-xl-10" type="text" th:name="|passport['date.date.date'].values|"/>
+          <input class="form-check-input col-xl-2" type="checkbox" th:name="|passport['date.date.date'].expand|" value="true"/>
+        </div>-->
+        <fieldset th:each="token, i : *{tokens}" class="form-group row">
           <label class="col-form-label col-xl-2" th:text="#{field_label_lemma}">Lemma</label>
+          <!--<label class="col-form-label col-xl-1" th:text="${token.empty}"></label>-->
           <div class="col-xl-10">
             <input class="form-control mb-3" type="text" th:field="*{tokens[__${i.index}__].lemma.id}"
                 th:id="|token-${i.index}-lemma|" th:list="|token-${i.index}-lemma-suggestions|">

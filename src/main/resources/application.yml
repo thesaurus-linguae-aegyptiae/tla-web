@@ -1,6 +1,8 @@
 ---
 
 server:
+    tomcat:
+        relaxed-query-chars: ['[', ']']
     error:
         whitelabel:
             enabled: false
