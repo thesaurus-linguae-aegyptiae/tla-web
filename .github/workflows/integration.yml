@@ -29,7 +29,7 @@ jobs:
         LISTEN_PORT: 8080
         FONTAWESOME_VERSION: 5.12.1
         BOOTSTRAP_VERSION: 4.4.1
-        JQUERY_VERSION: 3.5.0
+        JQUERY_VERSION: 3.5.1
         COOKIEJS_VERSION: 2.2.1
 
     - name: wait for frontend to respond
@@ -102,5 +102,18 @@ jobs:
       with:
         path: screenshots
         name: ths-details
+
+    - name: screenshot sentence search form
+      uses: "flameddd/screenshots-ci-action@v1.1.1"
+      with:
+        url: "http://localhost:8080/search?sentence&tokens[0].lemma.id=d2978&tokens[1].lemma.id=10070"
+        devices: iPhone 6,iPhone 6 landscape,Nexus 7,Pad Pro,Galaxy S III landscape,iPad Pro landscape
+        type: png
+
+    - name: upload screenshots
+      uses: "actions/upload-artifact@v2"
+      with:
+        path: screenshots
+        name: sentence-search-form
 
 ...
