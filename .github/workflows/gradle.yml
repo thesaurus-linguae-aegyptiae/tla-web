@@ -33,6 +33,7 @@ jobs:
 
     - uses: KyleAure/junit-report-annotations-action@1.5
       with:
+        name: "tests"
         access-token: ${{ secrets.GITHUB_TOKEN }}
       if: always()
 
