@@ -6,7 +6,7 @@
     <!-- sentence/occurrence search form -->
     <form id="sentence-search" name="sentence-search"
     th:action="@{/sentence/search}" th:object="${sentenceSearchForm}" method="get">
-      <div th:replace=" :: translation-spec(${allTranslationLanguages})"/>
+      <div th:replace=" :: translation-spec('sentence', 'sentenceSearchForm', ${allTranslationLanguages})"/>
       <div>
         <div th:each="token, i : *{tokens}" class="form-group row">
           <label class="col-form-label col-xl-2" th:text="#{field_label_lemma}">Lemma</label>
@@ -45,7 +45,8 @@
           <div class="col-xl-10">
             <input class="form-control mb-3" type="text" th:field="*{tokens[__${i.index}__].glyphs}"/>
           </div>
-        </div>
+          <div th:replace=" :: translation-spec('token-__${i.index}__', 'sentenceSearchForm.tokens[__${i.index}__]', ${allTranslationLanguages})"/>
+        </fieldset>
       </div>
     </form>
 
@@ -78,7 +79,7 @@
         </div>
       </div>
 
-      <div th:replace=" :: translation-spec(${allTranslationLanguages})"/>
+      <div th:replace=" :: translation-spec('dict', 'lemmaSearchForm', ${allTranslationLanguages})"/>
 
       <div class="form-group row">
         <label class="col-form-label col-xl-2" for="bibliography" th:text="#{field_label_bibliography}">Bibliography</label>
@@ -117,13 +118,18 @@
 
     <!-- Translation field and languages checkboxes widget -->
 
-    <div class="form-group row bg-grey" th:fragment="translation-spec(languages)">
-      <label class="col-form-label col-xl-2" for="translation" th:text="#{field_label_translation}">Translation</label>
+    <div class="bg-grey form-group row col-xl-12"
+        th:fragment="translation-spec(key, bind, languages)" th:object="${__${bind}__}">
+      <label class="col-form-label col-xl-2" th:for="|field-label-translation-${key}|" th:text="#{field_label_translation}">
+        Translation
+      </label>
       <div class="col-xl-10">
-        <input class="form-control mb-3" type="text" th:field="*{translation.text}" name="translation"/>
+        <input class="form-control mb-3" type="text" th:field="*{translation.text}" th:id="|field-label-translation-${key}|"/>
         <div th:each="lang : ${languages}" class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" th:field="*{translation.lang}" th:value="${lang}"/>
-          <label class="form-check-label" th:for="${#ids.prev('translation.lang')}" th:text="#{|lang_label_${lang}|}">Language</label>
+          <input class="form-check-input" type="checkbox" th:field="*{translation.lang}" th:value="${lang}"
+              th:id="|field-value-translation-checkbox-${lang}-${key}|"/>
+          <label class="form-check-label" th:for="|field-value-translation-checkbox-${lang}-${key}|"
+              th:text="#{|lang_label_${lang}|}">Language</label>
         </div>
       </div>
     </div>
