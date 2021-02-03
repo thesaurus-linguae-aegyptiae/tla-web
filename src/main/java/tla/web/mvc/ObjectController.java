@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -190,9 +191,11 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
     public String getSearchResultsPage(
         S form,
         @RequestParam(defaultValue = "1") String page,
+        @RequestParam MultiValueMap<String, String> params,
         Model model
     ) {
         log.info("Submitted search form: {}", tla.domain.util.IO.json(form));
+        log.info("URL params: {}", params);
         SearchResults results = this.getService().search(form, Integer.parseInt(page));
         model.addAttribute("breadcrumbs",
             List.of(

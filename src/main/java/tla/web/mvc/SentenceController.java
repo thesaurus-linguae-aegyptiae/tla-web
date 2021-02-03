@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -66,9 +67,11 @@ public class SentenceController extends HierarchicObjectController<Sentence, Sen
     @RequestMapping(value="/search", method=RequestMethod.GET)
     public String getSearchResultsPage(
         @ModelAttribute("sentenceSearchForm") SentenceSearch form,
-        @RequestParam(defaultValue = "1") String page, Model model
+        @RequestParam(defaultValue = "1") String page,
+        @RequestParam MultiValueMap<String, String> params,
+        Model model
     ) {
-        return super.getSearchResultsPage(form, page, model);
+        return super.getSearchResultsPage(form, page, params, model);
     }
 
 }
