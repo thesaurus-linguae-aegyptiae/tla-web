@@ -82,7 +82,7 @@ public abstract class ObjectService<T extends TLAObject> {
     @SuppressWarnings("unchecked")
     public Optional<ObjectDetails<T>> getDetails(String id) {
         try {
-            ObjectDetails<TLAObject> container = ObjectDetails.from(
+            ObjectDetails<?> container = ObjectDetails.from(
                 retrieveSingleDocument(id)
             );
             return Optional.of(
@@ -104,14 +104,28 @@ public abstract class ObjectService<T extends TLAObject> {
     public abstract String getLabel(T object);
 
     /**
+     * Override this to do whatever necessary to search results container before passing it
+     * to view controller. Gets called by {@link #search(SearchCommand, Integer)} before
+     * returning the results to the view controller.
+     */
+    protected SearchResults preProcess(SearchResults searchResults) {
+        return searchResults;
+    }
+
+    /**
      * Send search form to backend and convert results from DTO to frontend model objects.
+     * Passes the results to {@link #preProcess(SearchResults)} before returning them,
+     * the default implementation of which does nothing to them at all, but any enhancements
+     * of the search results container right before it returns to the view controller can be
+     * done by overriding this method.
      */
     public SearchResults search(SearchCommand<?> command, Integer page) {
         SearchResultsWrapper<?> response = backend.searchObjects(
             this.getModelClass(), command, page
         );
-        SearchResults container = SearchResults.from(response);
-        return container;
+        return this.preProcess(
+            SearchResults.from(response)
+        );
     }
 
 }

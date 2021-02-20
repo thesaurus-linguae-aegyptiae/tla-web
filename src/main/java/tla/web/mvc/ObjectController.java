@@ -196,7 +196,7 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
     ) {
         log.info("Submitted search form: {}", tla.domain.util.IO.json(form));
         log.info("URL params: {}", params);
-        SearchResults results = this.getService().search(form, Integer.parseInt(page));
+        SearchResults results = this.getService().search(form, Integer.parseInt(page)); // TODO validate page
         model.addAttribute("breadcrumbs",
             List.of(
                 BreadCrumb.of("/", "menu_global_home"),

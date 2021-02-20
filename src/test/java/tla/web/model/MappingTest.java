@@ -80,7 +80,7 @@ public class MappingTest {
             "src/test/resources/sample/data/ths/details/KQY2F5SJVBBN7GRO5WUXKG5M6M.json",
             SingleDocumentWrapper.class
         );
-        ObjectDetails<TLAObject> objectDetails = ObjectDetails.from(dto);
+        ObjectDetails<?> objectDetails = ObjectDetails.from(dto);
         assertTrue(objectDetails.getObject() instanceof ThsEntry);
         ThsEntry t = (ThsEntry) objectDetails.getObject();
         assertAll("test mapping from DTO to thesaurus object",
@@ -117,7 +117,7 @@ public class MappingTest {
             "src/test/resources/sample/data/ths/details/IMBHKBIKV5AUHEAAU2DL2K2GN4.json",
             SingleDocumentWrapper.class
         );
-        ObjectDetails<TLAObject> details = ObjectDetails.from(dto);
+        ObjectDetails<?> details = ObjectDetails.from(dto);
         Map<String, List<TLAObject>> related = details.extractRelatedObjects();
         assertDoesNotThrow(
             () -> {

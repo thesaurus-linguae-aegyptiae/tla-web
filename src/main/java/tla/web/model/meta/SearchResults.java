@@ -1,10 +1,11 @@
 package tla.web.model.meta;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import tla.domain.command.SearchCommand;
@@ -15,8 +16,7 @@ import tla.web.model.mappings.MappingConfig;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
-public class SearchResults {
+public class SearchResults extends ObjectsContainer {
 
     private List<TLAObject> objects;
 
@@ -25,11 +25,28 @@ public class SearchResults {
     private PageInfo page;
 
     private Map<String, Map<String, Long>> facets;
-    
-    public SearchResults(List<TLAObject> objects, SearchCommand<? extends AbstractDto> query, PageInfo page) {
-        this.objects = objects;
-        this.query = query;
-        this.page = page;
+
+    public SearchResults(SearchResultsWrapper<?> dto) {
+        super(dto);
+        this.objects = this.importDTOSearchResults(dto.getResults());
+        this.query = dto.getQuery();
+        this.page = dto.getPage();
+        this.facets = dto.getFacets();
+    }
+
+    /**
+     * Convert list of DTO instances to their respective UI model counterparts.
+     */
+    protected List<TLAObject> importDTOSearchResults(Collection<? extends AbstractDto> dtos) {
+        if (dtos != null) {
+            return dtos.stream().map(
+                d -> MappingConfig.convertDTO(d)
+            ).collect(
+                Collectors.toList()
+            );
+        } else {
+            return new ArrayList<>();
+        }
     }
 
     /**
@@ -40,21 +57,7 @@ public class SearchResults {
      * @return Search result page
      */
     public static SearchResults from(SearchResultsWrapper<? extends AbstractDto> dto) {
-        if (dto != null && dto.getResults() != null) {
-            List<TLAObject> objects = dto.getResults().stream().map(
-                d -> MappingConfig.convertDTO(d)
-            ).collect(
-                Collectors.toList()
-            );
-            return new SearchResults(
-                objects,
-                dto.getQuery(),
-                dto.getPage(),
-                dto.getFacets()
-            );
-        } else {
-            return new SearchResults();
-        }
+        return new SearchResults(dto);
     }
 
 }
