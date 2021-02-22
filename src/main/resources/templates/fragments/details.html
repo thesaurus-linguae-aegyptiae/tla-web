@@ -158,7 +158,8 @@
             </div>
             <div class="col-md-12">
                 <div class="related-objects-item" th:each="obj : ${predicate.value}" th:object="${obj}" th:id="${obj.id}"
-                    th:unless="${obj == null || obj.eclass == 'BTSAnnotation'}" th:include="fragments/search :: |${objectType}-search-result|">
+                    th:unless="${obj == null || obj.eclass == 'BTSAnnotation'}"
+                    th:include="fragments/search/results :: |${objectType}-search-result|">
                 </div>
             </div>
         </div>

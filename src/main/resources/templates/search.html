@@ -45,7 +45,7 @@
                   th:id="|${searchForm.key}-search-collapsible|"
                   th:aria-labelledby="|#${searchForm.key}-search-heading|"
                   data-parent="#search-forms-container"
-                  th:insert="fragments/search :: #__${searchForm.key}__-search"/>
+                  th:insert="fragments/search/forms :: #__${searchForm.key}__-search"/>
             </div>
           </div>
         </div>
@@ -61,7 +61,7 @@
                   <span th:text="#{|button_label_${searchForm.key}_search|}">Search Dict</span>
                 </button>
               </div>
-              <div th:replace="fragments/search :: clear-form-button(__${formId}__)"/>
+              <div th:replace="fragments/search/forms :: clear-form-button(__${formId}__)"/>
             </div>
           </div>
         </div>
