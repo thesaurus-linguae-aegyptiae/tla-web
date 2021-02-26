@@ -28,20 +28,20 @@ public class SentenceService extends ObjectService<Sentence> {
      *
      * @see ObjectDetails#getRelated()
      */
-    ObjectDetails<Sentence> injectTextObject(ObjectDetails<Sentence> container) {
-        var sentence = container.getObject();
-        sentence.setText(
-            this.lookupSentenceText(sentence, container)
-        );
+    Optional<ObjectDetails<Sentence>> injectTextObject(Optional<ObjectDetails<Sentence>> container) {
+        if (container.isPresent()) {
+            var sentence = container.get().getObject();
+            sentence.setText(
+                this.lookupSentenceText(sentence, container.get())
+            );
+        }
         return container;
     }
 
     @Override
     public Optional<ObjectDetails<Sentence>> getDetails(String id) {
-        return Optional.of(
-            this.injectTextObject(
-                super.getDetails(id).orElseThrow()
-            )
+        return this.injectTextObject(
+            super.getDetails(id)
         );
     }
 
