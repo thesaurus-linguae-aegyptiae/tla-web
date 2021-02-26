@@ -20,7 +20,8 @@
               <span class="id bbaw-libertine" th:text="${name}">Object name</span>
             </h3>
          </div>
-         <h3 class="float-right font-weight-bold text-danger text-uppercase" th:text="|Error ${code != null ? code : '404'}|"/>
+         <h3 id="error-code" class="float-right font-weight-bold text-danger text-uppercase"
+            th:text="|Error ${code != null ? code : '404'}|"/>
       </div>
 
       <div class="row">

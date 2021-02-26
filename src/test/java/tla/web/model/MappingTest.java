@@ -84,11 +84,11 @@ public class MappingTest {
         assertTrue(objectDetails.getObject() instanceof ThsEntry);
         ThsEntry t = (ThsEntry) objectDetails.getObject();
         assertAll("test mapping from DTO to thesaurus object",
-            () -> assertNotNull(t.getTranslations()),
-            () -> assertTrue(t.getTranslations().containsKey(Language.FR)),
-            () -> assertEquals(1, t.getTranslations().get(Language.FR).size()),
-            () -> assertNotNull(t.getExternalReferences()),
-            () -> assertNotNull(t.getEdited())
+            () -> assertNotNull(t.getTranslations(), "has translations"),
+            () -> assertTrue(t.getTranslations().containsKey(Language.FR), "french translation"),
+            () -> assertEquals(1, t.getTranslations().get(Language.FR).size(), "french translation"),
+            () -> assertNotNull(t.getExternalReferences(), "external references"),
+            () -> assertNotNull(t.getEdited(), "editor info")
         );
         Map<String, Map<String, TLAObject>> related = objectDetails.getRelated();
         ObjectReference ref = t.getRelations().get("partOf").get(0);

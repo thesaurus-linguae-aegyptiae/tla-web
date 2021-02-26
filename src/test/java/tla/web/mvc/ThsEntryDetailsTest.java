@@ -58,9 +58,9 @@ public class ThsEntryDetailsTest extends ViewTest {
         ObjectDetails<?> container = ObjectDetails.from(dto);
         assertAll("wrapper DTO should be mapped to object details container",
             () -> assertNotNull(container),
-            () -> assertNotNull(container.getObject()),
-            () -> assertEquals(ThsEntry.class, container.getObject().getClass()),
-            () -> assertTrue(container.getObject() instanceof ThsEntry)
+            () -> assertNotNull(container.getObject(), "resulting container not empty"),
+            () -> assertEquals(ThsEntry.class, container.getObject().getClass(), "result is ths entry"),
+            () -> assertTrue(container.getObject() instanceof ThsEntry, "result is ths entry instance")
         );
         return new ObjectDetails<ThsEntry>(
             (ThsEntry) container.getObject(),
