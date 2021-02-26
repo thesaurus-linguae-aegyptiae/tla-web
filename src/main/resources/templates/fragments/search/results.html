@@ -1,7 +1,7 @@
 <html>
-	<body>
+  <body>
 
-			<!-- Ths Entry search result -->
+      <!-- Ths Entry search result -->
 
       <div th:fragment="ths-search-result" class="result-list-item" th:object="${obj}">
         <span class="float-right result-list-item-element type-subtype font-italic font-weight-light">
@@ -66,6 +66,20 @@
         <hr/>
       </div>
 
+      <!-- SENTENCE search result -->
+      <div th:fragment="sentence-search-result" class="result-list-item" th:object="${obj}">
+        <div class="occ-list-item mt-3 pt-1 pb-1" th:id="*{id}">
+          <div class="sentence-line-mode">
+            <div th:replace="fragments/common :: sentence-hieroglyphs"/>
+            <div th:replace="fragments/common :: sentence-transcription"/>
+          </div>
+        </div>
+
+        <div th:replace="fragments/details :: translations"/>
+        <div th:replace="fragments/details :: object-property-object-paths('sentence')"/>
+
+      </div>
+
 
       <!-- LEMMA search results sort order select -->
 
@@ -96,7 +110,6 @@
           </div>
         </div>
       </div>
-
 
       <!-- search facets -->
 
@@ -215,5 +228,5 @@
         </a>
       </div>
 
-	</body>
+  </body>
 </html>
