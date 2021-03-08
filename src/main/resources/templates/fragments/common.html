@@ -51,10 +51,9 @@
                   <i class="far fa-flag"></i>
                   <span th:text="#{menu_global_lang}">Language</span>
                 </a>
-                <div class="dropdown-menu" aria-labelledby="langDropdown"
-                    th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder)}">
+                <div class="dropdown-menu" aria-labelledby="langDropdown">
                   <a th:each="lang : ${env.l10n}" href="#" class="dropdown-item" th:text="#{|lang_label_${lang}}"
-                      th:href="${urlBuilder.fromCurrentRequest().replaceQueryParam('lang', lang).toUriString()}">English</a>
+                      th:href="${@templateUtils.setQueryParam('lang', lang)}">English</a>
                 </div>
               </li>
             </ul>

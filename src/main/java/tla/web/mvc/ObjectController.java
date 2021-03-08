@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import lombok.extern.slf4j.Slf4j;
 import tla.domain.command.SearchCommand;
@@ -38,6 +38,9 @@ import tla.web.service.ObjectService;
  */
 @Slf4j
 public abstract class ObjectController<T extends TLAObject, S extends SearchCommand<?>> {
+
+    @Autowired
+    TemplateUtils templateUtils;
 
     /**
      * map eclasses to request mapping/route prefixes.
@@ -131,9 +134,13 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
         return this.templatePath;
     }
 
+    /**
+     * Replaces URL path, but leaves parameters, so that the resulting URL can be used
+     * to link back to search form with fields filled.
+     */
     @ModelAttribute("modifySearchUrl")
     public String modifySearchUrl() {
-        return ServletUriComponentsBuilder.fromCurrentRequest().replacePath("search").toUriString();
+        return templateUtils.replacePath("search").build().toString();
     }
 
     /**
@@ -205,7 +212,7 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
                     "menu_global_search"
                 ),
                 BreadCrumb.of(
-                    ServletUriComponentsBuilder.fromCurrentRequest().replaceQueryParam("page", "1").toUriString(),
+                    templateUtils.setQueryParam("page", "1"),
                     String.format("menu_global_search_%s", this.getTemplatePath())
                 )
             )

@@ -197,9 +197,11 @@
       <!-- pagination -->
 
       <nav aria-label="Pagination" th:object="${pagination}" th:fragment="search-results-pagination" class="search-results-pagination m-2" th:unless="${#lists.size(pagination.pages) == 1}">
-        <ul class="pagination justify-content-center" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder)}">
+        <ul class="pagination justify-content-center">
           <li th:each="page : *{pages}" class="page-item" th:classappend="(${page} == null) ? (disabled) : (${page} == *{currentPage} ? active : '')">
-            <a th:if="${page} != null" class="page-link" th:href="${urlBuilder.fromCurrentRequest().replaceQueryParam('page', page).toUriString()}" th:text="${page}">Page#</a>
+            <a th:if="${page} != null" class="page-link"
+               th:href="${@templateUtils.replaceQueryParam('page', page).build()}"
+               th:text="${page}">Page#</a>
             <a th:if="${page} == null" class="page-link">&hellip;</a>
           </li>
         </ul>
