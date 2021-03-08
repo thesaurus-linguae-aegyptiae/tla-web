@@ -131,4 +131,17 @@ jobs:
         path: screenshots
         name: sentence-search-form
 
+    - name: screenshot sentence search results
+      uses: "flameddd/screenshots-ci-action@v1.1.1"
+      with:
+        url: "http://localhost:8080/sentence/search?tokens[0].lemma.id=74950"
+        devices: iPhone 6,iPhone 6 landscape,Nexus 7,Pad Pro,Galaxy S III landscape,iPad Pro landscape
+        type: png
+
+    - name: upload screenshots
+      uses: "actions/upload-artifact@v2"
+      with:
+        path: screenshots
+        name: sentence-search-results
+
 ...
