@@ -75,8 +75,11 @@
           </div>
         </div>
 
-        <div th:replace="fragments/details :: translations"/>
-        <div th:replace="fragments/details :: object-property-object-paths('sentence')"/>
+        <span class="result-list-item-element translations">
+          <th:block th:each="entry : *{translations}" th:insert="fragments/common :: single-lang-translation(${entry})"/>
+        </span>
+
+        <div th:replace=" :: search-result-object-paths('sentence')"/>
 
       </div>
 
@@ -228,6 +231,17 @@
             <span th:text="#{button_label_modify_search}">Modify search</span>
           </button>
         </a>
+      </div>
+
+      <!-- Object details corpus/thesaurus path -->
+      <div th:fragment="search-result-object-paths(objType)">
+        <th:block th:with="controller = |${objType}Controller|">
+         <th:block th:with="objectPaths = ${@__${controller}__.createObjectPathLinks(obj)}">
+          <p>
+            <div th:replace="fragments/common::object-paths(${objectPaths},false)"/>
+          </p>
+         </th:block>
+        </th:block>
       </div>
 
   </body>
