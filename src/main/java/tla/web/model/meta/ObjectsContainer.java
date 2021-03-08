@@ -1,6 +1,5 @@
 package tla.web.model.meta;
 
-import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;

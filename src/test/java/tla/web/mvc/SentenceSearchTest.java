@@ -9,9 +9,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.net.URI;
+import java.util.Locale;
+
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.MessageSource;
 
 import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.web.model.Sentence;
@@ -23,14 +28,22 @@ public class SentenceSearchTest extends ViewTest {
     @MockBean
     private TlaClient backend;
 
-    @Test
+    @Autowired
+    private MessageSource messages;
+
+    /**
+     * Uses data file at <code>src/test/resources/sample/data/sentence/search/{datafile}</code>
+     * to simulate a sentence search.
+     * Return the data loaded from that file.
+     */
     @SuppressWarnings("unchecked")
-    void sentenceSearchResultsViewModelTest() throws Exception {
+    SearchResultsWrapper<?> mockSearch(String datafile) throws Exception {
         var dto = tla.domain.util.IO.loadFromFile(
-            "src/test/resources/sample/data/sentence/search/occurrences-145700.json",
+            String.format(
+                "src/test/resources/sample/data/sentence/search/%s", datafile
+            ),
             SearchResultsWrapper.class
         );
-        assertEquals(3, dto.getResults().size());
         when(
             backend.searchObjects(
                 eq(Sentence.class), any(), anyInt()
@@ -38,11 +51,18 @@ public class SentenceSearchTest extends ViewTest {
         ).thenReturn(
             dto
         );
+        return dto;
+    }
+
+
+    @Test
+    void sentenceSearchResultsViewModelTest() throws Exception {
+        var dto = mockSearch("occurrences-145700.json");
         var response = mockMvc.perform(
-            get("/sentence/search").param("token[0].id", new String[]{"145700"})
+            get("/sentence/search").param("tokens[0].lemma.id", new String[]{"145700"})
         ).andDo(print());
 
-        testLocalization(response, Language.en);
+        testLocalization(response);
 
         response.andExpect(
             status().isOk()
@@ -63,7 +83,42 @@ public class SentenceSearchTest extends ViewTest {
         ).andExpect(
             xpath("//div[@class='object-path'][1]/div[@class='object-path-element']/a/span/text()").string("〈Pyramidentexte〉")
         );
+    }
 
+    @Test
+    void sentenceSearchResultsLinksTest() throws Exception {
+        var dto = mockSearch("occurrences-10070.json");
+        var response = mockMvc.perform(
+            get(
+                URI.create("/sentence/search?tokens[0].lemma.id=10070&lang=de")
+            )
+        ).andDo(print());
+
+        assertTrue(dto.getPage().isFirst(), "first results page");
+
+        var pagination = "//nav/ul[contains(@class, 'pagination')]";
+        var pagelink = pagination + "/li[@class='page-item']/a[@class='page-link']";
+        response.andExpect(
+            xpath(pagelink).exists()
+        );
+        response.andExpect(
+            xpath(pagelink + "/@href").string(
+                containsString("page=2")
+            )
+        ).andExpect(
+            xpath(pagelink + "/@href").string(
+                containsString("tokens[0].lemma.id")
+            )
+        );
+
+        var resultsDesc = "//div[contains(@class, 'result-page-desc')]";
+        response.andExpect(
+            xpath(resultsDesc + "/b[2]/text()").string("32")
+        ).andExpect(
+            xpath(resultsDesc + "/span[3]/text()").string(
+                messages.getMessage("result_page_description_right_sentence", null, Locale.GERMAN)
+            )
+        );
     }
 
 }
