@@ -217,6 +217,7 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
                 )
             )
         );
+        this.addHideableProperties(model);
         model.addAttribute("searchResults", results.getObjects());
         model.addAttribute("searchQuery", results.getQuery());
         model.addAttribute("facets", results.getFacets());
@@ -232,6 +233,17 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
     protected Model extendSearchResultsPageModel(
         Model model, SearchResults results, SearchCommand<?> searchForm
     ) {
+        return model;
+    }
+
+    protected Model addHideableProperties(Model model) {
+        var searchProperties = this.getService().getSearchProperties();
+        if (searchProperties != null) {
+            model.addAttribute(
+                "hideableProperties",
+                searchProperties.getHideableProperties()
+            );
+        }
         return model;
     }
 

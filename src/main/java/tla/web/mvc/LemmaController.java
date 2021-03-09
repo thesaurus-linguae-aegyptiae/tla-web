@@ -75,12 +75,6 @@ public class LemmaController extends ObjectController<Lemma, LemmaSearch> {
 
     @Override
     protected Model extendSearchResultsPageModel(Model model, SearchResults results, SearchCommand<?> searchForm) {
-        model.addAttribute(
-            "hideableProperties",
-            List.of(
-                "hieroglyphs", "lemma-id", "wordClass", "bibliography", "attested-timespan"
-            )
-        );
         if (searchForm instanceof LemmaSearch) {
             LemmaSearch form = (LemmaSearch) searchForm;
             model.addAttribute(
