@@ -11,6 +11,7 @@ import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.AbstractDto;
 import tla.domain.model.meta.BTSeClass;
+import tla.web.config.SearchProperties;
 import tla.web.model.mappings.MappingConfig;
 import tla.web.model.meta.ModelClass;
 import tla.web.model.meta.ObjectDetails;
@@ -33,6 +34,8 @@ public abstract class ObjectService<T extends TLAObject> {
 
     private Class<T> modelClass;
 
+    private SearchProperties searchProperties;
+
     @SuppressWarnings("unchecked")
     public ObjectService() {
         for (Annotation a : this.getClass().getAnnotationsByType(ModelClass.class)) {
@@ -42,6 +45,15 @@ public abstract class ObjectService<T extends TLAObject> {
             MappingConfig.registerModelClass(modelClass);
             TlaClient.registerModelclass(modelClass);
         }
+    }
+
+    public SearchProperties getSearchProperties() {
+        if (this.searchProperties == null) {
+            this.searchProperties = SearchProperties.getPropertiesFor(
+                this.getModelClass()
+            );
+        }
+        return this.searchProperties;
     }
 
     /**

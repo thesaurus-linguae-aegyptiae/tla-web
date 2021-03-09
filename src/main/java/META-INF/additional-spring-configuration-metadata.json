@@ -29,6 +29,10 @@
             "type": "java.util.Set"
         },
         {
+            "name": "tla.editorials",
+            "type": "java.util.Map"
+        },
+        {
             "name": "tla.link-formatters",
             "type": "java.util.Map"
         },
@@ -37,16 +41,12 @@
             "type": "tla.web.config.ApplicationProperties.Assets"
         },
         {
-            "name": "search.lemma.word-classes",
-            "type": "java.util.Map"
+            "name": "search.sentence",
+            "type": "tla.web.config.SearchProperties"
         },
         {
-            "name": "search.lemma.sort-orders",
-            "type": "java.util.List"
-        },
-        {
-            "name": "search.annotation-types",
-            "type": "java.util.Map"
+            "name": "search.lemma",
+            "type": "tla.web.config.LemmaSearchProperties"
         }
     ]
 }
