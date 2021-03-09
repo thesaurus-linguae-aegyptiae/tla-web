@@ -67,6 +67,19 @@ search:
             - timeSpan.end_desc
             - root_asc
 
+        hideable-properties:
+            hieroglyphs: []
+            lemma-id: []
+            wordClass: []
+            bibliography: []
+            attested-timespan: []
+            translations:
+                - translation-de
+                - translation-en
+                - translation-fr
+                - translation-ar
+                - translation-it
+
         word-classes:
             any: []
             excl_names: []
@@ -128,6 +141,18 @@ search:
 
         annotation-types:
             lemma: []
+
+    sentence:
+        hideable-properties:
+            transcription: []
+            hieroglyphs: []
+            paths: []
+            translations:
+                - translation-de
+                - translation-en
+                - translation-fr
+                - translation-ar
+                - translation-it
 
 ---
 

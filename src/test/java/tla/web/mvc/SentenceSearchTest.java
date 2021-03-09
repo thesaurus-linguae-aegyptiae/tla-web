@@ -19,6 +19,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.MessageSource;
 
 import tla.domain.dto.extern.SearchResultsWrapper;
+import tla.web.config.SentenceSearchProperties;
 import tla.web.model.Sentence;
 import tla.web.repo.TlaClient;
 
@@ -30,6 +31,17 @@ public class SentenceSearchTest extends ViewTest {
 
     @Autowired
     private MessageSource messages;
+
+    @Autowired
+    private SentenceSearchProperties searchProperties;
+
+    @Test
+    void testSearchProperties() {
+        assertAll("test loaded sentence search configuration",
+            () -> assertTrue(searchProperties.getHideableProperties().containsKey("transcription")),
+            () -> assertTrue(searchProperties.getHideableProperties().get("transcription").isEmpty())
+        );
+    }
 
     /**
      * Uses data file at <code>src/test/resources/sample/data/sentence/search/{datafile}</code>

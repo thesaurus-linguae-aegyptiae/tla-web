@@ -42,6 +42,15 @@ public class ServiceTest {
     private SentenceService sentenceService;
 
     @Test
+    void searchPropertiesRegistry() {
+        assertAll("check search properties registry for entries",
+            () -> assertNotNull(lemmaService.getSearchProperties(), "lemma search properties registered"),
+            () -> assertNotNull(lemmaService.getSearchProperties().getHideableProperties(), "hide/show property list"),
+            () -> assertFalse(lemmaService.getSearchProperties().getHideableProperties().isEmpty(), "hide/show property list not empty")
+        );
+    }
+
+    @Test
     @SuppressWarnings("unchecked")
     void lemmaService() throws Exception {
         SingleDocumentWrapper<DocumentDto> dto = tla.domain.util.IO.loadFromFile(
