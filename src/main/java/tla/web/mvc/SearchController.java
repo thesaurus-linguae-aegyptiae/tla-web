@@ -2,9 +2,11 @@ package tla.web.mvc;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
@@ -31,6 +33,11 @@ public class SearchController {
 
     @Autowired
     private LemmaSearchProperties lemmaSearchConf;
+
+    @Value("${search.config.default}")
+    private String defaultForm;
+
+    public static final List<String> SEARCH_FORMS = List.of("dict", "sentence");
 
     @ModelAttribute("allScripts")
     public Script[] getAllScripts() {
@@ -83,14 +90,38 @@ public class SearchController {
             );
         }
         model.addAttribute(
-            "forms",
-            List.of("dict", "sentence").stream().map(
-                key -> new SearchFormExpansionState(
-                    key, params.containsKey(key)
-                )
-            ).collect(Collectors.toList())
+            "forms", initFormExpansionStates(params)
         );
         return "search";
+    }
+
+    /**
+     * Determine how to determine whether a search form should initially be expanded.
+     */
+    private Function<String, SearchFormExpansionState> expandFormExpression(MultiValueMap<String, String> params) {
+        if (SEARCH_FORMS.stream().anyMatch(
+            key -> params.containsKey(key)
+        )) {
+            return key -> new SearchFormExpansionState(
+                key, params.containsKey(key)
+            );
+        } else {
+            return key -> new SearchFormExpansionState(
+                key, key.equals(defaultForm)
+            );
+        }
+    }
+
+    /**
+     * Determine the initial expansion states of collapsible search forms based on URL parameters
+     * or the default search mode selected via the application setting <code>search.config.default</code>.
+     */
+    protected List<SearchFormExpansionState> initFormExpansionStates(MultiValueMap<String, String> params) {
+        return SEARCH_FORMS.stream().map(
+            this.expandFormExpression(params)
+        ).collect(
+            Collectors.toList()
+        );
     }
 
     /**

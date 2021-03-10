@@ -59,6 +59,9 @@ tla:
             default-format: https://www.wikidata.org/wiki/{id}
 
 search:
+    config:
+        default: dict
+
     lemma:
         sort-orders:
             - sortKey_asc
