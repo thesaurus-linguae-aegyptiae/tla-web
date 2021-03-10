@@ -47,6 +47,10 @@ public abstract class ObjectService<T extends TLAObject> {
         }
     }
 
+    /**
+     * Return search properties registered for this service's model class, if there
+     * are any.
+     */
     public SearchProperties getSearchProperties() {
         if (this.searchProperties == null) {
             this.searchProperties = SearchProperties.getPropertiesFor(

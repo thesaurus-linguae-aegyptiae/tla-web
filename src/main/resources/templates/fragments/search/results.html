@@ -168,24 +168,47 @@
           }
           //]]>
         </script>
-        <button th:each="property : ${hideableProperties}" type="button"
-            class="btn btn-secondary btn-block text-left" th:id="|hide-property-button-${property}|">
+        <th:block th:each="e : ${hideableProperties}" th:with="property=${e.key}">
+          <div th:replace=" :: hide-property-button(${property}, null)"/>
+          <th:block th:with="subProperties=${e.value}">
+            <div th:unless="${#lists.isEmpty(subProperties)}"
+                class="indented-buttons">
+              <th:block th:each="subProperty : ${subProperties}">
+                <div th:replace=" :: hide-property-button(${property}, ${subProperty})"/>
+              </th:block>
+            </div>
+          </th:block>
+        </th:block>
+      </div>
+
+      <!-- Hide property Button -->
+
+      <th:block th:fragment="hide-property-button(property, subProperty)"
+          th:with="suffix=${subProperty != null} ? |${property}-${subProperty}| : ${property}">
+        <button type="button"
+            class="btn btn-secondary btn-block text-left" th:id="|hide-property-button-${suffix}|">
           <i class="fas fa-plus-circle" id="on"></i>
           <i class="fas fa-minus-circle" id="off"></i>
-          <span th:text="#{|button_label_hide_property_${property}|}">Property name</span>
+          <span th:text="#{|button_label_hide_property_${suffix}|}">Property name</span>
           <script th:inline="javascript">
             //<![CDATA[
             {
-              let name = /*[[${property}]]*/ null;
+              let name = /*[[${suffix}]]*/ null;
+              let property = /*[[${property}]]*/ null;
+              let subProperty = /*[[${subProperty}]]*/ null;
               let objectType = /*[[${objectType}]]*/ null;
               let button = $(`#hide-property-button-${name}`);
+              let selector = `.result-list-item-element.${property}`;
+              if (subProperty != null) {
+                selector = `${selector} .${subProperty}`;
+              }
               button.children('i#on').toggle();
               if (Cookies.get(`${objectType}-results-hide-property-${name}`) != 'true') {
                 button.children('i').toggle();
-                $(`.result-list-item-element.${name}`).toggle();
+                $(selector).toggle();
               }
               button.click(() => {
-                $(`.result-list-item-element.${name}`).fadeToggle('slow');
+                $(selector).fadeToggle('slow');
                 button.children('svg').toggle();
                 saveHideButtonState(name, button.children('svg#on').attr('style') == 'display: none;');
               });
@@ -193,8 +216,7 @@
             //]]>
           </script>
         </button>
-      </div>
-
+      </th:block>
 
 
       <!-- pagination -->
