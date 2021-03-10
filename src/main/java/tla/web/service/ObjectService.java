@@ -4,6 +4,7 @@ import java.lang.annotation.Annotation;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 
 import lombok.extern.slf4j.Slf4j;
 import tla.domain.command.SearchCommand;
@@ -11,6 +12,7 @@ import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.AbstractDto;
 import tla.domain.model.meta.BTSeClass;
+import tla.domain.model.meta.TLADTO;
 import tla.web.config.SearchProperties;
 import tla.web.model.mappings.MappingConfig;
 import tla.web.model.meta.ModelClass;
@@ -35,6 +37,8 @@ public abstract class ObjectService<T extends TLAObject> {
     private Class<T> modelClass;
 
     private SearchProperties searchProperties;
+
+    ResponseEntity<?> EMPTY_RESPONSE = ResponseEntity.of(Optional.empty());
 
     @SuppressWarnings("unchecked")
     public ObjectService() {
@@ -76,6 +80,19 @@ public abstract class ObjectService<T extends TLAObject> {
      */
     public String getModelEClass() {
         return MappingConfig.extractEclass(this.getModelClass());
+    }
+
+    /**
+     * Call appropriate autocomplete endpoint for this service's model class.
+     */
+    public ResponseEntity<?> autoComplete(String term, String type) {
+        if (term.trim().length() > 2) {
+            return backend.autoComplete(
+                this.getModelClass(), term, type
+            );
+        } else {
+            return EMPTY_RESPONSE;
+        }
     }
 
     /**

@@ -2,8 +2,10 @@ package tla.web.repo;
 
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import lombok.extern.slf4j.Slf4j;
@@ -67,6 +69,26 @@ public class TlaClient {
             "%s/%s",
             this.backendUrl,
             getBackendPathPrefix(modelClass)
+        );
+    }
+
+    /**
+     * Call backend autocomplete endpoint for given model.
+     * TODO
+     */
+    @SuppressWarnings("rawtypes")
+    public ResponseEntity<List> autoComplete(Class<? extends TLAObject> modelClass, String term, String type) {
+        return client.getForEntity(
+            String.format(
+                "%s/complete?q=%s",
+                this.getEndpointURLPrefix(modelClass),
+                term
+            ),
+            List.class,
+            Map.of(
+                "q", term,
+                "type", type
+            )
         );
     }
 
