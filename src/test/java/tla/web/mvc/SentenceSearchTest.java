@@ -133,4 +133,19 @@ public class SentenceSearchTest extends ViewTest {
         );
     }
 
+    @Test
+    void testSideBar() throws Exception {
+        mockSearch("occurrences-145700.json");
+        var response = mockMvc.perform(
+            get(
+                URI.create("/sentence/search?tokens[0].lemma.id=10070&lang=de")
+            )
+        ).andDo(print());
+        response.andExpect(
+            xpath(
+                "//div[@class='hide-properties-buttons']/div[@class='indented-buttons']/button[@id='hide-property-button-translations-translation-de']"
+            ).exists()
+        );
+    }
+
 }

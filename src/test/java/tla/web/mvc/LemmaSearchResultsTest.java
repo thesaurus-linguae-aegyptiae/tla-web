@@ -47,17 +47,22 @@ public class LemmaSearchResultsTest extends ViewTest {
         );
     }
 
-    @ParameterizedTest
-    @EnumSource(Language.class)
     @SuppressWarnings("unchecked")
-    void testSearchResults(Language lang) throws Exception {
-        var dto = loadDto("demotic_translation_de.json");
+    SearchResultsWrapper<?> mockSearch(String filename) throws Exception {
+        var dto = loadDto(filename);
         assertNotNull(dto);
         when(
             backendClient.searchObjects(any(), any(), anyInt())
         ).thenReturn(
             dto
         );
+        return dto;
+    }
+
+    @ParameterizedTest
+    @EnumSource(Language.class)
+    void testSearchResults(Language lang) throws Exception {
+        var dto = mockSearch("demotic_translation_de.json");
         ResultActions testResponse = mockMvc.perform(
             get("/lemma/search").header(HttpHeaders.ACCEPT_LANGUAGE, lang)
         ).andDo(print()).andExpect(
@@ -80,14 +85,8 @@ public class LemmaSearchResultsTest extends ViewTest {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
     void testFulltypeLabels() throws Exception {
-        var dto = loadDto("demotic_translation_de.json");
-        when(
-            backendClient.searchObjects(any(), any(), anyInt())
-        ).thenReturn(
-            dto
-        );
+        mockSearch("demotic_translation_de.json");
         ResultActions testResponse = mockMvc.perform(
             get("/lemma/search").header(HttpHeaders.ACCEPT_LANGUAGE, "en")
         ).andDo(print()).andExpect(
@@ -102,6 +101,20 @@ public class LemmaSearchResultsTest extends ViewTest {
                     null, Locale.ENGLISH
                 )
             )
+        );
+    }
+
+    @Test
+    void testSideBar() throws Exception {
+        mockSearch("demotic_translation_de.json");
+        ResultActions testResponse = mockMvc.perform(
+            get("/lemma/search")
+        ).andDo(print());
+
+        testResponse.andExpect(
+            xpath("//div[@class='hide-properties-buttons']/button[@id='hide-property-button-bibliography']").exists()
+        ).andExpect(
+            xpath("//div[@class='hide-properties-buttons']/button[@id='hide-property-button-translations']").exists()
         );
     }
 
