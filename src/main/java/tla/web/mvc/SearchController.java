@@ -25,6 +25,7 @@ import tla.domain.model.Language;
 import tla.domain.model.Script;
 import tla.web.config.LemmaSearchProperties;
 import tla.web.model.ui.BreadCrumb;
+import tla.web.model.ui.SearchFormExpansionState;
 
 @Slf4j
 @Controller
@@ -41,12 +42,12 @@ public class SearchController {
 
     @ModelAttribute("allScripts")
     public Script[] getAllScripts() {
-        return LemmaController.SEARCHABLE_SCRIPTS;
+        return LemmaController.SEARCHABLE_SCRIPTS; // TODO
     }
 
     @ModelAttribute("allTranslationLanguages")
     public Language[] getAllTranslationLanguages() {
-        return LemmaController.SEARCHABLE_TRANSLATION_LANGUAGES;
+        return LemmaController.SEARCHABLE_TRANSLATION_LANGUAGES; // TODO
     }
 
     @ModelAttribute("wordClasses")
@@ -57,17 +58,6 @@ public class SearchController {
     @ModelAttribute("lemmaAnnotationTypes")
     public Map<String, List<String>> getLemmaAnnotationTypes() {
         return lemmaSearchConf.getAnnotationTypes();
-    }
-
-    /**
-     * Simple single-purpose POJO for initializing search form collapsible
-     * expansion states (which search form currently has the focus)
-     */
-    @Getter
-    @AllArgsConstructor
-    public static class SearchFormExpansionState {
-        private String key;
-        private boolean expanded;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)

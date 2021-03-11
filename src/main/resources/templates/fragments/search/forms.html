@@ -140,8 +140,14 @@
       </button>
     </div>
 
-    <!-- Translation field and languages checkboxes widget -->
+    <!-- Translation field and languages checkboxes widget.
+      Creates a group of input fields for submitting translation queries for specified languages.
 
+      params:
+        key (string): unique identifier
+        bind (string): NAME of the data binding target
+        languages (list): possible language identifiers (e.g. list of `tla.domain.model.Language` values)
+    -->
     <div class="bg-grey form-group row col-xl-12"
         th:fragment="translation-spec(key, bind, languages)" th:object="${__${bind}__}">
       <label class="col-form-label col-xl-2" th:for="|field-label-translation-${key}|" th:text="#{field_label_translation}">

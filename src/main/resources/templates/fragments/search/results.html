@@ -181,8 +181,18 @@
         </th:block>
       </div>
 
-      <!-- Hide property Button -->
+      <!-- Hide property Button.
+        hides particular DOM elements of search result list items. In order to be hideable
+        by such a button, those elements must have the classes `.result-list-item-element`
+        AND `${property}`. A special case is the second parameter `${subProperty}` being
+        not `null`, in which case it is used to select any child element for hide/show effect
+        (also by class). In contrast to the parent/ancestor element, the child element does
+        not need to be of class `.result-list-item-element`.
 
+        params:
+          property (string): class name of `.result-list-item-element` elements to toggle
+          subProperty (string, null): class name of child element to toggle instead (optional)
+      -->
       <th:block th:fragment="hide-property-button(property, subProperty)"
           th:with="suffix=${subProperty != null} ? |${property}-${subProperty}| : ${property}">
         <button type="button"
@@ -218,9 +228,10 @@
         </button>
       </th:block>
 
-
-      <!-- pagination -->
-
+      <!-- Pagination.
+        Iterates through the `pages` field of a `tla.web.model.ui.Pagination` object and renders a simple basic
+        bootstrap pagination bar. The input object must be in the view model under key "pagination".
+      -->
       <nav aria-label="Pagination" th:object="${pagination}" th:fragment="search-results-pagination" class="search-results-pagination m-2" th:unless="${#lists.size(pagination.pages) == 1}">
         <ul class="pagination justify-content-center">
           <li th:each="page : *{pages}" class="page-item" th:classappend="(${page} == null) ? (disabled) : (${page} == *{currentPage} ? active : '')">
