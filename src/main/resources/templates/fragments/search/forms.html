@@ -98,10 +98,29 @@
     </form>
 
 
-    <!-- Pieces -->
+    <!-- Widgets -->
 
-    <!-- clear form button -->
+    <!-- Submit form button.
+      Will be given the ID `submit-${form.key}-search`.
 
+      params:
+        form (`tla.web.model.ui.SearchFormExpansionState`): representation of search form initial expansion state
+    -->
+    <div th:fragment="submit-form-button(form)" th:with="formId=|${form.key}-search|">
+      <button class="btn btn-block btn-danger text-left text-decoration-none mt-4 mb-2"
+          th:id="|submit-${formId}|"
+          th:form="${formId}" type="submit">
+        <span class="fas fa-arrow-circle-right"></span>
+        <span th:text="#{|button_label_${form.key}_search|}">Submit Search</span>
+      </button>
+    </div>
+
+
+    <!-- Clear form button.
+      When clicked, it tries to empty out all input fields in the corresponding search form.
+      params:
+        form (string): id of the search form to clear
+    -->
     <div th:fragment="clear-form-button(form)">
       <button th:id="|clear-form-button-${form}|" type="button" class="btn btn-block btn-secondary text-left text-decoration-none">
         <span class="fas fa-times-circle"></span>
