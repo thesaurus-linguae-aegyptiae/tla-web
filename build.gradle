@@ -87,23 +87,6 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.0-M1'
 }
 
-application {
-    mainClass = 'tla.web.App'
-}
-
-test {
-    useJUnitPlatform()
-    finalizedBy 'jacocoTestReport'
-}
-
-jacocoTestReport {
-    reports {
-        xml.enabled true
-        html.enabled true
-    }
-    finalizedBy 'generateJacocoBadge'
-}
-
 task installAssets {
     description = 'Download and install third-party JS/CSS frameworks and libraries'
     dependsOn 'installBootstrap'
@@ -225,5 +208,33 @@ bootRun {
         throw new StopExecutionException()
       }
     }
+}
+
+application {
+    mainClass = 'tla.web.App'
+}
+
+test {
+    useJUnitPlatform {
+      includeTags '!selenium'
+    }
+    finalizedBy 'jacocoTestReport'
+}
+
+task selenium(type: Test) {
+    group = 'Verification'
+    description = 'Runs functional tests of the web UI using a Selenium container.'
+    systemProperty 'spring.profiles.active', 'selenium'
+    useJUnitPlatform {
+      includeTags 'selenium'
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+    finalizedBy 'generateJacocoBadge'
 }
 
