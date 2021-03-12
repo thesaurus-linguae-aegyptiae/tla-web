@@ -61,7 +61,7 @@
       <div class="form-group row bg-grey">
         <label class="col-form-label col-xl-2" th:text="#{field_label_script}">Script</label>
         <div class="col-xl-10">
-          <div th:each="item : ${allScripts}" class="form-check form-check-inline">
+          <div th:each="item : ${allScripts}" class="form-check form-check-inline lemma-script">
             <input class="form-check-input" type="checkbox" th:field="*{script}" th:value="${item}"/>
             <label class="form-check-label" th:for="${#ids.prev('script')}" th:text="#{|dict_${item}|}"/>
           </div>

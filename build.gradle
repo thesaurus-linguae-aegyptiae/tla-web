@@ -78,6 +78,11 @@ dependencies {
     implementation 'com.github.jkatzwinkel:tla-common:query-expansion-SNAPSHOT'
     implementation 'com.github.rosmord.jsesh:jsesh:release-7.5.5'
 
+    testImplementation 'org.seleniumhq.selenium:selenium-remote-driver:4.0.0-beta-1'
+    testImplementation 'org.seleniumhq.selenium:selenium-chrome-driver:4.0.0-beta-1'
+    testImplementation 'org.seleniumhq.selenium:selenium-support:4.0.0-beta-1'
+    testImplementation 'org.testcontainers:selenium:1.15.2'
+    testImplementation 'org.testcontainers:junit-jupiter:1.15.2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.0-M2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.0-M1'
 }
