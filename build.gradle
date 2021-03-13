@@ -25,12 +25,18 @@ ext {
     jquerySrc = "https://code.jquery.com/jquery-${jqueryVersion}.min.js"
     cookieJsSrc = "https://github.com/js-cookie/js-cookie/releases/download/v${cookieJsVersion}/js.cookie-${cookieJsVersion}.min.js"
     staticDir = 'src/main/resources/static'
+    vendorDir = "${staticDir}/vendor"
 }
 
 def assets = [
   'cookieJs' : [cookieJsSrc, 'js.cookie.min.js'],
   'jquery': [jquerySrc, 'jquery.min.js'],
   'headroomJs': ['https://unpkg.com/headroom.js/dist/headroom.min.js', 'headroom.min.js']
+]
+
+def frameworks = [
+  'bootstrap': [bootstrapSrc, "${staticDir}/vendor/bootstrap-${bootstrapVersion}-dist"],
+  'fontawesome': [fontawesomeSrc, "${staticDir}/vendor/fontawesome-free-${fontawesomeVersion}-web"]
 ]
 
 publishing {
@@ -89,12 +95,17 @@ dependencies {
 
 task installAssets {
     description = 'Download and install third-party JS/CSS frameworks and libraries'
-    dependsOn 'installBootstrap'
-    dependsOn 'installFontAwesome'
     dependsOn 'installFontRoboto'
     outputs.files(
         file("${staticDir}/vendor/")
     )
+}
+
+task updateAssets {
+    group = 'Init'
+    description = 'Removes and re-installs third-party ressources added with :installAssets.'
+    dependsOn 'cleanAssets'
+    dependsOn 'installAssets'
 }
 
 def createDownloadAssetTask(String name, String url, String destFile) {
@@ -109,26 +120,16 @@ def createDownloadAssetTask(String name, String url, String destFile) {
   }
 }
 
-assets.each{
+assets.each {
   entry -> installAssets.dependsOn createDownloadAssetTask(
-    entry.key,
-    entry.value[0],
-    entry.value[1]
+    entry.key, entry.value[0], entry.value[1]
   )
 }
 
-task downloadFontAwesome(type: Download) {
-    description = 'Downloads fontawesome distribution for local hosting'
-    src fontawesomeSrc
-    dest new File(buildDir, 'fontawesome.zip')
-    onlyIfModified true
-}
-
-task downloadBootstrap(type: Download) {
-    description = 'Downloads bootstrap distribution for local hosting'
-    src bootstrapSrc
-    dest new File(buildDir, 'bootstrap.zip')
-    onlyIfModified true
+frameworks.each {
+  entry -> installAssets.dependsOn installFrameworkTask(
+    entry.key, entry.value[0], entry.value[1]
+  )
 }
 
 task downloadFontRoboto(type: Download) {
@@ -139,26 +140,42 @@ task downloadFontRoboto(type: Download) {
     onlyIfModified true
 }
 
-task installFontAwesome(dependsOn: downloadFontAwesome, type: Copy) {
-    group = 'Init'
-    description = 'Installs fontawesome distribution into assets directory'
-    from zipTree(downloadFontAwesome.dest)
-    into file("${staticDir}/vendor")
-    doLast {
-      file("${staticDir}/vendor/fontawesome-free-${fontawesomeVersion}-web").renameTo(
-        file("${staticDir}/vendor/fontawesome")
+def downloadFrameworkTask(String name, String url) {
+    return tasks.create("download${name.capitalize()}", Download) {
+      description = "Downloads ${name.capitalize()} distrubution into build directory."
+      src "${url}"
+      dest new File(buildDir, "${name}.zip")
+      onlyIfModified true
+      outputs.files(
+        new File(buildDir, "${name}.zip")
       )
     }
 }
 
-task installBootstrap(dependsOn: downloadBootstrap, type: Copy) {
-    group = 'Init'
-    description = 'Installs bootstrap distribution into assets directory'
-    from zipTree(downloadBootstrap.dest)
-    into file("${staticDir}/vendor")
-    doLast {
-      file("${staticDir}/vendor/bootstrap-${bootstrapVersion}-dist").renameTo(
-        file("${staticDir}/vendor/bootstrap")
+def installFrameworkTask(String name, String url, String dir) {
+    return tasks.create("install${name.capitalize()}", Copy) {
+      inputs.files(
+        new File(buildDir, "${name}.zip")
+      )
+      group = 'Init'
+      description = "Installs ${name.capitalize()} distribution into assets directory."
+      dependsOn downloadFrameworkTask(name, url)
+      doFirst {
+        mkdir "${vendorDir}"
+      }
+      if (!file("${vendorDir}/${name}").exists()) {
+        from zipTree(
+          new File(buildDir, "${name}.zip")
+        )
+        into file("${vendorDir}")
+        doLast {
+            file("${dir}").renameTo(
+              file("${vendorDir}/${name}")
+            )
+        }
+      }
+      outputs.files(
+        file("${vendorDir}/${name}")
       )
     }
 }
@@ -185,6 +202,10 @@ task install {
 task cleanAssets(type: Delete) {
     group = 'Init'
     description = 'Delete files added with :installAssets'
+    dependsOn 'cleanInstallAssets'
+    frameworks.each {
+      entry -> cleanAssets.dependsOn "cleanDownload${entry.key.capitalize()}"
+    }
     delete "${staticDir}/vendor/"
 }
 
