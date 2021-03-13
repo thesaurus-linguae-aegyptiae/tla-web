@@ -80,7 +80,7 @@
           <th:block th:each="entry : *{translations}" th:insert="fragments/common :: single-lang-translation(${entry})"/>
         </span>
 
-        <div th:replace=" :: search-result-object-paths('sentence')"/>
+        <div class="result-list-item-element paths" th:insert=" :: search-result-object-paths('sentence')"/>
 
       </div>
 
