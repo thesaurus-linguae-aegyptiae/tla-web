@@ -59,6 +59,9 @@ jobs:
     - name: make gradle wrapper executable
       run: chmod +x gradlew
 
+    - name: install third-party ressources
+      run: ./gradlew install
+
     - name: run Selenium tests
       run: ./gradlew selenium --info
 

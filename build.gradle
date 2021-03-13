@@ -217,17 +217,22 @@ bootJar {
     dependsOn 'install'
 }
 
+def installationReminder() {
+  if ( !file("${staticDir}/vendor/").exists() ) {
+    println ' ======================================'
+    println ' !!!  Must run task :install first: !!!'
+    println ' !!!                                !!!'
+    println ' !!!     ./gradlew.bat install      !!!'
+    println ' ======================================'
+    throw new StopExecutionException()
+  }
+}
+
+
 bootRun {
     systemProperty 'spring.profiles.active', 'dev'
     doFirst {
-      if ( !file("${staticDir}/vendor/").exists() ) {
-        println ' ======================================'
-        println ' !!!  Must run task :install first: !!!'
-        println ' !!!                                !!!'
-        println ' !!!     ./gradlew.bat install      !!!'
-        println ' ======================================'
-        throw new StopExecutionException()
-      }
+      installationReminder()
     }
 }
 
@@ -246,6 +251,9 @@ task selenium(type: Test) {
     group = 'Verification'
     description = 'Runs functional tests of the web UI using a Selenium container.'
     systemProperty 'spring.profiles.active', 'selenium'
+    doFirst {
+      installationReminder()
+    }
     useJUnitPlatform {
       includeTags 'selenium'
     }
