@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Tag;
@@ -14,12 +15,14 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.context.WebServerInitializedEvent;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.MessageSource;
 import org.springframework.test.context.ContextConfiguration;
 import org.testcontainers.containers.BrowserWebDriverContainer;
 import org.testcontainers.junit.jupiter.Container;
@@ -36,6 +39,9 @@ public class SearchPageTest {
 
     @LocalServerPort
     private int port;
+
+    @Autowired
+    private MessageSource messages;
 
     public static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
         @Override
@@ -172,6 +178,13 @@ public class SearchPageTest {
         chrome.findElement(
             By.cssSelector("button#hide-property-button-hieroglyphs")
         ).click();
+        assertEquals(
+            messages.getMessage("result_page_description_left", null, Locale.GERMAN),
+            chrome.findElement(
+                By.cssSelector("div.result-page-desc > span:nth-child(1)")
+            ).getText(),
+            "german locale is applied despite ?lang parameter not set"
+        );
 
         new WebDriverWait(chrome, Duration.ofSeconds(1));
 
@@ -187,10 +200,6 @@ public class SearchPageTest {
         assertTrue(
             chrome.getCurrentUrl().endsWith("/lemma/94780"),
             "details page for lemma 94780"
-        );
-        assertTrue(
-            chrome.getCurrentUrl().contains("lang=de"),
-            "preserved localization language parameter selection"
         );
     }
 
