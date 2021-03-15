@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -19,6 +20,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,6 +50,11 @@ public class EditorialContentController {
 
     @Value("${tla.editorials.path}")
     private String editorialsDir;
+
+    @ModelAttribute("build")
+    public Map<String, String> buildInfo() {
+        return Map.of();
+    }
 
     /**
      * Select one of the languages in which a requested editorial page is available

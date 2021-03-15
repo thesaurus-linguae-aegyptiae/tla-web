@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,9 @@ import tla.web.model.ui.BreadCrumb;
 @ControllerAdvice
 public class GlobalControllerAdvisor extends DefaultHandlerExceptionResolver {
 
+    @Autowired
+    private BuildProperties buildProperties;
+
     private ApplicationProperties applicationProperties;
 
     public GlobalControllerAdvisor(ApplicationProperties properties) {
@@ -35,7 +40,8 @@ public class GlobalControllerAdvisor extends DefaultHandlerExceptionResolver {
             "baseUrl", applicationProperties.getBaseUrl(),
             "appName", applicationProperties.getName(),
             "l10n", applicationProperties.getL10n(),
-            "lang", LocaleContextHolder.getLocale().getLanguage()
+            "lang", LocaleContextHolder.getLocale().getLanguage(),
+            "version", buildProperties.getVersion()
         );
     }
 
