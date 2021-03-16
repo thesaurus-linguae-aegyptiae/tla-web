@@ -3,7 +3,6 @@ package tla.web.model.meta;
 import java.util.List;
 import java.util.TreeMap;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +16,6 @@ import tla.domain.model.meta.Resolvable;
 @Setter
 @SuperBuilder
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
 public abstract class TLAObject extends AbstractBTSBaseClass implements Relatable<List<ObjectReference>> {
 
     private String id;

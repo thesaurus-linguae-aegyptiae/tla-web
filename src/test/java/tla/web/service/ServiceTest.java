@@ -1,11 +1,7 @@
 package tla.web.service;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -17,16 +13,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import tla.domain.command.LemmaSearch;
+import tla.domain.command.SentenceSearch;
 import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.DocumentDto;
 import tla.web.model.Annotation;
 import tla.web.model.Lemma;
 import tla.web.model.Sentence;
+import tla.web.model.ThsEntry;
 import tla.web.model.meta.ObjectDetails;
 import tla.web.model.meta.SearchResults;
 import tla.web.model.meta.TLAObject;
-import tla.web.model.ThsEntry;
 import tla.web.repo.TlaClient;
 
 @SpringBootTest
@@ -45,13 +42,22 @@ public class ServiceTest {
     private SentenceService sentenceService;
 
     @Test
+    void searchPropertiesRegistry() {
+        assertAll("check search properties registry for entries",
+            () -> assertNotNull(lemmaService.getSearchProperties(), "lemma search properties registered"),
+            () -> assertNotNull(lemmaService.getSearchProperties().getHideableProperties(), "hide/show property list"),
+            () -> assertFalse(lemmaService.getSearchProperties().getHideableProperties().isEmpty(), "hide/show property list not empty")
+        );
+    }
+
+    @Test
     @SuppressWarnings("unchecked")
     void lemmaService() throws Exception {
         SingleDocumentWrapper<DocumentDto> dto = tla.domain.util.IO.loadFromFile(
             "src/test/resources/sample/data/lemma/details/31610.json",
             SingleDocumentWrapper.class
         );
-        ObjectDetails<TLAObject> objectDetails = ObjectDetails.from(dto);
+        ObjectDetails<?> objectDetails = ObjectDetails.from(dto);
         assertTrue(objectDetails.getObject() instanceof Lemma);
         ObjectDetails<Lemma> lemmaDetails = new ObjectDetails<Lemma>(
             (Lemma) objectDetails.getObject(),
@@ -96,17 +102,17 @@ public class ServiceTest {
     @Test
     @SuppressWarnings("unchecked")
     void lemmaSearchResultsMapping() throws Exception {
-        SearchResultsWrapper<DocumentDto> wrap = tla.domain.util.IO.loadFromFile(
+        var wrap = tla.domain.util.IO.loadFromFile(
             "src/test/resources/sample/data/lemma/search/demotic_translation_de.json",
             SearchResultsWrapper.class
         );
         when(
-            backend.lemmaSearch(any(), anyInt())
+            backend.searchObjects(any(), any(), anyInt())
         ).thenReturn(
             wrap
         );
         assertNotNull(wrap);
-        SearchResultsWrapper<?> dto = backend.lemmaSearch(new LemmaSearch(), 1);
+        SearchResultsWrapper<?> dto = backend.searchObjects(Lemma.class, new LemmaSearch(), 1);
         assertAll("assert that deserialization from file works",
             () -> assertNotNull(dto),
             () -> assertNotNull(dto.getResults())
@@ -140,6 +146,31 @@ public class ServiceTest {
             () -> assertNotNull(sent.getText(), "text injected"),
             () -> assertEquals(sent.getContext().getTextId(), sent.getText().getId(), "correct text injected"),
             () -> assertNotNull(sent.getEdited(), "editing information available")
+        );
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    void sentenceServiceTextInjectionSearchResults() throws Exception {
+        when(
+            backend.searchObjects(eq(Sentence.class), any(), anyInt())
+        ).thenReturn(
+            tla.domain.util.IO.loadFromFile(
+                "src/test/resources/sample/data/sentence/search/occurrences-145700.json",
+                SearchResultsWrapper.class
+            )
+        );
+        var resultsContainer = sentenceService.search(new SentenceSearch(), 1);
+        assertAll("test sentence search results container conversion from DTO container",
+            () -> assertNotNull(resultsContainer, "search results retrieved"),
+            () -> assertNotNull(resultsContainer.getRelated(), "has related objects"),
+            () -> assertTrue(resultsContainer.getRelated().size() > 0, "contains related objects")
+        );
+        var s = (Sentence) resultsContainer.getObjects().get(0);
+        assertAll("test sentence search results objects initialization",
+            () -> assertNotNull(s.getText(), "sentence result has text information"),
+            () -> assertNotNull(s.getText().getPassport(), "got passport"),
+            () -> assertNotNull(s.getPaths(), "sentence result has path information")
         );
     }
 

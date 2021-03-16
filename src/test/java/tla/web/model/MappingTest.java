@@ -80,15 +80,15 @@ public class MappingTest {
             "src/test/resources/sample/data/ths/details/KQY2F5SJVBBN7GRO5WUXKG5M6M.json",
             SingleDocumentWrapper.class
         );
-        ObjectDetails<TLAObject> objectDetails = ObjectDetails.from(dto);
+        ObjectDetails<?> objectDetails = ObjectDetails.from(dto);
         assertTrue(objectDetails.getObject() instanceof ThsEntry);
         ThsEntry t = (ThsEntry) objectDetails.getObject();
         assertAll("test mapping from DTO to thesaurus object",
-            () -> assertNotNull(t.getTranslations()),
-            () -> assertTrue(t.getTranslations().containsKey(Language.FR)),
-            () -> assertEquals(1, t.getTranslations().get(Language.FR).size()),
-            () -> assertNotNull(t.getExternalReferences()),
-            () -> assertNotNull(t.getEdited())
+            () -> assertNotNull(t.getTranslations(), "has translations"),
+            () -> assertTrue(t.getTranslations().containsKey(Language.FR), "french translation"),
+            () -> assertEquals(1, t.getTranslations().get(Language.FR).size(), "french translation"),
+            () -> assertNotNull(t.getExternalReferences(), "external references"),
+            () -> assertNotNull(t.getEdited(), "editor info")
         );
         Map<String, Map<String, TLAObject>> related = objectDetails.getRelated();
         ObjectReference ref = t.getRelations().get("partOf").get(0);
@@ -117,7 +117,7 @@ public class MappingTest {
             "src/test/resources/sample/data/ths/details/IMBHKBIKV5AUHEAAU2DL2K2GN4.json",
             SingleDocumentWrapper.class
         );
-        ObjectDetails<TLAObject> details = ObjectDetails.from(dto);
+        ObjectDetails<?> details = ObjectDetails.from(dto);
         Map<String, List<TLAObject>> related = details.extractRelatedObjects();
         assertDoesNotThrow(
             () -> {

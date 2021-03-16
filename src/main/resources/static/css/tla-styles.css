@@ -321,6 +321,21 @@ a.navbar-brand {
     font-weight: 900;
 }
 
+/** search form toggle collapsible icons */
+
+button.toggle-collapsible span svg {
+    color: var(--BBAWred);
+}
+button.toggle-collapsible span.collapsed:before {
+    content: "\f0a9";
+}
+button.toggle-collapsible span.expanded:before {
+    content: "\f0ab";  /** arrow down: \f0aa */
+}
+
+
+/** Redaktionsstatus icons */
+
 .red-status span {
     padding-right: 3px;
 }

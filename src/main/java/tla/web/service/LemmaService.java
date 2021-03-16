@@ -6,13 +6,10 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import tla.domain.command.LemmaSearch;
-import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.web.model.Annotation;
 import tla.web.model.Lemma;
 import tla.web.model.meta.ModelClass;
 import tla.web.model.meta.ObjectDetails;
-import tla.web.model.meta.SearchResults;
 import tla.web.model.meta.TLAObject;
 
 @Service
@@ -36,12 +33,6 @@ public class LemmaService extends ObjectService<Lemma> {
         } else {
             return null;
         }
-    }
-
-    public SearchResults search(LemmaSearch command, Integer page) {
-        SearchResultsWrapper<?> response = backend.lemmaSearch(command, page);
-        SearchResults container = SearchResults.from(response);
-        return container;
     }
 
     @Override

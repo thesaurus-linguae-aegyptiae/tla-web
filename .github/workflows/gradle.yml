@@ -6,7 +6,7 @@ on: [push, pull_request]
 jobs:
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
 
     - name: checkout code
@@ -30,5 +30,11 @@ jobs:
 
     - name: run tests && build project
       run: ./gradlew build
-      
+
+    - uses: KyleAure/junit-report-annotations-action@1.5
+      with:
+        name: "tests"
+        access-token: ${{ secrets.GITHUB_TOKEN }}
+      if: always()
+
 ...

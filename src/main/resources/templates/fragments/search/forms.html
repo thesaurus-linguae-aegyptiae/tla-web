@@ -1,0 +1,246 @@
+<?xml version="1.0"?>
+<html xmlns:th="http://thymeleaf.org">
+
+  <body>
+
+    <!-- sentence/occurrence search form -->
+    <form id="sentence-search" name="sentence-search"
+    th:action="@{/sentence/search}" th:object="${sentenceSearchForm}" method="get">
+      <div th:replace=" :: translation-spec('sentence', 'sentenceSearchForm', ${allTranslationLanguages})"/>
+      <div>
+        <!--<div class="form-group row">
+          <input class="form-control mb-3 col-xl-10" type="text" th:name="|passport['date.date.date'].values|"/>
+          <input class="form-check-input col-xl-2" type="checkbox" th:name="|passport['date.date.date'].expand|" value="true"/>
+        </div>-->
+        <fieldset th:each="token, i : *{tokens}" class="form-group row">
+          <label class="col-form-label col-xl-2" th:text="#{field_label_lemma}">Lemma</label>
+          <!--<label class="col-form-label col-xl-1" th:text="${token.empty}"></label>-->
+          <div class="col-xl-10">
+            <input class="form-control mb-3" type="text" th:field="*{tokens[__${i.index}__].lemma.id}"
+                th:id="|token-${i.index}-lemma|" th:list="|token-${i.index}-lemma-suggestions|">
+              <script th:inline="javascript">
+                //<![CDATA[
+                {
+                  let index = /*[[${i.index}]]*/ null;
+                  $(`#token-${index}-lemma`).on('input', (e) => {
+                    $.ajax(
+                      {
+                        url: 'http://localhost:8090/lemma/complete', // TODO
+                        data: {
+                          q: $(`#token-${index}-lemma`).val()
+                        },
+                        success: (result) => {
+                          $(`#token-${index}-lemma-suggestions`).empty();
+                          result.forEach((i) => {
+                            $('<option/>').text(i.name).attr('value', i.id).attr('label', i.name).appendTo(
+                              $(`#token-${index}-lemma-suggestions`)
+                            );
+                          });
+                        }
+                      }
+                    );
+                  });
+                }
+                //]]>
+              </script>
+            </input>
+            <datalist th:id="|token-${i.index}-lemma-suggestions|"/>
+          </div>
+          <label class="col-form-label col-xl-2" th:text="#{field_label_hieroglyphs}">Hieroglyphs</label>
+          <div class="col-xl-10">
+            <input class="form-control mb-3" type="text" th:field="*{tokens[__${i.index}__].glyphs}"/>
+          </div>
+          <div th:replace=" :: translation-spec('token-__${i.index}__', 'sentenceSearchForm.tokens[__${i.index}__]', ${allTranslationLanguages})"/>
+        </fieldset>
+      </div>
+    </form>
+
+    <!-- dictionary search form -->
+
+    <form id="dict-search" name="dict-search" th:action="@{/lemma/search}" th:object="${lemmaSearchForm}" method="get">
+      <div class="form-group row bg-grey">
+        <label class="col-form-label col-xl-2" th:text="#{field_label_script}">Script</label>
+        <div class="col-xl-10">
+          <div th:each="item : ${allScripts}" class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" th:field="*{script}" th:value="${item}"/>
+            <label class="form-check-label" th:for="${#ids.prev('script')}" th:text="#{|dict_${item}|}"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-form-label col-xl-2" for="transcription" th:text="#{field_label_transcription}">Transcription</label>
+        <div class="col-xl-10">
+          <input class="bbaw-libertine form-control mb-3" type="text" th:field="*{transcription}"/>
+        </div>
+      </div>
+
+      <div th:replace=" :: type-spec('wordClass', 'lemmaSearchForm.wordClass', ${wordClasses})"/>
+
+      <div class="form-group row">
+        <label class="col-form-label col-xl-2" th:for="*{root}" th:text="#{field_label_root_transcription}">Root</label>
+        <div class="col-xl-10">
+          <input class="bbaw-libertine form-control mb-3" type="text" th:field="*{root}"/>
+        </div>
+      </div>
+
+      <div th:replace=" :: translation-spec('dict', 'lemmaSearchForm', ${allTranslationLanguages})"/>
+
+      <div class="form-group row">
+        <label class="col-form-label col-xl-2" th:for="*{bibliography}" th:text="#{field_label_bibliography}">Bibliography</label>
+        <div class="col-xl-10">
+          <input class="form-control mb-3" type="text" th:field="*{bibliography}"/>
+        </div>
+      </div>
+
+      <div th:replace=" :: type-spec('annotation-type', 'lemmaSearchForm.anno', ${lemmaAnnotationTypes})"/>
+
+    </form>
+
+
+    <!-- Widgets -->
+
+    <!-- Submit form button.
+      Will be given the ID `submit-${form.key}-search`.
+
+      params:
+        form (`tla.web.model.ui.SearchFormExpansionState`): representation of search form initial expansion state
+    -->
+    <div th:fragment="submit-form-button(form)" th:with="formId=|${form.key}-search|">
+      <button class="btn btn-block btn-danger text-left text-decoration-none mt-4 mb-2"
+          th:id="|submit-${formId}|"
+          th:form="${formId}" type="submit">
+        <span class="fas fa-arrow-circle-right"></span>
+        <span th:text="#{|button_label_${form.key}_search|}">Submit Search</span>
+      </button>
+    </div>
+
+
+    <!-- Clear form button.
+      When clicked, it tries to empty out all input fields in the corresponding search form.
+      params:
+        form (string): id of the search form to clear
+    -->
+    <div th:fragment="clear-form-button(form)">
+      <button th:id="|clear-form-button-${form}|" type="button" class="btn btn-block btn-secondary text-left text-decoration-none">
+        <span class="fas fa-times-circle"></span>
+        <span th:text="#{button_label_clear_form}">Clear all</span>
+        <script th:inline="javascript">
+          //<![CDATA[
+          {
+            let form = /*[[${form}]]*/ null;
+            $(`#clear-form-button-${form}`).click(() => {
+              $(`form#${form} input[type="text"]`).val('');
+              $(`form#${form} input[type="checkbox"]`).prop('checked', false);
+              $(`form#${form} select`).val('');
+            });
+          }
+          //]]>
+        </script>
+      </button>
+    </div>
+
+    <!-- Translation field and languages checkboxes widget.
+      Creates a group of input fields for submitting translation queries for specified languages.
+
+      params:
+        key (string): unique identifier
+        bind (string): NAME of the data binding target
+        languages (list): possible language identifiers (e.g. list of `tla.domain.model.Language` values)
+    -->
+    <div class="bg-grey form-group row col-xl-12"
+        th:fragment="translation-spec(key, bind, languages)" th:object="${__${bind}__}">
+      <label class="col-form-label col-xl-2" th:for="|field-label-translation-${key}|" th:text="#{field_label_translation}">
+        Translation
+      </label>
+      <div class="col-xl-10">
+        <input class="form-control mb-3" type="text" th:field="*{translation.text}" th:id="|field-label-translation-${key}|"/>
+        <div th:each="lang : ${languages}" class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" th:field="*{translation.lang}" th:value="${lang}"
+              th:id="|field-value-translation-checkbox-${lang}-${key}|"/>
+          <label class="form-check-label" th:for="|field-value-translation-checkbox-${lang}-${key}|"
+              th:text="#{|lang_label_${lang}|}">Language</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Type / Subtype selection multi-dropdown composite -->
+
+      <div class="form-group row bg-grey" th:fragment="type-spec(name, bind, typeMap)" th:object="${__${bind}__}">
+        <label class="col-form-label col-xl-2" th:for="|${name}-type|" th:text="#{|field_label_${name}_type|}">Type/Subtype specification</label>
+        <div class="col-xl-10">
+          <select class="form-control" th:id="|${name}-type|" th:field="*{type}">
+            <option value=""/>
+            <option th:each="type : ${typeMap}" th:value="${type.key}" th:text="#{|field_value_label_${name}_type_${type.key}|}" th:selected="${type.key} == ${__${bind}__.type}">Type</option>
+          </select>
+          <!-- create hidden subtype menu for each type -->
+          <select th:unless="${#lists.isEmpty(type.value)}" th:each="type : ${typeMap}" th:id="|${name}-type-hidden-options-${type.key}|" hidden="true">
+            <option value=""/>
+            <option th:each="subtype : ${type.value}" th:value="${subtype}" th:text="#{|field_value_label_${name}_subtype_${subtype}|}" th:selected="${subtype} == ${__${bind}__.subtype}">Subtype</option>
+          </select>
+        </div>
+        <label class="col-form-label col-xl-2" th:for="|${name}-subtype|" th:text="#{|field_label_${name}_subtype|}">Subtype</label>
+        <div class="col-xl-10">
+          <select class="form-control" th:id="|${name}-subtype|" th:field="*{subtype}">
+            <script th:inline="javascript">
+              //<![CDATA[
+              function populateSubTypeDropDown(name) {
+                let options = $(`#${name}-type-hidden-options-` + $(`#${name}-type`).val());
+                let dropdown = $(`#${name}-subtype`);
+                if (options.children('option').length > 0) {
+                  dropdown.html(options.html());
+                } else {
+                  dropdown.html('');
+                }
+                dropdown.attr('hidden', options.children('option').length < 1);
+                dropdown.val('');
+              }
+              {
+                let name = /*[[${name}]]*/ null;
+                $(`#${name}-type`).on('input', () => {
+                  populateSubTypeDropDown(name);
+                  save(name, 'type');
+                });
+              }
+              //]]>
+            </script>
+            <script th:inline="javascript">
+              //<![CDATA[
+              {
+                let name = /*[[${name}]]*/ null;
+                $(`#${name}-subtype`).on('input', () => {
+                  save(name, 'subtype');
+                });
+              }
+              //]]>
+            </script>
+            <script th:inline="javascript">
+              //<![CDATA[
+              function save(name, prop) {
+                Cookies.set(
+                  `form-field-${name}-select-${prop}`,
+                  $(`#${name}-${prop}`).val(),
+                  {expires: 1, path: '/search'}
+                );
+              }
+              $(window).on('pageshow', () => {
+                let name = /*[[${name}]]*/ null;
+                let typeValue = $(`#${name}-type > :selected`).val() || Cookies.get(`form-field-${name}-select-type`);
+                let subtypeValue = $(`#${name}-type-hidden-options-${typeValue} > :selected`).val() || Cookies.get(`form-field-${name}-select-subtype`);
+                if (typeValue) {
+                  $(`#${name}-type`).val(typeValue);
+                  populateSubTypeDropDown(name);
+                }
+                if (subtypeValue) {
+                  $(`#${name}-subtype`).val(subtypeValue);
+                }
+              });
+              //]]>
+            </script>
+          </select>
+        </div>
+      </div>
+
+
+  </body>
+</html>

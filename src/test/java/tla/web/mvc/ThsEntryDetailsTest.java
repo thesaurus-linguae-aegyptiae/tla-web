@@ -25,7 +25,6 @@ import tla.domain.dto.meta.AbstractDto;
 import tla.error.ObjectNotFoundException;
 import tla.web.model.ThsEntry;
 import tla.web.model.meta.ObjectDetails;
-import tla.web.model.meta.TLAObject;
 import tla.web.service.ThsService;
 
 @Slf4j
@@ -56,14 +55,12 @@ public class ThsEntryDetailsTest extends ViewTest {
             () -> assertNotNull(dto.getDoc()),
             () -> assertEquals(ThsEntryDto.class, dto.getDoc().getClass())
         );
-        ObjectDetails<TLAObject> container = ObjectDetails.from(
-            dto
-        );
+        ObjectDetails<?> container = ObjectDetails.from(dto);
         assertAll("wrapper DTO should be mapped to object details container",
             () -> assertNotNull(container),
-            () -> assertNotNull(container.getObject()),
-            () -> assertEquals(ThsEntry.class, container.getObject().getClass()),
-            () -> assertTrue(container.getObject() instanceof ThsEntry)
+            () -> assertNotNull(container.getObject(), "resulting container not empty"),
+            () -> assertEquals(ThsEntry.class, container.getObject().getClass(), "result is ths entry"),
+            () -> assertTrue(container.getObject() instanceof ThsEntry, "result is ths entry instance")
         );
         return new ObjectDetails<ThsEntry>(
             (ThsEntry) container.getObject(),

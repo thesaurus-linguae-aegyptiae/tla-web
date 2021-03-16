@@ -4,7 +4,7 @@
       layout:decorate="~{base}"
 >
   <head>
-    <title>Lemma Search</title>
+    <title>Sentence Search</title>
   </head>
 
   <body>
@@ -24,7 +24,7 @@
           <div class= "result-list m-4">
             <nav th:replace="fragments/search/results :: search-results-pagination"/>
 
-            <th:block th:each="obj : ${searchResults}" th:insert="fragments/search/results :: lemma-search-result"/>
+            <th:block th:each="obj : ${searchResults}" th:insert="fragments/search/results :: sentence-search-result"/>
 
             <nav th:replace="fragments/search/results :: search-results-pagination"/>
           </div>
@@ -34,7 +34,6 @@
         <div class="col-lg-4 sidebar">
           <div class="sticky-top m-4">
 
-            <div th:replace="fragments/search/results :: lemma-sort-order-select"/>
             <div th:replace="fragments/search/results :: hide-properties-buttons"/>
             <div th:replace="fragments/search/results :: modify-search-button(${modifySearchUrl})"/>
             <div th:replace="fragments/search/results :: search-facets"/>
@@ -44,6 +43,5 @@
       </div>
 
     </div>
-
   </body>
 </html>

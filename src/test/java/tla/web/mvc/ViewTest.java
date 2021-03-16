@@ -33,4 +33,8 @@ public class ViewTest {
         );
     }
 
+    void testLocalization(ResultActions testResponse) throws Exception {
+        testLocalization(testResponse, Language.en);
+    }
+
 }

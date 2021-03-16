@@ -10,7 +10,8 @@
     </div>
 
     <!-- Object details header (name && review state) -->
-    <div th:fragment="review-state-header" id="review-state-header" class="col-sm-12 col-lg-8 d-flex justify-content-between align-items-end">
+    <div th:fragment="review-state-header" id="review-state-header"
+            class="col-sm-12 col-lg-8 d-flex justify-content-between align-items-end">
         <h2 class="id mt-1">
           <span class="bbaw-libertine" th:utext="${{caption}}">Object name</span>
         </h2>
@@ -112,13 +113,17 @@
 
     <!-- Object details corpus/thesaurus path -->
     <div th:fragment="object-property-object-paths(objType)" th:id="|${objType}-property-object-paths|">
-        <hr/>
+      <hr/>
+      <th:block th:with="controller = |${objType}Controller|">
+       <th:block th:with="objectPaths = ${@__${controller}__.createObjectPathLinks(obj)}">
         <p>
             <strong th:text="#{|${objType}_property_object_paths|}" class="details-property-label">
                 Object path
             </strong>
             <div th:replace="fragments/common::object-paths(${objectPaths},false)"/>
         </p>
+       </th:block>
+      </th:block>
     </div>
 
     <!-- Lemma details hieroglyphs -->
@@ -157,7 +162,8 @@
             </div>
             <div class="col-md-12">
                 <div class="related-objects-item" th:each="obj : ${predicate.value}" th:object="${obj}" th:id="${obj.id}"
-                    th:unless="${obj == null || obj.eclass == 'BTSAnnotation'}" th:include="fragments/search :: |${objectType}-search-result|">
+                    th:unless="${obj == null || obj.eclass == 'BTSAnnotation'}"
+                    th:include="fragments/search/results :: |${objectType}-search-result|">
                 </div>
             </div>
         </div>

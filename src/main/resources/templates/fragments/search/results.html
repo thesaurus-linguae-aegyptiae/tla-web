@@ -1,160 +1,5 @@
-<?xml version="1.0"?>
-<html xmlns:th="http://thymeleaf.org">
-
+<html>
   <body>
-
-    <!-- dictionary search form -->
-
-    <form id="dict-search" name="dict-search" th:action="@{/lemma/search}" th:object="${lemmaSearchForm}" method="get">
-      <div class="form-group row bg-grey">
-        <label class="col-form-label col-xl-2" th:text="#{field_label_script}">Script</label>
-        <div class="col-xl-10">
-          <div th:each="item : ${allScripts}" class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" th:field="*{script}" th:value="${item}"/>
-            <label class="form-check-label" th:for="${#ids.prev('script')}" th:text="#{|dict_${item}|}"/>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label class="col-form-label col-xl-2" for="transcription" th:text="#{field_label_transcription}">Transcription</label>
-        <div class="col-xl-10">
-          <input class="bbaw-libertine form-control mb-3" type="text" th:field="*{transcription}" name="transcription"/>
-        </div>
-      </div>
-
-      <div th:replace=" :: type-spec('wordClass', 'lemmaSearchForm.wordClass', ${wordClasses})"/>
-
-      <div class="form-group row">
-        <label class="col-form-label col-xl-2" for="root_transcription" th:text="#{field_label_root_transcription}">Root</label>
-        <div class="col-xl-10">
-          <input class="bbaw-libertine form-control mb-3" type="text" th:field="*{root}" name="root_transcription"/>
-        </div>
-      </div>
-
-      <div class="form-group row bg-grey">
-        <label class="col-form-label col-xl-2" for="translation" th:text="#{field_label_translation}">Translation</label>
-        <div class="col-xl-10">
-          <input class="form-control mb-3" type="text" th:field="*{translation.text}" name="translation"/>
-          <div th:each="lang : ${allTranslationLanguages}" class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" th:field="*{translation.lang}" th:value="${lang}"/>
-            <label class="form-check-label" th:for="${#ids.prev('translation.lang')}" th:text="#{|lang_label_${lang}|}">Language</label>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label class="col-form-label col-xl-2" for="bibliography" th:text="#{field_label_bibliography}">Bibliography</label>
-        <div class="col-xl-10">
-          <input class="form-control mb-3" type="text" th:field="*{bibliography}" name="bibliography"/>
-        </div>
-      </div>
-
-      <div th:replace=" :: type-spec('annotation-type', 'lemmaSearchForm.anno', ${lemmaAnnotationTypes})"/>
-
-    </form>
-
-
-    <!-- Pieces -->
-
-    <!-- clear form button -->
-
-    <div th:fragment="clear-form-button(form)">
-      <button th:id="|clear-form-button-${form}|" type="button" class="btn btn-block btn-secondary text-left text-decoration-none">
-        <span class="fas fa-times-circle"></span>
-        <span th:text="#{button_label_clear_form}">Clear all</span>
-        <script th:inline="javascript">
-          //<![CDATA[
-          {
-            let form = /*[[${form}]]*/ null;
-            $(`#clear-form-button-${form}`).click(() => {
-              $(`form#${form} input[type="text"]`).val('');
-              $(`form#${form} input[type="checkbox"]`).prop('checked', false);
-              $(`form#${form} select`).val('');
-            });
-          }
-          //]]>
-        </script>
-      </button>
-    </div>
-
-
-    <!-- Type / Subtype selection multi-dropdown composite -->
-
-      <div class="form-group row bg-grey" th:fragment="type-spec(name, bind, typeMap)" th:object="${__${bind}__}">
-        <label class="col-form-label col-xl-2" th:for="|${name}-type|" th:text="#{|field_label_${name}_type|}">Type/Subtype specification</label>
-        <div class="col-xl-10">
-          <select class="form-control" th:id="|${name}-type|" name="|${name}-type|" th:field="*{type}">
-            <option value=""/>
-            <option th:each="type : ${typeMap}" th:value="${type.key}" th:text="#{|field_value_label_${name}_type_${type.key}|}" th:selected="${type.key} == ${__${bind}__.type}">Type</option>
-          </select>
-          <!-- create hidden subtype menu for each type -->
-          <select th:unless="${#lists.isEmpty(type.value)}" th:each="type : ${typeMap}" th:id="|${name}-type-hidden-options-${type.key}|" hidden="true">
-            <option value=""/>
-            <option th:each="subtype : ${type.value}" th:value="${subtype}" th:text="#{|field_value_label_${name}_subtype_${subtype}|}" th:selected="${subtype} == ${__${bind}__.subtype}">Subtype</option>
-          </select>
-        </div>
-        <label class="col-form-label col-xl-2" th:for="|${name}-subtype|" th:text="#{|field_label_${name}_subtype|}">Subtype</label>
-        <div class="col-xl-10">
-          <select class="form-control" th:id="|${name}-subtype|" th:name="|${name}-subtype|" th:field="*{subtype}">
-            <script th:inline="javascript">
-              //<![CDATA[
-              function populateSubTypeDropDown(name) {
-                let options = $(`#${name}-type-hidden-options-` + $(`#${name}-type`).val());
-                let dropdown = $(`#${name}-subtype`);
-                if (options.children('option').length > 0) {
-                  dropdown.html(options.html());
-                } else {
-                  dropdown.html('');
-                }
-                dropdown.attr('hidden', options.children('option').length < 1);
-                dropdown.val('');
-              }
-              {
-                let name = /*[[${name}]]*/ null;
-                $(`#${name}-type`).on('input', () => {
-                  populateSubTypeDropDown(name);
-                  save(name, 'type');
-                });
-              }
-              //]]>
-            </script>
-            <script th:inline="javascript">
-              //<![CDATA[
-              {
-                let name = /*[[${name}]]*/ null;
-                $(`#${name}-subtype`).on('input', () => {
-                  save(name, 'subtype');
-                });
-              }
-              //]]>
-            </script>
-            <script th:inline="javascript">
-              //<![CDATA[
-              function save(name, prop) {
-                Cookies.set(
-                  `form-field-${name}-select-${prop}`,
-                  $(`#${name}-${prop}`).val(),
-                  {expires: 1, path: '/search'}
-                );
-              }
-              $(window).on('pageshow', () => {
-                let name = /*[[${name}]]*/ null;
-                let typeValue = $(`#${name}-type > :selected`).val() || Cookies.get(`form-field-${name}-select-type`);
-                let subtypeValue = $(`#${name}-type-hidden-options-${typeValue} > :selected`).val() || Cookies.get(`form-field-${name}-select-subtype`);
-                if (typeValue) {
-                  $(`#${name}-type`).val(typeValue);
-                  populateSubTypeDropDown(name);
-                }
-                if (subtypeValue) {
-                  $(`#${name}-subtype`).val(subtypeValue);
-                }
-              });
-              //]]>
-            </script>
-          </select>
-        </div>
-      </div>
 
       <!-- Ths Entry search result -->
 
@@ -221,13 +66,30 @@
         <hr/>
       </div>
 
+      <!-- SENTENCE search result -->
+      <div th:fragment="sentence-search-result" class="result-list-item" th:object="${obj}">
+        <div class="occ-list-item mt-3 pt-1 pb-1" th:id="*{id}">
+          <div class="sentence-line-mode">
+            <div th:replace="fragments/common :: sentence-hieroglyphs"/>
+            <div th:replace="fragments/common :: sentence-transcription"/>
+          </div>
+        </div>
+
+        <span class="result-list-item-element translations">
+          <th:block th:each="entry : *{translations}" th:insert="fragments/common :: single-lang-translation(${entry})"/>
+        </span>
+
+        <div th:replace=" :: search-result-object-paths('sentence')"/>
+
+      </div>
+
 
       <!-- LEMMA search results sort order select -->
 
       <div th:fragment="lemma-sort-order-select">
         <div style="display: none">
           <!-- hidden form for storage of search parameters -->
-          <form th:replace="fragments/search :: #dict-search"/>
+          <form th:replace="fragments/search/forms :: #dict-search"/>
         </div>
 
         <div class="input-group mb-3">
@@ -251,7 +113,6 @@
           </div>
         </div>
       </div>
-
 
       <!-- search facets -->
 
@@ -307,23 +168,57 @@
           }
           //]]>
         </script>
-        <button th:each="property : ${hideableProperties}" type="button" class="btn btn-secondary btn-block text-left" th:id="|hide-property-button-${property}|">
+        <th:block th:each="e : ${hideableProperties}" th:with="property=${e.key}">
+          <div th:replace=" :: hide-property-button(${property}, null)"/>
+          <th:block th:with="subProperties=${e.value}">
+            <div th:unless="${#lists.isEmpty(subProperties)}"
+                class="indented-buttons">
+              <th:block th:each="subProperty : ${subProperties}">
+                <div th:replace=" :: hide-property-button(${property}, ${subProperty})"/>
+              </th:block>
+            </div>
+          </th:block>
+        </th:block>
+      </div>
+
+      <!-- Hide property Button.
+        hides particular DOM elements of search result list items. In order to be hideable
+        by such a button, those elements must have the classes `.result-list-item-element`
+        AND `${property}`. A special case is the second parameter `${subProperty}` being
+        not `null`, in which case it is used to select any child element for hide/show effect
+        (also by class). In contrast to the parent/ancestor element, the child element does
+        not need to be of class `.result-list-item-element`.
+
+        params:
+          property (string): class name of `.result-list-item-element` elements to toggle
+          subProperty (string, null): class name of child element to toggle instead (optional)
+      -->
+      <th:block th:fragment="hide-property-button(property, subProperty)"
+          th:with="suffix=${subProperty != null} ? |${property}-${subProperty}| : ${property}">
+        <button type="button"
+            class="btn btn-secondary btn-block text-left" th:id="|hide-property-button-${suffix}|">
           <i class="fas fa-plus-circle" id="on"></i>
           <i class="fas fa-minus-circle" id="off"></i>
-          <span th:text="#{|button_label_hide_property_${property}|}">Property name</span>
+          <span th:text="#{|button_label_hide_property_${suffix}|}">Property name</span>
           <script th:inline="javascript">
             //<![CDATA[
             {
-              let name = /*[[${property}]]*/ null;
+              let name = /*[[${suffix}]]*/ null;
+              let property = /*[[${property}]]*/ null;
+              let subProperty = /*[[${subProperty}]]*/ null;
               let objectType = /*[[${objectType}]]*/ null;
               let button = $(`#hide-property-button-${name}`);
+              let selector = `.result-list-item-element.${property}`;
+              if (subProperty != null) {
+                selector = `${selector} .${subProperty}`;
+              }
               button.children('i#on').toggle();
               if (Cookies.get(`${objectType}-results-hide-property-${name}`) != 'true') {
                 button.children('i').toggle();
-                $(`.result-list-item-element.${name}`).toggle();
+                $(selector).toggle();
               }
               button.click(() => {
-                $(`.result-list-item-element.${name}`).fadeToggle('slow');
+                $(selector).fadeToggle('slow');
                 button.children('svg').toggle();
                 saveHideButtonState(name, button.children('svg#on').attr('style') == 'display: none;');
               });
@@ -331,16 +226,18 @@
             //]]>
           </script>
         </button>
-      </div>
+      </th:block>
 
-
-
-      <!-- pagination -->
-
+      <!-- Pagination.
+        Iterates through the `pages` field of a `tla.web.model.ui.Pagination` object and renders a simple basic
+        bootstrap pagination bar. The input object must be in the view model under key "pagination".
+      -->
       <nav aria-label="Pagination" th:object="${pagination}" th:fragment="search-results-pagination" class="search-results-pagination m-2" th:unless="${#lists.size(pagination.pages) == 1}">
-        <ul class="pagination justify-content-center" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder)}">
+        <ul class="pagination justify-content-center">
           <li th:each="page : *{pages}" class="page-item" th:classappend="(${page} == null) ? (disabled) : (${page} == *{currentPage} ? active : '')">
-            <a th:if="${page} != null" class="page-link" th:href="${urlBuilder.fromCurrentRequest().replaceQueryParam('page', page).toUriString()}" th:text="${page}">Page#</a>
+            <a th:if="${page} != null" class="page-link"
+               th:href="${@templateUtils.replaceQueryParam('page', page).build()}"
+               th:text="${page}">Page#</a>
             <a th:if="${page} == null" class="page-link">&hellip;</a>
           </li>
         </ul>
@@ -369,7 +266,16 @@
         </a>
       </div>
 
-
+      <!-- Object details corpus/thesaurus path -->
+      <div th:fragment="search-result-object-paths(objType)">
+        <th:block th:with="controller = |${objType}Controller|">
+         <th:block th:with="objectPaths = ${@__${controller}__.createObjectPathLinks(obj)}">
+          <p>
+            <div th:replace="fragments/common::object-paths(${objectPaths},false)"/>
+          </p>
+         </th:block>
+        </th:block>
+      </div>
 
   </body>
 </html>

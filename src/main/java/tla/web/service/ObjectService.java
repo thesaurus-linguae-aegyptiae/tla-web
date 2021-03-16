@@ -6,12 +6,16 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.extern.slf4j.Slf4j;
+import tla.domain.command.SearchCommand;
+import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.AbstractDto;
 import tla.domain.model.meta.BTSeClass;
+import tla.web.config.SearchProperties;
 import tla.web.model.mappings.MappingConfig;
 import tla.web.model.meta.ModelClass;
 import tla.web.model.meta.ObjectDetails;
+import tla.web.model.meta.SearchResults;
 import tla.web.model.meta.TLAObject;
 import tla.web.repo.TlaClient;
 
@@ -30,6 +34,8 @@ public abstract class ObjectService<T extends TLAObject> {
 
     private Class<T> modelClass;
 
+    private SearchProperties searchProperties;
+
     @SuppressWarnings("unchecked")
     public ObjectService() {
         for (Annotation a : this.getClass().getAnnotationsByType(ModelClass.class)) {
@@ -39,6 +45,19 @@ public abstract class ObjectService<T extends TLAObject> {
             MappingConfig.registerModelClass(modelClass);
             TlaClient.registerModelclass(modelClass);
         }
+    }
+
+    /**
+     * Return search properties registered for this service's model class, if there
+     * are any.
+     */
+    public SearchProperties getSearchProperties() {
+        if (this.searchProperties == null) {
+            this.searchProperties = SearchProperties.getPropertiesFor(
+                this.getModelClass()
+            );
+        }
+        return this.searchProperties;
     }
 
     /**
@@ -79,7 +98,7 @@ public abstract class ObjectService<T extends TLAObject> {
     @SuppressWarnings("unchecked")
     public Optional<ObjectDetails<T>> getDetails(String id) {
         try {
-            ObjectDetails<TLAObject> container = ObjectDetails.from(
+            ObjectDetails<?> container = ObjectDetails.from(
                 retrieveSingleDocument(id)
             );
             return Optional.of(
@@ -99,5 +118,30 @@ public abstract class ObjectService<T extends TLAObject> {
      * Generate a label for an object (used as caption in object detail pages).
      */
     public abstract String getLabel(T object);
+
+    /**
+     * Override this to do whatever necessary to search results container before passing it
+     * to view controller. Gets called by {@link #search(SearchCommand, Integer)} before
+     * returning the results to the view controller.
+     */
+    protected SearchResults preProcess(SearchResults searchResults) {
+        return searchResults;
+    }
+
+    /**
+     * Send search form to backend and convert results from DTO to frontend model objects.
+     * Passes the results to {@link #preProcess(SearchResults)} before returning them,
+     * the default implementation of which does nothing to them at all, but any enhancements
+     * of the search results container right before it returns to the view controller can be
+     * done by overriding this method.
+     */
+    public SearchResults search(SearchCommand<?> command, Integer page) {
+        SearchResultsWrapper<?> response = backend.searchObjects(
+            this.getModelClass(), command, page
+        );
+        return this.preProcess(
+            SearchResults.from(response)
+        );
+    }
 
 }

@@ -7,7 +7,6 @@ import java.util.SortedMap;
 import java.util.stream.Collectors;
 
 import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -33,7 +32,6 @@ import tla.web.model.parts.Token;
 @BackendPath("lemma")
 @TLADTO(LemmaDto.class)
 @BTSeClass("BTSLemmaEntry")
-@EqualsAndHashCode(callSuper = true)
 public class Lemma extends BTSObject {
 
     /**

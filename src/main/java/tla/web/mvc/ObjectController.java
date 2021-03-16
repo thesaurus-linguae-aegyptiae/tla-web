@@ -6,20 +6,26 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
+import tla.domain.command.SearchCommand;
 import tla.domain.model.meta.Resolvable;
 import tla.error.ObjectNotFoundException;
 import tla.web.model.meta.ObjectDetails;
+import tla.web.model.meta.SearchResults;
 import tla.web.model.meta.TLAObject;
 import tla.web.model.meta.TemplateModelName;
 import tla.web.model.ui.BreadCrumb;
 import tla.web.model.ui.CorpusPathSegment;
+import tla.web.model.ui.Pagination;
 import tla.web.service.ObjectService;
 
 /**
@@ -31,7 +37,10 @@ import tla.web.service.ObjectService;
  * <code>@ModelClass</code> annotations.
  */
 @Slf4j
-public abstract class ObjectController<T extends TLAObject> {
+public abstract class ObjectController<T extends TLAObject, S extends SearchCommand<?>> {
+
+    @Autowired
+    TemplateUtils templateUtils;
 
     /**
      * map eclasses to request mapping/route prefixes.
@@ -41,7 +50,7 @@ public abstract class ObjectController<T extends TLAObject> {
     /**
      * controller registry
      */
-    private static List<ObjectController<? extends TLAObject>> controllers = new LinkedList<>();
+    private static List<ObjectController<? extends TLAObject, ? extends SearchCommand<?>>> controllers = new LinkedList<>();
 
     private String templatePath = null;
 
@@ -66,7 +75,7 @@ public abstract class ObjectController<T extends TLAObject> {
      * and return the URL path prefix to which it responds.
      */
     private static String findRequestMapping(String eclass) {
-        for (ObjectController<?> controller : controllers) {
+        for (ObjectController<?, ?> controller : controllers) {
             var service = controller.getService();
             if (service.getModelEClass().equals(eclass)) {
                 return controller.getRequestMapping();
@@ -126,6 +135,15 @@ public abstract class ObjectController<T extends TLAObject> {
     }
 
     /**
+     * Replaces URL path, but leaves parameters, so that the resulting URL can be used
+     * to link back to search form with fields filled.
+     */
+    @ModelAttribute("modifySearchUrl")
+    public String modifySearchUrl() {
+        return templateUtils.replacePath("search").build().toString();
+    }
+
+    /**
      * Must return an appropriate {@link ObjectService} instance for a particular controller
      * to be able to invoke operations targeting the entity model class it has been typed for.
      * @return An {@link ObjectService} instance providing access to entities of the specific type
@@ -171,6 +189,61 @@ public abstract class ObjectController<T extends TLAObject> {
      * Subclasses can extend the view model by overriding this method.
      */
     protected Model extendSingleObjectDetailsModel(Model model, ObjectDetails<T> container) {
+        return model;
+    }
+
+    /**
+     * Delegate submitted search form to TLA backend and render the results retrieved.
+     */
+    public String getSearchResultsPage(
+        S form,
+        @RequestParam(defaultValue = "1") String page,
+        @RequestParam MultiValueMap<String, String> params,
+        Model model
+    ) {
+        log.info("Submitted search form: {}", tla.domain.util.IO.json(form));
+        log.info("URL params: {}", params);
+        SearchResults results = this.getService().search(form, Integer.parseInt(page)); // TODO validate page
+        model.addAttribute("breadcrumbs",
+            List.of(
+                BreadCrumb.of("/", "menu_global_home"),
+                BreadCrumb.of(
+                    modifySearchUrl(),
+                    "menu_global_search"
+                ),
+                BreadCrumb.of(
+                    templateUtils.setQueryParam("page", "1"),
+                    String.format("menu_global_search_%s", this.getTemplatePath())
+                )
+            )
+        );
+        this.addHideableProperties(model);
+        model.addAttribute("searchResults", results.getObjects());
+        model.addAttribute("searchQuery", results.getQuery());
+        model.addAttribute("facets", results.getFacets());
+        model.addAttribute("page", results.getPage());
+        model.addAttribute("pagination", new Pagination(results.getPage()));
+        model = extendSearchResultsPageModel(model, results, form);
+        return String.format("%s/search", getTemplatePath());
+    }
+
+    /**
+     * Subclasses may override in order to extend view model based on search input and results.
+     */
+    protected Model extendSearchResultsPageModel(
+        Model model, SearchResults results, SearchCommand<?> searchForm
+    ) {
+        return model;
+    }
+
+    protected Model addHideableProperties(Model model) {
+        var searchProperties = this.getService().getSearchProperties();
+        if (searchProperties != null) {
+            model.addAttribute(
+                "hideableProperties",
+                searchProperties.getHideableProperties()
+            );
+        }
         return model;
     }
 
