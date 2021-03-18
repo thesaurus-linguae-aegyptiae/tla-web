@@ -23,7 +23,8 @@
       <!-- LEMMA search result -->
 
       <div th:fragment="lemma-search-result" class="result-list-item"
-          th:classappend="${#strings.endsWith(obj.reviewState,'obsolete')} ? 'obsolete' : ''" th:object="${obj}" th:id="${obj.id}">
+          th:classappend="${#strings.endsWith(obj.reviewState,'obsolete')} ? 'obsolete' : ''"
+          th:object="${obj}" th:id="|lemma-${obj.id}|">
         <a th:replace="fragments/common :: review-state(${obj})"/>
 
         <a th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">
@@ -79,7 +80,7 @@
           <th:block th:each="entry : *{translations}" th:insert="fragments/common :: single-lang-translation(${entry})"/>
         </span>
 
-        <div th:replace=" :: search-result-object-paths('sentence')"/>
+        <div class="result-list-item-element paths" th:insert=" :: search-result-object-paths('sentence')"/>
 
       </div>
 
@@ -237,7 +238,11 @@
           <li th:each="page : *{pages}" class="page-item" th:classappend="(${page} == null) ? (disabled) : (${page} == *{currentPage} ? active : '')">
             <a th:if="${page} != null" class="page-link"
                th:href="${@templateUtils.replaceQueryParam('page', page).build()}"
-               th:text="${page}">Page#</a>
+               th:id="|page-link-${page}|"
+               th:text="${page}"
+            >
+              Page#
+            </a>
             <a th:if="${page} == null" class="page-link">&hellip;</a>
           </li>
         </ul>

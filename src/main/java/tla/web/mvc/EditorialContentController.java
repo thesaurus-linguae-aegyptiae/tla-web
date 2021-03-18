@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
@@ -41,6 +42,9 @@ public class EditorialContentController {
     private MessageSource l10n;
 
     @Autowired
+    private LocaleResolver localeResolver;
+
+    @Autowired
     private EditorialRegistry editorialRegistry;
 
     @Autowired
@@ -51,7 +55,7 @@ public class EditorialContentController {
 
     /**
      * Select one of the languages in which a requested editorial page is available
-     * under consideration of the <pre>Appect-Language</pre> values passed.
+     * under consideration of the <pre>Accept-Language</pre> values passed.
      */
     private String negotiateContentLanguage(String path, HttpHeaders header) {
         List<Locale.LanguageRange> requested = header.getAcceptLanguage();
@@ -80,12 +84,14 @@ public class EditorialContentController {
      * in the accepted languages header field.
      */
     private HttpHeaders preferContentLanguage(String lang, HttpHeaders header) {
-        List<Locale.LanguageRange> requested = header.getAcceptLanguage();
-        requested.add(
-            0,
-            new Locale.LanguageRange(lang, 1.0f)
-        );
-        header.setAcceptLanguage(requested);
+        if (lang != null && TLALocaleResolver.isValidContentLanguage(lang)) {
+            List<Locale.LanguageRange> requested = header.getAcceptLanguage();
+            requested.add(
+                0,
+                new Locale.LanguageRange(lang, 1.0f)
+            );
+            header.setAcceptLanguage(requested);
+        }
         return header;
     }
 
@@ -137,9 +143,11 @@ public class EditorialContentController {
         Model model
     ) throws Exception {
         String path = request.getRequestURI();
-        if (TLALocaleResolver.isValidContentLanguage(lang)) {
-            preferContentLanguage(lang, header);
-        }
+        preferContentLanguage(
+            localeResolver.resolveLocale(request).getLanguage(),
+            header
+        );
+        preferContentLanguage(lang, header);
         String contentLang = negotiateContentLanguage(path, header);
         log.info(
             "serving request for static page {} with accepted languages {} with negotiated language {}.",

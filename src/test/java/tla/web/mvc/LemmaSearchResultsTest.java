@@ -76,11 +76,11 @@ public class LemmaSearchResultsTest extends ViewTest {
         ).andExpect(
             xpath("//div[contains(@class,'result-page-desc')]/b[1]/text()").string("21 - 38")
         ).andExpect(
-            xpath("//div[@id='dm2434']//span[contains(@class,'subcorpus')]").exists()
+            xpath("//div[@id='lemma-dm2434']//span[contains(@class,'subcorpus')]").exists()
         ).andExpect(
-            xpath("//div[@id='dm2434']//span[contains(@class,'hieroglyphs')]").doesNotExist()
+            xpath("//div[@id='lemma-dm2434']//span[contains(@class,'hieroglyphs')]").doesNotExist()
         ).andExpect(
-            xpath("//div[@id='dm529']/a[contains(@class,'review-state')]//span[contains(@class,'notok')]").exists()
+            xpath("//div[@id='lemma-dm529']/a[contains(@class,'review-state')]//span[contains(@class,'notok')]").exists()
         );
     }
 
@@ -94,7 +94,7 @@ public class LemmaSearchResultsTest extends ViewTest {
         );
         testResponse.andExpect(
             xpath(
-                "//div[@id='dm2254']//span[contains(@class,'type-subtype')]/span/text()"
+                "//div[@id='lemma-dm2254']//span[contains(@class,'type-subtype')]/span/text()"
             ).string(
                 messages.getMessage(
                     "lemma_fulltype_entity_name_person_name",

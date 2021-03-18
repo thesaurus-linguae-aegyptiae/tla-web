@@ -38,6 +38,7 @@ class AppTest {
             () -> assertEquals(0, lemmaSearchConf.getWordClasses().get("interjection").size(), "interjection word classes has no subtypes")
         );
         assertNull(env.getProperty("spring.thymeleaf.cache"), "thymeleaf uses cache in default profile");
+        assertEquals(0, env.getActiveProfiles().length, "this test should run in default profile");
     }
 
 }
