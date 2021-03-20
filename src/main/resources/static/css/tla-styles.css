@@ -139,6 +139,10 @@ a.navbar-brand {
     color: var(--BBAWmiddlegrey);
 }
 
+.breadcrumb.language > a.active {
+    color: var(--BBAWdarkgrey);
+}
+
 .cookie-wrapper {
     position: fixed;
     left: 0;
