@@ -9,27 +9,29 @@
         <div class="col-lg-8 col-sm-12">
           <div class="accordion" id="search-forms-container">
 
-            <div class="card" th:each="searchForm : ${forms}">
-              <div class="card-header" th:id="|${searchForm.key}-search-heading|">
+            <div class="card" th:each="searchForm : ${forms}" th:with="formId=|${searchForm.key}-search|">
+              <div class="card-header" th:id="|${formId}-heading|">
                 <h2 class="mb-0">
                   <button class="btn btn-link toggle-collapsible" type="button" data-toggle="collapse"
-                      th:id="|toggle-${searchForm.key}-search-form-button|"
-                      th:data-target="|#${searchForm.key}-search-collapsible|"
-                      th:aria-controls="|#${searchForm.key}-search-collapsible|"
+                      th:id="|toggle-${formId}-form-button|"
+                      th:data-target="|#${formId}-collapsible|"
+                      th:aria-controls="|#${formId}-collapsible|"
                       th:aria-expanded="${searchForm.expanded}">
                     <span class="icon" th:classappend="${searchForm.expanded == true ? 'expanded' : 'collapsed'}"></span>
-                    <span th:text="#{|form_label_${searchForm.key}-search|}">Dictionary entries</span>
+                    <span th:text="#{|form_label_${formId}|}">Search Form Caption</span>
                     <script th:inline="javascript">
                       //<![CDATA[
                       {
-                        let key = /*[[${searchForm.key}]]*/ null;
-                        let buttonId = `#toggle-${key}-search-form-button`;
+                        let key = /*[[${formId}]]*/ null;
+                        let buttonId = `#toggle-${key}-form-button`;
                         $(buttonId).click(() => {
+                          $('div.sidebar-controls').attr('style', 'display: none;');
                           let span = $(`${buttonId} span:first-child`);
                           let expanded = span.attr('class').endsWith('expanded');
                           if (!expanded) {
                             $('button.btn.toggle-collapsible').attr('aria-expanded', false);
                             $('button.btn.toggle-collapsible span:first-child').attr('class', 'icon collapsed');
+                            $(`#${key}-sidebar-controls`).toggle();
                           }
                           span.attr('class', `icon ${expanded ? 'collapsed' : 'expanded'}`);
                           $(this).attr('aria-expanded', expanded);
@@ -42,25 +44,21 @@
               </div>
 
               <div class="collapse" th:classappend="${searchForm.expanded}? 'show'"
-                  th:id="|${searchForm.key}-search-collapsible|"
-                  th:aria-labelledby="|#${searchForm.key}-search-heading|"
+                  th:id="|${formId}-collapsible|"
+                  th:aria-labelledby="|#${formId}-heading|"
                   data-parent="#search-forms-container"
-                  th:insert="fragments/search/forms :: #__${searchForm.key}__-search"/>
+                  th:insert="fragments/search/forms :: #__${formId}__"/>
             </div>
           </div>
         </div>
 
         <div class="sidebar col-lg-4">
           <div class="stick-top">
-            <div th:each="searchForm : ${forms}" th:with="formId=|${searchForm.key}-search|">
-              <div>
-                <button class="btn btn-block btn-danger text-left text-decoration-none mt-4 mb-2"
-                    th:id="|submit-${searchForm.key}-search|"
-                    th:form="|${searchForm.key}-search|" type="submit">
-                  <span class="fas fa-arrow-circle-right"></span>
-                  <span th:text="#{|button_label_${searchForm.key}_search|}">Search Dict</span>
-                </button>
-              </div>
+            <div th:each="searchForm : ${forms}" th:with="formId=|${searchForm.key}-search|"
+                th:id="|${formId}-sidebar-controls|" class="sidebar-controls"
+                th:style="${searchForm.expanded} ? '' : 'display: none;'"
+            >
+              <div th:replace="fragments/search/forms :: submit-form-button(${searchForm})"/>
               <div th:replace="fragments/search/forms :: clear-form-button(__${formId}__)"/>
             </div>
           </div>

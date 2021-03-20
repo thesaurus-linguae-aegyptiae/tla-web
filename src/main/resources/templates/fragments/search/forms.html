@@ -39,7 +39,7 @@
       <div class="form-group row bg-grey">
         <label class="col-form-label col-xl-2" th:text="#{field_label_script}">Script</label>
         <div class="col-xl-10">
-          <div th:each="item : ${allScripts}" class="form-check form-check-inline">
+          <div th:each="item : ${allScripts}" class="form-check form-check-inline lemma-script">
             <input class="form-check-input" type="checkbox" th:field="*{script}" th:value="${item}"/>
             <label class="form-check-label" th:for="${#ids.prev('script')}" th:text="#{|dict_${item}|}"/>
           </div>
@@ -76,10 +76,29 @@
     </form>
 
 
-    <!-- Pieces -->
+    <!-- Widgets -->
 
-    <!-- clear form button -->
+    <!-- Submit form button.
+      Will be given the ID `submit-${form.key}-search`.
 
+      params:
+        form (`tla.web.model.ui.SearchFormExpansionState`): representation of search form initial expansion state
+    -->
+    <div th:fragment="submit-form-button(form)" th:with="formId=|${form.key}-search|">
+      <button class="btn btn-block btn-danger text-left text-decoration-none mt-4 mb-2"
+          th:id="|submit-${formId}|"
+          th:form="${formId}" type="submit">
+        <span class="fas fa-arrow-circle-right"></span>
+        <span th:text="#{|button_label_${form.key}_search|}">Submit Search</span>
+      </button>
+    </div>
+
+
+    <!-- Clear form button.
+      When clicked, it tries to empty out all input fields in the corresponding search form.
+      params:
+        form (string): id of the search form to clear
+    -->
     <div th:fragment="clear-form-button(form)">
       <button th:id="|clear-form-button-${form}|" type="button" class="btn btn-block btn-secondary text-left text-decoration-none">
         <span class="fas fa-times-circle"></span>
@@ -99,8 +118,14 @@
       </button>
     </div>
 
-    <!-- Translation field and languages checkboxes widget -->
+    <!-- Translation field and languages checkboxes widget.
+      Creates a group of input fields for submitting translation queries for specified languages.
 
+      params:
+        key (string): unique identifier
+        bind (string): NAME of the data binding target
+        languages (list): possible language identifiers (e.g. list of `tla.domain.model.Language` values)
+    -->
     <div class="bg-grey form-group row col-xl-12"
         th:fragment="translation-spec(key, bind, languages)" th:object="${__${bind}__}">
       <label class="col-form-label col-xl-2" th:for="|field-label-translation-${key}|" th:text="#{field_label_translation}">
