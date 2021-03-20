@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriTemplate;
 
 import lombok.extern.slf4j.Slf4j;
 import tla.domain.command.SearchCommand;
@@ -23,6 +24,8 @@ import tla.web.model.meta.TLAObject;
  */
 @Slf4j
 public class TlaClient {
+
+    public static final UriTemplate URI_AUTOCOMPLETE = new UriTemplate("{url}/complete?q={q}&type={type}");
 
     private RestTemplate client;
 
@@ -79,16 +82,14 @@ public class TlaClient {
     @SuppressWarnings("rawtypes")
     public ResponseEntity<List> autoComplete(Class<? extends TLAObject> modelClass, String term, String type) {
         return client.getForEntity(
-            String.format(
-                "%s/complete?q=%s",
-                this.getEndpointURLPrefix(modelClass),
-                term
-            ),
-            List.class,
-            Map.of(
-                "q", term,
-                "type", type
-            )
+            URI_AUTOCOMPLETE.expand(
+                Map.of(
+                    "url", this.getEndpointURLPrefix(modelClass),
+                    "q", term,
+                    "type", type
+                )
+            ).toString(),
+            List.class
         );
     }
 

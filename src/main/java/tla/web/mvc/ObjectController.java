@@ -159,10 +159,13 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
      */
     @RequestMapping(value = "/autocomplete", method = RequestMethod.GET)
     public ResponseEntity<?> autoComplete(
-        @RequestParam String term, @RequestParam(required = false) Optional<String> type
+        @RequestParam(required = false) Optional<String> term,
+        @RequestParam(required = false) Optional<String> type
     ) {
         log.info("term: {}", term);
-        return getService().autoComplete(term, type.orElse(""));
+        return getService().autoComplete(
+            term.orElse(""), type.orElse("")
+        );
     }
 
     /**

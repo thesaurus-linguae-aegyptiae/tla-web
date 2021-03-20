@@ -2,12 +2,13 @@
   //<![CDATA[
   {
     let field = /*[[${field}]]*/ null;
+    let URL = /*[[${(#mvc.url('LC#autoComplete')).build()}]]*/ null;
     $(`#${field}`).on('input', (e) => {
       $.ajax(
         {
-          url: 'http://localhost:8090/lemma/complete', // TODO
+          url: `${URL}`,
           data: {
-            q: $(`#field`).val()
+            term: $(`#${field}`).val()
           },
           success: (result) => {
             $(`#${field}-suggestions`).empty();
