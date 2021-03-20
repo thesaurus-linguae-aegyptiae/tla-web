@@ -16,35 +16,13 @@
           <label class="col-form-label col-xl-2" th:text="#{field_label_lemma}">Lemma</label>
           <!--<label class="col-form-label col-xl-1" th:text="${token.empty}"></label>-->
           <div class="col-xl-10">
-            <input class="form-control mb-3" type="text" th:field="*{tokens[__${i.index}__].lemma.id}"
+
+            <input class="form-control mb-3 lemma-id" type="text" th:field="*{tokens[__${i.index}__].lemma.id}"
                 th:id="|token-${i.index}-lemma|" th:list="|token-${i.index}-lemma-suggestions|">
-              <script th:inline="javascript">
-                //<![CDATA[
-                {
-                  let index = /*[[${i.index}]]*/ null;
-                  $(`#token-${index}-lemma`).on('input', (e) => {
-                    $.ajax(
-                      {
-                        url: 'http://localhost:8090/lemma/complete', // TODO
-                        data: {
-                          q: $(`#token-${index}-lemma`).val()
-                        },
-                        success: (result) => {
-                          $(`#token-${index}-lemma-suggestions`).empty();
-                          result.forEach((i) => {
-                            $('<option/>').text(i.name).attr('value', i.id).attr('label', i.name).appendTo(
-                              $(`#token-${index}-lemma-suggestions`)
-                            );
-                          });
-                        }
-                      }
-                    );
-                  });
-                }
-                //]]>
-              </script>
+              <script th:replace="fragments/search/tools :: autocomplete(__|token-${i.index}-lemma|__)"/>
             </input>
             <datalist th:id="|token-${i.index}-lemma-suggestions|"/>
+
           </div>
           <label class="col-form-label col-xl-2" th:text="#{field_label_hieroglyphs}">Hieroglyphs</label>
           <div class="col-xl-10">
