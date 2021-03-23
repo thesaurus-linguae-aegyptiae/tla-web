@@ -3,6 +3,23 @@
 
   <body>
 
+    <!-- Lemma quick lookup search form -->
+    <form id="lemma-quick-search" name="lemma-quick-search" th:object="${lemma}"
+        th:action="@{/lemma/lookup}" method="get">
+      <fieldset class="form-group row">
+        <label class="col-form-label col-xl-2" th:text="#{field_label_lemma_id}" for="lemma-quick-search-id">
+          Lemma
+        </label>
+        <div class="col-xl-10">
+          <input class="form-control mb-3 lemma-id" type="text" th:field="*{id}"
+              th:id="lemma-quick-search-id" th:list="lemma-quick-search-id-suggestions">
+            <script th:replace="fragments/search/tools :: autocomplete('lemma-quick-search-id')"></script>
+          </input>
+          <datalist th:id="lemma-quick-search-id-suggestions"/>
+        </div>
+      </fieldset>
+    </form>
+
     <!-- sentence/occurrence search form -->
     <form id="sentence-search" name="sentence-search"
     th:action="@{/sentence/search}" th:object="${sentenceSearchForm}" method="get">
@@ -19,11 +36,11 @@
 
             <input class="form-control mb-3 lemma-id" type="text" th:field="*{tokens[__${i.index}__].lemma.id}"
                 th:id="|token-${i.index}-lemma|" th:list="|token-${i.index}-lemma-suggestions|">
-              <script th:replace="fragments/search/tools :: autocomplete(__|token-${i.index}-lemma|__)"/>
+              <script th:replace="fragments/search/tools :: autocomplete(__|token-${i.index}-lemma|__)"></script>
             </input>
             <datalist th:id="|token-${i.index}-lemma-suggestions|"/>
-
           </div>
+
           <label class="col-form-label col-xl-2" th:text="#{field_label_hieroglyphs}">Hieroglyphs</label>
           <div class="col-xl-10">
             <input class="form-control mb-3" type="text" th:field="*{tokens[__${i.index}__].glyphs}"/>

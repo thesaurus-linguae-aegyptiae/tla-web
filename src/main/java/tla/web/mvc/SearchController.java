@@ -15,17 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import lombok.extern.slf4j.Slf4j;
 import tla.domain.command.LemmaSearch;
 import tla.domain.command.SentenceSearch;
 import tla.domain.command.SentenceSearch.TokenSpec;
 import tla.domain.model.Language;
 import tla.domain.model.Script;
 import tla.web.config.LemmaSearchProperties;
+import tla.web.model.Lemma;
 import tla.web.model.ui.BreadCrumb;
 import tla.web.model.ui.SearchFormExpansionState;
 
-@Slf4j
 @Controller
 @RequestMapping("/search")
 public class SearchController {
@@ -36,7 +35,7 @@ public class SearchController {
     @Value("${search.config.default}")
     private String defaultForm;
 
-    public static final List<String> SEARCH_FORMS = List.of("dict", "sentence");
+    public static final List<String> SEARCH_FORMS = List.of("lemma-quick", "dict", "sentence");
 
     @ModelAttribute("allScripts")
     public Script[] getAllScripts() {
@@ -60,6 +59,7 @@ public class SearchController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String mainSearchPage(
+        @ModelAttribute("lemma") Lemma lemma,
         @ModelAttribute("lemmaSearchForm") LemmaSearch lemmaForm,
         @ModelAttribute("sentenceSearchForm") SentenceSearch sentenceForm,
         @RequestParam MultiValueMap<String, String> params,
