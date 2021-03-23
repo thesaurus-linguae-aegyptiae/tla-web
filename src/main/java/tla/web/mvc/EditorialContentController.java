@@ -1,5 +1,7 @@
 package tla.web.mvc;
 
+import static tla.web.mvc.GlobalControllerAdvisor.BREADCRUMB_HOME;
+
 import java.lang.reflect.Method;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 import lombok.extern.slf4j.Slf4j;
 import tla.web.config.EditorialConfig.EditorialRegistry;
+import tla.web.model.ui.BreadCrumb;
 
 /**
  * Uses dynamic mappings to handle requests for quote unquote "<em>static</em>" pages.
@@ -106,13 +109,10 @@ public class EditorialContentController {
     }
 
     /**
-     * Looks up the page title as defined in <code>messages.properties</code>.
-     *
-     * Example: Title for <code>legal/imprint</code> is defined via message key
-     * <code>editorial_title_legal_imprint</code>.
+     * build i18n message key for an editorial page's title.
      */
-    public String getPageTitle(String path, String lang) {
-        String msgKey = "editorial_title_" + Seq.toString(
+    public static String getPageTitleMsgKey(String path, String lang) {
+        return "editorial_title_" + Seq.toString(
             Stream.of(
                 path.split("/")
             ).filter(
@@ -120,8 +120,17 @@ public class EditorialContentController {
             ),
             "_"
         );
+    }
+
+    /**
+     * Looks up the page title as defined in <code>messages.properties</code>.
+     *
+     * Example: Title for <code>legal/imprint</code> is defined via message key
+     * <code>editorial_title_legal_imprint</code>.
+     */
+    public String getPageTitle(String path, String lang) {
         return l10n.getMessage(
-            msgKey,
+            getPageTitleMsgKey(path, lang),
             null,
             path,
             new Locale(lang)
@@ -170,6 +179,15 @@ public class EditorialContentController {
         model.addAttribute(
             "pageTitle",
             getPageTitle(path, contentLang)
+        );
+        model.addAttribute(
+            "breadcrumbs",
+            List.of(
+                BREADCRUMB_HOME,
+                BreadCrumb.of(
+                    getPageTitleMsgKey(path, lang)
+                )
+            )
         );
         return "editorial";
     }

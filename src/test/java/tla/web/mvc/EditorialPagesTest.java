@@ -13,6 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -22,6 +23,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -37,6 +39,9 @@ public class EditorialPagesTest extends ViewTest {
 
     @Autowired
     private EditorialRegistry pages;
+
+    @Autowired
+    private MessageSource l10n;
 
     @Test
     void registryAvailable() {
@@ -59,13 +64,19 @@ public class EditorialPagesTest extends ViewTest {
         );
     }
 
-    @Override
-    void testLocalization(ResultActions testResponse, String lang) throws Exception {
-        super.testLocalization(testResponse, lang);
+    void testLocalization(ResultActions testResponse, String path, String lang) throws Exception {
+        this.testLocalization(testResponse, lang);
         testResponse.andExpect(
             model().attribute("contentLang", lang)
         ).andExpect(
             xpath("/html/@lang").string(lang)
+        ).andExpect(
+            xpath("//div[@id='breadcrumbs']/div/nav/ol/li[last()]/span/text()").string(
+                l10n.getMessage(
+                    EditorialContentController.getPageTitleMsgKey(path, lang),
+                    null, new Locale(lang)
+                )
+            )
         );
     }
 
@@ -92,7 +103,7 @@ public class EditorialPagesTest extends ViewTest {
             ).andExpect(
                 model().attributeExists("env")
             );
-            testLocalization(test, lang);
+            testLocalization(test, String.format("/%s", path), lang);
         }
     }
 
@@ -107,7 +118,7 @@ public class EditorialPagesTest extends ViewTest {
         ).andDo(
             print()
         );
-        testLocalization(test, pages.getLangDefault());
+        testLocalization(test, "/legal/imprint", pages.getLangDefault());
     }
 
     @Test
@@ -119,7 +130,7 @@ public class EditorialPagesTest extends ViewTest {
                 HttpHeaders.ACCEPT_LANGUAGE, "en-US,en;q=0.9,de;q=0.8"
             )
         );
-        testLocalization(test, "en");
+        testLocalization(test, "/legal/imprint", "en");
     }
 
     @Test
@@ -131,7 +142,7 @@ public class EditorialPagesTest extends ViewTest {
                 HttpHeaders.ACCEPT_LANGUAGE, "en-US;q=0.8,en;q=0.8,de;q=0.9"
             )
         );
-        testLocalization(test, "de");
+        testLocalization(test, "/legal/imprint", "de");
     }
 
     @ParameterizedTest
@@ -148,7 +159,26 @@ public class EditorialPagesTest extends ViewTest {
                 "lang", param
             )
         );
-        testLocalization(test, negotiated);
+        testLocalization(test, "/legal/imprint", negotiated);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"de", "en"})
+    void testLandingPage(String lang) throws Exception {
+        ResultActions test = mockMvc.perform(
+            get("/home").param(
+                "lang", lang
+            )
+        );
+        testLocalization(test, lang);
+        test.andExpect(
+            xpath("//div[@id='breadcrumbs']/div/nav/ol/li[last()]/span/text()").string(
+                l10n.getMessage(
+                    EditorialContentController.getPageTitleMsgKey("/home", lang),
+                    null, new Locale(lang)
+                )
+            )
+        );
     }
 
 }

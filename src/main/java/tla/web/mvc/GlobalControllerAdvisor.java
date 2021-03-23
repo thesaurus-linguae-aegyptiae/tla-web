@@ -25,6 +25,8 @@ import tla.web.model.ui.BreadCrumb;
 @ControllerAdvice
 public class GlobalControllerAdvisor extends DefaultHandlerExceptionResolver {
 
+    public static final BreadCrumb BREADCRUMB_HOME = BreadCrumb.of("/", "menu_global_home");
+
     @Autowired
     private BuildProperties buildProperties;
 
@@ -48,7 +50,7 @@ public class GlobalControllerAdvisor extends DefaultHandlerExceptionResolver {
     @ModelAttribute("breadcrumbs")
     public List<BreadCrumb> basicBreadcrumb() {
         return List.of(
-            BreadCrumb.of("/", "menu_global_home")
+            BREADCRUMB_HOME
         );
     }
 
@@ -62,7 +64,7 @@ public class GlobalControllerAdvisor extends DefaultHandlerExceptionResolver {
         model.addAttribute(
             "breadcrumbs",
             List.of(
-                BreadCrumb.of("/", "menu_global_home"),
+                BREADCRUMB_HOME,
                 BreadCrumb.of("/search", "menu_global_search")
             )
         );
