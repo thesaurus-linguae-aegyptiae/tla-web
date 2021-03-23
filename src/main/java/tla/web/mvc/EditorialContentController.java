@@ -2,6 +2,7 @@ package tla.web.mvc;
 
 import java.lang.reflect.Method;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
@@ -92,7 +93,9 @@ public class EditorialContentController {
      */
     private HttpHeaders preferContentLanguage(String lang, HttpHeaders header) {
         if (lang != null && TLALocaleResolver.isValidContentLanguage(lang)) {
-            List<Locale.LanguageRange> requested = header.getAcceptLanguage();
+            List<Locale.LanguageRange> requested = new ArrayList<>(
+                header.getAcceptLanguage()
+            );
             requested.add(
                 0,
                 new Locale.LanguageRange(lang, 1.0f)
