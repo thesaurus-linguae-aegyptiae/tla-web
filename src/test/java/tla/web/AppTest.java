@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
 
 import tla.web.config.ApplicationProperties;
+import tla.web.config.DetailsProperties;
 import tla.web.config.LemmaSearchProperties;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,6 +20,9 @@ class AppTest {
 
     @Autowired
     private LemmaSearchProperties lemmaSearchConf;
+
+    @Autowired
+    private DetailsProperties detailsProperties;
 
     @Autowired
     private Environment env;
@@ -36,6 +40,15 @@ class AppTest {
             () -> assertTrue(lemmaSearchConf.getWordClasses().get("adjective").size() > 1, "adjective word class has subtypes"),
             () -> assertTrue(lemmaSearchConf.getWordClasses().containsKey("interjection"), "word class interjection present"),
             () -> assertEquals(0, lemmaSearchConf.getWordClasses().get("interjection").size(), "interjection word classes has no subtypes")
+        );
+        assertAll("domain model object details views properties loaded and available",
+            () -> assertNotNull(detailsProperties, "details properties"),
+            () -> assertFalse(detailsProperties.isEmpty(), "details properties present"),
+            () -> assertTrue(detailsProperties.containsKey("lemma"), "lemma details properties present"),
+            () -> assertFalse(
+                detailsProperties.get("lemma").getPassportProperties().isEmpty(),
+                "passport field list in lemma details properties"
+            )
         );
         assertNull(env.getProperty("spring.thymeleaf.cache"), "thymeleaf uses cache in default profile");
         assertEquals(0, env.getActiveProfiles().length, "this test should run in default profile");

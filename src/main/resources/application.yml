@@ -157,6 +157,12 @@ search:
                 - translation-ar
                 - translation-it
 
+details:
+    lemma:
+        passport-properties:
+            - lemma.main_group.nominal_schenkel
+            - lemma.main_group.nominal_osing
+
 ---
 
 logging:

@@ -10,9 +10,14 @@ import lombok.Setter;
 import tla.web.model.meta.ModelClass;
 import tla.web.model.meta.TLAObject;
 
+/**
+ * annotate implementing subclasses with {@link Component}, {@link ConfigurationProperties},
+ * and {@link ModelClass} in order to have them automatically registered and made available
+ * to object service corresponding to model class.
+ */
 @Getter
 @Setter
-public class SearchProperties {
+public abstract class SearchProperties {
 
     /**
      * List of properties for which show/hide toggle buttons are to be created on search results pages.

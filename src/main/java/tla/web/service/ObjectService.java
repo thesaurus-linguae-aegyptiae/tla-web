@@ -13,6 +13,8 @@ import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.AbstractDto;
 import tla.domain.model.meta.BTSeClass;
 import tla.domain.model.meta.TLADTO;
+import tla.web.config.DetailsProperties;
+import tla.web.config.ObjectDetailsProperties;
 import tla.web.config.SearchProperties;
 import tla.web.model.mappings.MappingConfig;
 import tla.web.model.meta.ModelClass;
@@ -31,11 +33,27 @@ import tla.web.repo.TlaClient;
 @Slf4j
 public abstract class ObjectService<T extends TLAObject> {
 
+    protected final static ObjectDetailsProperties DETAILS_UNCONFIGURED = new ObjectDetailsProperties();
+
     @Autowired
     protected TlaClient backend;
 
+    /**
+     * domain model type of the objects which are accessible via this service.
+     */
     private Class<T> modelClass;
 
+    @Autowired
+    private DetailsProperties detailsProperties;
+
+    /**
+     * search-specific configuration for the domain model type represented by this service.
+     * such search properties are being made available to the service layer under these conditions:
+     * <ol>
+     *   <li> specified in <code>application.yml</code> under the <code>search.{type}</code> path</li>
+     *   <li> defined in a {@link SearchProperties} subclass with a {@link ModelClass} annotation</li>
+     * </ol>
+     */
     private SearchProperties searchProperties;
 
     ResponseEntity<?> EMPTY_RESPONSE = ResponseEntity.of(Optional.empty());
@@ -62,6 +80,15 @@ public abstract class ObjectService<T extends TLAObject> {
             );
         }
         return this.searchProperties;
+    }
+
+    public ObjectDetailsProperties getDetailsProperties() {
+        return this.detailsProperties.getOrDefault(
+            TlaClient.getBackendPathPrefix(
+                this.getModelClass()
+            ),
+            DETAILS_UNCONFIGURED
+        );
     }
 
     /**
