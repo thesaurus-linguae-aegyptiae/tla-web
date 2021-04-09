@@ -1,5 +1,7 @@
 package tla.web.mvc;
 
+import static tla.web.mvc.GlobalControllerAdvisor.BREADCRUMB_HOME;
+
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -53,7 +55,7 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
     /**
      * controller registry
      */
-    private static List<ObjectController<? extends TLAObject, ? extends SearchCommand<?>>> controllers = new LinkedList<>();
+    protected static List<ObjectController<? extends TLAObject, ? extends SearchCommand<?>>> controllers = new LinkedList<>();
 
     private String templatePath = null;
 
@@ -202,7 +204,7 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
         model.addAttribute(
             "breadcrumbs",
             List.of(
-                BreadCrumb.of("/", "menu_global_home"),
+                BREADCRUMB_HOME,
                 BreadCrumb.of("/search", "menu_global_search"),
                 BreadCrumb.of(
                     String.format("caption_details_%s", getTemplatePath())
@@ -226,6 +228,8 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
 
     /**
      * Delegate submitted search form to TLA backend and render the results retrieved.
+     *
+     * @see SearchController#onApplicationReady(org.springframework.boot.context.event.ApplicationReadyEvent)
      */
     public String getSearchResultsPage(
         S form,
@@ -238,10 +242,9 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
         SearchResults results = this.getService().search(form, Integer.parseInt(page)); // TODO validate page
         model.addAttribute("breadcrumbs",
             List.of(
-                BreadCrumb.of("/", "menu_global_home"),
+                BREADCRUMB_HOME,
                 BreadCrumb.of(
-                    modifySearchUrl(),
-                    "menu_global_search"
+                    modifySearchUrl(), "menu_global_search"
                 ),
                 BreadCrumb.of(
                     templateUtils.setQueryParam("page", "1"),
@@ -250,6 +253,7 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
             )
         );
         this.addHideableProperties(model);
+        model.addAttribute("objectType", getTemplatePath());
         model.addAttribute("searchResults", results.getObjects());
         model.addAttribute("searchQuery", results.getQuery());
         model.addAttribute("facets", results.getFacets());

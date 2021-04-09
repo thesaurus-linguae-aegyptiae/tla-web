@@ -71,7 +71,7 @@ public class SentenceSearchTest extends ViewTest {
     void sentenceSearchResultsViewModelTest() throws Exception {
         var dto = mockSearch("occurrences-145700.json");
         var response = mockMvc.perform(
-            get("/sentence/search").param("tokens[0].lemma.id", new String[]{"145700"})
+            get("/search/sentence").param("tokens[0].lemma.id", new String[]{"145700"})
         ).andDo(print());
 
         testLocalization(response);
@@ -102,7 +102,7 @@ public class SentenceSearchTest extends ViewTest {
         var dto = mockSearch("occurrences-10070.json");
         var response = mockMvc.perform(
             get(
-                URI.create("/sentence/search?tokens[0].lemma.id=10070&lang=de")
+                URI.create("/search/sentence?tokens[0].lemma.id=10070&lang=de")
             )
         ).andDo(print());
 
@@ -138,7 +138,7 @@ public class SentenceSearchTest extends ViewTest {
         mockSearch("occurrences-145700.json");
         var response = mockMvc.perform(
             get(
-                URI.create("/sentence/search?tokens[0].lemma.id=10070&lang=de")
+                URI.create("/search/sentence?tokens[0].lemma.id=10070&lang=de")
             )
         ).andDo(print());
         response.andExpect(

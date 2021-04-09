@@ -1,5 +1,8 @@
 package tla.web.mvc;
 
+import static tla.web.mvc.GlobalControllerAdvisor.BREADCRUMB_HOME;
+
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -7,6 +10,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
@@ -14,8 +19,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
+import lombok.extern.slf4j.Slf4j;
 import tla.domain.command.LemmaSearch;
+import tla.domain.command.SearchCommand;
 import tla.domain.command.SentenceSearch;
 import tla.domain.command.SentenceSearch.TokenSpec;
 import tla.domain.model.Language;
@@ -25,12 +34,16 @@ import tla.web.model.Lemma;
 import tla.web.model.ui.BreadCrumb;
 import tla.web.model.ui.SearchFormExpansionState;
 
+@Slf4j
 @Controller
 @RequestMapping("/search")
 public class SearchController {
 
     @Autowired
     private LemmaSearchProperties lemmaSearchConf;
+
+    @Autowired
+    private RequestMappingHandlerMapping handlerMapping;
 
     @Value("${search.config.default}")
     private String defaultForm;
@@ -68,7 +81,7 @@ public class SearchController {
         model.addAttribute(
             "breadcrumbs",
             List.of(
-                BreadCrumb.of("/", "menu_global_home"),
+                BREADCRUMB_HOME,
                 BreadCrumb.of("/search", "menu_global_search")
             )
         );
@@ -113,13 +126,53 @@ public class SearchController {
     }
 
     /**
-     * This is for testing obviously.
+     * Creates additional route to search handlers for all registered domain model object view controllers
+     * supporting search (i.e. those which implement
+     * {@link ObjectController#getSearchResultsPage(SearchCommand, String, MultiValueMap, Model)}).
      *
-     * @throws Exception
+     * Currently, domain model object view controllers individually map these handler methods to
+     * the route <code> /{objectType}/search </code>, and in this here event handler, a redundant
+     * route is being added for those handlers, which results in two routes for each of those
+     * search handlers:
+     *
+     * <ul>
+     *  <li><code> /{objectType}/search </code></li>
+     *  <li><code> /search/{objectType} </code></li>
+     * </ul>
+     *
+     * Of these two, the latter is preferable and the former should be considered for removal,
+     * as it technically creates an ambiguous mapping of the universal object details page route
+     * path <code> /{objectType}/{id} </code>. While it is unlikely for an object to be identifiable
+     * by the ID <code> "search" </code>, it is not impossible, nor is it even necessary for this
+     * situation to be considered somewhat messy. Note that some types of object (i.e. text, object,
+     * thesaurus entry) can also be looked up under their <i>short unique id</i> (SUID), which is a
+     * 6-character (!) base36 rehash of their some-26-character ID, introduced due to demand from
+     * Leipzig for short and easier-to-remember identifiers. As the number of objects in the text
+     * corpus and the thesaurus grows, one of them might very well be assigned the 6-character base36
+     * SUID <code>"search"</code> at some point sooner or later.
      */
-    @RequestMapping(value = "fail", method = RequestMethod.GET)
-    public void failWithError(Model model) throws Exception {
-        throw new Exception("something went wrong!");
+    @EventListener
+    public void onApplicationReady(ApplicationReadyEvent event) {
+        for (ObjectController<?,?> controller : ObjectController.controllers) {
+            try {
+                Method method = controller.getClass().getDeclaredMethod(
+                    "getSearchResultsPage",
+                    SearchCommand.class,
+                    String.class,
+                    MultiValueMap.class,
+                    Model.class
+                );
+                handlerMapping.registerMapping(
+                    RequestMappingInfo.paths(
+                        String.format("search%s", controller.getRequestMapping())
+                    ).methods(RequestMethod.GET).build(),
+                    controller,
+                    method
+                );
+            } catch (Exception e) {
+                log.warn("couldn't create search route for controller {}", controller);
+            }
+        }
     }
 
 }

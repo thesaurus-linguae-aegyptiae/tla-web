@@ -69,7 +69,7 @@ public class LemmaSearchResultsTest extends ViewTest {
     void testSearchResults(Language lang) throws Exception {
         var dto = mockSearch("demotic_translation_de.json");
         ResultActions testResponse = mockMvc.perform(
-            get("/lemma/search").header(HttpHeaders.ACCEPT_LANGUAGE, lang)
+            get("/search/lemma").header(HttpHeaders.ACCEPT_LANGUAGE, lang)
         ).andDo(print()).andExpect(
             status().isOk()
         );
@@ -93,7 +93,7 @@ public class LemmaSearchResultsTest extends ViewTest {
     void testFulltypeLabels() throws Exception {
         mockSearch("demotic_translation_de.json");
         ResultActions testResponse = mockMvc.perform(
-            get("/lemma/search").header(HttpHeaders.ACCEPT_LANGUAGE, "en")
+            get("/search/lemma").header(HttpHeaders.ACCEPT_LANGUAGE, "en")
         ).andDo(print()).andExpect(
             status().isOk()
         );
@@ -113,7 +113,7 @@ public class LemmaSearchResultsTest extends ViewTest {
     void testSideBar() throws Exception {
         mockSearch("demotic_translation_de.json");
         ResultActions testResponse = mockMvc.perform(
-            get("/lemma/search")
+            get("/search/lemma")
         ).andDo(print());
 
         testResponse.andExpect(
