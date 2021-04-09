@@ -1,5 +1,7 @@
 package tla.web.mvc;
 
+import java.util.stream.Stream;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +17,7 @@ import tla.web.config.ApplicationProperties;
 import tla.web.model.mappings.BTSMarkupConverter;
 import tla.web.model.mappings.LanguageFromStringConverter;
 import tla.web.model.mappings.ScriptFromStringConverter;
+import tla.web.model.mappings.URLDecodeConverter;
 
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
@@ -51,9 +54,14 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(new ScriptFromStringConverter());
-        registry.addConverter(new LanguageFromStringConverter());
-        registry.addConverter(new BTSMarkupConverter());
+        Stream.of(
+            new ScriptFromStringConverter(),
+            new LanguageFromStringConverter(),
+            new BTSMarkupConverter(),
+            new URLDecodeConverter()
+        ).forEach(
+            converter -> registry.addConverter(converter)
+        );
     }
 
     @Override
