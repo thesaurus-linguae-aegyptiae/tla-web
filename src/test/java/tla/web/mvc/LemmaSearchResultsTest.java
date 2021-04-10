@@ -18,25 +18,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.ResultActions;
 
 import tla.domain.command.LemmaSearch;
 import tla.domain.dto.extern.SearchResultsWrapper;
-import tla.web.repo.TlaClient;
 
-@SpringBootTest
 public class LemmaSearchResultsTest extends ViewTest {
-
-    @MockBean
-    private TlaClient backendClient;
-
-    @Autowired
-    private MessageSource messages;
 
     /**
      * load search results transfer object from file.
@@ -57,7 +45,7 @@ public class LemmaSearchResultsTest extends ViewTest {
         var dto = loadDto(filename);
         assertNotNull(dto);
         when(
-            backendClient.searchObjects(any(), any(), anyInt())
+            backend.searchObjects(any(), any(), anyInt())
         ).thenReturn(
             dto
         );
@@ -127,7 +115,7 @@ public class LemmaSearchResultsTest extends ViewTest {
     @DisplayName("check lemma search form conversion")
     void testSearchFormConversion() throws Exception {
         when(
-            backendClient.searchObjects(any(), any(), anyInt())
+            backend.searchObjects(any(), any(), anyInt())
         ).thenAnswer(
             i -> {
                 LemmaSearch form = i.getArgument(1, LemmaSearch.class);
@@ -142,7 +130,7 @@ public class LemmaSearchResultsTest extends ViewTest {
         mockMvc.perform(
             get("/lemma/search?bibliography=säk&translation.text=k%C3%B6nig&transcription=zḫi̯&root=")
         ).andDo(print());
-        verify(backendClient).searchObjects(any(), any(), anyInt());
+        verify(backend).searchObjects(any(), any(), anyInt());
     }
 
 }

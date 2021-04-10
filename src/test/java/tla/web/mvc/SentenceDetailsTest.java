@@ -1,24 +1,19 @@
 package tla.web.mvc;
 
+import static org.hamcrest.Matchers.endsWith;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
+
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.web.model.Sentence;
-import tla.web.repo.TlaClient;
 
-import static org.hamcrest.Matchers.endsWith;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-@SpringBootTest
 public class SentenceDetailsTest extends ViewTest {
-
-    @MockBean
-    private TlaClient backendClient;
 
     @Test
     void sentenceNotFoundProduces404Error() throws Exception {
@@ -37,7 +32,7 @@ public class SentenceDetailsTest extends ViewTest {
     @SuppressWarnings("unchecked")
     void sentenceDetailsTest() throws Exception {
         when(
-            backendClient.retrieveObject(
+            backend.retrieveObject(
                 eq(Sentence.class), eq("IBcCBpKz4FWJo0yOhxfTNEhx5J0")
             )
         ).thenReturn(

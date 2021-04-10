@@ -2,14 +2,20 @@ package tla.web.mvc;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.MessageSource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+
+import tla.web.repo.TlaClient;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @AutoConfigureMockMvc
+@SpringBootTest
 public class ViewTest {
 
     public static enum Language {
@@ -18,6 +24,12 @@ public class ViewTest {
 
     @Autowired
     protected MockMvc mockMvc;
+
+    @MockBean
+    protected TlaClient backend;
+
+    @Autowired
+    protected MessageSource messages;
 
     void testLocalization(ResultActions testResponse, Language lang) throws Exception {
         testLocalization(testResponse, lang.toString());
