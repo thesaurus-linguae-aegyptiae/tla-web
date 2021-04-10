@@ -162,15 +162,26 @@ public class SearchController {
                     MultiValueMap.class,
                     Model.class
                 );
+                // remove potential pre-existing mapping (necessary for test suite)
+                handlerMapping.getHandlerMethods().keySet().forEach(
+                    mapping -> {
+                        if (mapping.getPatternValues().contains(
+                            String.format("/search%s", controller.getRequestMapping())
+                        )) {
+                            handlerMapping.unregisterMapping(mapping);
+                        }
+                    }
+                );
+                // create new handler mapping for object search route
                 handlerMapping.registerMapping(
                     RequestMappingInfo.paths(
-                        String.format("search%s", controller.getRequestMapping())
+                        String.format("/search%s", controller.getRequestMapping())
                     ).methods(RequestMethod.GET).build(),
                     controller,
                     method
                 );
-            } catch (Exception e) {
-                log.warn("couldn't create search route for controller {}", controller);
+            } catch (NoSuchMethodException e) {
+                log.info("couldn't create search route for controller {}: no handler method.", controller);
             }
         }
     }
