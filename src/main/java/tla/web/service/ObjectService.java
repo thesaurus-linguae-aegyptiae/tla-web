@@ -111,10 +111,12 @@ public abstract class ObjectService<T extends TLAObject> {
             LinkedHashMap<String, List<Passport>> passportValues = new LinkedHashMap<>();
             this.getDetailsProperties().getPassportProperties().stream().forEach(
                 path -> {
-                    passportValues.put(
-                        path,
-                        ((BTSObject) object).getPassport().extractProperty(path)
-                    );
+                    if (!((BTSObject) object).getPassport().extractProperty(path).isEmpty()) {
+                        passportValues.put(
+                            path,
+                            ((BTSObject) object).getPassport().extractProperty(path)
+                        );
+                    }
                 }
             );
             return passportValues;

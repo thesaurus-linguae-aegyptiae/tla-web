@@ -60,9 +60,7 @@ public class ServiceTest {
         Lemma l = Lemma.builder().passport(p).build();
         Map<String, List<Passport>> values = lemmaService.getDetailsPassportPropertyValues(l);
         assertAll("check passport value extraction",
-            () -> assertEquals(
-                lemmaService.getDetailsProperties().getPassportProperties().size(), values.size()
-            ),
+            () -> assertEquals(1, values.size()),
             () -> assertTrue(
                 values.values().stream().anyMatch(
                     value -> !value.isEmpty()

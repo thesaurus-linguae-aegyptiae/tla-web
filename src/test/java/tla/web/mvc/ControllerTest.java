@@ -13,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.web.model.Lemma;
 import tla.web.model.meta.ObjectDetails;
-import tla.web.model.ui.BreadCrumb;
 import tla.web.model.ui.CorpusPathSegment;
 
 @SpringBootTest
