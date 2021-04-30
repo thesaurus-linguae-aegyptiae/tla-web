@@ -18,6 +18,22 @@
         <a th:replace="fragments/common :: review-state(${obj})"/>
     </div>
 
+    <!-- Generic Passport Properties -->
+    <div th:fragment="object-property-passport-properties" id="passport-properties"
+            th:unless="${#maps.isEmpty(passport)}">
+        <hr/>
+        <p th:each="item : ${passport}">
+            <strong th:text="#{|${objectType}_passport_property_${item.key}|}" class="details-property-label">
+                Property Label
+            </strong>
+            <th:block th:each="value, iter : ${item.value}">
+                <span th:text="${value.label}" th:class="${item.key}">
+                    Passport Value
+                </span>
+                <span th:unless="${iter.last}">|</span>
+            </th:block>
+        </p>
+    </div>
 
     <!-- External references -->
     <div th:fragment="external-references" id="external-references" th:unless="${#maps.isEmpty(obj.externalReferences)}">

@@ -16,6 +16,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
@@ -98,11 +99,25 @@ public class LemmaDetailsTest extends ViewTest {
         ).andExpect(
             xpath("//div[@id='details-content']/div[@id='lemma-property-attestations']").exists()
         ).andExpect(
+            xpath("//div[@id='passport-properties']").doesNotExist()
+        ).andExpect(
             xpath("//div[contains(@class,'bibliography')]/p/span/span[contains(@class,'bibliographic-reference')]").nodeCount(3)
 		).andExpect(
             xpath("//div[contains(@class,'bibliography')]/p/span/span[contains(@class,'bibliographic-reference')]/text()").string(
                 "Wb 1, 130.1-5"
             )
+        );
+    }
+
+    @Test
+    @DisplayName("test lemma details generic passport properties")
+    void testLemmaDetails_passport() throws Exception {
+        final String id = "151410";
+        respondToDetailsRequestWithLemma(id);
+        makeDetailsRequest(id, Language.en).andExpect(
+            xpath("//div[@id='passport-properties']").exists()
+        ).andExpect(
+            xpath("//div[@id='passport-properties']/p/span[@class='lemma_main_group_nominal_schenkel']").nodeCount(1)
         );
     }
 

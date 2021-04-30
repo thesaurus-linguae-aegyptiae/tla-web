@@ -56,6 +56,11 @@
             "name": "search.config.default",
             "type": "java.lang.String",
             "description": "choose the default search mode, i.e. the search form to be expanded on the search landing page by default."
+        },
+        {
+            "name": "details",
+            "type": "tla.web.config.DetailsProperties",
+            "description": "domain model details view representation settings"
         }
     ]
 }
