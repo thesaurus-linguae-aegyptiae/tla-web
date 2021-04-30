@@ -138,4 +138,17 @@ public class LemmaDetailsTest extends ViewTest {
         );
     }
 
+    @Test
+    void testLookup() throws Exception {
+        mockMvc.perform(
+            get("/lemma/lookup?id=31610")
+        ).andExpect(
+            status().is3xxRedirection()
+        ).andExpect(
+            header().string(
+                "Location", "/lemma/31610"
+            )
+        );
+    }
+
 }

@@ -91,7 +91,7 @@ jobs:
       uses: "flameddd/screenshots-ci-action@v1.1.1"
       with:
         url: http://localhost:8080/lemma/search/
-        devices: iPhone 6,iPhone 6 landscape,Nexus 7,Pad Pro,Galaxy S III landscape,iPad Pro landscape
+        devices: iPhone 6,iPhone 6 landscape,Nexus 7,iPad Pro,Galaxy S III landscape,iPad Pro landscape
         type: png
 
     - name: upload screenshots
@@ -104,7 +104,7 @@ jobs:
       uses: "flameddd/screenshots-ci-action@v1.1.1"
       with:
         url: http://localhost:8080/lemma/100690
-        devices: iPhone 6,iPhone 6 landscape,Nexus 7,Pad Pro,Galaxy S III landscape,iPad Pro landscape
+        devices: iPhone 6,iPhone 6 landscape,Nexus 7,iPad Pro,Galaxy S III landscape,iPad Pro landscape
         type: png
 
     - name: upload screenshots
@@ -117,7 +117,7 @@ jobs:
       uses: "flameddd/screenshots-ci-action@v1.1.1"
       with:
         url: http://localhost:8080/sentence/IBUBdQmK4memIEBelX9qTCsmuS8#IBUBdzrGyezPxknfiltJIvlQAn0
-        devices: iPhone 6,iPhone 6 landscape,Nexus 7,Pad Pro,Galaxy S III landscape,iPad Pro landscape
+        devices: iPhone 6,iPhone 6 landscape,Nexus 7,iPad Pro,Galaxy S III landscape,iPad Pro landscape
         type: png
 
     - name: upload screenshots
@@ -130,7 +130,7 @@ jobs:
       uses: "flameddd/screenshots-ci-action@v1.1.1"
       with:
         url: http://localhost:8080/thesaurus/7pupjz
-        devices: iPhone 6,iPhone 6 landscape,Nexus 7,Pad Pro,Galaxy S III landscape,iPad Pro landscape
+        devices: iPhone 6,iPhone 6 landscape,Nexus 7,iPad Pro,Galaxy S III landscape,iPad Pro landscape
         type: png
 
     - name: upload screenshots
@@ -143,7 +143,7 @@ jobs:
       uses: "flameddd/screenshots-ci-action@v1.1.1"
       with:
         url: "http://localhost:8080/search?sentence&tokens[0].lemma.id=d2978&tokens[1].lemma.id=10070"
-        devices: iPhone 6,iPhone 6 landscape,Nexus 7,Pad Pro,Galaxy S III landscape,iPad Pro landscape
+        devices: iPhone 6,iPhone 6 landscape,Nexus 7,iPad Pro,Galaxy S III landscape,iPad Pro landscape
         type: png
 
     - name: upload screenshots
@@ -156,7 +156,7 @@ jobs:
       uses: "flameddd/screenshots-ci-action@v1.1.1"
       with:
         url: "http://localhost:8080/sentence/search?tokens[0].lemma.id=74950"
-        devices: iPhone 6,iPhone 6 landscape,Nexus 7,Pad Pro,Galaxy S III landscape,iPad Pro landscape
+        devices: iPhone 6,iPhone 6 landscape,Nexus 7,iPad Pro,Galaxy S III landscape,iPad Pro landscape
         type: png
 
     - name: upload screenshots

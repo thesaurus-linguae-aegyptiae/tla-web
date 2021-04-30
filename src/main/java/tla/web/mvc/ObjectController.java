@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 
 import lombok.extern.slf4j.Slf4j;
 import tla.domain.command.SearchCommand;
@@ -150,6 +153,35 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
      * required by this controller.
      */
     public abstract ObjectService<T> getService();
+
+    /**
+     * Passes the <code>?term</code> URL parameter value through to an <code>/complete</code>
+     * autocomplete endpoint of the backend application and return back with its JSON response.
+     */
+    @RequestMapping(value = "/autocomplete", method = RequestMethod.GET)
+    public ResponseEntity<?> autoComplete(
+        @RequestParam(required = false) Optional<String> term,
+        @RequestParam(required = false) Optional<String> type
+    ) {
+        log.info("term: {}", term.get());
+        return getService().autoComplete(
+            term.orElse(""), type.orElse("")
+        );
+    }
+
+    /**
+     * Redirects to object details page, but identifies object by <code>&id</code> URL parameter
+     * instead of path variable.
+     */
+    @RequestMapping(value = "/lookup", method = RequestMethod.GET)
+    public RedirectView lookup(@RequestParam String id) {
+        return new RedirectView(
+            String.format(
+                "%s/%s", this.getRequestMapping(), id
+            ),
+            true
+        );
+    }
 
     /**
      * Retrieves the requested plus relevant related entites, and renders the results into the
