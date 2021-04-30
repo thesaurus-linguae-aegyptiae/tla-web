@@ -1,6 +1,8 @@
 package tla.web.service;
 
 import java.lang.annotation.Annotation;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +13,14 @@ import tla.domain.command.SearchCommand;
 import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.AbstractDto;
+import tla.domain.model.Passport;
 import tla.domain.model.meta.BTSeClass;
 import tla.domain.model.meta.TLADTO;
 import tla.web.config.DetailsProperties;
 import tla.web.config.ObjectDetailsProperties;
 import tla.web.config.SearchProperties;
 import tla.web.model.mappings.MappingConfig;
+import tla.web.model.meta.BTSObject;
 import tla.web.model.meta.ModelClass;
 import tla.web.model.meta.ObjectDetails;
 import tla.web.model.meta.SearchResults;
@@ -34,6 +38,7 @@ import tla.web.repo.TlaClient;
 public abstract class ObjectService<T extends TLAObject> {
 
     protected final static ObjectDetailsProperties DETAILS_UNCONFIGURED = new ObjectDetailsProperties();
+    protected final static LinkedHashMap<String, List<Passport>> EMPTY_MAP = new LinkedHashMap<>();
 
     @Autowired
     protected TlaClient backend;
@@ -82,6 +87,11 @@ public abstract class ObjectService<T extends TLAObject> {
         return this.searchProperties;
     }
 
+    /**
+     * Looks up the details view configuration for a service's domain model class.
+     *
+     * @see DetailsProperties
+     */
     public ObjectDetailsProperties getDetailsProperties() {
         return this.detailsProperties.getOrDefault(
             TlaClient.getBackendPathPrefix(
@@ -89,6 +99,30 @@ public abstract class ObjectService<T extends TLAObject> {
             ),
             DETAILS_UNCONFIGURED
         );
+    }
+
+    /**
+     * Extract an object's values for the passport properties configured for its domain model type.
+     *
+     * @see #getDetailsProperties()
+     */
+    public LinkedHashMap<String, List<Passport>> getDetailsPassportPropertyValues(T object) {
+        if (object instanceof BTSObject) {
+            LinkedHashMap<String, List<Passport>> passportValues = new LinkedHashMap<>();
+            this.getDetailsProperties().getPassportProperties().stream().forEach(
+                path -> {
+                    if (!((BTSObject) object).getPassport().extractProperty(path).isEmpty()) {
+                        passportValues.put(
+                            path,
+                            ((BTSObject) object).getPassport().extractProperty(path)
+                        );
+                    }
+                }
+            );
+            return passportValues;
+        } else {
+            return EMPTY_MAP;
+        }
     }
 
     /**

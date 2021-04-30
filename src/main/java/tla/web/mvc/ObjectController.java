@@ -4,10 +4,12 @@ import static tla.web.mvc.GlobalControllerAdvisor.BREADCRUMB_HOME;
 
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -149,6 +151,26 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
     }
 
     /**
+     * Translate object passport to UI representation.
+     */
+    public LinkedHashMap<String, List<CorpusPathSegment>> getPassportPropertyValues(ObjectDetails<T> container) {
+        final var res = new LinkedHashMap<String, List<CorpusPathSegment>>();
+        getService().getDetailsPassportPropertyValues(
+            container.getObject()
+        ).forEach(
+            (passportField, values) -> res.put(
+                passportField.replace(".", "_"),
+                values.stream().map(
+                    passportValue -> new CorpusPathSegment(passportValue.getLeafNodeValue())
+                ).collect(
+                    Collectors.toList()
+                )
+            )
+        );
+        return res;
+    }
+
+    /**
      * Must return an appropriate {@link ObjectService} instance for a particular controller
      * to be able to invoke operations targeting the entity model class it has been typed for.
      * @return An {@link ObjectService} instance providing access to entities of the specific type
@@ -212,6 +234,7 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
             )
         );
         model.addAttribute("obj", container.getObject());
+        model.addAttribute("passport", getPassportPropertyValues(container));
         model.addAttribute("caption", getService().getLabel(container.getObject()));
         model.addAttribute("related", container.getRelated());
         model.addAttribute("relations", container.extractRelatedObjects());

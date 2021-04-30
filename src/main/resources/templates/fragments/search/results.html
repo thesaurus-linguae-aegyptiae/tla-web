@@ -52,7 +52,7 @@
           </span>
           <span class="result-list-item-element attested-timespan" th:unless="*{timespan} == null">
             <span th:text="*{timespan.begin}">begin</span>
-            <span>&mdash;</span>
+            <span>&#8212;</span>
             <span th:text="*{timespan.end}">end</span>
           </span>
           <span class="result-list-item-element bibliography" th:unless="${#lists.isEmpty(obj.bibliography)}">

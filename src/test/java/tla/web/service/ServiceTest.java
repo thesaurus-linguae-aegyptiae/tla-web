@@ -17,6 +17,7 @@ import tla.domain.command.SentenceSearch;
 import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.DocumentDto;
+import tla.domain.model.Passport;
 import tla.web.model.Annotation;
 import tla.web.model.Lemma;
 import tla.web.model.Sentence;
@@ -47,6 +48,29 @@ public class ServiceTest {
             () -> assertNotNull(lemmaService.getSearchProperties(), "lemma search properties registered"),
             () -> assertNotNull(lemmaService.getSearchProperties().getHideableProperties(), "hide/show property list"),
             () -> assertFalse(lemmaService.getSearchProperties().getHideableProperties().isEmpty(), "hide/show property list not empty")
+        );
+    }
+
+    @Test
+    void detailsPropertiesPassportValues() throws Exception {
+        Passport p = tla.domain.util.IO.getMapper().readValue(
+            "{\"lemma\":[{\"main_group\":[{\"lsort\":[\"QZe\"],\"nominal_osing\":[\"I 2.13\"]}]}]}",
+            Passport.class
+        );
+        Lemma l = Lemma.builder().passport(p).build();
+        Map<String, List<Passport>> values = lemmaService.getDetailsPassportPropertyValues(l);
+        assertAll("check passport value extraction",
+            () -> assertEquals(1, values.size()),
+            () -> assertTrue(
+                values.values().stream().anyMatch(
+                    value -> !value.isEmpty()
+                ),
+                "at least one passport value extracted"
+            )
+        );
+        ThsEntry t = new ThsEntry(); t.setPassport(p);
+        assertTrue(
+            thsService.getDetailsProperties().getPassportProperties().isEmpty(), "no thesaurus passport properties extracted"
         );
     }
 

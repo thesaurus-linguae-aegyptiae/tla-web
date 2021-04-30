@@ -1,5 +1,6 @@
 package tla.web.config;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import lombok.Getter;
@@ -12,6 +13,6 @@ public class ObjectDetailsProperties {
     /**
      * List of passport property paths to be made available in details view.
      */
-    private List<String> passportProperties;
+    private List<String> passportProperties = new LinkedList<>();
 
 }
