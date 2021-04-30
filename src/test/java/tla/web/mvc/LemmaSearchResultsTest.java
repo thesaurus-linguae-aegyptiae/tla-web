@@ -1,8 +1,11 @@
 package tla.web.mvc;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -11,27 +14,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.Locale;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.ResultActions;
 
+import tla.domain.command.LemmaSearch;
 import tla.domain.dto.extern.SearchResultsWrapper;
-import tla.web.repo.TlaClient;
 
-@SpringBootTest
 public class LemmaSearchResultsTest extends ViewTest {
-
-    @MockBean
-    private TlaClient backendClient;
-
-    @Autowired
-    private MessageSource messages;
 
     /**
      * load search results transfer object from file.
@@ -52,7 +45,7 @@ public class LemmaSearchResultsTest extends ViewTest {
         var dto = loadDto(filename);
         assertNotNull(dto);
         when(
-            backendClient.searchObjects(any(), any(), anyInt())
+            backend.searchObjects(any(), any(), anyInt())
         ).thenReturn(
             dto
         );
@@ -64,7 +57,7 @@ public class LemmaSearchResultsTest extends ViewTest {
     void testSearchResults(Language lang) throws Exception {
         var dto = mockSearch("demotic_translation_de.json");
         ResultActions testResponse = mockMvc.perform(
-            get("/lemma/search").header(HttpHeaders.ACCEPT_LANGUAGE, lang)
+            get("/search/lemma").header(HttpHeaders.ACCEPT_LANGUAGE, lang)
         ).andDo(print()).andExpect(
             status().isOk()
         );
@@ -88,7 +81,7 @@ public class LemmaSearchResultsTest extends ViewTest {
     void testFulltypeLabels() throws Exception {
         mockSearch("demotic_translation_de.json");
         ResultActions testResponse = mockMvc.perform(
-            get("/lemma/search").header(HttpHeaders.ACCEPT_LANGUAGE, "en")
+            get("/search/lemma").header(HttpHeaders.ACCEPT_LANGUAGE, "en")
         ).andDo(print()).andExpect(
             status().isOk()
         );
@@ -108,7 +101,7 @@ public class LemmaSearchResultsTest extends ViewTest {
     void testSideBar() throws Exception {
         mockSearch("demotic_translation_de.json");
         ResultActions testResponse = mockMvc.perform(
-            get("/lemma/search")
+            get("/search/lemma")
         ).andDo(print());
 
         testResponse.andExpect(
@@ -116,6 +109,28 @@ public class LemmaSearchResultsTest extends ViewTest {
         ).andExpect(
             xpath("//div[@class='hide-properties-buttons']/button[@id='hide-property-button-translations']").exists()
         );
+    }
+
+    @Test
+    @DisplayName("check lemma search form conversion")
+    void testSearchFormConversion() throws Exception {
+        when(
+            backend.searchObjects(any(), any(), anyInt())
+        ).thenAnswer(
+            i -> {
+                LemmaSearch form = i.getArgument(1, LemmaSearch.class);
+                assertAll("check URLdecode conversion of form field values",
+                    () -> assertEquals("säk", form.getBibliography(), "bibliography"),
+                    () -> assertEquals("könig", form.getTranslation().getText(), "translation"),
+                    () -> assertEquals("zḫi̯", form.getTranscription(), "transcription")
+                );
+                return loadDto("demotic_translation_de.json");
+            }
+        );
+        mockMvc.perform(
+            get("/lemma/search?bibliography=säk&translation.text=k%C3%B6nig&transcription=zḫi̯&root=")
+        ).andDo(print());
+        verify(backend).searchObjects(any(), any(), anyInt());
     }
 
 }

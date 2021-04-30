@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.ResultActions;
@@ -28,7 +27,6 @@ import tla.web.model.meta.ObjectDetails;
 import tla.web.service.ThsService;
 
 @Slf4j
-@SpringBootTest
 public class ThsEntryDetailsTest extends ViewTest {
 
     @MockBean

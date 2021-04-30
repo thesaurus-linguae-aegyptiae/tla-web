@@ -1,36 +1,32 @@
 package tla.web.mvc;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.not;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 
 import java.net.URI;
 import java.util.Locale;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.MessageSource;
 
 import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.web.config.SentenceSearchProperties;
 import tla.web.model.Sentence;
-import tla.web.repo.TlaClient;
 
-@SpringBootTest
 public class SentenceSearchTest extends ViewTest {
-
-    @MockBean
-    private TlaClient backend;
-
-    @Autowired
-    private MessageSource messages;
 
     @Autowired
     private SentenceSearchProperties searchProperties;
@@ -71,7 +67,7 @@ public class SentenceSearchTest extends ViewTest {
     void sentenceSearchResultsViewModelTest() throws Exception {
         var dto = mockSearch("occurrences-145700.json");
         var response = mockMvc.perform(
-            get("/sentence/search").param("tokens[0].lemma.id", new String[]{"145700"})
+            get("/search/sentence").param("tokens[0].lemma.id", new String[]{"145700"})
         ).andDo(print());
 
         testLocalization(response);
@@ -102,7 +98,7 @@ public class SentenceSearchTest extends ViewTest {
         var dto = mockSearch("occurrences-10070.json");
         var response = mockMvc.perform(
             get(
-                URI.create("/sentence/search?tokens[0].lemma.id=10070&lang=de")
+                URI.create("/search/sentence?tokens[0].lemma.id=10070&lang=de")
             )
         ).andDo(print());
 
@@ -138,7 +134,7 @@ public class SentenceSearchTest extends ViewTest {
         mockSearch("occurrences-145700.json");
         var response = mockMvc.perform(
             get(
-                URI.create("/sentence/search?tokens[0].lemma.id=10070&lang=de")
+                URI.create("/search/sentence?tokens[0].lemma.id=10070&lang=de")
             )
         ).andDo(print());
         response.andExpect(

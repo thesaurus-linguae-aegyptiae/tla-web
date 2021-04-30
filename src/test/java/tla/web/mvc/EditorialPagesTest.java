@@ -1,7 +1,7 @@
 package tla.web.mvc;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasItems;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -22,14 +22,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.ResultActions;
 
 import tla.web.config.EditorialConfig.EditorialRegistry;
 
-@SpringBootTest
 public class EditorialPagesTest extends ViewTest {
 
     static final String NO_SUPPORT_LANG = "es";
@@ -39,9 +36,6 @@ public class EditorialPagesTest extends ViewTest {
 
     @Autowired
     private EditorialRegistry pages;
-
-    @Autowired
-    private MessageSource l10n;
 
     @Test
     void registryAvailable() {
@@ -72,7 +66,7 @@ public class EditorialPagesTest extends ViewTest {
             xpath("/html/@lang").string(lang)
         ).andExpect(
             xpath("//div[@id='breadcrumbs']/div/nav/ol/li[last()]/span/text()").string(
-                l10n.getMessage(
+                messages.getMessage(
                     EditorialContentController.getPageTitleMsgKey(path, lang),
                     null, new Locale(lang)
                 )
@@ -173,7 +167,7 @@ public class EditorialPagesTest extends ViewTest {
         testLocalization(test, lang);
         test.andExpect(
             xpath("//div[@id='breadcrumbs']/div/nav/ol/li[last()]/span/text()").string(
-                l10n.getMessage(
+                messages.getMessage(
                     EditorialContentController.getPageTitleMsgKey("/home", lang),
                     null, new Locale(lang)
                 )

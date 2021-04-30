@@ -74,6 +74,14 @@ public class MappingTest {
     }
 
     @Test
+    void jseshTest() {
+        assertAll("test JSesh MdC to SVG rendering",
+            () -> assertTrue(Util.jseshRender("G43:N35", true).contains("#ff0000"), "rubra rendered in red"),
+            () -> assertFalse(Util.jseshRender("G43:N35").contains("#ff0000"), "default rendering not red")
+        );
+    }
+
+    @Test
     @SuppressWarnings("unchecked")
     void ths() throws Exception {
         SingleDocumentWrapper<DocumentDto> dto = tla.domain.util.IO.loadFromFile(

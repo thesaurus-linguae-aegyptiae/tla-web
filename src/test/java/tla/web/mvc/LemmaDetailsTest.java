@@ -1,32 +1,27 @@
 package tla.web.mvc;
 
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpHeaders;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.result.XpathResultMatchers;
-
-import tla.domain.dto.meta.AbstractDto;
-import tla.domain.dto.extern.SingleDocumentWrapper;
-import tla.web.model.Lemma;
-import tla.web.repo.TlaClient;
-
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.XpathResultMatchers;
 
-@SpringBootTest
+import tla.domain.dto.extern.SingleDocumentWrapper;
+import tla.domain.dto.meta.AbstractDto;
+import tla.web.model.Lemma;
+
 public class LemmaDetailsTest extends ViewTest {
-
-    @MockBean
-    private TlaClient backendClient;
 
     private static final String[] EXPECT_TOP_LEVEL_ELEM_IDS = {
         "lemma-property-dict",
@@ -48,7 +43,7 @@ public class LemmaDetailsTest extends ViewTest {
     }
 
     private void respondToDetailsRequestWithLemma(String id) throws Exception {
-        when(backendClient.retrieveObject(Lemma.class, id)).thenReturn(lemmaDetails(id));
+        when(backend.retrieveObject(Lemma.class, id)).thenReturn(lemmaDetails(id));
     }
 
     private ResultActions makeDetailsRequest(String id, Language lang) throws Exception {
