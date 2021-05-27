@@ -170,7 +170,7 @@ public class SearchPageTest {
         );
 
         chrome.findElement(
-            By.cssSelector("nav.search-results-pagination #page-link-5")
+            By.cssSelector("nav.search-results-pagination #page-link-4")
         ).click();
 
         new WebDriverWait(chrome, Duration.ofSeconds(2));
@@ -189,7 +189,7 @@ public class SearchPageTest {
         new WebDriverWait(chrome, Duration.ofSeconds(1));
 
         chrome.findElement(
-            By.cssSelector("#lemma-94780 > a:nth-child(2)")
+            By.cssSelector("#lemma-853340 > a:nth-child(2)")
         ).click();
 
         TimeUnit.SECONDS.sleep(4);
@@ -198,8 +198,8 @@ public class SearchPageTest {
         chrome.getKeyboard().releaseKey(Keys.PAGE_DOWN);
 
         assertTrue(
-            chrome.getCurrentUrl().endsWith("/lemma/94780"),
-            "details page for lemma 94780"
+            chrome.getCurrentUrl().endsWith("/lemma/853340"),
+            "details page for lemma 853340"
         );
     }
 
