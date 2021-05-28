@@ -101,6 +101,8 @@ public class LemmaDetailsTest extends ViewTest {
             xpath("//div[contains(@class,'bibliography')]/p/span/span[contains(@class,'bibliographic-reference')]/text()").string(
                 "Wb 1, 130.1-5"
             )
+        ).andExpect(
+            xpath("//div[@id='lemma-property-attestations']/p/span/text()").string("1")
         );
     }
 
@@ -125,6 +127,8 @@ public class LemmaDetailsTest extends ViewTest {
         testBasicStructure(testResponse, lang);
         testResponse.andExpect(
             xpath("//div[@id='lemma-property-hieroglyphs']").doesNotExist()
+        ).andExpect(
+            xpath("//div[@id='lemma-property-attestations']/p/span/text()").string("5")
         );
     }
 
