@@ -21,6 +21,7 @@ import tla.web.model.Lemma;
 import tla.web.model.meta.ObjectDetails;
 import tla.web.model.meta.SearchResults;
 import tla.web.model.meta.TemplateModelName;
+import tla.web.model.ui.AttestationTimeline;
 import tla.web.service.LemmaService;
 import tla.web.service.ObjectService;
 
@@ -54,6 +55,12 @@ public class LemmaController extends ObjectController<Lemma, LemmaSearch> {
     @Override
     protected Model extendSingleObjectDetailsModel(Model model, ObjectDetails<Lemma> container) {
         model.addAttribute("annotations", lemmaService.extractAnnotations(container));
+        model.addAttribute(
+            "timeline",
+            AttestationTimeline.from(
+                container.getObject().getAttestations()
+            )
+        );
         return model;
     }
 

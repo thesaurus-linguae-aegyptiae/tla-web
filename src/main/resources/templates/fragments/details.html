@@ -165,7 +165,9 @@
             <br/>
             <strong th:text="#{lemma_property_attestation_occurrences}" class="details-property-label">Occurrences:</strong>
             <span th:text="${obj.attestationCount}"></span>
+            <strong th:text="#{lemma_property_attestation_timespan}" class="details-property-label">Attestation time:</strong>
         </p>
+        <div th:include="fragments/widgets/timeline :: timeline"/>
     </div>
 
     <!-- Related Objects -->
