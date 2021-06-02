@@ -8,6 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 
+import java.util.Locale;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -115,6 +117,19 @@ public class LemmaDetailsTest extends ViewTest {
             xpath("//div[@id='passport-properties']").exists()
         ).andExpect(
             xpath("//div[@id='passport-properties']/p/span[@class='lemma_main_group_nominal_schenkel']").nodeCount(1)
+        );
+    }
+
+    @Test
+    @DisplayName("lemma details page should show attested timespan")
+    void testAttestedTimespan() throws Exception {
+        respondToDetailsRequestWithLemma("100090");
+        makeDetailsRequest("100090", Language.en).andExpect(
+            xpath("//div[@id='lemma-property-attestations']/p/span[3]").string("2375")
+        ).andExpect(
+            xpath("//div[@id='lemma-property-attestations']/p/span[4]").string(
+                messages.getMessage("object_property_aux_attestation_time_bce", null, Locale.ENGLISH)
+            )
         );
     }
 

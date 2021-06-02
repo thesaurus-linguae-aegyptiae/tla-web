@@ -21,6 +21,7 @@ import tla.domain.model.ObjectReference;
 import tla.domain.model.Passport;
 import tla.domain.model.SentenceToken;
 import tla.domain.model.Transcription;
+import tla.domain.model.extern.AttestedTimespan.Period;
 import tla.web.model.mappings.MappingConfig;
 import tla.web.model.mappings.Util;
 import tla.web.model.meta.ObjectDetails;
@@ -41,6 +42,7 @@ public class MappingTest {
             .word(new SentenceToken(new Transcription("nfr", "nfr"), "N35"))
             .translation(Language.FR, List.of("traduction"))
             .passport(p)
+            .timeSpan(Period.builder().begin(-111).end(69).build())
             .externalReference("cfeetk", new TreeSet<>(List.of(new ExternalReference("1", null))))
             .build();
         TLAObject object = MappingConfig.convertDTO(dto);
@@ -70,7 +72,8 @@ public class MappingTest {
             () -> assertEquals(
                 "http://sith.huma-num.fr/vocable/1",
                 lemma.getExternalReferences().get("cfeetk").get(0).getHref()
-            )
+            ),
+            () -> assertEquals(69, lemma.getTimespan().getEnd(), "attestation timespan should be mapped")
         );
     }
 
