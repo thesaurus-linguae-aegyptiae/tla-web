@@ -153,6 +153,7 @@ public class LemmaDetailsTest extends ViewTest {
     }
 
     @Test
+    @DisplayName("/lemma/lookup?id=ID should redirect to /lemma/ID")
     void testLookup() throws Exception {
         mockMvc.perform(
             get("/lemma/lookup?id=31610")
