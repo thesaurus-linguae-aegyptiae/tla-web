@@ -103,7 +103,7 @@ jobs:
     - name: screenshot lemma details page
       uses: "flameddd/screenshots-ci-action@v1.1.1"
       with:
-        url: http://localhost:8080/lemma/100690
+        url: http://localhost:8080/lemma/59920
         devices: iPhone 6,iPhone 6 landscape,Nexus 7,iPad Pro,Galaxy S III landscape,iPad Pro landscape
         type: png
 
