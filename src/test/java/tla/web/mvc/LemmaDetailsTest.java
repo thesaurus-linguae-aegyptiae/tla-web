@@ -83,6 +83,7 @@ public class LemmaDetailsTest extends ViewTest {
 
     @ParameterizedTest
     @EnumSource(Language.class)
+    @DisplayName("details page for hieratic lemma entry should render appropriately")
     void testLemmaDetails_hieratic(Language lang) throws Exception {
         final String id = "31610";
         respondToDetailsRequestWithLemma(id);
@@ -117,6 +118,17 @@ public class LemmaDetailsTest extends ViewTest {
             xpath("//div[@id='passport-properties']").exists()
         ).andExpect(
             xpath("//div[@id='passport-properties']/p/span[@class='lemma_main_group_nominal_schenkel']").nodeCount(1)
+        );
+    }
+
+    @Test
+    @DisplayName("lemma without passport should be rendered regardless")
+    void testLemmaDetails_noPassport() throws Exception {
+        respondToDetailsRequestWithLemma("875255");
+        makeDetailsRequest("875255", Language.en).andExpect(
+            xpath("//div[@id='lemma-property-type-subtype']//span[@id='type-subtype']/span").string(
+                messages.getMessage("lemma_type_root", null, Locale.ENGLISH)
+            )
         );
     }
 
