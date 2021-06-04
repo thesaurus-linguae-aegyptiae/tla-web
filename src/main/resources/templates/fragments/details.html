@@ -164,7 +164,10 @@
             <strong th:text="#{lemma_property_attestation}" class="details-property-label">Attestation</strong>
             <br/>
             <strong th:text="#{lemma_property_attestation_occurrences}" class="details-property-label">Occurrences:</strong>
-            <span th:text="${obj.attestationCount}"></span>
+            <a th:href="|${@searchController.getSearchResultsPageRoute(@__sentenceController__)}?tokens[0].lemma.id=${obj.id}|">
+                <i class="fas fa-arrow-circle-right red"></i>
+                <span id="lemma-attestation-count-texts" th:text="${obj.attestationCount}">5</span>
+            </a>
             <br/>
             <th:block th:replace=" :: lemma-timespan"/>
         </p>
@@ -172,13 +175,17 @@
     </div>
 
     <!-- Lemma Attestations timespan -->
-    <th:block th:fragment="lemma-timespan" th:if="${obj.timespan != null}">
+    <span th:fragment="lemma-timespan" th:if="${obj.timespan != null}">
         <strong th:text="#{lemma_property_attestation_timespan}" class="details-property-label">Attestation time:</strong>
         <span th:text="#{object_property_aux_attestation_time_from}">from</span>
-        <span th:replace=" :: display-year(${obj.timespan.begin})">420 BCE</span>
+        <span th:insert=" :: display-year(${obj.timespan.begin})" id="attestation-timespan-from">
+            420 BCE
+        </span>
         <span th:text="#{object_property_aux_attestation_time_to}">to</span>
-        <span th:replace=" :: display-year(${obj.timespan.end})">60 CE</span>
-    </th:block>
+        <span th:insert=" :: display-year(${obj.timespan.end})" id="attestation-timespan-to">
+            60 CE
+        </span>
+    </span>
 
     <!-- Related Objects -->
     <div th:fragment="object-property-related-objects" id="object-property-related-objects" th:unless="${#maps.isEmpty(relations)}">

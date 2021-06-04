@@ -104,7 +104,7 @@ public class LemmaDetailsTest extends ViewTest {
                 "Wb 1, 130.1-5"
             )
         ).andExpect(
-            xpath("//div[@id='lemma-property-attestations']/p/span/text()").string("1")
+            xpath("//div[@id='lemma-property-attestations']/p/a/span").string("1")
         );
     }
 
@@ -125,10 +125,14 @@ public class LemmaDetailsTest extends ViewTest {
     void testAttestedTimespan() throws Exception {
         respondToDetailsRequestWithLemma("100090");
         makeDetailsRequest("100090", Language.en).andExpect(
-            xpath("//div[@id='lemma-property-attestations']/p/span[3]").string("2375")
+            xpath("//div[@id='lemma-property-attestations']/p/span/span[@id='attestation-timespan-from']/span[1]").string("2375")
         ).andExpect(
-            xpath("//div[@id='lemma-property-attestations']/p/span[4]").string(
+            xpath("//div[@id='lemma-property-attestations']/p/span/span[@id='attestation-timespan-from']/span[2]").string(
                 messages.getMessage("object_property_aux_attestation_time_bce", null, Locale.ENGLISH)
+            )
+        ).andExpect(
+            xpath("//div[@id='lemma-property-attestations']/p/a/@href").string(
+                "/search/sentence?tokens[0].lemma.id=100090"
             )
         );
     }
@@ -143,7 +147,7 @@ public class LemmaDetailsTest extends ViewTest {
         testResponse.andExpect(
             xpath("//div[@id='lemma-property-hieroglyphs']").doesNotExist()
         ).andExpect(
-            xpath("//div[@id='lemma-property-attestations']/p/span/text()").string("5")
+            xpath("//div[@id='lemma-property-attestations']/p/a/span").string("5")
         );
     }
 
