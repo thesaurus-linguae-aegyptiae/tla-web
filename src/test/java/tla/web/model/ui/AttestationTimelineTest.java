@@ -3,6 +3,7 @@ package tla.web.model.ui;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import tla.domain.model.ObjectReference;
 import tla.domain.model.extern.AttestedTimespan.AttestationStats;
 import tla.domain.model.extern.AttestedTimespan.Period;
 import tla.web.model.parts.extra.AttestedTimespan;
+import tla.web.model.ui.AttestationTimeline.QuartileFinder;
 
 public class AttestationTimelineTest {
 
@@ -71,5 +73,119 @@ public class AttestationTimelineTest {
         );
     }
 
+    private List<AttestedTimespan> mockAttestationTimespans(List<List<Integer>> data) {
+        return data.stream().map(
+            years -> AttestedTimespan.of(AttestedTimespan.builder().period(
+                new Period(years.get(0), years.get(1))
+            ).attestations(
+                AttestationStats.builder().count(years.get(2)).build()
+            ).build())
+        ).collect(Collectors.toList());
+    }
+
+    @Test
+    @DisplayName("should find all quartiles over attestation timespans")
+    void countQuartiles() {
+        var periods = mockAttestationTimespans(
+            List.of(
+                List.of(0, 10, 10),
+                List.of(10,20, 10),
+                List.of(20,30, 10),
+                List.of(30,40, 10)
+            )
+        );
+        var quartiles = QuartileFinder.find(periods);
+        assertEquals(3, quartiles.size(), "should have found 3 quartiles");
+    }
+
+    @Test
+    @DisplayName("should be able to compute median year if between timespans")
+    void attestationTimespanMedianYear() {
+        var periods = List.of(
+            List.of(0, 10, 10),
+            List.of(10, 20, 10),
+            List.of(20, 30, 10),
+            List.of(30, 40, 10)
+        );
+        List<AttestedTimespan> timespans = mockAttestationTimespans(periods);
+        var median = QuartileFinder.find(timespans).get(1);
+        assertEquals(20, median, "median should be exactly in the middle");
+    }
+
+    @Test
+    @DisplayName("should be able to compute median year if inside timespan")
+    void attestationTimespanMedianYear_inside() {
+        List<AttestedTimespan> timespans = mockAttestationTimespans(
+            List.of(
+                List.of(0, 10, 10),
+                List.of(10,20, 10),
+                List.of(20,30, 10)
+            )
+        );
+        var median = QuartileFinder.find(timespans).get(1);
+        assertEquals(20, median, "median should be at the earliest point in time guaranteed after half of attestations");
+    }
+
+    @Test
+    @DisplayName("should be able to compute median from overlapping timespans")
+    void attestationTimespanMedianYear_overlap() {
+        List<AttestedTimespan> timespans = mockAttestationTimespans(
+            List.of(
+                List.of(0, 30, 1),
+                List.of(0, 10, 1),
+                List.of(10,20, 1),
+                List.of(20,30, 1)
+            )
+        );
+        var median = QuartileFinder.find(timespans).get(1);
+        assertEquals(20, median);
+    }
+
+    @Test
+    @DisplayName("should be able to compute median from nested timespans")
+    void attestationTimespanMedianYear_nested() {
+        List<AttestedTimespan> roots = mockAttestationTimespans(
+            List.of(
+                List.of(0, 30, 3),
+                List.of(30, 50, 5)
+            )
+        );
+        roots.get(0).setContains(
+            mockAttestationTimespans(
+                List.of(
+                    List.of(0, 10, 2),
+                    List.of(10, 20, 1),
+                    List.of(20, 30, 4)
+                )
+            ).stream().map(
+                a -> (tla.domain.model.extern.AttestedTimespan) a
+            ).collect(Collectors.toList())
+        );
+        roots.get(1).setContains(
+            mockAttestationTimespans(
+                List.of(
+                    List.of(30, 40, 2),
+                    List.of(40, 50, 6)
+                )
+            ).stream().map(
+                a -> (tla.domain.model.extern.AttestedTimespan) a
+            ).collect(Collectors.toList())
+        );
+        var median = QuartileFinder.find(roots).get(1);
+        assertEquals(40, median);
+    }
+
+    @Test
+    @DisplayName("median of only 1 single period && only 1 occurrence should be at the end of that period")
+    void medianYear_singlePeriod() {
+        var median = QuartileFinder.find(
+            mockAttestationTimespans(
+                List.of(
+                    List.of(-2345, -2181, 1)
+                )
+            )
+        ).get(1);
+        assertEquals(-2181, median, "median should be placed at end of timeline");
+    }
 
 }
