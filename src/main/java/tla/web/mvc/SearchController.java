@@ -48,7 +48,7 @@ public class SearchController {
     @Value("${search.config.default}")
     private String defaultForm;
 
-    public static final List<String> SEARCH_FORMS = List.of("lemma-quick", "dict", "sentence");
+    public static final List<String> SEARCH_FORMS = List.of("lemma-quick", "lemma", "sentence");
 
     @ModelAttribute("allScripts")
     public Script[] getAllScripts() {

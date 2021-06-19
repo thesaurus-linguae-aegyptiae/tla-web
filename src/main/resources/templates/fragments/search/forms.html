@@ -22,7 +22,8 @@
 
     <!-- sentence/occurrence search form -->
     <form id="sentence-search" name="sentence-search"
-    th:action="@{/sentence/search}" th:object="${sentenceSearchForm}" method="get">
+        th:action="@{${@searchController.getSearchResultsPageRoute(@__sentenceController__)}}"
+        th:object="${sentenceSearchForm}" method="get">
       <div th:replace=" :: translation-spec('sentence', 'sentenceSearchForm', ${allTranslationLanguages})"/>
       <div>
         <!--<div class="form-group row">
@@ -52,7 +53,9 @@
 
     <!-- dictionary search form -->
 
-    <form id="dict-search" name="dict-search" th:action="@{/lemma/search}" th:object="${lemmaSearchForm}" method="get">
+    <form id="lemma-search" name="lemma-search"
+        th:action="@{${@searchController.getSearchResultsPageRoute(@__lemmaController__)}}"
+        th:object="${lemmaSearchForm}" method="get">
       <div class="form-group row bg-grey">
         <label class="col-form-label col-xl-2" th:text="#{field_label_script}">Script</label>
         <div class="col-xl-10">

@@ -123,7 +123,7 @@ public class SearchPageTest {
         chrome.executeScript(
             "arguments[0].click()",
             chrome.findElement(
-                By.id("toggle-dict-search-form-button")
+                By.id("toggle-lemma-search-form-button")
             )
         );
 
@@ -132,7 +132,7 @@ public class SearchPageTest {
         assertEquals(
             "true",
             chrome.findElement(
-                By.id("toggle-dict-search-form-button")
+                By.id("toggle-lemma-search-form-button")
             ).getAttribute("aria-expanded"),
             "toggle lemma search form button in expanded state"
         );
@@ -165,7 +165,7 @@ public class SearchPageTest {
         TimeUnit.MILLISECONDS.sleep(2000);
 
         assertTrue(
-            chrome.getCurrentUrl().contains("/lemma/search"),
+            chrome.getCurrentUrl().contains("/search/lemma"),
             "went to lemma search results page"
         );
 
