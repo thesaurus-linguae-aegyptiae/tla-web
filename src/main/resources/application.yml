@@ -42,7 +42,7 @@ tla:
         trismegistos:
             default-format: https://www.trismegistos.org/{type}/{id}
             id-pattern: ^[1-9][0-9]*$
-            type-pattern: ^(text|collection)$
+            type-pattern: ^(text|collection|place)$
         topbib:
             type-formats:
                 griffith: http://topbib.griffith.ox.ac.uk/dtb.html?topbib={id}
@@ -57,6 +57,9 @@ tla:
             default-format: https://ld.zdb-services.de/resource/{id}
         wikidata:
             default-format: https://www.wikidata.org/wiki/{id}
+        ramses:
+            type-formats:
+                text: https://ramses.ulg.ac.be/text/legacy/{id}
 
 search:
     config:
