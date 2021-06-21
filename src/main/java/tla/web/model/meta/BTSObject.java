@@ -2,8 +2,6 @@ package tla.web.model.meta;
 
 import java.util.List;
 import java.util.TreeMap;
-
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,7 +14,6 @@ import tla.web.model.parts.ExternalReference;
 @Setter
 @SuperBuilder
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
 public abstract class BTSObject extends TLAObject {
 
     private Passport passport;

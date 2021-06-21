@@ -1,17 +1,29 @@
 package tla.web.service;
 
 import java.lang.annotation.Annotation;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 
 import lombok.extern.slf4j.Slf4j;
+import tla.domain.command.SearchCommand;
+import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.AbstractDto;
+import tla.domain.model.Passport;
 import tla.domain.model.meta.BTSeClass;
+import tla.domain.model.meta.TLADTO;
+import tla.web.config.DetailsProperties;
+import tla.web.config.ObjectDetailsProperties;
+import tla.web.config.SearchProperties;
 import tla.web.model.mappings.MappingConfig;
+import tla.web.model.meta.BTSObject;
 import tla.web.model.meta.ModelClass;
 import tla.web.model.meta.ObjectDetails;
+import tla.web.model.meta.SearchResults;
 import tla.web.model.meta.TLAObject;
 import tla.web.repo.TlaClient;
 
@@ -25,10 +37,31 @@ import tla.web.repo.TlaClient;
 @Slf4j
 public abstract class ObjectService<T extends TLAObject> {
 
+    protected final static ObjectDetailsProperties DETAILS_UNCONFIGURED = new ObjectDetailsProperties();
+    protected final static LinkedHashMap<String, List<Passport>> EMPTY_MAP = new LinkedHashMap<>();
+
     @Autowired
     protected TlaClient backend;
 
+    /**
+     * domain model type of the objects which are accessible via this service.
+     */
     private Class<T> modelClass;
+
+    @Autowired
+    private DetailsProperties detailsProperties;
+
+    /**
+     * search-specific configuration for the domain model type represented by this service.
+     * such search properties are being made available to the service layer under these conditions:
+     * <ol>
+     *   <li> specified in <code>application.yml</code> under the <code>search.{type}</code> path</li>
+     *   <li> defined in a {@link SearchProperties} subclass with a {@link ModelClass} annotation</li>
+     * </ol>
+     */
+    private SearchProperties searchProperties;
+
+    ResponseEntity<?> EMPTY_RESPONSE = ResponseEntity.of(Optional.empty());
 
     @SuppressWarnings("unchecked")
     public ObjectService() {
@@ -38,6 +71,57 @@ public abstract class ObjectService<T extends TLAObject> {
             log.info("register {}", modelClass.getSimpleName());
             MappingConfig.registerModelClass(modelClass);
             TlaClient.registerModelclass(modelClass);
+        }
+    }
+
+    /**
+     * Return search properties registered for this service's model class, if there
+     * are any.
+     */
+    public SearchProperties getSearchProperties() {
+        if (this.searchProperties == null) {
+            this.searchProperties = SearchProperties.getPropertiesFor(
+                this.getModelClass()
+            );
+        }
+        return this.searchProperties;
+    }
+
+    /**
+     * Looks up the details view configuration for a service's domain model class.
+     *
+     * @see DetailsProperties
+     */
+    public ObjectDetailsProperties getDetailsProperties() {
+        return this.detailsProperties.getOrDefault(
+            TlaClient.getBackendPathPrefix(
+                this.getModelClass()
+            ),
+            DETAILS_UNCONFIGURED
+        );
+    }
+
+    /**
+     * Extract an object's values for the passport properties configured for its domain model type.
+     *
+     * @see #getDetailsProperties()
+     */
+    public LinkedHashMap<String, List<Passport>> getDetailsPassportPropertyValues(T object) {
+        if (object instanceof BTSObject && ((BTSObject) object).getPassport() != null) {
+            LinkedHashMap<String, List<Passport>> passportValues = new LinkedHashMap<>();
+            this.getDetailsProperties().getPassportProperties().stream().forEach(
+                path -> {
+                    if (!((BTSObject) object).getPassport().extractProperty(path).isEmpty()) {
+                        passportValues.put(
+                            path,
+                            ((BTSObject) object).getPassport().extractProperty(path)
+                        );
+                    }
+                }
+            );
+            return passportValues;
+        } else {
+            return EMPTY_MAP;
         }
     }
 
@@ -60,6 +144,19 @@ public abstract class ObjectService<T extends TLAObject> {
     }
 
     /**
+     * Call appropriate autocomplete endpoint for this service's model class.
+     */
+    public ResponseEntity<?> autoComplete(String term, String type) {
+        if (term.trim().length() > 2) {
+            return backend.autoComplete(
+                this.getModelClass(), term, type
+            );
+        } else {
+            return EMPTY_RESPONSE;
+        }
+    }
+
+    /**
      * Retrieve document details (document itself plus related objects) from backend.
      *
      * @param id document ID
@@ -79,7 +176,7 @@ public abstract class ObjectService<T extends TLAObject> {
     @SuppressWarnings("unchecked")
     public Optional<ObjectDetails<T>> getDetails(String id) {
         try {
-            ObjectDetails<TLAObject> container = ObjectDetails.from(
+            ObjectDetails<?> container = ObjectDetails.from(
                 retrieveSingleDocument(id)
             );
             return Optional.of(
@@ -99,5 +196,30 @@ public abstract class ObjectService<T extends TLAObject> {
      * Generate a label for an object (used as caption in object detail pages).
      */
     public abstract String getLabel(T object);
+
+    /**
+     * Override this to do whatever necessary to search results container before passing it
+     * to view controller. Gets called by {@link #search(SearchCommand, Integer)} before
+     * returning the results to the view controller.
+     */
+    protected SearchResults preProcess(SearchResults searchResults) {
+        return searchResults;
+    }
+
+    /**
+     * Send search form to backend and convert results from DTO to frontend model objects.
+     * Passes the results to {@link #preProcess(SearchResults)} before returning them,
+     * the default implementation of which does nothing to them at all, but any enhancements
+     * of the search results container right before it returns to the view controller can be
+     * done by overriding this method.
+     */
+    public SearchResults search(SearchCommand<?> command, Integer page) {
+        SearchResultsWrapper<?> response = backend.searchObjects(
+            this.getModelClass(), command, page
+        );
+        return this.preProcess(
+            SearchResults.from(response)
+        );
+    }
 
 }

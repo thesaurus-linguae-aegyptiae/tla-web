@@ -6,10 +6,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import lombok.AccessLevel;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import tla.domain.dto.AnnotationDto;
 import tla.domain.model.Passport;
 import tla.domain.model.meta.BTSeClass;
@@ -17,11 +16,11 @@ import tla.domain.model.meta.TLADTO;
 import tla.web.model.mappings.Util;
 import tla.web.model.meta.BTSObject;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @BTSeClass("BTSAnnotation")
 @TLADTO(AnnotationDto.class)
-@EqualsAndHashCode(callSuper = true)
 public class Annotation extends BTSObject {
 
     @Getter(AccessLevel.NONE)

@@ -10,20 +10,23 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.ResultActions;
 
 import tla.web.config.LemmaSearchProperties;
 
-@SpringBootTest
 public class SearchFormTest extends ViewTest {
 
     @Autowired
     private LemmaSearchProperties searchConf;
+
+    @Value("${search.config.default}")
+    private String defaultForm;
 
     @Test
     void root() throws Exception {
@@ -48,6 +51,16 @@ public class SearchFormTest extends ViewTest {
             ).andExpect(
                 model().attribute("env", notNullValue())
             );
+    }
+
+    @Test
+    @DisplayName("lemma search form action should link to lemma results page")
+    void lemmaFormActionTest() throws Exception {
+        mockMvc.perform(get("/search")).andExpect(
+            xpath("//form[@id='lemma-search']/@action").string(
+                "/search/lemma"
+            )
+        );
     }
 
     @ParameterizedTest
@@ -83,5 +96,58 @@ public class SearchFormTest extends ViewTest {
         }
     }
 
+    @Test
+    void searchPageSelectForm_default() throws Exception {
+        ResultActions result = mockMvc.perform(
+            get("/search")
+        ).andDo(print());
+        var elemClasses = List.of(
+            List.of(
+                String.format(
+                    "//button[@id='toggle-%s-search-form-button']/span[1]/@class",
+                    defaultForm
+                ), "icon expanded"
+            ),
+            List.of(
+                String.format(
+                    "//div[@id='%s-search-collapsible']/@class",
+                    defaultForm
+                ), "collapse show"
+            ),
+            List.of(
+                String.format(
+                    "//button[@id='toggle-%s-search-form-button']/span[1]/@class",
+                    "sentence"
+                ), "icon collapsed"
+            ),
+            List.of(
+                String.format(
+                    "//div[@id='%s-search-collapsible']/@class",
+                    "sentence"
+                ), "collapse"
+            )
+        );
+        for (List<String> item : elemClasses) {
+            result.andExpect(
+                xpath(item.get(0)).string(item.get(1))
+            );
+        }
+    }
+
+    @Test
+    void searchPageSelectForm_byParam() throws Exception {
+        ResultActions result = mockMvc.perform(
+            get("/search").param("sentence", "")
+        ).andDo(print());
+        result.andExpect(
+            xpath(
+                "//button[@id='toggle-lemma-search-form-button']/span[1]/@class"
+            ).string("icon collapsed")
+        ).andExpect(
+            xpath(
+                "//button[@id='toggle-lemma-search-form-button']/@aria-expanded"
+            ).booleanValue(false)
+        );
+    }
 
 }

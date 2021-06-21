@@ -139,6 +139,10 @@ a.navbar-brand {
     color: var(--BBAWmiddlegrey);
 }
 
+.breadcrumb.language > a.active {
+    color: var(--BBAWdarkgrey);
+}
+
 .cookie-wrapper {
     position: fixed;
     left: 0;
@@ -320,6 +324,21 @@ a.navbar-brand {
     font-family: "Font Awesome 5 Free" !important;
     font-weight: 900;
 }
+
+/** search form toggle collapsible icons */
+
+button.toggle-collapsible span svg {
+    color: var(--BBAWred);
+}
+button.toggle-collapsible span.collapsed:before {
+    content: "\f0a9";
+}
+button.toggle-collapsible span.expanded:before {
+    content: "\f0ab";  /** arrow down: \f0aa */
+}
+
+
+/** Redaktionsstatus icons */
 
 .red-status span {
     padding-right: 3px;
