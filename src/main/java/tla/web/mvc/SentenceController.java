@@ -63,6 +63,10 @@ public class SentenceController extends HierarchicObjectController<Sentence, Sen
         return paths;
     }
 
+    /*
+     * this needs to be here for the sake of the procedural redundant route generation
+     * in {@link SearchController#onApplicationReady}
+     */
     @Override
     @RequestMapping(value="/search", method=RequestMethod.GET)
     public String getSearchResultsPage(

@@ -107,7 +107,7 @@ public abstract class ObjectService<T extends TLAObject> {
      * @see #getDetailsProperties()
      */
     public LinkedHashMap<String, List<Passport>> getDetailsPassportPropertyValues(T object) {
-        if (object instanceof BTSObject) {
+        if (object instanceof BTSObject && ((BTSObject) object).getPassport() != null) {
             LinkedHashMap<String, List<Passport>> passportValues = new LinkedHashMap<>();
             this.getDetailsProperties().getPassportProperties().stream().forEach(
                 path -> {

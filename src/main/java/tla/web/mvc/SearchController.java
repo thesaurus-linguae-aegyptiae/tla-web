@@ -48,7 +48,7 @@ public class SearchController {
     @Value("${search.config.default}")
     private String defaultForm;
 
-    public static final List<String> SEARCH_FORMS = List.of("lemma-quick", "dict", "sentence");
+    public static final List<String> SEARCH_FORMS = List.of("lemma-quick", "lemma", "sentence");
 
     @ModelAttribute("allScripts")
     public Script[] getAllScripts() {
@@ -126,6 +126,13 @@ public class SearchController {
     }
 
     /**
+     * returns the URL path leading to the search result page provided by given object controller
+     */
+    public String getSearchResultsPageRoute(ObjectController<?,?> controller) {
+        return String.format("/search%s", controller.getRequestMapping());
+    }
+
+    /**
      * Creates additional route to search handlers for all registered domain model object view controllers
      * supporting search (i.e. those which implement
      * {@link ObjectController#getSearchResultsPage(SearchCommand, String, MultiValueMap, Model)}).
@@ -166,7 +173,7 @@ public class SearchController {
                 handlerMapping.getHandlerMethods().keySet().forEach(
                     mapping -> {
                         if (mapping.getPatternValues().contains(
-                            String.format("/search%s", controller.getRequestMapping())
+                            this.getSearchResultsPageRoute(controller)
                         )) {
                             handlerMapping.unregisterMapping(mapping);
                         }
@@ -175,7 +182,7 @@ public class SearchController {
                 // create new handler mapping for object search route
                 handlerMapping.registerMapping(
                     RequestMappingInfo.paths(
-                        String.format("/search%s", controller.getRequestMapping())
+                        this.getSearchResultsPageRoute(controller)
                     ).methods(RequestMethod.GET).build(),
                     controller,
                     method

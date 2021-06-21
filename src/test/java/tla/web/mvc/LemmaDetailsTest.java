@@ -8,6 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 
+import java.util.Locale;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -81,6 +83,7 @@ public class LemmaDetailsTest extends ViewTest {
 
     @ParameterizedTest
     @EnumSource(Language.class)
+    @DisplayName("details page for hieratic lemma entry should render appropriately")
     void testLemmaDetails_hieratic(Language lang) throws Exception {
         final String id = "31610";
         respondToDetailsRequestWithLemma(id);
@@ -101,6 +104,8 @@ public class LemmaDetailsTest extends ViewTest {
             xpath("//div[contains(@class,'bibliography')]/p/span/span[contains(@class,'bibliographic-reference')]/text()").string(
                 "Wb 1, 130.1-5"
             )
+        ).andExpect(
+            xpath("//div[@id='lemma-property-attestations']/p/a/span").string("1")
         );
     }
 
@@ -116,6 +121,34 @@ public class LemmaDetailsTest extends ViewTest {
         );
     }
 
+    @Test
+    @DisplayName("lemma without passport should be rendered regardless")
+    void testLemmaDetails_noPassport() throws Exception {
+        respondToDetailsRequestWithLemma("875255");
+        makeDetailsRequest("875255", Language.en).andExpect(
+            xpath("//div[@id='lemma-property-type-subtype']//span[@id='type-subtype']/span").string(
+                messages.getMessage("lemma_type_root", null, Locale.ENGLISH)
+            )
+        );
+    }
+
+    @Test
+    @DisplayName("lemma details page should show attested timespan")
+    void testAttestedTimespan() throws Exception {
+        respondToDetailsRequestWithLemma("100090");
+        makeDetailsRequest("100090", Language.en).andExpect(
+            xpath("//div[@id='lemma-property-attestations']/p/span/span[@id='attestation-timespan-from']/span[1]").string("2375")
+        ).andExpect(
+            xpath("//div[@id='lemma-property-attestations']/p/span/span[@id='attestation-timespan-from']/span[2]").string(
+                messages.getMessage("object_property_aux_attestation_time_bce", null, Locale.ENGLISH)
+            )
+        ).andExpect(
+            xpath("//div[@id='lemma-property-attestations']/p/a/@href").string(
+                "/search/sentence?tokens[0].lemma.id=100090"
+            )
+        );
+    }
+
     @ParameterizedTest
     @EnumSource(Language.class)
     void testLemmaDetails_demotic(Language lang) throws Exception {
@@ -125,6 +158,8 @@ public class LemmaDetailsTest extends ViewTest {
         testBasicStructure(testResponse, lang);
         testResponse.andExpect(
             xpath("//div[@id='lemma-property-hieroglyphs']").doesNotExist()
+        ).andExpect(
+            xpath("//div[@id='lemma-property-attestations']/p/a/span").string("5")
         );
     }
 
@@ -149,6 +184,7 @@ public class LemmaDetailsTest extends ViewTest {
     }
 
     @Test
+    @DisplayName("/lemma/lookup?id=ID should redirect to /lemma/ID")
     void testLookup() throws Exception {
         mockMvc.perform(
             get("/lemma/lookup?id=31610")

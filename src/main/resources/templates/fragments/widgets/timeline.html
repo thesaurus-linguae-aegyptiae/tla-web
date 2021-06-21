@@ -1,0 +1,39 @@
+<th:block th:fragment="timeline">
+  <div class="col-lg-12">
+    <svg preserveAspectRatio="xMinYMin" width="100%" height="50" viewBox="0 0 100% 50">
+      <g>
+        <!-- attested periods -->
+        <g transform="scale(1 0.6) translate(0 30)">
+          <rect th:each="rect : ${timeline.rectangles}"
+              th:x="|${rect.x}%|" th:width="|${rect.w}%|"
+              th:y="|${rect.y}%|" th:height="|${rect.h}%|"
+              th:style="|fill:var(--BBAWred);fill-opacity:${rect.alpha}|"/>
+        </g>
+        <!-- timeline scale -->
+        <g th:each="tic : ${timeline.tics}">
+          <line th:x1="|${tic.x}%|" th:y1="|${70}%|"
+              th:x2="|${tic.x}%|" th:y2="|${70 + tic.l / 2}%|"
+              th:style="|stroke:black;stroke-width:${tic.w}|"/>
+          <text th:if="${tic.level > 0}"
+              th:x="|${tic.x}%|" y="100%" th:text="|${tic.label}|"
+              text-anchor="middle" font-size="0.5rem" style="fill:var(--BBAWred)"/>
+          <line x1="2%" x2="98%" y1="70%" y2="70%" style="stroke:black;stroke-width:0.4"/>
+        </g>
+        <!-- quartile scale -->
+        <g th:if="${timeline.quartiles != null}">
+          <g th:each="mark, iStat : ${timeline.quartiles}" th:transform="|translate(${mark.x}%)|">
+            <line th:x1="|${mark.x}%|" th:y1="|${20}%|"
+                th:x2="|${mark.x}%|" th:y2="|${23 + mark.l / 20}%|"
+                th:style="|stroke:black;stroke-width:${mark.w / 10}|"/>
+            <text th:x="|${mark.x + (iStat.index - 1) * 0.35 }%|" y="12%" th:text="|${mark.label}|"
+                text-anchor="middle" font-size="0.5rem"
+                style="fill:var(--BBAWred)"/>
+          </g>
+          <line th:x1="|${timeline.quartiles[0].x}%|" y1="20%"
+              th:x2="|${timeline.quartiles[2].x}%|" y2="20%"
+              style="stroke:black;stroke-width:0.7"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+</th:block>

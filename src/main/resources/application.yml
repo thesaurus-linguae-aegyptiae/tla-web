@@ -60,7 +60,7 @@ tla:
 
 search:
     config:
-        default: dict
+        default: lemma
 
     lemma:
         sort-orders:

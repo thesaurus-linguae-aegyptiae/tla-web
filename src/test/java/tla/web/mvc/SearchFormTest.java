@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,16 @@ public class SearchFormTest extends ViewTest {
             ).andExpect(
                 model().attribute("env", notNullValue())
             );
+    }
+
+    @Test
+    @DisplayName("lemma search form action should link to lemma results page")
+    void lemmaFormActionTest() throws Exception {
+        mockMvc.perform(get("/search")).andExpect(
+            xpath("//form[@id='lemma-search']/@action").string(
+                "/search/lemma"
+            )
+        );
     }
 
     @ParameterizedTest
@@ -130,11 +141,11 @@ public class SearchFormTest extends ViewTest {
         ).andDo(print());
         result.andExpect(
             xpath(
-                "//button[@id='toggle-dict-search-form-button']/span[1]/@class"
+                "//button[@id='toggle-lemma-search-form-button']/span[1]/@class"
             ).string("icon collapsed")
         ).andExpect(
             xpath(
-                "//button[@id='toggle-dict-search-form-button']/@aria-expanded"
+                "//button[@id='toggle-lemma-search-form-button']/@aria-expanded"
             ).booleanValue(false)
         );
     }
