@@ -7,7 +7,7 @@
   <head>
     <title th:text="${obj.name} + ' (' + ${obj.id} + ')'"></title>
   </head>
-
+  
   <body>
 
     <div layout:fragment="content">
@@ -16,16 +16,16 @@
 
       <div class="row">
         <div class="col-sm-12 col-lg-8" id="details-content" th:object="${obj}">
-
+        
           <div th:replace="fragments/details :: lemma-property-hieroglyphs"/>
-
+          
           <!-- persistente URL / ID -->
           <div>
             <hr/>
             <p>
               <strong>Persistent lemma ID:</strong>
-              <span th:text="${obj.id}">Lemma ID</span>
-              <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard('{{obj.id}}')"><span class="fas fa-clipboard"></span>Copy ID</button>
+              <span th:text="${obj.id}" id="lemma">Lemma ID</span>
+              <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" th:onclick="copyStringToClipboard(document.getElementById('lemma').textContent)" ><span class="fas fa-clipboard"></span>Copy ID</button>
               <br/>
               <strong>Persistent URL:</strong>
               <span th:text="|${env.baseUrl}/lemma/${obj.id}|">http://tla.bbaw.de/lemma/xxx</span>
@@ -56,7 +56,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>  
 
   </body>
 </html>
