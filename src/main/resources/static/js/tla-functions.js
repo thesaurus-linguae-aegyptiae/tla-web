@@ -16,6 +16,28 @@ function copyStringToClipboard (str) {
        // Remove temporary element
        document.body.removeChild(el);
     }
+
+function copyCitationToClipboard(citation) {
+       // Create new element
+       var el = document.createElement('textarea');
+		//create Date
+		var date = new Date();
+		date.getUTCDate();
+		var today= date.getDate() + "." + (date.getMonth()+1) + "." + date.getFullYear();
+       // Set value (string to be copied)
+       el.value = citation + today +")"; 
+		// Set non-editable to avoid focus and move outside of view
+       el.setAttribute('readonly', '');
+       el.style = {position: 'absolute', left: '-9999px'};
+       document.body.appendChild(el);
+       // Select text inside element
+       el.select();
+       // Copy text to clipboard
+       document.execCommand('copy');
+       // Remove temporary element
+       document.body.removeChild(el);
+    }
+
 	
 function getCookie(Bezeichner) {
   var Wert = "";

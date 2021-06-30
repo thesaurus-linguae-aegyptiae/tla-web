@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html xml:lang="en"
+<html 
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xml:lang="en"
       layout:decorate="~{base}"
 >
   <head>
@@ -22,16 +23,16 @@
           <!-- persistente URL / ID -->
           <div>
             <hr/>
-            <p>
+            <p>         
               <strong>Persistent lemma ID:</strong>
-              <span th:text="${obj.id}" id="lemma">Lemma ID</span>
-              <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" th:onclick="copyStringToClipboard(document.getElementById('lemma').textContent)" ><span class="fas fa-clipboard"></span>Copy ID</button>
+              <span th:text="${obj.id}">Lemma ID</span>
+              <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" th:onclick="copyStringToClipboard(document.getElementById('id').textContent)" ><span class="fas fa-clipboard"></span>Copy ID</button>
               <br/>
               <strong>Persistent URL:</strong>
+              <!-- Zitationsbutton -->
+              <span th:text="'TLA lemma ID '+ ${obj.id} +' (' + ${obj.name} + '), <' +  ${env.baseUrl} + '/lemma/' + ${obj.id} + '>, in: ' + #{tla_Title} + ' <' + ${env.baseUrl} + '>, Version '+ #{tla_Version} + '.' + #{tla_Issue} + ', ' +  #{tla_ReleaseDate} + ', ed. by ' + #{tla_Editor} + ' (accessed: '" id="citation" style="display:none"></span>
               <span th:text="|${env.baseUrl}/lemma/${obj.id}|">http://tla.bbaw.de/lemma/xxx</span>
-              <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard('TLA lemma ID {{obj.id}} ({{obj.name}}), &lt;{{env.baseUrl}}/lemma/{{obj.id}}&gt;, in: {{tlaTitle}} &lt;{{tlaBaseURL}}&gt;, Version {{tlaVersion}}.{{tlaIssue}}, {{tlaReleaseDate}}, ed. by {{tlaEditor}} (accessed: {{dateToday}})');">
-                <span class="fas fa-clipboard"></span>Copy citation
-              </button>
+              <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyCitationToClipboard(document.getElementById('citation').textContent)" ><span class="fas fa-clipboard"></span>Copy citation</button>        
             </p>
           </div>
 
@@ -45,6 +46,7 @@
           <div th:replace="fragments/details :: single-entry-annotations"/>
           <div th:replace="fragments/details :: editor-info"/>
           <div th:replace="fragments/details :: object-property-related-objects"/>
+          <div th:replace="fragments/details :: object-property-citationBox"/>
 
         </div>  <!-- close content col-sm-12 -->
 
@@ -56,6 +58,5 @@
         </div>
       </div>
     </div>  
-
   </body>
 </html>

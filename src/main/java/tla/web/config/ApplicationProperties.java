@@ -9,7 +9,10 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import lombok.Data;
-
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+@Getter
 @Data
 @Component
 @ConfigurationProperties(prefix = "tla")
@@ -25,5 +28,7 @@ public class ApplicationProperties {
     private Map<String, LinkFormatter> linkFormatters = new HashMap<>();
 
     private Set<String> l10n;
-
+           
 }
+
+
