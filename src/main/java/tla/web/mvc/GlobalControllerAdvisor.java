@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,11 @@ import tla.web.model.ui.BreadCrumb;
 @ControllerAdvice
 public class GlobalControllerAdvisor extends DefaultHandlerExceptionResolver {
 
+    public static final BreadCrumb BREADCRUMB_HOME = BreadCrumb.of("/", "menu_global_home");
+
+    @Autowired
+    private BuildProperties buildProperties;
+
     private ApplicationProperties applicationProperties;
 
     public GlobalControllerAdvisor(ApplicationProperties properties) {
@@ -35,14 +42,15 @@ public class GlobalControllerAdvisor extends DefaultHandlerExceptionResolver {
             "baseUrl", applicationProperties.getBaseUrl(),
             "appName", applicationProperties.getName(),
             "l10n", applicationProperties.getL10n(),
-            "lang", LocaleContextHolder.getLocale().getLanguage()
+            "lang", LocaleContextHolder.getLocale().getLanguage(),
+            "version", buildProperties.getVersion()
         );
     }
 
     @ModelAttribute("breadcrumbs")
     public List<BreadCrumb> basicBreadcrumb() {
         return List.of(
-            BreadCrumb.of("/", "menu_global_home")
+            BREADCRUMB_HOME
         );
     }
 
@@ -56,14 +64,14 @@ public class GlobalControllerAdvisor extends DefaultHandlerExceptionResolver {
         model.addAttribute(
             "breadcrumbs",
             List.of(
-                BreadCrumb.of("/", "menu_global_home"),
+                BREADCRUMB_HOME,
                 BreadCrumb.of("/search", "menu_global_search")
             )
         );
         return new ModelAndView("error/404", model.asMap(), HttpStatus.OK);
     }
 
-    @ExceptionHandler(Exception.class)
+    //@ExceptionHandler(Exception.class) TODO: re-enable
     public ModelAndView handleAnything(Exception e, HttpServletRequest request, Model model) {
         model.addAttribute("env", appVars());
         model.addAttribute("code", 500);

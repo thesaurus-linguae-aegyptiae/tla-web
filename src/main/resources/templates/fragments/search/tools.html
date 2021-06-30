@@ -1,0 +1,26 @@
+<script th:fragment="autocomplete(field)" th:inline="javascript">
+  //<![CDATA[
+  {
+    let field = /*[[${field}]]*/ null;
+    let URL = /*[[${(#mvc.url('LC#autoComplete')).build()}]]*/ null;
+    $(`#${field}`).on('input', (e) => {
+      $.ajax(
+        {
+          url: `${URL}`,
+          data: {
+            term: $(`#${field}`).val()
+          },
+          success: (result) => {
+            $(`#${field}-suggestions`).empty();
+            result.forEach((i) => {
+              $('<option/>').text(i.name).attr('value', i.id).attr('label', i.name).appendTo(
+                $(`#${field}-suggestions`)
+              );
+            });
+          }
+        }
+      );
+    });
+  }
+  //]]>
+</script>
