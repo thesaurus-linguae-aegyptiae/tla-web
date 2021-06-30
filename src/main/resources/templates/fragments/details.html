@@ -10,13 +10,30 @@
     </div>
 
     <!-- Object details header (name && review state) -->
-    <div th:fragment="review-state-header" id="review-state-header" class="col-sm-12 col-lg-8 d-flex justify-content-between align-items-end">
+    <div th:fragment="review-state-header" id="review-state-header"
+            class="col-sm-12 col-lg-8 d-flex justify-content-between align-items-end">
         <h2 class="id mt-1">
           <span class="bbaw-libertine" th:utext="${{caption}}">Object name</span>
         </h2>
         <a th:replace="fragments/common :: review-state(${obj})"/>
     </div>
 
+    <!-- Generic Passport Properties -->
+    <div th:fragment="object-property-passport-properties" id="passport-properties"
+            th:unless="${#maps.isEmpty(passport)}">
+        <hr/>
+        <p th:each="item : ${passport}">
+            <strong th:text="#{|${objectType}_passport_property_${item.key}|}" class="details-property-label">
+                Property Label
+            </strong>
+            <th:block th:each="value, iter : ${item.value}">
+                <span th:text="${value.label}" th:class="${item.key}">
+                    Passport Value
+                </span>
+                <span th:unless="${iter.last}">|</span>
+            </th:block>
+        </p>
+    </div>
 
     <!-- External references -->
     <div th:fragment="external-references" id="external-references" th:unless="${#maps.isEmpty(obj.externalReferences)}">
@@ -112,13 +129,17 @@
 
     <!-- Object details corpus/thesaurus path -->
     <div th:fragment="object-property-object-paths(objType)" th:id="|${objType}-property-object-paths|">
-        <hr/>
+      <hr/>
+      <th:block th:with="controller = |${objType}Controller|">
+       <th:block th:with="objectPaths = ${@__${controller}__.createObjectPathLinks(obj)}">
         <p>
             <strong th:text="#{|${objType}_property_object_paths|}" class="details-property-label">
                 Object path
             </strong>
             <div th:replace="fragments/common::object-paths(${objectPaths},false)"/>
         </p>
+       </th:block>
+      </th:block>
     </div>
 
     <!-- Lemma details hieroglyphs -->
@@ -143,9 +164,28 @@
             <strong th:text="#{lemma_property_attestation}" class="details-property-label">Attestation</strong>
             <br/>
             <strong th:text="#{lemma_property_attestation_occurrences}" class="details-property-label">Occurrences:</strong>
-            <span th:text="${obj.attestationCount}"></span>
+            <a th:href="|${@searchController.getSearchResultsPageRoute(@__sentenceController__)}?tokens[0].lemma.id=${obj.id}|">
+                <i class="fas fa-arrow-circle-right red"></i>
+                <span id="lemma-attestation-count-texts" th:text="${obj.attestationCount}">5</span>
+            </a>
+            <br/>
+            <th:block th:replace=" :: lemma-timespan"/>
         </p>
+        <div th:include="fragments/widgets/timeline :: timeline"/>
     </div>
+
+    <!-- Lemma Attestations timespan -->
+    <span th:fragment="lemma-timespan" th:if="${obj.timespan != null}">
+        <strong th:text="#{lemma_property_attestation_timespan}" class="details-property-label">Attestation time:</strong>
+        <span th:text="#{object_property_aux_attestation_time_from}">from</span>
+        <span th:insert=" :: display-year(${obj.timespan.begin})" id="attestation-timespan-from">
+            420 BCE
+        </span>
+        <span th:text="#{object_property_aux_attestation_time_to}">to</span>
+        <span th:insert=" :: display-year(${obj.timespan.end})" id="attestation-timespan-to">
+            60 CE
+        </span>
+    </span>
 
     <!-- Related Objects -->
     <div th:fragment="object-property-related-objects" id="object-property-related-objects" th:unless="${#maps.isEmpty(relations)}">
@@ -157,7 +197,8 @@
             </div>
             <div class="col-md-12">
                 <div class="related-objects-item" th:each="obj : ${predicate.value}" th:object="${obj}" th:id="${obj.id}"
-                    th:unless="${obj == null || obj.eclass == 'BTSAnnotation'}" th:include="fragments/search :: |${objectType}-search-result|">
+                    th:unless="${obj == null || obj.eclass == 'BTSAnnotation'}"
+                    th:include="fragments/search/results :: |${objectType}-search-result|">
                 </div>
             </div>
         </div>
@@ -205,6 +246,12 @@
         <span th:each="glyphs : ${obj.hieroglyphs}">
             <span class="hieroglyphs" th:title="${glyphs.mdc}" th:utext="${glyphs.svg}"/>
         </span>
+    </th:block>
+
+    <!-- display a single year -->
+    <th:block th:fragment="display-year(year)">
+        <span th:text="${(year < 1) ? T(Math).abs(year) : year}">3500</span>
+        <span th:text="#{|object_property_aux_attestation_time_${(year < 1) ? 'bce' : 'ce'}|}">BCE</span>
     </th:block>
 
 

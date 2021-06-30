@@ -7,7 +7,7 @@ on: [pull_request, push]
 jobs:
 
   docker:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
 
     steps:
 
@@ -21,6 +21,50 @@ jobs:
         BACKEND_PORT: 8090
         LISTEN_PORT: 8080
 
+    - name: show tla-backend container logs
+      run: docker-compose logs backend
+
+    - name: wait for backend to be populated with lemma data
+      uses: "cygnetdigital/wait_for_response@v2.0.0"
+      with:
+        url: http://localhost:8090/lemma/get/100690
+        responseCode: 200
+        interval: 5000
+        timeout: 120000
+      continue-on-error: true
+
+    - name: wait for backend to be populated with meta data
+      uses: "cygnetdigital/wait_for_response@v2.0.0"
+      with:
+        url: http://localhost:8090/version
+        responseCode: 200
+        interval: 3000
+        timeout: 30000
+      continue-on-error: true
+
+    - name: show tla-ingest container logs
+      run: docker-compose logs populate
+
+    - name: query backend endpoint URL paths list
+      run: curl -s localhost:8090/
+
+    - name: query backend version info
+      run: curl -s localhost:8090/version
+
+    - name: set up JDK
+      uses: actions/setup-java@v1.4.3
+      with:
+        java-version: 11
+
+    - name: make gradle wrapper executable
+      run: chmod +x gradlew
+
+    - name: install third-party ressources
+      run: ./gradlew install
+
+    - name: run Selenium tests
+      run: ./gradlew selenium --info
+
     - name: start frontend container
       run: docker-compose up -d frontend
       env:
@@ -29,7 +73,7 @@ jobs:
         LISTEN_PORT: 8080
         FONTAWESOME_VERSION: 5.12.1
         BOOTSTRAP_VERSION: 4.4.1
-        JQUERY_VERSION: 3.5.0
+        JQUERY_VERSION: 3.5.1
         COOKIEJS_VERSION: 2.2.1
 
     - name: wait for frontend to respond
@@ -38,28 +82,20 @@ jobs:
         url: http://localhost:8080
         responseCode: 200
         interval: 2000
-        timeout: 60000
+        timeout: 120000
 
-    - name: log ES ingestion status
-      run: curl -s localhost:9201/_cat/indices
-
-    - name: wait for backend to be populated with corpus data
-      uses: "cygnetdigital/wait_for_response@v2.0.0"
-      with:
-        url: http://localhost:8090/lemma/get/100690
-        responseCode: 200
-        interval: 5000
-        timeout: 240000
+    - name: curl frontend from shell
+      run: curl -s localhost:8080/
 
     - name: screenshot lemma search results page
       uses: "flameddd/screenshots-ci-action@v1.1.1"
       with:
         url: http://localhost:8080/lemma/search/
-        devices: iPhone 6,iPhone 6 landscape,Nexus 7,Pad Pro,Galaxy S III landscape,iPad Pro landscape
+        devices: iPhone 6,iPhone 6 landscape,Nexus 7,iPad Pro,Galaxy S III landscape,iPad Pro landscape
         type: png
 
-    - name: upload screenshots
-      uses: "actions/upload-artifact@v2"
+    - name: upload screenshots of lemma search results page
+      uses: "actions/upload-artifact@v2.2.3"
       with:
         path: screenshots
         name: lemma-search
@@ -67,12 +103,12 @@ jobs:
     - name: screenshot lemma details page
       uses: "flameddd/screenshots-ci-action@v1.1.1"
       with:
-        url: http://localhost:8080/lemma/100690
-        devices: iPhone 6,iPhone 6 landscape,Nexus 7,Pad Pro,Galaxy S III landscape,iPad Pro landscape
+        url: http://localhost:8080/lemma/59920
+        devices: iPhone 6,iPhone 6 landscape,Nexus 7,iPad Pro,Galaxy S III landscape,iPad Pro landscape
         type: png
 
-    - name: upload screenshots
-      uses: "actions/upload-artifact@v2"
+    - name: upload screenshots of lemma details page
+      uses: "actions/upload-artifact@v2.2.3"
       with:
         path: screenshots
         name: lemma-details
@@ -81,11 +117,11 @@ jobs:
       uses: "flameddd/screenshots-ci-action@v1.1.1"
       with:
         url: http://localhost:8080/sentence/IBUBdQmK4memIEBelX9qTCsmuS8#IBUBdzrGyezPxknfiltJIvlQAn0
-        devices: iPhone 6,iPhone 6 landscape,Nexus 7,Pad Pro,Galaxy S III landscape,iPad Pro landscape
+        devices: iPhone 6,iPhone 6 landscape,Nexus 7,iPad Pro,Galaxy S III landscape,iPad Pro landscape
         type: png
 
-    - name: upload screenshots
-      uses: "actions/upload-artifact@v2"
+    - name: upload screenshots of sentence details page
+      uses: "actions/upload-artifact@v2.2.3"
       with:
         path: screenshots
         name: sentence-details
@@ -94,13 +130,39 @@ jobs:
       uses: "flameddd/screenshots-ci-action@v1.1.1"
       with:
         url: http://localhost:8080/thesaurus/7pupjz
-        devices: iPhone 6,iPhone 6 landscape,Nexus 7,Pad Pro,Galaxy S III landscape,iPad Pro landscape
+        devices: iPhone 6,iPhone 6 landscape,Nexus 7,iPad Pro,Galaxy S III landscape,iPad Pro landscape
         type: png
 
-    - name: upload screenshots
-      uses: "actions/upload-artifact@v2"
+    - name: upload screenshots of thesaurus entry details page
+      uses: "actions/upload-artifact@v2.2.3"
       with:
         path: screenshots
         name: ths-details
+
+    - name: screenshot sentence search form
+      uses: "flameddd/screenshots-ci-action@v1.1.1"
+      with:
+        url: "http://localhost:8080/search?sentence&tokens[0].lemma.id=d2978&tokens[1].lemma.id=10070"
+        devices: iPhone 6,iPhone 6 landscape,Nexus 7,iPad Pro,Galaxy S III landscape,iPad Pro landscape
+        type: png
+
+    - name: upload screenshots of sentence search form
+      uses: "actions/upload-artifact@v2.2.3"
+      with:
+        path: screenshots
+        name: sentence-search-form
+
+    - name: screenshot sentence search results
+      uses: "flameddd/screenshots-ci-action@v1.1.1"
+      with:
+        url: "http://localhost:8080/sentence/search?tokens[0].lemma.id=74950"
+        devices: iPhone 6,iPhone 6 landscape,Nexus 7,iPad Pro,Galaxy S III landscape,iPad Pro landscape
+        type: png
+
+    - name: upload screenshots of sentence search results page
+      uses: "actions/upload-artifact@v2.2.3"
+      with:
+        path: screenshots
+        name: sentence-search-results
 
 ...

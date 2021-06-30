@@ -1,6 +1,8 @@
 ---
 
 server:
+    tomcat:
+        relaxed-query-chars: ['[', ']']
     error:
         whitelabel:
             enabled: false
@@ -60,6 +62,9 @@ tla:
                 text: https://ramses.ulg.ac.be/text/legacy/{id}
 
 search:
+    config:
+        default: lemma
+
     lemma:
         sort-orders:
             - sortKey_asc
@@ -67,6 +72,19 @@ search:
             - timeSpan.begin_asc
             - timeSpan.end_desc
             - root_asc
+
+        hideable-properties:
+            hieroglyphs: []
+            lemma-id: []
+            wordClass: []
+            bibliography: []
+            attested-timespan: []
+            translations:
+                - translation-de
+                - translation-en
+                - translation-fr
+                - translation-ar
+                - translation-it
 
         word-classes:
             any: []
@@ -130,6 +148,24 @@ search:
         annotation-types:
             lemma: []
 
+    sentence:
+        hideable-properties:
+            transcription: []
+            hieroglyphs: []
+            paths: []
+            translations:
+                - translation-de
+                - translation-en
+                - translation-fr
+                - translation-ar
+                - translation-it
+
+details:
+    lemma:
+        passport-properties:
+            - lemma.main_group.nominal_schenkel
+            - lemma.main_group.nominal_osing
+
 ---
 
 logging:
@@ -146,11 +182,12 @@ spring:
         cache: false
         prefix: file:./src/main/resources/templates/
         check-template-location: true
-    resources:
-        static-locations:
-          - file:./src/main/resources/static/
-          - file:./src/main/resources/pages/
-        cache:
-            period: 0
+    web:
+        resources:
+            static-locations:
+            - file:./src/main/resources/static/
+            - file:./src/main/resources/pages/
+            cache:
+                period: 0
 
 ...

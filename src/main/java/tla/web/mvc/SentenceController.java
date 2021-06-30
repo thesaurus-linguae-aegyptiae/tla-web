@@ -4,8 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import tla.domain.command.SentenceSearch;
 import tla.domain.model.meta.Hierarchic;
 import tla.web.model.Sentence;
 import tla.web.model.meta.TemplateModelName;
@@ -17,7 +23,7 @@ import tla.web.service.SentenceService;
 @Controller
 @RequestMapping("/sentence")
 @TemplateModelName("sentence")
-public class SentenceController extends HierarchicObjectController<Sentence> {
+public class SentenceController extends HierarchicObjectController<Sentence, SentenceSearch> {
 
     @Autowired
     private SentenceService service;
@@ -55,6 +61,21 @@ public class SentenceController extends HierarchicObjectController<Sentence> {
             }
         );
         return paths;
+    }
+
+    /*
+     * this needs to be here for the sake of the procedural redundant route generation
+     * in {@link SearchController#onApplicationReady}
+     */
+    @Override
+    @RequestMapping(value="/search", method=RequestMethod.GET)
+    public String getSearchResultsPage(
+        @ModelAttribute("sentenceSearchForm") SentenceSearch form,
+        @RequestParam(defaultValue = "1") String page,
+        @RequestParam MultiValueMap<String, String> params,
+        Model model
+    ) {
+        return super.getSearchResultsPage(form, page, params, model);
     }
 
 }

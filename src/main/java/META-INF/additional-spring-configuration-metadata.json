@@ -29,6 +29,10 @@
             "type": "java.util.Set"
         },
         {
+            "name": "tla.editorials",
+            "type": "java.util.Map"
+        },
+        {
             "name": "tla.link-formatters",
             "type": "java.util.Map"
         },
@@ -37,16 +41,26 @@
             "type": "tla.web.config.ApplicationProperties.Assets"
         },
         {
-            "name": "search.lemma.word-classes",
+            "name": "search.sentence",
+            "type": "tla.web.config.SearchProperties"
+        },
+        {
+            "name": "search.lemma",
+            "type": "tla.web.config.LemmaSearchProperties"
+        },
+        {
+            "name": "search.config",
             "type": "java.util.Map"
         },
         {
-            "name": "search.lemma.sort-orders",
-            "type": "java.util.List"
+            "name": "search.config.default",
+            "type": "java.lang.String",
+            "description": "choose the default search mode, i.e. the search form to be expanded on the search landing page by default."
         },
         {
-            "name": "search.annotation-types",
-            "type": "java.util.Map"
+            "name": "details",
+            "type": "tla.web.config.DetailsProperties",
+            "description": "domain model details view representation settings"
         }
     ]
 }

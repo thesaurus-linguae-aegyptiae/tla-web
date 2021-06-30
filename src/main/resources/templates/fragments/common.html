@@ -9,7 +9,10 @@
       <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
         <div class="container">
           <a class="navbar-brand" href="/">TLA</a>
-          <h1 th:text="${env.appName}">Thesaurus Linguae Aegyptiae</h1>
+          <div>
+            <h1 th:text="${env.appName}">Thesaurus Linguae Aegyptiae</h1>
+            <a href="#" th:text="${env.version}">0.1.0</a>
+          </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"/>
           </button>
@@ -45,18 +48,6 @@
                   <a class="dropdown-item" href="/help/ling-glossings" th:text="#{editorial_title_help_ling-glossings}">Linguistic glossing</a>
                 </div>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="far fa-flag"></i>
-                  <span th:text="#{menu_global_lang}">Language</span>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="langDropdown"
-                    th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder)}">
-                  <a th:each="lang : ${env.l10n}" href="#" class="dropdown-item" th:text="#{|lang_label_${lang}}"
-                      th:href="${urlBuilder.fromCurrentRequest().replaceQueryParam('lang', lang).toUriString()}">English</a>
-                </div>
-              </li>
             </ul>
           </div>
         </div>
@@ -79,11 +70,11 @@
             </address>
           </div>
           <div class="col-sm-4 col-lg-2 contact">
-            <a href="/contact" target="_blank" th:text="#{editorial_title_contact}">Contact</a>
+            <a href="/contact" th:text="#{editorial_title_contact}">Contact</a>
             <br/>
-            <a href="/legal/imprint" target="_blank" th:text="#{editorial_title_legal_imprint}">Imprint</a>
+            <a href="/legal/imprint" th:text="#{editorial_title_legal_imprint}">Imprint</a>
             <br/>
-            <a href="/legal/privacy" target="_blank" th:text="#{editorial_title_legal_privacy}">Privacy policy</a>
+            <a href="/legal/privacy" th:text="#{editorial_title_legal_privacy}">Privacy policy</a>
             <br/>
             <span id="cookie-info">(Cookies not yet accepted)</span>
           </div>
@@ -104,9 +95,9 @@
 
     <!-- page breadcrumbs -->
 
-    <div id="breadcrumbs" class="row" th:fragment="breadcrumbs">
-      <div class="col-12">
-        <nav aria-label="breadcrumb">
+    <div id="breadcrumbs" class="row justify-content-center" th:fragment="breadcrumbs">
+      <div class="col-12 d-lg-flex">
+        <nav aria-label="breadcrumb" class="flex-grow-1">
           <ol class="breadcrumb">
             <li th:each="item : ${breadcrumbs}" class="breadcrumb-item" th:classappend="${itemStat.last} ? 'active' : ''">
               <a th:unless="${item.href} == null" th:href="${item.href}" th:text="#{${item.label}}"></a>
@@ -114,6 +105,15 @@
             </li>
           </ol>
         </nav>
+        <div class="language breadcrumb">
+          <th:block th:each="lang, i : ${env.l10n}">
+            <a th:classappend="${env.lang == lang} ? 'active' : ''"
+                th:href="${@templateUtils.setQueryParam('lang', lang)}" th:text="${lang}" class="text-uppercase">
+              EN
+            </a>
+            <i th:unless="${i.last}" class="px-1">|</i>
+          </th:block>
+        </div>
       </div>
     </div>
 
@@ -176,6 +176,39 @@
         </div>
       </div>
     </div>
+
+    <!-- sentence hieroglyphs -->
+    <div th:fragment="sentence-hieroglyphs" th:if="*{hasGlyphs}" class="result-list-item-element hieroglyphs">
+      <a th:each="token : *{tokens}" th:href="|#${token.id}|" th:id="${token.id}">
+        <div th:replace=" :: token-hieroglyphs"/>
+      </a>
+    </div>
+
+    <!-- sentence transcription -->
+    <div th:fragment="sentence-transcription" class="result-list-item-element transcription">
+      <p class="bbaw-libertine mb-2">
+        <span th:each="token : *{tokens}" th:id="${token.id}">
+          <a th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,token.lemma.id)).build()}"
+             th:text="${token.label}"
+             th:class="|sentence-token token-${token.type}|"
+             th:classappend="${token.rubrum} ? rubrum"/>
+        </span>
+      </p>
+    </div>
+
+    <!-- token hieroglyphs -->
+    <th:block th:fragment="token-hieroglyphs">
+      <span th:unless="${token.glyphs.empty}" th:utext="${token.glyphs.svg}"
+            th:title="${token.glyphs.mdc}" class="token-glyphs"/>
+      <th:block th:if="${token.glyphs.empty}">
+        <span th:if="${token.type} == 'destruction_marker'" class="philological">
+          //...//
+        </span>
+        <span th:if="${token.type} == 'lc'" class="philological">
+          |
+        </span>
+      </th:block>
+    </th:block>
 
   </body>
 </html>

@@ -7,7 +7,6 @@ import java.util.SortedMap;
 import java.util.stream.Collectors;
 
 import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,13 +16,13 @@ import lombok.extern.slf4j.Slf4j;
 import tla.domain.dto.LemmaDto;
 import tla.domain.model.Language;
 import tla.domain.model.Script;
-import tla.domain.model.extern.AttestedTimespan;
 import tla.domain.model.meta.BTSeClass;
 import tla.domain.model.meta.TLADTO;
 import tla.web.model.meta.BTSObject;
 import tla.web.model.meta.BackendPath;
 import tla.web.model.parts.Glyphs;
 import tla.web.model.parts.Token;
+import tla.web.model.parts.extra.AttestedTimespan;
 
 @Slf4j
 @Getter
@@ -33,7 +32,6 @@ import tla.web.model.parts.Token;
 @BackendPath("lemma")
 @TLADTO(LemmaDto.class)
 @BTSeClass("BTSLemmaEntry")
-@EqualsAndHashCode(callSuper = true)
 public class Lemma extends BTSObject {
 
     /**
@@ -60,7 +58,7 @@ public class Lemma extends BTSObject {
 
     public Long getAttestationCount() {
         return this.attestations.stream().mapToLong(
-            timespan -> timespan.getAttestations().getCount()
+            timespan -> timespan.getTotal().getCount()
         ).sum();
     }
 

@@ -2,17 +2,18 @@ package tla.web.repo;
 
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriTemplate;
 
 import lombok.extern.slf4j.Slf4j;
 import tla.domain.command.SearchCommand;
-import tla.domain.dto.LemmaDto;
 import tla.domain.dto.extern.SearchResultsWrapper;
 import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.AbstractDto;
-import tla.domain.dto.meta.DocumentDto;
 import tla.web.model.meta.BackendPath;
 import tla.web.model.meta.TLAObject;
 
@@ -23,6 +24,8 @@ import tla.web.model.meta.TLAObject;
  */
 @Slf4j
 public class TlaClient {
+
+    public static final UriTemplate URI_AUTOCOMPLETE = new UriTemplate("{url}/complete?q={q}&type={type}");
 
     private RestTemplate client;
 
@@ -73,6 +76,24 @@ public class TlaClient {
     }
 
     /**
+     * Call backend autocomplete endpoint for given model.
+     * TODO
+     */
+    @SuppressWarnings("rawtypes")
+    public ResponseEntity<List> autoComplete(Class<? extends TLAObject> modelClass, String term, String type) {
+        return client.getForEntity(
+            URI_AUTOCOMPLETE.expand(
+                Map.of(
+                    "url", this.getEndpointURLPrefix(modelClass),
+                    "q", term,
+                    "type", type
+                )
+            ).toString(),
+            List.class
+        );
+    }
+
+    /**
      * Retrieves a single object from the backend application.
      *
      * In order for this to work, the requested object's type must be registered via {@link ModelClasses}
@@ -90,12 +111,18 @@ public class TlaClient {
         );
     }
 
-    @SuppressWarnings("unchecked")
-    public SearchResultsWrapper<DocumentDto> lemmaSearch(SearchCommand<LemmaDto> command, int page) {
+    /**
+     * Send search form/command to backend endpoint configured for specified frontend
+     * model class. The endpoint path is taken from the frontend model class's
+     * {@link BackendPath} annotation.
+     * @see #retrieveObject(Class, String)
+     */
+    public <T extends TLAObject> SearchResultsWrapper<?> searchObjects(
+        Class<? extends T> modelClass, SearchCommand<?> searchForm, int page
+    ) {
         return client.postForObject(
-            String.format("%s/lemma/search?page={page}", this.backendUrl),
-            command,
-            SearchResultsWrapper.class,
+            String.format("%s/search?page={page}", this.getEndpointURLPrefix(modelClass)),
+            searchForm, SearchResultsWrapper.class,
             Map.of("page", Math.max(0, page - 1))
         );
     }

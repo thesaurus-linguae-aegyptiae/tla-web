@@ -21,11 +21,13 @@ import tla.domain.model.ObjectReference;
 import tla.domain.model.Passport;
 import tla.domain.model.SentenceToken;
 import tla.domain.model.Transcription;
+import tla.domain.model.extern.AttestedTimespan.Period;
 import tla.web.model.mappings.MappingConfig;
 import tla.web.model.mappings.Util;
 import tla.web.model.meta.ObjectDetails;
 import tla.web.model.meta.TLAObject;
 import tla.web.model.parts.Token;
+import tla.web.model.parts.extra.AttestedTimespan;
 
 @SpringBootTest
 public class MappingTest {
@@ -40,6 +42,7 @@ public class MappingTest {
             .word(new SentenceToken(new Transcription("nfr", "nfr"), "N35"))
             .translation(Language.FR, List.of("traduction"))
             .passport(p)
+            .timeSpan(Period.builder().begin(-111).end(69).build())
             .externalReference("cfeetk", new TreeSet<>(List.of(new ExternalReference("1", null))))
             .build();
         TLAObject object = MappingConfig.convertDTO(dto);
@@ -69,7 +72,54 @@ public class MappingTest {
             () -> assertEquals(
                 "http://sith.huma-num.fr/vocable/1",
                 lemma.getExternalReferences().get("cfeetk").get(0).getHref()
+            ),
+            () -> assertEquals(69, lemma.getTimespan().getEnd(), "attestation timespan should be mapped")
+        );
+    }
+
+    @Test
+    void lemmaAttestations() throws Exception {
+        var period1 = tla.domain.model.extern.AttestedTimespan.Period.builder().begin(-44).end(60).ref(
+            ObjectReference.builder().eclass("BTSThsEntry").id("term1").type("date").build()
+        ).build();
+        var period2 = tla.domain.model.extern.AttestedTimespan.Period.builder().begin(-22).end(30).ref(
+            ObjectReference.builder().eclass("BTSThsEntry").id("term1.1").type("date").build()
+        ).build();
+        var period3 = tla.domain.model.extern.AttestedTimespan.Period.builder().begin(-316).end(-70).ref(
+            ObjectReference.builder().eclass("BTSThsEntry").id("term2").type("date").build()
+        ).build();
+        var child = tla.domain.model.extern.AttestedTimespan.builder().attestations(
+            tla.domain.model.extern.AttestedTimespan.AttestationStats.builder().count(11).build()
+        ).period(period2).build();
+        LemmaDto dto = LemmaDto.builder().id("id").attestations(
+            List.of(
+                tla.domain.model.extern.AttestedTimespan.builder().attestations(
+                    tla.domain.model.extern.AttestedTimespan.AttestationStats.builder().count(5).build()
+                ).period(period1).contains(
+                    List.of(child)
+                ).build(),
+                tla.domain.model.extern.AttestedTimespan.builder().attestations(
+                    tla.domain.model.extern.AttestedTimespan.AttestationStats.builder().count(7).build()
+                ).period(period3).build()
             )
+        ).build();
+        Lemma l = (Lemma) MappingConfig.convertDTO(dto);
+        assertAll("lemma attestations instance type and total count",
+            () -> assertTrue(!l.getAttestations().isEmpty(), "should have at least 1 attestation"),
+            () -> assertEquals(2, l.getAttestations().size(), "should have 2 root attestation nodes"),
+            () -> assertTrue(l.getAttestations().get(0) instanceof AttestedTimespan, "attestation should be instance of domain model"),
+            () -> assertEquals(5, l.getAttestations().get(0).getAttestations().getCount(), "attestations should have been initialized"),
+            () -> assertEquals(16, l.getAttestations().get(0).getTotal().getCount(), "total attestation count should account for child nodes"),
+            () -> assertEquals(23, l.getAttestationCount(), "total attestation count should account for root nodes and their children"),
+            () -> assertEquals("term1", l.getAttestations().get(0).getPeriod().getRef().getId(), "attestation period object reference should be preserved")
+        );
+    }
+
+    @Test
+    void jseshTest() {
+        assertAll("test JSesh MdC to SVG rendering",
+            () -> assertTrue(Util.jseshRender("G43:N35", true).contains("#ff0000"), "rubra rendered in red"),
+            () -> assertFalse(Util.jseshRender("G43:N35").contains("#ff0000"), "default rendering not red")
         );
     }
 
@@ -80,15 +130,15 @@ public class MappingTest {
             "src/test/resources/sample/data/ths/details/KQY2F5SJVBBN7GRO5WUXKG5M6M.json",
             SingleDocumentWrapper.class
         );
-        ObjectDetails<TLAObject> objectDetails = ObjectDetails.from(dto);
+        ObjectDetails<?> objectDetails = ObjectDetails.from(dto);
         assertTrue(objectDetails.getObject() instanceof ThsEntry);
         ThsEntry t = (ThsEntry) objectDetails.getObject();
         assertAll("test mapping from DTO to thesaurus object",
-            () -> assertNotNull(t.getTranslations()),
-            () -> assertTrue(t.getTranslations().containsKey(Language.FR)),
-            () -> assertEquals(1, t.getTranslations().get(Language.FR).size()),
-            () -> assertNotNull(t.getExternalReferences()),
-            () -> assertNotNull(t.getEdited())
+            () -> assertNotNull(t.getTranslations(), "has translations"),
+            () -> assertTrue(t.getTranslations().containsKey(Language.FR), "french translation"),
+            () -> assertEquals(1, t.getTranslations().get(Language.FR).size(), "french translation"),
+            () -> assertNotNull(t.getExternalReferences(), "external references"),
+            () -> assertNotNull(t.getEdited(), "editor info")
         );
         Map<String, Map<String, TLAObject>> related = objectDetails.getRelated();
         ObjectReference ref = t.getRelations().get("partOf").get(0);
@@ -117,7 +167,7 @@ public class MappingTest {
             "src/test/resources/sample/data/ths/details/IMBHKBIKV5AUHEAAU2DL2K2GN4.json",
             SingleDocumentWrapper.class
         );
-        ObjectDetails<TLAObject> details = ObjectDetails.from(dto);
+        ObjectDetails<?> details = ObjectDetails.from(dto);
         Map<String, List<TLAObject>> related = details.extractRelatedObjects();
         assertDoesNotThrow(
             () -> {
