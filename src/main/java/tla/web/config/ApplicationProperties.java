@@ -9,8 +9,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import lombok.Getter;
-
+import lombok.Setter;
 @Getter
+@Setter
 @Component
 @ConfigurationProperties(prefix = "tla")
 @PropertySource("classpath:application.yml")
