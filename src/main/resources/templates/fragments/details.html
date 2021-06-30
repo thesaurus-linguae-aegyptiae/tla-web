@@ -203,6 +203,25 @@
             </div>
         </div>
     </div>
+        <div th:fragment="object-property-citationBox" id="object-property-citationBox" th:unless="${#maps.isEmpty(relations)}" class="bg-light citation mt-5 mb-4"> 
+    	<div class="bg-light citation mt-5 mb-4"> 
+    <p class="h6"><strong>Please cite as:</strong></p>
+    
+  
+				<blockquote><span  id="citation" th:text="${obj.name} + ' (Lemma ID '+ ${obj.id} + '), <' + ${env.baseUrl}+'/lemma/' + ${obj.id} +'>, in: '"></span>  
+					<span  id="citation" style="font-style: italic;" th:text="#{tla_Title}"></span>  
+					<span  id="citation" th:text="' <' + ${env.baseUrl} +'>, Version ' + #{tla_Version} +'.'+ #{tla_Issue} + ', ' + #{tla_ReleaseDate} + ', ed. by ' + #{tla_Editor} + ' (accessed: '"></span>  			
+					<script>
+						var date = new Date();
+						date.getUTCDate();
+						var today= date.getDate() + "." + (date.getMonth()+1) + "." + date.getFullYear();
+						document.write(today + ')')
+					</script>
+						
+				</blockquote>
+					
+     </div>  
+    </div>
 
 
     <!-- "Atoms" -->
