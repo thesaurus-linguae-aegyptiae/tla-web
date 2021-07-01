@@ -25,12 +25,14 @@
             <hr/>
             <p>         
               <strong>Persistent lemma ID:</strong>
-              <span th:text="${obj.id}">Lemma ID</span>
+              <span th:text="${obj.id}" id="id">Lemma ID</span>
+              <script> 
+              </script>
               <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" th:onclick="copyStringToClipboard(document.getElementById('id').textContent)" ><span class="fas fa-clipboard"></span>Copy ID</button>
               <br/>
               <strong>Persistent URL:</strong>
               <!-- Zitationsbutton -->
-              <span th:text="'TLA lemma ID '+ ${obj.id} +' (' + ${obj.name} + '), <' +  ${env.baseUrl} + '/lemma/' + ${obj.id} + '>, in: ' + #{tla_Title} + ' <' + ${env.baseUrl} + '>, Version '+ #{tla_Version} + '.' + #{tla_Issue} + ', ' +  #{tla_ReleaseDate} + ', ed. by ' + #{tla_Editor} + ' (accessed: '" id="citation" style="display:none"></span>
+              <span th:text="'TLA lemma ID '+ ${obj.id} +' (' + ${obj.name} + '), <' +  ${env.baseUrl} + '/lemma/' + ${obj.id} + '>, in: ' + #{tla_Title} + ' <' + ${env.baseUrl} + '>, Version '+ ${env.version} + '.' + #{tla_Issue} + ', ' +  #{tla_ReleaseDate} + ', ed. by ' + #{tla_Editor} + ' (accessed: '" id="citation" style="display:none"></span>
               <span th:text="|${env.baseUrl}/lemma/${obj.id}|">http://tla.bbaw.de/lemma/xxx</span>
               <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyCitationToClipboard(document.getElementById('citation').textContent)" ><span class="fas fa-clipboard"></span>Copy citation</button>        
             </p>

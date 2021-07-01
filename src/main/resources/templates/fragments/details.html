@@ -209,17 +209,17 @@
     
   
 				<blockquote><span  id="citation" th:text="${obj.name} + ' (Lemma ID '+ ${obj.id} + '), <' + ${env.baseUrl}+'/lemma/' + ${obj.id} +'>, in: '"></span>  
-					<span  id="citation" style="font-style: italic;" th:text="#{tla_Title}"></span>  
-					<span  id="citation" th:text="' <' + ${env.baseUrl} +'>, Version ' + #{tla_Version} +'.'+ #{tla_Issue} + ', ' + #{tla_ReleaseDate} + ', ed. by ' + #{tla_Editor} + ' (accessed: '"></span>  			
+					<span  id="citation1" style="font-style: italic;" th:text="#{tla_Title}"></span>  
+					<span  id="citation2" th:text="' <' + ${env.baseUrl} +'>, Version ' + ${env.version} +'.'+ #{tla_Issue} + ', ' + #{tla_ReleaseDate} + ', ed. by ' + #{tla_Editor} + ' (accessed: '"></span>  			
 					<script>
 						var date = new Date();
 						date.getUTCDate();
 						var today= date.getDate() + "." + (date.getMonth()+1) + "." + date.getFullYear();
 						document.write(today + ')')
 					</script>
-						
 				</blockquote>
-					
+				<button type="button" class="btn btn-secondary btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyCitationToClipboard(document.getElementById('citation').textContent + document.getElementById('citation1').textContent + document.getElementById('citation2').textContent)" ><span class="fas fa-clipboard"></span> Copy citation</button>        
+	
      </div>  
     </div>
 
