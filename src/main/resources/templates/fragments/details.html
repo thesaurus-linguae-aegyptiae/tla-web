@@ -164,9 +164,26 @@
             <strong th:text="#{lemma_property_attestation}" class="details-property-label">Attestation</strong>
             <br/>
             <strong th:text="#{lemma_property_attestation_occurrences}" class="details-property-label">Occurrences:</strong>
+           <span th:text="${obj.attestationCount}" id="attestationCount" style="display:none"></span>
+   
             <a th:href="|${@searchController.getSearchResultsPageRoute(@__sentenceController__)}?tokens[0].lemma.id=${obj.id}|">
-                <i class="fas fa-arrow-circle-right red"></i>
-                <span id="lemma-attestation-count-texts" th:text="${obj.attestationCount}">5</span>
+                <i class="fas fa-arrow-circle-right red" id="arrow" style="visibility:hidden"></i>
+                <span id="lemma-attestation-count-textsSg"  style="display:none" th:text="#{lemma_property_digitaltext}+': '+ ${obj.attestationCount} +' '+ #{lemma_property_instance}">5</span>
+                <span id="lemma-attestation-count-textsPl"  style="display:none" th:text="#{lemma_property_digitaltext}+': '+ ${obj.attestationCount} +' '+ #{lemma_property_instances}">5</span>              
+               	
+               <script>
+	               var count = document.getElementById('attestationCount').textContent;
+	               var attestationCount = parseInt(count);
+	               if (attestationCount > 0 ){
+	            	   document.getElementById('arrow').style.visibility="visible";
+	            	   if (attestationCount > 1){
+	            	   document.getElementById('lemma-attestation-count-textsPl').style.display = "inline";
+		               }
+		               else
+		            	   {document.getElementById('lemma-attestation-count-textsSg').style.display = "inline"}
+	               }
+	               
+                </script>
             </a>
             <br/>
             <th:block th:replace=" :: lemma-timespan"/>
