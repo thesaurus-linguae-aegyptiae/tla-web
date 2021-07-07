@@ -277,11 +277,12 @@ a.navbar-brand {
 .result-list-item:first-child,
 .occ-list-item:first-child,
 .related-objects-item:first-child {
-    border-top: 2px solid #BBB;
+   
 }
 
 .occ-list-item {
     border-bottom: 2px solid #BBB;
+    border-top: 2px solid #BBB;
 }
 
 .result-bg {
