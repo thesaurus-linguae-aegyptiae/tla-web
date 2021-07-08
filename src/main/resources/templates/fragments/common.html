@@ -209,6 +209,65 @@
         </span>
       </th:block>
     </th:block>
-
+    
+      <!-- token wordclass -->
+    <th:block th:fragment="token-word-class">
+     <span th:if="${token.type !=null}" th:utext="${token.type}"
+             class=".container-annotation.word-class"/>
+     <span th:if="${token.type ==null}" th:utext="Fehler"
+             class=".container-annotation.word-class"/>
+    </th:block>
+    
+    <!-- token lingGloss -->
+    <th:block th:fragment="token-ling-glossing">
+     <span th:if="${token.flexion.lingGloss !=null}" th:utext="${token.flexion.lingGloss}"
+             class=".container-annotation.ling-glossing"/>
+     <span th:if="${token.flexion.lingGloss ==null}" th:utext="Fehler"
+             class=".container-annotation.ling-glossing"/>
+    </th:block>
+   
+     <!-- token btsGloss/tlaGloss -->
+    <th:block th:fragment="token-bts-glossing">
+     <span th:if="${token.flexion.btsGloss !=null}" th:utext="${token.flexion.btsGloss}"
+            class=".container-annotation.bts-glossing"/>
+     <span th:if="${token.flexion.btsGloss ==null}" th:utext="Fehler"
+            class=".container-annotation.bts-glossing"/>   
+    </th:block>
+    
+       <!-- token translation -->
+    <th:block th:fragment="token-translation">
+     <span th:if="${token.translations !=null}" th:utext="${token.translations[0][0]}"
+             class=".container-annotation.word-class"/>
+     <span th:if="${token.translations ==null}" th:utext="Fehler"
+             class=".container-annotation.token-translation"/>
+    </th:block>
+    
+        <!-- token word-id -->
+    <th:block th:fragment="token-word-id">
+     <span th:if="${token.id !=null}" th:utext="${token.id}"
+             class=".container-annotation.word-id"/>
+     <span th:if="${token.id ==null}" th:utext="Fehler"
+             class=".container-annotation.word-id"/>
+    </th:block>
+    
+    <!-- sentence dating -->
+    <div th:fragment="sentence-dating" class="result-list-item-element">
+      <p class="bbaw-libertine mb-2">
+        <span th:each="token : *{tokens}" th:id="${token.id}">
+          <a th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,token.lemma.id)).build()}"
+             th:text="${token.label}"
+             th:class="|sentence-token token-${token.type}|"
+             th:classappend="${token.rubrum} ? rubrum"/>
+        </span>
+      </p>
+    </div>
+    
+       <!-- sentence editor -->
+    <div th:fragment="sentence-editor" class="result-list-item-element">
+     	 <span th:if="*{getEdited}" th:utext="#{sentence_editor} +': '+ *{getEdited.author}"
+             class=".container-annotation.word-id"/>
+    </div>
+    
+   
   </body>
 </html>

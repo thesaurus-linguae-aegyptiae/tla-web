@@ -277,7 +277,7 @@ a.navbar-brand {
 .result-list-item:first-child,
 .occ-list-item:first-child,
 .related-objects-item:first-child {
-   
+
 }
 
 .occ-list-item {
@@ -572,10 +572,16 @@ span.token-glyphs svg:hover {
     flex-flow: row wrap;
 }
 
-.container-annotation .token-translation,
-.container-annotation .ling-glossing,
-.container-annotation .bts-glossing,
-.container-annotation .word-class {
+.container-annotation .token-translation{
+    font-size: 0.8em;
+}
+.container-annotation .ling-glossing{
+    font-size: 0.8em;
+}
+.container-annotation .bts-glossing{
+    font-size: 0.8em;
+}
+.container-annotation .word-class{
     font-size: 0.8em;
 }
 

@@ -25,7 +25,10 @@
             <nav th:replace="fragments/search/results :: search-results-pagination"/>
 
             <th:block th:each="obj : ${searchResults}" th:insert="fragments/search/results :: sentence-search-result"/>
-
+     
+          <!-- Annotation view -->
+            <th:block th:each="obj : ${searchResults}" th:insert="fragments/search/results :: sentence-search-result_anno"/>
+			
             <nav th:replace="fragments/search/results :: search-results-pagination"/>
           </div>
         </div>

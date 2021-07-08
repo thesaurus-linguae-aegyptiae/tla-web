@@ -68,6 +68,7 @@
       </div>
 
       <!-- SENTENCE search result -->
+      <!-- Block view -->
       <div th:fragment="sentence-search-result" class="result-list-item" th:object="${obj}">
         <div class="occ-list-item mt-3 pt-1 pb-1" th:id="*{id}">
           <div class="sentence-line-mode">
@@ -83,7 +84,43 @@
         <div class="result-list-item-element paths" th:insert=" :: search-result-object-paths('sentence')"/>
 
       </div>
-
+      <!-- Annotation view -->
+	<div th:fragment="sentence-search-result_anno" class="result-list-item" th:object="${obj}">
+        <div class="occ-list-item mt-3 pt-1 pb-1" th:id="*{id}">
+          <div class="container-annotation-switch">
+            <div class="container-annotation">
+				         <div th:each="token : *{tokens}" th:id="${token.id}">
+					         <ul class="annotation-block">
+							      <div class="occ-list-item-element hieroglyphs">
+								  		<li th:replace="fragments/common :: token-hieroglyphs"/>
+								  </div>
+						          <div class="occ-list-item-element">
+						          		<li th:replace="fragments/common :: token-word-class"/>
+								  </div>
+						          <div class="occ-list-item-element">
+						             	<li th:replace="fragments/common :: token-bts-glossing"/>
+					              </div>
+							      <div class="occ-list-item-element">      
+								        <li th:replace="fragments/common :: token-ling-glossing"/>
+								  </div>
+								  <div class="occ-list-item-element">
+								  		<li th:replace="fragments/common :: token-translation"/>
+								  </div>
+								  <div class="occ-list-item-element">
+								  		<li th:replace="fragments/common :: token-word-id"/>
+								  </div>						      
+						    </ul>
+			         	</div>
+		            </div>
+	            </div>
+	         <div class="occ-list-item-element">
+	         	<div th:replace="fragments/common :: sentence-dating"/>
+			</div>
+			<div class="occ-list-item-element">
+				<div th:replace="fragments/common :: sentence-editor"/>
+			</div>          
+        </div>    
+</div>
 
       <!-- LEMMA search results sort order select -->
 
