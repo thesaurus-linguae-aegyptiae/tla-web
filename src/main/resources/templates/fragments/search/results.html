@@ -214,7 +214,7 @@
                 selector = `${selector} .${subProperty}`;
               }
               button.children('i#on').toggle();
-              if (Cookies.get(`${objectType}-results-hide-property-${name}`) != 'true') {
+              if (Cookies.get(`${objectType}-results-hide-property-${name}`) == 'true') {
                 button.children('i').toggle();
                 $(selector).toggle();
               }
