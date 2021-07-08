@@ -214,7 +214,7 @@
     <th:block th:fragment="token-word-class">
      <span th:if="${token.type !=null}" th:utext="${token.type}"
              class=".container-annotation.word-class"/>
-     <span th:if="${token.type ==null}" th:utext="Fehler"
+     <span th:if="${token.type ==null}" th:text="'&nbsp;'"
              class=".container-annotation.word-class"/>
     </th:block>
     
@@ -222,7 +222,7 @@
     <th:block th:fragment="token-ling-glossing">
      <span th:if="${token.flexion.lingGloss !=null}" th:utext="${token.flexion.lingGloss}"
              class=".container-annotation.ling-glossing"/>
-     <span th:if="${token.flexion.lingGloss ==null}" th:utext="Fehler"
+     <span th:if="${token.flexion.lingGloss ==null}" th:text="'&nbsp;'"
              class=".container-annotation.ling-glossing"/>
     </th:block>
    
@@ -230,7 +230,7 @@
     <th:block th:fragment="token-bts-glossing">
      <span th:if="${token.flexion.btsGloss !=null}" th:utext="${token.flexion.btsGloss}"
             class=".container-annotation.bts-glossing"/>
-     <span th:if="${token.flexion.btsGloss ==null}" th:utext="Fehler"
+     <span th:if="${token.flexion.btsGloss ==null}" th:text="'&nbsp;'"
             class=".container-annotation.bts-glossing"/>   
     </th:block>
     
@@ -238,7 +238,7 @@
     <th:block th:fragment="token-translation">
      <span th:if="${token.translations !=null}" th:utext="${token.translations[0][0]}"
              class=".container-annotation.word-class"/>
-     <span th:if="${token.translations ==null}" th:utext="Fehler"
+     <span th:if="${token.translations ==null}" th:text="'&nbsp;'"
              class=".container-annotation.token-translation"/>
     </th:block>
     
@@ -246,7 +246,7 @@
     <th:block th:fragment="token-word-id">
      <span th:if="${token.id !=null}" th:utext="${token.id}"
              class=".container-annotation.word-id"/>
-     <span th:if="${token.id ==null}" th:utext="Fehler"
+     <span th:if="${token.id ==null}" th:text="'&nbsp;'"
              class=".container-annotation.word-id"/>
     </th:block>
     
