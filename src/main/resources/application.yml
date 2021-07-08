@@ -150,15 +150,21 @@ search:
 
     sentence:
         hideable-properties:
-            transcription: []
             hieroglyphs: []
+            switchannotation: 
+                - wordclass
+                - tlaglossing
+                - linguisticglossing
+                - tokentranslation
+                - wordtokenid    
+            transcription: []
             paths: []
             translations:
                 - translation-de
                 - translation-en
                 - translation-fr
-                - translation-ar
-                - translation-it
+            dating: []
+            texteditor: []
 
 details:
     lemma:
