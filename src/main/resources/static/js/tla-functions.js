@@ -214,7 +214,8 @@ function init() {
 		
 		
   	// .token-translation
-		if (getCookie("TokenTranslationVisible") == "true") {
+
+	if (getCookie("TokenTranslationVisible") == "true") {
 			$('i', '.token-translation-btn').addClass("fa-plus-circle")
 			$('.token-translation').show();
 			}

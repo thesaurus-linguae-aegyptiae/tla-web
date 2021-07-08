@@ -6,12 +6,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 public class TLALocaleResolver extends AcceptHeaderLocaleResolver {
 
     private SessionLocaleResolver sessionLocaleResolver =  new SessionLocaleResolver();
+   
+   
 
     public static class TLALocaleChangeInterceptor extends LocaleChangeInterceptor {
         public TLALocaleChangeInterceptor(String name) {

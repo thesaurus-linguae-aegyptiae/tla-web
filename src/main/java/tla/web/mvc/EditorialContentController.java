@@ -73,7 +73,8 @@ public class EditorialContentController {
         requested.sort(
             Comparator.comparing(
                 Locale.LanguageRange::getWeight
-            ).reversed()
+            )
+            //.reversed()
         );
         var supported = getSupportedLanguages(path);
         for (Locale.LanguageRange lang : requested) {

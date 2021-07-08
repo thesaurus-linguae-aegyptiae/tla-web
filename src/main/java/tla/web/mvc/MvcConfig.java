@@ -1,10 +1,13 @@
 package tla.web.mvc;
 
+import java.util.Locale;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -31,6 +34,8 @@ public class MvcConfig implements WebMvcConfigurer {
     /**
      * Locale resolver is being called multiple times per request, mysteriously...
      */
+    
+   
     @Bean
     public LocaleResolver localeResolver() {
         return new TLALocaleResolver();
@@ -50,6 +55,18 @@ public class MvcConfig implements WebMvcConfigurer {
     @Bean
     public LayoutDialect layoutDialect() {
         return new LayoutDialect();
+    }
+    
+    @Bean(name = "messageSource")
+    public MessageSource getMessageResource()  {
+        ReloadableResourceBundleMessageSource messageResource= new ReloadableResourceBundleMessageSource();
+         
+        // Read i18n/messages_xxx.properties file.
+        // For example: i18n/messages_en.properties
+        messageResource.setBasename("classpath:i18n/messages");
+        messageResource.setDefaultLocale(Locale.ENGLISH);
+        messageResource.setDefaultEncoding("UTF-8");
+        return messageResource;
     }
 
     @Override

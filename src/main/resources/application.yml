@@ -83,8 +83,6 @@ search:
                 - translation-de
                 - translation-en
                 - translation-fr
-                - translation-ar
-                - translation-it
 
         word-classes:
             any: []
@@ -157,8 +155,6 @@ search:
                 - translation-de
                 - translation-en
                 - translation-fr
-                - translation-ar
-                - translation-it
 
 details:
     lemma:
@@ -178,6 +174,9 @@ spring:
     config:
         activate:
             on-profile: dev
+    messages:
+          fallback-to-system-locale: true
+          basename: messages_en     
     thymeleaf:
         cache: false
         prefix: file:./src/main/resources/templates/
