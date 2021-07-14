@@ -223,9 +223,9 @@
     
       <!-- token wordclass -->
     <th:block th:fragment="token-word-class">
-     <span th:if="${token.type !=null}" th:utext="${token.type}" <!--  token.lemma.pos -->
+     <span th:if="${token.getPOS !=null}" th:utext="${token.getPOS}" 
              class=".container-annotation.word-class"/>
-     <span th:if="${token.type ==null}" th:text="'&nbsp;'"
+     <span th:if="${token.getPOS ==null}" th:text="'&nbsp;'"
              class=".container-annotation.word-class"/>
     </th:block>
     
@@ -271,7 +271,7 @@
     <!-- sentence dating -->
     <div th:fragment="sentence-dating" class="result-list-item-element">
         <span th:if="*{getPaths}">
-     	  <span th:utext="#{sentence_date} + ':' " class="text-editor"/>
+     	  <span th:utext="#{sentence_date} + ':' " class="text-date"/>
      	  <span th:utext="*{getPaths}"/>
          <span/>
     </div>
