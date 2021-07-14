@@ -77,6 +77,10 @@ hr {
     border-top: 2px solid #EEE;
 }
 
+blockline
+ {
+    border-bottom: 1px solid #aaa;
+}
 .bbaw-libertine {
     font-family: "BBAWLibertine", serif;
 }
