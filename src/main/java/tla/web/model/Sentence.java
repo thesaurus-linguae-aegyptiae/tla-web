@@ -38,6 +38,7 @@ public class Sentence extends TLAObject implements Hierarchic {
 
     private Text text;
 
+
     @Singular
     private SortedMap<Language, List<String>> translations;
 
@@ -66,6 +67,6 @@ public class Sentence extends TLAObject implements Hierarchic {
     public List<ObjectPath> getPaths() {
         return this.getText() != null ? this.getText().getPaths() : null;
     }
-  
+    
 
 }

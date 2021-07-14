@@ -533,11 +533,12 @@ span.lc:hover {
 
 .translations {
     display: inline;
+    font-weight: bold;
 }
 
 .translation-de,
 .translation-any {
-    font-weight: 500;
+    font-weight: bold;
 }
 
 .translation-fr,
