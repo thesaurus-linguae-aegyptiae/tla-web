@@ -504,6 +504,7 @@ span.lc:hover {
 .token-destruction_marker {
     color: grey !important;
     font-style: italic;
+    line-height: 1.8;
 }
 
 .token-lc {
