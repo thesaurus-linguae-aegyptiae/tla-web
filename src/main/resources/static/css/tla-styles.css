@@ -435,6 +435,17 @@ span.lc:hover {
 .result-list-item-element .hieroglyphs svg {
     height: 2rem;
 }
+
+.result-list-item-element .text-editor{
+    font-weight: bold;
+}
+
+.result-list-item-element .text-date{
+    font-weight: bold;
+}
+
+
+
 .hieroglyphs svg {
     vertical-align: text-bottom;
     height: 4rem;
@@ -594,6 +605,7 @@ span.token-glyphs svg:hover {
     color: grey;
     font-size: .60em;
 }
+
 
 .ling-glossing,
 .ling-glossing-static {

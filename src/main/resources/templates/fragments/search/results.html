@@ -123,13 +123,18 @@
 			         	</div>
 		            </div>
 	            </div>
-	         <div class="occ-list-item-element">
-	         	<div th:replace="fragments/common :: sentence-dating"/>
-			</div>
-			<div class="occ-list-item-element">
+	             
+        </div> 
+        <span class="result-list-item-element translations">
+			<th:block th:each="entry : *{translations}" th:insert="fragments/common :: single-lang-translation(${entry})"/>
+		</span>
+	    	<div class="result-list-item-element paths" th:insert=" :: search-result-object-paths('sentence')"/>
+		<div class="occ-list-item-element">
+	      	<div th:replace="fragments/common :: sentence-dating"/>
+		</div>
+		<div class="occ-list-item-element">
 				<div th:replace="fragments/common :: sentence-editor"/>
-			</div>          
-        </div>    
+		</div>             
 </div>
 
       <!-- LEMMA search results sort order select -->

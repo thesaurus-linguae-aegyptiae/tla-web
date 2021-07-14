@@ -268,19 +268,23 @@
              
      
     </th:block>
-   
     <!-- sentence dating -->
     <div th:fragment="sentence-dating" class="result-list-item-element">
-       <span th:if="*{getEdited}" th:utext="*{text}"
-             class=".container-annotation.word-id"/>
+        <span th:if="*{getPaths}">
+     	  <span th:utext="#{sentence_date} + ':' " class="text-editor"/>
+     	  <span th:utext="*{getPaths}"/>
+         <span/>
     </div>
     
        <!-- sentence editor -->
     <div th:fragment="sentence-editor" class="result-list-item-element">
-     	 <span th:if="*{getEdited}" th:utext="#{sentence_editor} +': '+ *{getEdited.author}"
-             class=".container-annotation.word-id"/>
+     	 <span th:if="*{getEdited}">
+	     	  <span th:utext="#{sentence_editor} + ':' " class="text-editor"/>
+	     	  <span th:utext="*{getEdited.author}"/> 
+			  <span th:each="contributor : *{getEdited.contributors}" th:utext="', '+ ${contributor}"/>
+			  <span th:utext="' (' + *{getEdited.getDateOfLatestUpdate} + ')'"/>
+         </span>
     </div>
-    
    
   </body>
 </html>

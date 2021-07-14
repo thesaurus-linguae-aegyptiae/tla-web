@@ -66,5 +66,6 @@ public class Sentence extends TLAObject implements Hierarchic {
     public List<ObjectPath> getPaths() {
         return this.getText() != null ? this.getText().getPaths() : null;
     }
+  
 
 }
