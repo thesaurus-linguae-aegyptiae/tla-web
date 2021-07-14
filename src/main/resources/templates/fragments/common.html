@@ -213,8 +213,10 @@
     
        <!-- token transcription -->
     <th:block th:fragment="token-transcription">
-     <span th:if="${token.label !=null}" th:utext="${token.label}"
+     <span th:if="${token.label !=null && token.type !='destruction_marker'}" th:utext="${token.label}"
              class="transcription"/>
+     <span th:if="${token.type =='destruction_marker'}" th:utext="${token.label}"
+             class="token-destruction_marker"/>
      <span th:if="${token.label ==null}" th:text="'&nbsp;'"
              class=".container-annotation.word-class"/>    
     </th:block>
