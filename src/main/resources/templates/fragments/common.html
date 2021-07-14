@@ -223,7 +223,7 @@
     
       <!-- token wordclass -->
     <th:block th:fragment="token-word-class">
-     <span th:if="${token.type !=null}" th:utext="${token.type}"
+     <span th:if="${token.type !=null}" th:utext="${token.type}" <!--  token.lemma.pos -->
              class=".container-annotation.word-class"/>
      <span th:if="${token.type ==null}" th:text="'&nbsp;'"
              class=".container-annotation.word-class"/>
@@ -255,10 +255,18 @@
     
         <!-- token word-id -->
     <th:block th:fragment="token-word-id">
-     <span th:if="${token.id !=null}" th:utext="${token.id}"
-             class=".container-annotation.word-id"/>
+     <span th:if="${token.id !=null}" 
+             class=".container-annotation.word-id">
+            	 <span th:text="${token.id}" id="token-id" style="display:none">Token ID</span>
+                 <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" th:onclick="copyStringToClipboard(document.getElementById('token-id').textContent)" >
+                 <span class="fas fa-clipboard"></span>
+                 <span th:text="#{button_copy_wordtokenID}">Copy token ID</button>         
+     <span/>
+              
      <span th:if="${token.id ==null}" th:text="'&nbsp;'"
              class=".container-annotation.word-id"/>
+             
+     
     </th:block>
    
     <!-- sentence dating -->
