@@ -125,10 +125,16 @@
 	            </div>
 	             
         </div> 
-        <span class="result-list-item-element translations">
+        <div class="result-list-item-element translations">
 			<th:block th:each="entry : *{translations}" th:insert="fragments/common :: single-lang-translation(${entry})"/>
-		</span>
-	    	<div class="result-list-item-element paths" th:insert=" :: search-result-object-paths('sentence')"/>
+		</div>
+	    <div class="result-list-item-element paths" th:insert=" :: search-result-object-paths('sentence')"/>
+	    <div class="result-list-item-element">
+			<span th:text="*{getId}" id="sentenceID" style="display:none"/>
+                 <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" th:onclick="copyStringToClipboard(document.getElementById('sentenceID').textContent)" >
+                 <span class="fas fa-clipboard"></span>
+                 <span th:text="#{button_copy_sentenceID}">Copy sentence ID</span></button>     
+		</div>
 		<div class="occ-list-item-element">
 	      	<div th:replace="fragments/common :: sentence-dating"/>
 		</div>
