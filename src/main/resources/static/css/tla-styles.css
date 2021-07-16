@@ -480,6 +480,7 @@ span.lc:hover {
 
 .philological {
     color: grey;
+    font-size: 1.75em;
 }
 
 .latin-in-hiero {
@@ -533,7 +534,7 @@ span.lc:hover {
 
 .translations {
     display: inline;
-    font-weight: bold;
+
 }
 
 .translation-de,
