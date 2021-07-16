@@ -201,14 +201,15 @@
       <span th:unless="${token.glyphs.empty}" th:utext="${token.glyphs.svg}"
             th:title="${token.glyphs.mdc}" class="token-glyphs"/>
       <th:block th:if="${token.glyphs.empty}">
-        <span th:if="${token.type} == 'destruction_marker'" class="philological">
-          //...//
-        </span>
-        <span th:if="${token.type} == 'lc'" class="philological">
-          |
-        </span>
-        <span th:if="${token.type} == 'lc'" class="philological">
-          |
+       <span th:switch="${token.type}">
+	        <span th:case="'destruction_marker'" class="philological">
+	          //...//
+	        </span>
+	        <span th:case="'lc'" class="philological" >
+	          | 
+	        </span>
+	        <span th:case="*" class="philological" th:text="'&nbsp;'"> 
+	        </span>
         </span>
       </th:block>
       
