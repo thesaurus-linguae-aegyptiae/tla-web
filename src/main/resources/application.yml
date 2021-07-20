@@ -78,12 +78,13 @@ search:
             lemma-id: []
             wordClass: []
             bibliography: []
-            attested-timespan: []
-            translations:
-                - translation-de
-                - translation-en
-                - translation-fr
-
+            attested-timespan: []   
+           
+        showable-properties:
+             de: []
+             en: []
+             fr: []
+            
         word-classes:
             any: []
             excl_names: []
@@ -151,10 +152,10 @@ search:
             transcription: []
             hieroglyphs: []
             paths: []
-            translations:
-                - translation-de
-                - translation-en
-                - translation-fr
+        showable-properties:   
+            de: []
+            en: []
+            fr: []
 
 details:
     lemma:

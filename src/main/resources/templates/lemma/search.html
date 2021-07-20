@@ -36,6 +36,32 @@
 
             <div th:replace="fragments/search/results :: lemma-sort-order-select"/>
             <div th:replace="fragments/search/results :: hide-properties-buttons"/>
+        
+ 
+  <button class="btn btn-block btn-secondary disabled  text-left" type="button"  data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"  th:text="#{field_label_translation}" onclick="myFuntion()" id="btn-tr">
+   Translations
+   <script th:inline="javascript">
+            //<![CDATA[
+            	{
+          function myFunction() {  
+            	     document.write("XXXX");     	
+            Cookies.set("btn-translations-lemma",""+ this.attr('class') == 'btn btn-block btn-secondary disabled  text-left collapsed',{expires:365});
+            
+          }	           
+            }
+            //]]>
+  </script>
+  </button>
+
+<div class="collapse" id="collapseExample" align="right">
+  <div class="indented-buttons indented-buttons-lang hide" style="display: block;">
+                   
+     <div  th:replace="fragments/search/results :: show-properties-buttons"/>
+   
+ 
+</div>
+</div>
+              
             <div th:replace="fragments/search/results :: modify-search-button(${modifySearchUrl})"/>
             <div th:replace="fragments/search/results :: search-facets"/>
 

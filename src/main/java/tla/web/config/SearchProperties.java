@@ -27,7 +27,13 @@ public abstract class SearchProperties {
     /**
      * Sort orders to be made available on search results page
      */
+    private Map<String, List<String>> showableProperties;
+    /**
+     * Sort orders to be made available on search results page
+     */
     private List<String> sortOrders;
+    
+   
 
     private static Map<Class<? extends TLAObject>, SearchProperties> modelSearchProperties = new HashMap<>();
 

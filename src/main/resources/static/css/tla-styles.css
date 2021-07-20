@@ -515,8 +515,13 @@ span.lc:hover {
     content: "§";
 }
 
-.translations {
+.translations
+{
     display: inline;
+}
+.tr-de,
+.tr-any{
+	display: inline;
 }
 
 .translation-de,
@@ -535,7 +540,6 @@ span.lc:hover {
     font-size: .65em;
     padding: .3em;
     border-radius: .2em;
-    display: inline;
     top: -2px;
     position: relative;
 }

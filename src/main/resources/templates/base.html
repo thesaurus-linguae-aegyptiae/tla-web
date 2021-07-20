@@ -13,16 +13,15 @@
 
     <link rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" href="../static/vendor/bootstrap/css/bootstrap.min.css" type="text/css"/>
     <link rel="stylesheet" th:href="@{/vendor/fontawesome/css/all.css}" href="../static/vendor/fontawesome/css/all.css" type="text/css"/>
-
+ <link rel="stylesheet" th:href="@{/vendor/cookie-consent-js-master/src/css/cookie-consent.css}" href="../static/vendor/cookie-consent-js-master/src/css/cookie-consent.css" type="text/css"/>
     <script th:src="@{/vendor/jquery.min.js}" src="../static/vendor/jquery.min.js"></script>
     <script th:src="@{/vendor/headroom.min.js}" src="../static/vendor/headroom.min.js"></script>
     <script th:src="@{/vendor/js.cookie.min.js}" src="../static/vendor/js.cookie.min.js"></script>
-
+ <script th:src="@{/vendor/cookie-consent.js}" src="../static/vendor/cookie-consent.js"></script>
     <script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}" src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script data-search-pseudo-elements="true" th:src="@{/vendor/fontawesome/js/all.js}" src="../static/vendor/fontawesome/js/all.js"></script>
-
-    <link rel="stylesheet" th:href="@{/css/tla-styles.css}" href="../static/css/tla-styles.css" type="text/css"/>
     <script th:src="@{/js/tla-functions.js}" src="../static/js/tla-functions.js"></script>
+    <link rel="stylesheet" th:href="@{/css/tla-styles.css}" href="../static/css/tla-styles.css" type="text/css"/>
   </head>
 
   <body>
@@ -35,6 +34,12 @@
     </main>
 
     <footer th:replace="fragments/common :: footer"/>
+   <!--  <footer th:replace="fragments/common :: cookie"/> -->
+       <script type="text/javascript" id="cookiebanner" th:src="@{/vendor/cookiebanner.min.js}" src="../static/vendor/cookiebanner.min.js"
+      data-cookie="accepted" data-moreinfo="/legal/privacy"
+      th:data-message="#{cookie_banner_msg}"
+      th:data-linkmsg="#{cookie_banner_linkmsg}">
+    </script>
 
   </body>
 </html>

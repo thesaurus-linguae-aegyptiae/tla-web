@@ -1,4 +1,5 @@
 <html>
+
   <body>
 
       <!-- Ths Entry search result -->
@@ -155,18 +156,21 @@
       <!-- hide search results properties button rack -->
 
       <div th:fragment="hide-properties-buttons" class="hide-properties-buttons">
+      <!-- <input type="num_text" id="result" /> -->
         <script th:inline="javascript">
           //<![CDATA[
-          {
-            let objectType = /*[[${objectType}]]*/ null;
-            function saveHideButtonState(name, state) {
-              Cookies.set(
-                `${objectType}-results-hide-property-${name}`,
-                state,
-                {expires: 1, path: `/${objectType}/search`}
-              );
-            }
+        	  {
+        	  
+         let objectType = /*[[${objectType}]]*/ null;
+        
+          const saveHideButtonState = (name, state) => {
+        	 
+            setCookie(
+              `${objectType}-results-hide-property-${name}`, state
+            )
           }
+        	  }
+        	  
           //]]>
         </script>
         <th:block th:each="e : ${hideableProperties}" th:with="property=${e.key}">
@@ -205,6 +209,7 @@
             //<![CDATA[
             {
               let name = /*[[${suffix}]]*/ null;
+              
               let property = /*[[${property}]]*/ null;
               let subProperty = /*[[${subProperty}]]*/ null;
               let objectType = /*[[${objectType}]]*/ null;
@@ -213,21 +218,161 @@
               if (subProperty != null) {
                 selector = `${selector} .${subProperty}`;
               }
-              button.children('i#on').toggle();
-              if (Cookies.get(`${objectType}-results-hide-property-${name}`) != 'true') {
-                button.children('i').toggle();
-                $(selector).toggle();
+              
+              if(name!="hieroglyphs") {
+	                 button.children('i#on').toggle();
               }
+              else {button.children('i#off').toggle(); $(selector).toggle();
+
+              }
+
+              if(name!="hieroglyphs") {
+                  if (Cookies.get(`${objectType}-results-hide-property-${name}`) != 'true') {
+                	  
+                	 // if (Cookies.get(`${name}`) == 'true') {
+                    button.children('i').toggle();
+                    $(selector).toggle();
+                  }
+                  }
+                  else{
+                	  
+                	  if (Cookies.get(`${objectType}-results-hide-property-${name}`) != 'false') {
+                    	  
+                     	 // if (Cookies.get(`${name}`) == 'true') {
+                         button.children('i').toggle();
+                        $(selector).toggle();
+                       }
+                  }
+             
               button.click(() => {
                 $(selector).fadeToggle('slow');
+
                 button.children('svg').toggle();
-                saveHideButtonState(name, button.children('svg#on').attr('style') == 'display: none;');
+                Cookies.set(`${objectType}-results-hide-property-${name}`,""+ button.children('svg#on').attr('style') == 'display: none;',{expires:365});
+                
+                
+               
               });
             }
             //]]>
           </script>
         </button>
       </th:block>
+
+<!-- hide translation properties buttons rack -->
+
+      <div th:fragment="show-properties-buttons" class="show-properties-buttons">
+       <script th:inline="javascript">
+          //<![CDATA[
+          {
+        	  let objectType = /*[[${objectType}]]*/ null;
+              const saveShowButtonState = (name, state) => {
+                setCookie(
+                  `${objectType}-results-hide-property-${name}`, state
+                )
+              }
+          }
+          //]]>
+        </script>
+       
+        <th:block th:each="e : ${showableProperties}" th:with="property=${e.key}">
+          <div th:replace=" :: show-property-button(${property}, null)"/>
+          <th:block th:with="subProperties=${e.value}">
+            <div th:unless="${#lists.isEmpty(subProperties)}"
+                class="indented-buttons">
+              <th:block th:each="subProperty : ${subProperties}">
+                <div th:replace=" :: show-property-button(${property}, ${subProperty})"/>
+              </th:block>
+            </div>
+          </th:block>
+        </th:block>
+        
+      </div>
+
+
+
+      <!-- Translation property Button.
+        hides particular DOM elements of search result list items. In order to be hideable
+        by such a button, those elements must have the classes `.result-list-item-element`
+        AND `${property}`. A special case is the second parameter `${subProperty}` being
+        not `null`, in which case it is used to select any child element for hide/show effect
+        (also by class). In contrast to the parent/ancestor element, the child element does
+        not need to be of class `.result-list-item-element`.
+
+        params:
+          property (string): class name of `.result-list-item-element` elements to toggle
+          subProperty (string, null): class name of child element to toggle instead (optional)
+      -->
+      <th:block th:fragment="show-property-button(property, subProperty)"
+          th:with="suffix=${subProperty != null} ? |${property}-${subProperty}| : ${property}">
+        <button type="button"
+            class=" indented-buttons btn-secondary btn-block text-left" th:id="|show-property-button-${suffix}|">
+           
+          <i class="fas fa-plus-circle" id="on"></i>
+          <i class="fas fa-minus-circle" id="off"></i>
+          <span th:text="#{|button_label_show_property_${suffix}|}">Property name</span>
+          <script th:inline="javascript">
+            //<![CDATA[
+            {
+              let name = /*[[${suffix}]]*/ null;
+              let x="tr-"+/*[[${property}]]*/ null;
+              let subProperty = "translation-"+/*[[${property}]]*/ null;
+              //let property ="translation"+ /*[[${property}]]*/ null;
+              let property ="translations";
+             // let subProperty = /*[[${subProperty}]]*/ null;
+              let objectType = /*[[${objectType}]]*/ null;
+             
+              let button = $(`#show-property-button-${name}`);
+             
+              let selector = `.result-list-item-element.${property}`;
+              let selector1 = `.result-list-item-element.${property}`;
+            
+             
+              if (subProperty != null) {
+                selector = `${selector} .${subProperty}`;
+                selector1 = `${selector1} .${x}`;
+              }
+              if(name!="de") {
+            	                 button.children('i#on').toggle();
+              }
+              else {button.children('i#off').toggle(); $(selector1).toggle(); $(selector).toggle();
+             
+              }
+             
+              
+              
+             // else {button.children('i#off').toggle(); $(selector1).toggle(); $(selector).toggle();}
+              if(name!="de") {
+              if (Cookies.get(`${objectType}-results-show-property-${name}`) != 'true') {
+            	  
+            	 // if (Cookies.get(`${name}`) == 'true') {
+                button.children('i').toggle();
+                $(selector1).toggle();$(selector).toggle();
+              }
+              }
+              else{
+            	  
+            	  if (Cookies.get(`${objectType}-results-show-property-${name}`) != 'false') {
+                	  
+                 	 // if (Cookies.get(`${name}`) == 'true') {
+                     button.children('i').toggle();
+                     $(selector1).toggle();$(selector).toggle();
+                   }
+              }
+              button.click(() => {
+            	  $(selector1).fadeToggle('slow');$(selector).fadeToggle('slow');
+                button.children('svg').toggle();
+              Cookies.set(`${objectType}-results-show-property-${name}`,""+ button.children('svg#on').attr('style') == 'display: none;',{expires:365});
+               
+               
+              });
+            }
+            //]]>
+          </script>
+        </button>
+      </th:block>
+
+
 
       <!-- Pagination.
         Iterates through the `pages` field of a `tla.web.model.ui.Pagination` object and renders a simple basic
