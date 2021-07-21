@@ -68,21 +68,157 @@
       </div>
 
       <!-- SENTENCE search result -->
+
       <div th:fragment="sentence-search-result" class="result-list-item" th:object="${obj}">
-        <div class="occ-list-item mt-3 pt-1 pb-1" th:id="*{id}">
+      <!-- Block view -->
+        <div class="occ-list-item mt-3 pt-1 pb-1" >
           <div class="sentence-line-mode">
             <div th:replace="fragments/common :: sentence-hieroglyphs"/>
             <div th:replace="fragments/common :: sentence-transcription"/>
           </div>
         </div>
+        
+        <!-- Annotation view --> 
+        <div class="occ-list-item mt-3 pt-1 pb-1">
+          <div class="container-annotation-switch">
+            <div class="container-annotation">
+				         <div th:each="token : *{tokens}" th:id="${token.id}">
+					         <ul class="annotation-block">
+							      <div class="occ-list-item-element hieroglyphs">
+								  		<li th:replace="fragments/common :: token-hieroglyphs"/>
+								  		<hr class="blockline"> 
+								  </div>
+								   <div class="occ-list-item-element">
+								  		<li th:replace="fragments/common :: token-transcription"/>
+								  		<hr class="blockline"> 
+								  </div>
+						          <div class="occ-list-item-element">
+						          		<li th:replace="fragments/common :: token-word-class"/>
+						          		<hr class="blockline">  
+								  </div>
+						          <div class="occ-list-item-element">
+						             	<li th:replace="fragments/common :: token-bts-glossing"/>
+						             	<hr class="blockline"> 
+					              </div>
+							      <div class="occ-list-item-element">      
+								        <li th:replace="fragments/common :: token-ling-glossing"/>
+								        <hr class="blockline">  
+								  </div>
+								  <div class="occ-list-item-element">
+								  		<li th:replace="fragments/common :: token-translation"/>
+								  		<hr class="blockline">  
+								  </div>
+								  <div class="occ-list-item-element">
+								  		<li th:replace="fragments/common :: token-word-id"/>
+								  		<hr class="blockline">  
+								  </div>						      
+						    </ul>
+			         	</div>
+		            </div>
+	            </div>
+	             
+        </div> 
+        
+        
+         <!-- Same for Both views -->
 
         <span class="result-list-item-element translations">
           <th:block th:each="entry : *{translations}" th:insert="fragments/common :: single-lang-translation(${entry})"/>
         </span>
 
         <div class="result-list-item-element paths" th:insert=" :: search-result-object-paths('sentence')"/>
+         <div class="result-list-item-element">
+        
+                 <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" th:onclick="" th:id="*{id}">
+                 <span class="fas fa-clipboard"></span>
+                 <span th:text="#{button_copy_sentenceID}">Copy sentence ID</span></button>   
+                 
+               <script th:inline="javascript">
+					/*<![CDATA[*/
+					var id = /*[[*{id}]]*/ '0';
+					   document.getElementById(id).setAttribute( "onClick", "javascript: copyStringToClipboard(id)");
+					/*]]>*/
+		 		</script>   
+                 
+                   
+		</div>
+		<div class="occ-list-item-element">
+	      	<div th:replace="fragments/common :: sentence-dating"/>
+		</div>
+		<div class="occ-list-item-element">
+				<div th:replace="fragments/common :: sentence-editor"/>	
+		</div>             
 
       </div>
+     
+	<div th:fragment="sentence-search-result_anno" class="result-list-item" th:object="${obj}">
+        <div class="occ-list-item mt-3 pt-1 pb-1">
+          <div class="container-annotation-switch">
+            <div class="container-annotation">
+				         <div th:each="token : *{tokens}" th:id="${token.id}">
+					         <ul class="annotation-block">
+							      <div class="occ-list-item-element hieroglyphs">
+								  		<li th:replace="fragments/common :: token-hieroglyphs"/>
+								  		<hr class="blockline"> 
+								  </div>
+								   <div class="occ-list-item-element">
+								  		<li th:replace="fragments/common :: token-transcription"/>
+								  		<hr class="blockline"> 
+								  </div>
+						          <div class="occ-list-item-element">
+						          		<li th:replace="fragments/common :: token-word-class"/>
+						          		<hr class="blockline">  
+								  </div>
+						          <div class="occ-list-item-element">
+						             	<li th:replace="fragments/common :: token-bts-glossing"/>
+						             	<hr class="blockline"> 
+					              </div>
+							      <div class="occ-list-item-element">      
+								        <li th:replace="fragments/common :: token-ling-glossing"/>
+								        <hr class="blockline">  
+								  </div>
+								  <div class="occ-list-item-element">
+								  		<li th:replace="fragments/common :: token-translation"/>
+								  		<hr class="blockline">  
+								  </div>
+								  <div class="occ-list-item-element">
+								  		<li th:replace="fragments/common :: token-word-id"/>
+								  		<hr class="blockline">  
+								  </div>						      
+						    </ul>
+			         	</div>
+		            </div>
+	            </div>
+	             
+        </div> 
+        <div class="result-list-item-element translations">
+			<th:block th:each="entry : *{translations}" th:insert="fragments/common :: single-lang-translation(${entry})"/>
+		</div>
+	    <div class="result-list-item-element paths" th:insert=" :: search-result-object-paths('sentence')"/>
+	    <div class="result-list-item-element">
+        
+                 <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" th:onclick="" th:id="*{id}">
+                 <span class="fas fa-clipboard"></span>
+                 <span th:text="#{button_copy_sentenceID}">Copy sentence ID</span></button>   
+                 
+               <script th:inline="javascript">
+					/*<![CDATA[*/
+					var id = /*[[*{id}]]*/ '0';
+					   document.getElementById(id).setAttribute( "onClick", "javascript: copyStringToClipboard(id)");
+					/*]]>*/
+		 		</script>   
+                 
+                   
+		</div>
+		<div class="occ-list-item-element">
+	      	<div th:replace="fragments/common :: sentence-dating"/>
+		</div>
+		<div class="occ-list-item-element">
+				<div th:replace="fragments/common :: sentence-editor"/>	
+		</div>             
+</div>
+
+
 
 
       <!-- LEMMA search results sort order select -->

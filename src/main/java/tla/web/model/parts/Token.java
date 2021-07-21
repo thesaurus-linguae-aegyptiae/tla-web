@@ -1,4 +1,5 @@
 package tla.web.model.parts;
+
     
 import lombok.Getter;
 import lombok.Builder;
@@ -44,6 +45,21 @@ public class Token {
         return this.annoTypes != null ? this.annoTypes.contains(
             "rubrum"
         ) : false;
+    }
+    public String getPOS() {
+    	if (lemma.isEmpty()) {
+    		return null;
+    	}
+    	if (lemma.getPartOfSpeech().getSubtype() !=null){
+    		return lemma.getPartOfSpeech().getSubtype();
+    	}
+    	else {if (lemma.getPartOfSpeech().getType() !=null){
+    			return lemma.getPartOfSpeech().getType();
+    		}
+	    	else { 
+	    		return null;
+	    	}
+    	}
     }
 
 }
