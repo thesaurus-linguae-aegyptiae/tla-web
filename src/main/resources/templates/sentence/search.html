@@ -35,6 +35,18 @@
           <div class="sticky-top m-4">
 
             <div th:replace="fragments/search/results :: hide-properties-buttons"/>
+              <button class="btn btn-block btn-secondary disabled  text-left" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"  th:text="#{field_label_translation}">
+   Translations
+  </button>
+
+<div class="collapse" id="collapseExample" align="right">
+  <div class="indented-buttons indented-buttons-lang hide" style="display: block;">
+                   
+     <div  th:replace="fragments/search/results :: show-properties-buttons"/>
+   
+ 
+</div>
+</div>
             <div th:replace="fragments/search/results :: modify-search-button(${modifySearchUrl})"/>
             <div th:replace="fragments/search/results :: search-facets"/>
 

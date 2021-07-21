@@ -78,14 +78,13 @@ search:
             lemma-id: []
             wordClass: []
             bibliography: []
-            attested-timespan: []
-            translations:
-                - translation-de
-                - translation-en
-                - translation-fr
-                - translation-ar
-                - translation-it
-
+            attested-timespan: []   
+           
+        showable-properties:
+             de: []
+             en: []
+             fr: []
+            
         word-classes:
             any: []
             excl_names: []
@@ -159,12 +158,13 @@ search:
                 - wordtokenid    
             transcription: []
             paths: []
-            translations:
-                - translation-de
-                - translation-en
-                - translation-fr
             dating: []
             texteditor: []
+
+        showable-properties:   
+            de: []
+            en: []
+            fr: []
 
 details:
     lemma:
@@ -184,6 +184,9 @@ spring:
     config:
         activate:
             on-profile: dev
+    messages:
+          fallback-to-system-locale: true
+          basename: messages_en     
     thymeleaf:
         cache: false
         prefix: file:./src/main/resources/templates/

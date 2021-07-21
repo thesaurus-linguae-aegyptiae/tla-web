@@ -7,8 +7,9 @@
 >
   <head>
     <title th:text="|${env.appName} - ${pageTitle}|">Title</title>
+     
   </head>
-  <body>
+  <body onload="init()">
 
     <div layout:fragment="content">
 
@@ -18,6 +19,11 @@
         </div>
       </div>
     </div>
-
+<script th:inline="javascript">
+              //<![CDATA[
+            { 
+             init();
+            }
+ </script>  
   </body>
 </html>

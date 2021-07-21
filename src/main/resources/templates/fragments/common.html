@@ -1,5 +1,9 @@
 <?xml version="1.0"?>
 <html xmlns:th="http://thymeleaf.org">
+<head>
+ <script th:src="@{/js/tla-functions.js}" src="../static/js/tla-functions.js"></script>
+</head>
+
   <body>
 
     <!-- Header containing main navigational menu -->
@@ -91,7 +95,45 @@
         </div>
       </div>
     </footer>
+    
+        
+    <!-- Cookie-Alert -->
+   
+    <cookie class="cookie-info" th:fragment="cookie">
+     <div class="alert alert-dismissible text-center cookiealert" role="alert">
+    <div id="cookie-container" class="cookie-container">        
+        <div class="cookie-wrapper px-5 py-2">                
+            <!-- Content -->
+            <div class="row my-4">
+                <div class="col-sm-8">
+                
+            <p class="">
+                 This site would like to place <strong>functional cookies</strong> on your computer. 
+                 These cookies are essential for your user experience: they store your settings of button states. 
+                 Furthermore, a third party, namely Google (Web Fonts), has already placed a <strong>third party cookie</strong> on 
+                 your computer if your browser settings allow for third party cookies. For more information, please see our 
+                
+                 <a href="/legal/privacy" th:text="#{editorial_title_legal_privacy}" target="_blank">privacy policy</a>.
+            
+            </p> 
+                </div>
 
+                <!-- Buttons -->
+                <div class="col-sm-4">
+                    <button class="btn btn-secondary float-right ml-4 cookie-dismiss">Dismiss</button>
+                    <button id="cok" class="btn btn-danger float-right ml-4 cookie-ok">Accept</button>    
+             
+                </div>
+
+            </div> <!-- /.row -->                
+            
+                   
+        </div>
+    </div>
+    </div>
+   
+                  
+</cookie>
 
     <!-- page breadcrumbs -->
 
@@ -149,7 +191,9 @@
 
     <!-- translation for a single language -->
     <span th:fragment="single-lang-translation(entry)">
-      <span class="lang-icon text-uppercase" th:text="${entry.key}">DE</span>
+      <span th:each="tr,iter : ${entry.value}" th:class="|tr-${entry.key}|">
+         <span class="lang-icon text-uppercase" th:text="${entry.key}">DE</span>
+       </span>  
       <span th:each="translation,iter : ${entry.value}" th:class="|translation-${entry.key}|">
         <span class="translation" th:utext="${{translation}}">
           Translation
@@ -214,6 +258,10 @@
       </th:block>
       
     </th:block>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
     
        <!-- token transcription -->
     <th:block th:fragment="token-transcription">
@@ -299,5 +347,6 @@
          </span>
     </div>
    
+
   </body>
 </html>
