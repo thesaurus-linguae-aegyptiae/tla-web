@@ -222,12 +222,12 @@
     </div>
         <div th:fragment="object-property-citationBox" id="object-property-citationBox" th:unless="${#maps.isEmpty(relations)}" class="bg-light citation mt-5 mb-4"> 
     	<div class="bg-light citation mt-5 mb-4"> 
-    <p class="h6"><strong>Please cite as:</strong></p>
+    <p class="h6" ><strong th:text="#{lemma_citeas}">Please cite as:</strong></p>
     
   
 				<blockquote><span  id="citation" th:text="${obj.name} + ' (Lemma ID '+ ${obj.id} + '), <' + ${env.baseUrl}+'/lemma/' + ${obj.id} +'>, in: '"></span>  
 					<span  id="citation1" style="font-style: italic;" th:text="#{tla_Title}"></span>  
-					<span  id="citation2" th:text="' <' + ${env.baseUrl} +'>, Version ' + ${env.version} +'.'+ #{tla_Issue} + ', ' + #{tla_ReleaseDate} + ', ed. by ' + #{tla_Editor} + ' (accessed: '"></span>  			
+					<span  id="citation2" th:text="' <' + ${env.baseUrl} +'>, Version ' + ${env.version} +'.'+ #{tla_Issue} + ', ' + #{tla_ReleaseDate} + ', ed. by ' + #{tla_Editor} + ' ('+ #{lemma_citeaccessed}+ ' '"></span>  			
 					<script>
 						var date = new Date();
 						date.getUTCDate();
@@ -235,7 +235,7 @@
 						document.write(today + ')')
 					</script>
 				</blockquote>
-				<button type="button" class="btn btn-secondary btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyCitationToClipboard(document.getElementById('citation').textContent + document.getElementById('citation1').textContent + document.getElementById('citation2').textContent)" ><span class="fas fa-clipboard"></span> Copy citation</button>        
+				<button type="button" class="btn btn-secondary btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyCitationToClipboard(document.getElementById('citation').textContent + document.getElementById('citation1').textContent + document.getElementById('citation2').textContent)" th:text="#{lemma_copycitation}"><span class="fas fa-clipboard"></span> Copy citation</button>        
 	
      </div>  
     </div>

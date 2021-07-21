@@ -13,4 +13,6 @@ public class TextService extends ObjectService<Text> {
     public String getLabel(Text object) {
         return object.getName();
     }
+    
+    
 }

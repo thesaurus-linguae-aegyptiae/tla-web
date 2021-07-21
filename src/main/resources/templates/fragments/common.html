@@ -245,16 +245,108 @@
       <span th:unless="${token.glyphs.empty}" th:utext="${token.glyphs.svg}"
             th:title="${token.glyphs.mdc}" class="token-glyphs"/>
       <th:block th:if="${token.glyphs.empty}">
-        <span th:if="${token.type} == 'destruction_marker'" class="philological">
-          //...//
-        </span>
-        <span th:if="${token.type} == 'lc'" class="philological">
-          |
+       <span th:switch="${token.type}">
+	        <span th:case="'destruction_marker'" class="philological">
+	          //...//
+	        </span>
+	        <span th:case="'lc'" class="philological" >
+	          | 
+	        </span>
+	        <span th:case="*" class="philological" th:text="'&nbsp;'"> 
+	        </span>
         </span>
       </th:block>
+      
     </th:block>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    
+       <!-- token transcription -->
+    <th:block th:fragment="token-transcription">
+     <span th:if="${token.label !=null && token.type !='destruction_marker'}" th:utext="${token.label}"
+             class="transcription"/>
+     <span th:if="${token.type =='destruction_marker'}" th:utext="${token.label}"
+             class="token-destruction_marker"/>
+     <span th:if="${token.label ==null}" th:text="'&nbsp;'"
+             class="token-destruction_marker"/>    
+    </th:block>
+    
+      <!-- token wordclass -->
+    <th:block th:fragment="token-word-class">
+     <span th:if="${token.getPOS !=null}" th:utext="${token.getPOS}" 
+             class=".container-annotation.word-class"/>
+     <span th:if="${token.getPOS ==null}" th:text="'&nbsp;'"
+             class=".container-annotation.word-class"/>
+    </th:block>
+    
+    <!-- token lingGloss -->
+    <th:block th:fragment="token-ling-glossing">
+     <span th:if="${token.flexion.lingGloss !=null}" th:utext="${token.flexion.lingGloss}"
+             class=".container-annotation.ling-glossing"/>
+     <span th:if="${token.flexion.lingGloss ==null}" th:text="'&nbsp;'"
+             class=".container-annotation.ling-glossing"/>
+    </th:block>
+   
+     <!-- token btsGloss/tlaGloss -->
+    <th:block th:fragment="token-bts-glossing">
+     <span th:if="${token.flexion.btsGloss !=null}" th:utext="${token.flexion.btsGloss}"
+            class=".container-annotation.bts-glossing"/>
+     <span th:if="${token.flexion.btsGloss ==null}" th:text="'&nbsp;'"
+            class=".container-annotation.bts-glossing"/>   
+    </th:block>
+    
+       <!-- token translation -->
+    <th:block th:fragment="token-translation">
+     <span th:if="${token.translations !=null}" th:utext="${token.translations['de'][0]}"
+             class=".container-annotation.word-class"/>
+     <span th:if="${token.translations ==null}" th:text="'&nbsp;'"
+             class=".container-annotation.token-translation"/>
+    </th:block>
+    
+        <!-- token word-id -->
+    <th:block th:fragment="token-word-id">
+     <span th:if="${token.id !=null}" 
+             class=".container-annotation.word-id">
+                 <button type="button" th:id="'button_' + ${token.id}" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" th:onclick="" >
+                 <span class="fas fa-clipboard"></span>
+                 <span th:text="#{button_copy_wordtokenID}">Copy token ID</span> </button>  
+                 
+                    
+     </span>  
+   
+                 
+     <span th:if="${token.id ==null}" th:text="'&nbsp;'"
+             class=".container-annotation.word-id"/>
+             
+              <script th:inline="javascript">
+					/*<![CDATA[*/
+						var id = /*[[${token.id}]]*/ '0';
+					    document.getElementById("button_"+id).setAttribute( "onClick", "javascript: copyStringToClipboard(id.substring(7,id.length))");
+					/*]]>*/
+		 		</script>  
+    </th:block>
+    
+    
+    <!-- sentence dating -->
+    <div th:fragment="sentence-dating" class="result-list-item-element">
+        <span th:if="*{getPaths}">
+     	  <span th:utext="#{sentence_date} + ':' " class="text-date"/>
+     	  <span th:utext="TODO"/>
+     <span/>
+    </div>
+    
+       <!-- sentence editor -->
+    <div th:fragment="sentence-editor" class="result-list-item-element">
+     	 <span th:if="*{getEdited}">
+	     	  <span th:utext="#{sentence_editor} + ':' " class="text-editor"/>
+	     	  <span th:utext="*{getEdited.author}"/> 
+			  <span th:each="contributor : *{getEdited.contributors}" th:utext="', '+ ${contributor}"/>
+			  <span th:utext="' (' + *{getEdited.getDateOfLatestUpdate} + ')'"/>
+         </span>
+    </div>
+   
+
   </body>
 </html>

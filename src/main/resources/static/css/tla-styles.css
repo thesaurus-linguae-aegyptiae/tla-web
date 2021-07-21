@@ -77,6 +77,10 @@ hr {
     border-top: 2px solid #EEE;
 }
 
+blockline
+ {
+    border-bottom: 1px solid #aaa;
+}
 .bbaw-libertine {
     font-family: "BBAWLibertine", serif;
 }
@@ -277,7 +281,7 @@ a.navbar-brand {
 .result-list-item:first-child,
 .occ-list-item:first-child,
 .related-objects-item:first-child {
-   
+
 }
 
 .occ-list-item {
@@ -431,6 +435,17 @@ span.lc:hover {
 .result-list-item-element .hieroglyphs svg {
     height: 2rem;
 }
+
+.result-list-item-element .text-editor{
+    font-weight: bold;
+}
+
+.result-list-item-element .text-date{
+    font-weight: bold;
+}
+
+
+
 .hieroglyphs svg {
     vertical-align: text-bottom;
     height: 4rem;
@@ -465,6 +480,7 @@ span.lc:hover {
 
 .philological {
     color: grey;
+    font-size: 1.75em;
 }
 
 .latin-in-hiero {
@@ -500,6 +516,7 @@ span.lc:hover {
 .token-destruction_marker {
     color: grey !important;
     font-style: italic;
+    line-height: 1.8;
 }
 
 .token-lc {
@@ -518,6 +535,7 @@ span.lc:hover {
 .translations
 {
     display: inline;
+
 }
 .tr-de,
 .tr-any{
@@ -526,7 +544,7 @@ span.lc:hover {
 
 .translation-de,
 .translation-any {
-    font-weight: 500;
+    font-weight: bold;
 }
 
 .translation-fr,
@@ -576,10 +594,16 @@ span.token-glyphs svg:hover {
     flex-flow: row wrap;
 }
 
-.container-annotation .token-translation,
-.container-annotation .ling-glossing,
-.container-annotation .bts-glossing,
-.container-annotation .word-class {
+.container-annotation .token-translation{
+    font-size: 0.8em;
+}
+.container-annotation .ling-glossing{
+    font-size: 0.8em;
+}
+.container-annotation .bts-glossing{
+    font-size: 0.8em;
+}
+.container-annotation .word-class{
     font-size: 0.8em;
 }
 
@@ -587,6 +611,7 @@ span.token-glyphs svg:hover {
     color: grey;
     font-size: .60em;
 }
+
 
 .ling-glossing,
 .ling-glossing-static {

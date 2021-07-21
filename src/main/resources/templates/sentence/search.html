@@ -23,9 +23,9 @@
         <div class="col-lg-8 content">
           <div class= "result-list m-4">
             <nav th:replace="fragments/search/results :: search-results-pagination"/>
-
-            <th:block th:each="obj : ${searchResults}" th:insert="fragments/search/results :: sentence-search-result"/>
-
+			<!-- Block and Annotation view -->
+            <th:block th:each="obj : ${searchResults}"    th:insert="fragments/search/results :: sentence-search-result"/>
+			
             <nav th:replace="fragments/search/results :: search-results-pagination"/>
           </div>
         </div>

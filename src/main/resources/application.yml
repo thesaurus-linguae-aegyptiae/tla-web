@@ -149,9 +149,18 @@ search:
 
     sentence:
         hideable-properties:
-            transcription: []
             hieroglyphs: []
+            switchannotation: 
+                - wordclass
+                - tlaglossing
+                - linguisticglossing
+                - tokentranslation
+                - wordtokenid    
+            transcription: []
             paths: []
+            dating: []
+            texteditor: []
+
         showable-properties:   
             de: []
             en: []
