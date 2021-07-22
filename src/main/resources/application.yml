@@ -156,15 +156,10 @@ search:
                 - linguisticglossing
                 - tokentranslation
                 - wordtokenid    
-            transcription: []
+            translation: []
             paths: []
             dating: []
             texteditor: []
-
-        showable-properties:   
-            de: []
-            en: []
-            fr: []
 
 details:
     lemma:
