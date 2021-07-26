@@ -28,6 +28,12 @@ public abstract class SearchProperties {
      * Sort orders to be made available on search results page
      */
     private Map<String, List<String>> showableProperties;
+    /*
+    * Properties for Search Lemma
+    */
+   private Map<String, List<String>> hideable1LemmaProperties;
+   private Map<String, List<String>> hideable2LemmaProperties;
+   
     /**
      * Sort orders to be made available on search results page
      */

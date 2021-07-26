@@ -73,10 +73,12 @@ search:
             - timeSpan.end_desc
             - root_asc
 
-        hideable-properties:
+        hideable1Lemma-properties:
             hieroglyphs: []
             lemma-id: []
             wordClass: []
+        
+        hideable2Lemma-properties:   
             bibliography: []
             attested-timespan: []   
            

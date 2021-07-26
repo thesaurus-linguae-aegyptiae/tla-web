@@ -8,14 +8,133 @@
   </head>
 
   <body>
-
+  <div id="printable-content" class="container content">
+ <div class="container content my-4">
     <div layout:fragment="content">
-
       <!-- result page heading -->
+     
       <div class="search-header row mb-3">
+          
+		<div class="col-sm-12 col-lg-8 result">
+            <h2 class="id mt-1">Search results</h2> 
+            <div class="ml-3 flex"><b>Query</b>: 
+            <span id="queryScriptHeader" > </span>
+            <span id="queryScript" class="bbaw-libertine"> </span>
+            <span id="queryTranscriptionHeader" > </span>
+            <span id="queryTranscription" class="bbaw-libertine"> </span>
+            <span id="queryEncodingHeader" > </span>
+            <span id="queryEncoding" class="bbaw-libertine"> </span>
+            <span id="queryWordClassHeader" > </span>
+            <span id="queryWordClass" class="bbaw-libertine"> </span>
+            <span id="queryWordClassSubtypeHeader" > </span>
+            <span id="queryWordClassSubtype" class="bbaw-libertine"> </span>
+            <span id="queryRootHeader" > </span>
+            <span id="queryRoot" class="bbaw-libertine"> </span>
+            <span id="queryRootEncodHeader" > </span>
+            <span id="queryRootEncod" class="bbaw-libertine"> </span>
+             <span id="queryTranslationTextHeader" > </span>
+            <span id="queryTranslationText" class="bbaw-libertine"> </span>
+            <span id="queryTranslationLangHeader" > </span>
+            <span id="queryTranslationlang" class="bbaw-libertine"> </span>
+            <span id="queryBibliographyHeader" > </span>
+            <span id="queryBibliography" class="bbaw-libertine"> </span>
+            <span id="queryAnnoHeader" > </span>
+            <span id="queryAnno" class="bbaw-libertine"> </span>
+            <script th:inline="javascript">
+          //<![CDATA[
+          {
+        	  // Sub-dictionary = "Hieroglyphic/Hieratic" / "Demotic" ; Transliteration = "nfr" ; Encoding = "Manuel de Codage" ; Part of Speech = "(any_but_names)"
+        	  const queryString = window.location.search;
+        	  const urlParams = new URLSearchParams(queryString);
+        	  // Lemma ID = "123" 
+        	  
+        	  var script=""+urlParams.getAll('script');
+        	  if(script=="hieratic,demotic") script= "\"Hieroglyphic\/Hieratic \/ Demotic\"";
+        	  else if (script=="hieratic") script="\"Hieroglyphic\/Hieratic\"";
+        	 else script="\"Demotic\"";
+        	  if(script !=""){
+             document.getElementById("queryScriptHeader").innerHTML ="Sub-dictionary = ";      	  
+        	  document.getElementById("queryScript").innerHTML =script;
+        	  }
+        	 
+        	  var transcription=urlParams.get('transcription');
+        	  if(transcription !="") {
+        		  document.getElementById("queryTranscriptionHeader").innerHTML =" ; Transliteration = ";      	  
+            	  document.getElementById("queryTranscription").innerHTML ="\""+transcription+"\"";
+        	  }	  
+        	  
+        	  // hier muss weiter implementiert wenn Auswahl implementiert
+        	  var encod="Unicode";
+        	  if(encod !="") {
+        		  document.getElementById("queryEncodingHeader").innerHTML =" ; Encoding = ";      	  
+            	  document.getElementById("queryEncoding").innerHTML="\""+encod+"\"";
+        	  }	 
+        	 
+        	  var pos=urlParams.get('wordClass.type');
+        	  document.getElementById("queryWordClassHeader").innerHTML =" ; Part of Speech = ";
+        	  if(pos!="") 
+        	  pos="\""+pos+"\"";
+        	  else pos="\"any\"";
+        	  document.getElementById("queryWordClass").innerHTML =pos;
+        	  
+        	  var pos_subtype=urlParams.get('wordClass.subtype');
+        	  if((pos_subtype!="")&&(pos_subtype!=null)) {
+        	  pos_subtype= "\""+ pos_subtype+"\"";
+        	      document.getElementById("queryWordClassHeader").innerHTML =" ; Part of Speech subtype = ";
+        	      document.getElementById("queryWordClass").innerHTML =pos_subtype;
+        	  }
+        	  
+        	  var root=urlParams.get('root');
+        	  //diese muss nach Implementierung weiter bearbeitet
+        	  var root_encod="\"Unicode\"";
+        	  if(root!=""){
+        	  root= "\""+root+"\"";
+        	  document.getElementById("queryRootHeader").innerHTML =" ; root = ";
+    	      document.getElementById("queryRoot").innerHTML =root;
+    	      document.getElementById("queryRootEncodHeader").innerHTML =" ; root_enc = ";
+    	      document.getElementById("queryRootEncod").innerHTML =root_encod;
+        	  }
+        	        	  
+        	  var translation=urlParams.get('translation.text');
+        	  var lang=urlParams.getAll('translation.lang');
+        	  if(translation!=""){
+        	  translation="\""+translation+"\"";
+        	  lang="\""+lang+"\"";
+        	  document.getElementById("queryTranslationTextHeader").innerHTML =" ; translation = ";
+    	      document.getElementById("queryTranslationText").innerHTML =translation;
+    	      document.getElementById("queryTranslationLangHeader").innerHTML =" ; lang = ";
+    	      document.getElementById("queryTranslationlang").innerHTML =lang;
+        	  }
+        	 
+        	       	  
+        	  var biblio=urlParams.get('bibliography');
+        	  if(biblio!="") {
+        	  biblio="\""+biblio+"\"";
+        	  document.getElementById("queryBibliographyHeader").innerHTML =" ; bibliography = ";
+    	      document.getElementById("queryBibliography").innerHTML =biblio;
+        	  }
+        	  
+        	  var anno=urlParams.get('anno.type');
+        	  if(anno !=""){
+        	  anno="\""+anno+"\"";
+        	  document.getElementById("queryAnnoHeader").innerHTML =" ; Annotation type = ";
+    	      document.getElementById("queryAnno").innerHTML =anno;
+        	  }
+        	    
+
+          }
+          //]]>
+          </script>
+             </div>
+         
+          </div>
+          <div th:replace="fragments/common :: social"/>
+        
+        </div>
+        <div class="row searchresult"> 
         <p th:replace="fragments/search/results :: result-page-desc"/>
-        <div th:replace="fragments/common :: social"/>
-      </div>
+        </div>
+     
 
       <div class="row">
 
@@ -35,41 +154,28 @@
           <div class="sticky-top m-4">
 
             <div th:replace="fragments/search/results :: lemma-sort-order-select"/>
-            <div th:replace="fragments/search/results :: hide-properties-buttons"/>
+            <div th:replace="fragments/search/results :: hide1Lemma-properties-buttons"/>
         
  
-  <button class="btn btn-block btn-secondary disabled  text-left" type="button"  data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"  th:text="#{field_label_translation}" onclick="myFuntion()" id="btn-tr">
-   Translations
-   <script th:inline="javascript">
-            //<![CDATA[
-            	{
-          function myFunction() {  
-            	     document.write("XXXX");     	
-            Cookies.set("btn-translations-lemma",""+ this.attr('class') == 'btn btn-block btn-secondary disabled  text-left collapsed',{expires:365});
-            
-          }	           
-            }
-            //]]>
-  </script>
+  <button class="btn btn-block btn-secondary text-left text-decoration-none show-detail languages-btn" type="button" th:text="#{field_label_translation}" >
+   Translations   
   </button>
-
-<div class="collapse" id="collapseExample" align="right">
   <div class="indented-buttons indented-buttons-lang hide" style="display: block;">
                    
      <div  th:replace="fragments/search/results :: show-properties-buttons"/>
    
  
 </div>
-</div>
-              
+
+           <div th:replace="fragments/search/results :: hide2Lemma-properties-buttons"/>   
             <div th:replace="fragments/search/results :: modify-search-button(${modifySearchUrl})"/>
             <div th:replace="fragments/search/results :: search-facets"/>
 
           </div>
         </div>
       </div>
-
+ </div>
     </div>
-
+</div>
   </body>
 </html>

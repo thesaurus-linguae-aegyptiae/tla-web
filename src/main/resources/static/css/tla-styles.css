@@ -911,6 +911,7 @@ footer.bg-light {
 }
 
 .id {
+	font-size: 1.5em;
     font-weight: 600;
     padding: 0em 0.2em;
     background-color: var(--BBAWlightbluegrey);
@@ -1229,6 +1230,19 @@ span.multiselect-native-select select {
     footer .contact {
         text-align: right;
     }
+.id {
+	font-size: 1.5em;
+	font-weight: 600;
+	padding: 0.6rem;
+	background-color: #C1C7CD; /* BBAW light bluegray*/
+	color: white;
+    display: inline-block;
+}
+.id h2 span {
+    font-family: "BBAWLibertine"!important;
+    font-weight: 200;
+}
+
 
     /* jede zeile in Suchergebnis einzeln */
     .result-list-item-element {

@@ -107,21 +107,21 @@
             <div class="row my-4">
                 <div class="col-sm-8">
                 
-            <p class="">
-                 This site would like to place <strong>functional cookies</strong> on your computer. 
-                 These cookies are essential for your user experience: they store your settings of button states. 
-                 Furthermore, a third party, namely Google (Web Fonts), has already placed a <strong>third party cookie</strong> on 
-                 your computer if your browser settings allow for third party cookies. For more information, please see our 
-                
-                 <a href="/legal/privacy" th:text="#{editorial_title_legal_privacy}" target="_blank">privacy policy</a>.
-            
+            <p class="" align="justify">
+            <span th:text="#{cookie_banner_msg1}">Text</span>
+            <strong><span th:text="#{cookie_banner_msg2}">Text</span></strong>
+            <span th:text="#{cookie_banner_msg3}">Text</span>
+            <strong><span th:text="#{cookie_banner_msg4}">Text</span></strong>
+             <span th:text="#{cookie_banner_msg5}">Text</span>
+              <span th:text="#{cookie_banner_linkmsg1}">Text</span>
+              <a href="/legal/privacy" th:text="#{cookie_banner_linkmsg2}">Text</a>
             </p> 
                 </div>
 
                 <!-- Buttons -->
                 <div class="col-sm-4">
-                    <button class="btn btn-secondary float-right ml-4 cookie-dismiss">Dismiss</button>
-                    <button id="cok" class="btn btn-danger float-right ml-4 cookie-ok">Accept</button>    
+                    <button class="btn btn-secondary float-right ml-4 cookie-dismissed" th:text="#{button_label_dismiss}">Dismiss</button>
+                    <button id="cok" class="btn btn-danger float-right ml-4 cookie-ok" th:text="#{button_label_accept}">Accept</button>    
              
                 </div>
 
@@ -162,7 +162,7 @@
 
     <!-- social media stuff for top right header placement -->
 
-    <div id="social" class="button-bar col-md-4 align-right align-baseline d-none d-lg-block" th:fragment="social">
+    <div id="social" class="button-bar col-md-4  col-lg-4   align-right align-baseline d-none d-lg-block" th:fragment="social">
       <div class="functional-icons">
         <a href="#" class="btn btn-light solo-icon" role="button" data-toggle="modal" data-target="#modal_sharing">
           <span class="mr-2">Share</span>

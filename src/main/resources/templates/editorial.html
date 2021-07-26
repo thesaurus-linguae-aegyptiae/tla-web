@@ -18,7 +18,9 @@
           <th:block th:insert="~{ ${templatePath} :: //article }"/>
         </div>
       </div>
+      <footer th:replace="fragments/common :: cookie"/>
     </div>
+    
 <script th:inline="javascript">
               //<![CDATA[
             { 

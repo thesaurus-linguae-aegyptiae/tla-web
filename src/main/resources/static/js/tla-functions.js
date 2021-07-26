@@ -329,8 +329,10 @@ function init() {
 	
     $(document).ready(function() {			
         $('.show-detail').click(function() {
+	
     
         $("i", this).toggleClass("fas fa-plus-circle fas fa-minus-circle");
+        
             });        	
 			
 		}); 
@@ -342,6 +344,71 @@ function init() {
 				$('html,body').animate({scrollTop: $(this).offset().top}, 800);
 			}); 
 		}); 
+		
+		
+		//translation collapse
+		if (Cookies.get("CookiePolicy") == "accepted") {
+			if (Cookies.get("LanguagesButtonsVisible") == "true") {
+			$('.indented-buttons-lang').show();
+			}
+		else {
+			$('.indented-buttons-lang').hide();
+			}
+			}
+		else{ if (sessionStorage.getItem("LanguagesButtonsVisible") == "true") {
+			$('.indented-buttons-lang').show();
+			}
+		else {
+			$('.indented-buttons-lang').hide();
+			}
+			
+		}	
+
+        $('html').not('.languages-btn').click(function (e) {
+		 if ($('.indented-buttons-lang').is(':visible') && !e.target == '.indented-buttons-lang') {
+                $('.indented-buttons-lang').slideUp('ease-out');
+            }
+        });
+        $('.languages-btn').click(function (e) {
+			e.preventDefault();
+			
+			if (Cookies.get("CookiePolicy") == "accepted") {
+				if ($('.indented-buttons-lang').is(':visible')) {
+					Cookies.set("LanguagesButtonsVisible", "false",{expires:365});
+				} else {
+					Cookies.set("LanguagesButtonsVisible", "true",{expires:365});
+				}
+			}
+			else{
+				if ($('.indented-buttons-lang').is(':visible')) {
+					sessionStorage.setItem("LanguagesButtonsVisible", "false");
+				} else {
+					sessionStorage.setItem("LanguagesButtonsVisible", "true");
+				}
+				
+			}
+            $('.indented-buttons-lang').slideToggle('slow');
+        });
+
+
+    // Cookie Acceptance Banner ausblenden
+
+	  var cookieAcceptanceState = getCookie("CookiePolicy");
+	  if (cookieAcceptanceState == "accepted") {
+		  $('.cookie-container').addClass('d-none');
+		  var ausgabe = document.getElementById('cookie-info');
+		  ausgabe.innerHTML = '(Cookies '+cookieAcceptanceState+')';
+	  }
+	
+    $('.cookie-ok').click(function()  {
+           $('.cookie-container').addClass('d-none');
+            Cookies.set("CookiePolicy", "accepted");
+            });
+		
+    $('.cookie-dismissed').click(function()  {
+           $('.cookie-container').addClass('d-none');
+
+            });
 
 }
 
