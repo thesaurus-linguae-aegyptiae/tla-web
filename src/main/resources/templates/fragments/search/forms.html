@@ -1,7 +1,10 @@
 <?xml version="1.0"?>
 <html xmlns:th="http://thymeleaf.org">
+<head>
 
+</head>
   <body>
+
 
     <!-- Lemma quick lookup search form -->
     <form id="lemma-quick-search" name="lemma-quick-search" th:object="${lemma}"
@@ -67,7 +70,14 @@
       </div>
 
       <div class="form-group row">
-        <label class="col-form-label col-xl-2" for="transcription" th:text="#{field_label_transcription}">Transcription</label>
+        
+        <label for="Transcription" class="col-sm-12 col-lg-3 col-xl-2 col-form-label" >
+        <span th:text="#{field_label_transcription}">Transcription </span>
+        <a  class="transliteration-help" role="button" data-toggle="modal" data-target="#transliterationHelp">
+        <i class="fas fa-info-circle"></i></a>
+        </label>
+      
+       
         <div class="col-xl-10">
           <input class="bbaw-libertine form-control mb-3" type="text" th:field="*{transcription}"/>
         </div>
@@ -97,6 +107,31 @@
 
 
     <!-- Widgets -->
+      <!-- Modals for local help -->
+
+    <div class="modal fade" id="transliterationHelp" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    
+      <div class="modal-dialog modal-dialog-centered" pointer-events="all" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Transliteration search string</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+		    <p>The following wildcard functions can be used:</p>
+			<p>"*": dummy for any sign, e.g., in "<span class="bbaw-libertine">*?m</span>"
+			<br/>"[ ]": set of signs; any of the included character will be searched for, e.g., "<span class="bbaw-libertine">s[d?].t</span>"
+			<br/>"?": the preceding sign can occur, but need not occur, e.g., "<span class="bbaw-libertine">mrr?.t</span>"</p>
+          </div>
+           
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Submit form button.
       Will be given the ID `submit-${form.key}-search`.
@@ -235,6 +270,7 @@
         </div>
       </div>
 
+>
 
-  </body>
+ </body>
 </html>

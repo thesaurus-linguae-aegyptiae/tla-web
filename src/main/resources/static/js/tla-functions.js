@@ -409,6 +409,9 @@ function init() {
            $('.cookie-container').addClass('d-none');
 
             });
+$(document).ready(function() {
+    $("#transliterationHelp").modal();
+  });
 
 }
 
