@@ -46,17 +46,17 @@ function init() {
 		  
 		  
 	// Search form settings		  
-
+document.getElementById("transcription_enc_unicode").setAttribute("checked",true);
 	// encoding radios
-		if (getCookie("TransciptionEncoding") == "unicode") {
+	/*	if (getCookie("TransciptionEncoding") == "unicode") {
 			$('#transcription_enc_unicode').prop("checked", true);
 			$('#root_enc_unicode').prop("checked", true);
-			}
+		}
 		else {
 			$('#transcription_enc_mdc').prop("checked", true);
 			$('#root_enc_mdc').prop("checked", true);
 			}
-
+*/
         $('#transcription_enc_unicode').click(function () {
 			if (getCookie("CookiePolicy") == "accepted") {
 				setCookie("TransciptionEncoding", "unicode");
@@ -409,9 +409,16 @@ function init() {
            $('.cookie-container').addClass('d-none');
 
             });
-$(document).ready(function() {
-    $("#transliterationHelp").modal();
-  });
-
+//$(document).ready(function() {
+  //  $("#transliterationHelp").modal();
+  //});
+//$('#translationHelp').on('shown.bs.modal', function () {
+  //$('#info').trigger('focus')
+//})
+//var options = {
+//'backdrop' : 'static',
+//'show':'true'
+//}
+//$('#translationHelp').modal('toggle');
 }
 
