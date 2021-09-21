@@ -227,7 +227,7 @@
   
 				<blockquote><span  id="citation" th:text="${obj.name} + ' (Lemma ID '+ ${obj.id} + '), <' + ${env.baseUrl}+'/lemma/' + ${obj.id} +'>, in: '"></span>  
 					<span  id="citation1" style="font-style: italic;" th:text="#{tla_Title}"></span>  
-					<span  id="citation2" th:text="' <' + ${env.baseUrl} +'>, Version ' + ${env.version} +'.'+ #{tla_Issue} + ', ' + #{tla_ReleaseDate} + ', ed. by ' + #{tla_Editor} + ' ('+ #{lemma_citeaccessed}+ ' '"></span>  			
+					<span  id="citation2" th:text="' <' + ${env.baseUrl} +'>, Version ' + #{corpusversion} + ', ' + #{tla_ReleaseDate} + ', ed. by ' + #{tla_Editor} + ' ('+ #{lemma_citeaccessed}+ ' '"></span>  			
 					<script>
 						var date = new Date();
 						date.getUTCDate();
