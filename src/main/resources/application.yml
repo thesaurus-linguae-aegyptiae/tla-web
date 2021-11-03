@@ -8,7 +8,7 @@ server:
             enabled: false
 
 tla:
-    name: Thesaurus Linguae Aegyptiae (BETA)
+    name: Thesaurus Linguae Aegyptiae
     baseurl: https://tla.bbaw.de
     backend-url: http://${BACKEND_HOST:localhost}:${BACKEND_PORT:8090}
     editorials:

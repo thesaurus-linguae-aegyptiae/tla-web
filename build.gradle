@@ -12,7 +12,7 @@ plugins {
 }
 
 group = 'org.bbaw.aaew.tla'
-version = '0.0.818'
+version = '2.0'
 sourceCompatibility = '11'
 
 ext {
@@ -28,6 +28,7 @@ ext {
     cookieBannerSrc = "https://cdn.jsdelivr.net/gh/dobarkod/cookie-banner@${cookieBannerVersion}/dist/cookiebanner.min.js"
 	staticDir = 'src/main/resources/static'
     vendorDir = "${staticDir}/vendor"
+    
 }
 
 def assets = [
