@@ -81,8 +81,8 @@ blockline
  {
     border-bottom: 1px solid #aaa;
 }
-.bbaw-libertine {
-    font-family: "BBAWLibertine", serif;
+.bbaw-libertine, .transliteration {
+    font-family: "BBAWLibertine", "New Athena Unicode", serif;
 }
 
 .searchresult h2 {
@@ -463,7 +463,7 @@ span.lc:hover {
     vertical-align: middle;
 }
 
-.annotation-block .unicode-hieroglyphs {
+.annotation-block .unicode-hieroglyphs, article .unicode-hieroglyphs {
     font-size: 2em;
     line-height: 1;
 }

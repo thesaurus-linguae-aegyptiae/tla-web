@@ -6,7 +6,7 @@
 
 <section>
 <figure class="figure img-fluid single-article-image">
-	<a href="search" title="Search the TLA"><img id="homepage-img" th:src="@{/img/zettelarchiv_slips.png}" alt="slips from the zettelarchiv"></a>
+	<a href="search" title="Search the TLA"><img id="homepage-img" th:src="@{/img/zettelarchiv_slips.png}" alt="Slips from the Zettelarchiv"></a>
 	<figcaption class="figure-caption">Slips from the <i>Zettelarchiv</i></figcaption>
 </figure>
 <div class="mt-2 mb-3">
@@ -21,12 +21,15 @@
 <p>The <i>TLA</i> provides the worldwide largest electronic corpus of <strong>lemmatized Egyptian texts</strong> transliterated from hieroglyphic, hieratic, and Demotic records, with Coptic as a planned addition in the near future. The <i>TLA</i> offers two core tools for searching the Ancient Egyptian text world and language, the <a href="info/text-corpus">text corpus</a> and the <a href="info/dictionary">lemma lists</a>.</p>
 </section>
 
-<!-- Zitationsfeld -->
+<!-- Zitationsfeld, englisch -->
 <footer>
 <div class="bg-light citation mt-4 mb-2">
-<p class="h6"><strong>Please cite this website as:</strong></p>
-<blockquote><span  id="citation1" style="font-style: italic;" th:text="#{tla_Title}"></span> <span  id="citation2" th:text="' <' + ${env.baseUrl} +'>, Version ' + ${env.version} +'.'+ #{tla_Issue} + ', ' + #{tla_ReleaseDate} + ', ed. by ' + #{tla_Editor} + ' ('+ #{lemma_citeaccessed}+ '###DATE###'+ ')'"></span></blockquote>
-<button type="button" class="btn btn-secondary btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyCitationToClipboard(document.getElementById('citation1').textContent + document.getElementById('citation2').textContent)"><span class="fas fa-clipboard"></span>&nbsp;<span th:text="#{lemma_copycitation}">Copy citation<span></button>
+<p class="h6"><strong>Please cite this website as</strong>:</p>
+<script>var date = new Date(); date.getUTCDate(); var today= date.getDate() + "." + (date.getMonth()+1) + "." + date.getFullYear(); </script>
+<blockquote id="full-citation"><span id="citation-part-2" style="font-style: italic;" th:text="#{tla_Title}"></span> <span id="citation-part-3" th:text="' <' + ${env.baseUrl} +'>, Version ' + ${env.version} +'.'+ #{tla_Issue} + ', ' + #{tla_ReleaseDate} + ', ed. by ' + #{tla_Editor} + ' ('+ #{lemma_citeaccessed}+ ': '"></span>
+<script>document.write(today) </script>)
+</blockquote>
+<button type="button" class="btn btn-secondary btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyCitationToClipboard(document.getElementById('citation-part-2').textContent + document.getElementById('citation-part-3').textContent + today)"><span class="fas fa-clipboard"></span>&nbsp;Copy citation</button>
 </div> 
 </footer>
 </article>
