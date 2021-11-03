@@ -64,11 +64,13 @@
         	  }	  
         	  
         	  // hier muss weiter implementiert wenn Auswahl implementiert
-        	  var encod="Unicode";
-        	  if(encod !="") {
-        		  document.getElementById("queryEncodingHeader").innerHTML =" ; Encoding = ";      	  
-            	  document.getElementById("queryEncoding").innerHTML="\""+encod+"\"";
-        	  }	 
+        	 // var encod=urlParams.get('queryEncoding');
+        	  var encod="\"Unicode\"";
+        	  document.getElementById("queryEncoding").innerHTML=encod;
+        	  //if((encod !="")&&(encod !=null)) {
+        		//  document.getElementById("queryEncodingHeader").innerHTML =" ; Encoding = ";      	  
+            	  //document.getElementById("queryEncoding").innerHTML="\""+encod+"\"";
+        	 // }	 
         	 
         	  var pos=urlParams.get('wordClass.type');
         	  document.getElementById("queryWordClassHeader").innerHTML =" ; Part of Speech = ";
@@ -87,9 +89,9 @@
         	  var root=urlParams.get('root');
         	  //diese muss nach Implementierung weiter bearbeitet
         	  var root_encod="\"Unicode\"";
-        	  if(root!=""){
+        	if((root!="")&& (root !=null)){
         	  root= "\""+root+"\"";
-        	  document.getElementById("queryRootHeader").innerHTML =" ; root = ";
+        	  document.getElementById("queryRootHeader").innerHTML =" \; root = ";
     	      document.getElementById("queryRoot").innerHTML =root;
     	      document.getElementById("queryRootEncodHeader").innerHTML =" ; root_enc = ";
     	      document.getElementById("queryRootEncod").innerHTML =root_encod;
@@ -114,12 +116,12 @@
     	      document.getElementById("queryBibliography").innerHTML =biblio;
         	  }
         	  
-        	  var anno=urlParams.get('anno.type');
-        	  if(anno !=""){
-        	  anno="\""+anno+"\"";
-        	  document.getElementById("queryAnnoHeader").innerHTML =" ; Annotation type = ";
-    	      document.getElementById("queryAnno").innerHTML =anno;
-        	  }
+        	 // var anno=urlParams.get('anno.type');
+        	 // if(anno !=""){
+        	  //anno="\""+anno+"\"";
+        	  //document.getElementById("queryAnnoHeader").innerHTML =" ; Annotation type = ";
+    	      //document.getElementById("queryAnno").innerHTML =anno;
+        	  //}
         	    
 
           }

@@ -31,7 +31,9 @@
         <a th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">
           <!-- line 1 -->
           <h2 class="result-list-item-element transcription bbaw-libertine" th:text="*{name}">nfr</h2>
+          <span class="result-list-item-element hieroglyphs" th:if="${obj.hieroglyphs == null}">
           <span th:unless="${obj.type == 'root'}" class="subcorpus" th:text="#{|dict_${obj.dictionaryName}|}">Demotic</span>
+          </span>
           <span class="result-list-item-element hieroglyphs" th:if="${obj.hieroglyphs != null}">
             <span th:replace="fragments/details :: hieroglyphs">N35:G43</span>
           </span>
@@ -445,7 +447,9 @@
 	                 button.children('i#on').toggle();
 
               }
-              else {button.children('i#off').toggle(); $(selector1).toggle();$(selector).toggle();
+              else {button.children('i#off').toggle();  $(selector).toggle();
+           
+              
 
               }
 
@@ -475,7 +479,9 @@
  	  
   	 // if (Cookies.get(`${name}`) == 'true') {
       button.children('i').toggle();
-      $(selector1).toggle(); $(selector).toggle();
+     
+          $(selector).toggle();
+      
     }
 	    }
 	    else{
@@ -483,7 +489,9 @@
        	  
          	 // if (Cookies.get(`${name}`) == 'true') {
              button.children('i').toggle();
-             $(selector1).toggle();$(selector).toggle();
+             
+                 $(selector).toggle();
+             
            }
 	    }
 }
@@ -493,7 +501,7 @@
               button.click(() => {
             	  if(name=="hieroglyphs") {
               
-            	  $(selector1).fadeToggle('slow');}
+            	 }
             	  $(selector).fadeToggle('slow');
 
                 button.children('svg').toggle();

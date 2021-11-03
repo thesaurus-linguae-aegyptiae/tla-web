@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <html xmlns:th="http://thymeleaf.org">
+<head>
 
+</head>
   <body>
 
     <!-- Lemma quick lookup search form -->
@@ -21,19 +23,19 @@
     </form>
 
     <!-- sentence/occurrence search form -->
-    <form id="sentence-search" name="sentence-search"
+   <!-- <form id="sentence-search" name="sentence-search"
         th:action="@{${@searchController.getSearchResultsPageRoute(@__sentenceController__)}}"
         th:object="${sentenceSearchForm}" method="get">
       <div th:replace=" :: translation-spec('sentence', 'sentenceSearchForm', ${allTranslationLanguages})"/>
-      <div>
+      <div>-->
         <!--<div class="form-group row">
           <input class="form-control mb-3 col-xl-10" type="text" th:name="|passport['date.date.date'].values|"/>
           <input class="form-check-input col-xl-2" type="checkbox" th:name="|passport['date.date.date'].expand|" value="true"/>
         </div>-->
-        <fieldset th:each="token, i : *{tokens}" class="form-group row">
+     <!--   <fieldset th:each="token, i : *{tokens}" class="form-group row">
           <label class="col-form-label col-xl-2" th:text="#{field_label_lemma}">Lemma</label>
-          <!--<label class="col-form-label col-xl-1" th:text="${token.empty}"></label>-->
-          <div class="col-xl-10">
+          <!-- <label class="col-form-label col-xl-1" th:text="${token.empty}"></label>-->
+         <!--  <div class="col-xl-10">
 
             <input class="form-control mb-3 lemma-id" type="text" th:field="*{tokens[__${i.index}__].lemma.id}"
                 th:id="|token-${i.index}-lemma|" th:list="|token-${i.index}-lemma-suggestions|">
@@ -49,7 +51,7 @@
           <div th:replace=" :: translation-spec('token-__${i.index}__', 'sentenceSearchForm.tokens[__${i.index}__]', ${allTranslationLanguages})"/>
         </fieldset>
       </div>
-    </form>
+    </form>-->
 
     <!-- dictionary search form -->
 
@@ -67,19 +69,52 @@
       </div>
 
       <div class="form-group row">
-        <label class="col-form-label col-xl-2" for="transcription" th:text="#{field_label_transcription}">Transcription</label>
-        <div class="col-xl-10">
-          <input class="bbaw-libertine form-control mb-3" type="text" th:field="*{transcription}"/>
-        </div>
+        
+        <label for="Transcription" class="col-sm-12 col-lg-3 col-xl-2 col-form-label" >
+        <span th:text="#{field_label_transcription}">Transcription </span>
+        <a class="transliteration-help" href="#" role="button" data-toggle="modal" data-target="#transliteration-help">
+        <i class="fas fa-info-circle"></i></a>
+        </label>
+      
+        
+      <div class="col-sm-12 col-lg-9 col-xl-10">
+				<!--  <input type="text" class="bbaw-libertine form-control mb-3 keyboardInput" id="dict-search-transcription" rows="3" name="transcription" lang="egy">-->
+                  <input class="bbaw-libertine form-control mb-3" type="text" th:field="*{transcription}"/>      
+						<div class="form-check form-check-inline">
+							  <input class="form-check-input transcription-enc-btn" type="radio" name="transcription_enc" id="transcription_enc_unicode" th:value="unicode" checked>
+							  <label class="form-check-label" for="transcription_enc_unicode">Unicode</label>
+						</div>
+						<div class="form-check form-check-inline">
+							  <input class="form-check-input transcription-enc-btn" type="radio" name="transcription_enc" id="transcription_enc_mdc"  th:value="manuel_de_codage">
+							  <label class="form-check-label" for="transcription_enc_mdc">Manuel de Codage</label>
+						</div>
+					</div>
+        
+ 
       </div>
 
       <div th:replace=" :: type-spec('wordClass', 'lemmaSearchForm.wordClass', ${wordClasses})"/>
 
       <div class="form-group row">
-        <label class="col-form-label col-xl-2" th:for="*{root}" th:text="#{field_label_root_transcription}">Root</label>
-        <div class="col-xl-10">
-          <input class="bbaw-libertine form-control mb-3" type="text" th:field="*{root}"/>
-        </div>
+      <!--   <label class="col-form-label col-xl-2" th:for="*{root}" th:text="#{field_label_root_transcription}">Root</label> -->
+        
+         <label  class="col-form-label col-xl-2" th:for="*{root}">
+        <span th:text="#{field_label_root_transcription}">Root </span>
+        <a class="transliteration-help" href="#" role="button" data-toggle="modal" data-target="#transliteration-help">
+        <i class="fas fa-info-circle"></i></a>
+        </label>
+          <div class="col-sm-12 col-lg-9 col-xl-10">
+					  <input type="text" class="bbaw-libertine form-control mb-3 keyboardInput" id="dict-search-transcription" rows="3" name="transcription" lang="egy">
+                       
+						 <div class="form-check form-check-inline">
+							  <input class="form-check-input transcription-enc-btn" type="radio" name="root_enc" id="root_enc_unicode" value="unicode">
+							  <label class="form-check-label" for="root_enc_unicode">Unicode</label>
+						</div>
+						<div class="form-check form-check-inline">
+							  <input class="form-check-input transcription-enc-btn" type="radio" name="root_enc" id="root_enc_mdc" value="manuel_de_codage" checked>
+							  <label class="form-check-label" for="root_enc_mdc">Manuel de Codage</label>
+						</div>
+					</div> 
       </div>
 
       <div th:replace=" :: translation-spec('dict', 'lemmaSearchForm', ${allTranslationLanguages})"/>
@@ -91,12 +126,44 @@
         </div>
       </div>
 
-      <div th:replace=" :: type-spec('annotation-type', 'lemmaSearchForm.anno', ${lemmaAnnotationTypes})"/>
+   <!--   <div th:replace=" :: type-spec('annotation-type', 'lemmaSearchForm.anno', ${lemmaAnnotationTypes})"/> --> 
+      
+       <div class="modal fade" id="transliteration-help" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    
+      <div class="modal-dialog modal-dialog-centered"  pointer-events="all" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle" th:text="#{modal_transcription_title}">Transliteration search string</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!--  <div class="modal-body">
+		    <p> <span th:utext="#{modal_transcription_text_p1}">The following wildcard <b>functions</b> can be used</span>:</p>
+			<p>"*": <span th:text="#{modal_transcription_text_p2}">dummy for any sign, e.g., in </span> "<span class="bbaw-libertine">*?m</span>"
+			<br/>"[ ]": <span th:text="#{modal_transcription_text_p3}">set of signs; any of the included character will be searched for, e.g.</span>, "<span class="bbaw-libertine">s[d?].t</span>"
+			<br/>"?": <span th:text="#{modal_transcription_text_p4}">the preceding sign can occur, but need not occur, e.g., </span>"<span class="bbaw-libertine">mrr?.t</span>"</p>
+          </div> -->
+          
+           <div class="modal-body">
+           <span th:utext="#{modal_transcription_text}">
+		   Text
+		   </span>
+          </div> 
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" th:text="#{modal_close}">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     </form>
 
 
     <!-- Widgets -->
+      <!-- Modals for local help -->
+
+   
 
     <!-- Submit form button.
       Will be given the ID `submit-${form.key}-search`.
@@ -236,5 +303,6 @@
       </div>
 
 
-  </body>
+
+ </body>
 </html>
