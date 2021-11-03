@@ -42,13 +42,56 @@ function init() {
 	$('.bts-glossing').click(function(e) {
 			e.preventDefault();
 			window.open('/help/bts-glossings','_blank');
-		  });		
+		  });	
+
+//if((querySelector('#script1:checked')== null)&&(querySelector('#script2:checked')== null)){
+	//document.getElementById("script1").checked = true;
+//}
+//Cookies for Script choice
+ $('#script1').click(function () {
+		
+			if(document.getElementById("script2").checked && document.getElementById("script1").checked ){
+				if (getCookie("CookiePolicy") == "accepted") 
+				          setCookie("TranscriptionScript", "hieratic+demotic");
+				document.getElementById("transcription_enc_unicode").checked = true;
+		        document.getElementById("radio_enc_unicode").checked = true;
+				
+			}	
+			else {
+				
+			   if (getCookie("CookiePolicy") == "accepted") 
+                      if(document.getElementById("script1").checked)
+			            setCookie("TranscriptionScript", "hieratic");	
+				
+	}
+       });	
+
+  $('#script2').click(function () {
+		
+			if(document.getElementById("script2").checked && document.getElementById("script1").checked ){
+				if (getCookie("CookiePolicy") == "accepted") 
+				          setCookie("TranscriptionScript", "hieratic+demotic");
+				document.getElementById("transcription_enc_unicode").checked = true;
+				document.getElementById("radio_enc_unicode").checked = true;
+			}	
+			else 
+			   if (getCookie("CookiePolicy") == "accepted") 
+                     if(document.getElementById("script2").checked)
+			            setCookie("TranscriptionScript", "demotic");	
+				
+	
+       });	
+ 
 		  
-		  
+if ((getCookie("TransciptionEncoding") == "unicode") ||(getCookie("TransciptionEncoding") == null)){
+			$('#transcription_enc_unicode').prop("checked", true);
+			$('#root_enc_unicode').prop("checked", true);
+		}
+
 	// Search form settings		  
-document.getElementById("transcription_enc_unicode").setAttribute("checked",true);
+//document.getElementById("transcription_enc_unicode").setAttribute("checked",true);
 	// encoding radios
-	/*	if (getCookie("TransciptionEncoding") == "unicode") {
+		if ((getCookie("TransciptionEncoding") == "unicode") ||(getCookie("TransciptionEncoding") == null)){
 			$('#transcription_enc_unicode').prop("checked", true);
 			$('#root_enc_unicode').prop("checked", true);
 		}
@@ -56,30 +99,40 @@ document.getElementById("transcription_enc_unicode").setAttribute("checked",true
 			$('#transcription_enc_mdc').prop("checked", true);
 			$('#root_enc_mdc').prop("checked", true);
 			}
-*/
+
         $('#transcription_enc_unicode').click(function () {
 			if (getCookie("CookiePolicy") == "accepted") {
 				setCookie("TransciptionEncoding", "unicode");
+				}
 				document.getElementById("root_enc_unicode").checked = true
-			}
+			
         });	
         $('#transcription_enc_mdc').click(function () {
 			if (getCookie("CookiePolicy") == "accepted") {
 				setCookie("TransciptionEncoding", "manuel_de_codage");
-				document.getElementById("root_enc_mdc").checked = true
-			}
+				}
+			/*if(document.getElementById("script2").checked && document.getElementById("script1").checked )
+				{document.getElementById("transcripton_enc_unicode").checked = true;
+				document.getElementById("transcripton_enc_mdc").checked = false;
+					document.getElementById("root_enc_mdc").checked = false;
+				}
+				else*/
+				document.getElementById("root_enc_mdc").checked = true;
+			
         });	
         $('#root_enc_unicode').click(function () {
 			if (getCookie("CookiePolicy") == "accepted") {
 				setCookie("TransciptionEncoding", "unicode");
+				}
 				document.getElementById("transcription_enc_unicode").checked = true
-			}
+			
         });	
         $('#root_enc_mdc').click(function () {
 			if (getCookie("CookiePolicy") == "accepted") {
 				setCookie("TransciptionEncoding", "manuel_de_codage");
+				}
 				document.getElementById("transcription_enc_mdc").checked = true
-			}
+			
         });	
 
 		
