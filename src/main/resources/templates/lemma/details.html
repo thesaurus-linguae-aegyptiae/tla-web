@@ -28,13 +28,13 @@
               <span th:text="${obj.id}" id="id">Lemma ID</span>
               <script> 
               </script>
-              <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" th:onclick="copyStringToClipboard(document.getElementById('id').textContent)" ><span class="fas fa-clipboard"></span></span><span th:text="#{lemma_copyID}">Copy ID</button>
+              <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" th:onclick="copyStringToClipboard(document.getElementById('id').textContent)" ><span class="fas fa-clipboard"></span>&nbsp;<span th:text="#{lemma_copyID}">Copy ID</span></button>
               <br/>
               <strong>Persistent URL:</strong>
               <!-- Zitationsbutton -->
               <span th:text="${obj.name} +' (Lemma ID '+ ${obj.id} +'), <' +  ${env.baseUrl} + '/lemma/' + ${obj.id} + '>, in: ' + #{tla_Title} + ' <' + ${env.baseUrl} + '>, Version '+ #{corpusversion} + ' , ' +  #{tla_ReleaseDate} + ', ed. by ' + #{tla_Editor} + ' ('+ #{lemma_citeaccessed}+ ' '" id="citation" style="display:none"></span>
               <span th:text="|${env.baseUrl}/lemma/${obj.id}|">http://tla.bbaw.de/lemma/xxx</span>
-              <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyCitationToClipboard(document.getElementById('citation').textContent)"><span class="fas fa-clipboard"></span><span th:text="#{lemma_copycitation}"><span>Copy citation</button>        
+              <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyCitationToClipboard(document.getElementById('citation').textContent)"><span class="fas fa-clipboard"></span><!--BUG:Ikon erscheint nicht-->&nbsp;<span th:text="#{lemma_copycitation}">Copy citation<span></button>        
             </p>
           </div>
 
