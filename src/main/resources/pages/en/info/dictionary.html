@@ -10,7 +10,7 @@
    </section>
    <section>
       <h2>Unique identification number (ID)</h2>
-      <p>Each entry in the lemma lists has a <strong>unique and stable ID</strong> number, e.g., “90260” or “d3318.” These IDs should be used to quote individual lemmata from the <i>TLA</i>. They may also serve to match <i>TLA</i> entries with other electronic lexicographical sources via stable URLs, e.g., “<a href="https://tla.bbaw.de/lemma/90260" target="_blank">https://tla.bbaw.de/lemma/90260</a>.” IDs for lemmata in the hieroglyphic/hieratic lemma list are purely numeric and correspond to those in “<a href="https://aaew.bbaw.de/tla/" target="_blank">legacy TLA</a>” (2014). IDs for lemmata in the Demotic lemma list consist of a number that corresponds to the one in legacy TLA plus a new additional prefix “d” (for “Demotic”). The minus (“-”) in the number in legacy TLA is substituted by “m” (for “minus”). Consequently, Demotic lemma IDs have forms like, e.g., “d3318” or “dm1105” (note that “d3318” and “dm3318” are indeed <i>different</i> entries; the minus corresponds to a now
+      <p>Each entry in the lemma lists has a <strong>unique and stable ID</strong> number, e.g., “90260” or “d3318.” These IDs should be used to quote individual lemmata from the <i>TLA</i>. They may also serve to match <i>TLA</i> entries with other electronic lexicographical sources via stable URLs, e.g., “<a href="/lemma/90260" target="_blank"><span th:text="${env.baseUrl}">https://tla.bbaw.de/</span>/lemma/90260</a>.” IDs for lemmata in the hieroglyphic/hieratic lemma list are purely numeric and correspond to those in “<a href="https://aaew.bbaw.de/tla/" target="_blank">legacy TLA</a>” (2014). IDs for lemmata in the Demotic lemma list consist of a number that corresponds to the one in legacy TLA plus a new additional prefix “d” (for “Demotic”). The minus (“-”) in the number in legacy TLA is substituted by “m” (for “minus”). Consequently, Demotic lemma IDs have forms like, e.g., “d3318” or “dm1105” (note that “d3318” and “dm3318” are indeed <i>different</i> entries; the minus corresponds to a now
          obsolete editorial technicality.) Lemmata on the Coptic lemma list (will) have a prefix “c” (for “Coptic”).</p>
    </section>
    <section id="section-editorial-status">
@@ -72,7 +72,6 @@
             <li><i th:text="#{field_value_label_wordClass_type_numeral}"/> (optional specification: <i th:text="#{lemma_subtype_cardinal}"/>; <i th:text="#{lemma_subtype_ordinal}"/>)</li>
             <li><i th:text="#{field_value_label_wordClass_type_preposition}"/></li>
             <li><i th:text="#{field_value_label_wordClass_type_particle}"/> (optional specification: <i th:text="#{lemma_subtype_particle_nonenclitic}"/>; <i th:text="#{lemma_subtype_particle_enclitic}"/>)</li>
-            <li><i th:text="#{field_value_label_wordClass_type_conjunction}"/></li> 
             <li><i th:text="#{field_value_label_wordClass_type_interjection}"/></li>
             <li><i th:text="#{field_value_label_wordClass_type_root}"/></li>
             <li><i th:text="#{field_value_label_wordClass_type_undefined}"/></li>
@@ -117,5 +116,5 @@
       <h3>Lexical ontology</h3>
       <p>Another research project included in the Academies’ project is Simon Schweitzer’s exploration of semantic annotation of Egyptian-Coptic lemmata. As a first step, the future Coptic lemma list is currently being tagged semantically using the <strong><i>Interlingual Index</i></strong> in order to link lemmata to the <strong><i>Coptic Word Net</i></strong> ontology.</p>
    </section>
-   <footer>Text: xxx, S. Grallert, T.S.Richter, D.Werning</footer>
+   <footer>Text: xxx, S. Grallert, T.S.Richter, D.A.Werning</footer>
 </article>

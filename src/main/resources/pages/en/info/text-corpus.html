@@ -1,5 +1,160 @@
 <article>
-<section>
-<h2>ToDo (SRichter)</h2>
-</section>
+   <header>
+      <h1>TLA Text Corpus</h1>
+   </header>
+   <section>
+      <h2>Introduction</h2>
+      <p>The text corpus is one of the two core parts of the <i>Thesaurus Linguae Aegyptiae</i> (TLA), the other one being the <a href="dictionary">lemma lists</a>. The corpus contains a constantly increasing number of Ancient Egyptian texts written in the hieroglyphic/hieratic or Demotic scripts, currently ranging from ca. 3,000 BCE to ca. 300 CE. (Coptic texts will be added later in the project.) </p>
+      <p>The Ancient Egyptian text world was a quite peculiar one, culturally and historically. Messages of varying length and complexity were written on immensely diverse objects from very different spheres of life. There are texts on portable objects such as papyrus, ostraca (i.e., stone flakes or potsherds), and (complete) vessels, as well as texts on immovable objects such as the walls of temples and tombs, obelisks, statues, etc. Such different kinds of support, their material, formal and functional features contribute additional significance, connotating the meaning of the written texts.</p>
+      <p>Given this close interrelation and semantic interaction between written texts and their material support, an enhanced understanding of the Ancient Egyptian world view via texts needs to systematically take textual as well as material features of text objects into account. Consequently, all texts in the text corpus are annotated with a wide array of metadata relating to the texts themselves as well as to their material support (German <i>textträger</i>). It has always been a goal of the Academies’ project to develop a more or less balanced, diverse corpus, i.e., to provide a representative range of textual and chronological variation in the corpus. As of now, the text corpus comprises about <span th:text="#{corpus-lemma-tokens-amount}">1.4</span> million lemma tokens.</p>
+      <p>Furthermore, the texts in the TLA are not primarily conceptualized as abstract texts (e.g., <i>Sinuhe</i>) but as a (semantically coherent) textual string on a concrete support (e.g., papyrus Berlin ÄM P 3022).</p>
+   </section>
+   <section>
+      <h2>Details</h2>
+      <p>Every written text and sentence as well as every text object (<i>textträger</i>) in the corpus has its own <strong>unique stable ID number</strong>, e.g., “MORHQGR3SNBI3KHAF6YOW5WLL4.” The basic level of a text is its Egyptological transliteration. A growing part of the subcorpus of hieroglyphic/hieratic texts is also annotated with a digital hieroglyphic transcription in JSesh-specific <i>Manuel de Codage</i> and, to the extent possible, Unicode. All texts also come with a translation into a modern language (mostly German, sometimes English or French,  depending on the author’s language proficiencies). Texts may also contain commenting notes.</p>
+   </section>
+   <section>
+      <h2>Text metadata and text object metadata</h2>
+      <p>Texts and text objects systematically come with additional metadata which are not immanent in the text or text object itself. In order to enhance data retrieval, possible values of metadata are edited in controlled vocabularies (thesauri). Categories of data and metadata relating to texts and text objects are shown in the following table:
+      <table>
+         <tr><th>Text data and metadata </th><th>Text object metadata<br/ >
+            xxx PDils:should we add contextualisation, autor, ... ?<br/>
+            (is not systematically added in the metadata)xxx </th></tr>
+         <tr><td>Egyptological transliteration</td><td></td></tr>
+         <tr><td>(Digital) hieroglyphic transcription</td><td></td></tr>
+         <tr><td>Translation (German, English, or French)</td><td></td></tr>
+         <tr><td>Script (Hieroglyphic, Hieratic, Demotic)</td><td></td></tr>
+         <tr><td>Language phase (Old Egyptian, Middle Egyptian, etc.)</td><td></td></tr>
+         <tr><td>Dating of the text</td><td>Dating of the text object</td></tr>
+         <tr><td>Text category/type (’genre’)</td><td>Type of text object</td></tr>
+         <tr><td></td><td>Material/substance</td></tr>
+         <tr><td></td><td>Dimension</td></tr>
+         <tr><td>Ancient author (if applicable)</td><td></td></tr>
+         <tr><td></td><td>Finding place</td></tr>
+         <tr><td></td><td>Current location</td></tr>
+         <tr><td> Bibliographical references</td><td>Bibliographical references</td></tr>
+      </table>
+   </section>
+   <section>
+      <h2>“Texts” and “sub-texts” in the TLA</h2>
+      <p>A ‘text’ in the broader sense as conceptualized in the TLA is an entity marked as an independent textual unit by clearly marked text delimiters (beginning and end). An individual text may either consist of writing only, or it may be a multimodal composition of writing and illustrations. An example of multimodal texts are offering scenes on the walls of Egyptian temples displaying the king vis-à-vis a god, both interacting with each other. Written labels and short phrases and sentences identify the depicted entities or add information about their interactions. Such short textual units, although distinct entities, are part of the larger unit of the scene and are therefore conceptualized not as independent “texts,” but as dependent “sub-texts” in the TLA. One characteristic of sub-texts vs. texts in the TLA is that a fixed reading sequence of sub-texts cannot normally be established. Another characteristic is that, when interpreting sub-texts, it is necessary to take accompanying sub-texts into account, e.g., a scene as a whole.</p>
+   </section>
+   <section>
+      <h2>General principles of text editing in the TLA</h2>
+      <p>As mentioned above, Egyptian texts in the TLA are primarily conceptualized as strings in Egyptological transliteration. Line/column counting generally follows the original source (“lc” tag). Conventional line counts of standard publications of (abstract) texts can be referred to in addition (“para” tag). Texts are divided into units of simple or complex sentences. Each sentence has a unique <strong>stable ID number</strong> by which it should be quoted, e.g., “TLA sentence IBUBd1NUc4LHaUPIlW0V9mCZyNQ.”</p>
+      <p>Each word token (or sometimes sequence of words) is <strong>lemmatized</strong>, i.e., it is linked to an entry (’lemma’) in one of the TLA’s lemma lists. Moreover, the lemma tokens in many texts are also annotated with grammatical codes. These encode morphological inflection, mainly inflection that is overtly marked in script (e.g., genus, number of nouns), however sometimes also inflection that is covert in the purely consonantal script but which can be contextually reconstructed from syntax (e.g., <i>genus verbi</i> of an unmarked <i class="transliteration">sḏm</i>(<i>=f</i>), number of a relative <i class="transliteration">sḏm.t.n</i>(<i>=f</i>)). To keep grammatical annotation to a certain degree independent of continually debated theoretical premises, the tagging of tense/aspect/mood (TAM) features of inflected verbs is strictly limited to overt inflection, i.e., morphological features visible in the written form. For example, a morphologically unmarked <i class="transliteration">nḥm</i>(<i>=f</i>) is simply annotated as an instance of an (active or passive) “suffix conjugation” form without TAM specification. The lemma tokens of an increasing part of the texts also come with their original hieroglyphic spelling (or, in the case of hieratic, a hieroglyphic transcription). Authors are also encouraged to specify a particular sense of a lemma in context, either by picking one of a set of translations from the lemma list or by entering another specific sense themselves. In addition to these standard annotations, editors may add more annotations, such as other semantic features (e.g., type of speech act), layout features (e.g., rubra, verse points, split columns, lists), semantic features (e.g., metaphorical domains), etc.</p>
+   </section>
+   <section>
+      <h2>The content of the text corpus</h2>
+      <p>Currently, the following sub-corpora of ancient Egyptian texts are accessible in the TLA corpus (as of 2021xxx). Sub-corpora with digital hieroglyphic transcription text are marked with [H], those with grammatical annotation are marked with [G].</p>
+      <ul>
+         <li>Early Egyptian texts from the Early Dynastic Period</li>
+         <ul>
+            <li>Royal and non-royal texts [H, G] (J.Schneider, G. Sperveslage)</li>
+         </ul>
+         <li>Old Egyptian texts from the Old Kingdom</li>
+         <ul>
+            <li>Non-royal tombs [partly H, G] (A. Burkhardt, S. Grunert)</li>
+            <li>Rock inscriptions [G] (I. Hafemann, S.J. Seidlmayer)</li>
+            <li>Pyramid Texts from the royal tombs [G] (D. Topmann)</li>
+            <li>Votive labels [G] (S.J. Seidlmayer)</li>
+            <li>Letters of royal and non-royal persons [G] (I. Hafemann)</li>
+            <li>Letters to the Dead [G] (I. Hafemann)</li>
+            <li>Archival texts [G] (S. Grunert, I. Hafemann)</li>
+            <li>Biographical texts [H, G] (J. Stauder-Porchet)</li>
+            <li>Execration texts (C. Kühne-Wespi)</li>
+         </ul>
+         <li>Middle Egyptian Texts from the First Intermediate Period</li>
+         <ul>
+            <li>Letters [G] (I. Hafemann)</li>
+         </ul>
+         <li>Middle Egyptian Texts from the Middle Kingdom</li>
+         <ul>
+            <li>Royal and non-royal letters [G] (I. Hafemann)</li>
+            <li>Historical and biographical texts of royal and non-royal persons [partly H, G] (R. Landgráfová, P. Dils, L. Popko, A. Schütze, M. Brose)</li>
+            <li>Magical texts [H, G] (A. Blöbaum, B. Böhm, P. Dils, L. Popko, K. Stegbauer)</li>
+            <li>Medical texts [H, G] (P. Dils, I. Köhler, L. Popko, G. Sperveslage)</li>
+            <li>Religious texts: Pyramid Texts [Hxxx, G] (D. Topmann)</li>
+            <li>Religious texts: hymns [H, G] (P. Dils, A. Schütze)</li>
+            <li>Literary texts (royal and non-royal teachings, dialogues and discourses, tales) [H, G] (P. Dils, R. Enmarch, F. Feder, H. Felber, L. Popko, V. Lepper)</li>
+         </ul>
+         <li>Middle Egyptian texts from the Second Intermediate Period</li>
+         <ul>
+            <li>Letters [G] (I. Hafemann)</li>
+            <li>Historical and biographical texts of royal and non-royal persons [partly H, G] (R. Landgráfová, P. Dils, L. Popko, A. Schütze, M. Brose)</li>
+            <li>Literary texts [H, G] (P. Dils, L. Popko)</li>
+         </ul>
+         <li>Middle and Late Egyptian texts from the New Kingdom</li>
+         <ul>
+            <li>Letters [G] (I. Hafemann)</li>
+            <li>Royal stelae of the 18th Dynasty up to Amenhotep III [partly H, G] (M. Brose, J. Iskander)</li>
+            <li>Texts from the Amarna period (Akhenaton) [H, G] (I. Hafemann, G. Sperveslage)</li>
+            <li>Royal historical and rhetorical texts of Ramesses I to II [Ixxx] (S. Grallert, I. Hafemann)</li>
+            <li>Magical texts [H, G] (A. Blöbaum, B. Böhm, M. Brose, P. Dils, L. Popko, K. Stegbauer)</li>
+            <li>Medical texts [H, G] (A. Blöbaum, B. Böhm, M. Brose, C. Di Biase-Dyson, P. Dils, A. Herzberg, I. Köhler, L. Popko, G. Sperveslage)</li>
+            <li>Religious texts: Book of the Dead (a selection) [partly H, G] (B. Backes, A. Wüthrich)</li>
+            <li>Literary texts [H, G] (M Brose, P. Dils, F. Feder, H. Felber, L. Popko)</li>
+            <li>Administrative texts from Deir el-Medina (M. Goecke-Bauer)</li>
+            <li>Biographical texts from the Ramesside period (E. Frood)</li>
+         </ul>
+         <li>Texts from the Third Intermediate Period</li>
+         <ul>
+            <li>Letters [G] (I. Hafemann)</li>
+            <li>Magical texts [H, G] (A. Blöbaum, B. Böhm, M. Brose, P. Dils, L. Popko, J.-F. Quack, K. Stegbauer)</li>
+            <li>Royal historical texts [H, G] (S. Grallert, G. Sperveslage)</li>
+            <li>Non-royal biographical texts [H, G] (S. Grallert, G. Sperveslage)</li>
+            <li>Religious texts on coffins [H, G] (J. Schneider)</li>
+            <li>Literary texts [H, G] (P. Dils, L. Popko)</li>
+         </ul>
+         <li>Texts from the Late Period</li>
+         <ul>
+            <li>Magical texts [H, G] (A. Blöbaum, M. Brose, P. Dils, L. Popko, K. Stegbauer)</li>
+            <li>Medical texts [H, G] (A. Blöbaum, B. Böhm, M. Brose, C. Di Biase-Dyson, P. Dils, I. Köhler, L. Popko, G. Sperveslage)</li>
+            <li>Demotic texts from a wide range of text types [Gxxx] (G. Vittmann)</li>
+            <li>Texts from non-royal tombs [H, G] (D. Topmann, M. Wagner)</li>
+            <li>Non-royal biographical texts [H, G] (S. Grallert, R. Díaz Hernandez, G. Sperveslage)</li>
+            <li>Literary texts [partly H, G] (P. Dils, L. Popko)</li>
+            <li>Religious texts: Ritual of the Hours [H, G] (E. Graefe, K. Griffin)</li>
+         </ul>
+         <li>Texts from the Graeco-Roman Period</li>
+         <ul>
+            <li>Magical texts [H, G] (A. Blöbaum, B. Böhm, M. Brose, P. Dils, L. Popko, K. Stegbauer)</li>
+            <li>Medical texts [xxx] (A. Blöbaum, B. Böhm, M. Brose, P. Dils, I. Köhler, L. Popko, G. Sperveslage)</li>
+            <li>Royal decrees of the priestly synods [xxx] (R. Birk, G. Sperveslage, G. Vittmann, D. Schäfer)</li>
+            <li>Religious texts: private mortuary liturgies [partly H, G] (F. Feder, A.-K. Gill)</li>
+            <li>Books from the xxxTebtynisxxx temple library [xxx] (F. Feder)</li>
+            <li>Texts from walls of Ptolemaic/Roman temples</li>
+            <ul>
+               <li>Assuan, Bigge, Dakka, Deir el-Bahari, Deir el-Medina, Dendur, Opet [partly H, G] (M.  Elebaut, A. Paulet, R. Preys)</li>
+               <li>Karnak / Euergetes gate [xxx] (F. Labrique)</li>
+               <li>Kom Ombo [xxx] (S. Eicke)</li>
+               <li>Dendara [xxx] (A. Rickert)</li>
+               <li>Edfu (Stundenritual) [H, G] (E. Graefe)</li>
+            </ul>
+            <li>Demotic texts from a wide range of text types [Gxxx] (G. Vittmann)</li>
+         </ul>
+         <li>Miscellaneous texts</li>
+         <ul>
+            <li>Texts on stelae of the Egyptian collection at the University of Tübingen [H, G] (S. Beck)</li>
+            <li>Texts on artifacts of the Munich Egyptian collection [xxx] (R. Díaz Hernandez)</li>
+            <li>Texts from Heliopolis [H, G] (S. Blaschta, K. Dietze)</li>
+         </ul>
+      </ul>
+   </section>
+   <section>
+      <h2>History of the hieroglyphic/hieratic text corpus</h2>
+      <p>The digital text corpus of the TLA was initiated as part of the Academy’s previous project “Ägyptisches Wörterbuch” (1992–2012) at the Berlin-Brandenburg Academy of Sciences and Humanities (funded by the Academies’ program of the Union of the German Academies of Sciences and Humanities). The idea was to create a digital successor to A. Erman’s & H. Grapow’s <i>Wörterbuch der aegyptischen Sprache</i> (1926–1931; 1950, 1963), notably including the <i>Belegstellen</i> (1935–1953) volumes, in the age of corpus-based computational lexicography: (i) a lemmatized balanced digital corpus of Egyptian texts in hieroglyphic, hieratic, and Demotic script, which builds up (ii) a corpus-based ‘dictionary’ of the ancient Egyptian language.</p>
+      <p>In order to further complete the lemma list, additional texts were selected to be added into the TLA based on a set of criteria. Texts that had not been used for the <i>Wörterbuch</i> project and texts that had been published or re-edited after the project had ended were favored for inclusion. Late Egyptian texts that were to be encoded in the <i>Projet Ramsès</i> (Liège), on the other hand, were disfavored. With the growth of the project team and increasing support from cooperating projects and individual researchers, a broader, more balanced, more diverse corpus is evolving.</p>
+   </section>
+   <section>
+      <h2> Prospects for the future</h2>
+      <p><h3>Coptic text corpus</h3></p>
+      <p>Coptic, the last phase of the ancient Egyptian language, is not yet represented in the TLA text corpus. Once the Coptic <a href="dictionary">lemma list</a> is implemented in the TLA, a sample corpus of texts from all Coptic dialects will be imported. This will come from the lemmatized digital text data generated by Wolf-Peter Funk over many decades. This legacy data is currently being converted into a modern encoding format, i.e., Unicode, by Katrin John (cooperating project “<a href="https://www.geschkult.fu-berlin.de/en/e/ddglc" target="_blank"><i>Database and Dictionary of Greek Loanwords in Coptic</i></a>,” FU Berlin) and will then be processed for incorporation into the TLA.</p>
+      <p><h3>Coffin texts</h3></p>
+      <p>In collaboration with Wolfgang Schenkel, the project is preparing the transformation of his Coffin Text data (<i>CTUrtext</i>) so that the Coffin Texts can be incorporated into the TLA.</p>
+   </section>
+   <footer>
+      <p>Text: xxx, S. Grallert, T.S.Richter, D.A.Werning</p>
+   </footer>
 </article>
+
