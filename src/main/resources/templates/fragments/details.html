@@ -45,7 +45,7 @@
         <div th:each="entry : ${obj.externalReferences}" class="align-items-start" th:id="|external-references-${entry.key}|">
             <span th:text="#{|external_reference_provider_${entry.key}|}" class="external-reference-provider pr-2">Provider</span>
             <span class="external-reference" th:each="ref : ${entry.value}">
-                <a th:if="${ref.href} != null" th:href="${ref.href}">
+                <a th:if="${ref.href} != null" th:href="${ref.href}" target="_blank">
                     <span class="fas fa-arrow-circle-right red"></span>
                     <span th:text="${ref.value}" class="external-reference-id">ext. Identifier</span>
                 </a>
