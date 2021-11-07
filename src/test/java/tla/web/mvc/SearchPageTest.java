@@ -89,7 +89,7 @@ public class SearchPageTest {
 
         new WebDriverWait(chrome, Duration.ofSeconds(5)).until(
             ExpectedConditions.elementToBeClickable(
-                By.id("toggle-sentence-search-form-button")
+                By.id("toggle-lemma-quick-search-form-button")
             )
         );
 
@@ -98,15 +98,15 @@ public class SearchPageTest {
         assertEquals(
             "false",
             chrome.findElement(
-                By.id("toggle-sentence-search-form-button")
+                By.id("toggle-lemma-quick-search-form-button")
             ).getAttribute("aria-expanded"),
-            "toggle sentence search form button in collapsed state"
+            "toggle lemma quick search form button in collapsed state"
         );
 
         chrome.executeScript(
             "arguments[0].click()",
             chrome.findElement(
-                By.id("toggle-sentence-search-form-button")
+                By.id("toggle-lemma-quick-search-form-button")
             )
         );
 
@@ -115,9 +115,9 @@ public class SearchPageTest {
         assertEquals(
             "true",
             chrome.findElement(
-                By.id("toggle-sentence-search-form-button")
+                By.id("toggle-lemma-quick-search-form-button")
             ).getAttribute("aria-expanded"),
-            "toggle sentence search form button in expanded state"
+            "toggle lemma quick search form button in expanded state"
         );
 
         chrome.executeScript(
@@ -139,9 +139,9 @@ public class SearchPageTest {
         assertEquals(
             "false",
             chrome.findElement(
-                By.id("toggle-sentence-search-form-button")
+                By.id("toggle-lemma-quick-search-form-button")
             ).getAttribute("aria-expanded"),
-            "toggle sentence search form button in collapsed state"
+            "toggle lemma quick search form button in collapsed state"
         );
 
         chrome.findElement(
