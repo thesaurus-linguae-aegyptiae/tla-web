@@ -176,7 +176,7 @@ public class SearchPageTest {
         new WebDriverWait(chrome, Duration.ofSeconds(2));
 
         chrome.findElement(
-            By.cssSelector("button#hide-property-button-hieroglyphs")
+            By.cssSelector("button#hide1Lemma-property-button-hieroglyphs")
         ).click();
         assertEquals(
             messages.getMessage("result_page_description_left", null, Locale.GERMAN),
