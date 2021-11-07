@@ -151,7 +151,7 @@ public class SearchPageTest {
         TimeUnit.MILLISECONDS.sleep(800);
 
         chrome.findElement(
-            By.cssSelector("input#transcription")
+            By.cssSelector("input#dict-search-transcription")
         ).sendKeys(
             "nfr"
         );
@@ -159,7 +159,7 @@ public class SearchPageTest {
         TimeUnit.MILLISECONDS.sleep(800);
 
         chrome.findElement(
-            By.cssSelector("input#transcription")
+            By.cssSelector("input#dict-search-transcription")
         ).submit();
 
         TimeUnit.MILLISECONDS.sleep(2000);
