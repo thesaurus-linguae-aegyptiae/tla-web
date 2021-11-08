@@ -84,12 +84,12 @@
           </div>
           <div class="footer-logo col-sm-6 col-lg-3">
             <a href="http://www.saw-leipzig.de" target="_blank">
-              <img class="logo-img" th:src="@{/img/logo_saw.svg}"/>
+              <img class="logo-img" th:src="@{/img/logo_saw.svg}" th:alt="#{logo-alt-saw}"/>
             </a>
           </div>
           <div class="footer-logo col-sm-6 col-lg-3">
             <a href="http://www.bbaw.de" target="_blank">
-              <img class="logo-img" th:src="@{/img/logo_bbaw.svg}"/>
+              <img class="logo-img" th:src="@{/img/logo_bbaw.svg}" th:alt="#{logo-alt-bbaw}"/>
             </a>
           </div>
         </div>
@@ -165,17 +165,17 @@
     <div id="social" class="button-bar col-md-4  col-lg-4   align-right align-baseline d-none d-lg-block" th:fragment="social">
       <div class="functional-icons">
         <a href="#" class="btn btn-light solo-icon" role="button" data-toggle="modal" data-target="#modal_sharing">
-          <span class="mr-2">Share</span>
+          <span class="mr-2" th:text="#{social-button-share}">Share</span>
           <i class="fa fa-share-alt share-results"></i></a>
       </div>
       <div class="functional-icons">
         <a href="#" class="btn btn-light solo-icon" role="button" data-toggle="modal" data-target="#modal_comments">
-          <span class="mr-2">Comment</span>
+          <span class="mr-2" th:text="#{social-button-comment}">Comment</span>
           <i class="far fa-comment"></i></a>
       </div>
       <div class="functional-icons">
         <a class="btn btn-red text-left text-decoration-none solo-icon" role="button" href="/help/lemma" target="_blank">
-          <span class="mr-2">Pagehelp</span>
+          <span class="mr-2" th:text="#{page-help-button}">Page help</span>
           <i class="fas fa-info-circle"></i></a>
       </div>
     </div>

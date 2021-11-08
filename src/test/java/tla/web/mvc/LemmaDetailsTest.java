@@ -26,9 +26,10 @@ import tla.web.model.Lemma;
 public class LemmaDetailsTest extends ViewTest {
 
     private static final String[] EXPECT_TOP_LEVEL_ELEM_IDS = {
+        "lemma-property-pid",
         "lemma-property-dict",
         "lemma-property-type-subtype",
-        "external-references",
+        // "external-references",
         "translations",
         "bibliography"
     };

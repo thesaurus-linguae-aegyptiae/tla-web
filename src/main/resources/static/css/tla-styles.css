@@ -760,10 +760,6 @@ footer.bg-light {
     border-bottom: 2px solid #EEE !important;
 }
 
-#details-content .details-property-label::after {
-    content: ":";
-}
-
 #details-content .external-reference-id {
     font-style: italic;
 }

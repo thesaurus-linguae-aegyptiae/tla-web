@@ -18,14 +18,14 @@
         <a th:replace="fragments/common :: review-state(${obj})"/>
     </div>
 
-    <!-- Generic Passport Properties -->
+    <!-- Generic Passport Properties, notably noun classes -->
     <div th:fragment="object-property-passport-properties" id="passport-properties"
             th:unless="${#maps.isEmpty(passport)}">
         <hr/>
         <p th:each="item : ${passport}">
             <strong th:text="#{|${objectType}_passport_property_${item.key}|}" class="details-property-label">
                 Property Label
-            </strong>
+            </strong>:
             <th:block th:each="value, iter : ${item.value}">
                 <span th:text="${value.label}" th:class="${item.key}">
                     Passport Value
@@ -101,19 +101,19 @@
     <div class="editor-info" id="editor-info" th:fragment="editor-info">
         <hr/>
         <div class="author">
-            <strong class="details-property-label" th:text="#{object_property_editors_author}">Author:</strong>
+            <strong class="details-property-label" th:text="#{object_property_editors_author}">Main author</strong>:
             <span th:text="${obj.edited.author}">author</span>
         </div>
         <div th:unless="${obj.edited.contributors} == null" class="editors">
-            <strong class="details-property-label" th:text="#{object_property_editors}">Editors:</strong>
+            <strong class="details-property-label" th:text="#{object_property_editors}">Further editor(s)</strong>:
             <span class="editor" th:each="editor : ${obj.edited.contributors}" th:text="${editor}"/>
         </div>
         <div class="updated" th:with="formatter=#{date_formatter}">
-            <strong class="details-property-label" th:text="#{object_property_editors_updated}">Updated</strong>
+            <strong class="details-property-label" th:text="#{object_property_editors_updated}">Latest revision</strong>:
             <span th:text="${#calendars.format(obj.edited.updated, formatter)}">date</span>
         </div>
         <div class="review-state">
-            <strong class="details-property-label" th:text="#{object_property_review_state}">Review State:</strong>
+            <strong class="details-property-label" th:text="#{object_property_review_state}">Editorial state</strong>:
             <span th:text="#{|review_state_${obj.reviewState}|}">status</span>
         </div>
     </div>
@@ -122,7 +122,7 @@
     <div th:fragment="object-property-type-subtype(objType)" th:id="|${objType}-property-type-subtype|">
         <hr/>
         <p>
-            <strong th:text="#{|${objType}_property_type|}" class="details-property-label">Type</strong>
+            <strong th:text="#{|${objType}_property_type|}" class="details-property-label">Type</strong>:
             <span th:replace=" :: type-subtype"/>
         </p>
     </div>
@@ -135,7 +135,7 @@
         <p>
             <strong th:text="#{|${objType}_property_object_paths|}" class="details-property-label">
                 Object path
-            </strong>
+            </strong>:
             <div th:replace="fragments/common::object-paths(${objectPaths},false)"/>
         </p>
        </th:block>
@@ -145,7 +145,7 @@
     <!-- Lemma details hieroglyphs -->
     <div th:fragment="lemma-property-hieroglyphs" id="lemma-property-hieroglyphs" th:unless="${obj.hieroglyphs} == null">
         <p>
-            <strong th:text="#{lemma_property_hieroglyphs}" class="details-property-label">Hieroglyphic spelling(s):</strong>
+            <strong th:text="#{lemma_property_hieroglyphs}" class="details-property-label">Hieroglyphic spelling(s)</strong>:
             <span th:replace=" :: hieroglyphs"/>
         </p>
     </div>
@@ -153,7 +153,7 @@
     <!-- Lemma language phase / script / subdict -->
     <div th:fragment="lemma-property-dict" id="lemma-property-dict">
         <hr/>
-        <strong th:text="#{lemma_property_dict}" class="details-property-label">Dictionary:</strong>
+        <strong th:text="#{lemma_property_dict}" class="details-property-label">Lemma list</strong>:
         <span th:text="#{|dict_${obj.dictionaryName}|}">Hieratic/Demotic/Coptic</span>
     </div>
 
@@ -163,7 +163,7 @@
         <p>
             <strong th:text="#{lemma_property_attestation}" class="details-property-label">Attestation</strong>
             <br/>
-            <strong th:text="#{lemma_property_attestation_occurrences}" class="details-property-label">Occurrences:</strong>
+            <strong th:text="#{lemma_property_attestation_occurrences}" class="details-property-label">Occurrences</strong>
            <span th:text="${obj.attestationCount}" id="attestationCount" style="display:none"></span>
    
             <a th:href="|${@searchController.getSearchResultsPageRoute(@__sentenceController__)}?tokens[0].lemma.id=${obj.id}|">
@@ -193,7 +193,7 @@
 
     <!-- Lemma Attestations timespan -->
     <span th:fragment="lemma-timespan" th:if="${obj.timespan != null}">
-        <strong th:text="#{lemma_property_attestation_timespan}" class="details-property-label">Attestation time:</strong>
+        <strong th:text="#{lemma_property_attestation_timespan}" class="details-property-label">Attestation time</strong>:
         <span th:text="#{object_property_aux_attestation_time_from}">from</span>
         <span th:insert=" :: display-year(${obj.timespan.begin})" id="attestation-timespan-from">
             420 BCE
@@ -207,7 +207,7 @@
     <!-- Related Objects -->
     <div th:fragment="object-property-related-objects" id="object-property-related-objects" th:unless="${#maps.isEmpty(relations)}">
         <hr/>
-        <strong th:text="#{|${objectType}_property_related_objects|}" class="border-bottom details-property-label">Related Objects</strong>
+        <strong th:text="#{|${objectType}_property_related_objects|}" class="border-bottom details-property-label">Related lemmata</strong>
         <div class="row py-1" th:each="predicate : ${relations}">
             <div class="pl-0 col-md-12 border-bottom">
                 <span th:text="#{|${objectType}_relation_predicate_${predicate.key}|}" class="details-property-label">Predicate</span>
@@ -220,8 +220,9 @@
             </div>
         </div>
     </div>
-        <div th:fragment="object-property-citationBox" id="object-property-citationBox" th:unless="${#maps.isEmpty(relations)}" class="bg-light citation mt-5 mb-4"> 
-    	<div class="bg-light citation mt-4 mb-2"> 
+	
+   <div th:fragment="object-property-citationBox" id="object-property-citationBox" th:unless="${#maps.isEmpty(relations)}" class="bg-light citation mt-5 mb-4"> 
+    	<div class="bg-light citation mt-2 mb-2"> 
     <p class="h6" ><strong th:text="#{citeas_heading}">Please cite as</strong>:</p>
     
   
@@ -231,15 +232,34 @@
 					<span id="citation-part-3" th:text="' <' + ${env.baseUrl} +'>, ' + #{citeas_version} +' ' + #{corpusversion} + ', ' + #{tla_ReleaseDate} + ', ' + #{citeas_editor} +' ' + #{tla_Editor} + ' ('+ #{citeas_accessed} + ': '"></span>
 					<script>document.write(today)</script>)
 				</blockquote>
-				<button type="button" class="btn btn-secondary btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyCitationToClipboard(document.getElementById('citation-part-1').textContent + document.getElementById('citation-part-2').textContent + document.getElementById('citation-part-3').textContent + today +')')"><i class="fas fa-clipboard"></i>&nbsp;<span th:text="#{citeas_copy_button}">Copy citation</span></button>
+				<button type="button" class="btn btn-secondary btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document.getElementById('citation-part-1').textContent + document.getElementById('citation-part-2').textContent + document.getElementById('citation-part-3').textContent + today +')')"><i class="fas fa-clipboard"></i>&nbsp;<span th:text="#{citeas_copy_button}">Copy citation</span></button>
      </div>  
     </div>
 
+    <!-- Persitent Lemma ID  -->
+    <div th:fragment="lemma-property-pid" id="lemma-property-pid">
+		<hr/>
+		<p>         
+		  <strong>Persistent lemma ID:</strong>
+		  <span th:text="${obj.id}" id="id">Lemma ID</span>
+		  <script> 
+		  </script>
+		  <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" th:onclick="copyStringToClipboard(document.getElementById('id').textContent)" ><span class="fas fa-clipboard"></span>&nbsp;<span th:text="#{button_copy_ID}">Copy ID</span></button>
+		  <br/>
+		  <strong>Persistent URL:</strong>
+		  <!-- Zitationsbutton -->
+		  <span th:text="|${env.baseUrl}/lemma/${obj.id}|" id="page-url">https://tla.bbaw.de/lemma/___</span>
+		  <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document.getElementById('page-url').textContent)"><span class="fas fa-clipboard"></span>&nbsp;<span th:text="#{button_copy_URL}">Copy URL</span></button>
+		 <script>var date = new Date(); date.getUTCDate(); var today= date.getDate() + "." + (date.getMonth()+1) + "." + date.getFullYear(); </script>
+		  <span th:text="${obj.name} +' (Lemma ID '+ ${obj.id} +'), <' +  ${env.baseUrl} + '/lemma/' + ${obj.id} + '>, in: ' + #{tla_Title} + ' <' + ${env.baseUrl} + '>, ' + #{citeas_version} +' '+ #{corpusversion} + ' , ' +  #{tla_ReleaseDate} + ', ed. by ' + #{tla_Editor} + ' ('+ #{citeas_accessed}+ ': '" id="citation" style="display:none"></span>
+		  <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document.getElementById('citation').textContent + today + ')')"><span class="fas fa-clipboard"></span>&nbsp;<span th:text="#{citeas_copy_button}">Copy citation</span></button>
+		</p>
+	  </div>
 
     <!-- "Atoms" -->
 
     <!-- POS/type -->
-    <span th:fragment="type-subtype" id="type-subtype" class="type-subtype" th:classappend="${objectType}">
+    <span th:fragment="type-subtype" name="type-subtype" class="type-subtype" th:classappend="${objectType}">
         <th:block th:with="key=|${objectType}_fulltype_${obj.type}_${obj.subtype}|">
             <th:block th:with="label=${#messages.msgOrNull(key)}">
                 <span th:if="${label} != null" th:text="${label}">Type/subtype</span>
