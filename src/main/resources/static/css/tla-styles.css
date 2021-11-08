@@ -95,6 +95,11 @@ blockline
     text-align: right;
 }
 
+#social {
+	display: flex !important;
+	flex-flow: row wrap;
+	justify-content: right;
+}
 
 /* Navbar */
 
@@ -758,10 +763,6 @@ footer.bg-light {
 
 .details-header, .search-header {
     border-bottom: 2px solid #EEE !important;
-}
-
-#details-content .details-property-label::after {
-    content: ":";
 }
 
 #details-content .external-reference-id {
