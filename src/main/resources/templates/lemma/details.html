@@ -17,6 +17,7 @@
 
       <div class="row">
         <div class="col-sm-12 col-lg-8" id="details-content" th:object="${obj}">
+          <a th:replace="fragments/common :: review-state(${obj})"/>
         
           <div th:replace="fragments/details :: lemma-property-hieroglyphs"/>
           <div th:replace="fragments/details :: lemma-property-pid"/>

@@ -95,6 +95,11 @@ blockline
     text-align: right;
 }
 
+#social {
+	display: flex !important;
+	flex-flow: row wrap;
+	justify-content: right;
+}
 
 /* Navbar */
 
