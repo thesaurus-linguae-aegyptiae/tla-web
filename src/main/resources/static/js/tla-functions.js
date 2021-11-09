@@ -450,7 +450,7 @@ if ((getCookie("TransciptionEncoding") == "unicode") ||(getCookie("TransciptionE
 	  if (cookieAcceptanceState == "accepted") {
 		  $('.cookie-container').addClass('d-none');
 		  var ausgabe = document.getElementById('cookie-info');
-		  ausgabe.innerHTML = '(Cookies '+cookieAcceptanceState+')';
+		  ausgabe.innerHTML = '(Cookies '+cookieAcceptanceState+')'; // BUG: immer Englisch
 	  }
 	
     $('.cookie-ok').click(function()  {
