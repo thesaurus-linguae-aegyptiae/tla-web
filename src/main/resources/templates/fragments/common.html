@@ -64,7 +64,7 @@
     <footer class="py-5 bg-light" th:fragment="footer">
       <div class="container">
         <div class="row">
-          <div class="col-sm-7 col-lg-4">
+          <div class="col-sm-4 col-lg-6">
             <address>
               <strong>Thesaurus Linguae Aegyptiae</strong>
               <br/>
@@ -73,23 +73,21 @@
               <a href="/" th:text="${env.baseUrl}">https://tla.bbaw.de</a>
             </address>
           </div>
-          <div class="col-sm-4 col-lg-2 contact">
+          <div class="contact col-sm-2 col-lg-2 ">
             <a href="/contact" th:text="#{editorial_title_contact}">Contact</a>
             <br/>
             <a href="/legal/imprint" th:text="#{editorial_title_legal_imprint}">Imprint</a>
             <br/>
             <a href="/legal/privacy" th:text="#{editorial_title_legal_privacy}">Privacy policy</a>
             <br/>
-            <span id="cookie-info">(Cookies not yet accepted)</span>
+             <span id="cookie-info" th:text="#{editorial_cookie_info_no}">(Cookies not yet accepted)</span>
           </div>
-          <div class="footer-logo col-sm-6 col-lg-3">
+          <div class="footer-logo col-sm-6 col-lg-4">
             <a href="http://www.saw-leipzig.de" target="_blank">
-              <img class="logo-img" th:src="@{/img/logo_saw.svg}" th:alt="#{logo-alt-saw}"/>
+              <img class="logo-img" src="/img/logo_saw.svg" th:alt="#{logo-alt-saw}"/>
             </a>
-          </div>
-          <div class="footer-logo col-sm-6 col-lg-3">
-            <a href="http://www.bbaw.de" target="_blank">
-              <img class="logo-img" th:src="@{/img/logo_bbaw.svg}" th:alt="#{logo-alt-bbaw}"/>
+            <a class="ml-2" href="http://www.bbaw.de" target="_blank">
+              <img class="logo-img" src="/img/logo_bbaw.svg" th:alt="#{logo-alt-bbaw}"/>
             </a>
           </div>
         </div>
