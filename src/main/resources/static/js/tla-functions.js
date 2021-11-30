@@ -52,7 +52,7 @@ function init() {
 		
 			if(document.getElementById("script2").checked && document.getElementById("script1").checked ){
 				if (getCookie("CookiePolicy") == "accepted") 
-				          setCookie("TranscriptionScript", "hieratic+demotic");
+				          setCookie("TranscriptionScript", "hieratic+demotic",{expires:365});
 				document.getElementById("transcription_enc_unicode").checked = true;
 		        document.getElementById("radio_enc_unicode").checked = true;
 				
@@ -61,7 +61,7 @@ function init() {
 				
 			   if (getCookie("CookiePolicy") == "accepted") 
                       if(document.getElementById("script1").checked)
-			            setCookie("TranscriptionScript", "hieratic");	
+			            setCookie("TranscriptionScript", "hieratic",{expires:365});	
 				
 	}
        });	
@@ -70,14 +70,14 @@ function init() {
 		
 			if(document.getElementById("script2").checked && document.getElementById("script1").checked ){
 				if (getCookie("CookiePolicy") == "accepted") 
-				          setCookie("TranscriptionScript", "hieratic+demotic");
+				          setCookie("TranscriptionScript", "hieratic+demotic",{expires:365});
 				document.getElementById("transcription_enc_unicode").checked = true;
 				document.getElementById("radio_enc_unicode").checked = true;
 			}	
 			else 
 			   if (getCookie("CookiePolicy") == "accepted") 
                      if(document.getElementById("script2").checked)
-			            setCookie("TranscriptionScript", "demotic");	
+			            setCookie("TranscriptionScript", "demotic",{expires:365});	
 				
 	
        });	
@@ -102,14 +102,14 @@ if ((getCookie("TransciptionEncoding") == "unicode") ||(getCookie("TransciptionE
 
         $('#transcription_enc_unicode').click(function () {
 			if (getCookie("CookiePolicy") == "accepted") {
-				setCookie("TransciptionEncoding", "unicode");
+				setCookie("TransciptionEncoding", "unicode",{expires:365});
 				}
 				document.getElementById("root_enc_unicode").checked = true
 			
         });	
         $('#transcription_enc_mdc').click(function () {
 			if (getCookie("CookiePolicy") == "accepted") {
-				setCookie("TransciptionEncoding", "manuel_de_codage");
+				setCookie("TransciptionEncoding", "manuel_de_codage",{expires:365});
 				}
 			/*if(document.getElementById("script2").checked && document.getElementById("script1").checked )
 				{document.getElementById("transcripton_enc_unicode").checked = true;
@@ -122,14 +122,14 @@ if ((getCookie("TransciptionEncoding") == "unicode") ||(getCookie("TransciptionE
         });	
         $('#root_enc_unicode').click(function () {
 			if (getCookie("CookiePolicy") == "accepted") {
-				setCookie("TransciptionEncoding", "unicode");
+				setCookie("TransciptionEncoding", "unicode",{expires:365});
 				}
 				document.getElementById("transcription_enc_unicode").checked = true
 			
         });	
         $('#root_enc_mdc').click(function () {
 			if (getCookie("CookiePolicy") == "accepted") {
-				setCookie("TransciptionEncoding", "manuel_de_codage");
+				setCookie("TransciptionEncoding", "manuel_de_codage",{expires:365});
 				}
 				document.getElementById("transcription_enc_mdc").checked = true
 			
@@ -169,9 +169,9 @@ if ((getCookie("TransciptionEncoding") == "unicode") ||(getCookie("TransciptionE
 			e.preventDefault();
 			if (getCookie("CookiePolicy") == "accepted") {
 				if ($('.bts-glossing').is(':visible')) {
-					setCookie("TLAFlexcodeVisible", "false");
+					setCookie("TLAFlexcodeVisible", "false",{expires:365});
 				} else {
-					setCookie("TLAFlexcodeVisible", "true");
+					setCookie("TLAFlexcodeVisible", "true",{expires:365});
 				}
 			}
             $('.bts-glossing').slideToggle('slow');
@@ -196,9 +196,9 @@ if ((getCookie("TransciptionEncoding") == "unicode") ||(getCookie("TransciptionE
 			e.preventDefault();
 			if (getCookie("CookiePolicy") == "accepted") {
 				if ($('.ling-glossing').is(':visible')) {
-					setCookie("LingGlossingVisible", "false");
+					setCookie("LingGlossingVisible", "false",{expires:365});
 				} else {
-					setCookie("LingGlossingVisible", "true");
+					setCookie("LingGlossingVisible", "true",{expires:365});
 				}
 			}
             $('.ling-glossing').slideToggle('slow');
@@ -227,9 +227,9 @@ if ((getCookie("TransciptionEncoding") == "unicode") ||(getCookie("TransciptionE
 			e.preventDefault();
 			if (getCookie("CookiePolicy") == "accepted") {
 				if ($('.token-translation').is(':visible')) {
-					setCookie("TokenTranslationVisible", "false");
+					setCookie("TokenTranslationVisible", "false",{expires:365});
 				} else {
-					setCookie("TokenTranslationVisible", "true");
+					setCookie("TokenTranslationVisible", "true",{expires:365});
 				}
 			}
             $('.token-translation').slideToggle('slow');
@@ -254,9 +254,9 @@ if ((getCookie("TransciptionEncoding") == "unicode") ||(getCookie("TransciptionE
 			e.preventDefault();
 			if (getCookie("CookiePolicy") == "accepted") {
 				if ($('.text-date').is(':visible')) {
-					setCookie("TextDateVisible", "false");
+					setCookie("TextDateVisible", "false",{expires:365});
 				} else {
-					setCookie("TextDateVisible", "true");
+					setCookie("TextDateVisible", "true",{expires:365});
 				}
 			}
             $('.text-date').slideToggle('slow');
@@ -281,9 +281,9 @@ if ((getCookie("TransciptionEncoding") == "unicode") ||(getCookie("TransciptionE
 			e.preventDefault();
 			if (getCookie("CookiePolicy") == "accepted") {
 				if ($('.text-editor').is(':visible')) {
-					setCookie("TextEditorVisible", "false");
+					setCookie("TextEditorVisible", "false",{expires:365});
 				} else {
-					setCookie("TextEditorVisible", "true");
+					setCookie("TextEditorVisible", "true",{expires:365});
 				}
 			}
             $('.text-editor').slideToggle('slow');
@@ -331,9 +331,9 @@ if ((getCookie("TransciptionEncoding") == "unicode") ||(getCookie("TransciptionE
 			e.preventDefault();
 			if (getCookie("CookiePolicy") == "accepted") {
 				if ($('.container-annotation-switch-anno').is(':visible')) {
-					setCookie("AnnotationBlockVisible", "false");
+					setCookie("AnnotationBlockVisible", "false",{expires:365});
 				} else {
-					setCookie("AnnotationBlockVisible", "true");
+					setCookie("AnnotationBlockVisible", "true",{expires:365});
 				}
 			}
             $('.container-annotation-switch-anno').slideToggle('slow');
