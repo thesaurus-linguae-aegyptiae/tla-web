@@ -25,3 +25,6 @@ app.log
 # ignore resources
 sample.tar.gz
 .gradletasknamecache
+
+#Eclipse
+.classpath

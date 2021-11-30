@@ -17,9 +17,9 @@
       <h2>Editorial status</h2>
       <p>The editorial <strong>review status</strong> of each lemma entry is categorized and indicated by one of three icons:</p>
       <ul>
-         <li>The icon <span class="icon ok">BUG:xxx</span> (“<strong><i th:text="#{review_state_published}">reviewed</i></strong>”) indicates that an entry has been reviewed and updated.</li>
-         <li>The icon <span class="icon notok">xxx</span> (“<strong><i th:text="#{review_state_published-awaiting-review}">review pending</i></strong>”) indicates that an entry still needs to be reviewed (e.g., entries imported from external lexicographical sources, but not yet checked).</li>
-         <li>The icon <span class="icon pending">xxx</span> (“<strong><i th:text="#{review_state_published-obsolete}">inactive</i></strong>”) indicates that an entry’s status as a lemma has been revoked by the chief lemma list editor based on ongoing lexicographical research. Furthermore, specific lemma entries that simply refer the user to other entries are marked this way.</li>
+         <li>The icon <span class="red-status"><span class="icon ok"></span></span> (“<strong><i th:text="#{review_state_published}">reviewed</i></strong>”) indicates that an entry has been reviewed and updated.</li>
+         <li>The icon <span class="red-status"><span class="icon pending"></span></span> (“<strong><i th:text="#{review_state_published-awaiting-review}">review pending</i></strong>”) indicates that an entry still needs to be reviewed (e.g., entries imported from external lexicographical sources, but not yet checked).</li>
+         <li>The icon <span class="red-status"><span class="icon notok"></span></span> (“<strong><i th:text="#{review_state_published-obsolete}">inactive</i></strong>”) indicates that an entry’s status as a lemma has been revoked by the chief lemma list editor based on ongoing lexicographical research. Furthermore, specific lemma entries that simply refer the user to other entries are marked this way.</li>
       </ul>
    </section>
    <section>
@@ -30,7 +30,7 @@
       <p>For the <strong>transliteration of lemmata in Demotic</strong> script, the lemma list essentially follows the transliteration system of W. Erichsen’s <i>Demotisches Glossar</i> (1954), with ı͗ for the successor of <span class="unicode-hieroglyphs">𓇋</span> and <i class="transliteration">j</i> for the successor of <span class="unicode-hieroglyphs">𓇌𓏲</span>. However, as in the hieroglyphic/hieratic lemma list, <i class="transliteration">q</i> is used for the successor of <span class="unicode-hieroglyphs">𓈎</span>.</p>
       <h3>Overview of special signs</h3>
          <table>
-            <tr><th>Hieroglyphic <br/>equivalent</th><th>Erman &amp; Grapow, <br/><i>Wb.</i></th><th>Hieroglyphic <br/>lemma list</th><th>Manuel<br/>de codage</th><th>Erichsen, <br/><i>Demot. Glossar</i></th><th>Demotic <br/>lemma list</th><th>Manuel<br/>de codage</th><th>Comment</th></tr>
+            <tr><th>Hieroglyphic <br/>equivalent</th><th>Erman &amp; Grapow, <br/><i>Wb.</i></th><th>Hieroglyphic <br/>lemma list</th><th><i>Manuel<br/>de codage</i></th><th>Erichsen, <br/><i>Demot. Glossar</i></th><th>Demotic <br/>lemma list</th><th><i>Manuel<br/>de codage</i></th><th>Comment</th></tr>
             <tr><td class="unicode-hieroglyphs">𓄿</td><td class="transliteration">ꜣ</td><td class="transliteration"><strong>ꜣ</strong></td><td>A</td><td class="transliteration">ꜣ</td><td class="transliteration"><strong>ꜣ</strong></td><td>A</td><td></td></tr>
             <tr><td class="unicode-hieroglyphs">𓇋</td><td class="transliteration">ı͗</td><td class="transliteration"><strong>j</strong></td><td>j</td><td class="transliteration">ı͗</td><td><span class="transliteration"><strong>ı͗</strong></span></td><td>i</td><td>Codepoint <span class="transliteration">ı͗</span>:<br/>U+0131&amp;U+0357</td></tr>
             <tr><td class="unicode-hieroglyphs">(𓇋𓏲)</td><td class="transliteration"></td><td class="transliteration"><strong></strong></td><td></td><td class="transliteration">e</td><td><span class="transliteration"><strong>e</strong></span></td><td>e</td><td></td></tr>
