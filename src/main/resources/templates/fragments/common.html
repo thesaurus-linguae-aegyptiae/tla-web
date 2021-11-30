@@ -31,7 +31,7 @@
                   <a class="dropdown-item" href="/info/introduction" th:text="#{editorial_title_info_introduction}">Introduction</a>
                   <a class="dropdown-item" href="/info/project" th:text="#{editorial_title_info_project}">Project</a>
                   <a class="dropdown-item" href="/info/collaboration" th:text="#{editorial_title_info_collaboration}">Collaboration</a>
-                  <a class="dropdown-item" href="/info/license" th:text="#{editorial_title_info_license}">License</a>
+                  <a class="dropdown-item" href="/info/licenses" th:text="#{editorial_title_info_license}">Licenses</a>
                 </div>
               </li>
               <li class="nav-item">
@@ -93,9 +93,20 @@
         </div>
       </div>
     </footer>
-    
-        
-    <!-- Cookie-Alert -->
+
+
+    <!-- Citation blocks -->
+   
+	<div class="bg-light citation mt-2 mb-2" th:fragment="citation-website">
+		<p class="h6"><strong>Please cite this website as</strong>:</p>
+		<script>var date = new Date(); date.getUTCDate(); var today= date.getDate() + "." + (date.getMonth()+1) + "." + date.getFullYear(); </script>
+		<blockquote id="full-citation"><span id="citation-part-2" style="font-style: italic;" th:text="#{tla_Title}"></span> <span id="citation-part-3" th:text="' <' + ${env.baseUrl} +'>, ' + #{citeas_version} +' ' + ${env.version} +'.'+ #{tla_Issue} + ', ' + #{tla_ReleaseDate} + ', ' + #{citeas_editor} +' ' + #{tla_Editor} + ' ('+ #{citeas_accessed}+ ': '"></span>
+			<script>document.write(today) </script>)
+		</blockquote>
+		<button type="button" class="btn btn-secondary btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document.getElementById('citation-part-2').textContent + document.getElementById('citation-part-3').textContent + today +')')"><span class="fas fa-clipboard"></span>&nbsp;<span th:text="#{citeas_copy_button}">Copy citation</span></button>
+	</div>     
+	        
+    <!-- Cookie alert -->
    
     <cookie class="cookie-info" th:fragment="cookie">
      <div class="alert alert-dismissible text-center cookiealert" role="alert">
