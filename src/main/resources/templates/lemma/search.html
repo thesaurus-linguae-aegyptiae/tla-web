@@ -43,7 +43,7 @@
             <script th:inline="javascript">
           //<![CDATA[
           {
-        	  // Sub-dictionary = "Hieroglyphic/Hieratic" / "Demotic" ; Transliteration = "nfr" ; Encoding = "Manuel de Codage" ; Part of Speech = "(any_but_names)"
+        	  // Lemma List = "Hieroglyphic/Hieratic" / "Demotic" ; Transliteration = "nfr" ; Encoding = "Manuel de Codage" ; Part of Speech = "(any_but_names)"
         	  const queryString = window.location.search;
         	  const urlParams = new URLSearchParams(queryString);
         	  // Lemma ID = "123" 
@@ -53,7 +53,7 @@
         	  else if (script=="hieratic") script="\"Hieroglyphic\/Hieratic\"";
         	 else script="\"Demotic\"";
         	  if(script !=""){
-             document.getElementById("queryScriptHeader").innerHTML ="Sub-dictionary = ";      	  
+             document.getElementById("queryScriptHeader").innerHTML ="Lemma list = ";      	  
         	  document.getElementById("queryScript").innerHTML =script;
         	  }
         	 

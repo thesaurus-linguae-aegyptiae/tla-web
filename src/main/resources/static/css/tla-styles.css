@@ -1126,12 +1126,10 @@ span.multiselect-native-select select {
     content: "Subst.";
 }
 
-/* Substitute */
 .referencedBy:before {
-    content: "Obs.";
+    content: "Inact.";
 }
 
-/* Obsolete */
 .composedOf:before {
     content: "Part";
 }
