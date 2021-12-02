@@ -21,13 +21,18 @@ const setCookie = (name, value, path = undefined) => {
     }
 }
 
+
 function init() {	
 
     // Cookie Acceptance Banner ausblenden
 
 	   if (Cookies.get("accepted")) {
-       $('#cookie-info').html('(Cookies accepted)')
-    }
+       $('#cookie-info').html('(Cookies accepted)');}
+
+
+
+
+    
 
 	// Search-Button
 
@@ -44,9 +49,7 @@ function init() {
 			window.open('/help/bts-glossings','_blank');
 		  });	
 
-//if((querySelector('#script1:checked')== null)&&(querySelector('#script2:checked')== null)){
-	//document.getElementById("script1").checked = true;
-//}
+
 //Cookies for Script choice
  $('#script1').click(function () {
 		
@@ -54,7 +57,9 @@ function init() {
 				if (getCookie("CookiePolicy") == "accepted") 
 				          setCookie("TranscriptionScript", "hieratic+demotic",{expires:365});
 				document.getElementById("transcription_enc_unicode").checked = true;
-		        document.getElementById("radio_enc_unicode").checked = true;
+		        document.getElementById("root_enc_unicode").checked = true;
+                document.getElementById("root_enc_mdc").disabled = true;
+                document.getElementById("transcription_enc_mdc").disabled = true;
 				
 			}	
 			else {
@@ -62,6 +67,8 @@ function init() {
 			   if (getCookie("CookiePolicy") == "accepted") 
                       if(document.getElementById("script1").checked)
 			            setCookie("TranscriptionScript", "hieratic",{expires:365});	
+               document.getElementById("root_enc_mdc").disabled = false;
+                document.getElementById("transcription_enc_mdc").disabled = false;
 				
 	}
        });	
@@ -72,13 +79,17 @@ function init() {
 				if (getCookie("CookiePolicy") == "accepted") 
 				          setCookie("TranscriptionScript", "hieratic+demotic",{expires:365});
 				document.getElementById("transcription_enc_unicode").checked = true;
-				document.getElementById("radio_enc_unicode").checked = true;
+				document.getElementById("root_enc_unicode").checked = true;
+				 document.getElementById("root_enc_mdc").disabled = true;
+                document.getElementById("transcription_enc_mdc").disabled = true;
 			}	
 			else 
 			   if (getCookie("CookiePolicy") == "accepted") 
                      if(document.getElementById("script2").checked)
-			            setCookie("TranscriptionScript", "demotic",{expires:365});	
-				
+			            setCookie("TranscriptionScript", "demotic",{expires:365});
+	
+				 document.getElementById("root_enc_mdc").disabled = true;
+                document.getElementById("transcription_enc_mdc").disabled = true;
 	
        });	
  
