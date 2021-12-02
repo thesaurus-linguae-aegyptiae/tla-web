@@ -61,7 +61,13 @@
         <div class="col-xl-10">
           <div th:each="item : ${allScripts}" class="form-check form-check-inline lemma-script">
             <input class="form-check-input"   type="checkbox"  th:field="*{script}" th:value="${item}" />
+            
             <label class="form-check-label" th:for="${#ids.prev('script')}" th:text="#{|dict_${item}|}"/>
+            <script>
+document.getElementById("script1").setAttribute("checked","checked")
+</script>
+
+
           </div>
         </div> 
       </div>
@@ -73,18 +79,17 @@
         <a class="transliteration-help" href="#" role="button" data-toggle="modal" data-target="#transliteration-help">
         <i class="fas fa-info-circle"></i></a>
         </label>
-      <!--   <div class="col-xl-10">
-          <input class="bbaw-libertine form-control mb-3" type="text" th:field="*{transcription}"/>
-        </div>-->
+      
+      
           <div class="col-sm-12 col-lg-9 col-xl-10">
 				 <input type="text" class="bbaw-libertine form-control mb-3 keyboardInput" id="dict-search-transcription" rows="3" name="transcription" lang="egy">
-                 <!--  <input type="text" class="bbaw-libertine form-control mb-3"  id="dict-search-transcription" th:field="*{transcription}"/>     --> 
+                 
 						 <div class="form-check form-check-inline">
-							  <input class="form-check-input transcription-enc-btn" type="radio" name="transcription_enc" id="transcription_enc_unicode" th:value="unicode" checked>
+							  <input class="form-check-input transcription-enc-btn"  type="radio" name="transcription_enc" id="transcription_enc_unicode" th:value="unicode" checked>
 							  <label class="form-check-label" for="transcription_enc_unicode">Unicode</label>
 						</div>
 						<div class="form-check form-check-inline">
-							  <input class="form-check-input transcription-enc-btn" type="radio" name="transcription_enc" id="transcription_enc_mdc"  th:value="manuel_de_codage">
+							  <input class="form-check-input transcription-enc-btn"type="radio" name="transcription_enc" id="transcription_enc_mdc"  th:value="manuel_de_codage">
 							  <label class="form-check-label" for="transcription_enc_mdc">Manuel de Codage</label>
 						</div>
 					</div>
@@ -100,13 +105,13 @@
         <i class="fas fa-info-circle"></i></a>
         </label>
         <div class="col-xl-10">
-          <input class="bbaw-libertine form-control mb-3" type="text" th:field="*{root}"/>
+          <input class="bbaw-libertine form-control mb-3 keyboardInput" type="text" th:field="*{root}" lang="egy"/>
            <div class="form-check form-check-inline">
-							  <input class="form-check-input transcription-enc-btn" type="radio" name="root_enc" id="root_enc_unicode" value="unicode">
+							  <input class="form-check-input transcription-enc-btn" type="radio" name="root_enc" id="root_enc_unicode" value="unicode" checked>
 							  <label class="form-check-label" for="root_enc_unicode">Unicode</label>
 						</div>
 						<div class="form-check form-check-inline">
-							  <input class="form-check-input transcription-enc-btn" type="radio" name="root_enc" id="root_enc_mdc" value="manuel_de_codage" checked>
+							  <input class="form-check-input transcription-enc-btn" type="radio" name="root_enc" id="root_enc_mdc" value="manuel_de_codage" >
 							  <label class="form-check-label" for="root_enc_mdc">Manuel de Codage</label>
 						</div>
         </div>
