@@ -26,7 +26,7 @@
                 <a class="nav-link" href="/search" th:text="#{menu_global_search}">Search</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">TLA</a>
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{menu_global_tla}">TLA</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="/info/introduction" th:text="#{editorial_title_info_introduction}">Introduction</a>
                   <a class="dropdown-item" href="/info/project" th:text="#{editorial_title_info_project}">Project</a>
@@ -40,17 +40,16 @@
               <li class="nav-item">
                 <a class="nav-link" href="/info/text-corpus" th:text="#{editorial_title_info_text-corpus}">Text Corpus</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/info/extras" th:text="#{editorial_title_info_extras}">Extras</a>
-              </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{menu_global_help}">Help</a>
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{menu_global_listings}">Help</a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown2">
-                  <a class="dropdown-item" href="/help" th:text="#{editorial_title_help}">General help</a>
-                  <a class="dropdown-item" href="/help/bts-glossings" th:text="#{editorial_title_help_bts-glossings}">BTS glossing</a>
-                  <a class="dropdown-item" href="/help/ling-glossings" th:text="#{editorial_title_help_ling-glossings}">Linguistic glossing</a>
+                  <a class="dropdown-item" href="/listings/bts-glossings" th:text="#{editorial_title_listings_bts-glossings}">BTS glossing</a>
+                  <a class="dropdown-item" href="/listings/ling-glossings" th:text="#{editorial_title_listings_ling-glossings}">Linguistic glossing</a>
+                  <a class="dropdown-item" href="/listings/bibliography" th:text="#{editorial_title_listings_bibliography}">Bibliography</a>
                 </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/help" th:text="#{menu_global_help}">Help</a>
               </li>
             </ul>
           </div>
