@@ -6,7 +6,7 @@
       <h2>Introduction</h2>
       <p>The text corpus is one of the two core parts of the <i>Thesaurus Linguae Aegyptiae</i> (TLA), the other one being the <a href="lemma-lists">lemma lists</a>. The corpus contains a constantly increasing number of Ancient Egyptian texts written in the hieroglyphic/hieratic or Demotic scripts, currently ranging from ca. 3,000 BCE to ca. 300 CE. (Coptic texts will be added later in the project.) </p>
       <p>The Ancient Egyptian text world was a quite peculiar one, culturally and historically. Messages of varying length and complexity were written on immensely diverse objects from very different spheres of life. There are texts on portable objects such as papyrus, ostraca (i.e., stone flakes or potsherds), and (complete) vessels, as well as texts on immovable objects such as the walls of temples and tombs, obelisks, statues, etc. Such different kinds of support, their material, formal and functional features contribute additional significance, connotating the meaning of the written texts.</p>
-      <p>Given this close interrelation and semantic interaction between written texts and their material support, an enhanced understanding of the Ancient Egyptian world view via texts needs to systematically take textual as well as material features of text objects into account. Consequently, all texts in the text corpus are annotated with a wide array of metadata relating to the texts themselves as well as to their material support (German <i>textträger</i>). It has always been a goal of the Academies’ project to develop a more or less balanced, diverse corpus, i.e., to provide a representative range of textual and chronological variation in the corpus. As of now, the text corpus comprises about <span th:text="#{corpus-lemma-tokens-amount-en}">1.4</span> million lemma tokens.</p>
+      <p>Given this close interrelation and semantic interaction between written texts and their material support, an enhanced understanding of the Ancient Egyptian world view via texts needs to systematically take textual as well as material features of text objects into account. Consequently, all texts in the text corpus are annotated with a wide array of metadata relating to the texts themselves as well as to their material support (German <i>textträger</i>). It has always been a goal of the Academies’ project to develop a more or less balanced, diverse corpus, i.e., to provide a representative range of textual and chronological variation in the corpus. As of now, the text corpus comprises about <span class="text-to-be-revised"><span th:text="#{corpus-lemma-tokens-amount-en}">1.4</span></span> million lemma tokens.</p>
       <p>Furthermore, the texts in the TLA are not primarily conceptualized as abstract texts (e.g., <i>Sinuhe</i>) but as a (semantically coherent) textual string on a concrete support (e.g., papyrus Berlin ÄM P 3022).</p>
    </section>
    <section>
@@ -18,8 +18,8 @@
       <p>Texts and text objects systematically come with additional metadata which are not immanent in the text or text object itself. In order to enhance data retrieval, possible values of metadata are edited in controlled vocabularies (thesauri). Categories of data and metadata relating to texts and text objects are shown in the following table:
       <table>
          <tr><th>Text data and metadata </th><th>Text object metadata<br/>
-            xxx PDils:should we add contextualisation, autor, ... ?<br/>
-            (is not systematically added in the metadata)xxx </th></tr>
+            <span class="text-to-be-revised">xxx PDils:should we add contextualisation, autor, ... ?<br/>
+            (is not systematically added in the metadata)</span></th></tr>
          <tr><td>Egyptological transliteration</td><td></td></tr>
          <tr><td>(Digital) hieroglyphic transcription</td><td></td></tr>
          <tr><td>Translation (German, English, or French)</td><td></td></tr>
@@ -45,7 +45,7 @@
       <p>Each word token (or sometimes sequence of words) is <strong>lemmatized</strong>, i.e., it is linked to an entry (’lemma’) in one of the TLA’s lemma lists. Moreover, the lemma tokens in many texts are also annotated with grammatical codes. These encode morphological inflection, mainly inflection that is overtly marked in script (e.g., genus, number of nouns), however sometimes also inflection that is covert in the purely consonantal script but which can be contextually reconstructed from syntax (e.g., <i>genus verbi</i> of an unmarked <i class="transliteration">sḏm</i>(<i>=f</i>), number of a relative <i class="transliteration">sḏm.t.n</i>(<i>=f</i>)). To keep grammatical annotation to a certain degree independent of continually debated theoretical premises, the tagging of tense/aspect/mood (TAM) features of inflected verbs is strictly limited to overt inflection, i.e., morphological features visible in the written form. For example, a morphologically unmarked <i class="transliteration">nḥm</i>(<i>=f</i>) is simply annotated as an instance of an (active or passive) “suffix conjugation” form without TAM specification. The lemma tokens of an increasing part of the texts also come with their original hieroglyphic spelling (or, in the case of hieratic, a hieroglyphic transcription). Authors are also encouraged to specify a particular sense of a lemma in context, either by picking one of a set of translations from the lemma list or by entering another specific sense themselves. In addition to these standard annotations, editors may add more annotations, such as other semantic features (e.g., type of speech act), layout features (e.g., rubra, verse points, split columns, lists), semantic features (e.g., metaphorical domains), etc.</p>
    </section>
    <section>
-      <h2>The content of the text corpus</h2>
+      <h2><span class="text-to-be-revised">The content of the text corpus</span></h2>
       <p>Currently, the following sub-corpora of ancient Egyptian texts are accessible in the TLA corpus (as of 2021xxx). Sub-corpora with digital hieroglyphic transcription text are marked with [H], those with grammatical annotation are marked with [G].</p>
       <ul>
          <li>Early Egyptian texts from the Early Dynastic Period</li>
@@ -154,6 +154,6 @@
       <p>In collaboration with Wolfgang Schenkel, the project is preparing the transformation of his Coffin Text data (<i>CTUrtext</i>) so that the Coffin Texts can be incorporated into the TLA.</p>
    </section>
    <footer>
-      <p>Text: S.Grallert, T.S.Richter, D.A.Werning</p>
+      <p>Text: S.Grallert, T.S.Richter, S.Schweitzer, D.A.Werning</p>
    </footer>
 </article>
