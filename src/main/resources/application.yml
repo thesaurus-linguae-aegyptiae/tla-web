@@ -90,6 +90,7 @@ search:
         word-classes:
             any: []
             excl_names: []
+            excl_namestitlesepithets: []
             adjective:
                 - nisbe_adjective_preposition
                 - nisbe_adjective_substantive
