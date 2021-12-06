@@ -41,12 +41,12 @@ function init() {
 	
 	$('.ling-glossing').click(function(e) {
 			e.preventDefault();
-			window.open('/help/ling-glossings','_blank');
+			window.open('/listings/ling-glossings','_blank');
 		  });	
 
 	$('.bts-glossing').click(function(e) {
 			e.preventDefault();
-			window.open('/help/bts-glossings','_blank');
+			window.open('/listings/bts-glossings','_blank');
 		  });	
 
 
