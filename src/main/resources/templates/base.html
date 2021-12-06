@@ -35,8 +35,10 @@
     <header th:replace="fragments/common :: header"/>
 
     <main id="printable-content" class="container content">
+     <div class="container content">
       <div th:replace="fragments/common :: breadcrumbs"/>
       <div layout:fragment="content"/>
+	  </div>
     </main>
 
     <footer th:replace="fragments/common :: footer"/>
