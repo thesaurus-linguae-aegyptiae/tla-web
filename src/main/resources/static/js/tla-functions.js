@@ -25,16 +25,6 @@ const setCookie = (name, value) => {
 
 
 function init() {	
-
-    // Cookie Acceptance Banner ausblenden
-
-	   if (Cookies.get("accepted")) {
-       $('#cookie-info').html('(Cookies accepted)');}
-    
-
-	// Search-Button
-
-
 	// Abbreviation help links
 	
 	$('.ling-glossing').click(function(e) {
@@ -650,24 +640,21 @@ else	{
             $('.indented-buttons-lang').slideToggle('slow');
         });
 
+    // Cookie Acceptance Banner ausblenden und Info in Footer anzeigen
 
-    // Cookie Acceptance Banner ausblenden
-
-	  var cookieAcceptanceState = getCookie("CookiePolicy");
-	  if (cookieAcceptanceState == "accepted") {
+	  if (Cookies.get("CookiePolicy") == "accepted") {
 		  $('.cookie-container').addClass('d-none');
-		  var ausgabe = document.getElementById('cookie-info');
-		  ausgabe.innerHTML = '(Cookies '+cookieAcceptanceState+')'; // BUG: immer Englisch
+		  $('#cookie-info').html('(Cookies accepted)'); // BUG: immer englisch
 	  }
 	
     $('.cookie-ok').click(function()  {
            $('.cookie-container').addClass('d-none');
             Cookies.set("CookiePolicy", "accepted");
+			$('#cookie-info').html('(Cookies accepted)'); // BUG: immer englisch
             });
 		
     $('.cookie-dismissed').click(function()  {
            $('.cookie-container').addClass('d-none');
-
             });
 //$(document).ready(function() {
   //  $("#transliterationHelp").modal();

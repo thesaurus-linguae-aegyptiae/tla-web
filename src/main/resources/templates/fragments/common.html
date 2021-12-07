@@ -80,7 +80,7 @@
             <br/>
             <a href="/legal/privacy" th:text="#{editorial_title_legal_privacy}">Privacy policy</a>
             <br/>
-             <span id="cookie-info" th:text="#{editorial_cookie_info_no}">(Cookies not yet accepted)</span>
+             <span id="cookie-info" th:text="#{editorial_cookie_info_no}">(Cookies not accepted)</span>
           </div>
           <div class="footer-logo col-sm-6 col-lg-4">
             <a href="http://www.saw-leipzig.de" target="_blank">
@@ -109,34 +109,18 @@
     <!-- Cookie alert -->
    
     <cookie class="cookie-info" th:fragment="cookie">
-     <div class="alert alert-dismissible text-center cookiealert" role="alert">
+    <div class="alert alert-dismissible cookiealert" role="alert">
     <div id="cookie-container" class="cookie-container">        
         <div class="cookie-wrapper px-5 py-2">                
             <!-- Content -->
             <div class="row my-4">
-                <div class="col-sm-8">
-                
-            <p class="" align="justify">
-            <span th:text="#{cookie_banner_msg1}">Text</span>
-            <strong><span th:text="#{cookie_banner_msg2}">Text</span></strong>
-            <span th:text="#{cookie_banner_msg3}">Text</span>
-            <strong><span th:text="#{cookie_banner_msg4}">Text</span></strong>
-             <span th:text="#{cookie_banner_msg5}">Text</span>
-              <span th:text="#{cookie_banner_linkmsg1}">Text</span>
-              <a href="/legal/privacy" th:text="#{cookie_banner_linkmsg2}">Text</a>
-            </p> 
-                </div>
-
+                <span class="col-sm-8" th:utext="#{cookie_banner_msg}">This website would like to place ...</span>
                 <!-- Buttons -->
                 <div class="col-sm-4">
-                    <button class="btn btn-secondary float-right ml-4 cookie-dismissed" th:text="#{button_label_dismiss}">Dismiss</button>
-                    <button id="cok" class="btn btn-danger float-right ml-4 cookie-ok" th:text="#{button_label_accept}">Accept</button>    
-             
+                    <button class="btn btn-secondary float-right m-2 cookie-dismissed" th:text="#{button_label_dismiss}">Dismiss</button>
+                    <button id="cok" class="btn btn-danger float-right m-2 cookie-ok" th:text="#{button_label_accept}">Accept</button>    
                 </div>
-
-            </div> <!-- /.row -->                
-            
-                   
+            </div>
         </div>
     </div>
     </div>

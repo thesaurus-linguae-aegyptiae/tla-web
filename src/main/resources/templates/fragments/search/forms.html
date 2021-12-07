@@ -167,7 +167,6 @@ document.getElementById("script1").setAttribute("checked",true);
 
       <!--  <div th:replace=" :: type-spec('annotation-type', 'lemmaSearchForm.anno', ${lemmaAnnotationTypes})"/>-->
 <div class="modal fade" id="transliteration-help" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    
       <div class="modal-dialog modal-dialog-centered"  pointer-events="all" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -176,17 +175,8 @@ document.getElementById("script1").setAttribute("checked",true);
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <!--  <div class="modal-body">
-		    <p> <span th:utext="#{modal_transcription_text_p1}">The following wildcard <b>functions</b> can be used</span>:</p>
-			<p>"*": <span th:text="#{modal_transcription_text_p2}">dummy for any sign, e.g., in </span> "<span class="bbaw-libertine">*?m</span>"
-			<br/>"[ ]": <span th:text="#{modal_transcription_text_p3}">set of signs; any of the included character will be searched for, e.g.</span>, "<span class="bbaw-libertine">s[d?].t</span>"
-			<br/>"?": <span th:text="#{modal_transcription_text_p4}">the preceding sign can occur, but need not occur, e.g., </span>"<span class="bbaw-libertine">mrr?.t</span>"</p>
-          </div> -->
-          
            <div class="modal-body">
-           <span th:utext="#{modal_transcription_text}">
-		   Text
-		   </span>
+           <span th:utext="#{modal_transcription_text}">The following wildcard ...</span>
           </div> 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" th:text="#{modal_close}">Close</button>
