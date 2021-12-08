@@ -66,9 +66,9 @@
             <script>
 //document.getElementById("script1").setAttribute("checked","checked")
 if (getCookie("CookiePolicy") == "accepted") {
-	if (getCookie("TranscriptionScript")==null) {setCookie("TranscriptionScript", "hieratic");
+	if (getCookie("TranscriptionScript")==null) {setPermanentCookie("TranscriptionScript", "hieratic");
 	document.getElementById("script1").setAttribute("checked",true);
-	setCookie("Mdc","enabled");}
+	setPermanentCookie("Mdc","enabled");}
               }
 else if( sessionStorage.getItem("TranscriptionScript")==null){
 sessionStorage.setItem("TranscriptionScript", "hieratic");
@@ -105,7 +105,7 @@ document.getElementById("script1").setAttribute("checked",true);
 					</div>
 			<script>		
 					if (getCookie("CookiePolicy") == "accepted") {
-						if (getCookie("TranscriptionEncoding")==null) {setCookie("TranscriptionEncoding", "unicode");
+						if (getCookie("TranscriptionEncoding")==null) {setPermanentCookie("TranscriptionEncoding", "unicode");
 						document.getElementById("transcription_enc_unicode").setAttribute("checked",true);
 						document.getElementById("transcription_enc_mdc").setAttribute("disabled",false);
 						}
@@ -139,7 +139,7 @@ document.getElementById("script1").setAttribute("checked",true);
 						</div>
 				<script>		
 					if (getCookie("CookiePolicy") == "accepted") {
-						if (getCookie("RootEncoding")==null){setCookie("RootEncoding", "unicode");
+						if (getCookie("RootEncoding")==null){setPermanentCookie("RootEncoding", "unicode");
 						
 						
 						document.getElementById("root_enc_unicode").setAttribute("checked",true);
@@ -263,7 +263,7 @@ document.getElementById("script1").setAttribute("checked",true);
               th:text="#{|lang_label_${lang}|}">Language</label>
               <script>
               if (getCookie("CookiePolicy") == "accepted") {
-					if (getCookie("TranslationLang")==null) {setCookie("TranslationLang", "de");
+					if (getCookie("TranslationLang")==null) {setPermanentCookie("TranslationLang", "de");
 					 document.getElementById("field-value-translation-checkbox-de-dict").setAttribute("checked",true);
 					
 					}
