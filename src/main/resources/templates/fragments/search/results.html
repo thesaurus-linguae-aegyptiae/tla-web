@@ -352,18 +352,18 @@
               }
 
               if(name!="hieroglyphs") {
-                  if ((Cookies.get(`${objectType}-results-hide-property-${name}`) != 'true')||(sessionStorage.getItem(`${objectType}-results-hide-property-${name}`) != 'true')) {
+                  if ((getCookie(`${objectType}-results-hide-property-${name}`) != 'true')||(sessionStorage.getItem(`${objectType}-results-hide-property-${name}`) != 'true')) {
                 	  
-                	 // if (Cookies.get(`${name}`) == 'true') {
+                	 // if (getCookie(`${name}`) == 'true') {
                     button.children('i').toggle();
                     $(selector).toggle();
                   }
                   }
                   else{
                 	  
-                	  if ((Cookies.get(`${objectType}-results-hide-property-${name}`) != 'false')||(sessionStorage.getItem(`${objectType}-results-hide-property-${name}`) != 'false')) {
+                	  if ((getCookie(`${objectType}-results-hide-property-${name}`) != 'false')||(sessionStorage.getItem(`${objectType}-results-hide-property-${name}`) != 'false')) {
                     	  
-                     	 // if (Cookies.get(`${name}`) == 'true') {
+                     	 // if (getCookie(`${name}`) == 'true') {
                          button.children('i').toggle();
                         $(selector).toggle();
                        }
@@ -373,8 +373,8 @@
                 $(selector).fadeToggle('slow');
 
                 button.children('svg').toggle();
-                if (Cookies.get("CookiePolicy") == "accepted") {
-                Cookies.set(`${objectType}-results-hide-property-${name}`,""+ button.children('svg#on').attr('style') == 'display: none;',{expires:365});
+                if (getCookie("CookiePolicy") == "accepted") {
+                setPermanentCookie(`${objectType}-results-hide-property-${name}`,""+ button.children('svg#on').attr('style') == 'display: none;');
                 }
                 else {
                 	sessionStorage.setItem(`${objectType}-results-hide-property-${name}`,""+ button.children('svg#on').attr('style') == 'display: none;');
@@ -456,10 +456,10 @@
 
    if(name!="hieroglyphs") {
 	  
-	  if (Cookies.get("CookiePolicy") == "accepted") {  
-       if ((Cookies.get(`${objectType}-results-hide1Lemma-property-${name}`) != 'true')) {
+	  if (getCookie("CookiePolicy") == "accepted") {  
+       if ((getCookie(`${objectType}-results-hide1Lemma-property-${name}`) != 'true')) {
 	  
-	 // if (Cookies.get(`${name}`) == 'true') {
+	 // if (getCookie(`${name}`) == 'true') {
            button.children('i').toggle();
          $(selector).toggle();
         }
@@ -467,17 +467,17 @@
        else  {  
            if ((sessionStorage.getItem(`${objectType}-results-hide1Lemma-property-${name}`) != 'true')) {
          	  
-          	 // if (Cookies.get(`${name}`) == 'true') {
+          	 // if (getCookie(`${name}`) == 'true') {
                         button.children('i').toggle();
                        $(selector).toggle();
                      }
                  }  
 	  }    
    else{
- 	  if (Cookies.get("CookiePolicy") == "accepted") {  
-	    if ((Cookies.get(`${objectType}-results-hide1Lemma-property-${name}`) != 'false')) {
+ 	  if (getCookie("CookiePolicy") == "accepted") {  
+	    if ((getCookie(`${objectType}-results-hide1Lemma-property-${name}`) != 'false')) {
  	  
-  	 // if (Cookies.get(`${name}`) == 'true') {
+  	 // if (getCookie(`${name}`) == 'true') {
       button.children('i').toggle();
      
           $(selector).toggle();
@@ -487,7 +487,7 @@
 	    else{
 	    	if ((sessionStorage.getItem(`${objectType}-results-hide1Lemma-property-${name}`) != 'false')) {
        	  
-         	 // if (Cookies.get(`${name}`) == 'true') {
+         	 // if (getCookie(`${name}`) == 'true') {
              button.children('i').toggle();
              
                  $(selector).toggle();
@@ -505,8 +505,8 @@
             	  $(selector).fadeToggle('slow');
 
                 button.children('svg').toggle();
-                if (Cookies.get("CookiePolicy") == "accepted") {
-                Cookies.set(`${objectType}-results-hide1Lemma-property-${name}`,""+ button.children('svg#on').attr('style') == 'display: none;',{expires:365});
+                if (getCookie("CookiePolicy") == "accepted") {
+                setPermanentCookie(`${objectType}-results-hide1Lemma-property-${name}`,""+ button.children('svg#on').attr('style') == 'display: none;');
                 
                 }
                 else{
@@ -578,10 +578,10 @@
              button.children('i#on').toggle(); 
              //$(selector).toggle();
 
-                	  if (Cookies.get("CookiePolicy") == "accepted") {  
-                	  if ((Cookies.get(`${objectType}-results-hide2Lemma-property-${name}`) != 'true')){
+                	  if (getCookie("CookiePolicy") == "accepted") {  
+                	  if ((getCookie(`${objectType}-results-hide2Lemma-property-${name}`) != 'true')){
                     	  
-                     	 // if (Cookies.get(`${name}`) == 'true') {
+                     	 // if (getCookie(`${name}`) == 'true') {
                          button.children('i').toggle();
                         $(selector).toggle();
                        }
@@ -589,7 +589,7 @@
                 	  else{
                 		  if ((sessionStorage.getItem(`${objectType}-results-hide2Lemma-property-${name}`) != 'true')){
                         	  
-                          	 // if (Cookies.get(`${name}`) == 'true') {
+                          	 // if (getCookie(`${name}`) == 'true') {
                               button.children('i').toggle();
                              $(selector).toggle();
                             } 
@@ -599,8 +599,8 @@
                 $(selector).fadeToggle('slow');
 
                 button.children('svg').toggle();
-                if (Cookies.get("CookiePolicy") == "accepted") {
-                Cookies.set(`${objectType}-results-hide2Lemma-property-${name}`,""+ button.children('svg#on').attr('style') == 'display: none;',{expires:365});
+                if (getCookie("CookiePolicy") == "accepted") {
+                setPermanentCookie(`${objectType}-results-hide2Lemma-property-${name}`,""+ button.children('svg#on').attr('style') == 'display: none;');
                 
                 }
                 else{
@@ -694,10 +694,10 @@
              // else {button.children('i#off').toggle(); $(selector1).toggle(); $(selector).toggle();}
               if(name!="de") {
             	  
-            	  if (Cookies.get("CookiePolicy") == "accepted") {  
-                      if ((Cookies.get(`${objectType}-results-show-property-${name}`) != 'true')) {
+            	  if (getCookie("CookiePolicy") == "accepted") {  
+                      if ((getCookie(`${objectType}-results-show-property-${name}`) != 'true')) {
             	  
-            	 // if (Cookies.get(`${name}`) == 'true') {
+            	 // if (getCookie(`${name}`) == 'true') {
                           button.children('i').toggle();
                          $(selector1).toggle();$(selector).toggle();
                        }
@@ -705,17 +705,17 @@
                       else  {  
                           if ((sessionStorage.getItem(`${objectType}-results-show-property-${name}`) != 'true')) {
                         	  
-                         	 // if (Cookies.get(`${name}`) == 'true') {
+                         	 // if (getCookie(`${name}`) == 'true') {
                                        button.children('i').toggle();
                                       $(selector1).toggle();$(selector).toggle();
                                     }
                                 }  
             	  }    
                   else{
-                	  if (Cookies.get("CookiePolicy") == "accepted") {  
-            	    if ((Cookies.get(`${objectType}-results-show-property-${name}`) != 'false')) {
+                	  if (getCookie("CookiePolicy") == "accepted") {  
+            	    if ((getCookie(`${objectType}-results-show-property-${name}`) != 'false')) {
                 	  
-                 	 // if (Cookies.get(`${name}`) == 'true') {
+                 	 // if (getCookie(`${name}`) == 'true') {
                      button.children('i').toggle();
                      $(selector1).toggle();$(selector).toggle();
                    }
@@ -723,7 +723,7 @@
             	    else{
             	    	if ((sessionStorage.getItem(`${objectType}-results-show-property-${name}`) != 'false')) {
                       	  
-                        	 // if (Cookies.get(`${name}`) == 'true') {
+                        	 // if (getCookie(`${name}`) == 'true') {
                             button.children('i').toggle();
                             $(selector1).toggle();$(selector).toggle();
                           }
@@ -734,8 +734,8 @@
               button.click(() => {
             	  $(selector1).fadeToggle('slow');$(selector).fadeToggle('slow');
                 button.children('svg').toggle();
-                if (Cookies.get("CookiePolicy") == "accepted") {
-              Cookies.set(`${objectType}-results-show-property-${name}`,""+ button.children('svg#on').attr('style') == 'display: none;',{expires:365});
+                if (getCookie("CookiePolicy") == "accepted") {
+              setPermanentCookie(`${objectType}-results-show-property-${name}`,""+ button.children('svg#on').attr('style') == 'display: none;');
                 }
                 else{
                 	sessionStorage.setItem(`${objectType}-results-show-property-${name}`,""+ button.children('svg#on').attr('style') == 'display: none;');
