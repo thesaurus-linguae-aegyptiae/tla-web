@@ -85,7 +85,7 @@ document.getElementById("script1").setAttribute("checked",true);
       <div class="form-group row">
        <!--   <label class="col-form-label col-xl-2" for="transcription" th:text="#{field_label_transcription}">Transcription</label> -->
          <label for="Transcription" class="col-sm-12 col-lg-3 col-xl-2 col-form-label" >
-        <span th:text="#{field_label_transcription}">Transcription </span>
+        <span th:text="#{field_label_transliteration}">Transcription </span>
         <a class="transliteration-help" href="#" role="button" data-toggle="modal" data-target="#transliteration-help">
         <i class="fas fa-info-circle"></i></a>
         </label>
@@ -123,7 +123,7 @@ document.getElementById("script1").setAttribute("checked",true);
        
       <div class="form-group row">
         <label  class="col-form-label col-xl-2" th:for="*{root}">
-        <span th:text="#{field_label_root_transcription}">Root </span>
+        <span th:text="#{field_label_root_transliteration}">Root </span>
         <a class="transliteration-help" href="#" role="button" data-toggle="modal" data-target="#transliteration-help">
         <i class="fas fa-info-circle"></i></a>
         </label>
@@ -170,13 +170,13 @@ document.getElementById("script1").setAttribute("checked",true);
       <div class="modal-dialog modal-dialog-centered"  pointer-events="all" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalCenterTitle" th:text="#{modal_transcription_title}">Transliteration search string</h5>
+            <h5 class="modal-title" id="exampleModalCenterTitle" th:text="#{modal_transliteration_title}">Transliteration search string</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
            <div class="modal-body">
-           <span th:utext="#{modal_transcription_text}">The following wildcard ...</span>
+           <span th:utext="#{modal_transliteration_text}">The following wildcard ...</span>
           </div> 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" th:text="#{modal_close}">Close</button>
