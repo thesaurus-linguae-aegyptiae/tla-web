@@ -221,15 +221,13 @@
         </div>
     </div>
 	
-   <div th:fragment="object-property-citationBox" id="object-property-citationBox" th:unless="${#maps.isEmpty(relations)}" class="bg-light citation mt-5 mb-4"> 
+   <div th:fragment="object-property-citationBox" id="object-property-citationBox" class="bg-light citation mt-5 mb-4"> 
     	<div class="bg-light citation mt-2 mb-2"> 
     <p class="h6" ><strong th:text="#{citeas_heading}">Please cite as</strong>:</p>
-    
-  
 				<script>var date = new Date(); date.getUTCDate(); var today= date.getDate() + "." + (date.getMonth()+1) + "." + date.getFullYear();</script>
 				<blockquote id="full-citation"><span id="citation-part-1" th:text="${obj.name} + ' (' + #{citeas_lemma} +' '+ ${obj.id} + '), <' + ${env.baseUrl}+'/lemma/' + ${obj.id} +'>, in: '"></span>  
 					<span id="citation-part-2" style="font-style: italic;" th:text="#{tla_Title}"></span>  
-					<span id="citation-part-3" th:text="' <' + ${env.baseUrl} +'>, ' + #{citeas_version} +' ' + #{corpusversion} + ', ' + #{tla_ReleaseDate} + ', ' + #{citeas_editor} +' ' + #{tla_Editor} + ' ('+ #{citeas_accessed} + ': '"></span>
+					<span id="citation-part-3" th:text="' <' + ${env.baseUrl} +'>, ' + #{citeas_corpus_version} + ' ' + #{tla_corpusversion} + ', ' + #{citeas_tla_version} + ' ' + #{tla_version} + ', ' + #{tla_ReleaseDate} + ', ' + #{citeas_editor} +' ' + #{tla_Editor} + ' ('+ #{citeas_accessed} + ': '"></span>
 					<script>document.write(today)</script>)
 				</blockquote>
 				<button type="button" class="btn btn-secondary btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document.getElementById('citation-part-1').textContent + document.getElementById('citation-part-2').textContent + document.getElementById('citation-part-3').textContent + today +')')"><i class="fas fa-clipboard"></i>&nbsp;<span th:text="#{citeas_copy_button}">Copy citation</span></button>
@@ -251,7 +249,7 @@
 		  <span th:text="|${env.baseUrl}/lemma/${obj.id}|" id="page-url">https://tla.bbaw.de/lemma/___</span>
 		  <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document.getElementById('page-url').textContent)"><span class="fas fa-clipboard"></span>&nbsp;<span th:text="#{button_copy_URL}">Copy URL</span></button>
 		 <script>var date = new Date(); date.getUTCDate(); var today= date.getDate() + "." + (date.getMonth()+1) + "." + date.getFullYear(); </script>
-		  <span th:text="${obj.name} +' (Lemma ID '+ ${obj.id} +'), <' +  ${env.baseUrl} + '/lemma/' + ${obj.id} + '>, in: ' + #{tla_Title} + ' <' + ${env.baseUrl} + '>, ' + #{citeas_version} +' '+ #{corpusversion} + ' , ' +  #{tla_ReleaseDate} + ', ed. by ' + #{tla_Editor} + ' ('+ #{citeas_accessed}+ ': '" id="citation" style="display:none"></span>
+		  <span th:text="${obj.name} +' (Lemma ID '+ ${obj.id} +'), <' +  ${env.baseUrl} + '/lemma/' + ${obj.id} + '>, in: ' + #{tla_Title} + ' <' + ${env.baseUrl} + '>, ' + #{citeas_corpus_version} + ' ' + #{tla_corpusversion} + ', ' + #{citeas_tla_version} + ' ' + #{tla_version}  + ' , ' +  #{tla_ReleaseDate} + ', ed. by ' + #{tla_Editor} + ' ('+ #{citeas_accessed}+ ': '" id="citation" style="display:none"></span>
 		  <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document.getElementById('citation').textContent + today + ')')"><span class="fas fa-clipboard"></span>&nbsp;<span th:text="#{citeas_copy_button}">Copy citation</span></button>
 		</p>
 	  </div>
