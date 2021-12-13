@@ -7,11 +7,7 @@
     <div layout:fragment="content">
          <script>
         const saveDropdown = (name, prop) => {
-          setCookie(
-            `form-field-${name}-select-${prop}`,
-            $(`#${name}-${prop}`).val(),
-            '/search'
-          )
+          setPermanentCookie(`form-field-${name}-select-${prop}`, $(`#${name}-${prop}`).val() )
         }
       </script>
       <div class="row search my-4">

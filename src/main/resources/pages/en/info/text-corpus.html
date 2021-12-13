@@ -17,9 +17,7 @@
       <h2>Text metadata and text object metadata</h2>
       <p>Texts and text objects systematically come with additional metadata which are not immanent in the text or text object itself. In order to enhance data retrieval, possible values of metadata are edited in controlled vocabularies (thesauri). Categories of data and metadata relating to texts and text objects are shown in the following table:
       <table>
-         <tr><th>Text data and metadata </th><th>Text object metadata<br/>
-            <span class="text-to-be-revised">xxx PDils:should we add contextualisation, autor, ... ?<br/>
-            (is not systematically added in the metadata)</span></th></tr>
+         <tr><th>Text data and metadata </th><th>Text object metadata</th></tr>
          <tr><td>Egyptological transliteration</td><td></td></tr>
          <tr><td>(Digital) hieroglyphic transcription</td><td></td></tr>
          <tr><td>Translation (German, English, or French)</td><td></td></tr>
@@ -27,9 +25,14 @@
          <tr><td>Language phase (Old Egyptian, Middle Egyptian, etc.)</td><td></td></tr>
          <tr><td>Dating of the text</td><td>Dating of the text object</td></tr>
          <tr><td>Text category/type (‘genre’)</td><td>Type of text object</td></tr>
-         <tr><td></td><td>Material/substance</td></tr>
+         <tr><td></td><td>Component</td></tr>
+         <tr><td></td><td>Agent of a social action</td></tr>
+         <tr><td></td><td>Material</td></tr>
          <tr><td></td><td>Dimension</td></tr>
-         <tr><td>Ancient author (if applicable)</td><td></td></tr>
+         <tr><td></td><td>Condition</td></tr>
+         <tr><td></td><td>Technique</td></tr>
+         <tr><td></td><td>Archaeological Context</td></tr>
+         <tr><td></td><td>Cultural Context</td></tr>
          <tr><td></td><td>Finding place</td></tr>
          <tr><td></td><td>Current location</td></tr>
          <tr><td> Bibliographical references</td><td>Bibliographical references</td></tr>
@@ -45,100 +48,137 @@
       <p>Each word token (or sometimes sequence of words) is <strong>lemmatized</strong>, i.e., it is linked to an entry (’lemma’) in one of the TLA’s lemma lists. Moreover, the lemma tokens in many texts are also annotated with grammatical codes. These encode morphological inflection, mainly inflection that is overtly marked in script (e.g., genus, number of nouns), however sometimes also inflection that is covert in the purely consonantal script but which can be contextually reconstructed from syntax (e.g., <i>genus verbi</i> of an unmarked <i class="transliteration">sḏm</i>(<i>=f</i>), number of a relative <i class="transliteration">sḏm.t.n</i>(<i>=f</i>)). To keep grammatical annotation to a certain degree independent of continually debated theoretical premises, the tagging of tense/aspect/mood (TAM) features of inflected verbs is strictly limited to overt inflection, i.e., morphological features visible in the written form. For example, a morphologically unmarked <i class="transliteration">nḥm</i>(<i>=f</i>) is simply annotated as an instance of an (active or passive) “suffix conjugation” form without TAM specification. The lemma tokens of an increasing part of the texts also come with their original hieroglyphic spelling (or, in the case of hieratic, a hieroglyphic transcription). Authors are also encouraged to specify a particular sense of a lemma in context, either by picking one of a set of translations from the lemma list or by entering another specific sense themselves. In addition to these standard annotations, editors may add more annotations, such as other semantic features (e.g., type of speech act), layout features (e.g., rubra, verse points, split columns, lists), semantic features (e.g., metaphorical domains), etc.</p>
    </section>
    <section>
-      <h2><span class="text-to-be-revised">The content of the text corpus</span></h2>
-      <p>Currently, the following sub-corpora of ancient Egyptian texts are accessible in the TLA corpus (as of 2021xxx). Sub-corpora with digital hieroglyphic transcription text are marked with [H], those with grammatical annotation are marked with [G].</p>
+      <h2>The content of the text corpus</h2>
+      <p>Currently, the following sub-corpora of ancient Egyptian texts are accessible in the TLA corpus (as of <span class="text-to-be-revised">early 2022</span>). Sub-corpora with digital hieroglyphic transcription text are marked with [H], those with grammatical annotation are marked with [G].</p>
       <ul>
-         <li>Early Egyptian texts from the Early Dynastic Period</li>
-         <ul>
-            <li>Royal and non-royal texts [H, G] (J.Schneider, G. Sperveslage)</li>
-         </ul>
-         <li>Old Egyptian texts from the Old Kingdom</li>
-         <ul>
-            <li>Non-royal tombs [partly H, G] (A. Burkhardt, S. Grunert)</li>
-            <li>Rock inscriptions [G] (I. Hafemann, S.J. Seidlmayer)</li>
-            <li>Pyramid Texts from the royal tombs [G] (D. Topmann)</li>
-            <li>Votive labels [G] (S.J. Seidlmayer)</li>
-            <li>Letters of royal and non-royal persons [G] (I. Hafemann)</li>
-            <li>Letters to the Dead [G] (I. Hafemann)</li>
-            <li>Archival texts [G] (S. Grunert, I. Hafemann)</li>
-            <li>Biographical texts [H, G] (J. Stauder-Porchet)</li>
-            <li>Execration texts (C. Kühne-Wespi)</li>
-         </ul>
-         <li>Middle Egyptian Texts from the First Intermediate Period</li>
-         <ul>
-            <li>Letters [G] (I. Hafemann)</li>
-         </ul>
-         <li>Middle Egyptian Texts from the Middle Kingdom</li>
-         <ul>
-            <li>Royal and non-royal letters [G] (I. Hafemann)</li>
-            <li>Historical and biographical texts of royal and non-royal persons [partly H, G] (R. Landgráfová, P. Dils, L. Popko, A. Schütze, M. Brose)</li>
-            <li>Magical texts [H, G] (A. Blöbaum, B. Böhm, P. Dils, L. Popko, K. Stegbauer)</li>
-            <li>Medical texts [H, G] (P. Dils, I. Köhler, L. Popko, G. Sperveslage)</li>
-            <li>Religious texts: Pyramid Texts [Hxxx, G] (D. Topmann)</li>
-            <li>Religious texts: hymns [H, G] (P. Dils, A. Schütze)</li>
-            <li>Literary texts (royal and non-royal teachings, dialogues and discourses, tales) [H, G] (P. Dils, R. Enmarch, F. Feder, H. Felber, L. Popko, V. Lepper)</li>
-         </ul>
-         <li>Middle Egyptian texts from the Second Intermediate Period</li>
-         <ul>
-            <li>Letters [G] (I. Hafemann)</li>
-            <li>Historical and biographical texts of royal and non-royal persons [partly H, G] (R. Landgráfová, P. Dils, L. Popko, A. Schütze, M. Brose)</li>
-            <li>Literary texts [H, G] (P. Dils, L. Popko)</li>
-         </ul>
-         <li>Middle and Late Egyptian texts from the New Kingdom</li>
-         <ul>
-            <li>Letters [G] (I. Hafemann)</li>
-            <li>Royal stelae of the 18th Dynasty up to Amenhotep III [partly H, G] (M. Brose, J. Iskander)</li>
-            <li>Texts from the Amarna period (Akhenaton) [H, G] (I. Hafemann, G. Sperveslage)</li>
-            <li>Royal historical and rhetorical texts of Ramesses I to II [Ixxx] (S. Grallert, I. Hafemann)</li>
-            <li>Magical texts [H, G] (A. Blöbaum, B. Böhm, M. Brose, P. Dils, L. Popko, K. Stegbauer)</li>
-            <li>Medical texts [H, G] (A. Blöbaum, B. Böhm, M. Brose, C. Di Biase-Dyson, P. Dils, A. Herzberg, I. Köhler, L. Popko, G. Sperveslage)</li>
-            <li>Religious texts: Book of the Dead (a selection) [partly H, G] (B. Backes, A. Wüthrich)</li>
-            <li>Literary texts [H, G] (M Brose, P. Dils, F. Feder, H. Felber, L. Popko)</li>
-            <li>Administrative texts from Deir el-Medina (M. Goecke-Bauer)</li>
-            <li>Biographical texts from the Ramesside period (E. Frood)</li>
-         </ul>
-         <li>Texts from the Third Intermediate Period</li>
-         <ul>
-            <li>Letters [G] (I. Hafemann)</li>
-            <li>Magical texts [H, G] (A. Blöbaum, B. Böhm, M. Brose, P. Dils, L. Popko, J.-F. Quack, K. Stegbauer)</li>
-            <li>Royal historical texts [H, G] (S. Grallert, G. Sperveslage)</li>
-            <li>Non-royal biographical texts [H, G] (S. Grallert, G. Sperveslage)</li>
-            <li>Religious texts on coffins [H, G] (J. Schneider)</li>
-            <li>Literary texts [H, G] (P. Dils, L. Popko)</li>
-         </ul>
-         <li>Texts from the Late Period</li>
-         <ul>
-            <li>Magical texts [H, G] (A. Blöbaum, M. Brose, P. Dils, L. Popko, K. Stegbauer)</li>
-            <li>Medical texts [H, G] (A. Blöbaum, B. Böhm, M. Brose, C. Di Biase-Dyson, P. Dils, I. Köhler, L. Popko, G. Sperveslage)</li>
-            <li>Demotic texts from a wide range of text types [Gxxx] (G. Vittmann)</li>
-            <li>Texts from non-royal tombs [H, G] (D. Topmann, M. Wagner)</li>
-            <li>Non-royal biographical texts [H, G] (S. Grallert, R. Díaz Hernandez, G. Sperveslage)</li>
-            <li>Literary texts [partly H, G] (P. Dils, L. Popko)</li>
-            <li>Religious texts: Ritual of the Hours [H, G] (E. Graefe, K. Griffin)</li>
-         </ul>
-         <li>Texts from the Graeco-Roman Period</li>
-         <ul>
-            <li>Magical texts [H, G] (A. Blöbaum, B. Böhm, M. Brose, P. Dils, L. Popko, K. Stegbauer)</li>
-            <li>Medical texts [xxx] (A. Blöbaum, B. Böhm, M. Brose, P. Dils, I. Köhler, L. Popko, G. Sperveslage)</li>
-            <li>Royal decrees of the priestly synods [xxx] (R. Birk, G. Sperveslage, G. Vittmann, D. Schäfer)</li>
-            <li>Religious texts: private mortuary liturgies [partly H, G] (F. Feder, A.-K. Gill)</li>
-            <li>Books from the xxxTebtynisxxx temple library [xxx] (F. Feder)</li>
-            <li>Texts from walls of Ptolemaic/Roman temples</li>
+         <li>
+            Texts from the Early Dynastic Period
             <ul>
-               <li>Assuan, Bigge, Dakka, Deir el-Bahari, Deir el-Medina, Dendur, Opet [partly H, G] (M.  Elebaut, A. Paulet, R. Preys)</li>
-               <li>Karnak / Euergetes gate [xxx] (F. Labrique)</li>
-               <li>Kom Ombo [xxx] (S. Eicke)</li>
-               <li>Dendara [xxx] (A. Rickert)</li>
-               <li>Edfu (Stundenritual) [H, G] (E. Graefe)</li>
+               <li>Royal and non-royal texts [H; G] (M. Rathenow, J.Schneider, G. Sperveslage)</li>
             </ul>
-            <li>Demotic texts from a wide range of text types [Gxxx] (G. Vittmann)</li>
-         </ul>
-         <li>Miscellaneous texts</li>
-         <ul>
-            <li>Texts on stelae of the Egyptian collection at the University of Tübingen [H, G] (S. Beck)</li>
-            <li>Texts on artifacts of the Munich Egyptian collection [xxx] (R. Díaz Hernandez)</li>
-            <li>Texts from Heliopolis [H, G] (S. Blaschta, K. Dietze)</li>
-         </ul>
+         </li>
+         <li>
+            Texts from the Old Kingdom
+            <ul>
+               <li>Archival texts [G] (S. Grunert, I. Hafemann)</li>
+               <li>Biographical texts [partly H; G] (A. Burkhardt, S. Grunert, J. Stauder-Porchet)</li>
+               <li>Letters [G] (I. Hafemann)</li>
+               <li>Letters to the Dead [G] (I. Hafemann)</li>
+               <li>Non-royal tombs [partly H; G] (A. Burkhardt, S. Grunert)</li>
+               <li>Rock inscriptions [G] (I. Hafemann, G. Sperveslage)</li>
+               <li>Pyramid Texts [partly H; G] (D. Topmann)</li>
+               <li>Votive labels [G] (S.J. Seidlmayer)</li>
+            </ul>
+         </li>
+         <li>
+            Texts from the First Intermediate Period
+            <ul>
+               <li>Letters [G] (I. Hafemann)</li>
+               <li>Letters to the Dead [G] (I. Hafemann)</li>
+               <li>Pyramid Texts [partly H; G] (D. Topmann)</li>
+            </ul>
+         </li>
+         <li>
+            Texts from the Middle Kingdom
+            <ul>
+               <li>Block statues [H] (R. Díaz Hernandez)</li>
+               <li>Historical and biographical texts of royal and non-royal persons [partly H; G] (M. Brose, P. Dils, R. Landgráfová, L. Popko, A. Schütze)</li>
+               <li>Letters [G] (I. Hafemann)</li>
+               <li>Literary texts [partly H; G] (P. Dils, R. Enmarch, F. Feder, H. Felber, V. Lepper, L. Popko)</li>
+               <li>Magical texts [H; G] (A. Blöbaum, P. Dils, L. Popko, K. Stegbauer)</li>
+               <li>Medical texts [H; G] (P. Dils, I. Köhler, L. Popko, G. Sperveslage)</li>
+               <li>Private stelae [H; G] (S. Beck)</li>
+               <li>Religious texts: hymns [H; G] (P. Dils, A. Schütze)</li>
+            </ul>
+         </li>
+         <li>
+            Texts from the Second Intermediate Period
+            <ul>
+               <li>Letters [G] (I. Hafemann)</li>
+               <li>Historical and biographical texts of royal and non-royal persons [partly H; G] (M. Brose, P. Dils, R. Landgráfová, L. Popko, A. Schütze)</li>
+               <li>Literary texts [H; G] (P. Dils, L. Popko)</li>
+               <li>Private Stelae [H; G] (S. Beck)</li>
+            </ul>
+         </li>
+         <li>
+            Texts from the New Kingdom
+            <ul>
+               <li>Administrative texts from Deir el-Medina [H; G] (M. Goecke-Bauer; M. Landrino)</li>
+               <li>Biographical texts from the Ramesside period [H; G] (E. Frood)</li>
+               <li>Block statues [H] (R. Díaz Hernandez)</li>
+               <li>Book of the Dead [partly H] (B. Backes, J. Iskander)</li>
+               <li>Letters [partly H; G] (I. Hafemann)</li>
+               <li>Literary texts [H; G] (M Brose, P. Dils, F. Feder, H. Felber, L. Popko)</li>
+               <li>Magical texts [H; G] (A. Blöbaum, M. Brose, P. Dils, L. Popko, K. Stegbauer)</li>
+               <li>Medical texts [H; G] (A. Blöbaum, B. Böhm, M. Brose, C. Di Biase-Dyson, P. Dils, A. Herzberg, I. Köhler, L. Popko)</li>
+               <li>Private religious texts [H; G] (K. Dietze)</li>
+               <li>Private stelae [H; G] (S. Beck)</li>
+               <li>Ritual of the Hours [H; G] (E. Graefe)</li>
+               <li>Royal historical and rhetorical texts of the Ramesside Period [partly H; G] (S. Grallert, I. Hafemann, L. Popko)</li>
+               <li>Royal stelae of the 18th Dynasty up to Amenhotep III [partly H; G] (M. Brose, J. Iskander)</li>
+               <li>Texts from the Amarna period [H; G] (I. Hafemann, G. Sperveslage)</li>
+            </ul>
+         </li>
+         <li>
+            Texts from the Third Intermediate Period
+            <ul>
+               <li>Book of the Dead [partly H] (B. Backes, A. Wüthrich)</li>
+               <li>Historical-biographical texts [H; G] (R. Díaz Hernandez, S. Grallert, G. Sperveslage)</li>
+               <li>Letters [H; G] (I. Hafemann)</li>
+               <li>Literary texts [H; G] (P. Dils, L. Popko)</li>
+               <li>Magical texts [H; G] (A. Blöbaum, M. Brose, P. Dils, L. Popko, K. Stegbauer)</li>
+               <li>Ritual of the Hours [H; G] (E. Graefe)</li>
+               <li>Texts from non-royal coffins [H; G] (J. Schneider)</li>
+            </ul>
+         </li>
+         <li>
+            Texts from the Late Period
+            <ul>
+               <li>Administrative texts (G. Vittmann)</li>
+               <li>Book of the Dead [H] (A. Wüthrich)</li>
+               <li>Literary texts [partly H; G] (P. Dils, L. Popko)</li>
+               <li>Medical texts [H; G] (A. Blöbaum, B. Böhm, M. Brose, P. Dils, L. Popko)</li>
+               <li>Magical texts [H; G] (A. Blöbaum, B. Böhm, M. Brose, P. Dils, L. Popko, J.-F. Quack, K. Stegbauer)</li>
+               <li>Non-royal biographical texts [H; G] (R. Díaz Hernandez, J. Iskander, S. Grallert)</li>
+               <li>Private stelae (G. Vittmann)</li>
+               <li>Ritual of the Hours [H; G] (P. Dils, E. Graefe, K. Griffin)</li>
+               <li>Rock inscriptions (G. Vittmann)</li>
+               <li>Temple inscriptions [H; G] (S. Blaschta)</li>
+               <li>Texts from non-royal tombs and coffins/sarcophagi [partly H; partly G] (D. Topmann, G. Vittmann)</li>
+               <li>Texts from temple libraries [H; G] (F. Feder)</li>
+            </ul>
+         </li>
+         <li>
+            Texts from the Graeco-Roman Period
+            <ul>
+               <li>Administrative texts (G. Vittmann)</li>
+               <li>Book of the Dead [H] (B. Backes, A. Wüthrich)</li>
+               <li>Legal texts (G. Vittmann)</li>
+               <li>Literary texts (G. Vittmann)</li>
+               <li>Mathematical texts (G. Vittmann)</li>
+               <li>Magical texts [partly H; partly G] (A. Blöbaum, B. Böhm, M. Brose, P. Dils, A.-K. Gill, L. Popko, K. Stegbauer, G. Vittmann)</li>
+               <li>Medical texts [partly H; partly G] (A. Blöbaum, B. Böhm, M. Brose, P. Dils, I. Köhler, L. Popko, G. Vittmann)</li>
+               <li>Mortuary liturgies [partly H; G] (F. Feder, S. Töpfer)</li>
+               <li>Non-royal biographical texts [H; G] (J. Schneider)</li>
+               <li>Private stelae [partly H; partly G] (S. Beck, G. Vittmann)</li>
+               <li>Religious texts (G. Vittmann)</li>
+               <li>Rock inscriptions (G. Vittmann)</li>
+               <li>Royal texts [H; G] (D. Schäfer, J. Schneider, G. Sperveslage, G. Vittmann)</li>
+               <li>Scientific texts (G. Vittmann)</li>
+               <li>
+                  Temple inscriptions
+                  <ul>
+                     <li>Assuan, Bigge, Dakka, Deir el-Bahari, Deir el-Medina, Dendur, Opet [partly H; partly G] (M. Elebaut, A. Paulet, R. Preys)</li>
+                     <li>Dendara [partly H; partly G] (A. Rickert)</li>
+                     <li>Edfu (Ritual of the Hours) [H, G] (E. Graefe)</li>
+                     <li>Esna (D. v. Recklinghausen)</li>
+                     <li>Karnak / Euergetes gate (F. Labrique)</li>
+                  </ul>
+               </li>
+               <li>Texts from coffins/sarcophagi (G. Vittmann)</li>
+               <li>Texts from temple libraries [H; G] (F. Feder)</li>
+            </ul>
+         </li>
       </ul>
    </section>
    <section>

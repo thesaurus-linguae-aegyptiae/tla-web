@@ -6,45 +6,27 @@ const copyStringToClipboard = (str) => {
 
 const getCookie = (name) => Cookies.get(name)
 
-//const setCookie = (name, value, path = undefined) => {
+const setSessionCookie = (name, value) => Cookies.set(name, value)
 
-const setCookie = (name, value) => {
-   // if (Cookies.get("accepted")) {
+const setPermanentCookie = (name, value) => {
         let params = { expires: 365 }
-      /*  if (path !== undefined) {
-            params = {
-                path: path,
-                ...params
-            }
-        }*/
-        console.log(`set ${name} to ${value}`)
-        console.log(JSON.stringify(params))
+        //console.log(`set ${name} to ${value}`)
+        //console.log(JSON.stringify(params))
         Cookies.set(name, value, params)
-   // }
 }
 
 
 function init() {	
-
-    // Cookie Acceptance Banner ausblenden
-
-	   if (Cookies.get("accepted")) {
-       $('#cookie-info').html('(Cookies accepted)');}
-    
-
-	// Search-Button
-
-
 	// Abbreviation help links
 	
 	$('.ling-glossing').click(function(e) {
 			e.preventDefault();
-			window.open('/help/ling-glossings','_blank');
+			window.open('/listings/ling-glossings','_blank');
 		  });	
 
 	$('.bts-glossing').click(function(e) {
 			e.preventDefault();
-			window.open('/help/bts-glossings','_blank');
+			window.open('/listings/bts-glossings','_blank');
 		  });	
 
 
@@ -54,11 +36,11 @@ function init() {
 			if(document.getElementById("script1").checked) {
 				if( document.getElementById("script2").checked ){
 				if (getCookie("CookiePolicy") == "accepted") {
-				          setCookie("TranscriptionScript", "hieratic+demotic");
+				          setPermanentCookie("TranscriptionScript", "hieratic+demotic");
 		
-					    setCookie("RootEncoding", "unicode");	
-						setCookie("TranscriptionEncoding", "unicode");	
-						setCookie("Mdc", "disabled");
+					    setPermanentCookie("RootEncoding", "unicode");	
+						setPermanentCookie("TranscriptionEncoding", "unicode");	
+						setPermanentCookie("Mdc", "disabled");
                    }
                  else{
 	              sessionStorage.setItem("TranscriptionScript", "hieratic+demotic");
@@ -78,8 +60,8 @@ function init() {
 				 if(document.getElementById("script2").checked){
 			             if (getCookie("CookiePolicy") == "accepted") 
                          {
-			                   setCookie("TranscriptionScript", "demotic");	
-                               setCookie("Mdc","enabled");
+			                   setPermanentCookie("TranscriptionScript", "demotic");	
+                               setPermanentCookie("Mdc","enabled");
                           }
                          else {sessionStorage.setItem("TranscriptionScript", "demotic");
                                    sessionStorage.setItem("Mdc","enabled");
@@ -92,8 +74,8 @@ function init() {
 	             document.getElementById("script2").checked=true;
                      if (getCookie("CookiePolicy") == "accepted") 
                      {
-			                   setCookie("TranscriptionScript", "demotic");
-                             setCookie("Mdc","enabled");
+			                   setPermanentCookie("TranscriptionScript", "demotic");
+                             setPermanentCookie("Mdc","enabled");
                        }
                      else {
 	                     sessionStorage.setItem("TranscriptionScript", "demotic");
@@ -112,10 +94,10 @@ function init() {
 			if(document.getElementById("script2").checked) {
 				if( document.getElementById("script1").checked ){
 				if (getCookie("CookiePolicy") == "accepted") {
-				          setCookie("TranscriptionScript", "hieratic+demotic");
-                           setCookie("RootEncoding", "unicode");	
-						setCookie("TranscriptionEncoding", "unicode");	
-						setCookie("Mdc","disabled");
+				          setPermanentCookie("TranscriptionScript", "hieratic+demotic");
+                           setPermanentCookie("RootEncoding", "unicode");	
+						setPermanentCookie("TranscriptionEncoding", "unicode");	
+						setPermanentCookie("Mdc","disabled");
                    }
                 else{
 	               sessionStorage.setItem("TranscriptionScript", "hieratic+demotic");
@@ -134,8 +116,8 @@ function init() {
 				 if(document.getElementById("script1").checked){
 			             if (getCookie("CookiePolicy") == "accepted") {
                      
-			                   setCookie("TranscriptionScript", "hieratic");
-                               setCookie("Mdc","enabled");
+			                   setPermanentCookie("TranscriptionScript", "hieratic");
+                               setPermanentCookie("Mdc","enabled");
                          }
                          else {
 	                          sessionStorage.setItem("TranscriptionScript", "hieratic");
@@ -149,8 +131,8 @@ function init() {
 	             document.getElementById("script1").checked=true;
                      if (getCookie("CookiePolicy") == "accepted") {
                      
-			                   setCookie("TranscriptionScript", "hieratic");
-                               setCookie("Mdc","enabled");
+			                   setPermanentCookie("TranscriptionScript", "hieratic");
+                               setPermanentCookie("Mdc","enabled");
                      }
                      else {
 	                    sessionStorage.setItem("TranscriptionScript", "hieratic");
@@ -239,8 +221,8 @@ else{
 
         $('#transcription_enc_unicode').click(function () {
 			if (getCookie("CookiePolicy") == "accepted") {
-				setCookie("TranscriptionEncoding", "unicode");
-				setCookie("RootEncoding", "unicode");
+				setPermanentCookie("TranscriptionEncoding", "unicode");
+				setPermanentCookie("RootEncoding", "unicode");
 				}
 			else{
 				sessionStorage.setItem("TranscriptionEncoding", "unicode");
@@ -252,8 +234,8 @@ else{
         });	
         $('#transcription_enc_mdc').click(function () {
 			if (getCookie("CookiePolicy") == "accepted") {
-				setCookie("TranscriptionEncoding", "manuel_de_codage");
-				setCookie("RootEncoding", "manuel_de_codage");
+				setPermanentCookie("TranscriptionEncoding", "manuel_de_codage");
+				setPermanentCookie("RootEncoding", "manuel_de_codage");
 				}
 			else{
 				sessionStorage.setItem("TranscriptionEncoding", "manuel_de_codage");
@@ -267,8 +249,8 @@ else{
         });	
         $('#root_enc_unicode').click(function () {
 			if (getCookie("CookiePolicy") == "accepted") {
-				setCookie("RootEncoding", "unicode");
-				setCookie("TranscriptionEncoding", "unicode");
+				setPermanentCookie("RootEncoding", "unicode");
+				setPermanentCookie("TranscriptionEncoding", "unicode");
 				}
 				else{
 					sessionStorage.setItem("RootEncoding", "unicode");
@@ -280,8 +262,8 @@ else{
         });	
         $('#root_enc_mdc').click(function () {
 			if (getCookie("CookiePolicy") == "accepted") {
-				setCookie("RootEncoding", "manuel_de_codage");
-				setCookie("TranscriptionEncoding", "manuel_de_codage");
+				setPermanentCookie("RootEncoding", "manuel_de_codage");
+				setPermanentCookie("TranscriptionEncoding", "manuel_de_codage");
 				}
 			else{
 				sessionStorage.setItem("RootEncoding", "manuel_de_codage");
@@ -295,7 +277,7 @@ else{
 
  $('#field-value-translation-checkbox-de-dict').click(function () {
 			if (getCookie("CookiePolicy") == "accepted") {
-				setCookie("TranslationLang", "de");
+				setPermanentCookie("TranslationLang", "de");
 				}
 			else{
 				sessionStorage.setItem("TranslationLang", "de");
@@ -305,7 +287,7 @@ else{
         });	
  $('#field-value-translation-checkbox-en-dict').click(function () {
 			if (getCookie("CookiePolicy") == "accepted") {
-				setCookie("TranslationLang", "en");
+				setPermanentCookie("TranslationLang", "en");
 				}
 			else{
 				sessionStorage.setItem("TranslationLang", "en");
@@ -316,7 +298,7 @@ else{
 
  $('#field-value-translation-checkbox-fr-dict').click(function () {
 			if (getCookie("CookiePolicy") == "accepted") {
-				setCookie("TranslationLang", "fr");
+				setPermanentCookie("TranslationLang", "fr");
 				}
 			else{
 				sessionStorage.setItem("TranslationLang", "fr");
@@ -376,9 +358,9 @@ else	{
 			e.preventDefault();
 			if (getCookie("CookiePolicy") == "accepted") {
 				if ($('.bts-glossing').is(':visible')) {
-					setCookie("TLAFlexcodeVisible", "false",{expires:365});
+					setPermanentCookie("TLAFlexcodeVisible", "false");
 				} else {
-					setCookie("TLAFlexcodeVisible", "true",{expires:365});
+					setPermanentCookie("TLAFlexcodeVisible", "true");
 				}
 			}
             $('.bts-glossing').slideToggle('slow');
@@ -403,9 +385,9 @@ else	{
 			e.preventDefault();
 			if (getCookie("CookiePolicy") == "accepted") {
 				if ($('.ling-glossing').is(':visible')) {
-					setCookie("LingGlossingVisible", "false",{expires:365});
+					setPermanentCookie("LingGlossingVisible", "false");
 				} else {
-					setCookie("LingGlossingVisible", "true",{expires:365});
+					setPermanentCookie("LingGlossingVisible", "true");
 				}
 			}
             $('.ling-glossing').slideToggle('slow');
@@ -434,9 +416,9 @@ else	{
 			e.preventDefault();
 			if (getCookie("CookiePolicy") == "accepted") {
 				if ($('.token-translation').is(':visible')) {
-					setCookie("TokenTranslationVisible", "false",{expires:365});
+					setPermanentCookie("TokenTranslationVisible", "false");
 				} else {
-					setCookie("TokenTranslationVisible", "true",{expires:365});
+					setPermanentCookie("TokenTranslationVisible", "true");
 				}
 			}
             $('.token-translation').slideToggle('slow');
@@ -461,9 +443,9 @@ else	{
 			e.preventDefault();
 			if (getCookie("CookiePolicy") == "accepted") {
 				if ($('.text-date').is(':visible')) {
-					setCookie("TextDateVisible", "false",{expires:365});
+					setPermanentCookie("TextDateVisible", "false");
 				} else {
-					setCookie("TextDateVisible", "true",{expires:365});
+					setPermanentCookie("TextDateVisible", "true");
 				}
 			}
             $('.text-date').slideToggle('slow');
@@ -488,9 +470,9 @@ else	{
 			e.preventDefault();
 			if (getCookie("CookiePolicy") == "accepted") {
 				if ($('.text-editor').is(':visible')) {
-					setCookie("TextEditorVisible", "false",{expires:365});
+					setPermanentCookie("TextEditorVisible", "false");
 				} else {
-					setCookie("TextEditorVisible", "true",{expires:365});
+					setPermanentCookie("TextEditorVisible", "true");
 				}
 			}
             $('.text-editor').slideToggle('slow');
@@ -538,9 +520,9 @@ else	{
 			e.preventDefault();
 			if (getCookie("CookiePolicy") == "accepted") {
 				if ($('.container-annotation-switch-anno').is(':visible')) {
-					setCookie("AnnotationBlockVisible", "false",{expires:365});
+					setPermanentCookie("AnnotationBlockVisible", "false");
 				} else {
-					setCookie("AnnotationBlockVisible", "true",{expires:365});
+					setPermanentCookie("AnnotationBlockVisible", "true");
 				}
 			}
             $('.container-annotation-switch-anno').slideToggle('slow');
@@ -607,8 +589,8 @@ else	{
 		
 		
 		//translation collapse
-		if (Cookies.get("CookiePolicy") == "accepted") {
-			if (Cookies.get("LanguagesButtonsVisible") == "true") {
+		if (getCookie("CookiePolicy") == "accepted") {
+			if (getCookie("LanguagesButtonsVisible") == "true") {
 			$('.indented-buttons-lang').show();
 			}
 		else {
@@ -632,11 +614,11 @@ else	{
         $('.languages-btn').click(function (e) {
 			e.preventDefault();
 			
-			if (Cookies.get("CookiePolicy") == "accepted") {
+			if (getCookie("CookiePolicy") == "accepted") {
 				if ($('.indented-buttons-lang').is(':visible')) {
-					Cookies.set("LanguagesButtonsVisible", "false",{expires:365});
+					setPermanentCookie("LanguagesButtonsVisible", "false");
 				} else {
-					Cookies.set("LanguagesButtonsVisible", "true",{expires:365});
+					setPermanentCookie("LanguagesButtonsVisible", "true");
 				}
 			}
 			else{
@@ -650,24 +632,21 @@ else	{
             $('.indented-buttons-lang').slideToggle('slow');
         });
 
+    // Cookie Acceptance Banner ausblenden und Info in Footer anzeigen
 
-    // Cookie Acceptance Banner ausblenden
-
-	  var cookieAcceptanceState = getCookie("CookiePolicy");
-	  if (cookieAcceptanceState == "accepted") {
+	  if (getCookie("CookiePolicy") == "accepted") {
 		  $('.cookie-container').addClass('d-none');
-		  var ausgabe = document.getElementById('cookie-info');
-		  ausgabe.innerHTML = '(Cookies '+cookieAcceptanceState+')'; // BUG: immer Englisch
+		  $('#cookie-info').html('(Cookies accepted)'); // BUG: immer englisch
 	  }
 	
     $('.cookie-ok').click(function()  {
            $('.cookie-container').addClass('d-none');
-            Cookies.set("CookiePolicy", "accepted");
+            setSessionCookie("CookiePolicy", "accepted"); 
+			$('#cookie-info').html('(Cookies accepted)'); // BUG: immer englisch
             });
 		
     $('.cookie-dismissed').click(function()  {
            $('.cookie-container').addClass('d-none');
-
             });
 //$(document).ready(function() {
   //  $("#transliterationHelp").modal();
