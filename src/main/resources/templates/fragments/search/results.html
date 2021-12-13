@@ -333,55 +333,79 @@
             //<![CDATA[
             {
               let name = /*[[${suffix}]]*/ null;
-              
+         
               let property = /*[[${property}]]*/ null;
               let subProperty = /*[[${subProperty}]]*/ null;
+              
               let objectType = /*[[${objectType}]]*/ null;
               let button = $(`#hide-property-button-${name}`);
+             
               let selector = `.result-list-item-element.${property}`;
+              let selectorSW = `.container-annotation-switch`;
+              let selectorWordClass =`.container-annotation.word-class`;
+              let selectorSW1=`.sentence-line-mode`;
+              let selh=`.token-glyphs`;
               if (subProperty != null) {
-                selector = `${selector} .${subProperty}`;
+                selector = `${selector}.${subProperty}`;
               }
               
-              if(name!="hieroglyphs") {
-	                 button.children('i#on').toggle();
+              if((name.includes("switchannotation"))&&(name!="switchannotation")){
+	                 button.children('i#off').toggle();
+	                 console.log(name); 
+	                    
 
               }
-              else {button.children('i#off').toggle(); $(selector).toggle();
-
+              else if (name=="switchannotation") {$(selectorSW).toggle();  button.children('i#off').toggle();}
+              else {button.children('i#on').toggle(); 
+              //$(selectorSW1).toggle();
               }
-
-              if(name!="hieroglyphs") {
-                  if ((Cookies.get(`${objectType}-results-hide-property-${name}`) != 'true')||(sessionStorage.getItem(`${objectType}-results-hide-property-${name}`) != 'true')) {
-                	  
-                	 // if (Cookies.get(`${name}`) == 'true') {
-                    button.children('i').toggle();
-                    $(selector).toggle();
-                  }
-                  }
-                  else{
-                	  
-                	  if ((Cookies.get(`${objectType}-results-hide-property-${name}`) != 'false')||(sessionStorage.getItem(`${objectType}-results-hide-property-${name}`) != 'false')) {
-                    	  
-                     	 // if (Cookies.get(`${name}`) == 'true') {
-                         button.children('i').toggle();
-                        $(selector).toggle();
-                       }
-                  }
+              console.log(name);
+              
              
+              
+              /*
+              hieroglyphs sentence:6647:64
+switchannotation sentence:6740:27
+switchannotation-wordclass sentence:6840:64
+switchannotation-tlaglossing sentence:6934:64
+switchannotation-linguisticglossing sentence:7028:64
+switchannotation-tokentranslation sentence:7122:64
+switchannotation-wordtokenid sentence:7216:64
+translation sentence:7313:64
+dating sentence:7410:64
+texteditor
+             */
               button.click(() => {
-                $(selector).fadeToggle('slow');
+            	 
+            	  if(name=="switchannotation"){
+	                	 
+ 	                
+            		 $(selectorSW).fadeToggle('slow'); 
+            		 $(selectorSW1).fadeToggle('slow');
+            		 button.children('svg').toggle();
+            		
+                  }
+            	  if(name=="hieroglyphs"){
+            		  $(selh).fadeToggle('slow'); 
+            		  button.children('svg').toggle();
+            	  }
+            	  if(name=="switchannotation-wordclass"){
+            		  $(selectorWordClass).fadeToggle('slow'); 
+            		  button.children('svg').toggle();
+            	  }
+            	 // else {$(selectorSW1).fadeToggle('slow');
 
-                button.children('svg').toggle();
-                if (Cookies.get("CookiePolicy") == "accepted") {
+               // button.children('svg').toggle();}
+              /*  if (Cookies.get("CookiePolicy") == "accepted") {
                 Cookies.set(`${objectType}-results-hide-property-${name}`,""+ button.children('svg#on').attr('style') == 'display: none;',{expires:365});
                 }
                 else {
                 	sessionStorage.setItem(`${objectType}-results-hide-property-${name}`,""+ button.children('svg#on').attr('style') == 'display: none;');
-                }
+                }*/
                
               });
             }
+            //}
             //]]>
           </script>
         </button>
