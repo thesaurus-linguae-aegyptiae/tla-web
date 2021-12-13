@@ -3,22 +3,35 @@
 
   <body>
 
-    <!-- Lemma quick lookup search form -->
-    <form id="lemma-quick-search" name="lemma-quick-search" th:object="${lemma}"
-        th:action="@{/lemma/lookup}" method="get">
+    <!-- ID lookup search form -->
+    <form id="some-id-search" name="some-id-search" th:object="${lemma}"
+        th:action="@{/lemma/lookup}" method="get"> 
+		<!-- um Umleitung auf /lemma vs. /sentence zu implemenieren wie unten modellieren?-->
       <fieldset class="form-group row">
-        <label class="col-form-label col-xl-2" th:text="#{field_label_lemma_id}" for="lemma-quick-search-id">
-          Lemma
+        <label class="col-form-label col-xl-2" th:text="#{field_label_lemma_id}" for="id-search-lemma">
+          Lemma ID
         </label>
         <div class="col-xl-10">
-          <input class="form-control mb-3 lemma-id" type="text" th:field="*{id}"
-              th:id="lemma-quick-search-id" th:list="lemma-quick-search-id-suggestions">
-            <script th:replace="fragments/search/tools :: autocomplete('lemma-quick-search-id')"></script>
+          <input class="form-control mb-1 lemma-id" type="text" th:field="*{id}"
+              th:id="id-search-lemma" th:list="id-search-lemma-suggestions">
+            <script th:replace="fragments/search/tools :: autocomplete('id-search-lemma')"></script>
           </input>
-          <datalist th:id="lemma-quick-search-id-suggestions"/>
+          <datalist th:id="id-search-lemma-suggestions"/>
         </div>
       </fieldset>
-    </form>
+      <fieldset class="form-group row bg-grey">
+        <label class="col-form-label col-xl-2" th:text="#{field_label_sentence_id}" for="id-search-sentence">
+          Sentence ID
+        </label>
+        <div class="col-xl-10">
+          <input class="form-control mb-1 lemma-id" type="text" th:field="*{id}"
+              th:id="id-search-sentence" th:list="id-search-sentence-suggestions" disabled> <!--temporarily disabled-->
+            <script th:replace="fragments/search/tools :: autocomplete('id-search-sentence')"></script>
+          </input>
+          <datalist th:id="id-search-sentence-suggestions"/>
+        </div>
+      </fieldset>
+	  </form>
 
     <!-- sentence/occurrence search form -->
     <form id="sentence-search" name="sentence-search"
