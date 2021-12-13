@@ -49,28 +49,25 @@
         	  // Lemma ID = "123" 
         	  
         	  var script=""+urlParams.getAll('script');
-        	  if(script=="hieratic,demotic") script= "\"Hieroglyphic\/Hieratic \/ Demotic\"";
-        	  else if (script=="hieratic") script="\"Hieroglyphic\/Hieratic\"";
-        	 else script="\"Demotic\"";
+        	  if(script=="hieratic,demotic") script= "Hieroglyphic\/Hieratic \/ Demotic";
+        	  else if (script=="hieratic") script="Hieroglyphic\/Hieratic";
+        	 else script="Demotic";
         	  if(script !=""){
-             document.getElementById("queryScriptHeader").innerHTML ="Lemma list = ";      	  
-        	  document.getElementById("queryScript").innerHTML =script;
+             document.getElementById("queryScriptHeader").innerHTML ="Lemma list = ";
+        	  document.getElementById("queryScript").innerHTML ="\""+script+"\"";
         	  }
         	 
         	  var transcription=urlParams.get('transcription');
         	  if(transcription !="") {
-        		  document.getElementById("queryTranscriptionHeader").innerHTML =" ; Transliteration = ";      	  
+        		  document.getElementById("queryTranscriptionHeader").innerHTML =" ; Transliteration = ";
             	  document.getElementById("queryTranscription").innerHTML ="\""+transcription+"\"";
         	  }	  
         	  
-        	  // hier muss weiter implementiert wenn Auswahl implementiert
-        	 // var encod=urlParams.get('queryEncoding');
-        	  var encod="\"Unicode\"";
-        	  document.getElementById("queryEncoding").innerHTML=encod;
-        	  //if((encod !="")&&(encod !=null)) {
-        		//  document.getElementById("queryEncodingHeader").innerHTML =" ; Encoding = ";      	  
-            	  //document.getElementById("queryEncoding").innerHTML="\""+encod+"\"";
-        	 // }	 
+        	 var encod=urlParams.get('transcription_enc');
+        	  if((encod !="")&&(encod !=null)) {
+        		  document.getElementById("queryEncodingHeader").innerHTML =" ; Encoding = ";
+            	  document.getElementById("queryEncoding").innerHTML="\""+encod+"\"";
+        	 }	 
         	 
         	  var pos=urlParams.get('wordClass.type');
         	  document.getElementById("queryWordClassHeader").innerHTML =" ; Part of Speech = ";
