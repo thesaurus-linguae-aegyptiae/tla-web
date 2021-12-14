@@ -17,7 +17,7 @@
           
       <div class="col-sm-12 col-md-6 rcol-lg-6 result">
             <h2 class="id mt-1" th:text="#{result_page_title_lemma}">Lemma Search Results</h2> 
-            <div class="ml-3 flex"><b>Query</b>: 
+            <div class="ml-3 flex"><strong th:text="#{result_page_description_query}">Search parameter</strong>: 
             <span id="queryScriptHeader" > </span>
             <span id="queryScript" class="bbaw-libertine"> </span>
             <span id="queryTranscriptionHeader" > </span>
@@ -49,7 +49,7 @@
         	  // Lemma ID = "123" 
         	  
         	  var script=""+urlParams.getAll('script');
-        	  if(script=="hieratic,demotic") script= "Hieroglyphic\/Hieratic \/ Demotic";
+        	  if(script=="hieratic,demotic") script= "Hieroglyphic\/Hieratic \/ Demotic"; // ToDo: DE/EN
         	  else if (script=="hieratic") script="Hieroglyphic\/Hieratic";
         	 else script="Demotic";
         	  if(script !=""){
