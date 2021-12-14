@@ -13,9 +13,12 @@
 
       <!-- result page heading -->
       <div class="search-header row mb-3">
-        <p th:replace="fragments/search/results :: result-page-desc"/>
-        <div th:replace="fragments/common :: social"/>
+         <div class="col-sm-12 col-md-6 rcol-lg-6 result">
+            <h2 class="id mt-1" th:text="#{result_page_title_sentence}">Sentence Search Results</h2> 
+         </div>
+        <div th:replace="fragments/common :: social('sentence-search-results')"/>
       </div>
+      <p th:replace="fragments/search/results :: result-page-desc"/>
 
       <div class="row">
 
