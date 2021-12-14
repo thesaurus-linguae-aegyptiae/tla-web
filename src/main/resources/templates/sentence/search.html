@@ -13,11 +13,34 @@
 
       <!-- result page heading -->
       <div class="search-header row mb-3">
-        <p th:replace="fragments/search/results :: result-page-desc"/>
-        <div th:replace="fragments/common :: social"/>
+         <div class="col-sm-12 col-md-6 rcol-lg-6 result">
+            <h2 class="id mt-1" th:text="#{result_page_title_sentence}">Sentence Search Results</h2> 
+            <div class="ml-3 flex"><strong th:text="#{result_page_description_query}">Search parameter</strong>: 
+            <span id="queryLemmaIDHeader" > </span>
+            <span id="queryLemmaID"> </span>
+            <script th:inline="javascript">
+				  //<![CDATA[
+				  {
+					  const queryString = window.location.search;
+					  const urlParams = new URLSearchParams(queryString);
+					  
+					  var lemmaID=urlParams.get('tokens[0].lemma.id'); // wieso ist der Name so komplex? Mehrwortsuche?
+					  if(lemmaID !="") {
+						  document.getElementById("queryLemmaIDHeader").innerHTML ="Lemma ID = "; // wie kann man hier #{field_label_lemma_id} einfügen
+						  document.getElementById("queryLemmaID").innerHTML =lemmaID;
+					  }	  
+				  }
+				  //]]>
+				  </script>
+             </div>
+         </div>
+        <div th:replace="fragments/common :: social('sentence-search-results')"/>
+      </div>
+      <div th:if="${searchResults.size} > 0" >
+           <p th:replace="fragments/search/results :: result-page-desc"/>
       </div>
 
-      <div class="row">
+      <div  th:if="${searchResults.size} > 0" class="row">
 
         <!-- search results -->
         <div class="col-lg-8 content">
@@ -51,6 +74,21 @@
             <div th:replace="fragments/search/results :: modify-search-button(${modifySearchUrl})"/>
             <div th:replace="fragments/search/results :: search-facets"/>
 
+          </div>
+        </div>
+      </div>
+
+      <div th:if="${searchResults.size} == 0" class="row">
+
+        <!-- no search results -->
+        <div class="col-lg-8 content">
+             <strong th:text="#{result_page_no_results}">No results</strong>
+        </div>
+
+        <!-- sidebar -->
+        <div class="col-lg-4 sidebar">
+          <div class="sticky-top m-4">
+            <div th:replace="fragments/search/results :: modify-search-button(${modifySearchUrl})"/>
           </div>
         </div>
       </div>

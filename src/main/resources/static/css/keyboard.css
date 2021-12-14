@@ -156,8 +156,7 @@
 #keyboardInputMaster thead tr th strong.hover,
 #keyboardInputMaster thead tr th small:hover,
 #keyboardInputMaster thead tr th small.hover,
-#keyboardInputMaster th100  7035  100  7035    0     0   7568      0 --:--:-- --:--:-- --:--:--  7564
-ead tr th big:hover,
+#keyboardInputMaster thead tr th big:hover,
 #keyboardInputMaster thead tr th big.hover {
   background-color:#dddddd;
 }

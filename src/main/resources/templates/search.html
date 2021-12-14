@@ -4,7 +4,14 @@
       layout:decorate="~{base}"
 >
   <body>
+	
     <div layout:fragment="content">
+	
+		<div class="row mb-3">
+			<div class="col-6"><h2 class="id mt-1" th:text="#{menu_global_search}">Search</h2></div>
+			<div th:replace="fragments/common :: page-help('search-page')"/>
+		</div>
+	
          <script>
         const saveDropdown = (name, prop) => {
           setPermanentCookie(`form-field-${name}-select-${prop}`, $(`#${name}-${prop}`).val() )

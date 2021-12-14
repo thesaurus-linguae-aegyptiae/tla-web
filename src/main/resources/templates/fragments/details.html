@@ -6,16 +6,15 @@
     <!-- Object details page header (incl. social media stuff) -->
     <div th:fragment="details-page-header" class="row mb-3 details-header">
         <div th:replace=" :: review-state-header"/>
-        <div th:replace="fragments/common :: social"/>
-    </div>
+        <div th:replace="fragments/common :: social('lemma-page')"/>
+   </div>
 
     <!-- Object details header (name && review state) -->
     <div th:fragment="review-state-header" id="review-state-header"
             class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-between align-items-end">
         <h2 class="id mt-1">
-          <span class="bbaw-libertine" th:utext="${{caption}}">Object name</span>
+          <span class="bbaw-libertine" th:utext="${obj.name}">Object name</span><span th:text="'(' + #{citeas_lemma} + ' ' + ${obj.id} + ')'">Object ID</span>
         </h2>
-        <!--<a th:replace="fragments/common :: review-state(${obj})"/>-->
     </div>
 
     <!-- Generic Passport Properties, notably noun classes -->

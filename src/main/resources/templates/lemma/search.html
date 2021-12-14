@@ -15,9 +15,9 @@
      
       <div class="search-header row mb-3">
           
-		<div class="col-sm-12 col-md-6 rcol-lg-6 result">
-            <h2 class="id mt-1">Search results</h2> 
-            <div class="ml-3 flex"><b>Query</b>: 
+      <div class="col-sm-12 col-md-6 rcol-lg-6 result">
+            <h2 class="id mt-1" th:text="#{result_page_title_lemma}">Lemma Search Results</h2> 
+            <div class="ml-3 flex"><strong th:text="#{result_page_description_query}">Search parameter</strong>: 
             <span id="queryScriptHeader" > </span>
             <span id="queryScript" class="bbaw-libertine"> </span>
             <span id="queryTranscriptionHeader" > </span>
@@ -49,7 +49,7 @@
         	  // Lemma ID = "123" 
         	  
         	  var script=""+urlParams.getAll('script');
-        	  if(script=="hieratic,demotic") script= "Hieroglyphic\/Hieratic \/ Demotic";
+        	  if(script=="hieratic,demotic") script= "Hieroglyphic\/Hieratic \/ Demotic"; // ToDo: DE/EN
         	  else if (script=="hieratic") script="Hieroglyphic\/Hieratic";
         	 else script="Demotic";
         	  if(script !=""){
@@ -127,15 +127,15 @@
              </div>
          
           </div>
-          <div th:replace="fragments/common :: social"/>
+          <div th:replace="fragments/common :: social('lemma-search-results')"/>
         
         </div>
-        <div class="row searchresult"> 
+        <div th:if="${searchResults.size} > 0" class="row searchresult"> 
         <p th:replace="fragments/search/results :: result-page-desc"/>
         </div>
      
 
-      <div class="row">
+      <div th:if="${searchResults.size} > 0" class="row">
 
         <!-- search results -->
         <div class="col-lg-8 content">
@@ -166,15 +166,30 @@
  
 </div>
 
-           <div th:replace="fragments/search/results :: hide2Lemma-properties-buttons"/>   
+            <div th:replace="fragments/search/results :: hide2Lemma-properties-buttons"/>
             <div th:replace="fragments/search/results :: modify-search-button(${modifySearchUrl})"/>
             <div th:replace="fragments/search/results :: search-facets"/>
 
           </div>
         </div>
       </div>
- </div>
+
+      <div th:if="${searchResults.size} == 0" class="row">
+
+        <!-- no search results -->
+        <div class="col-lg-8 content">
+             <strong th:text="#{result_page_no_results}">No results</strong>
+        </div>
+
+        <!-- sidebar -->
+        <div class="col-lg-4 sidebar">
+          <div class="sticky-top m-4">
+            <div th:replace="fragments/search/results :: modify-search-button(${modifySearchUrl})"/>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
   </body>
 </html>
