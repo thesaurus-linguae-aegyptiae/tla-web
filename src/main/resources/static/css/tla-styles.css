@@ -578,7 +578,7 @@ span.lc:hover {
     position: relative;
 }
 
-.result-list-item-element a:hover,
+.result-list-item-element.transcription a:hover,
 span.token-glyphs svg:hover {
     background-color: #EEE;
     cursor: pointer;
