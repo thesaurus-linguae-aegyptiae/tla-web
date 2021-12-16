@@ -290,7 +290,7 @@ a.navbar-brand {
 }
 
 .occ-list-item {
-    border-bottom: 2px solid #BBB;
+    /* border-bottom: 2px solid #BBB; */
     border-top: 2px solid #BBB;
 }
 
