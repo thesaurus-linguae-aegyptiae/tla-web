@@ -290,7 +290,7 @@ a.navbar-brand {
 }
 
 .occ-list-item {
-    border-bottom: 2px solid #BBB;
+    /* border-bottom: 2px solid #BBB; */
     border-top: 2px solid #BBB;
 }
 
@@ -578,8 +578,11 @@ span.lc:hover {
     position: relative;
 }
 
+.result-list-item-element.transcription a:hover,
 span.token-glyphs svg:hover {
-    border-bottom: 1px solid var(--BBAWred);
+    background-color: #EEE;
+    cursor: pointer;
+	 /*border-bottom: 1px solid var(--BBAWred);*/
 }
 
 .result-list-item hr,

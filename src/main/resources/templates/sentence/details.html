@@ -15,9 +15,9 @@
       <div th:replace="fragments/details :: details-page-header"/>
 
       <div class="row" >
-        <div class="col-sm-12 col-lg-8" id="details-content" th:object="${obj}">
+        <div class="col-sm-12 col-lg-8 occ-list-item" id="details-content" th:object="${obj}">
 
-          <div class="occ-list-item mt-3 pt-1 pb-1" th:id="*{id}">
+          <div class="mt-3 pt-1 pb-1" th:id="*{id}">
             <div class="sentence-line-mode">
               <div th:replace="fragments/common :: sentence-hieroglyphs"/>
               <div th:replace="fragments/common :: sentence-transcription"/>

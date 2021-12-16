@@ -213,11 +213,11 @@
       <div th:each="objectPath, outerIter : ${objectPaths}" class="object-path">
         <div th:each="item, iter : ${objectPath}" class="object-path-element">
           <i th:class="|object-path-icon ${item.eclass} ${item.type}|"></i>
-          <a th:if="${item.href} != null" th:href="${item.href}">
+          <!--<a th:if="${item.href} != null" th:href="${item.href}">  ## landing page not yet implemented-->
             <span th:utext="${{item.label}}">
               corpus path segment
             </span>
-          </a>
+          <!--</a>-->
           <span th:unless="${item.href} != null">
             <span th:utext="${{item.label}}" th:class="${iter.last} ? lc">
               corpus path segment
@@ -229,7 +229,7 @@
 
     <!-- sentence hieroglyphs -->
     <div th:fragment="sentence-hieroglyphs" th:if="*{hasGlyphs}" class="result-list-item-element hieroglyphs">
-      <a th:each="token : *{tokens}" th:href="|#${token.id}|" th:id="${token.id}">
+      <a th:each="token : *{tokens}" th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,token.lemma.id)).build()}" th:id="${token.id}">
         <div th:replace=" :: token-hieroglyphs"/>
       </a>
     </div>
@@ -238,11 +238,12 @@
     <div th:fragment="sentence-transcription" class="result-list-item-element transcription">
       <p class="bbaw-libertine mb-2">
         <span th:each="token : *{tokens}" th:id="${token.id}">
-          <a th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,token.lemma.id)).build()}"
+		  <a  th:if="${token.lemma.id}" th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,token.lemma.id)).build()}"
              th:text="${token.label}"
              th:class="|sentence-token token-${token.type}|"
              th:classappend="${token.rubrum} ? rubrum"/>
-        </span>
+			 <span th:unless="${token.lemma.id}" th:text="${token.label}" th:class="|sentence-token token-${token.type}|"/>
+		</span>
       </p>
     </div>
 
@@ -346,10 +347,14 @@
        <!-- sentence editor -->
     <div th:fragment="sentence-editor" class="result-list-item-element">
      	 <span th:if="*{getEdited}">
-	     	  <span th:utext="#{sentence_editor} + ':' " class="text-editor"/>
+	     	  <span th:utext="#{sentence_main_editor} + ':' " class="text-editor"/>
 	     	  <span th:utext="*{getEdited.author}"/> 
-			  <span th:each="contributor : *{getEdited.contributors}" th:utext="', '+ ${contributor}"/>
-			  <span th:utext="' (' + *{getEdited.getDateOfLatestUpdate} + ')'"/>
+			  <span th:if="*{getEdited.contributors}">
+			  ;
+			  <span th:text="#{sentence_contributors} + ': '" class="text-editor"/>
+			  <span th:each="contributor, nr : *{getEdited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/>
+			  <span th:utext="' (' + #{sentence_latest_access} + ': ' + *{getEdited.getDateOfLatestUpdate} + ')'" />
+			  </span>
          </span>
     </div>
    
