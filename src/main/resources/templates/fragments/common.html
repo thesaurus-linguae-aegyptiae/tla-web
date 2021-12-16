@@ -213,11 +213,11 @@
       <div th:each="objectPath, outerIter : ${objectPaths}" class="object-path">
         <div th:each="item, iter : ${objectPath}" class="object-path-element">
           <i th:class="|object-path-icon ${item.eclass} ${item.type}|"></i>
-          <a th:if="${item.href} != null" th:href="${item.href}">
+          <!--<a th:if="${item.href} != null" th:href="${item.href}">  ## landing page not yet implemented-->
             <span th:utext="${{item.label}}">
               corpus path segment
             </span>
-          </a>
+          <!--</a>-->
           <span th:unless="${item.href} != null">
             <span th:utext="${{item.label}}" th:class="${iter.last} ? lc">
               corpus path segment
@@ -346,10 +346,14 @@
        <!-- sentence editor -->
     <div th:fragment="sentence-editor" class="result-list-item-element">
      	 <span th:if="*{getEdited}">
-	     	  <span th:utext="#{sentence_editor} + ':' " class="text-editor"/>
+	     	  <span th:utext="#{sentence_main_editor} + ':' " class="text-editor"/>
 	     	  <span th:utext="*{getEdited.author}"/> 
-			  <span th:each="contributor : *{getEdited.contributors}" th:utext="', '+ ${contributor}"/>
-			  <span th:utext="' (' + *{getEdited.getDateOfLatestUpdate} + ')'"/>
+			  <span th:if="*{getEdited.contributors}">
+			  ;
+			  <span th:text="#{sentence_contributors} + ': '" class="text-editor"/>
+			  <span th:each="contributor, nr : *{getEdited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/>
+			  <span th:utext="' (' + #{sentence_latest_access} + ': ' + *{getEdited.getDateOfLatestUpdate} + ')'" />
+			  </span>
          </span>
     </div>
    
