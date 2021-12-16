@@ -578,8 +578,11 @@ span.lc:hover {
     position: relative;
 }
 
+.result-list-item-element a:hover,
 span.token-glyphs svg:hover {
-    border-bottom: 1px solid var(--BBAWred);
+    background-color: #EEE;
+    cursor: pointer;
+	 /*border-bottom: 1px solid var(--BBAWred);*/
 }
 
 .result-list-item hr,
