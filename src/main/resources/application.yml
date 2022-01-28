@@ -70,8 +70,9 @@ search:
             - sortKey_asc
             - sortKey_desc
             - timeSpan.begin_asc
+            - timeSpan.begin_desc
+            - timeSpan.end_asc
             - timeSpan.end_desc
-            - root_asc
 
         hideable1Lemma-properties:
             hieroglyphs: []

@@ -218,11 +218,11 @@
               corpus path segment
             </span>
           <!--</a>-->
-          <span th:unless="${item.href} != null">
+          <!--<span th:unless="${item.href} != null">
             <span th:utext="${{item.label}}" th:class="${iter.last} ? lc">
               corpus path segment
             </span>
-          </span>
+          </span>-->
         </div>
       </div>
     </div>
@@ -339,7 +339,7 @@
     <!-- sentence dating -->
     <div th:fragment="sentence-dating" class="result-list-item-element">
         <span th:if="*{getText}">
-		 		<span th:utext="#{sentence_date} + ':' " class="text-date"/>
+		 		<span th:utext="#{sentence_date} + ':' " class="text-date text-to-be-revised"/>
      	  
      <span/>
     </div>
