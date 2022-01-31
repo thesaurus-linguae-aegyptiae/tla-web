@@ -97,23 +97,23 @@
 								  </div>
 						          <div class="occ-list-item-element">
 						          		<li th:replace="fragments/common :: token-word-class"/>
-						          		<hr class="blockline">  
+						          		<hr class="blockline bwc">  
 								  </div>
 						          <div class="occ-list-item-element">
 						             	<li th:replace="fragments/common :: token-bts-glossing"/>
-						             	<hr class="blockline"> 
+						             	<hr class="blockline bgloss"> 
 					              </div>
 							      <div class="occ-list-item-element">      
 								        <li th:replace="fragments/common :: token-ling-glossing"/>
-								        <hr class="blockline">  
+								        <hr class="blockline bling">  
 								  </div>
 								  <div class="occ-list-item-element">
 								  		<li th:replace="fragments/common :: token-translation"/>
-								  		<hr class="blockline">  
+								  		<hr class="blockline btr">  
 								  </div>
 								  <div class="occ-list-item-element">
 								  		<li th:replace="fragments/common :: token-word-id"/>
-								  		<hr class="blockline">  
+								  		<hr class="blockline bid">  
 								  </div>						      
 						    </ul>
 			         	</div>
@@ -301,7 +301,7 @@
           <div th:replace=" :: hide-property-button(${property}, null)"/>
           <th:block th:with="subProperties=${e.value}">
             <div th:unless="${#lists.isEmpty(subProperties)}"
-                class="indented-buttons">
+                class="indented-buttons indented-buttons-annotation">
               <th:block th:each="subProperty : ${subProperties}">
                 <div th:replace=" :: hide-property-button(${property}, ${subProperty})"/>
               </th:block>
@@ -342,37 +342,90 @@
              
               let selector = `.result-list-item-element.${property}`;
               let selectorSW = `.container-annotation-switch`;
-              let selectorWordClass =`.container-annotation.word-class`;
+              let selectorSW2 = `.container-annotation`;
+             // let selectorWordClass =`.container-annotation.word-class`;
+              let selectorWordClass = `.switchannotation-wordclass`;
+              let selectorTLAGlossing = `.switchannotation-tlaglossing`;
+              let selectorLingGlossing = `.switchannotation-linguisticglossing`;
+              let selectorTransl = `.switchannotation-tokentranslation`;
+              let selectorId = `.switchannotation-wordtokenid`;
+              let selectorTR=`.translation`;
+              let selectorDate=`.dating`;
+              let selectorEditor=`.texteditor`;
               let selectorSW1=`.sentence-line-mode`;
               let selh=`.token-glyphs`;
+           let selwc=`.wordclass`;
+           let selgl=`.tlagloss`;
+           let selling=`.ling`;
+           let seltr=`.transl`;
+           let selid=`.wid`;
+           let seltrgen=`.translations`;
+           let seldate=`.date`;
+           let seled=`.editors`;
+            
+           //   let selwc=`.token-getPOS`;
               if (subProperty != null) {
-                selector = `${selector}.${subProperty}`;
+                selector = `${selectorSW2}.${subProperty}`;
               }
               
               if((name.includes("switchannotation"))&&(name!="switchannotation")){
-	                 button.children('i#off').toggle();
-	                 console.log(name); 
-	                    
-
+            	  if(name=="switchannotation-wordclass"){
+            		  
+            	       if (getCookie("CookiePolicy") == "accepted") {  
+            	            if ((getCookie("corpus-"+`${name}`) != 'true')) {
+	                                  button.children('i#off').toggle();
+	                                  setPermanentCookie("corpus-"+`${name}`,'false');
+	                                   button.children().hide=true;
+            	            }
+            	       }  
+            	  }  
+            	  else{
+            		  
+            		  if (getCookie("CookiePolicy") == "accepted") {  
+          	            if ((getCookie("corpus-"+`${name}`) != 'false')) {
+          	            	setPermanentCookie("corpus-"+`${name}`,'true');
+          	            	button.children('i#on').toggle();
+          	            }
+          	       }
+            		  
+            	  }
               }
-              else if (name=="switchannotation") {$(selectorSW).toggle();  button.children('i#off').toggle();}
-              else {button.children('i#on').toggle(); 
-              //$(selectorSW1).toggle();
-              }
-
+              else if (name=="switchannotation") {
+            	  if (getCookie("CookiePolicy") == "accepted") {  
+        	            if ((getCookie("corpus-"+`${name}`) != 'false')) {
+        	            	 $(selectorSW).toggle();  
+        	            	  button.children('i#on').toggle();
+        	            	  $('.indented-buttons-annotation').hide();
+        	            	  setPermanentCookie("corpus-"+`${name}`,'true');
+        	            }
+        	            else{
+        	            	 $(selectorSW).fadeToggle('slow');  
+       	            	  button.children('i#on').toggle();
+       	            	  $('.indented-buttons-annotation').fadeToggle('slow');
+        	            	
+        	            }
+        	       }
+            	 
+            	  
               
-              /*
-              hieroglyphs sentence:6647:64
-switchannotation sentence:6740:27
-switchannotation-wordclass sentence:6840:64
-switchannotation-tlaglossing sentence:6934:64
-switchannotation-linguisticglossing sentence:7028:64
-switchannotation-tokentranslation sentence:7122:64
-switchannotation-wordtokenid sentence:7216:64
-translation sentence:7313:64
-dating sentence:7410:64
-texteditor
-             */
+              }
+              else {
+            	  
+            	  if (getCookie("CookiePolicy") == "accepted") {  
+      	            if ((getCookie("corpus-"+`${name}`) != 'true')) {
+      	            	 setPermanentCookie("corpus-"+`${name}`,'false');
+      	            	button.children('i#off').toggle();
+      	            }
+      	       }
+            	   
+              }
+              //$(selectorSW1).toggle();
+              
+//check default werte
+
+
+          
+
               button.click(() => {
             	 
             	  if(name=="switchannotation"){
@@ -381,15 +434,119 @@ texteditor
             		 $(selectorSW).fadeToggle('slow'); 
             		 $(selectorSW1).fadeToggle('slow');
             		 button.children('svg').toggle();
-            		
+            		 $('.indented-buttons-annotation').fadeToggle('slow');
+            		  $(selgl).hide();
+            		  $(`.bgloss`).hide();
+            		  $(selling).hide();
+            		  $(`.bling`).hide();
+            		  $(seltr).hide();
+            		  $(`.btr`).hide();
+            		  $(selid).hide();
+            		  $(`.bid`).hide();
+            		  if (getCookie("CookiePolicy") == "accepted") { 
+            			  setPermanentCookie("corpus-switchannotation",""+ button.children('svg#on').attr('style') == 'display: none;');
+            		  }
+            		  else sessionStorage.setItem("corpus-switchannotation",""+ button.children('svg#on').attr('style') == 'display: none;');
+                 /* if(name=="switchannotation-wordclass"){
+     	                 button.children('i#on').toggle();
+     	                 button.children().hide=true;
+                 	  }  
+                 	  else{
+                 		  button.children('i#off').toggle();
+                 	  }*/
+            		 
                   }
             	  if(name=="hieroglyphs"){
             		  $(selh).fadeToggle('slow'); 
             		  button.children('svg').toggle();
+            		  if (getCookie("CookiePolicy") == "accepted") { 
+            			  setPermanentCookie("corpus-hieroglyphs",""+ button.children('svg#on').attr('style') == 'display: none;');
+            		  }
+            		  else sessionStorage.setItem("corpus-hieroglyphs",""+ button.children('svg#on').attr('style') == 'display: none;');
             	  }
             	  if(name=="switchannotation-wordclass"){
             		  $(selectorWordClass).fadeToggle('slow'); 
+            		  $(selwc).slideToggle('slow');
+            		  $(`.bwc`).slideToggle('slow');
             		  button.children('svg').toggle();
+            		  if (getCookie("CookiePolicy") == "accepted") { 
+            			  setPermanentCookie("corpus-wordclass",""+ button.children('svg#on').attr('style') == 'display: none;');
+            		  }
+            		  else sessionStorage.setItem("corpus-wordclass",""+ button.children('svg#on').attr('style') == 'display: none;');
+            	  }
+            	  if(name=="switchannotation-tlaglossing"){
+            		  $(selectorTLAGlossing).fadeToggle('slow'); 
+            		
+            		  $(selgl).slideToggle('slow');
+            		  $(`.bgloss`).slideToggle('slow');
+            		  button.children('svg').toggle();
+            		  if (getCookie("CookiePolicy") == "accepted") { 
+            			  setPermanentCookie("corpus-tlaglossing",""+ button.children('svg#on').attr('style') == 'display: none;');
+            		  }
+            		  else sessionStorage.setItem("corpus-tlaglossing",""+ button.children('svg#on').attr('style') == 'display: none;');
+            	  }
+            	  if(name=="switchannotation-linguisticglossing"){
+            		  $(selectorLingGlossing).fadeToggle('slow'); 
+            		 
+            		  $(selling).slideToggle('slow');
+            		  $(`.bling`).slideToggle('slow');
+            		  button.children('svg').toggle();
+            		  if (getCookie("CookiePolicy") == "accepted") { 
+            			  setPermanentCookie("corpus-linguisticglossing",""+ button.children('svg#on').attr('style') == 'display: none;');
+            		  }
+            		  else sessionStorage.setItem("corpus-linguisticglossing",""+ button.children('svg#on').attr('style') == 'display: none;');
+            	  }
+            	  if(name=="switchannotation-tokentranslation"){
+            		  $(selectorTransl).fadeToggle('slow'); 
+            		 
+            		  $(seltr).slideToggle('slow');
+            		  $(`.btr`).slideToggle('slow');
+            		  button.children('svg').toggle();
+            		  if (getCookie("CookiePolicy") == "accepted") { 
+            			  setPermanentCookie("corpus-tokentranslation",""+ button.children('svg#on').attr('style') == 'display: none;');
+            		  }
+            		  else sessionStorage.setItem("corpus-tokentranslation",""+ button.children('svg#on').attr('style') == 'display: none;');
+            	  }
+            	  if(name=="switchannotation-wordtokenid"){
+            		  $(selectorId).fadeToggle('slow'); 
+            		  
+            		  $(selid).slideToggle('slow');
+            		  $(`.bid`).slideToggle('slow');
+            		  button.children('svg').toggle();
+            		  if (getCookie("CookiePolicy") == "accepted") { 
+            			  setPermanentCookie("corpus-wordtokenid",""+ button.children('svg#on').attr('style') == 'display: none;');
+            		  }
+            		  else sessionStorage.setItem("corpus-wordtokenid",""+ button.children('svg#on').attr('style') == 'display: none;');
+            	  }
+            	  if(name=="translation"){
+            		  $(selectorTR).fadeToggle('slow'); 
+            		 
+            		  $(seltrgen).slideToggle('fast');
+            		  button.children('svg').toggle();
+            		  if (getCookie("CookiePolicy") == "accepted") { 
+            			  setPermanentCookie("corpus-translation",""+ button.children('svg#on').attr('style') == 'display: none;');
+            		  }
+            		  else sessionStorage.setItem("corpus-translation",""+ button.children('svg#on').attr('style') == 'display: none;');
+            	  }
+            	  if(name=="dating"){
+            		  $(selectorDate).fadeToggle('slow'); 
+            		 
+            		  $(seldate).slideToggle('fast');
+            		  button.children('svg').toggle();
+            		  if (getCookie("CookiePolicy") == "accepted") { 
+            			  setPermanentCookie("corpus-dating",""+ button.children('svg#on').attr('style') == 'display: none;');
+            		  }
+            		  else sessionStorage.setItem("corpus-dating",""+ button.children('svg#on').attr('style') == 'display: none;');
+            	  }
+            	  if(name=="texteditor"){
+            		  $(selectorEditor).fadeToggle('slow'); 
+            		 
+            		  $(seled).slideToggle('fast');
+            		  button.children('svg').toggle();
+            		  if (getCookie("CookiePolicy") == "accepted") { 
+            			  setPermanentCookie("corpus-texteditor",""+ button.children('svg#on').attr('style') == 'display: none;');
+            		  }
+            		  else sessionStorage.setItem("corpus-texteditor",""+ button.children('svg#on').attr('style') == 'display: none;');
             	  }
             	 // else {$(selectorSW1).fadeToggle('slow');
 
