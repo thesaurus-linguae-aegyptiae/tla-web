@@ -282,39 +282,39 @@
       <!-- token wordclass -->
     <th:block th:fragment="token-word-class">
      <span th:if="${token.getPOS !=null}" th:utext="${token.getPOS}" 
-             class="word-class"/>
+             class="word-class bwc"/>
      <span th:if="${token.getPOS ==null}" th:text="'&nbsp;'"
-             class="word-class"/>
+             class="word-class bwc"/>
     </th:block>
     
     <!-- token lingGloss -->
     <th:block th:fragment="token-ling-glossing">
      <span th:if="${token.flexion.lingGloss !=null}" th:utext="${token.flexion.lingGloss}"
-             class="ling-glossing"/>
+             class="ling-glossing bling"/>
      <span th:if="${token.flexion.lingGloss ==null}" th:text="'&nbsp;'"
-             class="ling-glossing"/>
+             class="ling-glossing bling"/>
     </th:block>
    
      <!-- token btsGloss/tlaGloss -->
     <th:block th:fragment="token-bts-glossing">
      <span th:if="${token.flexion.btsGloss !=null}" th:utext="${token.flexion.btsGloss}"
-            class="bts-glossing"/>
+            class="bts-glossing bgloss"/>
      <span th:if="${token.flexion.btsGloss ==null}" th:text="'&nbsp;'"
-            class="bts-glossing"/>   
+            class="bts-glossing bgloss"/>   
     </th:block>
     
        <!-- token translation -->
     <th:block th:fragment="token-translation">
      <span th:if="${token.translations !=null}" th:utext="${token.translations['de'][0]}"
-             class="token-translation"/>
+             class="token-translation btr"/>
      <span th:if="${token.translations ==null}" th:text="'&nbsp;'"
-             class="token-translation"/>
+             class="token-translation btr"/>
     </th:block>
     
         <!-- token word-id -->
     <th:block th:fragment="token-word-id">
      <span th:if="${token.id !=null}" 
-             class="word-id">
+             class="word-id bid">
                  <button type="button" th:id="'button_' + ${token.id}" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" th:onclick="" >
                  <span class="fas fa-clipboard"></span>
                  <span th:text="#{button_copy_wordtokenID}">Copy token ID</span> </button>  
