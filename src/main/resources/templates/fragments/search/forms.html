@@ -97,15 +97,23 @@ document.getElementById("script1").setAttribute("checked",true);
 
       <div class="form-group row">
        <!--   <label class="col-form-label col-xl-2" for="transcription" th:text="#{field_label_transcription}">Transcription</label> -->
-         <label for="Transcription" class="col-xl-2 col-form-label" >
+         <label class="col-form-label col-xl-2" th:for="*{transcription}">
         <span th:text="#{field_label_transliteration}">Transcription </span>
         <a class="transliteration-help" href="#" role="button" data-toggle="modal" data-target="#transliteration-help">
         <i class="fas fa-info-circle"></i></a>
         </label>
-      
-      
+    <!--
+    <div class="col-xl-10">
+          <input class="bbaw-libertine form-control mb-3" type="text" th:field="*{transcription}"/>
+        </div>
+      <label  class="col-form-label col-xl-2" th:for="*{root}">
+        <span th:text="#{field_label_root_transliteration}">Root </span>
+        <a class="transliteration-help" href="#" role="button" data-toggle="modal" data-target="#transliteration-help">
+        <i class="fas fa-info-circle"></i></a>
+        </label>
+    -->  
           <div class="col-xl-10">
-				 <input type="text" class="bbaw-libertine form-control mb-3 keyboardInput" id="dict-search-transcription" rows="3" name="transcription" lang="egy">
+				 <input type="text" class="bbaw-libertine form-control mb-3 keyboardInput" th:field="*{transcription}" id="dict-search-transcription" rows="3" name="transcription" lang="egy">
                  
 						 <div class="form-check form-check-inline">
 							  <input class="form-check-input transcription-enc-btn"  type="radio" name="transcription_enc" id="transcription_enc_unicode" th:value="unicode">
