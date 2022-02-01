@@ -14,7 +14,12 @@
 	
          <script>
         const saveDropdown = (name, prop) => {
-          setPermanentCookie(`form-field-${name}-select-${prop}`, $(`#${name}-${prop}`).val() )
+          if (getCookie("CookiePolicy") == "accepted") {
+				setPermanentCookie(`form-field-${name}-select-${prop}`, $(`#${name}-${prop}`).val() )
+		  }
+		  else{
+				sessionStorage.setItem(`form-field-${name}-select-${prop}`, $(`#${name}-${prop}`).val());
+			}
         }
       </script>
       <div class="row search my-4">

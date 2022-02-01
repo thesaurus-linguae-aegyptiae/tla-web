@@ -98,6 +98,7 @@
           </div>
         </div>
       </div>
+      <div th:replace="fragments/common :: cookie-banner"/>
     </footer>
 
 
@@ -114,7 +115,7 @@
 	        
     <!-- Cookie alert -->
    
-    <cookie class="cookie-info" th:fragment="cookie">
+    <div class="cookie-info" th:fragment="cookie-banner">
     <div class="alert alert-dismissible cookiealert" role="alert">
     <div id="cookie-container" class="cookie-container">        
         <div class="cookie-wrapper px-5 py-2">                
@@ -130,9 +131,7 @@
         </div>
     </div>
     </div>
-   
-                  
-</cookie>
+   </div>
 
     <!-- page breadcrumbs -->
 

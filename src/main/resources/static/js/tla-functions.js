@@ -79,7 +79,7 @@ function init() {
                        }
                      else {
 	                     sessionStorage.setItem("TranscriptionScript", "demotic");
-                         sessionStorage("Mdc","enabled");
+                         sessionStorage.setItem("Mdc","enabled");
                       }
 	             document.getElementById("root_enc_mdc").disabled = false;
                 document.getElementById("transcription_enc_mdc").disabled = false;
@@ -121,7 +121,7 @@ function init() {
                          }
                          else {
 	                          sessionStorage.setItem("TranscriptionScript", "hieratic");
-                              sessionStorage("Mdc","enabled");	
+                              sessionStorage.setItem("Mdc","enabled");	
                        }
                 
                document.getElementById("root_enc_mdc").disabled = false;
