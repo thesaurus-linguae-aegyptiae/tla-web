@@ -54,9 +54,10 @@
             <th:block th:each="entry : *{translations}" th:insert="fragments/common :: single-lang-translation(${entry})"/>
           </span>
           <span class="result-list-item-element attested-timespan" th:unless="*{timespan} == null">
-            <span th:text="*{timespan.begin}">begin</span>
+		     <i class="text-muted fas fa-calendar mr-0 ml-2"></i>
+            <span th:insert="fragments/details :: display-year(*{timespan.begin})">3000 BCE</span>
             <span>&#8212;</span>
-            <span th:text="*{timespan.end}">end</span>
+            <span th:insert="fragments/details :: display-year(*{timespan.begin})">1500 CE</span>
           </span>
           <span class="result-list-item-element bibliography" th:unless="${#lists.isEmpty(obj.bibliography)}">
             <i class="text-muted fas fa-book mr-0 ml-2"></i>
