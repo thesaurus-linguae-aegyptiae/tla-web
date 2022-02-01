@@ -602,22 +602,16 @@ span.token-glyphs svg:hover {
     flex-flow: row wrap;
 }
 
-.container-annotation .token-translation{
-    font-size: 0.8em;
-}
-.container-annotation .ling-glossing{
-    font-size: 0.8em;
-}
-.container-annotation .bts-glossing{
-    font-size: 0.8em;
-}
-.container-annotation .word-class{
+.token-translation,
+.bts-glossing,
+.ling-glossing,
+.word-class{
     font-size: 0.8em;
 }
 
-.container-annotation .word-id {
+.word-id {
     color: grey;
-    font-size: .60em;
+    font-size: 0.5em;
 }
 
 
