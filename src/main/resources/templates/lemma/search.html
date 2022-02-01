@@ -58,7 +58,7 @@
         	  }
         	 
         	  var transcription=urlParams.get('transcription');
-        	  if(transcription !="") {
+        	  if(transcription !=null) {
         		  document.getElementById("queryTranscriptionHeader").innerHTML =" ; Transliteration = ";
             	  document.getElementById("queryTranscription").innerHTML ="\""+transcription+"\"";
         	  }	  
