@@ -27,6 +27,11 @@ public class LemmaSearchProperties extends SearchProperties {
      * Annotation types to choose from in search form
      */
     private Map<String, List<String>> annotationTypes;
+    
+    //private Map<String, List<String>> hiddeable1LemmaProperties;
+    
+   // private Map<String, List<String>> hiddeable2LemmaProperties;
+    
   
 
 }

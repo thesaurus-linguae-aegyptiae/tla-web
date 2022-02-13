@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.fasterxml.jackson.databind.deser.impl.CreatorCandidate.Param;
+
 import lombok.extern.slf4j.Slf4j;
 import tla.domain.command.SearchCommand;
 import tla.domain.model.meta.Resolvable;
@@ -85,6 +87,7 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
         for (ObjectController<?, ?> controller : controllers) {
             var service = controller.getService();
             if (service.getModelEClass().equals(eclass)) {
+            	log.info("Requested ",controller.getRequestMapping());
                 return controller.getRequestMapping();
             }
         }
@@ -260,6 +263,11 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
         @RequestParam MultiValueMap<String, String> params,
         Model model
     ) {
+
+        // if(!params.containsKey("sort")) params.add("sort", "sortKey_asc");
+         //else if (!params.get("sort").contains("sortKey")) params.set("sort","sortKey_asc");
+        if (form.getSort()==null) form.setSort("sortKey_asc");
+       
         log.info("Submitted search form: {}", tla.domain.util.IO.json(form));
         log.info("URL params: {}", params);
         SearchResults results = this.getService().search(form, Integer.parseInt(page)); // TODO validate page
@@ -281,11 +289,15 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
         this.addHideable2LemmaProperties(model);
         model.addAttribute("objectType", getTemplatePath());
         model.addAttribute("searchResults", results.getObjects());
+     // if  (results.getQuery().getSort()==null ) results.getQuery().setSort("sortKey_asc");
+    
         model.addAttribute("searchQuery", results.getQuery());
+     //  System.out.println("Sort "+results.getQuery().getSort());
         model.addAttribute("facets", results.getFacets());
         model.addAttribute("page", results.getPage());
         model.addAttribute("pagination", new Pagination(results.getPage()));
         model = extendSearchResultsPageModel(model, results, form);
+       // System.out.println("Search "+ String.format("%s/search", getTemplatePath()));
         return String.format("%s/search", getTemplatePath());
     }
 

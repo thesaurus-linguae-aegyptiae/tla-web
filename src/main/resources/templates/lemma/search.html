@@ -40,6 +40,7 @@
             <span id="queryBibliography" class="bbaw-libertine"> </span>
             <span id="queryAnnoHeader" > </span>
             <span id="queryAnno" class="bbaw-libertine"> </span>
+           
             <script th:inline="javascript">
           //<![CDATA[
           {
@@ -47,7 +48,7 @@
         	  const queryString = window.location.search;
         	  const urlParams = new URLSearchParams(queryString);
         	  // Lemma ID = "123" 
-        	  
+        	
         	  var script=""+urlParams.getAll('script');
         	  if(script=="hieratic,demotic") script= "Hieroglyphic\/Hieratic \/ Demotic"; // ToDo: DE/EN
         	  else if (script=="hieratic") script="Hieroglyphic\/Hieratic";
@@ -70,12 +71,13 @@
         	 }	 
         	 
         	  var pos=urlParams.get('wordClass.type');
+        	  if((pos!="")&&(pos!=null)){
         	  document.getElementById("queryWordClassHeader").innerHTML =" ; Part of Speech = ";
         	  if(pos!="") 
         	  pos="\""+pos+"\"";
         	  else pos="\"any\"";
         	  document.getElementById("queryWordClass").innerHTML =pos;
-        	  
+        	  }
         	  var pos_subtype=urlParams.get('wordClass.subtype');
         	  if((pos_subtype!="")&&(pos_subtype!=null)) {
         	  pos_subtype= "\""+ pos_subtype+"\"";

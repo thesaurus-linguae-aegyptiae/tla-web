@@ -30,6 +30,7 @@ public class SearchResults extends ObjectsContainer {
         super(dto);
         this.objects = this.importDTOSearchResults(dto.getResults());
         this.query = dto.getQuery();
+        if( query.getSort()==null) query.setSort("sortKey_asc");
         this.page = dto.getPage();
         this.facets = dto.getFacets();
     }
