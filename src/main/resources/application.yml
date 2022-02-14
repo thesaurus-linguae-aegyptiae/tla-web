@@ -120,7 +120,7 @@ search:
                 - personal_pronoun
                 - relative_pronoun
             root: []
-            epitheton-title:
+            epitheton_title:
                 - title
                 - epith_god
                 - epith_king
