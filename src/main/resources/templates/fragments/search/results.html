@@ -241,17 +241,29 @@
             <option th:each="value : ${sortOrders}" th:value="${value}" th:text="#{|field_value_label_sort_by_${value}_type_lemma|}">Alphabetic asc.</option>
             <script th:inline="javascript">
               //<![CDATA[
+            	  
               $('#select-sort-order').change(
-                () => {
+                function() {
+                	//document.getElementById("wordClass-type").selectedIndex=2; 
+                	console.log("Resubmit");
+                	//console.log(document.getElementById("wordClass-type")[0].value);
                   $('form#lemma-search').submit();
                 }
               );
               //]]>
             </script>
           </select>
-          <div class="input-group-append" style="display: none">
-            <button form="lemma-search" id="submit-sort-order" type="submit"/>
-          </div>
+      <div class="input-group-append" style="display: none">
+            <button form="lemma-search" id="submit-lemma-search" type="submit"/>
+          <!--   <button class="btn btn-block btn-danger text-left text-decoration-none mt-4 mb-2"
+          th:id="|submit-${formId}|"
+          th:form="${formId}" type="submit"> --> 
+             <script>
+            console.log("ResubmitBBB");          
+            </script>          
+           
+          </div> 
+         
         </div>
       </div>
 
@@ -989,6 +1001,9 @@
          </th:block>
         </th:block>
       </div>
+      
+      
+      
 
   </body>
 </html>

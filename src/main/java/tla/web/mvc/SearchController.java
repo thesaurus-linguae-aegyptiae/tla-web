@@ -63,6 +63,7 @@ public class SearchController {
 
     @ModelAttribute("wordClasses")
     public Map<String, List<String>> getWordClasses() {
+    	log.info(" wordclass "+ lemmaSearchConf.getWordClasses());
         return lemmaSearchConf.getWordClasses();
     }
 
@@ -187,7 +188,7 @@ public class SearchController {
                     ).methods(RequestMethod.GET).build(),
                     controller,
                     method
-                );
+                );log.info("Created ",controller);
             } catch (NoSuchMethodException e) {
                 log.info("couldn't create search route for controller {}: no handler method.", controller);
             }

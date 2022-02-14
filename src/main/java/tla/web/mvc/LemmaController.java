@@ -2,6 +2,7 @@ package tla.web.mvc;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -66,7 +67,13 @@ public class LemmaController extends ObjectController<Lemma, LemmaSearch> {
 
     @ModelAttribute("sortOrders")
     public List<String> getSortOrders() {
+    	//if (searchConfig.getSortOrders()!=null)
         return searchConfig.getSortOrders();
+    	/*else {
+    		List<String> x=new ArrayList<String>();
+    		x.add("sortKey_asc");
+    		return x;
+    	}*/
     }
 
     @Override
@@ -77,6 +84,8 @@ public class LemmaController extends ObjectController<Lemma, LemmaSearch> {
         @RequestParam MultiValueMap<String, String> params,
         Model model
     ) {
+    	 model.addAttribute("wordClasses", searchConfig.getWordClasses());
+       //  model.addAttribute("lemmaAnnotationTypes", searchConfig.getAnnotationTypes());
         return super.getSearchResultsPage(form, page, params, model);
     }
 
@@ -84,11 +93,15 @@ public class LemmaController extends ObjectController<Lemma, LemmaSearch> {
     protected Model extendSearchResultsPageModel(Model model, SearchResults results, SearchCommand<?> searchForm) {
         if (searchForm instanceof LemmaSearch) {
             LemmaSearch form = (LemmaSearch) searchForm;
+         
             model.addAttribute(
                 "allTranslationLanguages",
                 (form.getTranscription() != null) ? form.getTranslation().getLang() : Collections.EMPTY_LIST
             );
+            
             model.addAttribute("allScripts", form.getScript());
+           // if (form.getSort()==null) {form.setSort("sortKey_asc");
+            //model.addAttribute("sort",form.getSort());}
         }
         return model;
     }

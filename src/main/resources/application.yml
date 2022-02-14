@@ -73,21 +73,19 @@ search:
             - timeSpan.begin_desc
             - timeSpan.end_asc
             - timeSpan.end_desc
-
-        hideable1Lemma-properties:
+        hideable1-lemma-properties:
             hieroglyphs: []
             lemma-id: []
             wordClass: []
         
-        hideable2Lemma-properties:   
+        hideable2-lemma-properties:  
             bibliography: []
             attested-timespan: []   
            
         showable-properties:
              de: []
              en: []
-             fr: []
-            
+             fr: []   
         word-classes:
             any: []
             excl_names: []
@@ -122,7 +120,7 @@ search:
                 - personal_pronoun
                 - relative_pronoun
             root: []
-            epitheton_title:
+            epitheton-title:
                 - title
                 - epith_god
                 - epith_king
@@ -150,7 +148,7 @@ search:
 
         annotation-types:
             lemma: []
-
+            
     sentence:
         hideable-properties:
             hieroglyphs: []
