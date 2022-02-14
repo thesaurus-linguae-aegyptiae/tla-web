@@ -266,8 +266,9 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
 
         // if(!params.containsKey("sort")) params.add("sort", "sortKey_asc");
          //else if (!params.get("sort").contains("sortKey")) params.set("sort","sortKey_asc");
-        if (form.getSort()==null) form.setSort("sortKey_asc");
-       
+   if( form.getClass().toString().contains("LemmaSearch"))
+    	if (form.getSort()==null) form.setSort("sortKey_asc");
+      
         log.info("Submitted search form: {}", tla.domain.util.IO.json(form));
         log.info("URL params: {}", params);
         SearchResults results = this.getService().search(form, Integer.parseInt(page)); // TODO validate page
@@ -289,7 +290,7 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
         this.addHideable2LemmaProperties(model);
         model.addAttribute("objectType", getTemplatePath());
         model.addAttribute("searchResults", results.getObjects());
-     // if  (results.getQuery().getSort()==null ) results.getQuery().setSort("sortKey_asc");
+     if  (results.getQuery().getSort()==null ) results.getQuery().setSort("sortKey_asc");
     
         model.addAttribute("searchQuery", results.getQuery());
      //  System.out.println("Sort "+results.getQuery().getSort());
