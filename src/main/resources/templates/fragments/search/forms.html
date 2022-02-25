@@ -3,10 +3,10 @@
 
   <body>
 
-    <!-- ID lookup search form -->
-    <form id="some-id-search" name="some-id-search" th:object="${lemma}"
+    <!-- ID lookup search forms -->
+	<!-- ## um unterschiedliche actions zu ermöglichen, sind die ID-Suchen in drei forms verteilt, leider amit auch zwei Reiter auf der Suchseite ## -->
+    <form id="lemma-id-search" name="lemma-id-search" th:object="${lemma}"
         th:action="@{/lemma/lookup}" method="get"> 
-		<!-- um Umleitung auf /lemma vs. /sentence zu implemenieren wie unten modellieren?-->
       <fieldset class="form-group row">
         <label class="col-form-label col-xl-2" th:text="#{field_label_lemma_id}" for="id-search-lemma">
           Lemma ID
@@ -19,20 +19,40 @@
           <datalist th:id="id-search-lemma-suggestions"/>
         </div>
       </fieldset>
+	  </form>
+	  
+    <form id="sentence-id-search" name="sentence-id-search" th:object="${lemma}"
+        th:action="@{/sentence/lookup}" method="get"> <!--##warum muss da th:object="${lemma}" stehen nicht th:object="${sentence}"-->
       <fieldset class="form-group row bg-grey">
         <label class="col-form-label col-xl-2" th:text="#{field_label_sentence_id}" for="id-search-sentence">
           Sentence ID
         </label>
         <div class="col-xl-10">
-          <input class="form-control mb-1 lemma-id" type="text" th:field="*{id}"
-              th:id="id-search-sentence" th:list="id-search-sentence-suggestions" disabled> <!--temporarily disabled-->
+          <input class="form-control mb-1 sentence-id" type="text" th:field="*{id}"
+              th:id="id-search-sentence" th:list="id-search-sentence-suggestions">
             <script th:replace="fragments/search/tools :: autocomplete('id-search-sentence')"></script>
           </input>
           <datalist th:id="id-search-sentence-suggestions"/>
         </div>
       </fieldset>
 	  </form>
-
+	  
+    <form id="text-id-search" name="text-id-search" th:object="${lemma}"
+        th:action="@{/text/lookup}" method="get"> <!--##warum muss da th:object="${lemma}" stehen nicht th:object="${text}"-->
+      <fieldset class="form-group row">
+        <label class="col-form-label col-xl-2" th:text="#{field_label_text_id}" for="id-search-text">
+          Sentence ID
+        </label>
+        <div class="col-xl-10">
+          <input class="form-control mb-1 text-id" type="text" th:field="*{id}"
+              th:id="id-search-text" th:list="id-search-text-suggestions">
+            <script th:replace="fragments/search/tools :: autocomplete('id-search-text')"></script>
+          </input>
+          <datalist th:id="id-search-text-suggestions"/>
+        </div>
+      </fieldset>
+	  </form>
+	  
     <!-- sentence/occurrence search form -->
     <form id="sentence-search" name="sentence-search"
         th:action="@{${@searchController.getSearchResultsPageRoute(@__sentenceController__)}}"

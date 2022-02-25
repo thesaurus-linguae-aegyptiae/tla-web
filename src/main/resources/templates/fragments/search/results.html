@@ -57,7 +57,7 @@
 		     <i class="text-muted fas fa-calendar mr-0 ml-2"></i>
             <span th:insert="fragments/details :: display-year(*{timespan.begin})">3000 BCE</span>
             <span>&#8212;</span>
-            <span th:insert="fragments/details :: display-year(*{timespan.begin})">1500 CE</span>
+            <span th:insert="fragments/details :: display-year(*{timespan.end})">1500 CE</span>
           </span>
           <span class="result-list-item-element bibliography" th:unless="${#lists.isEmpty(obj.bibliography)}">
             <i class="text-muted fas fa-book mr-0 ml-2"></i>
