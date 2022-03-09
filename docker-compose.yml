@@ -35,8 +35,8 @@ services:
         build:
             context: https://github.com/RDBloese/tla-es-1.git
         environment:
-            - ES_HOST=prototype-es
-            - ES_PORT=9200
+            - ES_HOST=es
+            - ES_PORT=9201
         ports:
             - ${BACKEND_PORT:-9000}:9000
         tty: true
