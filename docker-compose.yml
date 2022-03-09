@@ -10,7 +10,7 @@ services:
             ES_JAVA_OPTS: -Xms512m -Xmx512m
             discovery.type: single-node
         ports:
-            - ${ES_PORT:-9150}:9150
+            - ${ES_PORT:-9201}:9201
         stdin_open: true
         tty: true
         restart: unless-stopped
@@ -24,7 +24,7 @@ services:
             context: https://github.com/RDBloese/tla-es-1.git
         environment:
             - ES_HOST=es
-            - ES_PORT=9150
+            - ES_PORT=9201
             - SAMPLE_URL=http://aaew64.bbaw.de/resources/tla-data/tla-sample-20210115-1000t.tar.gz
         tty: true
         command: "ingest"
@@ -38,7 +38,7 @@ services:
             context: https://github.com/RDBloese/tla-es-1.git
         environment:
             - ES_HOST=es
-            - ES_PORT=9150
+            - ES_PORT=9201
         ports:
             - ${BACKEND_PORT:-9000}:9000
         tty: true
