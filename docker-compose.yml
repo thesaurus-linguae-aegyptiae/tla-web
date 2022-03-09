@@ -21,11 +21,11 @@ services:
         depends_on:
             - es
         build:
-            context: https://github.com/jkatzwinkel/tla-es.git#main
+            context: https://github.com/RDBloese/tla-es-1.git
         environment:
             - ES_HOST=es
             - ES_PORT=9200
-            - SAMPLE_URL
+            - SAMPLE_URL=http://aaew64.bbaw.de/resources/tla-data/tla-sample-20210115-1000t.tar.gz
         tty: true
         command: "ingest"
 
@@ -35,12 +35,12 @@ services:
         depends_on:
             - populate
         build:
-            context: https://github.com/jkatzwinkel/tla-es.git#main
+            context: https://github.com/RDBloese/tla-es-1.git
         environment:
             - ES_HOST=es
             - ES_PORT=9200
         ports:
-            - ${BACKEND_PORT:-8090}:8090
+            - ${BACKEND_PORT:-9000}:9000
         tty: true
         restart: unless-stopped
 
@@ -50,14 +50,14 @@ services:
         build:
             context: .
         environment:
-            - BACKEND_PORT=8090
+            - BACKEND_PORT=9000
             - BACKEND_HOST=backend
             - JQUERY_VERSION
             - COOKIEJS_VERSION
             - FONTAWESOME_VERSION
             - BOOTSTRAP_VERSION
         ports:
-            - ${LISTEN_PORT:-8080}:8080
+            - ${LISTEN_PORT:-9100}:9100
         tty: true
         restart: unless-stopped
 
