@@ -1,6 +1,7 @@
 ---
 
 server:
+    port : 9100
     tomcat:
         relaxed-query-chars: ['[', ']']
     error:
