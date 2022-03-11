@@ -19,7 +19,7 @@ public class ApplicationProperties {
 
     private String name;
 
-    private String baseUrl;
+    private String baseUrl = "http://localhost";
 
     private String backendURL = "http://localhost:8080";
 
