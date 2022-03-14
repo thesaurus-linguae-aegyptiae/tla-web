@@ -22,7 +22,7 @@
 	  </form>
 	  
     <form id="sentence-id-search" name="sentence-id-search" th:object="${lemma}"
-        th:action="@{/sentence/lookup}" method="get"> <!--##warum muss da th:object="${lemma}" stehen nicht th:object="${sentence}"-->
+        th:action="@{/sentence/lookup}" method="get">
       <fieldset class="form-group row bg-grey">
         <label class="col-form-label col-xl-2" th:text="#{field_label_sentence_id}" for="id-search-sentence">
           Sentence ID
