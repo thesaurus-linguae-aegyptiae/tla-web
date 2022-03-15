@@ -184,6 +184,7 @@
             </button>
           </div>
           <div class="modal-body">
+             <input type="hidden" id="pageHREF" name="pageHREF" value="javascript:getCurrentHREF()"/><!--does this work, or do we need a separate script to change the value?-->
              <div class="input-group mb-2">
                 <input type="text" class="form-control" th:placeholder="#{modal_comment_name}" aria-label="Username" aria-describedby="basic-addon1">
               </div>
