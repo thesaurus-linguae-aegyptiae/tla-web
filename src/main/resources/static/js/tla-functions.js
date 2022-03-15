@@ -685,3 +685,23 @@ function insertParam(key, value) {
             document.location.search = kvp.join('&');
         }
     }
+
+
+// returns current HREF including parameters
+function getCurrentHREF() {
+		return window.location.href;
+}
+
+
+// returns content of HTML element with id "full-citaion", if existent, 
+// or else current HREF including parameters
+function getCitation() {
+		var cit =document.getElementById('full-citation');
+		if (cit) {
+			return cit.textContent.replaceAll(/\s+/g,' ');
+		}
+		else {
+			return getCurrentHREF();
+		}
+}
+

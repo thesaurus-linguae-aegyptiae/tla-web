@@ -217,11 +217,9 @@
             </button>
           </div>
           <div class="modal-body">
-              <a href="mailto:?subject=TLA,%20page&amp;body=##ToDo_addURLWithParamHere##" class="btn btn-block btn-info" role="button"><span class="far fa-envelope"></span> <span th:text="#{modal_share_email}">E-mail citation</span></a> 
-              <a href="https://twitter.com/share?url=##ToDo_addURLWithParamHere##" title="Twitter" class="btn btn-block btn-info" role="button" target="_blank"><span class="fab fa-twitter"></span> <span th:text="#{modal_share_twitter}">Twitter URL</span></a>
-              <a href="http://www.facebook.com/share.php?u=##ToDo_addURLWithParamHere##" class="btn btn-block btn-info" role="button" target="_blank"><span class="fab fa-facebook"></span> <span th:text="#{modal_share_facebook}">Facebook</span></a>
-				<!--document.getElementById('citation').textContent
-				window.location.href -->
+              <div class="btn btn-block btn-info" role="button" onClick="window.location.href='mailto:?subject=TLA,%20page&amp;body='+ encodeURIComponent(getCitation())" data-dismiss="modal"><span class="far fa-envelope"></span> <span th:text="#{modal_share_email}">E-mail citation</span></div> 
+              <a href="#" class="btn btn-block btn-info" role="button" onClick="window.open('https://www.facebook.com/share.php?t=TLA,%20page&amp;u='+ encodeURIComponent(getCurrentHREF()))" data-dismiss="modal"><span class="fab fa-facebook"></span> <span th:text="#{modal_share_facebook}">Facebook</span></a>
+              <a href="#" title="Twitter" class="btn btn-block btn-info" role="button" onClick="window.open('https://twitter.com/intent/tweet?t=TLA,%20page&amp;url=' + encodeURIComponent(getCurrentHREF()))" data-dismiss="modal"><span class="fab fa-twitter"></span> <span th:text="#{modal_share_twitter}">Twitter URL</span></a>
           </div>
         </div>
       </div>
