@@ -6,10 +6,13 @@ const copyStringToClipboard = (str) => {
 
 const getCookie = (name) => Cookies.get(name)
 
-const setSessionCookie = (name, value) => Cookies.set(name, value)
+const setSessionCookie = (name, value) => {
+        let params = { 'samesite': 'Strict' }
+        Cookies.set(name, value, params)
+}
 
 const setPermanentCookie = (name, value) => {
-        let params = { expires: 365 }
+        let params = { 'expires': 365, 'samesite': 'Strict' }
         //console.log(`set ${name} to ${value}`)
         //console.log(JSON.stringify(params))
         Cookies.set(name, value, params)
