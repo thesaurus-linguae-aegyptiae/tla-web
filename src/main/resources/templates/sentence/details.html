@@ -5,17 +5,24 @@
       layout:decorate="~{base}"
 >
   <head>
-    <title th:text="|Sentence ${obj.id}|"></title>
+    <title th:text="#{citeas_sentence} + ' ' + ${obj.id}"></title>
   </head>
 
   <body>
 
     <div layout:fragment="content">
 
-      <div th:replace="fragments/details :: details-page-header"/>
+      <div th:replace="fragments/details :: sentence-page-header"/>
 
       <div class="row" >
-        <div class="col-sm-12 col-lg-8 occ-list-item" id="details-content" th:object="${obj}">
+        <div class="col-lg-8 content">
+          <div class= "result-list m-4">
+				<th:block th:insert="fragments/search/results :: sentence-search-result"  th:object="${obj}"/>
+			</div>
+          <div th:replace="fragments/details :: sentence-citationBox"/>
+		</div>
+	  
+        <!--ALT: <div class="col-sm-12 col-lg-8 occ-list-item" id="details-content" th:object="${obj}">
 
           <div class="mt-3 pt-1 pb-1" th:id="*{id}">
             <div class="sentence-line-mode">
@@ -28,12 +35,12 @@
           <div th:replace="fragments/details :: object-property-object-paths('sentence')"/>
           <div th:replace="fragments/details :: editor-info"/>
 
-        </div>
+        </div>-->
 
-        <!-- Sidebar large -->
-        <div class="sidebar col-lg-4 d-none d-lg-block">
-          <div class="sticky-top">
-
+        <!-- sidebar -->
+        <div class="col-lg-4 sidebar">
+          <div class="sticky-top m-4">
+            <div th:replace="fragments/search/results :: hide-properties-buttons"/><!-- Buttons werden nicht angelegt, da Var. "hideableProperties" nicht für "details" angemeldet? -->
           </div>
         </div>
       </div>
