@@ -9,6 +9,17 @@
         <div th:replace="fragments/common :: social('lemma-page')"/>
    </div>
 
+    <!-- Sentence page header (incl. social media stuff) -->
+    <div th:fragment="sentence-page-header" class="row mb-3 details-header">
+		<div id="title-header"
+				class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-between align-items-end">
+			<h2 class="id mt-1">
+			  <span th:text="#{citeas_sentence} + ' ' + ${obj.id}">Sentence ID</span>
+			</h2>
+		</div>
+		<div th:replace="fragments/common :: social('sentence-page')"/>
+   </div>
+
     <!-- Object details header (name && review state) -->
     <div th:fragment="review-state-header" id="review-state-header"
             class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-between align-items-end">
@@ -167,8 +178,8 @@
    
             <a th:href="|${@searchController.getSearchResultsPageRoute(@__sentenceController__)}?tokens[0].lemma.id=${obj.id}|">
                 <i class="fas fa-arrow-circle-right red" id="arrow" style="visibility:hidden"></i>
-                <span id="lemma-attestation-count-textsSg"  class="text-to-be-revised" style="display:none" th:text="#{lemma_property_digitaltext}+': ##'+ ${obj.attestationCount} +'## '+ #{lemma_property_instance}">5</span>
-                <span id="lemma-attestation-count-textsPl"  class="text-to-be-revised" style="display:none" th:text="#{lemma_property_digitaltext}+': ##'+ ${obj.attestationCount} +'## '+ #{lemma_property_instances}">5</span>              
+               <span id="lemma-attestation-count-textsSg"  class="text-to-be-revised" style="display:none" th:text="#{lemma_property_digitaltext}+': ##'+ ${obj.attestationCount} +'## '+ #{lemma_property_instance}">5</span>
+                <span id="lemma-attestation-count-textsPl"  class="text-to-be-revised" style="display:none" th:text="#{lemma_property_digitaltext}+': ##'+ ${obj.attestationCount} +'## '+ #{lemma_property_instances}">5</span>      
                	
                <script>
 	               var count = document.getElementById('attestationCount').textContent;

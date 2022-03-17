@@ -106,11 +106,15 @@
    
 	<div class="bg-light citation mt-2 mb-2" th:fragment="citation-website">
 		<p class="h6"><strong>Please cite this website as</strong>:</p>
-		<script>var date = new Date(); date.getUTCDate(); var today= date.getDate() + "." + (date.getMonth()+1) + "." + date.getFullYear(); </script>
-		<blockquote id="full-citation"><span id="citation-part-2" style="font-style: italic;" th:text="#{tla_Title}"></span> <span id="citation-part-3" th:text="' <' + ${env.baseUrl} +'>, ' + #{citeas_corpus_version} + ' ' + #{tla_corpusversion} + ', ' + #{citeas_tla_version} + ' ' + #{tla_version} + ', ' + #{tla_ReleaseDate} + ', ' + #{citeas_editor} +' ' + #{tla_Editor} + ' ('+ #{citeas_accessed}+ ': '"></span>
-			<script>document.write(today) </script>)
+		<blockquote id="full-citation"><span style="font-style: italic;" th:text="#{tla_Title}"></span> <span th:text="' <' + ${env.baseUrl} +'>, ' + #{citeas_corpus_version} + ' ' + #{tla_corpusversion} + ', ' + #{citeas_tla_version} + ' ' + #{tla_version} + ', ' + #{tla_ReleaseDate} + ', ' + #{citeas_editor} +' ' + #{tla_Editor} + ' ('+ #{citeas_accessed}+ ': '"></span>
+			<span id="current-date">xx.xx.20xx</span>)
 		</blockquote>
-		<button type="button" class="btn btn-secondary btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document.getElementById('citation-part-2').textContent + document.getElementById('citation-part-3').textContent + today +')')"><span class="fas fa-clipboard"></span>&nbsp;<span th:text="#{citeas_copy_button}">Copy citation</span></button>
+				<script>
+					var date = new Date(); date.getUTCDate(); 
+					var today= date.getDate() + "." + (date.getMonth()+1) + "." + date.getFullYear(); 
+					document.getElementById('current-date').innerHTML =today;
+				</script>
+		<button type="button" class="btn btn-secondary btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document.getElementById('full-citation').textContent.replaceAll(/\s+/g,' '))"><span class="fas fa-clipboard"></span>&nbsp;<span th:text="#{citeas_copy_button}">Copy citation</span></button>
 	</div>     
 	        
     <!-- Cookie alert -->
@@ -336,23 +340,23 @@
     
     
     <!-- sentence dating -->
-    <div th:fragment="sentence-dating" class="result-list-item-element">
+    <div th:fragment="sentence-dating" class="result-list-item-element textdate">
         <span th:if="*{getText}">
-		 		<span th:utext="#{sentence_date} + ':' " class="text-date text-to-be-revised"/>
+		 		<span th:utext="#{sentence_date} + ':' " class="textdate text-to-be-revised"/>
      	  
      <span/>
     </div>
     
        <!-- sentence editor -->
-    <div th:fragment="sentence-editor" class="result-list-item-element">
+    <div th:fragment="sentence-editor" class="result-list-item-element ">
      	 <span th:if="*{getEdited}">
-	     	  <span th:utext="#{sentence_main_editor} + ':' " class="text-editor"/>
-	     	  <span th:utext="*{getEdited.author}"/> 
-			  <span th:if="*{getEdited.contributors}">
+	     	  <span th:utext="#{sentence_main_editor} + ':' " class="texteditors"/>
+	     	  <span th:utext="*{getEdited.author}" class="simpleed"/> 
+			  <span th:if="*{getEdited.contributors}" class="simpleed">
 			  ;
-			  <span th:text="#{sentence_contributors} + ': '" class="text-editor"/>
-			  <span th:each="contributor, nr : *{getEdited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/>
-			  <span th:utext="' (' + #{sentence_latest_access} + ': ' + *{getEdited.getDateOfLatestUpdate} + ')'" />
+			  <span th:text="#{sentence_contributors} + ': '" class="texteditors"/>
+			  <span th:each="contributor, nr : *{getEdited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}" class="simpleed"/>
+			  <span th:utext="' (' + #{sentence_latest_access} + ': ' + *{getEdited.getDateOfLatestUpdate} + ')'" class="simpleed" />
 			  </span>
          </span>
     </div>

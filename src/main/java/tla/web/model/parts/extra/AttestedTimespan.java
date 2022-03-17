@@ -11,6 +11,7 @@ public class AttestedTimespan extends tla.domain.model.extern.AttestedTimespan {
     }
 
     public AttestationStats getTotal() {
+    	
         AttestationStats stats = this.getContains().stream().map(
             child -> child.getAttestations()
         ).reduce(

@@ -441,11 +441,11 @@ span.lc:hover {
     height: 2rem;
 }
 
-.result-list-item-element .text-editor{
+.result-list-item-element .texteditors{
     font-weight: bold;
 }
 
-.result-list-item-element .text-date{
+.result-list-item-element .textdate{
     font-weight: bold;
 }
 
@@ -709,7 +709,7 @@ ul.annotation-block li.translations {
     right: 0;
     top: 0;
     padding: 89px 15px 0;
-    display: none;
+    
 }
 
 @media only screen and (max-width: 540px) {
@@ -926,8 +926,9 @@ h2.id span {
 /* Show/Hide */
 
 .hide {
-    display: none;
+	display:none;
 }
+
 
 .sticky-top {
     position: -webkit-sticky;
