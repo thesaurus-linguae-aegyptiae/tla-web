@@ -88,11 +88,19 @@
             <div class="container-annotation">
 				         <div th:each="token : *{tokens}" th:id="${token.id}">
 					         <ul class="annotation-block">
-							      <div class="occ-list-item-element hieroglyphs">
+							      <a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank"><div class="occ-list-item-element hieroglyphs">
+								  		<li th:replace="fragments/common :: token-hieroglyphs"/>
+								  		<hr class="blockline"> 
+								  </div></a>
+							      <div  th:unless="${token.lemma.id}"class="occ-list-item-element hieroglyphs">
 								  		<li th:replace="fragments/common :: token-hieroglyphs"/>
 								  		<hr class="blockline"> 
 								  </div>
-								   <div class="occ-list-item-element">
+								   <a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank"><div class="occ-list-item-element">
+								  		<li th:replace="fragments/common :: token-transcription"/>
+								  		<hr class="blockline"> 
+								  </div></a>
+								   <div th:unless="${token.lemma.id}" class="occ-list-item-element">
 								  		<li th:replace="fragments/common :: token-transcription"/>
 								  		<hr class="blockline"> 
 								  </div>
