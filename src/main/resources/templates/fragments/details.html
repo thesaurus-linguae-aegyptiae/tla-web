@@ -244,7 +244,7 @@
 					var today= date.getDate() + "." + (date.getMonth()+1) + "." + date.getFullYear(); 
 					document.getElementById('current-date').innerHTML =today;
 				</script>
-				<button type="button" class="btn btn-secondary btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document..getElementById('full-citation').textContent.replaceAll(/\s+/g,' '))"><i class="fas fa-clipboard"></i>&nbsp;<span th:text="#{citeas_copy_button}">Copy citation</span></button>
+				<button type="button" class="btn btn-secondary btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document.getElementById('full-citation').textContent.replaceAll(/\s+/g,' '))"><i class="fas fa-clipboard"></i>&nbsp;<span th:text="#{citeas_copy_button}">Copy citation</span></button>
      </div>  
     </div>
 
