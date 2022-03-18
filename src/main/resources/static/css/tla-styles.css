@@ -1,5 +1,18 @@
 @import url("roboto.css");
 
+@font-face {
+    font-family: BBAWLibertine;
+    font-style: normal;
+    src: url('../font/BBAWLibertine_ah.ttf');
+}
+
+@font-face {
+    font-family: EgyptianHiero;
+    font-style: normal;
+    src: url('../font/EgyptianHiero3.03.woff');
+}
+
+
 /*!
  * TLA - styles
  */
@@ -31,16 +44,6 @@
 }
 
 /* Typography */
-
-@font-face {
-    font-family: BBAWLibertine;
-    src: url(../font/BBAWLibertine_ah.ttf);
-}
-
-@font-face {
-    font-family: EgyptianHiero;
-    src: url(../font/EgyptianHiero3.03.woff);
-}
 
 .fa,
 .fas,

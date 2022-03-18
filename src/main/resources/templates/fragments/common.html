@@ -166,16 +166,69 @@
 
     <div id="social" class="button-bar col-md-6 col-lg-6 align-right align-baseline d-none d-lg-block" th:fragment="social(helppage)">
       <div class="functional-icons">
-        <a href="#" class="btn btn-light solo-icon" role="button" data-toggle="modal" data-target="#modal_sharing">
-          <span class="mr-1 text-to-be-revised" th:text="#{social-button-share}">Share</span>
+        <a href="#" class="btn btn-red solo-icon" role="button" data-toggle="modal" data-target="#modal_sharing">
+          <span class="mr-1" th:text="#{social-button-share}">Share</span>
           <i class="fa fa-share-alt share-results"></i></a>
       </div>
       <div class="functional-icons">
-        <a href="#" class="btn btn-light solo-icon" role="button" data-toggle="modal" data-target="#modal_comments">
-          <span class="mr-1 text-to-be-revised" th:text="#{social-button-comment}">Comment</span>
+        <a href="#" class="btn btn-red solo-icon" role="button" data-toggle="modal" data-target="#modal_comments">
+          <span class="mr-1" th:text="#{social-button-comment}">Comment</span>
           <i class="far fa-comment"></i></a>
       </div>
       <div th:replace=" :: help-button(${helppage})"/>
+
+    <!-- Modal for Comments-->
+    <div class="modal fade" id="modal_comments" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle" th:text="#{modal_comment_title}">Comment ...</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+             <input type="hidden" id="pageHREF" name="pageHREF" value="javascript:getCurrentHREF()"/><!--does this work, or do we need a separate script to change the value?-->
+             <div class="input-group mb-2">
+                <input type="text" class="form-control" th:placeholder="#{modal_comment_name}" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+             <div class="input-group mb-2">
+                <input type="text" class="form-control" th:placeholder="#{modal_comment_email}" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+              
+            <div class="input-group">           
+              <textarea class="form-control" aria-label="With textarea" th:placeholder="#{modal_comment_content}"></textarea>
+            </div>
+              
+          </div>
+            
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" th:text="#{modal_close}">Close</button>
+            <button type="button" class="btn btn-info text-to-be-revised" th:text="#{modal_send}">Send</button>
+            <p th:text="#{modal_comment_footer}">Thank you ....</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for Sharing-->
+    <div class="modal fade" id="modal_sharing" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle" th:text="#{modal_share_title}">Share this page</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <div class="btn btn-block btn-info" role="button" onClick="window.location.href='mailto:?subject=TLA,%20page&amp;body='+ encodeURIComponent(getCitation())" data-dismiss="modal"><span class="far fa-envelope"></span> <span th:text="#{modal_share_email}">E-mail citation</span></div> 
+              <a href="#" class="btn btn-block btn-info" role="button" onClick="window.open('https://www.facebook.com/share.php?t=TLA,%20page&amp;u='+ encodeURIComponent(getCurrentHREF()))" data-dismiss="modal"><span class="fab fa-facebook"></span> <span th:text="#{modal_share_facebook}">Facebook</span></a>
+              <a href="#" title="Twitter" class="btn btn-block btn-info" role="button" onClick="window.open('https://twitter.com/intent/tweet?t=TLA,%20page&amp;url=' + encodeURIComponent(getCurrentHREF()))" data-dismiss="modal"><span class="fab fa-twitter"></span> <span th:text="#{modal_share_twitter}">Twitter URL</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
     </div>
 
     <!-- help icon for top right header placement -->
@@ -354,9 +407,10 @@
 	     	  <span th:utext="*{getEdited.author}" class="simpleed"/> 
 			  <span th:if="*{getEdited.contributors}" class="simpleed">
 			  ;
-			  <span th:text="#{sentence_contributors} + ': '" class="texteditors"/>
-			  <span th:each="contributor, nr : *{getEdited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}" class="simpleed"/>
-			  <span th:utext="' (' + #{sentence_latest_access} + ': ' + *{getEdited.getDateOfLatestUpdate} + ')'" class="simpleed" />
+			  <span th:text="#{sentence_contributors} + ': '" class="text-editor"/>
+			  <span th:each="contributor, nr : *{getEdited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/>
+			  <span th:utext="' (' + #{sentence_latest_access} + ': ' + *{getEdited.getDateOfLatestUpdate} + ')'" /><!-- formatiert: <span th:text="${#calendars.format(obj.edited.updated, formatter)}">date</span>-->
+			  <!-- fehlt hier: <span th:text="#{|review_state_${obj.reviewState}|}">status</span>-->
 			  </span>
          </span>
     </div>
