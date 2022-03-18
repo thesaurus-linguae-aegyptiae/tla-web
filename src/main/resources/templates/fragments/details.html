@@ -178,8 +178,8 @@
    
             <a th:href="|${@searchController.getSearchResultsPageRoute(@__sentenceController__)}?tokens[0].lemma.id=${obj.id}|">
                 <i class="fas fa-arrow-circle-right red" id="arrow" style="visibility:hidden"></i>
-                <span id="lemma-attestation-count-textsSg"  class="text-to-be-revised" style="display:none" th:text="#{lemma_property_digitaltext}+': ##'+ ${obj.attestationCount} +'## '+ #{lemma_property_instance}">5</span>
-                <span id="lemma-attestation-count-textsPl"  class="text-to-be-revised" style="display:none" th:text="#{lemma_property_digitaltext}+': ##'+ ${obj.attestationCount} +'## '+ #{lemma_property_instances}">5</span>              
+               <span id="lemma-attestation-count-textsSg"  class="text-to-be-revised" style="display:none" th:text="#{lemma_property_digitaltext}+': ##'+ ${obj.attestationCount} +'## '+ #{lemma_property_instance}">5</span>
+                <span id="lemma-attestation-count-textsPl"  class="text-to-be-revised" style="display:none" th:text="#{lemma_property_digitaltext}+': ##'+ ${obj.attestationCount} +'## '+ #{lemma_property_instances}">5</span>      
                	
                <script>
 	               var count = document.getElementById('attestationCount').textContent;
