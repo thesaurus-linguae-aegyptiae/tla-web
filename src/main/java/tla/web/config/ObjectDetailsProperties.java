@@ -22,7 +22,9 @@ public class ObjectDetailsProperties {
      */
     private Map<String, List<String>> hideableProperties;
     /**
-     * Sort orders to be made available on search results page
-     */
-    //private Map<String, List<String>> showableProperties;
+    * Properties/menu buttons for lemma search results 
+    */
+   private Map<String, List<String>> hideable1LemmaProperties;
+   private Map<String, List<String>> showableProperties;
+   private Map<String, List<String>> hideable2LemmaProperties;
 }
