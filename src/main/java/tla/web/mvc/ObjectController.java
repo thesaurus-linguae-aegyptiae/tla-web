@@ -237,7 +237,9 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
             )
         );
         this.addHideableProperties(model);
-        //this.addShowableProperties(model);
+        this.addHideable1LemmaProperties(model);
+        this.addShowableProperties(model);
+        this.addHideable2LemmaProperties(model);
         model.addAttribute("obj", container.getObject());
         model.addAttribute("passport", getPassportPropertyValues(container));
         model.addAttribute("caption", getService().getLabel(container.getObject()));
