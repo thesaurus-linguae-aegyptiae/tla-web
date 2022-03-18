@@ -307,7 +307,7 @@
     <th:block th:fragment="token-hieroglyphs">
       <span th:unless="${token.glyphs.empty}" th:utext="${token.glyphs.svg}"
             th:title="${token.glyphs.mdc}" class="token-glyphs"/>
-      <th:block th:if="${token.glyphs.empty}">
+      <!-- Aufgabe der Datentransformation <th:block th:if="${token.glyphs.empty}">
        <span th:switch="${token.type}">
 	        <span th:case="'destruction_marker'" class="philological">
 	          //...//
@@ -318,7 +318,7 @@
 	        <span th:case="*" class="philological" th:text="'&nbsp;'"> 
 	        </span>
         </span>
-      </th:block>
+      </th:block>-->
       
     </th:block>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
