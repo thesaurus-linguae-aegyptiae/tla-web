@@ -57,7 +57,7 @@ public class Lemma extends BTSObject {
     private AttestedTimespan.Period timespan;
 
     public Long getAttestationCount() {
-    	
+    	System.out.println("Begin" + timespan.getBegin()+ "end "+ timespan.getEnd());
       return this.attestations.stream().mapToLong(
             timespan -> timespan.getTotal().getCount()
         ).sum();
