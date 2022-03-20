@@ -99,6 +99,13 @@ public class AttestationTimeline {
     }
 
     public static long computeTotal(List<AttestedTimespan> attestations) {
+    	long sum1=0;
+    	for(int i=0;i<attestations.size();i++) {
+    		sum1=sum1+attestations.get(i).getTotal().getCount();
+    	System.out.println("Attestation Element Total " + attestations.get(i).getTotal().getCount());
+    	}
+    	System.out.println("Total"+sum1);
+    	
         return attestations.stream().mapToLong(
             attestation -> attestation.getTotal().getCount()
         ).sum();

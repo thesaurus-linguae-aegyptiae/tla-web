@@ -62,6 +62,7 @@ public class LemmaController extends ObjectController<Lemma, LemmaSearch> {
                 container.getObject().getAttestations()
             )
         );
+        
         return model;
     }
 

@@ -372,28 +372,23 @@
            let seled=`.texteditors`;
           $(`#hide-property-button-switchannotation`).addClass("anno-block-btn");
            if(getCookie("CookiePolicy") == "accepted"){
-        	   console.log('name '+name);
         	  if(name=="hieroglyphs"){
         		  if(getCookie("corpus-hieroglyphs")=="true"){
         			  button.children('i#off').toggle();        			
-        			  //$(selh).hide();
         			  $(selh).toggle();
                    }
         		  else {
-        			  button.children('i#on').toggle();
-        			 
+        			  button.children('i#on').toggle();        			 
         		  }
         	  }
         	  else if(name=="translation"){
         		  if(getCookie("corpus-translation")=="true"){
         			  button.children('i#off').toggle();        			
-        			  $(selectorTR).toggle(); 
-        		   		 
+        			  $(selectorTR).toggle();     		   		 
         	   		  $(seltrgen).toggle();
                    }
                  else {
-        			  button.children('i#on').toggle();
-        			 
+        			  button.children('i#on').toggle();        			 
         		  }
         	  }
         	  else if(name=="dating"){
@@ -424,15 +419,11 @@
         else if(name=="switchannotation"){
         		  if(getCookie("AnnotationBlockVisible")=="true"){
         			  button.children('i#on').toggle();    
-        			//  $(selectorSW).show();
-        			// $('.indented-buttons-annotation').show();
-        			 //$('.indented-buttons-annotation').css("style","display: block");
+        			  $('.sentence-line-mode').hide();
                    }
                  else {
+                	 $('.sentence-line-mode').show();
         			  button.children('i#off').toggle();
-        			//  $('.indented-buttons-annotation').hide();
-        			//$(selectorSW).hide(); 
-        			//  $(selectorSW1).hide(); 
         		  }
         }
         else if(name=="switchannotation-wordclass"){
@@ -450,13 +441,10 @@
   		  if(getCookie("TLAFlexcodeVisible")=="true"){
   			  button.children('i#on').toggle();        			
   			  $(selgl).show(); 
-  	       	// $(bgl).show(); 
-             }
+  	                  }
            else {
   			  button.children('i#off').toggle();
-  			// $(selectorTLAGlossing).hide(); 
   			  $(selgl).hide(); 
-  	       	 // $(bgl).hide(); 
   			 
   		  }
   	  }
@@ -468,10 +456,7 @@
                }
              else {
     			  button.children('i#off').toggle();
-    			// $(selectorTLAGlossing).hide(); 
-    			  $(selling).hide(); 
-    	       	 // $(bgl).hide(); 
-    			 
+    			  $(selling).hide(); 		 
     		  }
     	  } 
         else if(name=="switchannotation-tokentranslation"){
@@ -482,29 +467,135 @@
              }
            else {
   			  button.children('i#off').toggle();
-  			// $(selectorTLAGlossing).hide(); 
   			  $(seltr).hide(); 
-  	       	 // $(bgl).hide(); 
-  			 
   		  }
   	  } 
         else if(name=="switchannotation-wordtokenid"){
   		  if(getCookie("WidVisible")=="true"){
   			  button.children('i#on').toggle();        			
-  			  $(selid).show(); 
-  	       
+  			  $(selid).show();   	       
              }
            else {
   			  button.children('i#off').toggle();
-  			// $(selectorTLAGlossing).hide(); 
   			  $(selid).hide(); 
-  	       	 // $(bgl).hide(); 
-  			 
   		  }
   	  } 
-       
-        	  
-           }
+          	  
+}
+           else{
+        	   
+        	   if(name=="hieroglyphs"){
+         		  if(sessionStorage.getItem("corpus-hieroglyphs")=="true"){
+         			  button.children('i#off').toggle();        			
+         			  $(selh).toggle();
+                    }
+         		  else {
+         			  button.children('i#on').toggle();        			 
+         		  }
+         	  }
+         	  else if(name=="translation"){
+         		  if(sessionStorage.getItem("corpus-translation")=="true"){
+         			  button.children('i#off').toggle();        			
+         			  $(selectorTR).toggle();     		   		 
+         	   		  $(seltrgen).toggle();
+                    }
+                  else {
+         			  button.children('i#on').toggle();        			 
+         		  }
+         	  }
+         	  else if(name=="dating"){
+         		  if(sessionStorage.getItem("corpus-dating")=="true"){
+         			  button.children('i#off').toggle();        			
+         			  $(selectorDate).toggle(); 
+         		   		 
+         	   		  $(seldate).toggle();
+                    }
+                  else {
+         			  button.children('i#on').toggle();
+         			 
+         		  }
+         	  }
+         	  else if(name=="texteditor"){
+         		  if(sessionStorage.getItem("corpus-texteditor")=="true"){
+         			  button.children('i#off').toggle();        			
+         			  $(selectorEditor).toggle(); 
+         		   		 
+         	   		  $(seled).toggle();
+                    }
+                  else {
+         			  button.children('i#on').toggle();
+         			 
+         		  }
+         	  }
+         	
+         else if(name=="switchannotation"){
+         		  if(sessionStorage.getItem("AnnotationBlockVisible")=="true"){
+         			  button.children('i#on').toggle();    
+         			  $('.sentence-line-mode').hide();
+                    }
+                  else {
+                 	 $('.sentence-line-mode').show();
+         			  button.children('i#off').toggle();
+         		  }
+         }
+         else if(name=="switchannotation-wordclass"){
+             		  if(sessionStorage.getItem("WordClassVisible")=="true"){
+             			  button.children('i#off').toggle();        			
+             			  $(selwc).hide(); 
+      	   		
+                        }
+                      else {
+             			  button.children('i#on').toggle();
+             			  $(selwc).show(); 
+             		  }
+             	  }
+         else if(name=="switchannotation-tlaglossing"){
+   		  if(sessionStorage.getItem("TLAFlexcodeVisible")=="true"){
+   			  button.children('i#on').toggle();        			
+   			  $(selgl).show(); 
+   	                  }
+            else {
+   			  button.children('i#off').toggle();
+   			  $(selgl).hide(); 
+   			 
+   		  }
+   	  }
+         else if(name=="switchannotation-linguisticglossing"){
+     		  if(sessionStorage.getItem("LingGlossVisible")=="true"){
+     			  button.children('i#on').toggle();        			
+     			  $(selling).show(); 
+     	       
+                }
+              else {
+     			  button.children('i#off').toggle();
+     			  $(selling).hide(); 		 
+     		  }
+     	  } 
+         else if(name=="switchannotation-tokentranslation"){
+   		  if(sessionStorage.getItem("TranslVisible")=="true"){
+   			  button.children('i#on').toggle();        			
+   			  $(seltr).show(); 
+   	       
+              }
+            else {
+   			  button.children('i#off').toggle();
+   			  $(seltr).hide(); 
+   		  }
+   	  } 
+         else if(name=="switchannotation-wordtokenid"){
+   		  if(sessionStorage.getItem("WidVisible")=="true"){
+   			  button.children('i#on').toggle();        			
+   			  $(selid).show();   	       
+              }
+            else {
+   			  button.children('i#off').toggle();
+   			  $(selid).hide(); 
+   		  }
+   	  } 
+        	   
+        	   
+        	   
+           }        
      
            button.click(() => {
          if(name=="hieroglyphs"){   
@@ -578,6 +669,7 @@
       }
          if(name=="switchannotation"){   
     		  button.children('svg').toggle();
+    		  $('.sentence-line-mode').toggle();
          }
          
          if(name=="translation"){

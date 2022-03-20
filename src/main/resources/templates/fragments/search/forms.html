@@ -331,9 +331,148 @@ document.getElementById("script1").setAttribute("checked",true);
         <div class="col-xl-10">
           <select class="form-control" th:id="|${name}-type|" th:field="*{type}">
            <option value=""/>
-            <option th:each="type : ${typeMap}" th:value="${type.key}" th:text="#{|field_value_label_${name}_type_${type.key}|}" th:selected="${type.key} == ${__${bind}__.type}">Type
- 
+            <option th:each="type : ${typeMap}" th:value="${type.key}" th:text="#{|field_value_label_${name}_type_${type.key}|}" >Type
+           
          </option>
+         <script>
+    if(getCookie("CookiePolicy")=="true"){
+     if(getCookie("form-field-wordClass-select-type")==null){
+     		document.getElementById("wordClass-type").selectedIndex=1;
+     				
+     }
+     else  if(getCookie("form-field-wordClass-select-type")== "excl_namestitlesepithets"){
+        		document.getElementById("wordClass-type").selectedIndex=2;
+        				
+        }	
+        else  if(getCookie("form-field-wordClass-select-type")== "excl_names"){
+        		document.getElementById("wordClass-type").selectedIndex=1;
+        				
+        }	
+        else  if(getCookie("form-field-wordClass-select-type")== "adjective"){
+    		document.getElementById("wordClass-type").selectedIndex=3;
+    				
+        }	
+        else  if(getCookie("form-field-wordClass-select-type")== "adverb"){
+    		document.getElementById("wordClass-type").selectedIndex=4;
+    				
+    }	
+        else  if(getCookie("form-field-wordClass-select-type")== "entity_name"){
+    		document.getElementById("wordClass-type").selectedIndex=5;
+    				
+    }	
+        else  if(getCookie("form-field-wordClass-select-type")== "interjection"){
+    		document.getElementById("wordClass-type").selectedIndex=6;
+    				
+    }	
+        else  if(getCookie("form-field-wordClass-select-type")== "substantive"){
+    		document.getElementById("wordClass-type").selectedIndex=7;
+    				
+    }	
+        else  if(getCookie("form-field-wordClass-select-type")== "numeral"){
+    		document.getElementById("wordClass-type").selectedIndex=8;
+    				
+    }
+        else  if(getCookie("form-field-wordClass-select-type")== "particle"){
+    		document.getElementById("wordClass-type").selectedIndex=9;
+    				
+    }
+        else  if(getCookie("form-field-wordClass-select-type")== "preposition"){
+    		document.getElementById("wordClass-type").selectedIndex=10;
+    				
+    }	
+        else  if(getCookie("form-field-wordClass-select-type")== "pronoun"){
+    		document.getElementById("wordClass-type").selectedIndex=11;
+    				
+    }
+        else  if(getCookie("form-field-wordClass-select-type")== "root"){
+    		document.getElementById("wordClass-type").selectedIndex=12;
+    				
+    }
+        else  if(getCookie("form-field-wordClass-select-type")== "epitheton_title"){
+    		document.getElementById("wordClass-type").selectedIndex=13;
+    				
+    }
+        else  if(getCookie("form-field-wordClass-select-type")== "verb"){
+    		document.getElementById("wordClass-type").selectedIndex=14;
+    				
+    }	
+        else  if(getCookie("form-field-wordClass-select-type")== "undefined"){
+    		document.getElementById("wordClass-type").selectedIndex=15;
+    				
+    }
+        
+        else document.getElementById("wordClass-type").selectedIndex=0;
+    }
+    else{
+    	if(sessionStorage.getItem("form-field-wordClass-select-type")==null){
+     		document.getElementById("wordClass-type").selectedIndex=1;
+     				
+     }
+     else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "excl_namestitlesepithets"){
+        		document.getElementById("wordClass-type").selectedIndex=2;
+        				
+        }	
+        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "excl_names"){
+        		document.getElementById("wordClass-type").selectedIndex=1;
+        				
+        }	
+        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "adjective"){
+    		document.getElementById("wordClass-type").selectedIndex=3;
+    				
+        }	
+        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "adverb"){
+    		document.getElementById("wordClass-type").selectedIndex=4;
+    				
+    }	
+        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "entity_name"){
+    		document.getElementById("wordClass-type").selectedIndex=5;
+    				
+    }	
+        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "interjection"){
+    		document.getElementById("wordClass-type").selectedIndex=6;
+    				
+    }	
+        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "substantive"){
+    		document.getElementById("wordClass-type").selectedIndex=7;
+    				
+    }	
+        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "numeral"){
+    		document.getElementById("wordClass-type").selectedIndex=8;
+    				
+    }
+        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "particle"){
+    		document.getElementById("wordClass-type").selectedIndex=9;
+    				
+    }
+        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "preposition"){
+    		document.getElementById("wordClass-type").selectedIndex=10;
+    				
+    }	
+        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "pronoun"){
+    		document.getElementById("wordClass-type").selectedIndex=11;
+    				
+    }
+        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "root"){
+    		document.getElementById("wordClass-type").selectedIndex=12;
+    				
+    }
+        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "epitheton_title"){
+    		document.getElementById("wordClass-type").selectedIndex=13;
+    				
+    }
+        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "verb"){
+    		document.getElementById("wordClass-type").selectedIndex=14;
+    				
+    }	
+        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "undefined"){
+    		document.getElementById("wordClass-type").selectedIndex=15;
+    				
+    }
+        
+        else document.getElementById("wordClass-type").selectedIndex=0;
+    	
+    }
+         </script>
           </select>
           <!-- create hidden subtype menu for each type -->
           <select th:unless="${#lists.isEmpty(type.value)}" th:each="type : ${typeMap}" th:id="|${name}-type-hidden-options-${type.key}|" hidden="true">

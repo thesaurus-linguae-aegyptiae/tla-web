@@ -18,6 +18,7 @@ public class AttestedTimespan extends tla.domain.model.extern.AttestedTimespan {
             new AttestationStats(),
             (total, current) -> total.add(current)
         );
+       
         return stats.add(this.getAttestations());
     }
 
