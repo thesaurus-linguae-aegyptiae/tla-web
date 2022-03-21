@@ -386,11 +386,6 @@ a.share-results:hover {
     color: var(--BBAWred);
 }
 
-.result-list-item .sentence-token.highlight {
-    background-color: var(--BBAWred);
-    color: white;
-}
-
 .object-path-element {
     display: inline;
 }
@@ -436,7 +431,7 @@ span.lc:hover {
     content: '\f03c';
 }
 
-.result-list-item svg.sentence-token-glyphs.highlight-1 {
+.result-list-item svg.sentence-token-glyphs.highlight {
     border: 1px solid var(--BBAWred);
     border-radius: 2px;
 }
@@ -462,8 +457,12 @@ span.lc:hover {
     height: 2.4rem;
 }
 
-.occ-list-item .highlight-1 {
+.occ-list-item .highlight a, 
+.occ-list-item .highlight svg, 
+.container-annotation .highlight {
     background-color: var(--BBAWlightgrey);
+    border: 1px solid var(--BBAWred);
+    border-radius: 2px;
 }
 
 .unicode-hieroglyphs {

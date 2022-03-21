@@ -274,30 +274,48 @@
               corpus path segment
             </span>
           <!--</a>-->
-          <!--<span th:unless="${item.href} != null">
+        </div>
+      </div>
+    </div>
+          <!-- OBEN RAUS GENOMMEN <span th:unless="${item.href} != null">
             <span th:utext="${{item.label}}" th:class="${iter.last} ? lc">
               corpus path segment
             </span>
           </span>-->
-        </div>
-      </div>
-    </div>
 
     <!-- sentence hieroglyphs -->
     <div th:fragment="sentence-hieroglyphs" th:if="*{hasGlyphs}" class="result-list-item-element hieroglyphs">
-      <a th:each="token : *{tokens}" th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,token.lemma.id)).build()}" th:id="${token.id}">
+      <a th:each="token : *{tokens}" th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,token.lemma.id)).build()}" th:id="|hieroglyphs-${token.id}|">
         <div th:replace=" :: token-hieroglyphs"/>
+            <script th:inline="javascript">
+				  //<![CDATA[
+					{
+					  if(lemmaID == /*[[${token.lemma.id}]]*/) {
+						  document.getElementById('hieroglyphs-' + /*[[${token.id}]]*/).classList.add('highlight'); 
+					  }	  
+				  }
+				  //]]>
+				  </script>
       </a>
     </div>
 
     <!-- sentence transcription -->
     <div th:fragment="sentence-transcription" class="result-list-item-element transcription">
       <p class="bbaw-libertine mb-2">
-        <span th:each="token : *{tokens}" th:id="${token.id}">
+        <span th:each="token : *{tokens}" th:id="|transliteration-${token.id}|">
 		  <a  th:if="${token.lemma.id}" th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,token.lemma.id)).build()}"
              th:text="${token.label}"
              th:class="|sentence-token token-${token.type}|"
-             th:classappend="${token.rubrum} ? rubrum"/>
+             th:classappend="${token.rubrum} ? rubrum" />
+            <script th:inline="javascript">
+				  //<![CDATA[
+					{
+					  if(lemmaID == /*[[${token.lemma.id}]]*/) {
+						  document.getElementById('transliteration-' + /*[[${token.id}]]*/).classList.add('highlight'); 
+					  }	  
+				  }
+				  //]]>
+				  </script>
 			 <span th:unless="${token.lemma.id}" th:text="${token.label}" th:class="|sentence-token token-${token.type}|"/>
 		</span>
       </p>
@@ -306,8 +324,11 @@
     <!-- token hieroglyphs -->
     <th:block th:fragment="token-hieroglyphs">
       <span th:unless="${token.glyphs.empty}" th:utext="${token.glyphs.svg}"
-            th:title="${token.glyphs.mdc}" class="token-glyphs"/>
-      <!-- Aufgabe der Datentransformation <th:block th:if="${token.glyphs.empty}">
+            th:title="${token.glyphs.mdc}" class="token-glyphs" style="height: 14pt"/>
+      <span th:if="${token.glyphs.empty}" class="token-glyphs">&nbsp;</span>
+    </th:block>
+
+      <!-- OBEN RAUS GENOMMEN Aufgabe der Datentransformation <th:block th:if="${token.glyphs.empty}">
        <span th:switch="${token.type}">
 	        <span th:case="'destruction_marker'" class="philological">
 	          //...//
@@ -319,13 +340,12 @@
 	        </span>
         </span>
       </th:block>-->
-      
-    </th:block>
+
+<!-- WAS MACHT DAS HIER MITTENDRIN?-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-    
        <!-- token transcription -->
     <th:block th:fragment="token-transcription">
      <span th:if="${token.label !=null && token.type !='destruction_marker'}" th:utext="${token.label}"
