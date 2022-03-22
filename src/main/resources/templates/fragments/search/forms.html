@@ -8,9 +8,7 @@
     <form id="lemma-id-search" name="lemma-id-search" th:object="${lemma}"
         th:action="@{/lemma/lookup}" method="get"> 
       <fieldset class="form-group row">
-        <label class="col-form-label col-xl-2" th:text="#{field_label_lemma_id}" for="id-search-lemma">
-          Lemma ID
-        </label>
+        <label class="col-form-label col-xl-2" th:text="#{field_label_lemma_id}" for="id-search-lemma">Lemma ID</label>
         <div class="col-xl-10">
           <input class="form-control mb-1 lemma-id" type="text" th:field="*{id}"
               th:id="id-search-lemma" th:list="id-search-lemma-suggestions">
