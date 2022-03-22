@@ -177,33 +177,22 @@
         <hr/>
         <p>
             <strong th:text="#{lemma_property_attestation}" class="details-property-label">Attestation</strong>
-            <br/>
+        </p>
+		 <p th:if="${obj.attestationCount} > 0">
             <strong th:text="#{lemma_property_attestation_occurrences}" class="details-property-label">Occurrences</strong>
-           <span th:text="${obj.attestationCount}" id="attestationCount" style="display:none"></span>
+           <span th:text="${obj.attestationCount}" id="attestationCount" style="visibility:hidden">0</span>
    
             <a th:href="|${@searchController.getSearchResultsPageRoute(@__sentenceController__)}?tokens[0].lemma.id=${obj.id}|">
-                <i class="fas fa-arrow-circle-right red" id="arrow" style="visibility:hidden"></i>
-               <button id="lemma-attestation-count-textsSg" type="button" class="btn btn-danger text-left text-decoration-none" style="display:none" th:text="#{lemma_property_digitaltext}+' '+ ${obj.attestationCount} + ' ' + #{lemma_property_instance}">1</button>
-                <button id="lemma-attestation-count-textsPl" type="button" class="btn btn-danger text-left text-decoration-none" style="display:none" th:text="#{lemma_property_digitaltext}+' '+ ${obj.attestationCount} + ' ' + #{lemma_property_instances}">5</button>
-               	
-               <script>
-	               var count = document.getElementById('attestationCount').textContent;
-	               var attestationCount = parseInt(count);
-	               if (attestationCount > 0 ){
-	            	   document.getElementById('arrow').style.visibility="visible";
-	            	   if (attestationCount > 1){
-	            	   document.getElementById('lemma-attestation-count-textsPl').style.display = "inline";
-		               }
-		               else
-		            	   {document.getElementById('lemma-attestation-count-textsSg').style.display = "inline"}
-	               }
-	               
-                </script>
+                <i class="fas fa-arrow-circle-right red"></i>
+               <button id="lemma-attestation-count-texts" type="button" class="btn btn-danger text-left text-decoration-none" th:text="#{lemma_property_digitaltext}+' '+ ${obj.attestationCount} + ' ' + #{|lemma_property_instance${(obj.attestationCount > 1) ? 's' : ''}|}">Instances in __ text(s)</button>
             </a>
             <br/>
             <th:block th:replace=" :: lemma-timespan"/>
         </p>
-        <div th:include="fragments/widgets/timeline :: timeline"/>
+		 <p th:unless="${obj.attestationCount} > 0">
+            <strong th:text="#{lemma_property_attestation_occurrences}" class="details-property-label">Occurrences</strong>: <span th:text="#{lemma_property_no_instances}">none</span>
+        </p>		 
+		<div th:if="${obj.attestationCount} > 0" th:include="fragments/widgets/timeline :: timeline"/>
     </div>
 
     <!-- Lemma Attestations timespan -->
