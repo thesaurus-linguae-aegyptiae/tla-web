@@ -9,29 +9,15 @@
 
   <body>
 
-    <div layout:fragment="content">
+    <div th:if="${#request.getParameter('tokens[0].lemma.id')}" layout:fragment="content">
 
       <!-- result page heading -->
       <div class="search-header row mb-3">
          <div class="col-sm-12 col-md-6 rcol-lg-6 result">
             <h2 class="id mt-1" th:text="#{result_page_title_sentence}">Sentence Search Results</h2> 
             <div class="ml-3 flex"><strong th:text="#{result_page_description_query}">Search parameter</strong>: 
-            <span id="queryLemmaIDHeader" > </span>
-            <span id="queryLemmaID"> </span>
-            <script th:inline="javascript">
-				  //<![CDATA[
-				  {
-					  const queryString = window.location.search;
-					  const urlParams = new URLSearchParams(queryString);
-					  
-					  var lemmaID=urlParams.get('tokens[0].lemma.id'); // wieso ist der Name so komplex? Mehrwortsuche?
-					  if(lemmaID !="") {
-						  document.getElementById("queryLemmaIDHeader").innerHTML ="Lemma ID = "; // wie kann man hier #{field_label_lemma_id} einfügen
-						  document.getElementById("queryLemmaID").innerHTML =lemmaID;
-					  }	  
-				  }
-				  //]]>
-				  </script>
+					<span id="queryLemmaIDHeader" th:text="#{field_label_lemma_id}"> </span> = 
+					<span id="queryLemmaID" th:text="${#request.getParameter('tokens[0].lemma.id')}"> </span>
              </div>
          </div>
         <div th:replace="fragments/common :: social('sentence-search-results')"/>
@@ -82,5 +68,22 @@
       </div>
 
     </div>
+
+    <!-- no valid lemma search paramenter name -->
+    <div th:unless="${#request.getParameter('tokens[0].lemma.id')}" layout:fragment="content">
+      <div class="row">
+        <div class="col-lg-8 content">
+             <strong>404: No valid search parameter submitted.</strong>
+        </div>
+
+        <!-- sidebar -->
+        <div class="col-lg-4 sidebar">
+          <div class="sticky-top m-4">
+            <div th:replace="fragments/search/results :: modify-search-button(${modifySearchUrl})"/>
+          </div>
+        </div>
+      </div>
+    </div>
+	
   </body>
 </html>
