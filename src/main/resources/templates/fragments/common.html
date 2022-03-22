@@ -285,37 +285,19 @@
 
     <!-- sentence hieroglyphs -->
     <div th:fragment="sentence-hieroglyphs" th:if="*{hasGlyphs}" class="result-list-item-element hieroglyphs">
-      <a th:each="token : *{tokens}" th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,token.lemma.id)).build()}" th:id="|hieroglyphs-${token.id}|">
+      <a th:each="token : *{tokens}" th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,token.lemma.id)).build()}" th:id="|hieroglyphs-${token.id}|" th:class="${(#request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }">
         <div th:replace=" :: token-hieroglyphs"/>
-            <script th:inline="javascript">
-				  //<![CDATA[
-					{
-					  if(lemmaID == /*[[${token.lemma.id}]]*/) {
-						  document.getElementById('hieroglyphs-' + /*[[${token.id}]]*/).classList.add('highlight'); 
-					  }	  
-				  }
-				  //]]>
-				  </script>
       </a>
     </div>
 
     <!-- sentence transcription -->
     <div th:fragment="sentence-transcription" class="result-list-item-element transcription">
       <p class="bbaw-libertine mb-2">
-        <span th:each="token : *{tokens}" th:id="|transliteration-${token.id}|">
+        <span th:each="token : *{tokens}" th:id="|transliteration-${token.id}|" th:class="${(#request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }">
 		  <a  th:if="${token.lemma.id}" th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,token.lemma.id)).build()}"
              th:text="${token.label}"
              th:class="|sentence-token token-${token.type}|"
              th:classappend="${token.rubrum} ? rubrum" />
-            <script th:inline="javascript">
-				  //<![CDATA[
-					{
-					  if(lemmaID == /*[[${token.lemma.id}]]*/) {
-						  document.getElementById('transliteration-' + /*[[${token.id}]]*/).classList.add('highlight'); 
-					  }	  
-				  }
-				  //]]>
-				  </script>
 			 <span th:unless="${token.lemma.id}" th:text="${token.label}" th:class="|sentence-token token-${token.type}|"/>
 		</span>
       </p>

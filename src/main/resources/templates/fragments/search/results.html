@@ -86,8 +86,8 @@
         <div class="mt-3 pt-1 pb-1">
           <div class="container-annotation-switch">
             <div class="container-annotation">
-				         <div th:each="token : *{tokens}">
-					         <ul  th:id="|block-${token.id}|" class="annotation-block">
+				         <div th:each="token : *{tokens}"  th:id="|block-${token.id}|">
+					         <ul class="annotation-block"  th:classappend="${(#request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }">
 							      <a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank"><div class="occ-list-item-element hieroglyphs">
 								  		<li th:replace="fragments/common :: token-hieroglyphs"/>
 								  		<hr class="blockline"> 
@@ -125,15 +125,6 @@
 								  		<hr class="blockline bid">  
 								  </div>						      
 						    </ul>
-								<script th:inline="javascript">
-								  //<![CDATA[
-									{
-									  if(lemmaID == /*[[${token.lemma.id}]]*/) {
-										  document.getElementById('block-' + /*[[${token.id}]]*/).classList.add('highlight'); 
-									  }	  
-								  }
-								  //]]>
-								  </script>
 			         	</div>
 		            </div>
 	            </div>
