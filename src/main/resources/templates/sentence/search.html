@@ -9,7 +9,8 @@
 
   <body>
 
-    <div th:if="${#request.getParameter('tokens[0].lemma.id')}" layout:fragment="content">
+   <div layout:fragment="content" th:with="lemmaID=${#request.getParameter('tokens[0].lemma.id')}">
+    <div th:if="${lemmaID} != null AND ${lemmaID} != ''">
 
       <!-- result page heading -->
       <div class="search-header row mb-3">
@@ -70,7 +71,7 @@
     </div>
 
     <!-- no valid lemma search paramenter name -->
-    <div th:unless="${#request.getParameter('tokens[0].lemma.id')}" layout:fragment="content">
+    <div th:if="${lemmaID} == null OR ${lemmaID} == ''">
       <div class="row">
         <div class="col-lg-8 content">
              <strong>404: No valid search parameter submitted.</strong>
@@ -84,6 +85,6 @@
         </div>
       </div>
     </div>
-	
+   </div>
   </body>
 </html>
