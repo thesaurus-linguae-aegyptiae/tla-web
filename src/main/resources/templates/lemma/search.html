@@ -18,28 +18,28 @@
       <div class="col-sm-12 col-md-6 rcol-lg-6 result">
             <h2 class="id mt-1" th:text="#{result_page_title_lemma}">Lemma Search Results</h2> 
             <div class="ml-3 flex"><strong th:text="#{result_page_description_query}">Search parameter</strong>: 
-            <span id="queryScriptHeader" > </span>
-            <span id="queryScript" class="bbaw-libertine"> </span>
-            <span id="queryTranscriptionHeader" > </span>
-            <span id="queryTranscription" class="bbaw-libertine"> </span>
-            <span id="queryEncodingHeader" > </span>
-            <span id="queryEncoding" class="bbaw-libertine"> </span>
-            <span id="queryWordClassHeader" > </span>
-            <span id="queryWordClass" class="bbaw-libertine"> </span>
-            <span id="queryWordClassSubtypeHeader" > </span>
-            <span id="queryWordClassSubtype" class="bbaw-libertine"> </span>
-            <span id="queryRootHeader" > </span>
-            <span id="queryRoot" class="bbaw-libertine"> </span>
-            <span id="queryRootEncodHeader" > </span>
-            <span id="queryRootEncod" class="bbaw-libertine"> </span>
-             <span id="queryTranslationTextHeader" > </span>
-            <span id="queryTranslationText" class="bbaw-libertine"> </span>
-            <span id="queryTranslationLangHeader" > </span>
-            <span id="queryTranslationlang" class="bbaw-libertine"> </span>
-            <span id="queryBibliographyHeader" > </span>
-            <span id="queryBibliography" class="bbaw-libertine"> </span>
-            <span id="queryAnnoHeader" > </span>
-            <span id="queryAnno" class="bbaw-libertine"> </span>
+            <span id="queryScriptHeader"> </span>
+            <strong id="queryScript"> </strong>
+            <span id="queryTranscriptionHeader"> </span>
+            <strong id="queryTranscription" class="bbaw-libertine"> </strong>
+            <span id="queryEncodingHeader"> </span>
+            <strong id="queryEncoding"> </strong>
+            <span id="queryWordClassHeader"> </span>
+            <strong id="queryWordClass"> </strong>
+            <span id="queryWordClassSubtypeHeader"> </span>
+            <strong id="queryWordClassSubtype"> </strong>
+            <span id="queryRootHeader"> </span>
+            <strong id="queryRoot" class="bbaw-libertine"> </strong>
+            <span id="queryRootEncodHeader"> </span>
+            <strong id="queryRootEncod"> </strong>
+            <span id="queryTranslationTextHeader"> </span>
+            <strong id="queryTranslationText"> </strong>
+            <span id="queryTranslationLangHeader"> </span>
+            <strong id="queryTranslationLang"> </strong>
+            <span id="queryBibliographyHeader"> </span>
+            <strong id="queryBibliography"> </strong>
+            <!--<span id="queryAnnoHeader"> </span>
+            <strong id="queryAnno"> </strong>-->
            
             <script th:inline="javascript">
           //<![CDATA[
@@ -47,78 +47,74 @@
         	  // Lemma List = "Hieroglyphic/Hieratic" / "Demotic" ; Transliteration = "nfr" ; Encoding = "Manuel de Codage" ; Part of Speech = "(any_but_names)"
         	  const queryString = window.location.search;
         	  const urlParams = new URLSearchParams(queryString);
-        	  // Lemma ID = "123" 
         	
-        	  var script=""+urlParams.getAll('script');
-        	  if(script=="hieratic,demotic") script= "Hieroglyphic\/Hieratic \/ Demotic"; // ToDo: DE/EN
-        	  else if (script=="hieratic") script="Hieroglyphic\/Hieratic";
-        	 else script="Demotic";
-        	  if(script !=""){
-             document.getElementById("queryScriptHeader").innerHTML ="Lemma list = ";
-        	  document.getElementById("queryScript").innerHTML ="\""+script+"\"";
-        	  }
+        	  var script=urlParams.getAll('script');
+        	  if((script != "") && (script != null)) {
+				  if(script=="demotic") script= /*[[#{field_value_label_script_demotic}]]*/; 
+				  else if (script=="hieratic") script= /*[[#{field_value_label_script_hieratic}]]*/;
+				  else if (script=="hieratic,demotic") script= /*[[|#{field_value_label_script_hieratic} \/ #{field_value_label_script_demotic}|]]*/;
+				  document.getElementById("queryScriptHeader").innerHTML =/*[[|#{field_label_script} = |]]*/;
+				  document.getElementById("queryScript").innerHTML =script;
+			  }
         	 
         	  var transcription=urlParams.get('transcription');
-        	  if(transcription !=null) {
-        		  document.getElementById("queryTranscriptionHeader").innerHTML =" ; Transliteration = ";
+        	  if((transcription != "") && (transcription != null)) {
+        		  document.getElementById("queryTranscriptionHeader").innerHTML =/*[[| ; #{field_label_transliteration} = |]]*/;
             	  document.getElementById("queryTranscription").innerHTML ="\""+transcription+"\"";
+				 var encod=urlParams.get('transcription_enc');
+				  if((encod != "")&&(encod != null)) {
+					  document.getElementById("queryEncodingHeader").innerHTML =/*[[| ; #{field_label_transliteration_encoding} = |]]*/;
+					  document.getElementById("queryEncoding").innerHTML=/*[[#{|field_value_label_enc_${param.transcription_enc}|}]]*/;
+				 }	 
         	  }	  
-        	  
-        	 var encod=urlParams.get('transcription_enc');
-        	  if((encod !="")&&(encod !=null)) {
-        		  document.getElementById("queryEncodingHeader").innerHTML =" ; Encoding = ";
-            	  document.getElementById("queryEncoding").innerHTML="\""+encod+"\"";
-        	 }	 
         	 
         	  var pos=urlParams.get('wordClass.type');
         	  if((pos!="")&&(pos!=null)){
-        	  document.getElementById("queryWordClassHeader").innerHTML =" ; Part of Speech = ";
-        	  if(pos!="") 
-        	  pos="\""+pos+"\"";
-        	  else pos="\"any\"";
-        	  document.getElementById("queryWordClass").innerHTML =pos;
+				  document.getElementById("queryWordClassHeader").innerHTML =/*[[| ; #{field_label_wordClass_type} = |]]*/;
+				  document.getElementById("queryWordClass").innerHTML =/*[[#{|field_value_label_wordClass_type_${#request.getParameter('wordClass.type')}|}]]*/;
         	  }
         	  var pos_subtype=urlParams.get('wordClass.subtype');
         	  if((pos_subtype!="")&&(pos_subtype!=null)) {
-        	  pos_subtype= "\""+ pos_subtype+"\"";
-        	      document.getElementById("queryWordClassHeader").innerHTML =" ; Part of Speech subtype = ";
-        	      document.getElementById("queryWordClass").innerHTML =pos_subtype;
+        	      document.getElementById("queryWordClassSubtypeHeader").innerHTML =/*[[| ; #{field_label_wordClass_subtype} = |]]*/;
+        	      document.getElementById("queryWordClassSubtype").innerHTML =/*[[#{|field_value_label_wordClass_subtype_${#request.getParameter('wordClass.subtype')}|}]]*/;
         	  }
         	  
         	  var root=urlParams.get('root');
-        	  //diese muss nach Implementierung weiter bearbeitet
-        	  var root_encod="\"Unicode\"";
-        	if((root!="")&& (root !=null)){
-        	  root= "\""+root+"\"";
-        	  document.getElementById("queryRootHeader").innerHTML =" \; root = ";
-    	      document.getElementById("queryRoot").innerHTML =root;
-    	      document.getElementById("queryRootEncodHeader").innerHTML =" ; root_enc = ";
-    	      document.getElementById("queryRootEncod").innerHTML =root_encod;
+			  if((root!="")&& (root !=null)){
+				  root= "\""+root+"\"";
+				  document.getElementById("queryRootHeader").innerHTML =/*[[| ; #{field_label_root_transliteration} = |]]*/;
+				  document.getElementById("queryRoot").innerHTML =root;
+				 var root_encod=urlParams.get('root_enc');
+				  if((root_encod != "")&&(root_encod != null)) {
+					  document.getElementById("queryRootEncodHeader").innerHTML =/*[[| ; #{field_label_root_transliteration_encoding} = |]]*/;
+					  document.getElementById("queryRootEncod").innerHTML =/*[[#{|field_value_label_enc_${param.root_enc}|}]]*/;
+				  }
         	  }
-        	        	  
+        	   
         	  var translation=urlParams.get('translation.text');
-        	  var lang=urlParams.getAll('translation.lang');
-        	  if(translation!=""){
-        	  translation="\""+translation+"\"";
-        	  lang="\""+lang+"\"";
-        	  document.getElementById("queryTranslationTextHeader").innerHTML =" ; translation = ";
-    	      document.getElementById("queryTranslationText").innerHTML =translation;
-    	      document.getElementById("queryTranslationLangHeader").innerHTML =" ; lang = ";
-    	      document.getElementById("queryTranslationlang").innerHTML =lang;
+        	  if((translation != "") && (translation !=null)){
+				  translation="\""+translation+"\"";
+				  document.getElementById("queryTranslationTextHeader").innerHTML =/*[[| ; #{field_label_translation} = |]]*/;
+				  document.getElementById("queryTranslationText").innerHTML =translation;
+				  var transl_lang=urlParams.get('translation.lang');
+				  if((transl_lang != "") && (transl_lang !=null)){
+					  document.getElementById("queryTranslationLangHeader").innerHTML =/*[[| ; #{field_label_translation_lang} = |]]*/;
+					  document.getElementById("queryTranslationLang").innerHTML =/*[[#{|button_label_show_property_${#request.getParameter('translation.lang')}|}]]*/;
+				  }
         	  }
         	 
         	       	  
         	  var biblio=urlParams.get('bibliography');
-        	  if(biblio!="") {
-        	  biblio="\""+biblio+"\"";
-        	  document.getElementById("queryBibliographyHeader").innerHTML =" ; bibliography = ";
-    	      document.getElementById("queryBibliography").innerHTML =biblio;
+        	  if((biblio != "") && (biblio !=null)) {
+				  biblio="\""+biblio+"\"";
+				  document.getElementById("queryBibliographyHeader").innerHTML =/*[[| ; #{field_label_bibliography} = |]]*/;
+				  document.getElementById("queryBibliography").innerHTML =biblio;
         	  }
         	  
         	 // var anno=urlParams.get('anno.type');
-        	 // if(anno !=""){
+        	 // if((anno !="") && (anno != null)){
         	  //anno="\""+anno+"\"";
-        	  //document.getElementById("queryAnnoHeader").innerHTML =" ; Annotation type = ";
+        	  //document.getElementById("queryAnnoHeader").innerHTML =/*[[| ; #{field_label_annotation-type_type} = |]]*/;
     	      //document.getElementById("queryAnno").innerHTML =anno;
         	  //}
         	    

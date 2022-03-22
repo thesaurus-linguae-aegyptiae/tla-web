@@ -137,11 +137,11 @@ document.getElementById("script1").setAttribute("checked",true);
                  
 						 <div class="form-check form-check-inline">
 							  <input class="form-check-input transcription-enc-btn"  type="radio" name="transcription_enc" id="transcription_enc_unicode" th:value="unicode"/>
-							  <label class="form-check-label" for="transcription_enc_unicode">Unicode</label>
+							  <label class="form-check-label" for="transcription_enc_unicode" th:text="#{field_value_label_enc_unicode}">Unicode</label>
 						</div>
 						<div class="form-check form-check-inline">
 							  <input class="form-check-input transcription-enc-btn" type="radio" name="transcription_enc" id="transcription_enc_mdc"  th:value="manuel_de_codage"/>
-							  <label class="form-check-label" for="transcription_enc_mdc">Manuel de Codage</label>
+							  <label class="form-check-label" for="transcription_enc_mdc" th:text="#{field_value_label_enc_mdc}">Manuel de Codage</label>
 						</div>
 					</div>
 			<script>		
@@ -172,11 +172,11 @@ document.getElementById("script1").setAttribute("checked",true);
           <input class="bbaw-libertine form-control mb-3 keyboardInput" type="text" th:field="*{root}" lang="egy"/>
            <div class="form-check form-check-inline">
 							  <input class="form-check-input transcription-enc-btn" type="radio" name="root_enc" id="root_enc_unicode" value="unicode">
-							  <label class="form-check-label" for="root_enc_unicode">Unicode</label>
+							  <label class="form-check-label" for="root_enc_unicode" th:text="#{field_value_label_enc_unicode}">Unicode</label>
 						</div>
 						<div class="form-check form-check-inline">
 							  <input class="form-check-input transcription-enc-btn" type="radio" name="root_enc" id="root_enc_mdc" value="manuel_de_codage" >
-							  <label class="form-check-label" for="root_enc_mdc">Manuel de Codage</label>
+							  <label class="form-check-label" for="root_enc_mdc" th:text="#{field_value_label_enc_mdc}">Manuel de Codage</label>
 						</div>
 				<script>		
 					if (getCookie("CookiePolicy") == "accepted") {
