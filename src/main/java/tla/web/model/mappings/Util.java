@@ -24,6 +24,8 @@ public class Util {
 
     public static final String SERIF_FONT_MARKUP_REGEX = "\\$([^$]+)\\$";
     public static final String SERIF_FONT_MARKUP_REPLACEMENT = "<span class=\"bbaw-libertine\">$1</span>";
+    public static final String GREEK_FONT_MARKUP_REGEX = "#g\\+([^#]+)#g\\-";
+    public static final String GREEK_FONT_MARKUP_REPLACEMENT = "<span class=\"bbaw-libertine\">$1</span>";
 
     public static final String XML_HEAD = "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>";
     public static final String SVG_ATTR_REGEX = "width=.([0-9.]+). height=.([0-9.]+).";
@@ -105,10 +107,16 @@ public class Util {
      * with HTML tags.
      */
     public static String escapeMarkup(String text) {
+		/*System.out.println("###### in escapeMarkup: " + text);*/
         String escaped = RegExUtils.replacePattern(
             text,
             SERIF_FONT_MARKUP_REGEX,
             SERIF_FONT_MARKUP_REPLACEMENT
+        );
+		escaped = RegExUtils.replacePattern(
+            escaped,
+            GREEK_FONT_MARKUP_REGEX,
+            GREEK_FONT_MARKUP_REPLACEMENT
         );
         if (escaped != null) {
             return escaped.replaceAll("\\n", "<br/>");

@@ -12,6 +12,12 @@ public class URLDecodeConverter implements Converter<String, String> {
     @Override
     public String convert(String source) {
         try {
+			/*System.out.println("###### in URLDecodeConverter: " + source);*/
+			if (source != null) { 
+				//if (source.contains("%")) { System.out.println("###### % found: "+ source +"################"); }
+				source = source.replaceAll("%([^0-9])","%25$1"); // Fängt Fälle von % ohne folgende Ziffer ab, die den URLDecoder zum Absturz bringen
+				//if (source.contains("%")) { System.out.println("###### % found: "+ source +"################"); }
+			}
             return URLDecoder.decode(source, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             return source;

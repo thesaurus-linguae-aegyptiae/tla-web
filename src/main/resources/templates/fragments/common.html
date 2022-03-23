@@ -364,7 +364,7 @@
     
        <!-- token translation -->
     <th:block th:fragment="token-translation">
-     <span th:if="${token.translations !=null}" th:utext="${token.translations['de'][0]}"
+     <span th:if="${token.translations !=null}" th:utext="${{token.translations['de'][0]}}"
              class="token-translation btr"/>
      <span th:if="${token.translations ==null}" th:text="'&nbsp;'"
              class="token-translation btr"/>
