@@ -19,6 +19,7 @@ public class BTSMarkupConverter implements Converter<String, String> {
 
     @Override
     public String convert(String source) {
+		/*System.out.println("###### in BTSMarkupConverter: " + source);*/
         return source != null ? Util.escapeMarkup(HtmlUtils.htmlEscapeDecimal(source)) : null;
     }
 

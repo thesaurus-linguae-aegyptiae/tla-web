@@ -96,9 +96,9 @@
         <strong th:text="#{object_property_annotations}" class="details-property-label">Comments</strong>
         <div th:each="annotation : ${annotations}" class="comment-wrapper hide-comment">
             <p>
-                <strong th:unless="${annotation.name} == null" th:utext="${annotation.name}">title</strong>
+                <strong th:unless="${annotation.name} == null" th:utext="${{annotation.name}}">title</strong>
             </p>
-            <p class="comment-content text-justify ml-4" th:utext="${annotation.body}">annotation body</p>
+            <p class="comment-content text-justify ml-4" th:utext="${{annotation.body}}">annotation body</p>
             <p class="comment-author pt-1 ml-4" th:with="formatter=#{date_formatter}">
                 <span class="details-property-label" th:text="#{object_property_editors_updated}">Latest revision</span>:
                 <span th:text="${#calendars.format(annotation.edited.updated, formatter)}">xx.xx.20xx</span>
