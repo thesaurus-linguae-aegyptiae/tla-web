@@ -14,9 +14,9 @@ public class URLDecodeConverter implements Converter<String, String> {
         try {
 			/*System.out.println("###### in URLDecodeConverter: " + source);*/
 			if (source != null) { 
-				//if (source.contains("%")) { System.out.println("###### % found: "+ source +"################"); }
-				source = source.replaceAll("%([^0-9])","%25$1"); // Fängt Fälle von % ohne folgende Ziffer ab, die den URLDecoder zum Absturz bringen
-				//if (source.contains("%")) { System.out.println("###### % found: "+ source +"################"); }
+				source = source.replaceAll("%([^0-9A-Fa-f])","%25$1"); // Fängt Fälle von % ohne folgende Ziffer ab, die den URLDecoder zum Absturz bringen
+				source = source.replaceAll("%$","%25"); // Fängt Fälle von % am Zeilenende ab, die den URLDecoder zum Absturz bringen
+				source = source.replaceAll("\\+", "%2B"); // erhält "+" im String ; ### hat das negative Seiteneffekte?
 			}
             return URLDecoder.decode(source, "UTF-8");
         } catch (UnsupportedEncodingException e) {
