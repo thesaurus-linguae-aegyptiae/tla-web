@@ -22,9 +22,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Util {
 
-    public static final String SERIF_FONT_MARKUP_REGEX = "\\$([^$]+)\\$";
+    public static final String SERIF_FONT_MARKUP_REGEX = "\\$([^$]*)\\$";
     public static final String SERIF_FONT_MARKUP_REPLACEMENT = "<span class=\"bbaw-libertine\">$1</span>";
-    public static final String GREEK_FONT_MARKUP_REGEX = "#g\\+([^#]+)#g\\-";
+    public static final String GREEK_FONT_MARKUP_REGEX = "#g\\+([^#]*)#g\\-";
     public static final String GREEK_FONT_MARKUP_REPLACEMENT = "<span class=\"bbaw-libertine\">$1</span>";
 
     public static final String XML_HEAD = "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>";
@@ -103,25 +103,26 @@ public class Util {
     }
 
     /**
-     * Parses the input and replaces <code>$nfr$</code> markup
+     * Parses the input and replaces <code>$nfr$</code> and <code>#g+nfr#g-</code>markup
      * with HTML tags.
      */
     public static String escapeMarkup(String text) {
-		/*System.out.println("###### in escapeMarkup: " + text);*/
-        String escaped = RegExUtils.replacePattern(
-            text,
-            SERIF_FONT_MARKUP_REGEX,
-            SERIF_FONT_MARKUP_REPLACEMENT
-        );
-		escaped = RegExUtils.replacePattern(
-            escaped,
-            GREEK_FONT_MARKUP_REGEX,
-            GREEK_FONT_MARKUP_REPLACEMENT
-        );
-        if (escaped != null) {
-            return escaped.replaceAll("\\n", "<br/>");
+		// wieso werden hier zwei verschiedene RegEx-Ersetzungsroutinen genutzt?
+        if (text != null) {
+			//System.out.println("###### in escapeMarkup: " + text);
+			text = RegExUtils.replacePattern(
+				text,
+				SERIF_FONT_MARKUP_REGEX,
+				SERIF_FONT_MARKUP_REPLACEMENT
+			);
+			text = RegExUtils.replacePattern(
+				text,
+				GREEK_FONT_MARKUP_REGEX,
+				GREEK_FONT_MARKUP_REPLACEMENT
+			);
+            text = text.replaceAll("\\n", "<br/>");
         }
-        return escaped;
+        return text;
     }
 
 }
