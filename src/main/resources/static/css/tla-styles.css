@@ -730,6 +730,9 @@ footer.bg-light {
 .footer-logo img {
     height: 90px;
 }
+.footer-logo-sm img {
+    height: 60px;
+}
 
 #cookie-info {
     font-size: 0.9em;
