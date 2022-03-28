@@ -74,8 +74,11 @@ public class MvcConfig implements WebMvcConfigurer {
         Stream.of(
             new ScriptFromStringConverter(),
             new LanguageFromStringConverter(),
-            new BTSMarkupConverter(),
+            new BTSMarkupConverter()/*,
             new URLDecodeConverter()
+			unklar, warum URLDecoder auf th:text="${{  }}" angewendet wird; 
+			gibt es noch weitere Anwendungsfälle dieser Formatter-Sammlung?
+			betrifft Zusammenspiel: McvConfig.java, URLDecodeConverter.java, Util.java/escapeMarkup*/
         ).forEach(
             converter -> registry.addConverter(converter)
         );
