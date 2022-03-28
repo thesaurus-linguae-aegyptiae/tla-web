@@ -212,7 +212,7 @@
     <div th:fragment="object-property-related-objects" id="object-property-related-objects" th:unless="${#maps.isEmpty(relations)}">
         <hr/>
         <strong th:text="#{|${objectType}_property_related_objects|}" class="border-bottom details-property-label">Related lemmata</strong>
-        <div class="row py-1" th:each="predicate : ${relations}">
+        <div class="row py-1 ml-2 mr-2" th:each="predicate : ${relations}">
             <div class="pl-0 col-md-12 border-bottom">
                 <span th:text="#{|${objectType}_relation_predicate_${predicate.key}|}" class="details-property-label">Predicate</span>
             </div>

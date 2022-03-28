@@ -115,6 +115,7 @@ public class Util {
 			text = text.replaceAll("(?<=#g\\+[^#]*)%\\?(?=[^#]*?#g\\-)", "\u0342"); // Greek perispomeni in Vittmann's encoding
 			text = text.replaceAll("(?<=#g\\+[^#]*)%\\)(?=[^#]*?#g\\-)", "\u0313"); // Greek, psili; spiritus lenis in Vittmann's encoding
 			text = text.replaceAll("(?<=#g\\+[^#]*)%\\((?=[^#]*?#g\\-)", "\u0314"); // Greek dasia; spiritus asper in Vittmann's encoding
+			text = text.replaceAll("(?<=#g\\+[^#]*)%\\-(?=[^#]*?#g\\-)", "\u0304"); // length in Vittmann's encoding
 			/*text = RegExUtils.replacePattern(
 				text,
 				MULTILING_FONT_MARKUP_REGEX,
