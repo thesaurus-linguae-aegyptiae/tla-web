@@ -22,10 +22,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Util {
 
-    public static final String SERIF_FONT_MARKUP_REGEX = "\\$([^$]*)\\$";
-    public static final String SERIF_FONT_MARKUP_REPLACEMENT = "<span class=\"bbaw-libertine\">$1</span>";
-    public static final String GREEK_FONT_MARKUP_REGEX = "#g\\+([^#]*)#g\\-";
-    public static final String GREEK_FONT_MARKUP_REPLACEMENT = "<span class=\"bbaw-libertine\">$1</span>";
+    public static final String TRANSLITERATION_FONT_MARKUP_REGEX = "\\$([^$]*?)\\$";
+    public static final String GREEK_FONT_MARKUP_VITTMANN_REGEX = "#g\\+([^#]*?)#g\\-";
+    public static final String GREEK_FONT_MARKUP_REGEX = "<gr>([<]*?)</gr>";
+    public static final String HIERO_FONT_MARKUP_REGEX = "<hiero>([<]*?)</hiero>";
+
+    public static final String MULTILING_FONT_MARKUP_REPLACEMENT = "<span class=\"bbaw-libertine\">$1</span>";
+    public static final String HIERO_FONT_MARKUP_REPLACEMENT = "<span class=\"unicode-hieroglyphs\">$1</span>";
 
     public static final String XML_HEAD = "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>";
     public static final String SVG_ATTR_REGEX = "width=.([0-9.]+). height=.([0-9.]+).";
@@ -107,19 +110,25 @@ public class Util {
      * with HTML tags.
      */
     public static String escapeMarkup(String text) {
-		// wieso werden hier zwei verschiedene RegEx-Ersetzungsroutinen genutzt?
         if (text != null) {
 			//System.out.println("###### in escapeMarkup: " + text);
-			text = RegExUtils.replacePattern(
+			text = text.replaceAll("(?<=#g\\+[^#]*)%\\?(?=[^#]*?#g\\-)", "\u0342"); // Greek perispomeni in Vittmann's encoding
+			text = text.replaceAll("(?<=#g\\+[^#]*)%\\)(?=[^#]*?#g\\-)", "\u0313"); // Greek, psili; spiritus lenis in Vittmann's encoding
+			text = text.replaceAll("(?<=#g\\+[^#]*)%\\((?=[^#]*?#g\\-)", "\u0314"); // Greek dasia; spiritus asper in Vittmann's encoding
+			/*text = RegExUtils.replacePattern(
 				text,
-				SERIF_FONT_MARKUP_REGEX,
-				SERIF_FONT_MARKUP_REPLACEMENT
+				MULTILING_FONT_MARKUP_REGEX,
+				MULTILING_FONT_MARKUP_REPLACEMENT
 			);
 			text = RegExUtils.replacePattern(
 				text,
-				GREEK_FONT_MARKUP_REGEX,
-				GREEK_FONT_MARKUP_REPLACEMENT
-			);
+				GREEK_FONT_MARKUP_VITTMANN_REGEX,
+				GREEK_FONT_MARKUP_VITTMANN_REPLACEMENT
+			);*/
+			text = text.replaceAll(GREEK_FONT_MARKUP_VITTMANN_REGEX, MULTILING_FONT_MARKUP_REPLACEMENT);
+			text = text.replaceAll(GREEK_FONT_MARKUP_REGEX, MULTILING_FONT_MARKUP_REPLACEMENT);
+			text = text.replaceAll(HIERO_FONT_MARKUP_REGEX, HIERO_FONT_MARKUP_REPLACEMENT);
+			text = text.replaceAll(TRANSLITERATION_FONT_MARKUP_REGEX, MULTILING_FONT_MARKUP_REPLACEMENT);
             text = text.replaceAll("\\n", "<br/>");
         }
         return text;
