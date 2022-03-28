@@ -19,7 +19,10 @@ public class BTSMarkupConverter implements Converter<String, String> {
 
     @Override
     public String convert(String source) {
-        return source != null ? Util.escapeMarkup(HtmlUtils.htmlEscapeDecimal(source)) : null;
+        return source != null ? Util.escapeMarkup(source) : null;
+        /* Unklar, warum in BTSMarkup HTML-Zeichenkodierung nötig ist; 
+		wohl(?) nur weil danach der URLDecoder auf th:text="${{  }}"noch angewendet wird/wurde?
+		return source != null ? Util.escapeMarkup(HtmlUtils.htmlEscapeDecimal(source)) : null;*/
     }
 
 }

@@ -16,7 +16,9 @@ public class URLDecodeConverter implements Converter<String, String> {
 			if (source != null) { 
 				source = source.replaceAll("%([^0-9A-Fa-f])","%25$1"); // Fängt Fälle von % ohne folgende Ziffer ab, die den URLDecoder zum Absturz bringen
 				source = source.replaceAll("%$","%25"); // Fängt Fälle von % am Zeilenende ab, die den URLDecoder zum Absturz bringen
-				source = source.replaceAll("\\+", "%2B"); // erhält "+" im String ; ### hat das negative Seiteneffekte?
+				/*source = source.replaceAll("\\+", "%2B"); // erhält "+" im String ; ### hat das negative Seiteneffekte?; 
+				nur nötig wenn URLDecoder auf th:text="${{  }}" noch angewendet wird.
+				betrifft Zusammenspiel: McvConfig.java, URLDecodeConverter.java, Util.java/escapeMarkup*/
 			}
             return URLDecoder.decode(source, "UTF-8");
         } catch (UnsupportedEncodingException e) {
