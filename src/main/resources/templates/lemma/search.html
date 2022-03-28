@@ -17,111 +17,23 @@
           
       <div class="col-sm-12 col-md-6 rcol-lg-6 result">
             <h2 class="id mt-1" th:text="#{result_page_title_lemma}">Lemma Search Results</h2> 
-            <div class="ml-3 flex"><strong th:text="#{result_page_description_query}">Search parameter</strong>: 
-            <span id="queryScriptHeader"> </span>
-            <strong id="queryScript"> </strong>
-            <span id="queryTranscriptionHeader"> </span>
-            <strong id="queryTranscription" class="bbaw-libertine"> </strong>
-            <span id="queryEncodingHeader"> </span>
-            <strong id="queryEncoding"> </strong>
-            <span id="queryWordClassHeader"> </span>
-            <strong id="queryWordClass"> </strong>
-            <span id="queryWordClassSubtypeHeader"> </span>
-            <strong id="queryWordClassSubtype"> </strong>
-            <span id="queryRootHeader"> </span>
-            <strong id="queryRoot" class="bbaw-libertine"> </strong>
-            <span id="queryRootEncodHeader"> </span>
-            <strong id="queryRootEncod"> </strong>
-            <span id="queryTranslationTextHeader"> </span>
-            <strong id="queryTranslationText"> </strong>
-            <span id="queryTranslationLangHeader"> </span>
-            <strong id="queryTranslationLang"> </strong>
-            <span id="queryBibliographyHeader"> </span>
-            <strong id="queryBibliography"> </strong>
-            <!--<span id="queryAnnoHeader"> </span>
-            <strong id="queryAnno"> </strong>-->
-           
-            <script th:inline="javascript">
-          //<![CDATA[
-          {
-        	  // Lemma List = "Hieroglyphic/Hieratic" / "Demotic" ; Transliteration = "nfr" ; Encoding = "Manuel de Codage" ; Part of Speech = "(any_but_names)"
-        	  const queryString = window.location.search;
-        	  const urlParams = new URLSearchParams(queryString);
-        	
-        	  var script=urlParams.getAll('script');
-        	  if((script != "") && (script != null)) {
-				  if(script=="demotic") script= /*[[#{field_value_label_script_demotic}]]*/; 
-				  else if (script=="hieratic") script= /*[[#{field_value_label_script_hieratic}]]*/;
-				  else if (script=="hieratic,demotic") script= /*[[|#{field_value_label_script_hieratic} \/ #{field_value_label_script_demotic}|]]*/;
-				  document.getElementById("queryScriptHeader").innerHTML =/*[[|#{field_label_script} = |]]*/;
-				  document.getElementById("queryScript").innerHTML =script;
-			  }
-        	 
-        	  var transcription=urlParams.get('transcription');
-        	  if((transcription != "") && (transcription != null)) {
-        		  document.getElementById("queryTranscriptionHeader").innerHTML =/*[[| ; #{field_label_transliteration} = |]]*/;
-            	  document.getElementById("queryTranscription").innerHTML ="\""+transcription+"\"";
-				 var encod=urlParams.get('transcription_enc');
-				  if((encod != "")&&(encod != null)) {
-					  document.getElementById("queryEncodingHeader").innerHTML =/*[[| ; #{field_label_transliteration_encoding} = |]]*/;
-					  document.getElementById("queryEncoding").innerHTML=/*[[#{|field_value_label_enc_${param.transcription_enc}|}]]*/;
-				 }	 
-        	  }	  
-        	 
-        	  var pos=urlParams.get('wordClass.type');
-        	  if((pos!="")&&(pos!=null)){
-				  document.getElementById("queryWordClassHeader").innerHTML =/*[[| ; #{field_label_wordClass_type} = |]]*/;
-				  document.getElementById("queryWordClass").innerHTML =/*[[#{|field_value_label_wordClass_type_${#request.getParameter('wordClass.type')}|}]]*/;
-        	  }
-        	  var pos_subtype=urlParams.get('wordClass.subtype');
-        	  if((pos_subtype!="")&&(pos_subtype!=null)) {
-        	      document.getElementById("queryWordClassSubtypeHeader").innerHTML =/*[[| ; #{field_label_wordClass_subtype} = |]]*/;
-        	      document.getElementById("queryWordClassSubtype").innerHTML =/*[[#{|field_value_label_wordClass_subtype_${#request.getParameter('wordClass.subtype')}|}]]*/;
-        	  }
-        	  
-        	  var root=urlParams.get('root');
-			  if((root!="")&& (root !=null)){
-				  root= "\""+root+"\"";
-				  document.getElementById("queryRootHeader").innerHTML =/*[[| ; #{field_label_root_transliteration} = |]]*/;
-				  document.getElementById("queryRoot").innerHTML =root;
-				 var root_encod=urlParams.get('root_enc');
-				  if((root_encod != "")&&(root_encod != null)) {
-					  document.getElementById("queryRootEncodHeader").innerHTML =/*[[| ; #{field_label_root_transliteration_encoding} = |]]*/;
-					  document.getElementById("queryRootEncod").innerHTML =/*[[#{|field_value_label_enc_${param.root_enc}|}]]*/;
-				  }
-        	  }
-        	   
-        	  var translation=urlParams.get('translation.text');
-        	  if((translation != "") && (translation !=null)){
-				  translation="\""+translation+"\"";
-				  document.getElementById("queryTranslationTextHeader").innerHTML =/*[[| ; #{field_label_translation} = |]]*/;
-				  document.getElementById("queryTranslationText").innerHTML =translation;
-				  var transl_lang=urlParams.get('translation.lang');
-				  if((transl_lang != "") && (transl_lang !=null)){
-					  document.getElementById("queryTranslationLangHeader").innerHTML =/*[[| ; #{field_label_translation_lang} = |]]*/;
-					  document.getElementById("queryTranslationLang").innerHTML =/*[[#{|button_label_show_property_${#request.getParameter('translation.lang')}|}]]*/;
-				  }
-        	  }
-        	 
-        	       	  
-        	  var biblio=urlParams.get('bibliography');
-        	  if((biblio != "") && (biblio !=null)) {
-				  biblio="\""+biblio+"\"";
-				  document.getElementById("queryBibliographyHeader").innerHTML =/*[[| ; #{field_label_bibliography} = |]]*/;
-				  document.getElementById("queryBibliography").innerHTML =biblio;
-        	  }
-        	  
-        	 // var anno=urlParams.get('anno.type');
-        	 // if((anno !="") && (anno != null)){
-        	  //anno="\""+anno+"\"";
-        	  //document.getElementById("queryAnnoHeader").innerHTML =/*[[| ; #{field_label_annotation-type_type} = |]]*/;
-    	      //document.getElementById("queryAnno").innerHTML =anno;
-        	  //}
-        	    
-
-          }
-          //]]>
-          </script>
+            <div class="ml-3 flex" th:with="script = ${param.script}, transliteration = ${param.transcription}, transliteration_enc = ${param.transcription_enc}, posType =${#request.getParameter('wordClass.type')}, posSubtype =${#request.getParameter('wordClass.subtype')}, root = ${param.root}, root_enc = ${param.root_enc}, translation =${#request.getParameter('translation.text')}, translation_lang =${#request.getParameter('translation.lang')}, bibliography = ${param.bibliography}" ><!-- , annotation_type =${#request.getParameter('anno.type')}-->
+				<strong th:text="#{result_page_description_query}">Search parameter</strong>: 
+				<span th:unless="${#strings.isEmpty(script)}"><span th:text="#{field_label_script}"/> = <strong th:if="${#strings.contains(script, 'hieratic')}" th:text="#{field_value_label_script_hieratic}"/> <span th:if="${#strings.contains(script, ',')}">/</span> <strong th:if="${#strings.contains(script, 'demotic')}" th:text="#{field_value_label_script_demotic}"/></span>
+				<span th:unless="${#strings.isEmpty(transliteration)}"> ; <span th:text="#{field_label_transliteration}"/> = "<strong class="bbaw-libertine" th:text="${transliteration}"/>"
+					<span th:unless="${#strings.isEmpty(transliteration_enc)}"> (<span th:text="#{field_label_transliteration_encoding}"/> = <strong th:text="#{|field_value_label_enc_${transliteration_enc}|}"/>)</span>
+				</span>
+				<span th:unless="${#strings.isEmpty(posType)}"> ; <span th:text="#{field_label_wordClass_type}"/> = "<strong th:text="#{|field_value_label_wordClass_type_${posType}|}"/>"
+					<span th:unless="${#strings.isEmpty(posSubtype)}"> (<span th:text="#{field_label_wordClass_subtype}"/> = <strong th:text="#{|field_value_label_wordClass_subtype_${posSubtype}|}"/>)</span>
+				</span>
+				<span th:unless="${#strings.isEmpty(root)}"> ; <span th:text="#{field_label_root_transliteration}"/> = "<strong class="bbaw-libertine" th:text="${root}"/>"
+					<span th:unless="${#strings.isEmpty(root_enc)}"> (<span th:text="#{field_label_root_transliteration_encoding}"/> = <strong th:text="#{|field_value_label_enc_${root_enc}|}"/>)</span>
+				</span>
+				<span th:unless="${#strings.isEmpty(translation)}"> ; <span th:text="#{field_label_translation}"/> = "<strong th:text="${translation}"/>"
+					<span th:unless="${#strings.isEmpty(translation_lang)}"> (<span th:text="#{field_label_translation_lang}"/> = <strong th:text="#{|button_label_show_property_${translation_lang}|}"/>)</span>
+				</span>
+				<span th:unless="${#strings.isEmpty(bibliography)}"> ; <span th:text="#{field_label_bibliography}"/> = "<strong th:text="${bibliography}"/>"</span>
+				<!--<span th:unless="${#strings.isEmpty(annotation_type)}"> ; <span th:text="#{field_label_annotation-type_type}"/> = "<strong th:text="${annotation_type}"/>"</span>-->
              </div>
          
           </div>
