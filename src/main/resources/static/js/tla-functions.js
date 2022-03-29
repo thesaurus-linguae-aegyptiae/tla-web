@@ -6,10 +6,10 @@ const copyStringToClipboard = (str) => {
 
 const getCookie = (name) => Cookies.get(name)
 
-const setSessionCookie = (name, value) => {
+/*const setSessionCookie = (name, value) => {
         let params = { 'samesite': 'Strict' }
         Cookies.set(name, value, params)
-}
+}*/
 
 const setPermanentCookie = (name, value) => {
         let params = { 'expires': 365, 'samesite': 'Strict' }
@@ -38,7 +38,7 @@ function init() {
 		
 			if(document.getElementById("script1").checked) {
 				if( document.getElementById("script2").checked ){
-				if (getCookie("CookiePolicy") == "accepted") {
+				if (sessionStorage.getItem("Cookies_ok") == "true") {
 				          setPermanentCookie("TranscriptionScript", "hieratic+demotic");
 		
 					    setPermanentCookie("RootEncoding", "unicode");	
@@ -61,7 +61,7 @@ function init() {
 			}	
 			else {
 				 if(document.getElementById("script2").checked){
-			             if (getCookie("CookiePolicy") == "accepted") 
+			             if (sessionStorage.getItem("Cookies_ok") == "true") 
                          {
 			                   setPermanentCookie("TranscriptionScript", "demotic");	
                                setPermanentCookie("Mdc","enabled");
@@ -75,7 +75,7 @@ function init() {
                  }
                else {
 	             document.getElementById("script2").checked=true;
-                     if (getCookie("CookiePolicy") == "accepted") 
+                     if (sessionStorage.getItem("Cookies_ok") == "true") 
                      {
 			                   setPermanentCookie("TranscriptionScript", "demotic");
                              setPermanentCookie("Mdc","enabled");
@@ -96,7 +96,7 @@ function init() {
 		
 			if(document.getElementById("script2").checked) {
 				if( document.getElementById("script1").checked ){
-				if (getCookie("CookiePolicy") == "accepted") {
+				if (sessionStorage.getItem("Cookies_ok") == "true") {
 				          setPermanentCookie("TranscriptionScript", "hieratic+demotic");
                            setPermanentCookie("RootEncoding", "unicode");	
 						setPermanentCookie("TranscriptionEncoding", "unicode");	
@@ -117,7 +117,7 @@ function init() {
 			}	
 			else {
 				 if(document.getElementById("script1").checked){
-			             if (getCookie("CookiePolicy") == "accepted") {
+			             if (sessionStorage.getItem("Cookies_ok") == "true") {
                      
 			                   setPermanentCookie("TranscriptionScript", "hieratic");
                                setPermanentCookie("Mdc","enabled");
@@ -132,7 +132,7 @@ function init() {
                  }
                else {
 	             document.getElementById("script1").checked=true;
-                     if (getCookie("CookiePolicy") == "accepted") {
+                     if (sessionStorage.getItem("Cookies_ok") == "true") {
                      
 			                   setPermanentCookie("TranscriptionScript", "hieratic");
                                setPermanentCookie("Mdc","enabled");
@@ -149,7 +149,7 @@ function init() {
 	}
        });	
  
-if (getCookie("CookiePolicy") == "accepted") {
+if (sessionStorage.getItem("Cookies_ok") == "true") {
  if ((getCookie("TranscriptionScript") == "demotic")){
  $('#script2').prop("checked",true);
 }
@@ -185,7 +185,7 @@ else{
 	// Search form settings		  
 //document.getElementById("transcription_enc_unicode").setAttribute("checked",true);
 	// encoding radios
-	if(getCookie("CookiePolicy") == "accepted"){
+	if(sessionStorage.getItem("Cookies_ok") == "true"){
 		if ((getCookie("TranscriptionEncoding") == "unicode") ){
 			$('#transcription_enc_unicode').prop("checked", true);
 			$('#root_enc_unicode').prop("checked", true);
@@ -223,7 +223,7 @@ else{
 	}		
 
         $('#transcription_enc_unicode').click(function () {
-			if (getCookie("CookiePolicy") == "accepted") {
+			if (sessionStorage.getItem("Cookies_ok") == "true") {
 				setPermanentCookie("TranscriptionEncoding", "unicode");
 				setPermanentCookie("RootEncoding", "unicode");
 				}
@@ -236,7 +236,7 @@ else{
 			
         });	
         $('#transcription_enc_mdc').click(function () {
-			if (getCookie("CookiePolicy") == "accepted") {
+			if (sessionStorage.getItem("Cookies_ok") == "true") {
 				setPermanentCookie("TranscriptionEncoding", "manuel_de_codage");
 				setPermanentCookie("RootEncoding", "manuel_de_codage");
 				}
@@ -251,7 +251,7 @@ else{
 			
         });	
         $('#root_enc_unicode').click(function () {
-			if (getCookie("CookiePolicy") == "accepted") {
+			if (sessionStorage.getItem("Cookies_ok") == "true") {
 				setPermanentCookie("RootEncoding", "unicode");
 				setPermanentCookie("TranscriptionEncoding", "unicode");
 				}
@@ -264,7 +264,7 @@ else{
 			
         });	
         $('#root_enc_mdc').click(function () {
-			if (getCookie("CookiePolicy") == "accepted") {
+			if (sessionStorage.getItem("Cookies_ok") == "true") {
 				setPermanentCookie("RootEncoding", "manuel_de_codage");
 				setPermanentCookie("TranscriptionEncoding", "manuel_de_codage");
 				}
@@ -279,7 +279,7 @@ else{
 //Translation Cookies
 
  $('#field-value-translation-checkbox-de-dict').click(function () {
-			if (getCookie("CookiePolicy") == "accepted") {
+			if (sessionStorage.getItem("Cookies_ok") == "true") {
 				setPermanentCookie("TranslationLang", "de");
 				}
 			else{
@@ -289,7 +289,7 @@ else{
 			
         });	
  $('#field-value-translation-checkbox-en-dict').click(function () {
-			if (getCookie("CookiePolicy") == "accepted") {
+			if (sessionStorage.getItem("Cookies_ok") == "true") {
 				setPermanentCookie("TranslationLang", "en");
 				}
 			else{
@@ -300,7 +300,7 @@ else{
         });	
 
  $('#field-value-translation-checkbox-fr-dict').click(function () {
-			if (getCookie("CookiePolicy") == "accepted") {
+			if (sessionStorage.getItem("Cookies_ok") == "true") {
 				setPermanentCookie("TranslationLang", "fr");
 				}
 			else{
@@ -310,7 +310,7 @@ else{
 			
         });	
 
-if(getCookie("CookiePolicy") == "accepted"){
+if(sessionStorage.getItem("Cookies_ok") == "true"){
 		if ((getCookie("TranslationLang") == "de") )
 			$('#field-value-translation-checkbox-de-dict').prop("checked", true);
 		else if ((getCookie("TranslationLang") == "en") )
@@ -362,7 +362,7 @@ else	{
 			 if ($('.switchannotation-tlaglossing').is(':visible') && !e.target == '.switchannotation-tlaglossing') {
                 $('.switchannotation-tlaglossing').slideUp('ease-out');
             }
-			if (getCookie("CookiePolicy") == "accepted") {
+			if (sessionStorage.getItem("Cookies_ok") == "true") {
 				if ($('.switchannotation-tlaglossing').is(':visible')) {
 					setPrmanentCookie("TLAFlexcodeVisible", "false");
 				} else {
@@ -389,7 +389,7 @@ else	{
         });
         $('.ling-glossing-btn').click(function (e) {
 			e.preventDefault();
-			if (getCookie("CookiePolicy") == "accepted") {
+			if (sessionStorage.getItem("Cookies_ok") == "true") {
 				if ($('.ling-glossing').is(':visible')) {
 					setPermanentCookie("LingGlossingVisible", "false");
 				} else {
@@ -420,7 +420,7 @@ else	{
         });
         $('.token-translation-btn').click(function (e) {
 			e.preventDefault();
-			if (getCookie("CookiePolicy") == "accepted") {
+			if (sessionStorage.getItem("Cookies_ok") == "true") {
 				if ($('.token-translation').is(':visible')) {
 					setPermanentCookie("TokenTranslationVisible", "false");
 				} else {
@@ -447,7 +447,7 @@ else	{
         });
         $('.text-date-btn').click(function (e) {
 			e.preventDefault();
-			if (getCookie("CookiePolicy") == "accepted") {
+			if (sessionStorage.getItem("Cookies_ok") == "true") {
 				if ($('.text-date').is(':visible')) {
 					setPermanentCookie("TextDateVisible", "false");
 				} else {
@@ -474,7 +474,7 @@ else	{
         });
         $('.text-editor-btn').click(function (e) {
 			e.preventDefault();
-			if (getCookie("CookiePolicy") == "accepted") {
+			if (sessionStorage.getItem("Cookies_ok") == "true") {
 				if ($('.text-editor').is(':visible')) {
 					setPermanentCookie("TextEditorVisible", "false");
 				} else {
@@ -524,7 +524,7 @@ else	{
         });
         $('.anno-block-btn').click(function (e) {
 			e.preventDefault();
-			if (getCookie("CookiePolicy") == "accepted") {
+			if (sessionStorage.getItem("Cookies_ok") == "true") {
 				if ($('.container-annotation-switch').is(':visible')) {
 					setPermanentCookie("AnnotationBlockVisible", "false");
 				} else {
@@ -595,7 +595,7 @@ else	{
 		
 		
 		//translation collapse
-		if (getCookie("CookiePolicy") == "accepted") {
+		if (sessionStorage.getItem("Cookies_ok") == "true") {
 			if (getCookie("LanguagesButtonsVisible") == "true") {
 			$('.indented-buttons-lang').show();
 			}
@@ -620,7 +620,7 @@ else	{
         $('.languages-btn').click(function (e) {
 			e.preventDefault();
 			
-			if (getCookie("CookiePolicy") == "accepted") {
+			if (sessionStorage.getItem("Cookies_ok") == "true") {
 				if ($('.indented-buttons-lang').is(':visible')) {
 					setPermanentCookie("LanguagesButtonsVisible", "false");
 				} else {
@@ -640,20 +640,20 @@ else	{
 
     // Cookie Acceptance Banner ausblenden und Info in Footer anzeigen
 
-	  if (getCookie("CookiePolicy") == "accepted") {
+	  if (sessionStorage.getItem("Cookies_ok")) {
 		  $('.cookie-container').addClass('d-none');
-		  $('#cookie-info').html('(Cookies accepted)'); // BUG: immer englisch
 	  }
 	
     $('.cookie-ok').click(function()  {
            $('.cookie-container').addClass('d-none');
-            setSessionCookie("CookiePolicy", "accepted"); 
+		    sessionStorage.setItem("Cookies_ok", "true");
 			$('#cookie-info').html('(Cookies accepted)'); // BUG: immer englisch
             });
 		
     $('.cookie-dismissed').click(function()  {
            $('.cookie-container').addClass('d-none');
-            });
+		   sessionStorage.setItem("Cookies_ok", "false");
+             });
 //$(document).ready(function() {
   //  $("#transliterationHelp").modal();
   //});

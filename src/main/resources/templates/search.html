@@ -14,7 +14,7 @@
 	
          <script>
         const saveDropdown = (name, prop) => {
-          if (getCookie("CookiePolicy") == "accepted") {
+          if (sessionStorage.getItem("Cookies_ok") == "true") {
 				setPermanentCookie(`form-field-${name}-select-${prop}`, $(`#${name}-${prop}`).val() )
 		  }
 		  else{
