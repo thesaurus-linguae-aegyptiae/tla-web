@@ -96,7 +96,7 @@
             <label class="form-check-label" th:for="${#ids.prev('script')}" th:text="#{|dict_${item}|}"/>
             <script>
 //document.getElementById("script1").setAttribute("checked","checked")
-if (getCookie("CookiePolicy") == "accepted") {
+if (sessionStorage.getItem("Cookies_ok") == "true") {
 	if (getCookie("TranscriptionScript")==null) {setPermanentCookie("TranscriptionScript", "hieratic");
 	document.getElementById("script1").setAttribute("checked",true);
 	setPermanentCookie("Mdc","enabled");}
@@ -143,7 +143,7 @@ document.getElementById("script1").setAttribute("checked",true);
 						</div>
 					</div>
 			<script>		
-					if (getCookie("CookiePolicy") == "accepted") {
+					if (sessionStorage.getItem("Cookies_ok") == "true") {
 						if (getCookie("TranscriptionEncoding")==null) {setPermanentCookie("TranscriptionEncoding", "unicode");
 						document.getElementById("transcription_enc_unicode").setAttribute("checked",true);
 						document.getElementById("transcription_enc_mdc").setAttribute("disabled",false);
@@ -177,7 +177,7 @@ document.getElementById("script1").setAttribute("checked",true);
 							  <label class="form-check-label" for="root_enc_mdc" th:text="#{field_value_label_enc_manuel_de_codage}">Manuel de Codage</label>
 						</div>
 				<script>		
-					if (getCookie("CookiePolicy") == "accepted") {
+					if (sessionStorage.getItem("Cookies_ok") == "true") {
 						if (getCookie("RootEncoding")==null){setPermanentCookie("RootEncoding", "unicode");
 						
 						
@@ -306,7 +306,7 @@ document.getElementById("script1").setAttribute("checked",true);
           <label class="form-check-label" th:for="|field-value-translation-checkbox-${lang}-${key}|"
               th:text="#{|lang_label_${lang}|}">Language</label>
               <script>
-              if (getCookie("CookiePolicy") == "accepted") {
+              if (sessionStorage.getItem("Cookies_ok") == "true") {
 					if (getCookie("TranslationLang")==null) {setPermanentCookie("TranslationLang", "de");
 					 document.getElementById("field-value-translation-checkbox-de-dict").setAttribute("checked",true);					
 					}
