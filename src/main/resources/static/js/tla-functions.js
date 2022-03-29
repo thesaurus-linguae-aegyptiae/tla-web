@@ -501,18 +501,33 @@ else	{
 
        
     // .anno-block-btn
-		if (getCookie("AnnotationBlockVisible") == "true") {
-			//$('i', '.anno-block-btn').addClass("fa-minus-circle")
-			$('.container-annotation-switch').show();
-		//	$('.container-annotation-switch-lines').hide();
-			$('.indented-buttons-annotation').show();
+		if (sessionStorage.getItem("Cookies_ok") == "true") {
+			if (getCookie("AnnotationBlockVisible") == "true") {
+				//$('i', '.anno-block-btn').addClass("fa-minus-circle")
+				$('.container-annotation-switch').show();
+				$('.sentence-line-mode').hide();
+			//	$('.container-annotation-switch-lines').hide();
+				$('.indented-buttons-annotation').show();
+				}
+			else {
+			//	$('i', '.anno-block-btn').addClass("fa-plus-circle")
+				$('.container-annotation-switch').hide();
+				$('.sentence-line-mode').show();
+				//$('.container-annotation-switch-lines').show();
+				$('.indented-buttons-annotation').hide();
+				}
+		} else{ if (sessionStorage.getItem("AnnotationBlockVisible") == "true") {
+				$('.container-annotation-switch').show();
+				$('.sentence-line-mode').hide();
+				$('.indented-buttons-annotation').show();
 			}
 		else {
-		//	$('i', '.anno-block-btn').addClass("fa-plus-circle")
-			$('.container-annotation-switch').hide();
-			//$('.container-annotation-switch-lines').show();
-			$('.indented-buttons-annotation').hide();
+				$('.container-annotation-switch').hide();
+				$('.sentence-line-mode').show();
+				$('.indented-buttons-annotation').hide();
 			}
+			
+		}
 
 		$('html').not('.anno-block-btn').click(function (e) {
 		 if ($('.container-annotation-switch').is(':visible') && !e.target == '.container-annotation-switch') {
@@ -530,7 +545,16 @@ else	{
 				} else {
 					setPermanentCookie("AnnotationBlockVisible", "true");
 				}
+			} 
+			else{
+				if ($('.container-annotation-switch').is(':visible')) {
+					sessionStorage.setItem("AnnotationBlockVisible", "false");
+				} else {
+					sessionStorage.setItem("AnnotationBlockVisible", "true");
+				}
+				
 			}
+
             $('.container-annotation-switch').slideToggle('slow');
             //$('.container-annotation-switch-lines').slideToggle('slow');
             $('.indented-buttons-annotation').slideToggle('slow');

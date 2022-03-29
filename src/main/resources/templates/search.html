@@ -39,7 +39,7 @@
                     <script th:inline="javascript">
                       //<![CDATA[
                       {
-                        let key = /*[[${formId}]]*/ null;  // BUG: Funktionalität mit ${formId} o.k., aber Buttontext switcht nicht
+                        let key = /*[[${formId}]]*/ null; 
                         let buttonId = `#toggle-${key}-form-button`;
                         $(buttonId).click(() => {
                           $('div.sidebar-controls').attr('style', 'display: none;');

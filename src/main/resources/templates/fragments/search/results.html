@@ -676,12 +676,18 @@
    		  if (sessionStorage.getItem("Cookies_ok") == "true") { 
     			  setPermanentCookie("WordClassVisible",""+ button.children('svg#off').attr('style') == 'display: none;');
     		  }
-    		  else sessionStorage.setItem("WordclassVisible",""+ button.children('svg#off').attr('style') == 'display: none;');
+    		  else sessionStorage.setItem("WordClassVisible",""+ button.children('svg#off').attr('style') == 'display: none;');
  			
       }
          if(name=="switchannotation"){   
     		  button.children('svg').toggle();
     		  $('.sentence-line-mode').toggle();
+
+/*   		  if (sessionStorage.getItem("Cookies_ok") == "true") { 
+    			  setPermanentCookie("AnnotationBlockVisible",""+ button.children('svg#off').attr('style') == 'display: none;');
+    		  }
+    		  else sessionStorage.setItem("AnnotationBlockVisible",""+ button.children('svg#off').attr('style') == 'display: none;');*/
+
          }
          
          if(name=="translation"){
