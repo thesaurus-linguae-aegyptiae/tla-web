@@ -112,21 +112,28 @@ public class Util {
     public static String escapeMarkup(String text) {
         if (text != null) {
 			//System.out.println("###### in escapeMarkup: " + text);
-			text = text.replaceAll("(?<=#g\\+[^#]*)%\\?(?=[^#]*?#g\\-)", "\u0342"); // Greek perispomeni in Vittmann's encoding
-			text = text.replaceAll("(?<=#g\\+[^#]*)%\\)(?=[^#]*?#g\\-)", "\u0313"); // Greek, psili; spiritus lenis in Vittmann's encoding
-			text = text.replaceAll("(?<=#g\\+[^#]*)%\\((?=[^#]*?#g\\-)", "\u0314"); // Greek dasia; spiritus asper in Vittmann's encoding
-			text = text.replaceAll("(?<=#g\\+[^#]*)%\\-(?=[^#]*?#g\\-)", "\u0304"); // length in Vittmann's encoding
+			if (text.contains("#g")) {
+				text = text.replaceAll("(?<=#g\\+[^#]*)w(?=[^#]*?#g\\-)", "s"); // End-Sigma in Vittmann's encoding ("w")
+				text = text.replaceAll("(?<=#g\\+[^#]*)h(?=[^#]*?#g\\-)", "ē"); // Eta in Vittmann's encoding ("h")
+				text = text.replaceAll("(?<=#g\\+[^#]*)H(?=[^#]*?#g\\-)", "Ē"); 
+				text = text.replaceAll("(?<=#g\\+[^#]*)v(?=[^#]*?#g\\-)", "ō"); // Omega in Vittmann's encoding ("w")
+				text = text.replaceAll("(?<=#g\\+[^#]*)V(?=[^#]*?#g\\-)", "Ō"); 
+				text = text.replaceAll("(?<=#g\\+[^#]*)%\\?(?=[^#]*?#g\\-)", "\u0342"); // Greek perispomeni in Vittmann's encoding
+				text = text.replaceAll("(?<=#g\\+[^#]*)%\\)(?=[^#]*?#g\\-)", "\u0313"); // Greek, psili; spiritus lenis in Vittmann's encoding("%)")
+				text = text.replaceAll("(?<=#g\\+[^#]*)%\\((?=[^#]*?#g\\-)", "\u0314"); // Greek dasia; spiritus asper in Vittmann's encoding ("%(")
+				text = text.replaceAll("(?<=#g\\+[^#]*)%\\-(?=[^#]*?#g\\-)", "\u0304"); // length in Vittmann's encoding ("%-")
+				text = text.replaceAll(GREEK_FONT_MARKUP_VITTMANN_REGEX, MULTILING_FONT_MARKUP_REPLACEMENT);
+				/*text = RegExUtils.replacePattern(
+					text,
+					GREEK_FONT_MARKUP_VITTMANN_REGEX,
+					MULTILING_FONT_MARKUP_REPLACEMENT
+				);*/
+			}
 			/*text = RegExUtils.replacePattern(
 				text,
 				MULTILING_FONT_MARKUP_REGEX,
 				MULTILING_FONT_MARKUP_REPLACEMENT
-			);
-			text = RegExUtils.replacePattern(
-				text,
-				GREEK_FONT_MARKUP_VITTMANN_REGEX,
-				GREEK_FONT_MARKUP_VITTMANN_REPLACEMENT
 			);*/
-			text = text.replaceAll(GREEK_FONT_MARKUP_VITTMANN_REGEX, MULTILING_FONT_MARKUP_REPLACEMENT);
 			text = text.replaceAll(GREEK_FONT_MARKUP_REGEX, MULTILING_FONT_MARKUP_REPLACEMENT);
 			text = text.replaceAll(HIERO_FONT_MARKUP_REGEX, HIERO_FONT_MARKUP_REPLACEMENT);
 			text = text.replaceAll(TRANSLITERATION_FONT_MARKUP_REGEX, MULTILING_FONT_MARKUP_REPLACEMENT);
