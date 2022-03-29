@@ -297,7 +297,7 @@
           </span>-->
 
     <!-- sentence hieroglyphs -->
-    <div th:fragment="sentence-hieroglyphs" th:if="*{hasGlyphs}" class="result-list-item-element hieroglyphs">
+    <div th:fragment="sentence-hieroglyphs" class="result-list-item-element hieroglyphs">
       <a th:each="token : *{tokens}" th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,token.lemma.id)).build()}" th:id="|hieroglyphs-${token.id}|" th:class="${(#request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }">
         <div th:replace=" :: token-hieroglyphs"/>
       </a>

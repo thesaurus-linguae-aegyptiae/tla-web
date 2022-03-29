@@ -73,11 +73,13 @@
 
       <!-- SENTENCE search result -->
 
-      <div th:fragment="sentence-search-result" class="result-list-item" th:object="${obj}">
+      <div th:fragment="sentence-search-result" class="result-list-item" th:object="${obj}" th:with="hasGlyphs=*{hasGlyphs}">
       <!-- Block view -->
         <div class="occ-list-item mt-3 pt-1 pb-1" >
           <div class="sentence-line-mode">
-            <div th:replace="fragments/common :: sentence-hieroglyphs"/>
+            <th:block th:if="${hasGlyphs}">
+               <div th:replace="fragments/common :: sentence-hieroglyphs"/>
+            </th:block>
             <div th:replace="fragments/common :: sentence-transcription"/>
           </div>
         </div>
@@ -88,14 +90,16 @@
             <div class="container-annotation">
 				         <div th:each="token : *{tokens}"  th:id="|block-${token.id}|">
 					         <ul class="annotation-block"  th:classappend="${(#request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }"><!--lässt sich der Parametername auf "id" verkürzen?-->
-							      <a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank"><div class="occ-list-item-element hieroglyphs">
-								  		<li th:replace="fragments/common :: token-hieroglyphs"/>
-								  		<hr class="blockline"> 
-								  </div></a>
-							      <div  th:unless="${token.lemma.id}"class="occ-list-item-element hieroglyphs">
-								  		<li th:replace="fragments/common :: token-hieroglyphs"/>
-								  		<hr class="blockline"> 
-								  </div>
+							      <th:block th:if="${hasGlyphs}">
+									  <a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank"><div class="occ-list-item-element hieroglyphs">
+											<li th:replace="fragments/common :: token-hieroglyphs"/>
+											<hr class="blockline"> 
+									  </div></a>
+									  <div  th:unless="${token.lemma.id}"class="occ-list-item-element hieroglyphs">
+											<li th:replace="fragments/common :: token-hieroglyphs"/>
+											<hr class="blockline"> 
+									  </div>
+								  </th:block>
 								   <a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank"><div class="occ-list-item-element">
 								  		<li th:replace="fragments/common :: token-transcription"/>
 								  		<hr class="blockline"> 
