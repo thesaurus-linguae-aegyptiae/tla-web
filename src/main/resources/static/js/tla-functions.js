@@ -11,13 +11,20 @@ const getCookie = (name) => Cookies.get(name)
         Cookies.set(name, value, params)
 }*/
 
-const setPermanentCookie = (name, value) => {
+/*const setPermanentCookie = (name, value) => {
         let params = { 'expires': 365, 'samesite': 'Strict' }
         //console.log(`set ${name} to ${value}`)
         //console.log(JSON.stringify(params))
         Cookies.set(name, value, params)
-}
+}*/
 
+const storeUserSetting = (name, value) => {
+		if (sessionStorage.getItem("Cookies_ok") == "true") {
+			let params = { 'expires': 365, 'samesite': 'Strict' }
+			Cookies.set(name, value, params)
+		}
+		sessionStorage.setItem(name, value);
+}
 
 function init() {	
 	// Abbreviation help links
@@ -38,76 +45,46 @@ function init() {
 		
 			if(document.getElementById("script1").checked) {
 				if( document.getElementById("script2").checked ){
-				if (sessionStorage.getItem("Cookies_ok") == "true") {
-				          setPermanentCookie("TranscriptionScript", "hieratic+demotic");
-		
-					    setPermanentCookie("RootEncoding", "unicode");	
-						setPermanentCookie("TranscriptionEncoding", "unicode");	
-						setPermanentCookie("Mdc", "disabled");
-                   }
-                 else{
-	              sessionStorage.setItem("TranscriptionScript", "hieratic+demotic");
-		
-					   sessionStorage.setItem("RootEncoding", "unicode");	
-						sessionStorage.setItem("TranscriptionEncoding", "unicode");
-						sessionStorage.setItem("Mdc","disabled");
-                }
-				document.getElementById("transcription_enc_unicode").checked = true;
-		        document.getElementById("root_enc_unicode").checked = true;
-                document.getElementById("root_enc_mdc").disabled = true;
-                document.getElementById("transcription_enc_mdc").disabled = true;
+					storeUserSetting("TranscriptionScript", "hieratic+demotic");
+					storeUserSetting("RootEncoding", "unicode");	
+					storeUserSetting("TranscriptionEncoding", "unicode");	
+					storeUserSetting("Mdc", "disabled");
+					
+					document.getElementById("transcription_enc_unicode").checked = true;
+					document.getElementById("root_enc_unicode").checked = true;
+					document.getElementById("root_enc_mdc").disabled = true;
+					document.getElementById("transcription_enc_mdc").disabled = true;
                }
 				
 			}	
 			else {
 				 if(document.getElementById("script2").checked){
-			             if (sessionStorage.getItem("Cookies_ok") == "true") 
-                         {
-			                   setPermanentCookie("TranscriptionScript", "demotic");	
-                               setPermanentCookie("Mdc","enabled");
-                          }
-                         else {sessionStorage.setItem("TranscriptionScript", "demotic");
-                                   sessionStorage.setItem("Mdc","enabled");
-                            }
+					storeUserSetting("TranscriptionScript", "demotic");	
+					storeUserSetting("Mdc","enabled");
                 
                document.getElementById("root_enc_mdc").disabled = false;
                 document.getElementById("transcription_enc_mdc").disabled = false;
                  }
                else {
 	             document.getElementById("script2").checked=true;
-                     if (sessionStorage.getItem("Cookies_ok") == "true") 
-                     {
-			                   setPermanentCookie("TranscriptionScript", "demotic");
-                             setPermanentCookie("Mdc","enabled");
-                       }
-                     else {
-	                     sessionStorage.setItem("TranscriptionScript", "demotic");
-                         sessionStorage.setItem("Mdc","enabled");
-                      }
+					storeUserSetting("TranscriptionScript", "demotic");
+					storeUserSetting("Mdc","enabled");
+
 	             document.getElementById("root_enc_mdc").disabled = false;
                 document.getElementById("transcription_enc_mdc").disabled = false;
                }
-          
-				
-	}
+			}
        });	
 
  $('#script2').click(function () {
 		
 			if(document.getElementById("script2").checked) {
 				if( document.getElementById("script1").checked ){
-				if (sessionStorage.getItem("Cookies_ok") == "true") {
-				          setPermanentCookie("TranscriptionScript", "hieratic+demotic");
-                           setPermanentCookie("RootEncoding", "unicode");	
-						setPermanentCookie("TranscriptionEncoding", "unicode");	
-						setPermanentCookie("Mdc","disabled");
-                   }
-                else{
-	               sessionStorage.setItem("TranscriptionScript", "hieratic+demotic");
-                   sessionStorage.setItem("RootEncoding", "unicode");	
-				sessionStorage.setItem("TranscriptionEncoding", "unicode");	
-	             sessionStorage.setItem("Mdc","enabled");
-                }
+					storeUserSetting("TranscriptionScript", "hieratic+demotic");
+					storeUserSetting("RootEncoding", "unicode");	
+					storeUserSetting("TranscriptionEncoding", "unicode");	
+					storeUserSetting("Mdc","disabled");
+
 				document.getElementById("transcription_enc_unicode").checked = true;
 		        document.getElementById("root_enc_unicode").checked = true;
                 document.getElementById("root_enc_mdc").disabled = true;
@@ -117,30 +94,17 @@ function init() {
 			}	
 			else {
 				 if(document.getElementById("script1").checked){
-			             if (sessionStorage.getItem("Cookies_ok") == "true") {
-                     
-			                   setPermanentCookie("TranscriptionScript", "hieratic");
-                               setPermanentCookie("Mdc","enabled");
-                         }
-                         else {
-	                          sessionStorage.setItem("TranscriptionScript", "hieratic");
-                              sessionStorage.setItem("Mdc","enabled");	
-                       }
+					storeUserSetting("TranscriptionScript", "hieratic");
+					storeUserSetting("Mdc","enabled");
                 
                document.getElementById("root_enc_mdc").disabled = false;
                 document.getElementById("transcription_enc_mdc").disabled = false;
                  }
                else {
 	             document.getElementById("script1").checked=true;
-                     if (sessionStorage.getItem("Cookies_ok") == "true") {
-                     
-			                   setPermanentCookie("TranscriptionScript", "hieratic");
-                               setPermanentCookie("Mdc","enabled");
-                     }
-                     else {
-	                    sessionStorage.setItem("TranscriptionScript", "hieratic");
-                       sessionStorage.setItem("Mdc","enabled");
-                     }
+					storeUserSetting("TranscriptionScript", "hieratic");
+					storeUserSetting("Mdc","enabled");
+
 	             document.getElementById("root_enc_mdc").disabled = false;
                 document.getElementById("transcription_enc_mdc").disabled = false;
                }
@@ -223,55 +187,33 @@ else{
 	}		
 
         $('#transcription_enc_unicode').click(function () {
-			if (sessionStorage.getItem("Cookies_ok") == "true") {
-				setPermanentCookie("TranscriptionEncoding", "unicode");
-				setPermanentCookie("RootEncoding", "unicode");
-				}
-			else{
-				sessionStorage.setItem("TranscriptionEncoding", "unicode");
-				sessionStorage.setItem("RootEncoding", "unicode");
-			}	
+				storeUserSetting("TranscriptionEncoding", "unicode");
+				storeUserSetting("RootEncoding", "unicode");
+
 				document.getElementById("transcription_enc_unicode").checked = true
 				document.getElementById("root_enc_unicode").checked = true
 			
         });	
         $('#transcription_enc_mdc').click(function () {
-			if (sessionStorage.getItem("Cookies_ok") == "true") {
-				setPermanentCookie("TranscriptionEncoding", "manuel_de_codage");
-				setPermanentCookie("RootEncoding", "manuel_de_codage");
-				}
-			else{
-				sessionStorage.setItem("TranscriptionEncoding", "manuel_de_codage");
-				sessionStorage.setItem("RootEncoding", "manuel_de_codage");
-				
-			}
+				storeUserSetting("TranscriptionEncoding", "manuel_de_codage");
+				storeUserSetting("RootEncoding", "manuel_de_codage");
 		
 				document.getElementById("transcription_enc_mdc").checked = true;
 				document.getElementById("root_enc_mdc").checked = true;
 			
         });	
         $('#root_enc_unicode').click(function () {
-			if (sessionStorage.getItem("Cookies_ok") == "true") {
-				setPermanentCookie("RootEncoding", "unicode");
-				setPermanentCookie("TranscriptionEncoding", "unicode");
-				}
-				else{
-					sessionStorage.setItem("RootEncoding", "unicode");
-				sessionStorage.setItem("TranscriptionEncoding", "unicode");
-				}
+				storeUserSetting("RootEncoding", "unicode");
+				storeUserSetting("TranscriptionEncoding", "unicode");
+
 				document.getElementById("root_enc_unicode").checked = true;
 				document.getElementById("transcription_enc_unicode").checked = true;
 			
         });	
         $('#root_enc_mdc').click(function () {
-			if (sessionStorage.getItem("Cookies_ok") == "true") {
-				setPermanentCookie("RootEncoding", "manuel_de_codage");
-				setPermanentCookie("TranscriptionEncoding", "manuel_de_codage");
-				}
-			else{
-				sessionStorage.setItem("RootEncoding", "manuel_de_codage");
-				sessionStorage.setItem("TranscriptionEncoding", "manuel_de_codage");
-			}	
+				storeUserSetting("RootEncoding", "manuel_de_codage");
+				storeUserSetting("TranscriptionEncoding", "manuel_de_codage");
+
 				document.getElementById("root_enc_mdc").checked = true;
 				document.getElementById("transcription_enc_mdc").checked = true;
 			
@@ -279,33 +221,18 @@ else{
 //Translation Cookies
 
  $('#field-value-translation-checkbox-de-dict').click(function () {
-			if (sessionStorage.getItem("Cookies_ok") == "true") {
-				setPermanentCookie("TranslationLang", "de");
-				}
-			else{
-				sessionStorage.setItem("TranslationLang", "de");
-			}	
+				storeUserSetting("TranslationLang", "de");
 				document.getElementById("field-value-translation-checkbox-de-dict").setAttribute("checked",true);				
 			
         });	
  $('#field-value-translation-checkbox-en-dict').click(function () {
-			if (sessionStorage.getItem("Cookies_ok") == "true") {
-				setPermanentCookie("TranslationLang", "en");
-				}
-			else{
-				sessionStorage.setItem("TranslationLang", "en");
-			}	
+				storeUserSetting("TranslationLang", "en");
 				document.getElementById("field-value-translation-checkbox-en-dict").setAttribute("checked",true);				
 			
         });	
 
  $('#field-value-translation-checkbox-fr-dict').click(function () {
-			if (sessionStorage.getItem("Cookies_ok") == "true") {
-				setPermanentCookie("TranslationLang", "fr");
-				}
-			else{
-				sessionStorage.setItem("TranslationLang", "fr");
-			}	
+				storeUserSetting("TranslationLang", "fr");
 				document.getElementById("field-value-translation-checkbox-fr-dict").setAttribute("checked",true);				
 			
         });	
@@ -539,20 +466,10 @@ else	{
         });
         $('.anno-block-btn').click(function (e) {
 			e.preventDefault();
-			if (sessionStorage.getItem("Cookies_ok") == "true") {
-				if ($('.container-annotation-switch').is(':visible')) {
-					setPermanentCookie("AnnotationBlockVisible", "false");
-				} else {
-					setPermanentCookie("AnnotationBlockVisible", "true");
-				}
-			} 
-			else{
-				if ($('.container-annotation-switch').is(':visible')) {
-					sessionStorage.setItem("AnnotationBlockVisible", "false");
-				} else {
-					sessionStorage.setItem("AnnotationBlockVisible", "true");
-				}
-				
+			if ($('.container-annotation-switch').is(':visible')) {
+				storeUserSetting("AnnotationBlockVisible", "false");
+			} else {
+				storeUserSetting("AnnotationBlockVisible", "true");
 			}
 
             $('.container-annotation-switch').slideToggle('slow');
@@ -644,21 +561,12 @@ else	{
         $('.languages-btn').click(function (e) {
 			e.preventDefault();
 			
-			if (sessionStorage.getItem("Cookies_ok") == "true") {
-				if ($('.indented-buttons-lang').is(':visible')) {
-					setPermanentCookie("LanguagesButtonsVisible", "false");
-				} else {
-					setPermanentCookie("LanguagesButtonsVisible", "true");
-				}
+			if ($('.indented-buttons-lang').is(':visible')) {
+				storeUserSetting("LanguagesButtonsVisible", "false");
+			} else {
+				storeUserSetting("LanguagesButtonsVisible", "true");
 			}
-			else{
-				if ($('.indented-buttons-lang').is(':visible')) {
-					sessionStorage.setItem("LanguagesButtonsVisible", "false");
-				} else {
-					sessionStorage.setItem("LanguagesButtonsVisible", "true");
-				}
-				
-			}
+
             $('.indented-buttons-lang').slideToggle('slow');
         });
 
@@ -671,12 +579,14 @@ else	{
     $('.cookie-ok').click(function()  {
            $('.cookie-container').addClass('d-none');
 		    sessionStorage.setItem("Cookies_ok", "true");
+			//setSessionCookie("Cookies_ok", "true")
 			$('#cookie-info').html('(Cookies accepted)'); // BUG: immer englisch
             });
 		
     $('.cookie-dismissed').click(function()  {
            $('.cookie-container').addClass('d-none');
 		   sessionStorage.setItem("Cookies_ok", "false");
+			//setSessionCookie("Cookies_ok", "false")
              });
 //$(document).ready(function() {
   //  $("#transliterationHelp").modal();
