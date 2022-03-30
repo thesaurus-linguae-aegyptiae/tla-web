@@ -14,12 +14,7 @@
 	
          <script>
         const saveDropdown = (name, prop) => {
-          if (sessionStorage.getItem("Cookies_ok") == "true") {
-				setPermanentCookie(`form-field-${name}-select-${prop}`, $(`#${name}-${prop}`).val() )
-		  }
-		  else{
-				sessionStorage.setItem(`form-field-${name}-select-${prop}`, $(`#${name}-${prop}`).val());
-			}
+				storeUserSetting(`form-field-${name}-select-${prop}`, $(`#${name}-${prop}`).val() )
         }
       </script>
       <div class="row search my-4">

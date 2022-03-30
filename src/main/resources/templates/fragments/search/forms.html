@@ -95,18 +95,13 @@
             
             <label class="form-check-label" th:for="${#ids.prev('script')}" th:text="#{|dict_${item}|}"/>
             <script>
-//document.getElementById("script1").setAttribute("checked","checked")
-if (sessionStorage.getItem("Cookies_ok") == "true") {
-	if (getCookie("TranscriptionScript")==null) {setPermanentCookie("TranscriptionScript", "hieratic");
-	document.getElementById("script1").setAttribute("checked",true);
-	setPermanentCookie("Mdc","enabled");}
-              }
-else if( sessionStorage.getItem("TranscriptionScript")==null){
-sessionStorage.setItem("TranscriptionScript", "hieratic");
-sessionStorage.setItem("Mdc","enabled");
-document.getElementById("script1").setAttribute("checked",true);
-}
-</script>
+				//document.getElementById("script1").setAttribute("checked","checked")
+				if (getCookie("TranscriptionScript")==null) {
+				storeUserSetting("TranscriptionScript", "hieratic");
+				document.getElementById("script1").setAttribute("checked",true);
+				storeUserSetting("Mdc","enabled");
+				}
+            </script>
 
 
           </div>
@@ -142,19 +137,13 @@ document.getElementById("script1").setAttribute("checked",true);
 							  <label class="form-check-label" for="transcription_enc_mdc" th:text="#{field_value_label_enc_manuel_de_codage}">Manuel de Codage</label>
 						</div>
 					</div>
-			<script>		
-					if (sessionStorage.getItem("Cookies_ok") == "true") {
-						if (getCookie("TranscriptionEncoding")==null) {setPermanentCookie("TranscriptionEncoding", "unicode");
+					<script>		
+						if (getCookie("TranscriptionEncoding")==null) {
+						storeUserSetting("TranscriptionEncoding", "unicode");
 						document.getElementById("transcription_enc_unicode").setAttribute("checked",true);
 						document.getElementById("transcription_enc_mdc").setAttribute("disabled",false);
 						}
-					}
-					else if (sessionStorage.getItem("TranscriptionEncoding")== null){
-						sessionStorage.setItem("TranscriptionEncoding", "unicode");
-						document.getElementById("transcription_enc_unicode").setAttribute("checked",true);
-						document.getElementById("transcription_enc_mdc").setAttribute("disabled",false);
-						}
-	        </script>	          
+					</script>	          
       </div>
       
 
@@ -176,22 +165,14 @@ document.getElementById("script1").setAttribute("checked",true);
 							  <input class="form-check-input transcription-enc-btn" type="radio" name="root_enc" id="root_enc_mdc" value="manuel_de_codage" >
 							  <label class="form-check-label" for="root_enc_mdc" th:text="#{field_value_label_enc_manuel_de_codage}">Manuel de Codage</label>
 						</div>
-				<script>		
-					if (sessionStorage.getItem("Cookies_ok") == "true") {
-						if (getCookie("RootEncoding")==null){setPermanentCookie("RootEncoding", "unicode");
-						
-						
-						document.getElementById("root_enc_unicode").setAttribute("checked",true);
-						document.getElementById("root_enc_mdc").setAttribute("disabled",false);
-						}
-					}
-					else if (sessionStorage.getItem("RootEncoding")==null){
-						sessionStorage.setItem("RootEncoding", "unicode");
-					
-						document.getElementById("root_enc_unicode").setAttribute("checked",true);
-						document.getElementById("root_enc_mdc").setAttribute("disabled",false);
-					}
-	        </script>			
+						<script>		
+							if (getCookie("RootEncoding")==null){
+							storeUserSetting("RootEncoding", "unicode");
+							
+							document.getElementById("root_enc_unicode").setAttribute("checked",true);
+							document.getElementById("root_enc_mdc").setAttribute("disabled",false);
+							}
+						</script>
         </div>
       </div>
 
@@ -305,18 +286,11 @@ document.getElementById("script1").setAttribute("checked",true);
               th:id="|field-value-translation-checkbox-${lang}-${key}|"/>
           <label class="form-check-label" th:for="|field-value-translation-checkbox-${lang}-${key}|"
               th:text="#{|lang_label_${lang}|}">Language</label>
-              <script>
-              if (sessionStorage.getItem("Cookies_ok") == "true") {
-					if (getCookie("TranslationLang")==null) {setPermanentCookie("TranslationLang", "de");
+           <script>
+					if (getCookie("TranslationLang")==null) {
+					storeUserSetting("TranslationLang", "de");
 					 document.getElementById("field-value-translation-checkbox-de-dict").setAttribute("checked",true);					
 					}
-					
-				}
-				else if (sessionStorage.getItem("TranslationLang")== null){
-					sessionStorage.setItem("TranslationLang", "de");
-					document.getElementById("field-value-translation-checkbox-de-dict").setAttribute("checked",true);
-					}
-              
               </script>
         </div>
       </div>
