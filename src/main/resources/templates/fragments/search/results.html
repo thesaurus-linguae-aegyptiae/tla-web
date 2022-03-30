@@ -383,9 +383,8 @@
            let seldate=`.textdate`;
            let seled=`.texteditors`;
           $(`#hide-property-button-switchannotation`).addClass("anno-block-btn");
-           if(sessionStorage.getItem("Cookies_ok") == "true"){
         	  if(name=="hieroglyphs"){
-        		  if(getCookie("corpus-hieroglyphs")=="true"){
+        		  if(getUserSetting("corpus-hieroglyphs")=="true"){
         			  button.children('i#off').toggle();        			
         			  $(selh).toggle();
                    }
@@ -394,7 +393,7 @@
         		  }
         	  }
         	  else if(name=="translation"){
-        		  if(getCookie("corpus-translation")=="true"){
+        		  if(getUserSetting("corpus-translation")=="true"){
         			  button.children('i#off').toggle();        			
         			  $(selectorTR).toggle();     		   		 
         	   		  $(seltrgen).toggle();
@@ -404,7 +403,7 @@
         		  }
         	  }
         	  else if(name=="dating"){
-        		  if(getCookie("corpus-dating")=="true"){
+        		  if(getUserSetting("corpus-dating")=="true"){
         			  button.children('i#off').toggle();        			
         			  $(selectorDate).toggle(); 
         		   		 
@@ -416,7 +415,7 @@
         		  }
         	  }
         	  else if(name=="texteditor"){
-        		  if(getCookie("corpus-texteditor")=="true"){
+        		  if(getUserSetting("corpus-texteditor")=="true"){
         			  button.children('i#off').toggle();        			
         			  $(selectorEditor).toggle(); 
         		   		 
@@ -429,7 +428,7 @@
         	  }
         	
         else if(name=="switchannotation"){
-        		  if(getCookie("AnnotationBlockVisible")=="true"){
+        		  if(getUserSetting("AnnotationBlockVisible")=="true"){
         			  button.children('i#on').toggle();    
         			  $('.sentence-line-mode').hide();
                    }
@@ -439,18 +438,18 @@
         		  }
         }
         else if(name=="switchannotation-wordclass"){
-            		  if(getCookie("WordClassVisible")=="true"){
-            			  button.children('i#off').toggle();        			
-            			  $(selwc).hide(); 
+            		  if(getUserSetting("WordClassVisible")=="true"){
+            			  button.children('i#on').toggle();        			
+            			  $(selwc).show(); 
      	   		
                        }
                      else {
-            			  button.children('i#on').toggle();
-            			  $(selwc).show(); 
+            			  button.children('i#off').toggle();
+            			  $(selwc).hide(); 
             		  }
             	  }
         else if(name=="switchannotation-tlaglossing"){
-  		  if(getCookie("TLAFlexcodeVisible")=="true"){
+  		  if(getUserSetting("TLAFlexcodeVisible")=="true"){
   			  button.children('i#on').toggle();        			
   			  $(selgl).show(); 
   	                  }
@@ -461,7 +460,7 @@
   		  }
   	  }
         else if(name=="switchannotation-linguisticglossing"){
-    		  if(getCookie("LingGlossVisible")=="true"){
+    		  if(getUserSetting("LingGlossVisible")=="true"){
     			  button.children('i#on').toggle();        			
     			  $(selling).show(); 
     	       
@@ -472,7 +471,7 @@
     		  }
     	  } 
         else if(name=="switchannotation-tokentranslation"){
-  		  if(getCookie("TranslVisible")=="true"){
+  		  if(getUserSetting("TranslVisible")=="true"){
   			  button.children('i#on').toggle();        			
   			  $(seltr).show(); 
   	       
@@ -483,7 +482,7 @@
   		  }
   	  } 
         else if(name=="switchannotation-wordtokenid"){
-  		  if(getCookie("WidVisible")=="true"){
+  		  if(getUserSetting("WidVisible")=="true"){
   			  button.children('i#on').toggle();        			
   			  $(selid).show();   	       
              }
@@ -493,122 +492,6 @@
   		  }
   	  } 
           	  
-}
-           else{
-        	   
-        	   if(name=="hieroglyphs"){
-         		  if(sessionStorage.getItem("corpus-hieroglyphs")=="true"){
-         			  button.children('i#off').toggle();        			
-         			  $(selh).toggle();
-                    }
-         		  else {
-         			  button.children('i#on').toggle();        			 
-         		  }
-         	  }
-         	  else if(name=="translation"){
-         		  if(sessionStorage.getItem("corpus-translation")=="true"){
-         			  button.children('i#off').toggle();        			
-         			  $(selectorTR).toggle();     		   		 
-         	   		  $(seltrgen).toggle();
-                    }
-                  else {
-         			  button.children('i#on').toggle();        			 
-         		  }
-         	  }
-         	  else if(name=="dating"){
-         		  if(sessionStorage.getItem("corpus-dating")=="true"){
-         			  button.children('i#off').toggle();        			
-         			  $(selectorDate).toggle(); 
-         		   		 
-         	   		  $(seldate).toggle();
-                    }
-                  else {
-         			  button.children('i#on').toggle();
-         			 
-         		  }
-         	  }
-         	  else if(name=="texteditor"){
-         		  if(sessionStorage.getItem("corpus-texteditor")=="true"){
-         			  button.children('i#off').toggle();        			
-         			  $(selectorEditor).toggle(); 
-         		   		 
-         	   		  $(seled).toggle();
-                    }
-                  else {
-         			  button.children('i#on').toggle();
-         			 
-         		  }
-         	  }
-         	
-         else if(name=="switchannotation"){
-         		  if(sessionStorage.getItem("AnnotationBlockVisible")=="true"){
-         			  button.children('i#on').toggle();    
-         			  $('.sentence-line-mode').hide();
-                    }
-                  else {
-                 	 $('.sentence-line-mode').show();
-         			  button.children('i#off').toggle();
-         		  }
-         }
-         else if(name=="switchannotation-wordclass"){
-             		  if(sessionStorage.getItem("WordClassVisible")=="true"){
-             			  button.children('i#off').toggle();        			
-             			  $(selwc).hide(); 
-      	   		
-                        }
-                      else {
-             			  button.children('i#on').toggle();
-             			  $(selwc).show(); 
-             		  }
-             	  }
-         else if(name=="switchannotation-tlaglossing"){
-   		  if(sessionStorage.getItem("TLAFlexcodeVisible")=="true"){
-   			  button.children('i#on').toggle();        			
-   			  $(selgl).show(); 
-   	                  }
-            else {
-   			  button.children('i#off').toggle();
-   			  $(selgl).hide(); 
-   			 
-   		  }
-   	  }
-         else if(name=="switchannotation-linguisticglossing"){
-     		  if(sessionStorage.getItem("LingGlossVisible")=="true"){
-     			  button.children('i#on').toggle();        			
-     			  $(selling).show(); 
-     	       
-                }
-              else {
-     			  button.children('i#off').toggle();
-     			  $(selling).hide(); 		 
-     		  }
-     	  } 
-         else if(name=="switchannotation-tokentranslation"){
-   		  if(sessionStorage.getItem("TranslVisible")=="true"){
-   			  button.children('i#on').toggle();        			
-   			  $(seltr).show(); 
-   	       
-              }
-            else {
-   			  button.children('i#off').toggle();
-   			  $(seltr).hide(); 
-   		  }
-   	  } 
-         else if(name=="switchannotation-wordtokenid"){
-   		  if(sessionStorage.getItem("WidVisible")=="true"){
-   			  button.children('i#on').toggle();        			
-   			  $(selid).show();   	       
-              }
-            else {
-   			  button.children('i#off').toggle();
-   			  $(selid).hide(); 
-   		  }
-   	  } 
-        	   
-        	   
-        	   
-           }        
-     
            button.click(() => {
          if(name=="hieroglyphs"){   
         	  $(selh).fadeToggle('slow'); 
@@ -654,13 +537,13 @@
       	
    		  button.children('svg').toggle();
    	
-    	  storeUserSetting("WordClassVisible",""+ button.children('svg#off').attr('style') == 'display: none;');
+    	  storeUserSetting("WordClassVisible",""+ button.children('svg#on').attr('style') == 'display: none;');
       }
          if(name=="switchannotation"){   
     		  button.children('svg').toggle();
     		  $('.sentence-line-mode').toggle();
 
-/*   		  storeUserSetting("AnnotationBlockVisible",""+ button.children('svg#off').attr('style') == 'display: none;');*/
+/*   		  storeUserSetting("AnnotationBlockVisible",""+ button.children('svg#on').attr('style') == 'display: none;');*/
 
          }
          
@@ -764,26 +647,15 @@
 
    if(name!="hieroglyphs") {
 	  
-	  if (sessionStorage.getItem("Cookies_ok") == "true") {  
-       if ((getCookie(`${objectType}-results-hide1Lemma-property-${name}`) != 'true')) {
+       if ((getUserSetting(`${objectType}-results-hide1Lemma-property-${name}`) != 'true')) {
 	  
 	 // if (getCookie(`${name}`) == 'true') {
            button.children('i').toggle();
          $(selector).toggle();
         }
-    }
-       else  {  
-           if ((sessionStorage.getItem(`${objectType}-results-hide1Lemma-property-${name}`) != 'true')) {
-         	  
-          	 // if (getCookie(`${name}`) == 'true') {
-                        button.children('i').toggle();
-                       $(selector).toggle();
-                     }
-                 }  
 	  }    
    else{
- 	  if (sessionStorage.getItem("Cookies_ok") == "true") {  
-	    if ((getCookie(`${objectType}-results-hide1Lemma-property-${name}`) != 'false')) {
+	    if ((getUserSetting(`${objectType}-results-hide1Lemma-property-${name}`) != 'false')) {
  	  
   	 // if (getCookie(`${name}`) == 'true') {
       button.children('i').toggle();
@@ -791,17 +663,6 @@
           $(selector).toggle();
       
     }
-	    }
-	    else{
-	    	if ((sessionStorage.getItem(`${objectType}-results-hide1Lemma-property-${name}`) != 'false')) {
-       	  
-         	 // if (getCookie(`${name}`) == 'true') {
-             button.children('i').toggle();
-             
-                 $(selector).toggle();
-             
-           }
-	    }
 }
 
                 	  
@@ -878,22 +739,12 @@
              button.children('i#on').toggle(); 
              //$(selector).toggle();
 
-                	  if (sessionStorage.getItem("Cookies_ok") == "true") {  
-                	  if ((getCookie(`${objectType}-results-hide2Lemma-property-${name}`) != 'true')){
+                	  if ((getUserSetting(`${objectType}-results-hide2Lemma-property-${name}`) != 'true')){
                     	  
                      	 // if (getCookie(`${name}`) == 'true') {
                          button.children('i').toggle();
                         $(selector).toggle();
                        }
-                	  }
-                	  else{
-                		  if ((sessionStorage.getItem(`${objectType}-results-hide2Lemma-property-${name}`) != 'true')){
-                        	  
-                          	 // if (getCookie(`${name}`) == 'true') {
-                              button.children('i').toggle();
-                             $(selector).toggle();
-                            } 
-                	  }
              
               button.click(() => {
                 $(selector).fadeToggle('slow');
@@ -985,41 +836,20 @@
               
              // else {button.children('i#off').toggle(); $(selector1).toggle(); $(selector).toggle();}
               if(name!="de") {
-            	  
-            	  if (sessionStorage.getItem("Cookies_ok") == "true") {  
-                      if ((getCookie(`${objectType}-results-show-property-${name}`) != 'true')) {
+                       if ((getUserSetting(`${objectType}-results-show-property-${name}`) != 'true')) {
             	  
             	 // if (getCookie(`${name}`) == 'true') {
                           button.children('i').toggle();
                          $(selector1).toggle();$(selector).toggle();
                        }
-                   }
-                      else  {  
-                          if ((sessionStorage.getItem(`${objectType}-results-show-property-${name}`) != 'true')) {
-                        	  
-                         	 // if (getCookie(`${name}`) == 'true') {
-                                       button.children('i').toggle();
-                                      $(selector1).toggle();$(selector).toggle();
-                                    }
-                                }  
             	  }    
                   else{
-                	  if (sessionStorage.getItem("Cookies_ok") == "true") {  
-            	    if ((getCookie(`${objectType}-results-show-property-${name}`) != 'false')) {
+            	    if ((getUserSetting(`${objectType}-results-show-property-${name}`) != 'false')) {
                 	  
                  	 // if (getCookie(`${name}`) == 'true') {
                      button.children('i').toggle();
                      $(selector1).toggle();$(selector).toggle();
                    }
-            	    }
-            	    else{
-            	    	if ((sessionStorage.getItem(`${objectType}-results-show-property-${name}`) != 'false')) {
-                      	  
-                        	 // if (getCookie(`${name}`) == 'true') {
-                            button.children('i').toggle();
-                            $(selector1).toggle();$(selector).toggle();
-                          }
-            	    }
               }
               
            

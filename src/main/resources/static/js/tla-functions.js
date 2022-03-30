@@ -4,7 +4,7 @@ const copyStringToClipboard = (str) => {
     navigator.clipboard.writeText(str)
 }
 
-const getCookie = (name) => Cookies.get(name)
+//const getCookie = (name) => Cookies.get(name)
 
 /*const setSessionCookie = (name, value) => {
         let params = { 'samesite': 'Strict' }
@@ -20,10 +20,20 @@ const getCookie = (name) => Cookies.get(name)
 
 const storeUserSetting = (name, value) => {
 		if (sessionStorage.getItem("Cookies_ok") == "true") {
-			let params = { 'expires': 365, 'samesite': 'Strict' }
-			Cookies.set(name, value, params)
+			let params = { 'expires': 365, 'samesite': 'Strict' };
+			Cookies.set(name, value, params);
 		}
 		sessionStorage.setItem(name, value);
+}
+
+const getUserSetting = (name) => {
+		var value = sessionStorage.getItem(name);
+		
+		if (value == null) {
+			value = Cookies.get(name);
+		}
+		
+		return value;
 }
 
 function init() {	
@@ -112,33 +122,24 @@ function init() {
 				
 	}
        });	
- 
-if (sessionStorage.getItem("Cookies_ok") == "true") {
- if ((getCookie("TranscriptionScript") == "demotic")){
- $('#script2').prop("checked",true);
-}
- if ((getCookie("TranscriptionScript") == "hieratic")){
- $('#script1').prop("checked",true);
-}
- if ((getCookie("TranscriptionScript") == "hieratic+demotic")){
- $('#script2').prop("checked",true); $('#script1').prop("checked",true);
-}
 
-}
-else{
-	 if ((sessionStorage.getItem("TranscriptionScript") == "demotic")){
- $('#script2').prop("checked",true);
-}
- if ((sessionStorage.getItem("TranscriptionScript") == "hieratic")){
- $('#script1').prop("checked",true);
-}
- if ((sessionStorage.getItem("TranscriptionScript") == "hieratic+demotic")){
- $('#script2').prop("checked",true); $('#script1').prop("checked",true);
-}
-	
-}
 
-/*if ((getCookie("TranscriptionEncoding") == "unicode") ||(getCookie("TranscriptionEncoding") == null)){
+	switch(getUserSetting("TranscriptionScript")) {
+		case "hieratic+demotic":
+			$('#script1').prop("checked",true);
+			$('#script2').prop("checked",true); 
+			break;
+		case "demotic":
+			$('#script1').prop("checked",false);
+			$('#script2').prop("checked",true);
+			break;
+		case "hieratic":
+		default:
+			$('#script1').prop("checked",true);
+			$('#script2').prop("checked",false); 
+	}
+
+	/*if ((getCookie("TranscriptionEncoding") == "unicode") ||(getCookie("TranscriptionEncoding") == null)){
 			$('#transcription_enc_unicode').prop("checked", true);
 			$('#root_enc_unicode').prop("checked", true);
 			
@@ -149,11 +150,10 @@ else{
 	// Search form settings		  
 //document.getElementById("transcription_enc_unicode").setAttribute("checked",true);
 	// encoding radios
-	if(sessionStorage.getItem("Cookies_ok") == "true"){
-		if ((getCookie("TranscriptionEncoding") == "unicode") ){
+		if ((getUserSetting("TranscriptionEncoding") == "unicode") ){
 			$('#transcription_enc_unicode').prop("checked", true);
 			$('#root_enc_unicode').prop("checked", true);
-			if ((getCookie("Mdc") == "enabled") ){
+			if ((getUserSetting("Mdc") == "enabled") ){
 				$('#transcription_enc_mdc').prop("disabled", false);
 			    $('#root_enc_mdc').prop("disabled", false);
 			}
@@ -166,25 +166,6 @@ else{
 			$('#transcription_enc_mdc').prop("checked", true);
 			$('#root_enc_mdc').prop("checked", true);
 			}
-	}
-	else{
-		if ((sessionStorage.getItem("TranscriptionEncoding") == "unicode") ){
-			$('#transcription_enc_unicode').prop("checked", true);
-			$('#root_enc_unicode').prop("checked", true);
-			if ((sessionStorage.getItem("Mdc") == "enabled") ){
-				$('#transcription_enc_mdc').prop("disabled", false);
-			    $('#root_enc_mdc').prop("disabled", false);
-			}
-			else{
-				$('#transcription_enc_unicode').prop("disabled", true);
-			    $('#root_enc_unicode').prop("disabled", true);
-			}	
-		}
-		else {
-			$('#transcription_enc_mdc').prop("checked", true);
-			$('#root_enc_mdc').prop("checked", true);
-			}
-	}		
 
         $('#transcription_enc_unicode').click(function () {
 				storeUserSetting("TranscriptionEncoding", "unicode");
@@ -237,23 +218,17 @@ else{
 			
         });	
 
-if(sessionStorage.getItem("Cookies_ok") == "true"){
-		if ((getCookie("TranslationLang") == "de") )
+	switch(getUserSetting("TranslationLang")) {
+		case "en":
+			$('#field-value-translation-checkbox-en-dict').prop("checked", true);	
+			break;
+		case "fr":
+			$('#field-value-translation-checkbox-fr-dict').prop("checked", true);
+			break;
+		case "de":
+		default:
 			$('#field-value-translation-checkbox-de-dict').prop("checked", true);
-		else if ((getCookie("TranslationLang") == "en") )
-			$('#field-value-translation-checkbox-en-dict').prop("checked", true);	
-		else if ((getCookie("TranslationLang") == "fr") )
-			$('#field-value-translation-checkbox-fr-dict').prop("checked", true);
-}
-else	{
-	
-	if ((sessionStorage.getItem("TranslationLang") == "de") )
-			$('#ield-value-translation-checkbox-de-dict').prop("checked", true);
-		else if ((getCookie("TranslationLang") == "en") )
-			$('#field-value-translation-checkbox-en-dict').prop("checked", true);	
-		else if ((getCookie("TranslationLang") == "fr") )
-			$('#field-value-translation-checkbox-fr-dict').prop("checked", true);
-}			
+	}
 		
 	// Show/Hide - Buttons
     
@@ -428,8 +403,7 @@ else	{
 
        
     // .anno-block-btn
-		if (sessionStorage.getItem("Cookies_ok") == "true") {
-			if (getCookie("AnnotationBlockVisible") == "true") {
+			if (getUserSetting("AnnotationBlockVisible") == "true") {
 				//$('i', '.anno-block-btn').addClass("fa-minus-circle")
 				$('.container-annotation-switch').show();
 				$('.sentence-line-mode').hide();
@@ -443,18 +417,7 @@ else	{
 				//$('.container-annotation-switch-lines').show();
 				$('.indented-buttons-annotation').hide();
 				}
-		} else{ if (sessionStorage.getItem("AnnotationBlockVisible") == "true") {
-				$('.container-annotation-switch').show();
-				$('.sentence-line-mode').hide();
-				$('.indented-buttons-annotation').show();
-			}
-		else {
-				$('.container-annotation-switch').hide();
-				$('.sentence-line-mode').show();
-				$('.indented-buttons-annotation').hide();
-			}
-			
-		}
+
 
 		$('html').not('.anno-block-btn').click(function (e) {
 		 if ($('.container-annotation-switch').is(':visible') && !e.target == '.container-annotation-switch') {
@@ -536,22 +499,12 @@ else	{
 		
 		
 		//translation collapse
-		if (sessionStorage.getItem("Cookies_ok") == "true") {
-			if (getCookie("LanguagesButtonsVisible") == "true") {
+			if (getUserSetting("LanguagesButtonsVisible") == "true") {
 			$('.indented-buttons-lang').show();
 			}
 		else {
 			$('.indented-buttons-lang').hide();
 			}
-			}
-		else{ if (sessionStorage.getItem("LanguagesButtonsVisible") == "true") {
-			$('.indented-buttons-lang').show();
-			}
-		else {
-			$('.indented-buttons-lang').hide();
-			}
-			
-		}	
 
         $('html').not('.languages-btn').click(function (e) {
 		 if ($('.indented-buttons-lang').is(':visible') && !e.target == '.indented-buttons-lang') {
@@ -579,14 +532,12 @@ else	{
     $('.cookie-ok').click(function()  {
            $('.cookie-container').addClass('d-none');
 		    sessionStorage.setItem("Cookies_ok", "true");
-			//setSessionCookie("Cookies_ok", "true")
 			$('#cookie-info').html('(Cookies accepted)'); // BUG: immer englisch
             });
 		
     $('.cookie-dismissed').click(function()  {
            $('.cookie-container').addClass('d-none');
 		   sessionStorage.setItem("Cookies_ok", "false");
-			//setSessionCookie("Cookies_ok", "false")
              });
 //$(document).ready(function() {
   //  $("#transliterationHelp").modal();

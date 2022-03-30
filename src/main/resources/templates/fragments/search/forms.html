@@ -96,7 +96,7 @@
             <label class="form-check-label" th:for="${#ids.prev('script')}" th:text="#{|dict_${item}|}"/>
             <script>
 				//document.getElementById("script1").setAttribute("checked","checked")
-				if (getCookie("TranscriptionScript")==null) {
+				if (getUserSetting("TranscriptionScript")==null) {
 				storeUserSetting("TranscriptionScript", "hieratic");
 				document.getElementById("script1").setAttribute("checked",true);
 				storeUserSetting("Mdc","enabled");
@@ -138,7 +138,7 @@
 						</div>
 					</div>
 					<script>		
-						if (getCookie("TranscriptionEncoding")==null) {
+						if (getUserSetting("TranscriptionEncoding")==null) {
 						storeUserSetting("TranscriptionEncoding", "unicode");
 						document.getElementById("transcription_enc_unicode").setAttribute("checked",true);
 						document.getElementById("transcription_enc_mdc").setAttribute("disabled",false);
@@ -166,7 +166,7 @@
 							  <label class="form-check-label" for="root_enc_mdc" th:text="#{field_value_label_enc_manuel_de_codage}">Manuel de Codage</label>
 						</div>
 						<script>		
-							if (getCookie("RootEncoding")==null){
+							if (getUserSetting("RootEncoding")==null){
 							storeUserSetting("RootEncoding", "unicode");
 							
 							document.getElementById("root_enc_unicode").setAttribute("checked",true);
@@ -287,7 +287,7 @@
           <label class="form-check-label" th:for="|field-value-translation-checkbox-${lang}-${key}|"
               th:text="#{|lang_label_${lang}|}">Language</label>
            <script>
-					if (getCookie("TranslationLang")==null) {
+					if (getUserSetting("TranslationLang")==null) {
 					storeUserSetting("TranslationLang", "de");
 					 document.getElementById("field-value-translation-checkbox-de-dict").setAttribute("checked",true);					
 					}
@@ -307,143 +307,72 @@
            
          </option>
          <script>
-    if(sessionStorage.getItem("Cookies_ok") == "true"){
-     if(getCookie("form-field-wordClass-select-type")==null){
+     if(getUserSetting("form-field-wordClass-select-type")==null){
      		document.getElementById("wordClass-type").selectedIndex=1;
      				
      }
-     else  if(getCookie("form-field-wordClass-select-type")== "excl_namestitlesepithets"){
+     else  if(getUserSetting("form-field-wordClass-select-type")== "excl_namestitlesepithets"){
         		document.getElementById("wordClass-type").selectedIndex=2;
         				
         }	
-        else  if(getCookie("form-field-wordClass-select-type")== "excl_names"){
+        else  if(getUserSetting("form-field-wordClass-select-type")== "excl_names"){
         		document.getElementById("wordClass-type").selectedIndex=1;
         				
         }	
-        else  if(getCookie("form-field-wordClass-select-type")== "adjective"){
+        else  if(getUserSetting("form-field-wordClass-select-type")== "adjective"){
     		document.getElementById("wordClass-type").selectedIndex=3;
     				
         }	
-        else  if(getCookie("form-field-wordClass-select-type")== "adverb"){
+        else  if(getUserSetting("form-field-wordClass-select-type")== "adverb"){
     		document.getElementById("wordClass-type").selectedIndex=4;
     				
     }	
-        else  if(getCookie("form-field-wordClass-select-type")== "entity_name"){
+        else  if(getUserSetting("form-field-wordClass-select-type")== "entity_name"){
     		document.getElementById("wordClass-type").selectedIndex=5;
     				
     }	
-        else  if(getCookie("form-field-wordClass-select-type")== "interjection"){
+        else  if(getUserSetting("form-field-wordClass-select-type")== "interjection"){
     		document.getElementById("wordClass-type").selectedIndex=6;
     				
     }	
-        else  if(getCookie("form-field-wordClass-select-type")== "substantive"){
+        else  if(getUserSetting("form-field-wordClass-select-type")== "substantive"){
     		document.getElementById("wordClass-type").selectedIndex=7;
     				
     }	
-        else  if(getCookie("form-field-wordClass-select-type")== "numeral"){
+        else  if(getUserSetting("form-field-wordClass-select-type")== "numeral"){
     		document.getElementById("wordClass-type").selectedIndex=8;
     				
     }
-        else  if(getCookie("form-field-wordClass-select-type")== "particle"){
+        else  if(getUserSetting("form-field-wordClass-select-type")== "particle"){
     		document.getElementById("wordClass-type").selectedIndex=9;
     				
     }
-        else  if(getCookie("form-field-wordClass-select-type")== "preposition"){
+        else  if(getUserSetting("form-field-wordClass-select-type")== "preposition"){
     		document.getElementById("wordClass-type").selectedIndex=10;
     				
     }	
-        else  if(getCookie("form-field-wordClass-select-type")== "pronoun"){
+        else  if(getUserSetting("form-field-wordClass-select-type")== "pronoun"){
     		document.getElementById("wordClass-type").selectedIndex=11;
     				
     }
-        else  if(getCookie("form-field-wordClass-select-type")== "root"){
+        else  if(getUserSetting("form-field-wordClass-select-type")== "root"){
     		document.getElementById("wordClass-type").selectedIndex=12;
     				
     }
-        else  if(getCookie("form-field-wordClass-select-type")== "epitheton_title"){
+        else  if(getUserSetting("form-field-wordClass-select-type")== "epitheton_title"){
     		document.getElementById("wordClass-type").selectedIndex=13;
     				
     }
-        else  if(getCookie("form-field-wordClass-select-type")== "verb"){
+        else  if(getUserSetting("form-field-wordClass-select-type")== "verb"){
     		document.getElementById("wordClass-type").selectedIndex=14;
     				
     }	
-        else  if(getCookie("form-field-wordClass-select-type")== "undefined"){
+        else  if(getUserSetting("form-field-wordClass-select-type")== "undefined"){
     		document.getElementById("wordClass-type").selectedIndex=15;
     				
     }
         
         else document.getElementById("wordClass-type").selectedIndex=0;
-    }
-    else{
-    	if(sessionStorage.getItem("form-field-wordClass-select-type")==null){
-     		document.getElementById("wordClass-type").selectedIndex=1;
-     				
-     }
-     else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "excl_namestitlesepithets"){
-        		document.getElementById("wordClass-type").selectedIndex=2;
-        				
-        }	
-        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "excl_names"){
-        		document.getElementById("wordClass-type").selectedIndex=1;
-        				
-        }	
-        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "adjective"){
-    		document.getElementById("wordClass-type").selectedIndex=3;
-    				
-        }	
-        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "adverb"){
-    		document.getElementById("wordClass-type").selectedIndex=4;
-    				
-    }	
-        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "entity_name"){
-    		document.getElementById("wordClass-type").selectedIndex=5;
-    				
-    }	
-        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "interjection"){
-    		document.getElementById("wordClass-type").selectedIndex=6;
-    				
-    }	
-        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "substantive"){
-    		document.getElementById("wordClass-type").selectedIndex=7;
-    				
-    }	
-        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "numeral"){
-    		document.getElementById("wordClass-type").selectedIndex=8;
-    				
-    }
-        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "particle"){
-    		document.getElementById("wordClass-type").selectedIndex=9;
-    				
-    }
-        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "preposition"){
-    		document.getElementById("wordClass-type").selectedIndex=10;
-    				
-    }	
-        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "pronoun"){
-    		document.getElementById("wordClass-type").selectedIndex=11;
-    				
-    }
-        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "root"){
-    		document.getElementById("wordClass-type").selectedIndex=12;
-    				
-    }
-        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "epitheton_title"){
-    		document.getElementById("wordClass-type").selectedIndex=13;
-    				
-    }
-        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "verb"){
-    		document.getElementById("wordClass-type").selectedIndex=14;
-    				
-    }	
-        else  if(sessionStorage.getItem("form-field-wordClass-select-type")== "undefined"){
-    		document.getElementById("wordClass-type").selectedIndex=15;
-    				
-    }
-        
-        else document.getElementById("wordClass-type").selectedIndex=0;
-    	
-    }
          </script>
           </select>
           <!-- create hidden subtype menu for each type -->
@@ -492,8 +421,8 @@
              
               $(window).on('pageshow', () => {
                 let name = /*[[${name}]]*/ null;
-                let typeValue = $(`#${name}-type > :selected`).val() || getCookie(`form-field-${name}-select-type`);
-                let subtypeValue = $(`#${name}-type-hidden-options-${typeValue} > :selected`).val() || getCookie(`form-field-${name}-select-subtype`);
+                let typeValue = $(`#${name}-type > :selected`).val() || getUserSetting(`form-field-${name}-select-type`);
+                let subtypeValue = $(`#${name}-type-hidden-options-${typeValue} > :selected`).val() || getUserSetting(`form-field-${name}-select-subtype`);
                               if (typeValue) {
                   $(`#${name}-type`).val(typeValue);
                   populateSubTypeDropDown(name);
