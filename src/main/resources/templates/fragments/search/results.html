@@ -91,7 +91,7 @@
 				         <div th:each="token : *{tokens}"  th:id="|block-${token.id}|">
 					         <ul class="annotation-block"  th:classappend="${(#request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }"><!--lässt sich der Parametername auf "id" verkürzen?-->
 							      <th:block th:if="${hasGlyphs}">
-									  <a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank"><div class="occ-list-item-element hieroglyphs">
+									  <a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank" rel="opener"><div class="occ-list-item-element hieroglyphs">
 											<li th:replace="fragments/common :: token-hieroglyphs"/>
 											<hr class="blockline"> 
 									  </div></a>
@@ -100,7 +100,7 @@
 											<hr class="blockline"> 
 									  </div>
 								  </th:block>
-								   <a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank"><div class="occ-list-item-element">
+								   <a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank" rel="opener"><div class="occ-list-item-element">
 								  		<li th:replace="fragments/common :: token-transcription"/>
 								  		<hr class="blockline"> 
 								  </div></a>

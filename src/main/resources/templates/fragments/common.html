@@ -251,7 +251,7 @@
     </div>
 
       <div id="help-button"class="functional-icons" th:fragment="help-button(pagename)">
-        <a class="btn btn-red text-left text-decoration-none solo-icon" role="button" th:href="${'/help/' + pagename}" target="_blank">
+        <a class="btn btn-red text-left text-decoration-none solo-icon" role="button" th:href="${'/help/' + pagename}" target="_blank" rel="opener">
           <span class="mr-1 text-to-be-revised" th:text="#{page-help-button}">Page help</span>
           <i class="fas fa-info-circle"></i></a>
       </div>
@@ -298,7 +298,7 @@
 
     <!-- sentence hieroglyphs -->
     <div th:fragment="sentence-hieroglyphs" class="result-list-item-element hieroglyphs">
-      <a th:each="token : *{tokens}" th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,token.lemma.id)).build()}" th:id="|hieroglyphs-${token.id}|" th:class="${(#request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }">
+      <a th:each="token : *{tokens}" th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,token.lemma.id)).build()}" th:id="|hieroglyphs-${token.id}|" th:class="${(#request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }" target="_blank" rel="opener">
         <div th:replace=" :: token-hieroglyphs"/>
       </a>
     </div>
@@ -310,7 +310,7 @@
 		  <a  th:if="${token.lemma.id}" th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,token.lemma.id)).build()}"
              th:text="${token.label}"
              th:class="|sentence-token token-${token.type}|"
-             th:classappend="${token.rubrum} ? rubrum" />
+             th:classappend="${token.rubrum} ? rubrum" target="_blank" rel="opener"/>
 			 <span th:unless="${token.lemma.id}" th:text="${token.label}" th:class="|sentence-token token-${token.type}|"/>
 		</span>
       </p>
