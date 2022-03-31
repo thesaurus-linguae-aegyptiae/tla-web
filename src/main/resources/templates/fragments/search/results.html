@@ -74,11 +74,12 @@
       <!-- SENTENCE search result -->
 
       <div th:fragment="sentence-search-result" class="result-list-item" th:object="${obj}" th:with="hasGlyphs=*{hasGlyphs}">
+
       <!-- Block view -->
         <div class="occ-list-item mt-3 pt-1 pb-1" >
           <div class="sentence-line-mode">
             <th:block th:if="${hasGlyphs}">
-               <div th:replace="fragments/common :: sentence-hieroglyphs"/>
+              <div th:replace="fragments/common :: sentence-hieroglyphs"/>
             </th:block>
             <div th:replace="fragments/common :: sentence-transcription"/>
           </div>
@@ -89,7 +90,8 @@
           <div class="container-annotation-switch">
             <div class="container-annotation">
 				         <div th:each="token : *{tokens}"  th:id="|block-${token.id}|">
-					         <ul class="annotation-block"  th:classappend="${(#request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }"><!--lässt sich der Parametername auf "id" verkürzen?-->
+								<!--Bug: ul/li-Struktur ungültig-->
+					         <ul class="annotation-block"  th:classappend="${(#request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }">
 							      <th:block th:if="${hasGlyphs}">
 									  <a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank" rel="opener"><div class="occ-list-item-element hieroglyphs">
 											<li th:replace="fragments/common :: token-hieroglyphs"/>
@@ -127,7 +129,7 @@
 								  <div class="occ-list-item-element">
 								  		<li th:replace="fragments/common :: token-word-id"/>
 								  		<hr class="blockline bid">  
-								  </div>						      
+								  </div>
 						    </ul>
 			         	</div>
 		            </div>
@@ -158,9 +160,15 @@
                  
                    
 		</div>
+
+		<div class="occ-list-item-element">
+	      	<div th:replace="fragments/common :: variants-info"/>
+		</div>
+		
 		<div class="occ-list-item-element">
 	      	<div th:replace="fragments/common :: sentence-dating"/>
 		</div>
+		
 		<div class="occ-list-item-element">
 				<div th:replace="fragments/common :: sentence-editor"/>	
 		</div>             
