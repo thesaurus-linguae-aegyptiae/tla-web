@@ -79,8 +79,8 @@ search:
             wordClass: []
         
         hideable2-lemma-properties:  
-            bibliography: []
             attested-timespan: []   
+            bibliography: []
            
         showable-properties:
              de: []
