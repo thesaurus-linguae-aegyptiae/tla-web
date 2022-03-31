@@ -74,11 +74,12 @@
       <!-- SENTENCE search result -->
 
       <div th:fragment="sentence-search-result" class="result-list-item" th:object="${obj}" th:with="hasGlyphs=*{hasGlyphs}">
+
       <!-- Block view -->
         <div class="occ-list-item mt-3 pt-1 pb-1" >
           <div class="sentence-line-mode">
             <th:block th:if="${hasGlyphs}">
-               <div th:replace="fragments/common :: sentence-hieroglyphs"/>
+              <div th:replace="fragments/common :: sentence-hieroglyphs"/>
             </th:block>
             <div th:replace="fragments/common :: sentence-transcription"/>
           </div>
@@ -128,7 +129,7 @@
 								  <div class="occ-list-item-element">
 								  		<li th:replace="fragments/common :: token-word-id"/>
 								  		<hr class="blockline bid">  
-								  </div>						      
+								  </div>
 						    </ul>
 			         	</div>
 		            </div>
@@ -159,9 +160,15 @@
                  
                    
 		</div>
+
+		<div class="occ-list-item-element">
+	      	<div th:replace="fragments/common :: variants-info"/>
+		</div>
+		
 		<div class="occ-list-item-element">
 	      	<div th:replace="fragments/common :: sentence-dating"/>
 		</div>
+		
 		<div class="occ-list-item-element">
 				<div th:replace="fragments/common :: sentence-editor"/>	
 		</div>             

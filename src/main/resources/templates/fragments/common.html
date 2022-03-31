@@ -399,6 +399,13 @@
    </th:block>
     
     
+    <!-- variants information dating -->
+    <div th:fragment="variants-info" class="result-list-item-element" th:object="${obj}" th:with="vars =${obj.getContext().getVariants()}">
+		<th:block th:if="${vars > 1}">
+			(<span th:text="#{sentence_variants1}"></span> <strong th:text="${obj.getContext().getVariants()}"></strong> <strong th:text="#{sentence_variants2}"></strong>.)
+		</th:block>
+    </div>
+    
     <!-- sentence dating -->
     <div th:fragment="sentence-dating" class="result-list-item-element textdate">
 		<th:block th:if="*{getText}">
