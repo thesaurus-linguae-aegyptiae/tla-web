@@ -446,7 +446,7 @@
         		  }
         }
         else if(name=="switchannotation-wordclass"){
-            		  if(getUserSetting("WordClassVisible")=="true"){
+            		  if(getUserSetting("WordClassVisible") != "false"){
             			  button.children('i#on').toggle();        			
             			  $(selwc).show(); 
      	   		
@@ -457,7 +457,7 @@
             		  }
             	  }
         else if(name=="switchannotation-tlaglossing"){
-  		  if(getUserSetting("TLAFlexcodeVisible")=="true"){
+  		  if(getUserSetting("TLAFlexcodeVisible") != "false"){
   			  button.children('i#on').toggle();        			
   			  $(selgl).show(); 
   	                  }
@@ -468,7 +468,7 @@
   		  }
   	  }
         else if(name=="switchannotation-linguisticglossing"){
-    		  if(getUserSetting("LingGlossVisible")=="true"){
+    		  if(getUserSetting("LingGlossVisible") != "false"){
     			  button.children('i#on').toggle();        			
     			  $(selling).show(); 
     	       
@@ -479,7 +479,7 @@
     		  }
     	  } 
         else if(name=="switchannotation-tokentranslation"){
-  		  if(getUserSetting("TranslVisible")=="true"){
+  		  if(getUserSetting("TranslVisible") != "false"){
   			  button.children('i#on').toggle();        			
   			  $(seltr).show(); 
   	       
