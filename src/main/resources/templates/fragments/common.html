@@ -283,9 +283,7 @@
         <div th:each="item, iter : ${objectPath}" class="object-path-element">
           <i th:class="|object-path-icon ${item.eclass} ${item.type}|"></i>
           <!--<a th:if="${item.href} != null" th:href="${item.href}">  ## landing page not yet implemented-->
-            <span th:utext="${{item.label}}">
-              corpus path segment
-            </span>
+            <span th:utext="${{item.label}}">corpus path segment</span>
           <!--</a>-->
         </div>
       </div>
@@ -387,32 +385,25 @@
     <th:block th:fragment="token-word-id">
      <span th:if="${token.id !=null}" 
              class="word-id bid">
-                 <button type="button" th:id="'button_' + ${token.id}" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" th:onclick="" >
-                 <span class="fas fa-clipboard"></span>
-                 <span th:text="#{button_copy_wordtokenID}">Copy token ID</span> </button>  
-                 
-                    
-     </span>  
-   
-                 
-     <span th:if="${token.id ==null}" th:text="'&nbsp;'"
-             class="word-id"/>
-             
-              <script th:inline="javascript">
+           <button type="button" th:id="'button_' + ${token.id}" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" th:onClick="" >
+                 <span class="fas fa-clipboard"></span><span th:text="#{button_copy_wordtokenID}">Copy token ID</span> 
+           </button>  
+			  <script th:inline="javascript">
 					/*<![CDATA[*/
 						var id = /*[[${token.id}]]*/ '0';
-					    document.getElementById("button_"+id).setAttribute( "onClick", "javascript: copyStringToClipboard(id.substring(7,id.length))");
+						document.getElementById("button_"+id).setAttribute( "onClick", "javascript: copyStringToClipboard(id.substring(7,id.length))");
 					/*]]>*/
-		 		</script>  
-    </th:block>
+				</script>  
+      </span>  
+     <span th:if="${token.id ==null}" th:text="'&nbsp;'" class="word-id"/>
+   </th:block>
     
     
     <!-- sentence dating -->
     <div th:fragment="sentence-dating" class="result-list-item-element textdate">
-        <span th:if="*{getText}">
-		 		<span th:utext="#{sentence_date} + ':' " class="textdate text-to-be-revised"/>
-     	  
-     <span/>
+		<th:block th:if="*{getText}">
+			<span th:utext="#{sentence_date} + ':' " class="textdate text-to-be-revised"></span>
+		</th:block>
     </div>
     
        <!-- sentence editor -->

@@ -89,7 +89,8 @@
           <div class="container-annotation-switch">
             <div class="container-annotation">
 				         <div th:each="token : *{tokens}"  th:id="|block-${token.id}|">
-					         <ul class="annotation-block"  th:classappend="${(#request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }"><!--lässt sich der Parametername auf "id" verkürzen?-->
+								<!--Bug: ul/li-Struktur ungültig-->
+					         <ul class="annotation-block"  th:classappend="${(#request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }">
 							      <th:block th:if="${hasGlyphs}">
 									  <a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank" rel="opener"><div class="occ-list-item-element hieroglyphs">
 											<li th:replace="fragments/common :: token-hieroglyphs"/>
