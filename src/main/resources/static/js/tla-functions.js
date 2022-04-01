@@ -19,7 +19,7 @@ const copyStringToClipboard = (str) => {
 }*/
 
 const storeUserSetting = (name, value) => {
-		if (sessionStorage.getItem("Cookies_ok") == "true") {
+		if (cookiesAccepted()) {
 			let params = { 'expires': 365, 'samesite': 'Strict' };
 			Cookies.set(name, value, params);
 		}
@@ -27,13 +27,33 @@ const storeUserSetting = (name, value) => {
 }
 
 const getUserSetting = (name) => {
-		var value = sessionStorage.getItem(name);
-		
-		if (value == null) {
-			value = Cookies.get(name);
+	var value = sessionStorage.getItem(name);
+	
+	if (!value) { // no info in sessionStorage
+		value = Cookies.get(name);
+		if (value) { // however, info in cookie
+			sessionStorage.setItem(name, value);
+			}
+	}
+	return value;
+}
+
+const setCookieAcceptance = (value) => {
+	sessionStorage.setItem('Cookies_ok', value);
+	
+	let params = { 'samesite': 'Strict' }; // keine Angabe zu Dauer: Session-Cookie
+	Cookies.set('Cookies_ok', value, params);
+}
+
+const cookiesAccepted = () => {
+	 var value = sessionStorage.getItem("Cookies_ok");
+	 if (!value) { // no info in sessionStorage
+		value = Cookies.get('Cookies_ok');
+		if (value) { // however, info in cookie
+			sessionStorage.setItem('Cookies_ok', value);
 		}
-		
-		return value;
+	 }
+	 return (value == 'true');
 }
 
 function init() {	
@@ -159,7 +179,7 @@ function init() {
 			}
 			else{
 				$('#transcription_enc_mdc').prop("disabled", true);
-			    $('#root_enc_mdc').prop("disables", true);
+			    $('#root_enc_mdc').prop("disabled", true);
 			}	
 		}
 		else {
@@ -389,7 +409,7 @@ function init() {
 */
 
 	// .combination-search
-		$('html').not('.combination-search').click(function (e) {
+		/*$('html').not('.combination-search').click(function (e) {
 		 if ($('.combination-search').is(':visible') && !e.target == '.combination-search') {
                 $('.combination-search').slideUp('ease-out');
             }
@@ -397,7 +417,7 @@ function init() {
         $('.combination-search-btn').click(function (e) {
 			e.preventDefault();
             $('.combination-search').slideToggle('slow');
-        });	
+        });	*/
     
      // .corpus-path
 
@@ -525,19 +545,19 @@ function init() {
 
     // Cookie Acceptance Banner ausblenden und Info in Footer anzeigen
 
-	  if (sessionStorage.getItem("Cookies_ok")) {
+	  if (cookiesAccepted()) {
 		  $('.cookie-container').addClass('d-none');
 	  }
 	
     $('.cookie-ok').click(function()  {
            $('.cookie-container').addClass('d-none');
-		    sessionStorage.setItem("Cookies_ok", "true");
+			setCookieAcceptance('true');
 			$('#cookie-info').html('(Cookies accepted)'); // BUG: immer englisch
             });
 		
     $('.cookie-dismissed').click(function()  {
            $('.cookie-container').addClass('d-none');
-		   sessionStorage.setItem("Cookies_ok", "false");
+			setCookieAcceptance('false');
              });
 //$(document).ready(function() {
   //  $("#transliterationHelp").modal();
