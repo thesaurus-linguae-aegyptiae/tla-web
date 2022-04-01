@@ -18,9 +18,11 @@ const copyStringToClipboard = (str) => {
         Cookies.set(name, value, params)
 }*/
 
+const COOKIE_LIFETIME = 90;
+
 const storeUserSetting = (name, value) => {
 		if (cookiesAccepted()) {
-			let params = { 'expires': 365, 'samesite': 'Strict' };
+			let params = { 'expires': COOKIE_LIFETIME, 'samesite': 'Strict' };  
 			Cookies.set(name, value, params);
 		}
 		sessionStorage.setItem(name, value);
@@ -41,8 +43,10 @@ const getUserSetting = (name) => {
 const setCookieAcceptance = (value) => {
 	sessionStorage.setItem('Cookies_ok', value);
 	
-	let params = { 'samesite': 'Strict' }; // keine Angabe zu Dauer: Session-Cookie
-	Cookies.set('Cookies_ok', value, params);
+	if (value == 'true') {
+		let params = { 'samesite': 'Strict' }; // no 'expires' param => session cookie
+		Cookies.set('Cookies_ok', value, params);
+	}
 }
 
 const cookiesAccepted = () => {
