@@ -43,13 +43,13 @@ const getUserSetting = (name) => {
 const setCookieAcceptance = (value) => {
 	sessionStorage.setItem('Cookies_ok', value);
 	
-	if (value == 'true') {
+	if (value == 'true') {	
 		let params = { 'samesite': 'Strict' }; // no 'expires' param => session cookie
 		Cookies.set('Cookies_ok', value, params);
 	}
 }
 
-const cookiesAccepted = () => {
+const getCookiesAcceptance = () => {
 	 var value = sessionStorage.getItem("Cookies_ok");
 	 if (!value) { // no info in sessionStorage
 		value = Cookies.get('Cookies_ok');
@@ -57,7 +57,12 @@ const cookiesAccepted = () => {
 			sessionStorage.setItem('Cookies_ok', value);
 		}
 	 }
-	 return (value == 'true');
+	 return value;
+}
+
+
+const cookiesAccepted = () => {
+	 return (getCookiesAcceptance() == 'true');
 }
 
 function init() {	
@@ -547,10 +552,10 @@ function init() {
             $('.indented-buttons-lang').slideToggle('slow');
         });
 
-    // Cookie Acceptance Banner ausblenden und Info in Footer anzeigen
+// Cookie Acceptance Banner ausblenden und Info in Footer anzeigen
 
-	  if (cookiesAccepted()) {
-		  $('.cookie-container').addClass('d-none');
+	  if (!getCookiesAcceptance()) { // if "Cookies_ok" not set ("true" or "false")
+		  $('.cookie-container').removeClass('d-none');
 	  }
 	
     $('.cookie-ok').click(function()  {
