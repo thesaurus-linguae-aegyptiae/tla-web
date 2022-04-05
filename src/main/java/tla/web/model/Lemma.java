@@ -56,11 +56,13 @@ public class Lemma extends BTSObject {
      */
     private AttestedTimespan.Period timespan;
 
+    /**
+     * compute sum of sentence counts across all nested attestation timespans.
+     */
     public Long getAttestationCount() {
-    	//System.out.println("Begin" + timespan.getBegin()+ "end "+ timespan.getEnd());
       return this.attestations.stream().mapToLong(
-            timespan -> timespan.getTotal().getCount()
-        ).sum();
+          timespan -> timespan.getTotal().getSentences()
+      ).sum();
     }
 
     /**
