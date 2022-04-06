@@ -192,7 +192,6 @@
 		 <p th:unless="${obj.attestationCount} > 0">
             <strong th:text="#{lemma_property_attestation_occurrences}" class="details-property-label">Occurrences</strong>: <span th:text="#{lemma_property_no_instances}">none</span>
         </p>		 
-		<div th:if="${obj.attestationCount} > 0" th:include="fragments/widgets/timeline :: timeline"/>
     </div>
 
     <!-- Lemma Attestations timespan -->

@@ -56,13 +56,6 @@ public class LemmaController extends ObjectController<Lemma, LemmaSearch> {
     @Override
     protected Model extendSingleObjectDetailsModel(Model model, ObjectDetails<Lemma> container) {
         model.addAttribute("annotations", lemmaService.extractAnnotations(container));
-        model.addAttribute(
-            "timeline",
-            AttestationTimeline.from(
-                container.getObject().getAttestations()
-            )
-        );
-        
         return model;
     }
 
