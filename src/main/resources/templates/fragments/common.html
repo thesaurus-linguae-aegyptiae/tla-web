@@ -408,9 +408,21 @@
     
     <!-- sentence dating -->
     <div th:fragment="sentence-dating" class="result-list-item-element textdate">
-		<th:block th:if="*{getText}">
-			<span th:utext="#{sentence_date} + ':' " class="textdate text-to-be-revised"></span>
-		</th:block>
+        <span th:if="*{getDate}">
+		 		<span th:utext="#{sentence_date} + ':' " class="textdate text-to-be-revised"/>
+		 		<th:block th:each="date, dateStat : *{getDate}">
+		 		<!--  <a th:href="|${@searchController.getSearchResultsPageRoute(@__thsController__)}?q=${date.id}|">--> 
+              
+            
+                    <span th:utext="${date.named}"/> 
+                  <span th:utext="${date.id}" hidden="true"/> 
+                 <!--   </a>   -->
+       
+       
+     
+                  <span th:unless="${dateStat.last}">&nbsp;&ndash;&nbsp;</span>       
+            </th:block>   	  
+    
     </div>
     
        <!-- sentence editor -->
