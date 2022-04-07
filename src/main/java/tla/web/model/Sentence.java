@@ -1,5 +1,6 @@
 package tla.web.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedMap;
 
@@ -7,10 +8,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Singular;
+import lombok.extern.slf4j.Slf4j;
 import tla.domain.dto.SentenceDto;
 import tla.domain.dto.SentenceDto.SentenceContext;
 import tla.domain.model.EditorInfo;
 import tla.domain.model.Language;
+import tla.domain.model.Passport;
 import tla.domain.model.ObjectPath;
 import tla.domain.model.meta.BTSeClass;
 import tla.domain.model.meta.Hierarchic;
@@ -27,6 +30,7 @@ import tla.web.model.parts.Token;
 @BTSeClass("BTSSentence")
 @TLADTO(SentenceDto.class)
 public class Sentence extends TLAObject implements Hierarchic {
+	public static final String PASSPORT_PROP_DATE = "date.date.date";
 
     private SentenceContext context;
 
@@ -37,6 +41,7 @@ public class Sentence extends TLAObject implements Hierarchic {
     private Transcription transcription;
 
     private Text text;
+    private List<DatePair> datierung;
 
 
     @Singular
@@ -63,6 +68,33 @@ public class Sentence extends TLAObject implements Hierarchic {
         return this.getText() != null ? this.getText().getEdited() : null;
     }
 
+    private static List<DatePair> extractDatierung(Text text) {
+        List<DatePair> datierung = new ArrayList<DatePair>();
+        try {
+        
+          List<Passport> dates =text.getPassport().extractProperty(PASSPORT_PROP_DATE);
+          for(int i=0;i<dates.size();i++) {
+        	  for(int j=0;j<dates.get(i).extractObjectReferences().size();j++) {
+        	 System.out.println("Fields "+ i+ " "+ j+" "+ dates.get(i).extractObjectReferences().get(j).getName());
+        	 
+        	 datierung.add(new DatePair(dates.get(i).extractObjectReferences().get(j).getId(),dates.get(i).extractObjectReferences().get(j).getName()));
+        	  }
+          }
+           // System.out.println("Extracted "+text.getPassport().extractProperty("date.date.date").get(0).getContents());
+        } catch (Exception e) {
+           // log.debug("could not extract date from text {}", text.getId());
+            //System.out.println("could not extract bibliography from text "+  text.getId());
+        }
+        return datierung;
+    }
+    
+  
+    public List<DatePair> getDate() {
+        if (this.datierung == null) {
+            this.datierung = extractDatierung(this.getText());
+        }
+        return this.datierung;
+    }
     @Override
     public List<ObjectPath> getPaths() {
         return this.getText() != null ? this.getText().getPaths() : null;
@@ -71,5 +103,14 @@ public class Sentence extends TLAObject implements Hierarchic {
     public String getID() {
         return this.getId();
     }
-
+    @Getter
+    public static class DatePair {
+    	String id;
+    	String named;
+    	
+    	DatePair(String id, String name){
+    		this.id=id;
+    		this.named=name;
+    	}
+    }
 }
