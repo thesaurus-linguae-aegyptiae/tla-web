@@ -409,7 +409,7 @@
     <!-- sentence dating -->
     <div th:fragment="sentence-dating" class="result-list-item-element textdate">
         <span th:if="*{getDate}">
-		 		<span th:utext="#{sentence_date} + ':' " class="textdate text-to-be-revised"/>
+		 		<span th:utext="#{sentence_date} + ':' " class="textdate"/>
 		 		<th:block th:each="date, dateStat : *{getDate}">
 		 		<!--  <a th:href="|${@searchController.getSearchResultsPageRoute(@__thsController__)}?q=${date.id}|">--> 
               
