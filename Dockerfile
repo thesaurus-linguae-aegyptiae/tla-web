@@ -12,5 +12,5 @@ WORKDIR /app
 
 COPY --from=build /home/gradle/tla-frontend/build/libs/*.jar /app/tla-web-frontend.jar
 
-EXPOSE 8080
+EXPOSE 9000
 ENTRYPOINT ["java", "-jar", "/app/tla-web-frontend.jar"]
