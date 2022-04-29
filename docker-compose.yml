@@ -47,7 +47,7 @@ services:
     frontend:
         container_name: tla-web
         build:
-            context:
+            context: .
         environment:
             - BACKEND_PORT=9000
             - BACKEND_HOST=backend
