@@ -26,7 +26,7 @@ services:
         environment:
             - ES_HOST=es
             - ES_PORT=9201
-            - SAMPLE_URL=http://aaew64.bbaw.de/resources/tla-data/tla-sample-20210115-1000t.tar.gz
+            - SAMPLE_URL=https://sandbox.zenodo.org/record/715217/files/tla-data.tar.gz
         tty: true
         command: "ingest"
 
