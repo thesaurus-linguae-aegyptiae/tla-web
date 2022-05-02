@@ -556,12 +556,15 @@ function init() {
 
 	  if (!getCookiesAcceptance()) { // if "Cookies_ok" not set ("true" or "false")
 		  $('.cookie-container').removeClass('d-none');
+	  } 
+	  if (getCookiesAcceptance() == 'true') {
+		  $('#cookie-info').html('(Cookies o.k.)'); 
 	  }
 	
     $('.cookie-ok').click(function()  {
            $('.cookie-container').addClass('d-none');
 			setCookieAcceptance('true');
-			$('#cookie-info').html('(Cookies accepted)'); // BUG: immer englisch
+			$('#cookie-info').html('(Cookies o.k.)'); 
             });
 		
     $('.cookie-dismissed').click(function()  {

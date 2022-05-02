@@ -812,6 +812,17 @@ footer.bg-light {
     padding-left: .5rem;
 }
 
+.modal-body table,
+.bordered-table table {
+	border-collapse: collapse;
+}
+.modal-body tr,
+.bordered-table tr {
+	vertical-align: top;
+	border-bottom: 1pt solid lightgrey;
+	border-top: 1pt solid lightgrey;
+}
+
 /* Citation */
 .citation {
     padding: 1em;
