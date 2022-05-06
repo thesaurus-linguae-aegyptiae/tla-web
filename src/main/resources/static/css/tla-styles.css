@@ -734,6 +734,10 @@ footer.bg-light {
     height: 60px;
 }
 
+.footer-credits {
+	font-size: 0.85rem;
+}
+
 #cookie-info {
     font-size: 0.9em;
     color: var(--BBAWdarkgrey);
@@ -1233,7 +1237,6 @@ span.multiselect-native-select select {
     #homepage-img {
         width: 100%;
     }
-
 
     .footer-logo {
         margin-top: 2rem;
