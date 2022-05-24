@@ -90,22 +90,22 @@ search:
             excl_names: []
             excl_namestitlesepithets: []
             adjective:
-                - nisbe_adjective_preposition
                 - nisbe_adjective_substantive
+                - nisbe_adjective_preposition
             adverb:
                 - prepositional_adverb
+            substantive:
+                - substantive_fem
+                - substantive_masc
+            interjection: []
             entity_name:
                 - animal_name
-                - artifact_name
                 - gods_name
-                - kings_name
-                - org_name
                 - person_name
+                - kings_name
                 - place_name
-            interjection: []
-            substantive:
-                - substantive_masc
-                - substantive_fem
+                - org_name
+                - artifact_name
             numeral:
                 - cardinal
                 - ordinal
