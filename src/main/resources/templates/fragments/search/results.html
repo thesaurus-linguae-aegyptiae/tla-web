@@ -139,7 +139,9 @@
          <!-- Same for Both views -->
 
         <span class="result-list-item-element translations">
-          <th:block th:each="entry : *{translations}" th:insert="fragments/common :: single-lang-translation(${entry})"/>
+          <th:block th:each="entry : *{translations}"> 
+				<p th:insert="fragments/common :: single-lang-translation(${entry})"/> 			
+		    </th:block>
         </span>
 
         <div class="result-list-item-element paths" th:insert=" :: search-result-object-paths('sentence')"/>
@@ -173,6 +175,7 @@
 
       </div>
      
+	<!-- DOPPELUNG
 	<div th:fragment="sentence-search-result_anno" class="result-list-item" th:object="${obj}">
         <div class="occ-list-item mt-3 pt-1 pb-1">
           <div class="container-annotation-switch">
@@ -238,7 +241,7 @@
 		<div class="occ-list-item-element editors">
 				<div th:replace="fragments/common :: sentence-editor"/>	
 		</div>             
-</div>
+</div>-->
 
 
 
