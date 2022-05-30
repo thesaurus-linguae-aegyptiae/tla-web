@@ -269,7 +269,7 @@
       <span th:each="tr,iter : ${entry.value}" th:class="|tr-${entry.key}|">
          <span class="lang-icon text-uppercase" th:text="${entry.key}">DE</span>
        </span>        
-      <span th:each="translation,iter : ${entry.value}" th:class="translation-any"><!--ALT: th:class="|translation-${entry.key}|"-->
+      <span th:each="translation,iter : ${entry.value}" th:class="|translation-${entry.key}|">
         <span class="translation" th:utext="${{translation}}">
           Translation
         </span>

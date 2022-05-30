@@ -28,9 +28,9 @@
           th:object="${obj}" th:id="|lemma-${obj.id}|">
         <a th:replace="fragments/common :: review-state(${obj})"/>
 
-        <a th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">
          <div>
          <!-- line 1 -->
+          <a th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">
           <span th:if="${obj.type} == 'root'">&radic;</span><h2 class="result-list-item-element transcription bbaw-libertine" th:text="*{name}">nfr</h2>
           <span class="result-list-item-element hieroglyphs" th:if="${obj.hieroglyphs == null}">
           <span th:unless="${obj.type == 'root'}" class="subcorpus" th:text="#{|dict_${obj.dictionaryName}|}">Demotic</span>
@@ -38,12 +38,21 @@
           <span class="result-list-item-element hieroglyphs" th:if="${obj.hieroglyphs != null}">
             <span th:replace="fragments/details :: hieroglyphs">N35:G43</span>
           </span>
-          <span class="result-list-item-element lemma-id text-muted">
+          </a>
+		  <!--class="result-list-item-element lemma-id text-muted"  -->
+          <button type="button" th:id="'button_' + *{id}" class="result-list-item-element lemma-id btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onClick="">
             (ID<span class="ml-1" th:text="*{id}">33410</span>)
-          </span>
+          </button>
+		  	 <script th:inline="javascript">
+					/*<![CDATA[*/
+						var id = /*[[*{id}]]*/ '0';
+						document.getElementById("button_"+id).setAttribute( "onClick", "javascript: copyStringToClipboard(id.substring(7,id.length))");
+					/*]]>*/
+		     </script> 
          </div>
         <div>
           <!-- line 2 -->
+          <a th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">
           <span class="result-list-item-element wordClass font-italic font-weight-light">
             <span th:replace="fragments/details :: type-subtype">Part of speech</span>
           </span>
@@ -64,8 +73,8 @@
               <small th:unless="${biblStat.last}" class="text-muted" th:text="'&bull;'"/>
             </span>
           </span>
+          </a>
         </div>
-       </a>
         <hr/>
       </div>
 
