@@ -10,7 +10,13 @@
   <body>
 
    <div layout:fragment="content" th:with="lemmaID=${#request.getParameter('tokens[0].lemma.id')}">
-    <div th:if="${lemmaID} != null AND ${lemmaID} != ''">
+   
+    <!-- loading animation -->
+	 <div class="loader-wrapper">
+	  <span class="loader"><span class="loader-inner"></span></span>
+	</div>
+			
+    <div class="hidden-content hide-content" th:if="${lemmaID} != null AND ${lemmaID} != ''">
 
       <!-- result page heading -->
       <div class="search-header row mb-3">
@@ -85,6 +91,14 @@
         </div>-->
       </div>
     </div>
+	
+	 <script>
+        $(window).on("load",function(){
+          $(".loader-wrapper").addClass("hide");
+          $(".hidden-content").addClass("show-content");
+        });
+    </script>
+	
    </div>
   </body>
 </html>
