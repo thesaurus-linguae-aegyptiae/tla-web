@@ -176,8 +176,12 @@ a.navbar-brand {
     background-color: var(--BBAWred);
 }
 
-.navbar h1 {
+.navbar-title h1 {
     font-size: 1.5rem;
+    color: rgba(0, 0, 0, 0.5);
+}
+.navbar-title p {
+    font-size: 1rem;
     color: rgba(0, 0, 0, 0.5);
 }
 
