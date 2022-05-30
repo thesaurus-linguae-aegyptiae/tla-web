@@ -91,19 +91,19 @@
 								<!--Bug: ul/li-Struktur ungültig-->
 					         <ul class="annotation-block"  th:classappend="${(token.lemma.id != null and #request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }">
 							      <th:block th:if="${hasGlyphs}">
-									  <a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank" rel="opener"><div class="occ-list-item-element hieroglyphs">
-											<li th:replace="fragments/common :: token-hieroglyphs"/>
+									  <div class="occ-list-item-element hieroglyphs">
+											<a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank" rel="opener"><li th:replace="fragments/common :: token-hieroglyphs"/></a>
 											<hr class="blockline"> 
-									  </div></a>
+									  </div>
 									  <div  th:unless="${token.lemma.id}"class="occ-list-item-element hieroglyphs">
 											<li th:replace="fragments/common :: token-hieroglyphs"/>
 											<hr class="blockline"> 
 									  </div>
 								  </th:block>
-								   <a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank" rel="opener"><div class="occ-list-item-element">
-								  		<li th:replace="fragments/common :: token-transcription"/>
+								   <div class="occ-list-item-element">
+								  		<a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank" rel="opener"><li th:replace="fragments/common :: token-transcription"/></a>
 								  		<hr class="blockline"> 
-								  </div></a>
+								  </div>
 								   <div th:unless="${token.lemma.id}" class="occ-list-item-element">
 								  		<li th:replace="fragments/common :: token-transcription"/>
 								  		<hr class="blockline"> 

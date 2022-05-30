@@ -267,9 +267,9 @@ a.navbar-brand {
     display: inline-block;
 }
 
-.result-list-item:hover {
+/*.result-list-item:hover {
     cursor: pointer;
-}
+}*/
 
 .result-list-item:hover h2 .hieroglyphs {
     background-color: white;
@@ -685,8 +685,14 @@ ul.annotation-block {
 
 ul.annotation-block:hover {
     background-color: #EEE;
-    cursor: pointer;
+    /*cursor: pointer;*/
 }
+
+span.bts-glossing:hover,
+span.ling-glossing:hover {
+    cursor: pointer;	
+}
+
 
 .annotation-block.active {
     background-color: #aaa;
