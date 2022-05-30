@@ -555,11 +555,15 @@ span.lc:hover {
     line-height: 1.2;
     padding-left: 0.25rem;
 }
-.transcription .sentence-token.rubrum {
+
+.transcription .rubrum,
+.token-word.rubrum {
+	 text-decoration: underline var(--BBAWred);
     color: var(--BBAWred);
 }
+
 .transcription a {
-    color: var(--BBAWdarkgrey);
+    color: var(--BBAWred);
 }
 .sentence-line-mode :target span svg {
     background-color: yellow;
@@ -580,10 +584,13 @@ span.lc:hover {
 
 .token-para {
     color: var(--BBAWmiddlebluegrey) !important;
+    font-weight: bold;
 }
-
 .token-para:before {
-    content: "§";
+    content: "(";
+}
+.token-para:after {
+    content: ")";
 }
 
 .translations

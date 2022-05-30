@@ -341,12 +341,9 @@
 
        <!-- token transcription -->
     <th:block th:fragment="token-transcription">
-     <span th:if="${token.label !=null && token.type !='destruction_marker'}" th:utext="${token.label}"
-             class="transcription"/>
-     <span th:if="${token.type =='destruction_marker'}" th:utext="${token.label}"
-             class="token-destruction_marker"/>
-     <span th:if="${token.label ==null}" th:text="'&nbsp;'"
-             class="token-destruction_marker"/>    
+     <span th:if="${token.label !=null}" th:utext="${token.label}" th:class="|transcription token-${token.type}|" th:classappend="${token.rubrum} ? rubrum"></span>
+     <!--<span th:if="${token.type =='destruction_marker'}" th:utext="${token.label}" class="token-destruction_marker"></span>
+     <span th:if="${token.label ==null}" th:text="'&nbsp;'" class="token-destruction_marker"></span>-->    
     </th:block>
     
       <!-- token wordclass -->
