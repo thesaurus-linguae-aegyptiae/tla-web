@@ -223,8 +223,8 @@
         </div>
     </div>
 	
-   <div th:fragment="object-property-citationBox" id="object-property-citationBox" class="bg-light citation mt-5 mb-4"> 
-    	<div class="bg-light citation mt-2 mb-2"> 
+   <div th:fragment="object-property-citationBox" id="object-property-citationBox" class="bg-light citation m-sm-2 m-lg-4"> 
+    	<div class="bg-light citation  m-sm-1 m-lg-2"> 
     <p class="h6" ><strong th:text="#{citeas_heading}">Please cite as</strong>:</p>
 				<blockquote id="full-citation"><span th:text="${obj.name} + ' (' + #{citeas_lemma} +' '+ ${obj.id} + '), <' + ${env.baseUrl}+'/lemma/' + ${obj.id} +'>, in: '"></span>  
 					<span style="font-style: italic;" th:text="#{tla_Title}"></span>  
@@ -240,8 +240,8 @@
      </div>  
     </div>
 
-   <div th:fragment="sentence-citationBox" id="sentence-citationBox" class="bg-light citation mt-5 mb-4"> 
-    	<div class="bg-light citation mt-2 mb-2"> 
+   <div th:fragment="sentence-citationBox" id="sentence-citationBox" class="bg-light citation m-sm-2 m-lg-4"> 
+    	<div class="bg-light citation m-sm-1 m-lg-2"> 
     <p class="h6" ><strong th:text="#{citeas_heading}">Please cite as</strong>:</p>
 				<blockquote id="full-citation"><span th:text="#{citeas_sentence} +' '+ ${obj.id} + ', <' + ${env.baseUrl}+'/sentence/' + ${obj.id} +'>, in: '"></span>  
 					<span style="font-style: italic;" th:text="#{tla_Title}"></span>  

@@ -901,7 +901,7 @@ footer.bg-light {
 
 /* Citation */
 .citation {
-    padding: 1em;
+    padding: 5px;
 }
 
 .citation li,
@@ -1275,8 +1275,13 @@ span.multiselect-native-select select {
 @media only screen and (max-width: 992px) {
 
     .container {
-        max-width: 98% !important;
+        max-width: 100% !important;
     }
+	
+	.container .content {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
 
     #button-bar-small {
 
