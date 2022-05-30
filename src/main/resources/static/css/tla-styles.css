@@ -70,10 +70,16 @@ li {
 a {
     color: var(--BBAWred);
 }
+.result-list-item a {
+    color: black;
+}
 
 a:hover {
     text-decoration: none;
     color: var(--BBAWred);
+}
+.result-list-item a:hover {
+    color: black;
 }
 
 hr {

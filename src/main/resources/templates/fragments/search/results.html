@@ -29,7 +29,8 @@
         <a th:replace="fragments/common :: review-state(${obj})"/>
 
         <a th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">
-          <!-- line 1 -->
+         <div>
+         <!-- line 1 -->
           <span th:if="${obj.type} == 'root'">&radic;</span><h2 class="result-list-item-element transcription bbaw-libertine" th:text="*{name}">nfr</h2>
           <span class="result-list-item-element hieroglyphs" th:if="${obj.hieroglyphs == null}">
           <span th:unless="${obj.type == 'root'}" class="subcorpus" th:text="#{|dict_${obj.dictionaryName}|}">Demotic</span>
@@ -40,8 +41,7 @@
           <span class="result-list-item-element lemma-id text-muted">
             (ID<span class="ml-1" th:text="*{id}">33410</span>)
           </span>
-        </a>
-
+         </div>
         <div>
           <!-- line 2 -->
           <span class="result-list-item-element wordClass font-italic font-weight-light">
@@ -65,7 +65,7 @@
             </span>
           </span>
         </div>
-
+       </a>
         <hr/>
       </div>
 
