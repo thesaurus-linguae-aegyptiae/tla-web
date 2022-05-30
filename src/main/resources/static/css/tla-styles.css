@@ -614,14 +614,16 @@ span.lc:hover {
 }
 
 .translation-de,
+.translation-fr,
+.translation-en,
 .translation-any {
     font-weight: bold;
 }
 
-.translation-fr,
+/*.translation-fr,
 .translation-en {
     font-weight: 300;
-}
+}*/
 
 .lang-icon {
     background-color: #E0E0E0;
