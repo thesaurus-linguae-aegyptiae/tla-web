@@ -73,6 +73,7 @@ public class Sentence extends TLAObject implements Hierarchic {
         try {
         
           List<Passport> dates =text.getPassport().extractProperty(PASSPORT_PROP_DATE);
+         
           for(int i=0;i<dates.size();i++) {
         	  for(int j=0;j<dates.get(i).extractObjectReferences().size();j++) {
         	 System.out.println("Fields "+ i+ " "+ j+" "+ dates.get(i).extractObjectReferences().get(j).getName());

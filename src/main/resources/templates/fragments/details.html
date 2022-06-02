@@ -296,7 +296,7 @@
     <!-- hieroglyphs -->
     <th:block th:fragment="hieroglyphs" th:if="${obj.hieroglyphs != null}">
         <span th:each="glyphs : ${obj.hieroglyphs}">
-            <span class="hieroglyphs" th:title="${glyphs.mdc}" th:utext="${glyphs.svg}"/>
+            <span class="hieroglyphs" th:title="${glyphs.mdcCompact}" th:utext="${glyphs.svg}"/>
         </span>
     </th:block>
 
