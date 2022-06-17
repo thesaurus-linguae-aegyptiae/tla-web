@@ -317,7 +317,7 @@
     <!-- token hieroglyphs -->
     <th:block th:fragment="token-hieroglyphs">
       <span th:unless="${token.glyphs.empty}" th:utext="${token.glyphs.svg}"
-            th:title="${token.glyphs.mdc}" class="token-glyphs" style="height: 14pt"/>
+            th:title="${token.glyphs.mdcCompact}" class="token-glyphs" style="height: 14pt"/>
       <span th:if="${token.glyphs.empty}" class="token-glyphs">&nbsp;</span>
     </th:block>
 

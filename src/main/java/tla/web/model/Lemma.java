@@ -47,6 +47,9 @@ public class Lemma extends BTSObject {
 
     @Singular
     private List<Token> words;
+    
+    @Singular
+    private List<Glyphs> glyphs;
 
     @Singular
     private List<AttestedTimespan> attestations;
@@ -80,6 +83,7 @@ public class Lemma extends BTSObject {
      */
     public List<Glyphs> getHieroglyphs() {
         if (this.getDictionaryName().equals(Script.HIERATIC)) {
+        	
             List<Glyphs> hieroglyphs = this.getWords().stream().map(
                 Token::getGlyphs
             ).collect(
@@ -88,9 +92,19 @@ public class Lemma extends BTSObject {
             return (hieroglyphs.stream().allMatch(
                 glyphs -> glyphs == null || glyphs.isEmpty()
             )) ? null : hieroglyphs;
-        }
+        	}
+        	
+        
         return null;
     }
+  /*  public List<Glyphs> getHieroglyphs() {
+        if (this.getDictionaryName().equals(Script.HIERATIC)) {
+        	return getGlyphs();
+        }
+        return null;
+        
+    }*/
+    
 
     /**
      * Returns a list of bibliographic references extracted from this lemma's

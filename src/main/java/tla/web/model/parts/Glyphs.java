@@ -18,11 +18,15 @@ public class Glyphs {
 
     public static final Glyphs EMPTY = new Glyphs();
 
-    private String unicode;
+    private String unicodeTla;
 
-    private String mdc;
-
+    private String mdcCompact;
+    private String mdcOriginal;
+    private String mdcOriginalSafe;
+    private String mdcTla;
     private String svg;
+    
+    private boolean mdcArtificiallyAligned;
 
     /**
      * Creates UI hieroglyphs representation of Manuel de Codage encoding.
@@ -37,8 +41,9 @@ public class Glyphs {
      */
     public static Glyphs of(String mdc, boolean rubrum) {
         return Glyphs.builder()
-            .mdc(mdc)
-            .unicode(mdc)
+     
+            .mdcCompact(mdc)
+            .unicodeTla(mdc)
             .svg(Util.jseshRender(mdc, rubrum))
             .build();
     }
@@ -50,9 +55,22 @@ public class Glyphs {
     public static Glyphs of(tla.domain.model.SentenceToken.Glyphs dto, boolean rubrum) {
         if (dto != null) {
             return Glyphs.builder()
-                .mdc(dto.getMdc())
-                .unicode(dto.getUnicode())
-                .svg(Util.jseshRender(dto.getMdc(), rubrum))
+                .mdcCompact(dto.getMdcCompact())
+                .unicodeTla(dto.getUnicodeTla())
+                .mdcArtificiallyAligned(dto.isMdcArtificialAligned())
+                .svg(Util.jseshRender(dto.getMdcCompact(), rubrum))
+                .build();
+        } else {
+            return Glyphs.EMPTY;
+        }
+    }
+    
+    public static Glyphs of(tla.domain.dto.LemmaDto.Glyphs dto, boolean rubrum) {
+        if (dto != null) {
+            return Glyphs.builder()
+                .mdcCompact(dto.getMdcCompact())
+                .unicodeTla(dto.getUnicode())
+                .svg(Util.jseshRender(dto.getMdcCompact(), rubrum))
                 .build();
         } else {
             return Glyphs.EMPTY;
@@ -63,8 +81,8 @@ public class Glyphs {
      * Returns true if all attributes are actually empty.
      */
     public boolean isEmpty() {
-        return (this.unicode == null || this.unicode.isBlank())
-            && (this.mdc == null || this.mdc.isBlank());
+        return (this.unicodeTla == null || this.unicodeTla.isBlank())
+            && (this.mdcCompact == null || this.mdcCompact.isBlank());
     }
 
 }

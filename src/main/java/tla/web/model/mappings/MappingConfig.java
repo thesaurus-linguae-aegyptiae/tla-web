@@ -17,6 +17,7 @@ import tla.domain.dto.meta.AbstractDto;
 import tla.domain.dto.meta.DocumentDto;
 import tla.domain.dto.meta.NamedDocumentDto;
 import tla.domain.model.SentenceToken;
+import tla.domain.dto.LemmaDto;
 import tla.domain.model.meta.BTSeClass;
 import tla.domain.model.meta.TLADTO;
 import tla.web.config.ApplicationProperties;
@@ -57,6 +58,17 @@ public class MappingConfig {
             return Glyphs.of(
                 source.getGlyphs(),
                 source.getAnnoTypes() != null && source.getAnnoTypes().contains("rubrum")
+            );
+        }
+    }
+    
+    private static class LemmaGlyphsConverter extends AbstractConverter<LemmaDto, Glyphs> {
+        @Override
+        protected Glyphs convert(LemmaDto source) {
+            return Glyphs.of(
+                source.getGlyphs(),
+                source.getWords().size()>=1
+                
             );
         }
     }
@@ -102,6 +114,11 @@ public class MappingConfig {
                 dto -> dto, Token::setGlyphs
             )
         );
+        modelMapper.createTypeMap(LemmaDto.class, LemmaDto.class).addMappings(
+                m -> m.using(new LemmaGlyphsConverter()).map(
+                    dto -> dto, LemmaDto::setGlyphs
+                )
+            );
         /* add mappings for registered model classes and apply base type mappings */
         this.registerModelMappings();
         return modelMapper;
