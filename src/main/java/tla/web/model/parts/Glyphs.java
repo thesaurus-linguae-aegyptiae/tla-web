@@ -64,6 +64,18 @@ public class Glyphs {
             return Glyphs.EMPTY;
         }
     }
+    
+    public static Glyphs of(tla.domain.dto.LemmaDto.Glyphs dto, boolean rubrum) {
+        if (dto != null) {
+            return Glyphs.builder()
+                .mdcCompact(dto.getMdcCompact())
+                .unicodeTla(dto.getUnicode())
+                .svg(Util.jseshRender(dto.getMdcCompact(), rubrum))
+                .build();
+        } else {
+            return Glyphs.EMPTY;
+        }
+    }
 
     /**
      * Returns true if all attributes are actually empty.
