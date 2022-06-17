@@ -28,8 +28,9 @@
           th:object="${obj}" th:id="|lemma-${obj.id}|">
         <a th:replace="fragments/common :: review-state(${obj})"/>
 
-        <a th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">
-          <!-- line 1 -->
+         <div>
+         <!-- line 1 -->
+          <a th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">
           <span th:if="${obj.type} == 'root'">&radic;</span><h2 class="result-list-item-element transcription bbaw-libertine" th:text="*{name}">nfr</h2>
           <span class="result-list-item-element hieroglyphs" th:if="${obj.hieroglyphs == null}">
           <span th:unless="${obj.type == 'root'}" class="subcorpus" th:text="#{|dict_${obj.dictionaryName}|}">Demotic</span>
@@ -37,22 +38,28 @@
           <span class="result-list-item-element hieroglyphs" th:if="${obj.hieroglyphs != null}">
             <span th:replace="fragments/details :: hieroglyphs">N35:G43</span>
           </span>
-          <span class="result-list-item-element lemma-id text-muted">
+          </a>
+		  <!--class="result-list-item-element lemma-id text-muted"  -->
+          <button type="button" th:id="'button_' + *{id}" class="result-list-item-element lemma-id btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onClick="">
             (ID<span class="ml-1" th:text="*{id}">33410</span>)
-          </span>
-        </a>
-
+          </button>
+		  	 <script th:inline="javascript">
+					/*<![CDATA[*/
+						var id = /*[[*{id}]]*/ '0';
+						document.getElementById("button_"+id).setAttribute( "onClick", "javascript: copyStringToClipboard(id.substring(7,id.length))");
+					/*]]>*/
+		     </script> 
+         </div>
         <div>
-          <span class="float-right text-muted" th:if="${obj.annotated}">
-            <i class="far fa-comment-alt"></i>
-          </span>
           <!-- line 2 -->
+          <a th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">
           <span class="result-list-item-element wordClass font-italic font-weight-light">
             <span th:replace="fragments/details :: type-subtype">Part of speech</span>
           </span>
           <span class="result-list-item-element translations">
             <th:block th:each="entry : *{translations}" th:insert="fragments/common :: single-lang-translation(${entry})"/>
           </span>
+		   <span class="text-muted" th:if="${obj.annotated}"><i class="fas fa-sticky-note"></i> <span th:text="#{lemma_has_comment}">With comments</span></span>
           <span class="result-list-item-element attested-timespan" th:unless="*{timespan} == null">
 		     <i class="text-muted fas fa-calendar mr-0 ml-2"></i>
             <span th:insert="fragments/details :: display-year(*{timespan.begin})">3000 BCE</span>
@@ -66,8 +73,8 @@
               <small th:unless="${biblStat.last}" class="text-muted" th:text="'&bull;'"/>
             </span>
           </span>
+          </a>
         </div>
-
         <hr/>
       </div>
 
@@ -91,21 +98,21 @@
             <div class="container-annotation">
 				         <div th:each="token : *{tokens}"  th:id="|block-${token.id}|">
 								<!--Bug: ul/li-Struktur ungültig-->
-					         <ul class="annotation-block"  th:classappend="${(#request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }">
+					         <ul class="annotation-block"  th:classappend="${(token.lemma.id != null and #request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }">
 							      <th:block th:if="${hasGlyphs}">
-									  <a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank" rel="opener"><div class="occ-list-item-element hieroglyphs">
-											<li th:replace="fragments/common :: token-hieroglyphs"/>
+									  <div class="occ-list-item-element hieroglyphs">
+											<a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank" rel="opener"><li th:replace="fragments/common :: token-hieroglyphs"/></a>
 											<hr class="blockline"> 
-									  </div></a>
+									  </div>
 									  <div  th:unless="${token.lemma.id}"class="occ-list-item-element hieroglyphs">
 											<li th:replace="fragments/common :: token-hieroglyphs"/>
 											<hr class="blockline"> 
 									  </div>
 								  </th:block>
-								   <a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank" rel="opener"><div class="occ-list-item-element">
-								  		<li th:replace="fragments/common :: token-transcription"/>
+								   <div class="occ-list-item-element">
+								  		<a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank" rel="opener"><li th:replace="fragments/common :: token-transcription"/></a>
 								  		<hr class="blockline"> 
-								  </div></a>
+								  </div>
 								   <div th:unless="${token.lemma.id}" class="occ-list-item-element">
 								  		<li th:replace="fragments/common :: token-transcription"/>
 								  		<hr class="blockline"> 
@@ -141,7 +148,9 @@
          <!-- Same for Both views -->
 
         <span class="result-list-item-element translations">
-          <th:block th:each="entry : *{translations}" th:insert="fragments/common :: single-lang-translation(${entry})"/>
+          <th:block th:each="entry : *{translations}"> 
+				<p th:insert="fragments/common :: single-lang-translation(${entry})"/> 			
+		    </th:block>
         </span>
 
         <div class="result-list-item-element paths" th:insert=" :: search-result-object-paths('sentence')"/>
@@ -175,6 +184,7 @@
 
       </div>
      
+	<!-- DOPPELUNG
 	<div th:fragment="sentence-search-result_anno" class="result-list-item" th:object="${obj}">
         <div class="occ-list-item mt-3 pt-1 pb-1">
           <div class="container-annotation-switch">
@@ -240,7 +250,7 @@
 		<div class="occ-list-item-element editors">
 				<div th:replace="fragments/common :: sentence-editor"/>	
 		</div>             
-</div>
+</div>-->
 
 
 
@@ -901,7 +911,7 @@
         <b class="mx-1" th:text="|*{fromResult} - *{toResult}|">1 - 24</b>
         <span class="font-italic" th:text="#{result_page_description_middle}">of</span>
         <b class="mx-1" th:text="*{totalResults}">140</b>
-        <span th:text="#{|result_page_description_right_${objectType}|}">dictionary entries</span>
+        <span th:text="#{|result_page_description_right_${objectType}*{(totalResults > 1) ? 's' : ''}|}">dictionary entries</span>
       </div>
 
 

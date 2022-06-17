@@ -13,9 +13,9 @@
       <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
         <div class="container">
           <a class="navbar-brand" href="/">TLA</a>
-          <div>
+          <div class="navbar-title">
             <h1 th:text="#{tla_Title}">Thesaurus Linguae Aegyptiae</h1>
-            <a href="#" th:text="#{tla_version}">2.0 pre-beta</a>
+            <p>v<span th:text="#{tla_version}">2.0 pre-beta</span></p>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"/>
@@ -99,7 +99,7 @@
         </div>
         <div class="row mt-2">
           <div class="col-sm-6 col-lg-8">
-				<p th:utext="#{editorial_footer_credits}"/>
+				<p class="footer-credits" th:utext="#{editorial_footer_credits}"/>
           </div>
           <div class="footer-logo-sm col-sm-6 col-lg-4">
             <a href="https://www.akademienunion.de" target="_blank">
@@ -268,7 +268,7 @@
     <span th:fragment="single-lang-translation(entry)">
       <span th:each="tr,iter : ${entry.value}" th:class="|tr-${entry.key}|">
          <span class="lang-icon text-uppercase" th:text="${entry.key}">DE</span>
-       </span>  
+       </span>        
       <span th:each="translation,iter : ${entry.value}" th:class="|translation-${entry.key}|">
         <span class="translation" th:utext="${{translation}}">
           Translation
@@ -341,12 +341,9 @@
 
        <!-- token transcription -->
     <th:block th:fragment="token-transcription">
-     <span th:if="${token.label !=null && token.type !='destruction_marker'}" th:utext="${token.label}"
-             class="transcription"/>
-     <span th:if="${token.type =='destruction_marker'}" th:utext="${token.label}"
-             class="token-destruction_marker"/>
-     <span th:if="${token.label ==null}" th:text="'&nbsp;'"
-             class="token-destruction_marker"/>    
+     <span th:if="${token.label !=null}" th:utext="${token.label}" th:class="|transcription token-${token.type}|" th:classappend="${token.rubrum} ? rubrum"></span>
+     <!--<span th:if="${token.type =='destruction_marker'}" th:utext="${token.label}" class="token-destruction_marker"></span>
+     <span th:if="${token.label ==null}" th:text="'&nbsp;'" class="token-destruction_marker"></span>-->    
     </th:block>
     
       <!-- token wordclass -->

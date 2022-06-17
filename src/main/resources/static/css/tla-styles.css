@@ -70,10 +70,16 @@ li {
 a {
     color: var(--BBAWred);
 }
+.result-list-item a {
+    color: black;
+}
 
 a:hover {
     text-decoration: none;
     color: var(--BBAWred);
+}
+.result-list-item a:hover {
+    color: black;
 }
 
 hr {
@@ -87,6 +93,53 @@ blockline
 .bbaw-libertine, .transliteration {
     font-family: "BBAWLibertine", "New Athena Unicode", serif;
 }
+
+
+/* loader animation */
+
+.loader-wrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #242f3f;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+.loader {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  position: relative;
+  border: 4px solid #Fff;
+  animation: loader 2s infinite ease;
+}
+.loader-inner {
+  vertical-align: top;
+  display: inline-block;
+  width: 100%;
+  background-color: #fff;
+  animation: loader-inner 2s infinite ease-in;
+}
+
+@keyframes loader {
+  0% { transform: rotate(0deg);}
+  25% { transform: rotate(180deg);}
+  50% { transform: rotate(180deg);}
+  75% { transform: rotate(360deg);}
+  100% { transform: rotate(360deg);}
+}
+
+@keyframes loader-inner {
+  0% { height: 0%;}
+  25% { height: 0%;}
+  50% { height: 100%;}
+  75% { height: 100%;}
+  100% { height: 0%;}
+}
+
 
 .searchresult h2 {
     font-weight: medium;
@@ -129,8 +182,12 @@ a.navbar-brand {
     background-color: var(--BBAWred);
 }
 
-.navbar h1 {
+.navbar-title h1 {
     font-size: 1.5rem;
+    color: rgba(0, 0, 0, 0.5);
+}
+.navbar-title p {
+    font-size: 1rem;
     color: rgba(0, 0, 0, 0.5);
 }
 
@@ -220,9 +277,9 @@ a.navbar-brand {
     display: inline-block;
 }
 
-.result-list-item:hover {
+/*.result-list-item:hover {
     cursor: pointer;
-}
+}*/
 
 .result-list-item:hover h2 .hieroglyphs {
     background-color: white;
@@ -508,11 +565,15 @@ span.lc:hover {
     line-height: 1.2;
     padding-left: 0.25rem;
 }
-.transcription .sentence-token.rubrum {
+
+.transcription .rubrum,
+.token-word.rubrum {
+	 text-decoration: underline var(--BBAWred);
     color: var(--BBAWred);
 }
+
 .transcription a {
-    color: var(--BBAWdarkgrey);
+    color: var(--BBAWred);
 }
 .sentence-line-mode :target span svg {
     background-color: yellow;
@@ -533,10 +594,13 @@ span.lc:hover {
 
 .token-para {
     color: var(--BBAWmiddlebluegrey) !important;
+    font-weight: bold;
 }
-
 .token-para:before {
-    content: "§";
+    content: "(";
+}
+.token-para:after {
+    content: ")";
 }
 
 .translations
@@ -550,14 +614,16 @@ span.lc:hover {
 }
 
 .translation-de,
+.translation-fr,
+.translation-en,
 .translation-any {
     font-weight: bold;
 }
 
-.translation-fr,
+/*.translation-fr,
 .translation-en {
     font-weight: 300;
-}
+}*/
 
 .lang-icon {
     background-color: #E0E0E0;
@@ -631,8 +697,14 @@ ul.annotation-block {
 
 ul.annotation-block:hover {
     background-color: #EEE;
-    cursor: pointer;
+    /*cursor: pointer;*/
 }
+
+span.bts-glossing:hover,
+span.ling-glossing:hover {
+    cursor: pointer;	
+}
+
 
 .annotation-block.active {
     background-color: #aaa;
@@ -734,6 +806,10 @@ footer.bg-light {
     height: 60px;
 }
 
+.footer-credits {
+	font-size: 0.85rem;
+}
+
 #cookie-info {
     font-size: 0.9em;
     color: var(--BBAWdarkgrey);
@@ -825,7 +901,7 @@ footer.bg-light {
 
 /* Citation */
 .citation {
-    padding: 1em;
+    padding: 5px;
 }
 
 .citation li,
@@ -943,6 +1019,13 @@ h2.id span {
 
 .hide {
 	display:none;
+}
+
+.hide-content {
+	visibility: hidden;
+}
+.show-content {
+	visibility: visible;
 }
 
 
@@ -1192,8 +1275,13 @@ span.multiselect-native-select select {
 @media only screen and (max-width: 992px) {
 
     .container {
-        max-width: 98% !important;
+        max-width: 100% !important;
     }
+	
+	.container .content {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
 
     #button-bar-small {
 
@@ -1233,7 +1321,6 @@ span.multiselect-native-select select {
     #homepage-img {
         width: 100%;
     }
-
 
     .footer-logo {
         margin-top: 2rem;

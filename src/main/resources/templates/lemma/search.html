@@ -49,7 +49,7 @@
 
         <!-- search results -->
         <div class="col-lg-8 content">
-          <div class= "result-list m-4">
+          <div class= "result-list m-sm-0 m-lg-4">
             <nav th:replace="fragments/search/results :: search-results-pagination"/>
 
             <th:block th:each="obj : ${searchResults}" th:insert="fragments/search/results :: lemma-search-result"/>
@@ -60,7 +60,7 @@
 
         <!-- sidebar -->
         <div class="col-lg-4 sidebar">
-          <div class="sticky-top m-4">
+          <div class="sticky-top m-sm-0 m-lg-4">
 
             <div th:replace="fragments/search/results :: lemma-sort-order-select"/>
             <div th:replace="fragments/search/results :: hide1Lemma-properties-buttons"/>
@@ -93,7 +93,7 @@
 
         <!-- sidebar -->
         <div class="col-lg-4 sidebar">
-          <div class="sticky-top m-4">
+          <div class="sticky-top m-sm-0 m-lg-4">
             <div th:replace="fragments/search/results :: modify-search-button(${modifySearchUrl})"/>
           </div>
         </div>

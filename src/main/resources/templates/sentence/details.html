@@ -16,7 +16,7 @@
 
       <div class="row" >
         <div class="col-lg-8 content">
-          <div class= "result-list m-4">
+          <div class= "result-list m-sm-0 m-lg-4">
 				<th:block th:insert="fragments/search/results :: sentence-search-result"  th:object="${obj}"/>
 			</div>
           <div th:replace="fragments/details :: sentence-citationBox"/>
@@ -39,7 +39,7 @@
 
         <!-- sidebar -->
         <div class="col-lg-4 sidebar">
-          <div class="sticky-top m-4">
+          <div class="sticky-top m-sm-0 m-lg-4">
             <div th:replace="fragments/search/results :: hide-properties-buttons"/><!-- Buttons werden nicht angelegt, da Var. "hideableProperties" nicht für "details" angemeldet? -->
           </div>
         </div>

@@ -179,18 +179,17 @@
             <strong th:text="#{lemma_property_attestation}" class="details-property-label">Attestation</strong>
         </p>
 		 <p th:if="${obj.attestationCount} > 0">
-            <strong th:text="#{lemma_property_attestation_occurrences}" class="details-property-label">Occurrences</strong>
            <span th:text="${obj.attestationCount}" id="attestationCount" style="visibility:hidden">0</span>
    
             <a th:href="|${@searchController.getSearchResultsPageRoute(@__sentenceController__)}?tokens[0].lemma.id=${obj.id}|">
                 <i class="fas fa-arrow-circle-right red"></i>
-               <button id="lemma-attestation-count-texts" type="button" class="btn btn-danger text-left text-decoration-none" th:text="#{lemma_property_digitaltext}+' '+ ${obj.attestationCount} + ' ' + #{|lemma_property_instance${(obj.attestationCount > 1) ? 's' : ''}|}">Instances in __ text(s)</button>
+               <button id="lemma-attestation-count-texts" type="button" class="btn btn-danger text-left text-decoration-none" th:text="#{lemma_property_attestation_occurrences} + ' ' + ${(obj.attestationCount >= 10000) ? '>' : ''} + ${obj.attestationCount} + ' ' + #{|lemma_property_instance${(obj.attestationCount > 1) ? 's' : ''}|}">Occurrences in __ sentences</button>
             </a>
             <br/>
             <th:block th:replace=" :: lemma-timespan"/>
         </p>
 		 <p th:unless="${obj.attestationCount} > 0">
-            <strong th:text="#{lemma_property_attestation_occurrences}" class="details-property-label">Occurrences</strong>: <span th:text="#{lemma_property_no_instances}">none</span>
+            <span th:text="#{lemma_property_no_instances}">No occurrences</span>
         </p>		 
     </div>
 
@@ -224,8 +223,8 @@
         </div>
     </div>
 	
-   <div th:fragment="object-property-citationBox" id="object-property-citationBox" class="bg-light citation mt-5 mb-4"> 
-    	<div class="bg-light citation mt-2 mb-2"> 
+   <div th:fragment="object-property-citationBox" id="object-property-citationBox" class="bg-light citation m-sm-2 m-lg-4"> 
+    	<div class="bg-light citation  m-sm-1 m-lg-2"> 
     <p class="h6" ><strong th:text="#{citeas_heading}">Please cite as</strong>:</p>
 				<blockquote id="full-citation"><span th:text="${obj.name} + ' (' + #{citeas_lemma} +' '+ ${obj.id} + '), <' + ${env.baseUrl}+'/lemma/' + ${obj.id} +'>, in: '"></span>  
 					<span style="font-style: italic;" th:text="#{tla_Title}"></span>  
@@ -241,8 +240,8 @@
      </div>  
     </div>
 
-   <div th:fragment="sentence-citationBox" id="sentence-citationBox" class="bg-light citation mt-5 mb-4"> 
-    	<div class="bg-light citation mt-2 mb-2"> 
+   <div th:fragment="sentence-citationBox" id="sentence-citationBox" class="bg-light citation m-sm-2 m-lg-4"> 
+    	<div class="bg-light citation m-sm-1 m-lg-2"> 
     <p class="h6" ><strong th:text="#{citeas_heading}">Please cite as</strong>:</p>
 				<blockquote id="full-citation"><span th:text="#{citeas_sentence} +' '+ ${obj.id} + ', <' + ${env.baseUrl}+'/sentence/' + ${obj.id} +'>, in: '"></span>  
 					<span style="font-style: italic;" th:text="#{tla_Title}"></span>  
