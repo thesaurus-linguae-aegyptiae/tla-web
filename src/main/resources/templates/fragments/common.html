@@ -260,7 +260,7 @@
     <a th:fragment="review-state(obj)" class="review-state" th:title="|Review status: #{|review_state_${obj.reviewState}}|">
       <span class="solo-icon red-status float-right badge badge-pill badge-light">
         <span class="font-weight-light" th:text="#{|review_state_${obj.reviewState}}|">Reviewed</span>
-        <span class="icon" th:classappend="${#strings.equals(obj.reviewState, 'published')} ? ok : (${#strings.endsWith(obj.reviewState, 'obsolete')} ? notok : pending)"/>
+        <span class="icon" th:classappend="${#strings.equals(obj.reviewState, 'published')} ? ok : (${#strings.endsWith(obj.reviewState, 'inactive')} ? notok : pending)"/>
       </span>
     </a>
 
