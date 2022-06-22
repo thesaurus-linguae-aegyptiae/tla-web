@@ -51,8 +51,8 @@ public class Sentence extends TLAObject implements Hierarchic {
      * Determine whether any of a sentence's tokens have any hieroglyph encodings.
      */
     public boolean hasGlyphs() {
-        return this.tokens.stream().anyMatch(
-            token -> !token.getGlyphs().isEmpty()
+        return this.tokens.stream().anyMatch( // for at least one token:
+			token -> (token.getType().equals("word") && !token.getGlyphs().isEmpty()) // iff "word" token and there are hieroglyphs => true
         );
     }
 
