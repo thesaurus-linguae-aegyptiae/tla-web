@@ -56,6 +56,15 @@ public class Sentence extends TLAObject implements Hierarchic {
         );
     }
 
+    public boolean isArtificiallyAligned() {
+		/*this.tokens.stream().forEach( // for at least one token:
+			token -> System.out.println(token.getGlyphs().isMdcArtificiallyAligned())
+        );*/
+        return this.tokens.stream().anyMatch( // for at least one token:
+			token -> token.getGlyphs().isMdcArtificiallyAligned() == true
+        );
+    }
+
     public String getName() {
         return this.getText() != null ? this.getText().getName() : null;
     }

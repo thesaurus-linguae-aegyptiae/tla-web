@@ -435,6 +435,13 @@ button.toggle-collapsible span.expanded:before {
     color: var(--danger);
 }
 
+.red-status span.artificiallyaligned:before {
+    content: "\f850";
+}
+.red-status span.artificiallyaligned svg {
+    color: var(--danger);
+}
+
 a.share-results {
     color: grey !important;
 }
