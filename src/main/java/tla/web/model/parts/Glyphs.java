@@ -57,7 +57,7 @@ public class Glyphs {
             return Glyphs.builder()
                 .mdcCompact(dto.getMdcCompact())
                 .unicodeTla(dto.getUnicodeTla())
-                .mdcArtificiallyAligned(dto.isMdcArtificialAligned())
+                .mdcArtificiallyAligned(dto.isMdcArtificiallyAligned())
                 .svg(Util.jseshRender(dto.getMdcCompact(), rubrum))
                 .build();
         } else {

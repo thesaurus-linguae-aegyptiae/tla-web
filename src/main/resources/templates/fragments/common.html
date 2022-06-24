@@ -263,6 +263,14 @@
         <span class="icon" th:classappend="${#strings.equals(obj.reviewState, 'published')} ? ok : (${#strings.endsWith(obj.reviewState, 'inactive')} ? notok : pending)"/>
       </span>
     </a>
+	
+	<!-- icon indicating artificial alignment -->
+    <a th:fragment="artificial-alignment" class="review-state" th:title="#{artificially_aligned}">
+      <span class="solo-icon red-status float-right badge badge-pill badge-light">
+        <span class="font-weight-light" th:text="#{artificially_aligned}">Artificially aligned</span>
+        <span class="icon artificiallyaligned"/>
+      </span>
+    </a>
 
     <!-- translation for a single language -->
     <span th:fragment="single-lang-translation(entry)">
@@ -296,7 +304,7 @@
 
     <!-- sentence hieroglyphs -->
     <div th:fragment="sentence-hieroglyphs" class="result-list-item-element hieroglyphs">
-      <a th:each="token : *{tokens}" th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,token.lemma.id)).build()}" th:id="|hieroglyphs-${token.id}|" th:class="${(#request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }" target="_blank" rel="opener">
+	   <a th:each="token : *{tokens}" th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,token.lemma.id)).build()}" th:id="|hieroglyphs-${token.id}|" th:class="${(#request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }" target="_blank" rel="opener">
         <div th:replace=" :: token-hieroglyphs"/>
       </a>
     </div>

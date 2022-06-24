@@ -80,12 +80,13 @@
 
       <!-- SENTENCE search result -->
 
-      <div th:fragment="sentence-search-result" class="result-list-item" th:object="${obj}" th:with="hasGlyphs=*{hasGlyphs}">
+      <div th:fragment="sentence-search-result" class="result-list-item" th:object="${obj}" th:with="hasGlyphs=*{hasGlyphs},isArtificiallyAligned=*{isArtificiallyAligned}">
 
       <!-- Block view -->
         <div class="occ-list-item mt-3 pt-1 pb-1" >
           <div class="sentence-line-mode">
             <th:block th:if="${hasGlyphs}">
+			    <th:block th:if="${isArtificiallyAligned}"><a th:replace="fragments/common :: artificial-alignment"></a></th:block>
               <div th:replace="fragments/common :: sentence-hieroglyphs"/>
             </th:block>
             <div th:replace="fragments/common :: sentence-transcription"/>
@@ -139,6 +140,7 @@
 								  </div>
 						    </ul>
 			         	</div>
+						  <th:block th:if="${isArtificiallyAligned}"><a th:replace="fragments/common :: artificial-alignment"></a></th:block>
 		            </div>
 	            </div>
 	             
