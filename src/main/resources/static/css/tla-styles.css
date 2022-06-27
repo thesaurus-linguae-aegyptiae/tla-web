@@ -598,7 +598,6 @@ span.lc:hover {
     color: black !important;
     font-weight: bold;
 }
-
 .token-para {
     color: var(--BBAWmiddlebluegrey) !important;
     font-weight: bold;
@@ -608,6 +607,11 @@ span.lc:hover {
 }
 .token-para:after {
     content: ")";
+}
+
+.token-verse_point,
+.token-default {
+    color: black !important;
 }
 
 .translations
