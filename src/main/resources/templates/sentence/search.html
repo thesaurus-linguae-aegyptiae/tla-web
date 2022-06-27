@@ -24,7 +24,7 @@
             <h2 class="id mt-1" th:text="#{result_page_title_sentence}">Sentence Search Results</h2> 
             <div class="ml-3 flex"><strong th:text="#{result_page_description_query}">Search parameter</strong>: 
 					<span id="queryLemmaIDHeader" th:text="#{field_label_lemma_id}"> </span> = 
-					<span id="queryLemmaID" th:text="${#request.getParameter('tokens[0].lemma.id')}"> </span>
+					<span id="queryLemmaID" th:text="${lemmaID}"> </span>
              </div>
          </div>
         <div th:replace="fragments/common :: social('sentence-search-results')"/>
