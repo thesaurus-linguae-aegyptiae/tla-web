@@ -286,8 +286,8 @@
     </span>
 
     <!-- object path (thesaurus, text corpus, sentences) -->
-    <div th:fragment="object-paths(objectPaths, collapse)" class="object-paths mt-2">
-      <div th:each="objectPath, outerIter : ${objectPaths}" class="object-path">
+    <div th:fragment="object-paths(objectPaths, collapse)" class="object-paths">
+      <div th:each="objectPath, outerIter : ${objectPaths}" class="object-path mt-2">
         <div th:each="item, iter : ${objectPath}" class="object-path-element">
           <i th:class="|object-path-icon ${item.eclass} ${item.type}|"></i>
           <!--<a th:if="${item.href} != null" th:href="${item.href}">  ## landing page not yet implemented-->
