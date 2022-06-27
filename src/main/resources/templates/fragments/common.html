@@ -317,7 +317,7 @@
              th:text="${token.label}"
              th:class="|sentence-token token-${token.type}|"
              th:classappend="${token.rubrum} ? rubrum" target="_blank" rel="opener"/>
-			 <span th:unless="${token.lemma.id}" th:text="${token.label}" th:class="|sentence-token token-${token.type}|"/>
+			 <span th:unless="${token.lemma.id}" th:text="${token.label}" th:class="|sentence-token token-${(token.type == 'lc' OR token.type == 'para' OR token.type == 'destruction_marker' OR token.type == 'verse_point') ? token.type : 'default'}|"/>
 		</span>
       </p>
     </div>
@@ -349,7 +349,7 @@
 
        <!-- token transcription -->
     <th:block th:fragment="token-transcription">
-     <span th:if="${token.label !=null}" th:utext="${token.label}" th:class="|transcription token-${token.type}|" th:classappend="${token.rubrum} ? rubrum"></span>
+     <span th:if="${token.label !=null}" th:utext="${token.label}" th:class="|transcription token-${(token.type == 'lc' OR token.type == 'para' OR token.type == 'destruction_marker' OR token.type == 'verse_point') ? token.type : 'default'}|" th:classappend="${token.rubrum} ? rubrum"></span>
      <!--<span th:if="${token.type =='destruction_marker'}" th:utext="${token.label}" class="token-destruction_marker"></span>
      <span th:if="${token.label ==null}" th:text="'&nbsp;'" class="token-destruction_marker"></span>-->    
     </th:block>
