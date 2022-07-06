@@ -910,6 +910,10 @@ footer.bg-light {
 	border-top: 1pt solid lightgrey;
 }
 
+.modal-footer-text {
+	text-align: left;
+}
+
 /* Citation */
 .citation {
     padding: 5px;
