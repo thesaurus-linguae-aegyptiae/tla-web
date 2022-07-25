@@ -48,8 +48,7 @@ public class Lemma extends BTSObject {
     @Singular
     private List<Token> words;
     
-    @Singular
-    private List<Glyphs> glyphs;
+    private Glyphs glyphs;
 
     @Singular
     private List<AttestedTimespan> attestations;
@@ -81,7 +80,18 @@ public class Lemma extends BTSObject {
      *
      * @return List of all lemma word hieroglyphs, or null if there are no hieroglyphs at all
      */
-    public List<Glyphs> getHieroglyphs() {
+    public Glyphs getHieroglyphs()
+   
+    {
+    	 if (this.getDictionaryName().equals(Script.HIERATIC)) {
+    		 System.out.println ("Glyphs "+ this.getGlyphs().getMdcCompact());
+    		 System.out.println ("Unicode "+ this.getGlyphs().getUnicode());
+    		 return this.getGlyphs();
+    	 }
+    	 else return null;
+    	    		
+    }
+    /*public List<Glyphs> getHieroglyphs() {
         if (this.getDictionaryName().equals(Script.HIERATIC)) {
         	
             List<Glyphs> hieroglyphs = this.getWords().stream().map(
@@ -96,7 +106,7 @@ public class Lemma extends BTSObject {
         	
         
         return null;
-    }
+    }*
   /*  public List<Glyphs> getHieroglyphs() {
         if (this.getDictionaryName().equals(Script.HIERATIC)) {
         	return getGlyphs();

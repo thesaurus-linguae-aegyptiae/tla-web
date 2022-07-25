@@ -18,7 +18,7 @@ public class Glyphs {
 
     public static final Glyphs EMPTY = new Glyphs();
 
-    private String unicodeTla;
+    private String unicode;
 
     private String mdcCompact;
     private String mdcOriginal;
@@ -43,7 +43,7 @@ public class Glyphs {
         return Glyphs.builder()
      
             .mdcCompact(mdc)
-            .unicodeTla(mdc)
+            .unicode(mdc)
             .svg(Util.jseshRender(mdc, rubrum))
             .build();
     }
@@ -56,7 +56,7 @@ public class Glyphs {
         if (dto != null) {
             return Glyphs.builder()
                 .mdcCompact(dto.getMdcCompact())
-                .unicodeTla(dto.getUnicodeTla())
+                .unicode(dto.getUnicodeTla())
                 .mdcArtificiallyAligned(dto.isMdcArtificiallyAligned())
                 .svg(Util.jseshRender(dto.getMdcCompact(), rubrum))
                 .build();
@@ -69,7 +69,7 @@ public class Glyphs {
         if (dto != null) {
             return Glyphs.builder()
                 .mdcCompact(dto.getMdcCompact())
-                .unicodeTla(dto.getUnicode())
+                .unicode(dto.getUnicode())
                 .svg(Util.jseshRender(dto.getMdcCompact(), rubrum))
                 .build();
         } else {
@@ -81,7 +81,7 @@ public class Glyphs {
      * Returns true if all attributes are actually empty.
      */
     public boolean isEmpty() {
-        return (this.unicodeTla == null || this.unicodeTla.isBlank())
+        return (this.unicode == null || this.unicode.isBlank())
             && (this.mdcCompact == null || this.mdcCompact.isBlank());
     }
 

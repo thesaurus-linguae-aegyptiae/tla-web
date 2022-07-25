@@ -38,12 +38,12 @@ public class LemmaTest {
                     mdc -> Token.builder().glyphs(Glyphs.of(mdc)).build()
                 ).collect(Collectors.toList())
             ).build();
-        List<Glyphs> glyphs = l.getHieroglyphs();
+      Glyphs glyphs = l.getGlyphs();
         assertAll("test hieroglyphs from lemma extraction",
-            () -> assertEquals(3, glyphs.size(), "item count"),
-            () -> assertTrue(glyphs.get(1).isEmpty(), "second item empty"),
-            () -> assertEquals(Glyphs.of("N35"), glyphs.get(0), "first item"),
-            () -> assertEquals(Glyphs.of("N35").hashCode(), glyphs.get(0).hashCode(), "first item hashcode")
+           // () -> assertEquals(3, glyphs.size(), "item count"),
+            () -> assertTrue(glyphs.isEmpty(), "second item empty"),
+            () -> assertEquals(Glyphs.of("N35"), glyphs.getMdcCompact(), "first item")
+           // () -> assertEquals(Glyphs.of("N35").hashCode(), glyphs.get(0).hashCode(), "first item hashcode")
         );
     }
 
