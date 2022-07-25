@@ -35,7 +35,7 @@
           <span class="result-list-item-element hieroglyphs" th:if="${obj.hieroglyphs == null}">
           <span th:unless="${obj.type == 'root'}" class="subcorpus" th:text="#{|dict_${obj.dictionaryName}|}">Demotic</span>
           </span>
-          <span class="result-list-item-element hieroglyphs" th:if="${obj.hieroglyphs != null}">
+          <span class="result-list-item-element hieroglyphs" th:if="${obj.glyphs != null}">
             <span th:replace="fragments/details :: hieroglyphs">N35:G43</span>
           </span>
           </a>

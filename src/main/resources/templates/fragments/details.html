@@ -158,7 +158,7 @@
     </div>
 
     <!-- Lemma details hieroglyphs -->
-    <div th:fragment="lemma-property-hieroglyphs" id="lemma-property-hieroglyphs" th:unless="${obj.hieroglyphs} == null">
+    <div th:fragment="lemma-property-hieroglyphs" id="lemma-property-hieroglyphs" th:if="${obj.hieroglyphs} != null">
         <p>
             <strong th:text="#{lemma_property_hieroglyphs}" class="details-property-label">Hieroglyphic spelling(s)</strong>:
             <span th:replace=" :: hieroglyphs"/>
@@ -293,9 +293,9 @@
     </span>
 
     <!-- hieroglyphs -->
-    <th:block th:fragment="hieroglyphs" th:if="${obj.hieroglyphs != null}">
-        <span th:each="glyphs : ${obj.hieroglyphs}">
-            <span class="hieroglyphs" th:title="${glyphs.mdcCompact}" th:utext="${glyphs.svg}"/>
+    <th:block th:fragment="hieroglyphs" th:if="${obj.glyphs != null}">
+       
+            <span class="hieroglyphs" th:title="${obj.glyphs.unicode}" th:utext="${obj.glyphs.unicode}"/>
         </span>
     </th:block>
 

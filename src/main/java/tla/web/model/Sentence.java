@@ -81,10 +81,10 @@ public class Sentence extends TLAObject implements Hierarchic {
         	 datierung.add(new DatePair(dates.get(i).extractObjectReferences().get(j).getId(),dates.get(i).extractObjectReferences().get(j).getName()));
         	  }
           }
-           // System.out.println("Extracted "+text.getPassport().extractProperty("date.date.date").get(0).getContents());
+            System.out.println("Extracted "+text.getPassport().extractProperty("date.date.date").get(0).getContents());
         } catch (Exception e) {
            // log.debug("could not extract date from text {}", text.getId());
-            //System.out.println("could not extract bibliography from text "+  text.getId());
+           System.out.println("could not extract bibliography from text "+  text.getId());
         }
         return datierung;
     }
