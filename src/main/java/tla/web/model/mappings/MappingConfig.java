@@ -25,6 +25,8 @@ import tla.web.model.meta.BTSObject;
 import tla.web.model.meta.ModelClass;
 import tla.web.model.meta.TLAObject;
 import tla.web.model.parts.Glyphs;
+import tla.web.model.Lemma;
+import tla.web.model.parts.GlyphsLemma;
 import tla.web.model.parts.Token;
 
 /**
@@ -62,12 +64,12 @@ public class MappingConfig {
         }
     }
     
-    private static class LemmaGlyphsConverter extends AbstractConverter<LemmaDto, Glyphs> {
+    private static class LemmaGlyphsConverter extends AbstractConverter<LemmaDto, GlyphsLemma> {
         @Override
-        protected Glyphs convert(LemmaDto source) {
-            return Glyphs.of(
+        protected GlyphsLemma convert(LemmaDto source) {
+            return GlyphsLemma.of(
                 source.getGlyphs(),
-                source.getWords().size()>=1
+                true
                 
             );
         }
@@ -114,9 +116,10 @@ public class MappingConfig {
                 dto -> dto, Token::setGlyphs
             )
         );
-        modelMapper.createTypeMap(LemmaDto.class, LemmaDto.class).addMappings(
+        
+        modelMapper.createTypeMap(LemmaDto.class, Lemma.class).addMappings(
                 m -> m.using(new LemmaGlyphsConverter()).map(
-                    dto -> dto, LemmaDto::setGlyphs
+                    dto -> dto, Lemma::setGlyphs
                 )
             );
         /* add mappings for registered model classes and apply base type mappings */

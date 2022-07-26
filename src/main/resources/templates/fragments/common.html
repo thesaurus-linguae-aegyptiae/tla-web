@@ -319,6 +319,7 @@
       <span th:unless="${token.glyphs.empty}" th:utext="${token.glyphs.svg}"
             th:title="${token.glyphs.mdcCompact}" class="token-glyphs" style="height: 14pt"/>
       <span th:if="${token.glyphs.empty}" class="token-glyphs">&nbsp;</span>
+      <span th:if="${token.glyphs.mdcArtificiallyAligned}" class="token-glyphs">!!</span>
     </th:block>
 
       <!-- OBEN RAUS GENOMMEN Aufgabe der Datentransformation <th:block th:if="${token.glyphs.empty}">
