@@ -624,7 +624,7 @@ function getCitation() {
 			return cit.textContent.replaceAll(/\s+/g,' ');
 		}
 		else {
-			return '<' + getCurrentHREF() + '>'; 
+			return getCurrentHREF();
 		}
 }
 

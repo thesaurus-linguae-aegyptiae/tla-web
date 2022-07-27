@@ -70,6 +70,7 @@ public class Util {
     public static String jseshRender(String mdc, boolean rubrum) {
         if (mdc != null && !mdc.isBlank()) {
             try (StringWriter writer = new StringWriter()) {
+            	System.out.println("MDC "+mdc);
                 Rectangle2D boundingBox = facade.getBounds(
                     mdc, 0, 0
                 );
@@ -86,12 +87,14 @@ public class Util {
                 svg.dispose();
                 return patchSVG(writer);
             } catch (Exception e) {
-                log.warn(
-                    "Jsesh could not render hieroglyph encoding '{}': {}",
-                    mdc, e.toString()
+               // log.warn(
+            	System.out.println(
+                    "Jsesh could not render hieroglyph encoding '{}': {}"+
+                    mdc+ " "+e.toString()
                 );
             }
         }
+       
         return null;
     }
 
@@ -114,10 +117,10 @@ public class Util {
 			//System.out.println("###### in escapeMarkup: " + text);
 			if (text.contains("#g")) {
 				text = text.replaceAll("(?<=#g\\+[^#]*)w(?=[^#]*?#g\\-)", "s"); // End-Sigma in Vittmann's encoding ("w")
-				text = text.replaceAll("(?<=#g\\+[^#]*)h(?=[^#]*?#g\\-)", "ē"); // Eta in Vittmann's encoding ("h")
-				text = text.replaceAll("(?<=#g\\+[^#]*)H(?=[^#]*?#g\\-)", "Ē"); 
-				text = text.replaceAll("(?<=#g\\+[^#]*)v(?=[^#]*?#g\\-)", "ō"); // Omega in Vittmann's encoding ("w")
-				text = text.replaceAll("(?<=#g\\+[^#]*)V(?=[^#]*?#g\\-)", "Ō"); 
+				text = text.replaceAll("(?<=#g\\+[^#]*)h(?=[^#]*?#g\\-)", "Ä“"); // Eta in Vittmann's encoding ("h")
+				text = text.replaceAll("(?<=#g\\+[^#]*)H(?=[^#]*?#g\\-)", "Ä’"); 
+				text = text.replaceAll("(?<=#g\\+[^#]*)v(?=[^#]*?#g\\-)", "Å�"); // Omega in Vittmann's encoding ("w")
+				text = text.replaceAll("(?<=#g\\+[^#]*)V(?=[^#]*?#g\\-)", "ÅŒ"); 
 				text = text.replaceAll("(?<=#g\\+[^#]*)%\\?(?=[^#]*?#g\\-)", "\u0342"); // Greek perispomeni in Vittmann's encoding
 				text = text.replaceAll("(?<=#g\\+[^#]*)%\\)(?=[^#]*?#g\\-)", "\u0313"); // Greek, psili; spiritus lenis in Vittmann's encoding("%)")
 				text = text.replaceAll("(?<=#g\\+[^#]*)%\\((?=[^#]*?#g\\-)", "\u0314"); // Greek dasia; spiritus asper in Vittmann's encoding ("%(")

@@ -326,7 +326,7 @@ a.navbar-brand {
     color: white;
 }
 
-.result-list-item.inactive {
+.result-list-item.obsolete {
     opacity: .4;
     filter: grayscale(100%);
 }
@@ -432,13 +432,6 @@ button.toggle-collapsible span.expanded:before {
     content: "\f05e";
 }
 .red-status span.notok svg {
-    color: var(--danger);
-}
-
-.red-status span.artificiallyaligned:before {
-    content: "\f850";
-}
-.red-status span.artificiallyaligned svg {
     color: var(--danger);
 }
 
@@ -598,6 +591,7 @@ span.lc:hover {
     color: black !important;
     font-weight: bold;
 }
+
 .token-para {
     color: var(--BBAWmiddlebluegrey) !important;
     font-weight: bold;
@@ -607,11 +601,6 @@ span.lc:hover {
 }
 .token-para:after {
     content: ")";
-}
-
-.token-verse_point,
-.token-default {
-    color: black !important;
 }
 
 .translations
@@ -908,10 +897,6 @@ footer.bg-light {
 	vertical-align: top;
 	border-bottom: 1pt solid lightgrey;
 	border-top: 1pt solid lightgrey;
-}
-
-.modal-footer-text {
-	text-align: left;
 }
 
 /* Citation */

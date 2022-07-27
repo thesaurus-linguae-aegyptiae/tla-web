@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import tla.domain.model.Passport;
+import tla.web.model.parts.GlyphsLemma;
 import tla.web.model.parts.Glyphs;
 import tla.web.model.parts.Token;
 
@@ -15,13 +16,13 @@ public class LemmaTest {
 
     @Test
     void glyphConstructionTest() {
-        Glyphs g1 = Glyphs.of(null);
+        GlyphsLemma g1 = GlyphsLemma.of(null);
         assertAll("creator should accept null value",
             () -> assertNotNull(g1, "should return object"),
             () -> assertTrue(g1.isEmpty(), "should be considered empty tho"),
-            () -> assertEquals(g1, Glyphs.of(null), "empty hieros should always be equal")
+            () -> assertEquals(g1, GlyphsLemma.of(null), "empty hieros should always be equal")
         );
-        Glyphs g2 = Glyphs.of(" ");
+        GlyphsLemma g2 = GlyphsLemma.of(" ");
         assertAll("creator should accept empty value",
             () -> assertNotNull(g2, "should return object"),
             () -> assertTrue(g2.isEmpty(), "should be considered empty tho")
@@ -38,11 +39,11 @@ public class LemmaTest {
                     mdc -> Token.builder().glyphs(Glyphs.of(mdc)).build()
                 ).collect(Collectors.toList())
             ).build();
-      Glyphs glyphs = l.getGlyphs();
+      GlyphsLemma glyphs = l.getGlyphs();
         assertAll("test hieroglyphs from lemma extraction",
            // () -> assertEquals(3, glyphs.size(), "item count"),
             () -> assertTrue(glyphs.isEmpty(), "second item empty"),
-            () -> assertEquals(Glyphs.of("N35"), glyphs.getMdcCompact(), "first item")
+            () -> assertEquals(GlyphsLemma.of("N35"), glyphs.getMdcCompact(), "first item")
            // () -> assertEquals(Glyphs.of("N35").hashCode(), glyphs.get(0).hashCode(), "first item hashcode")
         );
     }

@@ -20,7 +20,7 @@ import tla.domain.model.meta.BTSeClass;
 import tla.domain.model.meta.TLADTO;
 import tla.web.model.meta.BTSObject;
 import tla.web.model.meta.BackendPath;
-import tla.web.model.parts.Glyphs;
+import tla.web.model.parts.GlyphsLemma;
 import tla.web.model.parts.Token;
 import tla.web.model.parts.extra.AttestedTimespan;
 
@@ -48,7 +48,7 @@ public class Lemma extends BTSObject {
     @Singular
     private List<Token> words;
     
-    private Glyphs glyphs;
+    private GlyphsLemma glyphs;
 
     @Singular
     private List<AttestedTimespan> attestations;
@@ -80,12 +80,12 @@ public class Lemma extends BTSObject {
      *
      * @return List of all lemma word hieroglyphs, or null if there are no hieroglyphs at all
      */
-    public Glyphs getHieroglyphs()
+    public GlyphsLemma getHieroglyphs()
    
     {
     	 if (this.getDictionaryName().equals(Script.HIERATIC)) {
-    		 System.out.println ("Glyphs "+ this.getGlyphs().getMdcCompact());
-    		 System.out.println ("Unicode "+ this.getGlyphs().getUnicode());
+    		 System.out.println ("Glyphs Lemma"+ this.getGlyphs().getMdcCompact());
+    		 System.out.println ("Unicode Lemma"+ this.getGlyphs().getUnicode());
     		 return this.getGlyphs();
     	 }
     	 else return null;

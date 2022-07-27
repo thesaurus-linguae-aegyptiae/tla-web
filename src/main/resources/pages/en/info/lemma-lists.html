@@ -18,8 +18,8 @@
       <p>The editorial <strong>review status</strong> of each lemma entry is categorized and indicated by one of three icons:</p>
       <ul>
          <li>The icon <span class="red-status"><span class="icon ok"></span></span> (“<strong><i th:text="#{review_state_published}">reviewed</i></strong>”) indicates that an entry has been reviewed and updated.</li>
-         <li>The icon <span class="red-status"><span class="icon pending"></span></span> (“<strong><i th:text="#{review_state_published-awaiting-verification}">review pending</i></strong>”) indicates that an entry still needs to be reviewed (e.g., entries imported from external lexicographical sources, but not yet checked).</li>
-         <li>The icon <span class="red-status"><span class="icon notok"></span></span> (“<strong><i th:text="#{review_state_published-inactive}">inactive</i></strong>”) indicates that an entry’s status as a lemma has been revoked by the chief lemma list editor based on ongoing lexicographical research. Furthermore, specific lemma entries that simply refer the user to other entries are marked this way.</li>
+         <li>The icon <span class="red-status"><span class="icon pending"></span></span> (“<strong><i th:text="#{review_state_published-awaiting-review}">review pending</i></strong>”) indicates that an entry still needs to be reviewed (e.g., entries imported from external lexicographical sources, but not yet checked).</li>
+         <li>The icon <span class="red-status"><span class="icon notok"></span></span> (“<strong><i th:text="#{review_state_published-obsolete}">inactive</i></strong>”) indicates that an entry’s status as a lemma has been revoked by the chief lemma list editor based on ongoing lexicographical research. Furthermore, specific lemma entries that simply refer the user to other entries are marked this way.</li>
       </ul>
    </section>
    <section>
@@ -89,7 +89,7 @@
       </ul>
       <p>Many lemma entries also provide information on internal relations to other lemmata. Types of such relations are:</p>
       <ul>
-         <li><strong>Reference relation</strong> (“<i th:text="#{lemma_relation_predicate_referencing}">substituted by</i> / <i th:text="#{lemma_relation_predicate_referencedBy}">referred to from</i>”): Revoked, obsolete, or referencing lemmata, i.e., those with the editorial status “<i th:text="#{review_state_published-inactive}">inactive</i>” (see <a href="#section-editorial-status">above</a>), link to their respective substitute (and vice versa).</li>
+         <li><strong>Reference relation</strong> (“<i th:text="#{lemma_relation_predicate_referencing}">substituted by</i> / <i th:text="#{lemma_relation_predicate_referencedBy}">referred to from</i>”): Revoked, obsolete, or referencing lemmata, i.e., those with the editorial status “<i th:text="#{review_state_published-obsolete}">inactive</i>” (see <a href="#section-editorial-status">above</a>), link to their respective substitute (and vice versa).</li>
          <li><strong>Hierarchical relation</strong> (“<i th:text="#{lemma_relation_predicate_partOf}">superordinate</i> / <i th:text="#{lemma_relation_predicate_contains}">referring by</i>”): <ul>
                <li>In accordance with the widely accepted grammatical analysis that adjectives and corresponding verbal lemmata are productively related, adjectives usually provide links to the respective (superordinate) verbal lemma (and vice versa).</li>
                <li>Collocational lemmata entries such as <i class="transliteration">jri̯ (sḫr.w)</i> ‘to take care’ link to their superordinate kernel lemma (<i class="transliteration">jri̯</i> ‘to make’). Likewise entries that represent contextually especially noteworthy semantics such as <i class="transliteration">jri̯</i> (plus descendant name) ‘to procreate’ link to their superordinate lemma (<i class="transliteration">jri̯</i> ‘to make’).</li>

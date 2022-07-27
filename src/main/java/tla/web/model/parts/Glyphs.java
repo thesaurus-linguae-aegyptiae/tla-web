@@ -54,6 +54,7 @@ public class Glyphs {
      */
     public static Glyphs of(tla.domain.model.SentenceToken.Glyphs dto, boolean rubrum) {
         if (dto != null) {
+        	System.out.println("Sentence DTO");
             return Glyphs.builder()
                 .mdcCompact(dto.getMdcCompact())
                 .unicode(dto.getUnicodeTla())
@@ -65,8 +66,9 @@ public class Glyphs {
         }
     }
     
-    public static Glyphs of(tla.domain.dto.LemmaDto.Glyphs dto, boolean rubrum) {
+ /*   public static Glyphs of(tla.domain.dto.LemmaDto.Glyphs dto, boolean rubrum) {
         if (dto != null) {
+        	System.out.println("Lemma DTO");
             return Glyphs.builder()
                 .mdcCompact(dto.getMdcCompact())
                 .unicode(dto.getUnicode())
@@ -76,7 +78,7 @@ public class Glyphs {
             return Glyphs.EMPTY;
         }
     }
-
+*/
     /**
      * Returns true if all attributes are actually empty.
      */
