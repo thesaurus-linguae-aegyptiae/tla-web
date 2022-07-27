@@ -24,7 +24,7 @@
       <!-- LEMMA search result -->
 
       <div th:fragment="lemma-search-result" class="result-list-item"
-          th:classappend="${#strings.endsWith(obj.reviewState,'obsolete')} ? 'obsolete' : ''"
+          th:classappend="${#strings.endsWith(obj.reviewState,'inactive')} ? 'inactive' : ''"
           th:object="${obj}" th:id="|lemma-${obj.id}|">
         <a th:replace="fragments/common :: review-state(${obj})"/>
 
@@ -36,7 +36,7 @@
           <span th:unless="${obj.type == 'root'}" class="subcorpus" th:text="#{|dict_${obj.dictionaryName}|}">Demotic</span>
           </span>
           <span class="result-list-item-element hieroglyphs" th:if="${obj.glyphs != null}">
-            <span th:replace="fragments/details :: hieroglyphs">N35:G43</span>
+            <span th:replace="fragments/details :: hieroglyphsSuche">N35:G43</span>
           </span>
           </a>
 		  <!--class="result-list-item-element lemma-id text-muted"  -->
@@ -80,12 +80,13 @@
 
       <!-- SENTENCE search result -->
 
-      <div th:fragment="sentence-search-result" class="result-list-item" th:object="${obj}" th:with="hasGlyphs=*{hasGlyphs}">
+      <div th:fragment="sentence-search-result" class="result-list-item" th:object="${obj}" th:with="hasGlyphs=*{hasGlyphs},isArtificiallyAligned=*{isArtificiallyAligned}">
 
       <!-- Block view -->
         <div class="occ-list-item mt-3 pt-1 pb-1" >
           <div class="sentence-line-mode">
             <th:block th:if="${hasGlyphs}">
+			    <th:block th:if="${isArtificiallyAligned}"><a th:replace="fragments/common :: artificial-alignment"></a></th:block>
               <div th:replace="fragments/common :: sentence-hieroglyphs"/>
             </th:block>
             <div th:replace="fragments/common :: sentence-transcription"/>
@@ -139,6 +140,7 @@
 								  </div>
 						    </ul>
 			         	</div>
+						  <th:block th:if="${isArtificiallyAligned}"><a th:replace="fragments/common :: artificial-alignment"></a></th:block>
 		            </div>
 	            </div>
 	             
