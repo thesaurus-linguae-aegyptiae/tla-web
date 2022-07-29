@@ -292,10 +292,16 @@
         </th:block>
     </span>
 
-    <!-- hieroglyphs -->
+    <!-- hieroglyphs in Lemma Detail-->
     <th:block th:fragment="hieroglyphs" th:if="${obj.glyphs != null}">
        
             <span class="hieroglyphs" th:title="${obj.glyphs.mdcCompact}" th:utext="${obj.glyphs.svg}" style="height: 14pt"/>
+        </span>
+    </th:block>
+     <!-- hieroglyphs in Such-Ergebniss-->
+     <th:block th:fragment="hieroglyphsSuche" th:if="${obj.glyphs != null}">
+       
+            <span class="hieroglyphs" th:title="${obj.glyphs.mdcCompact}" th:utext="${obj.glyphs.unicode}" style="height: 14pt"/>
         </span>
     </th:block>
 
