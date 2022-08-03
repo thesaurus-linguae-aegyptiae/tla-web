@@ -158,7 +158,7 @@
     </div>
 
     <!-- Lemma details hieroglyphs -->
-    <div th:fragment="lemma-property-hieroglyphs" id="lemma-property-hieroglyphs" th:if="${obj.glyphs} != null">
+    <div th:fragment="lemma-property-hieroglyphs" id="lemma-property-hieroglyphs" th:if="${obj.glyphs.unicode} != null">
         <p>
             <strong th:text="#{lemma_property_hieroglyphs}" class="details-property-label">Hieroglyphic spelling(s)</strong>:
             <span th:replace=" :: hieroglyphs"/>
@@ -215,7 +215,7 @@
                 <span th:text="#{|${objectType}_relation_predicate_${predicate.key}|}" class="details-property-label">Predicate</span>
             </div>
             <div class="col-md-12">
-                <div class="related-objects-item" th:each="obj : ${predicate.value}" th:object="${obj}" th:id="${obj.id}"
+                <div class="result-list-item" th:each="obj : ${predicate.value}" th:object="${obj}" th:id="${obj.id}"
                     th:unless="${obj == null || obj.eclass == 'BTSAnnotation'}"
                     th:include="fragments/search/results :: |${objectType}-search-result|">
                 </div>
@@ -293,15 +293,14 @@
     </span>
 
     <!-- hieroglyphs in Lemma Detail-->
-    <th:block th:fragment="hieroglyphs" th:if="${obj.glyphs != null}">
+    <th:block th:fragment="hieroglyphs" th:if="${obj.glyphs.svg != null}">
        
             <span class="hieroglyphs" th:title="${obj.glyphs.mdcCompact}" th:utext="${obj.glyphs.svg}" style="height: 14pt"/>
         </span>
     </th:block>
      <!-- hieroglyphs in Such-Ergebniss-->
-     <th:block th:fragment="hieroglyphsSuche" th:if="${obj.glyphs != null}">
-       
-            <span class="hieroglyphs" th:title="${obj.glyphs.mdcCompact}" th:utext="${obj.glyphs.unicode}" style="height: 14pt"/>
+     <th:block th:fragment="hieroglyphsSuche" th:if="${obj.glyphs.unicode != null}">
+            <span class="unicode-hieroglyphs" th:title="${obj.glyphs.mdcCompact}" th:utext="${obj.glyphs.unicode}" style="height: 14pt"/>
         </span>
     </th:block>
 
