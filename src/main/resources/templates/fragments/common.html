@@ -304,15 +304,19 @@
 
     <!-- sentence hieroglyphs -->
     <div th:fragment="sentence-hieroglyphs" class="result-list-item-element hieroglyphs">
-	   <a th:each="token : *{tokens}" th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,token.lemma.id)).build()}" th:id="|hieroglyphs-${token.id}|" th:class="${(#request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }" target="_blank" rel="opener">
-        <div th:replace=" :: token-hieroglyphs"/>
-      </a>
+      <p class="bbaw-libertine mb-2">
+        <span th:each="token : *{tokens}" th:id="|hieroglyphs-${token.id}|">
+		    <a  th:if="${token.lemma.id}" th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,token.lemma.id)).build()}"
+			       th:class="|sentence-token token-${token.type}|" th:classappend="${(#request.getParameter('tokens[0].lemma.id') != Null AND #request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : ''}" target="_blank" rel="opener"><th:block th:replace=" :: token-hieroglyphs"/></a>
+			 <span th:unless="${token.lemma.id}"><th:block th:replace=" :: token-hieroglyphs"/></span>
+		</span>
+	   </p>
     </div>
 
     <!-- sentence transcription -->
     <div th:fragment="sentence-transcription" class="result-list-item-element transcription">
       <p class="bbaw-libertine mb-2">
-        <span th:each="token : *{tokens}" th:id="|transliteration-${token.id}|" th:class="${(#request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }">
+        <span th:each="token : *{tokens}" th:id="|transliteration-${token.id}|" th:class="${(#request.getParameter('tokens[0].lemma.id') != Null AND #request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }">
 		    <a  th:if="${token.lemma.id}" th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,token.lemma.id)).build()}"
                    th:utext="${token.transcription.unicode}" 
 			       th:class="|sentence-token token-${token.type}|" th:classappend="${token.rubrum} ? rubrum" target="_blank" rel="opener"/>
@@ -324,11 +328,15 @@
 
     <!-- token hieroglyphs -->
     <th:block th:fragment="token-hieroglyphs">
-      <span th:unless="${token.glyphs.empty}" th:utext="${token.glyphs.svg}"
-            th:title="${token.glyphs.mdcCompact}" class="token-glyphs" style="height: 14pt"/>
-      <span th:if="${token.glyphs.empty}" class="token-glyphs">&nbsp;</span>
-     
-    </th:block>
+		<span th:if="${token.glyphs.svg}" th:utext="${token.glyphs.svg}" th:title="${token.glyphs.mdcCompact}" class="token-glyphs" style="height: 14pt"></span>
+		<th:block th:unless="${token.glyphs.svg}">
+			<span th:if="${token.type == 'word' OR  token.type == 'lc'}" class="token-glyphs" style="height: 14pt"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1 28.0"></svg></span>
+			<th:block th:unless="${token.type == 'word' OR token.type == 'lc'}">
+				<span th:if="${token.label}" th:utext="${token.label}" class="|sentence-token token-${(token.type == 'lc' OR token.type == 'para' OR token.type == 'destruction_marker' OR token.type == 'verse_point') ? token.type : 'default'}|"></span>
+				<span th:unless="${token.label}" th:utext="${token.type}" class="sentence-token token-default"></span>
+			</th:block>
+		</th:block>
+	 </th:block>
 
       <!-- OBEN RAUS GENOMMEN Aufgabe der Datentransformation <th:block th:if="${token.glyphs.empty}">
        <span th:switch="${token.type}">
