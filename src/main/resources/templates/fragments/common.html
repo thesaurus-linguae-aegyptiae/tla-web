@@ -313,11 +313,11 @@
     <div th:fragment="sentence-transcription" class="result-list-item-element transcription">
       <p class="bbaw-libertine mb-2">
         <span th:each="token : *{tokens}" th:id="|transliteration-${token.id}|" th:class="${(#request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }">
-		  <a  th:if="${token.lemma.id}" th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,token.lemma.id)).build()}"
-             th:text="${token.label}"
-             th:class="|sentence-token token-${token.type}|"
-             th:classappend="${token.rubrum} ? rubrum" target="_blank" rel="opener"/>
-			 <span th:unless="${token.lemma.id}" th:text="${token.label}" th:class="|sentence-token token-${(token.type == 'lc' OR token.type == 'para' OR token.type == 'destruction_marker' OR token.type == 'verse_point') ? token.type : 'default'}|"/>
+		    <a  th:if="${token.lemma.id}" th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,token.lemma.id)).build()}"
+                   th:utext="${token.transcription.unicode}" 
+			       th:class="|sentence-token token-${token.type}|" th:classappend="${token.rubrum} ? rubrum" target="_blank" rel="opener"/>
+			 <span th:unless="${token.lemma.id}" th:utext="${token.label}" 
+			        th:class="|sentence-token token-${(token.type == 'lc' OR token.type == 'para' OR token.type == 'destruction_marker' OR token.type == 'verse_point') ? token.type : 'default'}|"></span>
 		</span>
       </p>
     </div>
@@ -343,17 +343,13 @@
         </span>
       </th:block>-->
 
-<!-- WAS MACHT DAS HIER MITTENDRIN?
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>-->
-
        <!-- token transcription -->
     <th:block th:fragment="token-transcription">
-     <span th:if="${token.label !=null}" th:utext="${token.label}" th:class="|transcription token-${(token.type == 'lc' OR token.type == 'para' OR token.type == 'destruction_marker' OR token.type == 'verse_point') ? token.type : 'default'}|" th:classappend="${token.rubrum} ? rubrum"></span>
-     <!--<span th:if="${token.type =='destruction_marker'}" th:utext="${token.label}" class="token-destruction_marker"></span>
-     <span th:if="${token.label ==null}" th:text="'&nbsp;'" class="token-destruction_marker"></span>-->    
-    </th:block>
+		<span  th:if="${token.lemma.id}" th:utext="${token.transcription.unicode}" 
+			   th:class="|transcription token-${token.type}|" th:classappend="${token.rubrum} ? rubrum"></span>
+		 <span th:unless="${token.lemma.id}" th:utext="${token.label}" 
+				th:class="|transcription token-${(token.type == 'lc' OR token.type == 'para' OR token.type == 'destruction_marker' OR token.type == 'verse_point') ? token.type : 'default'}|"></span>
+	</th:block>
     
       <!-- token wordclass -->
     <th:block th:fragment="token-word-class">
