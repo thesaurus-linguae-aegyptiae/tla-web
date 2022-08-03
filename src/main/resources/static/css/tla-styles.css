@@ -70,6 +70,7 @@ li {
 a {
     color: var(--BBAWred);
 }
+.related-objects-item a,
 .result-list-item a {
     color: black;
 }
@@ -78,6 +79,7 @@ a:hover {
     text-decoration: none;
     color: var(--BBAWred);
 }
+.related-objects-item a:hover,
 .result-list-item a:hover {
     color: black;
 }

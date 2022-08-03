@@ -36,7 +36,7 @@
           <span th:unless="${obj.type == 'root'}" class="subcorpus" th:text="#{|dict_${obj.dictionaryName}|}">Demotic</span>
           </span>
           <span class="result-list-item-element hieroglyphs" th:if="${obj.glyphs != null}">
-            <span th:replace="fragments/details :: hieroglyphsSuche">N35:G43</span>
+            <span th:replace="fragments/details :: hieroglyphs">N35:G43</span>
           </span>
           </a>
 		  <!--class="result-list-item-element lemma-id text-muted"  -->
@@ -140,7 +140,7 @@
 								  </div>
 						    </ul>
 			         	</div>
-						  <th:block th:if="${isArtificiallyAligned}"><a th:replace="fragments/common :: artificial-alignment"></a></th:block>
+						  <th:block th:if="${hasGlyphs} AND ${isArtificiallyAligned}"><a th:replace="fragments/common :: artificial-alignment"></a></th:block>
 		            </div>
 	            </div>
 	             
