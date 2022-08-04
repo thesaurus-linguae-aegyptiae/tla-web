@@ -141,6 +141,8 @@ public class Util {
 			text = text.replaceAll(HIERO_FONT_MARKUP_REGEX, HIERO_FONT_MARKUP_REPLACEMENT);
 			text = text.replaceAll(TRANSLITERATION_FONT_MARKUP_REGEX, MULTILING_FONT_MARKUP_REPLACEMENT);
             text = text.replaceAll("\\n", "<br/>");
+            text = text.replaceAll("<g>", "<span class=\"latin-in-hiero\">");
+            text = text.replaceAll("</g>", "</span>");
         }
         return text;
     }

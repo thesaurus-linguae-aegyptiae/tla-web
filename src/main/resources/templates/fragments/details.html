@@ -300,7 +300,7 @@
     </th:block>
      <!-- hieroglyphs in Such-Ergebniss-->
      <th:block th:fragment="hieroglyphsSuche" th:if="${obj.glyphs.unicode != null}">
-            <span class="unicode-hieroglyphs" th:title="${obj.glyphs.mdcCompact}" th:utext="${obj.glyphs.unicode}" style="height: 14pt"/>
+            <span class="unicode-hieroglyphs" th:title="${obj.glyphs.mdcCompact}" th:utext="${{obj.glyphs.unicode}}" style="height: 14pt"/>
         </span>
     </th:block>
 
