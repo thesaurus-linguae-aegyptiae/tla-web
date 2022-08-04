@@ -67,7 +67,8 @@ li {
     font-family: "Roboto Condensed";
 }
 
-a {
+a,
+.result-list-item-element.variants-list a {
     color: var(--BBAWred);
 }
 
@@ -75,7 +76,8 @@ a {
     color: black;
 }
 
-a:hover {
+a:hover,
+.result-list-item-element.variants-list a:hover {
     text-decoration: none;
     color: var(--BBAWred);
 }
