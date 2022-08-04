@@ -117,10 +117,10 @@ public class Util {
 			//System.out.println("###### in escapeMarkup: " + text);
 			if (text.contains("#g")) {
 				text = text.replaceAll("(?<=#g\\+[^#]*)w(?=[^#]*?#g\\-)", "s"); // End-Sigma in Vittmann's encoding ("w")
-				text = text.replaceAll("(?<=#g\\+[^#]*)h(?=[^#]*?#g\\-)", "Ä“"); // Eta in Vittmann's encoding ("h")
-				text = text.replaceAll("(?<=#g\\+[^#]*)H(?=[^#]*?#g\\-)", "Ä’"); 
-				text = text.replaceAll("(?<=#g\\+[^#]*)v(?=[^#]*?#g\\-)", "Å�"); // Omega in Vittmann's encoding ("w")
-				text = text.replaceAll("(?<=#g\\+[^#]*)V(?=[^#]*?#g\\-)", "ÅŒ"); 
+				text = text.replaceAll("(?<=#g\\+[^#]*)h(?=[^#]*?#g\\-)", "\u0113"); // Eta in Vittmann's encoding ("h")
+				text = text.replaceAll("(?<=#g\\+[^#]*)H(?=[^#]*?#g\\-)", "\u0112"); 
+				text = text.replaceAll("(?<=#g\\+[^#]*)v(?=[^#]*?#g\\-)", "\u014D"); // Omega in Vittmann's encoding ("w")
+				text = text.replaceAll("(?<=#g\\+[^#]*)V(?=[^#]*?#g\\-)", "\u014C"); 
 				text = text.replaceAll("(?<=#g\\+[^#]*)%\\?(?=[^#]*?#g\\-)", "\u0342"); // Greek perispomeni in Vittmann's encoding
 				text = text.replaceAll("(?<=#g\\+[^#]*)%\\)(?=[^#]*?#g\\-)", "\u0313"); // Greek, psili; spiritus lenis in Vittmann's encoding("%)")
 				text = text.replaceAll("(?<=#g\\+[^#]*)%\\((?=[^#]*?#g\\-)", "\u0314"); // Greek dasia; spiritus asper in Vittmann's encoding ("%(")
@@ -141,6 +141,8 @@ public class Util {
 			text = text.replaceAll(HIERO_FONT_MARKUP_REGEX, HIERO_FONT_MARKUP_REPLACEMENT);
 			text = text.replaceAll(TRANSLITERATION_FONT_MARKUP_REGEX, MULTILING_FONT_MARKUP_REPLACEMENT);
             text = text.replaceAll("\\n", "<br/>");
+            text = text.replaceAll("<g>", "<span class=\"latin-in-hiero\">");
+            text = text.replaceAll("</g>", "</span>");
         }
         return text;
     }
