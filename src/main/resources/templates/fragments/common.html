@@ -306,7 +306,7 @@
     <div th:fragment="sentence-hieroglyphs" class="result-list-item-element hieroglyphs">
       <p class="bbaw-libertine mb-2">
         <span th:each="token : *{tokens}" th:id="|hieroglyphs-${token.id}|">
-		    <a  th:if="${token.lemma.id}" th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,token.lemma.id)).build()}"
+		    <a  th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}"
 			       th:class="|sentence-token token-${token.type}|" th:classappend="${(#request.getParameter('tokens[0].lemma.id') != Null AND #request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : ''}" target="_blank" rel="opener"><th:block th:replace=" :: token-hieroglyphs"/></a>
 			 <span th:unless="${token.lemma.id}"><th:block th:replace=" :: token-hieroglyphs"/></span>
 		</span>
@@ -317,11 +317,15 @@
     <div th:fragment="sentence-transcription" class="result-list-item-element transcription">
       <p class="bbaw-libertine mb-2">
         <span th:each="token : *{tokens}" th:id="|transliteration-${token.id}|" th:class="${(#request.getParameter('tokens[0].lemma.id') != Null AND #request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }">
-		    <a  th:if="${token.lemma.id}" th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,token.lemma.id)).build()}"
+		    <a  th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}"
                    th:utext="${token.transcription.unicode}" 
 			       th:class="|sentence-token token-${token.type}|" th:classappend="${token.rubrum} ? rubrum" target="_blank" rel="opener"/>
-			 <span th:unless="${token.lemma.id}" th:utext="${token.label}" 
-			        th:class="|sentence-token token-${(token.type == 'lc' OR token.type == 'para' OR token.type == 'destruction_marker' OR token.type == 'verse_point') ? token.type : 'default'}|"></span>
+			<th:block th:unless="${token.lemma.id}">
+				<span th:if="${token.label}" th:utext="${token.label}" 
+						th:class="|sentence-token token-${(token.type == 'lc' OR token.type == 'para' OR token.type == 'destruction_marker' OR token.type == 'verse_point') ? token.type : 'default'}|"></span>
+				<span th:unless="${token.label}" th:utext="${token.type}" 
+						class="transcription token-default"></span>
+			</th:block>
 		</span>
       </p>
     </div>
@@ -338,25 +342,16 @@
 		</th:block>
 	 </th:block>
 
-      <!-- OBEN RAUS GENOMMEN Aufgabe der Datentransformation <th:block th:if="${token.glyphs.empty}">
-       <span th:switch="${token.type}">
-	        <span th:case="'destruction_marker'" class="philological">
-	          //...//
-	        </span>
-	        <span th:case="'lc'" class="philological" >
-	          | 
-	        </span>
-	        <span th:case="*" class="philological" th:text="'&nbsp;'"> 
-	        </span>
-        </span>
-      </th:block>-->
-
-       <!-- token transcription -->
+    <!-- token transcription -->
     <th:block th:fragment="token-transcription">
 		<span  th:if="${token.lemma.id}" th:utext="${token.transcription.unicode}" 
 			   th:class="|transcription token-${token.type}|" th:classappend="${token.rubrum} ? rubrum"></span>
-		 <span th:unless="${token.lemma.id}" th:utext="${token.label}" 
-				th:class="|transcription token-${(token.type == 'lc' OR token.type == 'para' OR token.type == 'destruction_marker' OR token.type == 'verse_point') ? token.type : 'default'}|"></span>
+		<th:block th:unless="${token.lemma.id}">
+			<span th:if="${token.label}" th:utext="${token.label}" 
+					th:class="|transcription token-${(token.type == 'lc' OR token.type == 'para' OR token.type == 'destruction_marker' OR token.type == 'verse_point') ? token.type : 'default'}|"></span>
+			<span th:unless="${token.label}" th:utext="${token.type}" 
+					class="transcription token-default"></span>
+		</th:block>
 	</th:block>
     
       <!-- token wordclass -->
