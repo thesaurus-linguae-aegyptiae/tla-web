@@ -83,8 +83,8 @@
       <div th:fragment="sentence-search-result" class="result-list-item" th:object="${obj}" th:with="hasGlyphs=*{hasGlyphs},isArtificiallyAligned=*{isArtificiallyAligned}">
 
       <!-- Block view -->
-        <div class="occ-list-item mt-3 pt-1 pb-1" >
-          <div class="sentence-line-mode">
+        <div class="sentence-line-mode" >
+          <div class="occ-list-item mt-3 pt-1 pb-1">
             <th:block th:if="${hasGlyphs}">
 			    <th:block th:if="${isArtificiallyAligned}"><a th:replace="fragments/common :: artificial-alignment"></a></th:block>
               <div th:replace="fragments/common :: sentence-hieroglyphs"/>
@@ -94,8 +94,8 @@
         </div>
         
         <!-- Annotation view --> 
-        <div class="mt-3 pt-1 pb-1">
-          <div class="container-annotation-switch">
+        <div class="container-annotation-switch">
+          <div class="mt-3 pt-1 pb-1">
             <div class="container-annotation">
 				         <div th:each="token : *{tokens}"  th:id="|block-${token.id}|">
 								<!--Bug: ul/li-Struktur ungültig-->
