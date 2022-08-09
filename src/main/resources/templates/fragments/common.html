@@ -311,6 +311,11 @@
 			 <span th:unless="${token.lemma.id}"><th:block th:replace=" :: token-hieroglyphs"/></span>
 		</span>
 	   </p>
+			<!--<p class="bbaw-libertine mb-2">
+			<span th:if="*{getGlyphs}">
+				<span th:utext="*{getGlyphs.unicode}"></span>
+			</span>
+			</p>-->
     </div>
 
     <!-- sentence transcription -->
@@ -428,7 +433,8 @@
      
                   <span th:unless="${dateStat.last}">&nbsp;&ndash;&nbsp;</span>       
             </th:block>   	  
-    
+				 <th:block th:unless="*{getDate.size}">(<em th:text="#{date_not_edited}">no date edited</em>)</th:block>
+       </span>
     </div>
     
        <!-- sentence editor -->
