@@ -289,11 +289,13 @@
     <div th:fragment="object-paths(objectPaths, collapse)" class="object-paths">
       <div th:each="objectPath, outerIter : ${objectPaths}" class="object-path mt-2">
         <div th:each="item, iter : ${objectPath}" class="object-path-element">
-          <i th:class="|object-path-icon ${item.eclass} ${item.type}|"></i>
+         <th:block th:unless="${#strings.startsWith(item.label,'〈') AND #strings.indexOf(item.label,'〉') == (#strings.length(item.label) - 1)}">
+          <span th:class="|object-path-icon ${item.eclass} ${item.type}|"></span>
           <!--<a th:if="${item.href} != null" th:href="${item.href}">  ## landing page not yet implemented-->
-            <span th:utext="${{item.label}}">corpus path segment</span>
+            <span th:utext="${{'<label>'+item.label+'</label>'}}">corpus path segment</span>
           <!--</a>-->
-        </div>
+        </th:block>
+       </div>
       </div>
     </div>
           <!-- OBEN RAUS GENOMMEN <span th:unless="${item.href} != null">
@@ -423,14 +425,9 @@
 		 		<span th:utext="#{sentence_date} + ':' " class="textdate"/>
 		 		<th:block th:each="date, dateStat : *{getDate}">
 		 		<!--  <a th:href="|${@searchController.getSearchResultsPageRoute(@__thsController__)}?q=${date.id}|">--> 
-              
-            
-                    <span th:utext="${date.named}"/> 
+                    <span th:utext="${{'<label>'+date.named+'</label>'}}"/> <!-- filter cuts out parts in angles ininside <label/>-->
                   <span th:utext="${date.id}" hidden="true"/> 
                  <!--   </a>   -->
-       
-       
-     
                   <span th:unless="${dateStat.last}">&nbsp;&ndash;&nbsp;</span>       
             </th:block>   	  
 				 <th:block th:unless="*{getDate.size}">(<em th:text="#{date_not_edited}">no date edited</em>)</th:block>
