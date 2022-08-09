@@ -137,12 +137,17 @@ public class Util {
 				MULTILING_FONT_MARKUP_REGEX,
 				MULTILING_FONT_MARKUP_REPLACEMENT
 			);*/
-			text = text.replaceAll(GREEK_FONT_MARKUP_REGEX, MULTILING_FONT_MARKUP_REPLACEMENT);
-			text = text.replaceAll(HIERO_FONT_MARKUP_REGEX, HIERO_FONT_MARKUP_REPLACEMENT);
-			text = text.replaceAll(TRANSLITERATION_FONT_MARKUP_REGEX, MULTILING_FONT_MARKUP_REPLACEMENT);
-            text = text.replaceAll("\\n", "<br/>");
-            text = text.replaceAll("<g>", "<span class=\"latin-in-hiero\">");
-            text = text.replaceAll("</g>", "</span>");
+				text = text.replaceAll(GREEK_FONT_MARKUP_REGEX, MULTILING_FONT_MARKUP_REPLACEMENT);
+				text = text.replaceAll(HIERO_FONT_MARKUP_REGEX, HIERO_FONT_MARKUP_REPLACEMENT);
+				text = text.replaceAll(TRANSLITERATION_FONT_MARKUP_REGEX, MULTILING_FONT_MARKUP_REPLACEMENT);
+				text = text.replace("\\n", "<br/>");
+				text = text.replace("<g>", "<span class=\"latin-in-hiero\">");
+				text = text.replace("</g>", "</span>");
+				// cut out parts in 〈 ... 〉 in marked labels, bis zu zwei Stellen 
+				text = text.replaceAll("(<label>.*?)〈.*?〉(.*</label>)", "$1$2");
+				text = text.replaceAll("(<label>.*?)〈.*?〉(.*</label>)", "$1$2");
+				text = text.replace("<label>", "");
+				text = text.replace("</label>", "");
         }
         return text;
     }

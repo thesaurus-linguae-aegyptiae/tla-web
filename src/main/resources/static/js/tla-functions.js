@@ -85,7 +85,7 @@ function init() {
 			if(document.getElementById("script1").checked) {
 				if( document.getElementById("script2").checked ){
 					storeUserSetting("TranscriptionScript", "hieratic+demotic");
-					storeUserSetting("RootEncoding", "unicode");	
+					//storeUserSetting("RootEncoding", "unicode");	
 					storeUserSetting("TranscriptionEncoding", "unicode");	
 					storeUserSetting("Mdc", "disabled");
 					
@@ -120,7 +120,7 @@ function init() {
 			if(document.getElementById("script2").checked) {
 				if( document.getElementById("script1").checked ){
 					storeUserSetting("TranscriptionScript", "hieratic+demotic");
-					storeUserSetting("RootEncoding", "unicode");	
+					//storeUserSetting("RootEncoding", "unicode");	
 					storeUserSetting("TranscriptionEncoding", "unicode");	
 					storeUserSetting("Mdc","disabled");
 
