@@ -951,6 +951,11 @@ footer.bg-light {
     text-decoration: none;
 }
 
+
+.keyboardInput {
+    float: left;
+}
+
 .keyboardInputInitiator {
     color: var(--BBAWred);
 }
