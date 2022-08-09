@@ -90,8 +90,8 @@ function init() {
 					storeUserSetting("Mdc", "disabled");
 					
 					document.getElementById("transcription_enc_unicode").checked = true;
-					document.getElementById("root_enc_unicode").checked = true;
-					document.getElementById("root_enc_mdc").disabled = true;
+					//document.getElementById("root_enc_unicode").checked = true;
+					//document.getElementById("root_enc_mdc").disabled = true;
 					document.getElementById("transcription_enc_mdc").disabled = true;
                }
 				
@@ -101,7 +101,7 @@ function init() {
 					storeUserSetting("TranscriptionScript", "demotic");	
 					storeUserSetting("Mdc","enabled");
                 
-               document.getElementById("root_enc_mdc").disabled = false;
+               //document.getElementById("root_enc_mdc").disabled = false;
                 document.getElementById("transcription_enc_mdc").disabled = false;
                  }
                else {
@@ -109,7 +109,7 @@ function init() {
 					storeUserSetting("TranscriptionScript", "demotic");
 					storeUserSetting("Mdc","enabled");
 
-	             document.getElementById("root_enc_mdc").disabled = false;
+	             //document.getElementById("root_enc_mdc").disabled = false;
                 document.getElementById("transcription_enc_mdc").disabled = false;
                }
 			}
@@ -125,8 +125,8 @@ function init() {
 					storeUserSetting("Mdc","disabled");
 
 				document.getElementById("transcription_enc_unicode").checked = true;
-		        document.getElementById("root_enc_unicode").checked = true;
-                document.getElementById("root_enc_mdc").disabled = true;
+		        //document.getElementById("root_enc_unicode").checked = true;
+                //document.getElementById("root_enc_mdc").disabled = true;
                 document.getElementById("transcription_enc_mdc").disabled = true;
                }
 				
@@ -136,7 +136,7 @@ function init() {
 					storeUserSetting("TranscriptionScript", "hieratic");
 					storeUserSetting("Mdc","enabled");
                 
-               document.getElementById("root_enc_mdc").disabled = false;
+               //document.getElementById("root_enc_mdc").disabled = false;
                 document.getElementById("transcription_enc_mdc").disabled = false;
                  }
                else {
@@ -144,7 +144,7 @@ function init() {
 					storeUserSetting("TranscriptionScript", "hieratic");
 					storeUserSetting("Mdc","enabled");
 
-	             document.getElementById("root_enc_mdc").disabled = false;
+	             //document.getElementById("root_enc_mdc").disabled = false;
                 document.getElementById("transcription_enc_mdc").disabled = false;
                }
           
@@ -181,38 +181,39 @@ function init() {
 	// encoding radios
 		if ((getUserSetting("TranscriptionEncoding") == "unicode") ){
 			$('#transcription_enc_unicode').prop("checked", true);
-			$('#root_enc_unicode').prop("checked", true);
+			//$('#root_enc_unicode').prop("checked", true);
 			if ((getUserSetting("Mdc") == "enabled") ){
 				$('#transcription_enc_mdc').prop("disabled", false);
-			    $('#root_enc_mdc').prop("disabled", false);
+			    //$('#root_enc_mdc').prop("disabled", false);
 			}
 			else{
 				$('#transcription_enc_mdc').prop("disabled", true);
-			    $('#root_enc_mdc').prop("disabled", true);
+			    //$('#root_enc_mdc').prop("disabled", true);
 			}	
 		}
 		else {
 			$('#transcription_enc_mdc').prop("checked", true);
-			$('#root_enc_mdc').prop("checked", true);
+			//$('#root_enc_mdc').prop("checked", true);
 			}
 
         $('#transcription_enc_unicode').click(function () {
 				storeUserSetting("TranscriptionEncoding", "unicode");
-				storeUserSetting("RootEncoding", "unicode");
+				//storeUserSetting("RootEncoding", "unicode");
 
 				document.getElementById("transcription_enc_unicode").checked = true
-				document.getElementById("root_enc_unicode").checked = true
+				//document.getElementById("root_enc_unicode").checked = true
 			
         });	
         $('#transcription_enc_mdc').click(function () {
 				storeUserSetting("TranscriptionEncoding", "manuel_de_codage");
-				storeUserSetting("RootEncoding", "manuel_de_codage");
+				//storeUserSetting("RootEncoding", "manuel_de_codage");
 		
 				document.getElementById("transcription_enc_mdc").checked = true;
-				document.getElementById("root_enc_mdc").checked = true;
+				//document.getElementById("root_enc_mdc").checked = true;
 			
         });	
-        $('#root_enc_unicode').click(function () {
+        /* technically not possible yet
+		  $('#root_enc_unicode').click(function () {
 				storeUserSetting("RootEncoding", "unicode");
 				storeUserSetting("TranscriptionEncoding", "unicode");
 
@@ -227,7 +228,7 @@ function init() {
 				document.getElementById("root_enc_mdc").checked = true;
 				document.getElementById("transcription_enc_mdc").checked = true;
 			
-        });	
+        });*/	
 //Translation Cookies
 
  $('#field-value-translation-checkbox-de-dict').click(function () {

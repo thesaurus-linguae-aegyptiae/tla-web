@@ -146,10 +146,10 @@
         </label>
         <div class="col-xl-10">
 						<div class="form-check form-check-inline">
-							  <input class="form-check-input transcription-enc-btn" type="radio" name="root_enc" id="root_enc_unicode" value="unicode">
+							  <input class="form-check-input transcription-enc-btn" type="radio" name="root_enc" id="root_enc_unicode" value="unicode" checked disabled>
 							  <label class="form-check-label" for="root_enc_unicode" th:text="#{field_value_label_enc_unicode}">Unicode</label>
 						</div>
-						<div class="form-check form-check-inline">
+						<!--<div class="form-check form-check-inline">
 							  <input class="form-check-input transcription-enc-btn" type="radio" name="root_enc" id="root_enc_mdc" value="manuel_de_codage" >
 							  <label class="form-check-label text-to-be-revised" for="root_enc_mdc" th:text="#{field_value_label_enc_manuel_de_codage}">Manuel de Codage</label>
 						</div>
@@ -160,7 +160,7 @@
 							document.getElementById("root_enc_unicode").setAttribute("checked",true);
 							document.getElementById("root_enc_mdc").setAttribute("disabled",false);
 							}
-						</script>
+						</script>-->
           <input class="bbaw-libertine form-control mb-3 keyboardInput" type="text" th:field="*{root}" lang="egy"/>
         </div>
       </div>
@@ -264,9 +264,9 @@
               $('#script2').prop("checked",false);
              $('#transcription_enc_unicode').prop("checked",true);
               $('#transcription_enc_mdc').prop("disabled",false);
-              $('#root_enc_unicode').prop("checked",true);
-              $('#root_enc_mdc').prop("disabled",false);
-              $('#wordClass-type').prop("selectedIndex",2);
+             $('#root_enc_unicode').prop("checked",true);
+             // $('#root_enc_mdc').prop("disabled",false);
+              $('#wordClass-type').prop("selectedIndex",1);
               $('#wordClass-subtype').prop("selectedIndex",0);
            });
           }
