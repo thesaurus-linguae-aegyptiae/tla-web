@@ -115,19 +115,7 @@
         <a class="transliteration-help" href="#" role="button" data-toggle="modal" data-target="#transliteration-help">
         <i class="fas fa-info-circle"></i></a>
         </label>
-    <!--
-    <div class="col-xl-10">
-          <input class="bbaw-libertine form-control mb-3" type="text" th:field="*{transcription}"/>
-        </div>
-      <label  class="col-form-label col-xl-2" th:for="*{root}">
-        <span th:text="#{field_label_root_transliteration}">Root </span>
-        <a class="transliteration-help" href="#" role="button" data-toggle="modal" data-target="#transliteration-help">
-        <i class="fas fa-info-circle"></i></a>
-        </label>
-    -->  
           <div class="col-xl-10">
-				 <input type="text" class="bbaw-libertine form-control mb-3 keyboardInput" th:field="*{transcription}" id="dict-search-transcription" rows="3" name="transcription" lang="egy"/>
-                 
 						 <div class="form-check form-check-inline">
 							  <input class="form-check-input transcription-enc-btn"  type="radio" name="transcription_enc" id="transcription_enc_unicode" th:value="unicode"/>
 							  <label class="form-check-label" for="transcription_enc_unicode" th:text="#{field_value_label_enc_unicode}">Unicode</label>
@@ -136,6 +124,7 @@
 							  <input class="form-check-input transcription-enc-btn" type="radio" name="transcription_enc" id="transcription_enc_mdc"  th:value="manuel_de_codage"/>
 							  <label class="form-check-label text-to-be-revised" for="transcription_enc_mdc" th:text="#{field_value_label_enc_manuel_de_codage}">Manuel de Codage</label>
 						</div>
+				 <input type="text" class="bbaw-libertine form-control mb-3 keyboardInput" th:field="*{transcription}" id="dict-search-transcription" rows="3" name="transcription" lang="egy"/>
 					</div>
 					<script>		
 						if (getUserSetting("TranscriptionEncoding")==null) {
@@ -156,8 +145,7 @@
         <i class="fas fa-info-circle"></i></a>
         </label>
         <div class="col-xl-10">
-          <input class="bbaw-libertine form-control mb-3 keyboardInput" type="text" th:field="*{root}" lang="egy"/>
-           <div class="form-check form-check-inline">
+						<div class="form-check form-check-inline">
 							  <input class="form-check-input transcription-enc-btn" type="radio" name="root_enc" id="root_enc_unicode" value="unicode">
 							  <label class="form-check-label" for="root_enc_unicode" th:text="#{field_value_label_enc_unicode}">Unicode</label>
 						</div>
@@ -173,6 +161,7 @@
 							document.getElementById("root_enc_mdc").setAttribute("disabled",false);
 							}
 						</script>
+          <input class="bbaw-libertine form-control mb-3 keyboardInput" type="text" th:field="*{root}" lang="egy"/>
         </div>
       </div>
 
