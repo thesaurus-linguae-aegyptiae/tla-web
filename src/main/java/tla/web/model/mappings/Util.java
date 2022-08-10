@@ -126,28 +126,25 @@ public class Util {
 				text = text.replaceAll("(?<=#g\\+[^#]*)%\\((?=[^#]*?#g\\-)", "\u0314"); // Greek dasia; spiritus asper in Vittmann's encoding ("%(")
 				text = text.replaceAll("(?<=#g\\+[^#]*)%\\-(?=[^#]*?#g\\-)", "\u0304"); // length in Vittmann's encoding ("%-")
 				text = text.replaceAll(GREEK_FONT_MARKUP_VITTMANN_REGEX, MULTILING_FONT_MARKUP_REPLACEMENT);
-				/*text = RegExUtils.replacePattern(
-					text,
-					GREEK_FONT_MARKUP_VITTMANN_REGEX,
-					MULTILING_FONT_MARKUP_REPLACEMENT
-				);*/
 			}
-			/*text = RegExUtils.replacePattern(
-				text,
-				MULTILING_FONT_MARKUP_REGEX,
-				MULTILING_FONT_MARKUP_REPLACEMENT
-			);*/
 				text = text.replaceAll(GREEK_FONT_MARKUP_REGEX, MULTILING_FONT_MARKUP_REPLACEMENT);
 				text = text.replaceAll(HIERO_FONT_MARKUP_REGEX, HIERO_FONT_MARKUP_REPLACEMENT);
 				text = text.replaceAll(TRANSLITERATION_FONT_MARKUP_REGEX, MULTILING_FONT_MARKUP_REPLACEMENT);
+				
+				// line breaks to HTML
 				text = text.replace("\\n", "<br/>");
+				
+				// Set style of non-Unicode glyphs in gyphs.unicode
 				text = text.replace("<g>", "<span class=\"latin-in-hiero\">");
 				text = text.replace("</g>", "</span>");
-				// cut out parts in 〈 ... 〉 in marked labels, bis zu zwei Stellen 
+				
+				// Cut out parts in 〈 ... 〉 in marked labels
+			if (text.contains("<label>")) {
 				text = text.replaceAll("(<label>.*?)〈.*?〉(.*</label>)", "$1$2");
-				text = text.replaceAll("(<label>.*?)〈.*?〉(.*</label>)", "$1$2");
+				text = text.replaceAll("(<label>.*?)〈.*?〉(.*</label>)", "$1$2"); // sic, up to two instances
 				text = text.replace("<label>", "");
 				text = text.replace("</label>", "");
+			}
         }
         return text;
     }

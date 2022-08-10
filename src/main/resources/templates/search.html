@@ -24,29 +24,30 @@
             <div class="card" th:each="searchForm : ${forms}" th:with="formId=|${searchForm.key}-search|">
               <div class="card-header" th:id="|${formId}-heading|">
                 <h2 class="mb-0">
+                  <i th:id="|icon-${formId}|" class="icon" th:classappend="${searchForm.expanded == true ? 'expanded' : 'collapsed'}"></i>
                   <button class="btn btn-link toggle-collapsible" type="button" data-toggle="collapse"
                       th:id="|toggle-${formId}-form-button|"
                       th:data-target="|#${formId}-collapsible|"
                       th:aria-controls="|#${formId}-collapsible|"
                       th:aria-expanded="${searchForm.expanded}">
-                    <span class="icon" th:classappend="${searchForm.expanded == true ? 'expanded' : 'collapsed'}"></span>
                     <span th:text="#{|form_label_${formId}|}">Search Form Caption</span>
                     <script th:inline="javascript">
                       //<![CDATA[
                       {
                         let key = /*[[${formId}]]*/ null; 
                         let buttonId = `#toggle-${key}-form-button`;
+                        let iconId = `#icon-${key}`;
                         $(buttonId).click(() => {
                           $('div.sidebar-controls').attr('style', 'display: none;');
-                          let span = $(`${buttonId} span:first-child`);
+                          let span = $(`${iconId}`);
                           let expanded = span.attr('class').endsWith('expanded');
                           if (!expanded) {
-                            $('button.btn.toggle-collapsible').attr('aria-expanded', false);
-                            $('button.btn.toggle-collapsible span:first-child').attr('class', 'icon collapsed');
+                            //$('button.btn.toggle-collapsible').attr('aria-expanded', false);
+                            $('.card i').attr('class', 'icon collapsed');
                             $(`#${key}-sidebar-controls`).toggle();
                           }
                           span.attr('class', `icon ${expanded ? 'collapsed' : 'expanded'}`);
-                          $(this).attr('aria-expanded', expanded);
+                          //$(this).attr('aria-expanded', expanded);
                         });
                       }
                       //]]>
