@@ -391,14 +391,16 @@ a.navbar-brand {
 }
 
 /** search form toggle collapsible icons */
-
-button.toggle-collapsible span svg {
+.card i {
+    font-size: 1.2rem;
+}
+.card i svg {
     color: var(--BBAWred);
 }
-button.toggle-collapsible span.collapsed:before {
+.card i.collapsed:before {
     content: "\f0a9";
 }
-button.toggle-collapsible span.expanded:before {
+.card i.expanded:before {
     content: "\f0ab";  /** arrow down: \f0aa */
 }
 
