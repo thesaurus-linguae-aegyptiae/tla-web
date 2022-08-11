@@ -14,27 +14,22 @@
     <div layout:fragment="content" style="min-height: 500px">
 
       <div class="row mb-3 details-header">
-         <div id="review-state-header" class="col-sm-12 col-lg-8 d-flex justify-content-between align-items-end">
-            <h3 class="mt-1">
-              <span class="text-monospace text-muted text-uppercase font-weight-bold">Error:</span>
-              <span class="id bbaw-libertine" th:text="${name}">Object name</span>
-            </h3>
+         <div id="review-state-header" class="col-sm-12 col-lg-8">
+            <h2 class="id mt-1">
+              <span class="text-monospace text-uppercase font-weight-bold"  th:text="#{error_404}">Error description</span>
+            </h2>
+            <!--<p class="text-muted" th:text="|Error ${code != null ? code : '404'} (${name})|">Error 404 (ObjectNotFoundException)</p>-->
          </div>
-         <h3 id="error-code" class="float-right font-weight-bold text-danger text-uppercase"
-            th:text="|Error ${code != null ? code : '404'}|"/>
       </div>
 
       <div class="row">
         <div class="col-sm-12 col-lg-8" id="details-content">
-          <h6 class="border-bottom">
-            <span class="text-danger">
-              No resource could be found at the requested location:
-              <span class="text-monospace" th:text="${url}"/>!
-            </span>
-          </h6>
           <div class="my-5">
-            <h2 class="error-msg border-bottom" th:text="#{error_404}">Feherbeschreibung</h2>
-            <h6 class="error-msg text-muted" th:text="${msg}">error message</h6>
+            <h5 class="border-bottom">
+						<span class="error-msg text-danger" th:text="#{error_404} + ':'"></span>
+						<span class="text-monospace" th:text="'...' + ${url}">.../object/0000</span>
+					</h5>
+					<p class="error-msg text-muted" th:text="${msg}">Error description</p>
           </div>
         </div>
 

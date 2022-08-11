@@ -14,27 +14,22 @@
     <div layout:fragment="content" style="min-height: 500px">
 
       <div class="row mb-3 details-header">
-         <div id="review-state-header" class="col-sm-12 col-lg-8 d-flex justify-content-between align-items-end">
-            <h3 class="mt-1">
-              <span class="text-monospace text-muted text-uppercase font-weight-bold">Error</span>
-              <span class="id bbaw-libertine" th:text="${name}" th:if="${#ctx.containsVariable('name')}">Object name</span>
+         <div id="review-state-header" class="col-sm-12 col-lg-8">
+            <h3 class="id mt-1">
+              <span class="text-monospace text-uppercase font-weight-bold"  th:text="#{error_500}">Error description</span>
             </h3>
+            <!--<p class="text-muted" th:text="|Error ${code != null ? code : '500'} (${name != null ? name : '-'})|">Error 500 (...)</p>-->
          </div>
-         <h3 id="error-code" class="float-right font-weight-bold text-danger text-uppercase"
-            th:text="|Error ${code != null ? code : '500'}|"/>
       </div>
 
       <div class="row">
         <div class="col-sm-12 col-lg-8" id="details-content">
-          <h6 class="border-bottom">
-            <span class="text-danger">
-              The server failed to process your request!
-              <span class="text-monospace" th:text="${url}"/>!
-            </span>
-          </h6>
           <div class="my-5">
-            <h2 class="error-msg border-bottom" th:text="#{error_500}">Feherbeschreibung</h2>
-            <h6 class="error-msg text-muted" th:text="${msg}" th:if="${#ctx.containsVariable('msg')}">error message</h6>
+            <h5>
+						<span class="error-msg text-danger" th:text="#{error_500_long}">The database server failed to process your request</span>
+						<span th:if="${#ctx.containsVariable('url')}" class="text-monospace" th:text="': ...' + ${url}">.../object/0000</span>
+					</h5>
+					<p th:if="${#ctx.containsVariable('msg')}" class="error-msg text-muted" th:text="${msg}">Error description</p>
           </div>
         </div>
 
