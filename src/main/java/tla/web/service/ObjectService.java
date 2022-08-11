@@ -26,7 +26,8 @@ import tla.web.model.meta.ObjectDetails;
 import tla.web.model.meta.SearchResults;
 import tla.web.model.meta.TLAObject;
 import tla.web.repo.TlaClient;
-
+import tla.error.ObjectNotFoundException;
+ 
 /**
  * Generic TLA domain model type object operations component.
  *
@@ -39,6 +40,8 @@ public abstract class ObjectService<T extends TLAObject> {
 
     protected final static ObjectDetailsProperties DETAILS_UNCONFIGURED = new ObjectDetailsProperties();
     protected final static LinkedHashMap<String, List<Passport>> EMPTY_MAP = new LinkedHashMap<>();
+	 
+	 public static final String BTS_ID_PATTERN = "(dm?)?\\d{1,6}|\\w{27,28}(\\-\\d{2})?";
 
     @Autowired
     protected TlaClient backend;
@@ -163,9 +166,20 @@ public abstract class ObjectService<T extends TLAObject> {
      * @return DTO wrapped inside a {@link SingleDocumentWrapper} container
      */
     public SingleDocumentWrapper<AbstractDto> retrieveSingleDocument(String id) {
-        return backend.retrieveObject(
-            this.getModelClass(), id
-        );
+		 if (!id.matches(BTS_ID_PATTERN)) {
+			 log.warn("Tried to retrieve object by id without valid BTS id pattern: '{}'", id);
+		  }
+        try {
+			  return backend.retrieveObject(
+					this.getModelClass(), id
+			  );
+        } catch (Exception e) {
+            //throw new ObjectNotFoundException(id);
+            //log.warn("Failed to retrieve object by ID '{}'!", id);
+            log.error("Failed to retrieve object by ID '{}'!", id);
+            log.error("cause: ", e);
+            return null;
+        }
     }
 
     /**
@@ -175,6 +189,10 @@ public abstract class ObjectService<T extends TLAObject> {
      */
     @SuppressWarnings("unchecked")
     public Optional<ObjectDetails<T>> getDetails(String id) {
+		 if (!id.matches(BTS_ID_PATTERN)) {
+			 log.warn("Tried to retrieve details of object by id without valid BTS id pattern: '{}'.", id);
+			 return Optional.empty();
+		  }
         try {
             ObjectDetails<?> container = ObjectDetails.from(
                 retrieveSingleDocument(id)
@@ -186,7 +204,9 @@ public abstract class ObjectService<T extends TLAObject> {
                 )
             );
         } catch (Exception e) {
-            log.error("failed to obtain details for object {}!", id);
+            //throw new ObjectNotFoundException(id);
+            //log.warn("Failed to obtain details for object ID '{}'!", id);
+            log.error("Failed to obtain details for object ID '{}'!", id);
             log.error("cause: ", e);
             return Optional.empty();
         }
