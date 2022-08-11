@@ -144,6 +144,9 @@ public class Util {
 				text = text.replaceAll("(<label>.*?)〈.*?〉(.*</label>)", "$1$2"); // sic, up to two instances
 				text = text.replace("<label>", "");
 				text = text.replace("</label>", "");
+				
+				// Treat triple point workaround
+				text = text.replace("\u205d", ":");
 			}
         }
         return text;
