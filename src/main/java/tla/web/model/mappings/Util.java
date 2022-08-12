@@ -146,7 +146,7 @@ public class Util {
 					text = text.replace("</label>", "");
 					
 					// Treat triple point workaround
-					text = text.replace("\u205d", ":");
+					//text = text.replace("\u205d", ":"); // not necessary anymore
 				}
         }
         return text;
