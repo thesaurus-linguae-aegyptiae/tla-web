@@ -101,7 +101,14 @@ blockline
 
 /* loader animation */
 
-.loader-wrapper {
+.spinner-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%)
+}
+
+/*.loader-wrapper {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -143,7 +150,7 @@ blockline
   75% { height: 100%;}
   100% { height: 0%;}
 }
-
+*/
 
 .searchresult h2 {
     font-weight: medium;
