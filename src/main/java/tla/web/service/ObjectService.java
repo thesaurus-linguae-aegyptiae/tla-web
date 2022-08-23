@@ -41,7 +41,7 @@ public abstract class ObjectService<T extends TLAObject> {
     protected final static ObjectDetailsProperties DETAILS_UNCONFIGURED = new ObjectDetailsProperties();
     protected final static LinkedHashMap<String, List<Passport>> EMPTY_MAP = new LinkedHashMap<>();
 	 
-	 public static final String BTS_ID_PATTERN = "(dm?)?\\d{1,6}|\\w{26,28}(\\-\\d{2})?";
+	 public static final String BTS_ID_PATTERN = "(dm?)?\\d{1,6}|\\w{26,29}(\\-\\d{2})?";
 
     @Autowired
     protected TlaClient backend;
