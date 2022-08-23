@@ -603,6 +603,13 @@ g,
     color: black !important;
     font-weight: bold;
 }
+.token-lc:before {
+    content: "[";
+}
+.token-lc:after {
+    content: "]";
+}
+
 .token-para {
     color: var(--BBAWmiddlebluegrey) !important;
     font-weight: bold;
