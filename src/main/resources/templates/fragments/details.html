@@ -160,9 +160,23 @@
         <p>
             <strong th:text="#{lemma_property_hieroglyphs}" class="details-property-label">Hieroglyphic spelling(s)</strong>:
             <span th:replace=" :: hieroglyphsSuche"/>
+				  <button type="button" id="button_unicode" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" th:onClick="" >
+						  <span class="fas fa-clipboard"></span> <span th:text="#{button_copy_unicode}">Copy Unicode</span> 
+				  </button>  
             <th:block th:if="${#strings.contains(obj.glyphs.unicode, '/g')}">
                ; <span th:text="#{lemma_property_hieroglyphs_mdc}">JSesh/MdC</span>: <span th:replace=" :: hieroglyphs"></span>
             </th:block>
+				  <button type="button" id="button_mdc" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" th:onClick="" >
+						  <span class="fas fa-clipboard"></span> <span th:text="#{button_copy_MdC}">Copy MdC</span> 
+				  </button>  
+				  <script th:inline="javascript">
+						/*<![CDATA[*/
+							var unicode_spelling = /*[[${obj.glyphs.unicode}]]*/ '0';
+							document.getElementById("button_unicode").setAttribute( "onClick", "javascript: copyStringToClipboard(unicode_spelling)");
+							var mdc_spelling = /*[[${obj.glyphs.mdcCompact}]]*/ '0';
+							document.getElementById("button_mdc").setAttribute( "onClick", "javascript: copyStringToClipboard(mdc_spelling)");
+						/*]]>*/
+					</script>  
         </p>
     </div>
 
