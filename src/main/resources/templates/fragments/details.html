@@ -159,7 +159,10 @@
     <div th:fragment="lemma-property-hieroglyphs" id="lemma-property-hieroglyphs" th:if="${obj.glyphs.unicode} != null">
         <p>
             <strong th:text="#{lemma_property_hieroglyphs}" class="details-property-label">Hieroglyphic spelling(s)</strong>:
-            <span th:replace=" :: hieroglyphs"/>
+            <span th:replace=" :: hieroglyphsSuche"/>
+            <th:block th:if="${#strings.contains(obj.glyphs.unicode, '/g')}">
+               ; <span th:text="#{lemma_property_hieroglyphs_mdc}">JSesh/MdC</span>: <span th:replace=" :: hieroglyphs"></span>
+            </th:block>
         </p>
     </div>
 
@@ -292,13 +295,12 @@
 
     <!-- hieroglyphs in Lemma Detail-->
     <th:block th:fragment="hieroglyphs" th:if="${obj.glyphs.svg != null}">
-       
-            <span class="hieroglyphs" th:title="${obj.glyphs.mdcCompact}" th:utext="${obj.glyphs.svg}" style="height: 14pt"/>
-        </span>
+        <span class="hieroglyphs" th:title="${obj.glyphs.mdcCompact}" th:utext="${obj.glyphs.svg}" style="height: 14pt"/></span>
     </th:block>
+
      <!-- hieroglyphs in Such-Ergebniss-->
      <th:block th:fragment="hieroglyphsSuche" th:if="${obj.glyphs.unicode != null}">
-            <span class="unicode-hieroglyphs" th:title="${obj.glyphs.mdcCompact}" th:utext="${{obj.glyphs.unicode}}" style="height: 14pt"/>
+            <span class="unicode-hieroglyphs" th:utext="${{obj.glyphs.unicode}}" style="height: 14pt"/>
         </span>
     </th:block>
 

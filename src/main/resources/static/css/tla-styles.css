@@ -518,7 +518,7 @@ span.lc:hover {
 
 
 .hieroglyphs svg {
-    vertical-align: text-bottom;
+    vertical-align: middle;
     height: 4rem;
 }
 .hieroglyphs .token-glyphs svg {
