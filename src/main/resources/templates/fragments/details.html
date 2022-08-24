@@ -227,6 +227,13 @@
    <div th:fragment="object-property-citationBox" id="object-property-citationBox" class="bg-light citation m-sm-2 m-lg-4"> 
     	<div class="bg-light citation  m-sm-1 m-lg-2"> 
     <p class="h6" ><strong th:text="#{citeas_heading}">Please cite as</strong>:</p>
+				(<em>Short citation</em>)
+				<blockquote id="full-citation">
+					<span th:text="${env.baseUrl}+'/lemma/' + ${obj.id} +', in: '"></span>
+					<span style="font-style: italic;" th:text="#{tla_Title}">Thesaurus Linguae Aegpyi</span>
+					(<span th:text="#{citeas_accessed}"></span>: <span id="current-date-short">xx.xx.20xx</span>)
+				</blockquote>
+				(<em>Full citation</em>)
 				<blockquote id="full-citation"><span th:text="${obj.name} + ' (' + #{citeas_lemma} +' '+ ${obj.id} + '), <' + ${env.baseUrl}+'/lemma/' + ${obj.id} +'>, in: '"></span>  
 					<span style="font-style: italic;" th:text="#{tla_Title}"></span>  
 					<span th:text="' <' + ${env.baseUrl} +'>, ' + #{citeas_corpus_version} + ' ' + #{tla_corpusversion} + ', ' + #{citeas_tla_version} + ' ' + #{tla_version} + ', ' + #{tla_ReleaseDate} + ', ' + #{citeas_editor} +' ' + #{tla_Editor} + ' ('+ #{citeas_accessed} + ': '"></span>
@@ -236,6 +243,7 @@
 					var date = new Date(); date.getUTCDate(); 
 					var today= date.getDate() + "." + (date.getMonth()+1) + "." + date.getFullYear(); 
 					document.getElementById('current-date').innerHTML =today;
+					document.getElementById('current-date-short').innerHTML =today;
 				</script>
 				<button type="button" class="btn btn-secondary btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document.getElementById('full-citation').textContent.replaceAll(/\s+/g,' '))"><i class="fas fa-clipboard"></i>&nbsp;<span th:text="#{citeas_copy_button}">Copy citation</span></button>
      </div>  
