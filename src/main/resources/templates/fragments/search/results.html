@@ -908,12 +908,12 @@
 
       <!-- result page description -->
 
-      <div class="result-page-desc col-md-8 d-flex align-items-end" th:object="${pagination}" th:fragment="result-page-desc">  
-        <span th:text="#{result_page_description_left}">Results:</span>
+      <div class="result-page-desc col-md-8" th:object="${pagination}" th:fragment="result-page-desc">  
+        <span th:text="#{result_page_description_left}">Results</span>:
         <b class="mx-1" th:text="|*{fromResult} - *{toResult}|">1 - 24</b>
         <span class="font-italic" th:text="#{result_page_description_middle}">of</span>
         <b class="mx-1" th:text="*{totalResults}">140</b>
-        <span th:text="#{|result_page_description_right_${objectType}*{(totalResults > 1) ? 's' : ''}|}">dictionary entries</span>
+        <span th:text="#{|result_page_description_right_${objectType}*{(totalResults > 1) ? 's' : ''}|}">dictionary entries</span>.
       </div>
 
 
