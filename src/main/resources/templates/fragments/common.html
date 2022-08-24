@@ -440,12 +440,12 @@
 	     	  <span th:utext="#{sentence_main_editor} + ':' " class="texteditors"/>
 	     	  <span th:utext="*{getEdited.author}" class="simpleed"/> 
 			  <span th:if="*{getEdited.contributors}" class="simpleed">
-			  ;
-			  <span th:text="#{sentence_contributors} + ': '" class="text-editor"/>
-			  <span th:each="contributor, nr : *{getEdited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/>
-			  <span th:utext="' (' + #{sentence_latest_access} + ': ' + *{getEdited.getDateOfLatestUpdate} + ')'" /><!-- formatiert: <span th:text="${#calendars.format(obj.edited.updated, formatter)}">date</span>-->
-			  <!-- fehlt hier: <span th:text="#{|review_state_${obj.reviewState}|}">status</span>-->
+				  ;
+				  <span th:text="#{sentence_contributors} + ': '" class="text-editor"/>
+				  <span th:each="contributor, nr : *{getEdited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/>
 			  </span>
+			  <!-- fehlt hier: <span th:text="#{|review_state_${obj.reviewState}|}">status</span>-->
+			  <span th:utext="' (' + #{sentence_latest_access} + ': ' + *{getEdited.getDateOfLatestUpdate} + ')'" /><!-- formatiert: <span th:text="${#calendars.format(obj.edited.updated, formatter)}">date</span>-->
          </span>
     </div>
    
