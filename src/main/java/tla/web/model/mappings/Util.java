@@ -12,6 +12,7 @@ import jsesh.mdc.MDCParserModelGenerator;
 import jsesh.mdc.MDCSyntaxError;
 import jsesh.mdc.model.TopItem;
 import jsesh.mdc.model.TopItemList;
+import jsesh.mdcDisplayer.preferences.*;
 import jsesh.mdcDisplayer.draw.MDCDrawingFacade;
 import jsesh.utils.DoubleDimensions;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +35,7 @@ public class Util {
     public static final String SVG_ATTR_REGEX = "width=.([0-9.]+). height=.([0-9.]+).";
     public static final String SVG_ATTR_REPLACEMENT = "viewBox=\"0 0 $1 $2\"";
     private static MDCDrawingFacade facade = new MDCDrawingFacade();
+	 private static DrawingSpecification drawingSpecifications = new DrawingSpecificationsImplementation();
 
     public static String patchSVG(Writer writer) {
         var jsesh = writer.toString();
@@ -70,7 +72,16 @@ public class Util {
     public static String jseshRender(String mdc, boolean rubrum) {
         if (mdc != null && !mdc.isBlank()) {
             try (StringWriter writer = new StringWriter()) {
-            	System.out.println("MDC "+mdc);
+            	//System.out.println("MDC "+mdc);
+					
+					
+					// Change a number of parameters, using the DrawingSpecificationsImplementation
+					// class.
+					drawingSpecifications.setSmallSignsCentered(true);
+					drawingSpecifications.setMaxCadratWidth(60);
+					drawingSpecifications.setMaxCadratWidth(60);
+					facade.setDrawingSpecifications(drawingSpecifications);
+		
                 Rectangle2D boundingBox = facade.getBounds(
                     mdc, 0, 0
                 );
