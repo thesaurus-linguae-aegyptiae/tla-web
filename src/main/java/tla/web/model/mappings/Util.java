@@ -78,8 +78,8 @@ public class Util {
 					// Change a number of parameters, using the DrawingSpecificationsImplementation
 					// class.
 					drawingSpecifications.setSmallSignsCentered(true);
-					drawingSpecifications.setMaxCadratWidth(60);
-					drawingSpecifications.setMaxCadratWidth(60);
+					drawingSpecifications.setMaxCadratHeight(18);
+					drawingSpecifications.setMaxCadratWidth(18);
 					facade.setDrawingSpecifications(drawingSpecifications);
 		
                 Rectangle2D boundingBox = facade.getBounds(
