@@ -237,7 +237,7 @@
               <a href="#" title="Twitter" class="btn btn-block btn-info" role="button" onClick="window.open('https://twitter.com/intent/tweet?text=TLA,%20page&amp;url=' + encodeURIComponent(getCurrentHREF()))" data-dismiss="modal"><span class="fab fa-twitter"></span> <span th:text="#{modal_share_twitter}">Twitter URL</span></a>
           </div>
           <div class="modal-footer">
-            <p th:utext="#{modal_share_footer}">Note that ... privacy policies.</p>
+            <p class="modal-footer-text" th:utext="#{modal_share_footer}">Note that ... privacy policies.</p>
           </div>
         </div>
       </div>
@@ -320,12 +320,12 @@
 			</p>-->
     </div>
 
-    <!-- sentence transcription -->
+    <!-- sentence transliteration -->
     <div th:fragment="sentence-transcription" class="result-list-item-element transcription">
       <p class="bbaw-libertine mb-2">
         <span th:each="token : *{tokens}" th:id="|transliteration-${token.id}|" th:class="${(#request.getParameter('tokens[0].lemma.id') != Null AND #request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }">
 		    <a  th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}"
-                   th:utext="${token.transcription.unicode}" 
+                   th:utext="${{token.transcription.unicode}}" 
 			       th:class="|sentence-token token-${token.type}|" th:classappend="${token.rubrum} ? rubrum" target="_blank" rel="opener"/>
 			<th:block th:unless="${token.lemma.id}">
 				<span th:if="${token.label}" th:utext="${token.label}" 
@@ -349,9 +349,9 @@
 		</th:block>
 	 </th:block>
 
-    <!-- token transcription -->
+    <!-- token transliteration -->
     <th:block th:fragment="token-transcription">
-		<span  th:if="${token.lemma.id}" th:utext="${token.transcription.unicode}" 
+		<span  th:if="${token.lemma.id}" th:utext="${{token.transcription.unicode}}" 
 			   th:class="|transcription token-${token.type}|" th:classappend="${token.rubrum} ? rubrum"></span>
 		<th:block th:unless="${token.lemma.id}">
 			<span th:if="${token.label}" th:utext="${token.label}" 

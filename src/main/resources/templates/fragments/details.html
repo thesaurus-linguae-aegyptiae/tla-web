@@ -98,6 +98,7 @@
             <p th:if="${counter.size} > 1" class="ml-3"><strong th:text="#{object_property_annotation} + ' ' + ${counter.index +1}">Comment 1<strong></p>
             <p class="comment-content text-justify ml-4" th:utext="${annotation.body}">annotation body</p>
             <p class="comment-author pt-1 ml-4" th:with="formatter=#{date_formatter}">
+                <!-- authors always Strukturen und Transformationen -->
                 <span class="details-property-label" th:text="#{object_property_editors_updated}">Latest revision</span>:
                 <span th:text="${#calendars.format(annotation.edited.updated, formatter)}">xx.xx.20xx</span>
             </p>
