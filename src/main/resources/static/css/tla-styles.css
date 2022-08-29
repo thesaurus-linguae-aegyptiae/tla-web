@@ -699,6 +699,10 @@ span.token-glyphs svg:hover {
     font-size: 0.8em;
 }
 
+.ling-glossing-transliteration {
+    font-size: 0.85em;
+}
+
 .word-id {
     color: grey;
     font-size: 0.5em;
@@ -706,6 +710,7 @@ span.token-glyphs svg:hover {
 
 
 .ling-glossing,
+.ling-glossing-transliteration,
 .ling-glossing-static {
     font-variant: small-caps;
 }
