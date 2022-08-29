@@ -107,7 +107,8 @@ public class Sentence extends TLAObject implements Hierarchic {
     }
     @Override
     public List<ObjectPath> getPaths() {
-        return this.getText() != null ? this.getText().getPaths() : null;
+		 // to add the corpus as the first paths element here ist too complicated
+       return this.getText() != null ? this.getText().getPaths() : null;
     }
     
     public String getID() {
