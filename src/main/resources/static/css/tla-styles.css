@@ -1366,6 +1366,17 @@ span.multiselect-native-select select {
     footer .contact {
         text-align: right;
     }
+
+.modal-title {
+	font-size: 1rem;
+}
+.modal-body {
+	font-size: 0.9rem;
+}
+.modal-footer-text {
+	font-size: 0.8rem;
+}
+
 .id {
 	font-size: 1.5em;
 	font-weight: 600;
