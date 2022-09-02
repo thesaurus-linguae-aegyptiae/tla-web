@@ -115,35 +115,10 @@
         <a class="transliteration-help" href="#" role="button" data-toggle="modal" data-target="#transliteration-help">
         <i class="fas fa-info-circle"></i></a>
         </label>
-    <!--
-    <div class="col-xl-10">
-          <input class="bbaw-libertine form-control mb-3" type="text" th:field="*{transcription}"/>
-        </div>
-      <label  class="col-form-label col-xl-2" th:for="*{root}">
-        <span th:text="#{field_label_root_transliteration}">Root </span>
-        <a class="transliteration-help" href="#" role="button" data-toggle="modal" data-target="#transliteration-help">
-        <i class="fas fa-info-circle"></i></a>
-        </label>
-        
-        
-          <div class="bg-grey form-group row col-xl-12"
-        th:fragment="translation-spec(key, bind, languages)" th:object="${__${bind}__}">
-      <label class="col-form-label col-xl-2" th:for="|field-label-translation-${key}|" th:text="#{field_label_translation}">
-        Translation
-      </label>
-      <div class="col-xl-10">
-        <input class="form-control mb-3"  type="text" th:field="*{translation.text}" th:id="|field-label-translation-${key}|"/>
-        <div th:each="lang : ${languages}" class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" th:field="*{translation.lang}" th:value="${lang}"
-              th:id="|field-value-translation-checkbox-${lang}-${key}|"/>
-          <label class="form-check-label" th:for="|field-value-translation-checkbox-${lang}-${key}|"
-              th:text="#{|lang_label_${lang}|}">Language</label>
-           <script>
-        
-    -->  
+
      <div th:replace=" :: transcription-spec('dict', 'lemmaSearchForm', ${allTranscriptionEncodings})"/>
      </div>
-          
+         
 
       <div th:replace=" :: type-spec('wordClass', 'lemmaSearchForm.wordClass', ${wordClasses})"/>
        
@@ -156,12 +131,11 @@
         
          
         <div class="col-xl-10">
-          <input class="bbaw-libertine form-control mb-3 keyboardInput" type="text" th:field="*{root}" lang="egy"/>
-           <div class="form-check form-check-inline">
-							  <input class="form-check-input transcription-enc-btn" type="radio" name="root_enc" id="root_enc_unicode" value="unicode">
+						<div class="form-check form-check-inline">
+							  <input class="form-check-input transcription-enc-btn" type="radio" name="root_enc" id="root_enc_unicode" value="unicode" checked disabled>
 							  <label class="form-check-label" for="root_enc_unicode" th:text="#{field_value_label_enc_unicode}">Unicode</label>
 						</div>
-						<div class="form-check form-check-inline">
+						<!--<div class="form-check form-check-inline">
 							  <input class="form-check-input transcription-enc-btn" type="radio" name="root_enc" id="root_enc_mdc" value="manuel_de_codage" >
 							  <label class="form-check-label text-to-be-revised" for="root_enc_mdc" th:text="#{field_value_label_enc_mdc}">Manuel de Codage</label>
 						</div>
@@ -172,7 +146,8 @@
 							document.getElementById("root_enc_unicode").setAttribute("checked",true);
 							document.getElementById("root_enc_mdc").setAttribute("disabled",false);
 							}
-						</script>
+						</script>-->
+          <input class="bbaw-libertine form-control mb-3 keyboardInput" type="text" th:field="*{root}" lang="egy"/>
         </div>
       </div>
         
@@ -278,9 +253,9 @@
               $('#script2').prop("checked",false);
              $('#transcription_enc_unicode').prop("checked",true);
               $('#transcription_enc_mdc').prop("disabled",false);
-              $('#root_enc_unicode').prop("checked",true);
-              $('#root_enc_mdc').prop("disabled",false);
-              $('#wordClass-type').prop("selectedIndex",2);
+             $('#root_enc_unicode').prop("checked",true);
+             // $('#root_enc_mdc').prop("disabled",false);
+              $('#wordClass-type').prop("selectedIndex",1);
               $('#wordClass-subtype').prop("selectedIndex",0);
            });
           }

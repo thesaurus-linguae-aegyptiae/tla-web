@@ -32,10 +32,10 @@
          <!-- line 1 -->
           <a th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">
           <span th:if="${obj.type} == 'root'">&radic;</span><h2 class="result-list-item-element transcription bbaw-libertine" th:text="*{name}">nfr</h2>
-          <span class="result-list-item-element hieroglyphs" th:if="${obj.glyphs == null}">
+          <span class="result-list-item-element hieroglyphs" th:if="${obj.glyphs.unicode == null}">
           <span th:unless="${obj.type == 'root'}" class="subcorpus" th:text="#{|dict_${obj.dictionaryName}|}">Demotic</span>
           </span>
-          <span class="result-list-item-element hieroglyphs" th:if="${obj.glyphs != null}">
+          <span class="result-list-item-element hieroglyphs" th:if="${obj.glyphs.unicode != null}">
             <span th:replace="fragments/details :: hieroglyphsSuche">N35:G43</span>
           </span>
           </a>
@@ -83,8 +83,8 @@
       <div th:fragment="sentence-search-result" class="result-list-item" th:object="${obj}" th:with="hasGlyphs=*{hasGlyphs},isArtificiallyAligned=*{isArtificiallyAligned}">
 
       <!-- Block view -->
-        <div class="occ-list-item mt-3 pt-1 pb-1" >
-          <div class="sentence-line-mode">
+        <div class="sentence-line-mode" >
+          <div class="occ-list-item mt-3 pt-1 pb-1">
             <th:block th:if="${hasGlyphs}">
 			    <th:block th:if="${isArtificiallyAligned}"><a th:replace="fragments/common :: artificial-alignment"></a></th:block>
               <div th:replace="fragments/common :: sentence-hieroglyphs"/>
@@ -94,8 +94,8 @@
         </div>
         
         <!-- Annotation view --> 
-        <div class="mt-3 pt-1 pb-1">
-          <div class="container-annotation-switch">
+        <div class="container-annotation-switch">
+          <div class="mt-3 pt-1 pb-1">
             <div class="container-annotation">
 				         <div th:each="token : *{tokens}"  th:id="|block-${token.id}|">
 								<!--Bug: ul/li-Struktur ungültig-->
@@ -140,7 +140,7 @@
 								  </div>
 						    </ul>
 			         	</div>
-						  <th:block th:if="${isArtificiallyAligned}"><a th:replace="fragments/common :: artificial-alignment"></a></th:block>
+						  <th:block th:if="${hasGlyphs} AND ${isArtificiallyAligned}"><a th:replace="fragments/common :: artificial-alignment"></a></th:block>
 		            </div>
 	            </div>
 	             
@@ -908,12 +908,12 @@
 
       <!-- result page description -->
 
-      <div class="result-page-desc col-md-8 d-flex align-items-end" th:object="${pagination}" th:fragment="result-page-desc">  
-        <span th:text="#{result_page_description_left}">Results:</span>
+      <div class="result-page-desc col-md-8" th:object="${pagination}" th:fragment="result-page-desc">  
+        <span th:text="#{result_page_description_left}">Results</span>:
         <b class="mx-1" th:text="|*{fromResult} - *{toResult}|">1 - 24</b>
         <span class="font-italic" th:text="#{result_page_description_middle}">of</span>
         <b class="mx-1" th:text="*{totalResults}">140</b>
-        <span th:text="#{|result_page_description_right_${objectType}*{(totalResults > 1) ? 's' : ''}|}">dictionary entries</span>
+        <span th:text="#{|result_page_description_right_${objectType}*{(totalResults > 1) ? 's' : ''}|}">dictionary entries</span>.
       </div>
 
 

@@ -69,8 +69,7 @@ public class MappingConfig {
         protected GlyphsLemma convert(LemmaDto source) {
             return GlyphsLemma.of(
                 source.getGlyphs(),
-                true
-                
+                false
             );
         }
     }

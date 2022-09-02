@@ -12,6 +12,7 @@ import jsesh.mdc.MDCParserModelGenerator;
 import jsesh.mdc.MDCSyntaxError;
 import jsesh.mdc.model.TopItem;
 import jsesh.mdc.model.TopItemList;
+import jsesh.mdcDisplayer.preferences.*;
 import jsesh.mdcDisplayer.draw.MDCDrawingFacade;
 import jsesh.utils.DoubleDimensions;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +35,7 @@ public class Util {
     public static final String SVG_ATTR_REGEX = "width=.([0-9.]+). height=.([0-9.]+).";
     public static final String SVG_ATTR_REPLACEMENT = "viewBox=\"0 0 $1 $2\"";
     private static MDCDrawingFacade facade = new MDCDrawingFacade();
+	 private static DrawingSpecification drawingSpecifications = new DrawingSpecificationsImplementation();
 
     public static String patchSVG(Writer writer) {
         var jsesh = writer.toString();
@@ -70,7 +72,16 @@ public class Util {
     public static String jseshRender(String mdc, boolean rubrum) {
         if (mdc != null && !mdc.isBlank()) {
             try (StringWriter writer = new StringWriter()) {
-            	System.out.println("MDC "+mdc);
+            	//System.out.println("MDC "+mdc);
+					
+					
+					// Change a number of parameters, using the DrawingSpecificationsImplementation
+					// class.
+					drawingSpecifications.setSmallSignsCentered(true);
+					drawingSpecifications.setMaxCadratHeight(18);
+					drawingSpecifications.setMaxCadratWidth(18);
+					facade.setDrawingSpecifications(drawingSpecifications);
+		
                 Rectangle2D boundingBox = facade.getBounds(
                     mdc, 0, 0
                 );
@@ -115,32 +126,45 @@ public class Util {
     public static String escapeMarkup(String text) {
         if (text != null) {
 			//System.out.println("###### in escapeMarkup: " + text);
-			if (text.contains("#g")) {
-				text = text.replaceAll("(?<=#g\\+[^#]*)w(?=[^#]*?#g\\-)", "s"); // End-Sigma in Vittmann's encoding ("w")
-				text = text.replaceAll("(?<=#g\\+[^#]*)h(?=[^#]*?#g\\-)", "Ä“"); // Eta in Vittmann's encoding ("h")
-				text = text.replaceAll("(?<=#g\\+[^#]*)H(?=[^#]*?#g\\-)", "Ä’"); 
-				text = text.replaceAll("(?<=#g\\+[^#]*)v(?=[^#]*?#g\\-)", "Å�"); // Omega in Vittmann's encoding ("w")
-				text = text.replaceAll("(?<=#g\\+[^#]*)V(?=[^#]*?#g\\-)", "ÅŒ"); 
-				text = text.replaceAll("(?<=#g\\+[^#]*)%\\?(?=[^#]*?#g\\-)", "\u0342"); // Greek perispomeni in Vittmann's encoding
-				text = text.replaceAll("(?<=#g\\+[^#]*)%\\)(?=[^#]*?#g\\-)", "\u0313"); // Greek, psili; spiritus lenis in Vittmann's encoding("%)")
-				text = text.replaceAll("(?<=#g\\+[^#]*)%\\((?=[^#]*?#g\\-)", "\u0314"); // Greek dasia; spiritus asper in Vittmann's encoding ("%(")
-				text = text.replaceAll("(?<=#g\\+[^#]*)%\\-(?=[^#]*?#g\\-)", "\u0304"); // length in Vittmann's encoding ("%-")
-				text = text.replaceAll(GREEK_FONT_MARKUP_VITTMANN_REGEX, MULTILING_FONT_MARKUP_REPLACEMENT);
-				/*text = RegExUtils.replacePattern(
-					text,
-					GREEK_FONT_MARKUP_VITTMANN_REGEX,
-					MULTILING_FONT_MARKUP_REPLACEMENT
-				);*/
-			}
-			/*text = RegExUtils.replacePattern(
-				text,
-				MULTILING_FONT_MARKUP_REGEX,
-				MULTILING_FONT_MARKUP_REPLACEMENT
-			);*/
-			text = text.replaceAll(GREEK_FONT_MARKUP_REGEX, MULTILING_FONT_MARKUP_REPLACEMENT);
-			text = text.replaceAll(HIERO_FONT_MARKUP_REGEX, HIERO_FONT_MARKUP_REPLACEMENT);
-			text = text.replaceAll(TRANSLITERATION_FONT_MARKUP_REGEX, MULTILING_FONT_MARKUP_REPLACEMENT);
-            text = text.replaceAll("\\n", "<br/>");
+				if (text.contains("#g")) {
+					text = text.replaceAll("(?<=#g\\+[^#]*)w(?=[^#]*?#g\\-)", "s"); // End-Sigma in Vittmann's encoding ("w")
+					text = text.replaceAll("(?<=#g\\+[^#]*)h(?=[^#]*?#g\\-)", "\u0113"); // Eta in Vittmann's encoding ("h")
+					text = text.replaceAll("(?<=#g\\+[^#]*)H(?=[^#]*?#g\\-)", "\u0112"); 
+					text = text.replaceAll("(?<=#g\\+[^#]*)v(?=[^#]*?#g\\-)", "\u014D"); // Omega in Vittmann's encoding ("w")
+					text = text.replaceAll("(?<=#g\\+[^#]*)V(?=[^#]*?#g\\-)", "\u014C"); 
+					text = text.replaceAll("(?<=#g\\+[^#]*)%\\?(?=[^#]*?#g\\-)", "\u0342"); // Greek perispomeni in Vittmann's encoding
+					text = text.replaceAll("(?<=#g\\+[^#]*)%\\)(?=[^#]*?#g\\-)", "\u0313"); // Greek, psili; spiritus lenis in Vittmann's encoding("%)")
+					text = text.replaceAll("(?<=#g\\+[^#]*)%\\((?=[^#]*?#g\\-)", "\u0314"); // Greek dasia; spiritus asper in Vittmann's encoding ("%(")
+					text = text.replaceAll("(?<=#g\\+[^#]*)%\\-(?=[^#]*?#g\\-)", "\u0304"); // length in Vittmann's encoding ("%-")
+					text = text.replaceAll(GREEK_FONT_MARKUP_VITTMANN_REGEX, MULTILING_FONT_MARKUP_REPLACEMENT);
+				}
+				text = text.replaceAll(GREEK_FONT_MARKUP_REGEX, MULTILING_FONT_MARKUP_REPLACEMENT);
+				text = text.replaceAll(HIERO_FONT_MARKUP_REGEX, HIERO_FONT_MARKUP_REPLACEMENT);
+				text = text.replaceAll(TRANSLITERATION_FONT_MARKUP_REGEX, MULTILING_FONT_MARKUP_REPLACEMENT);
+				
+				// line breaks to HTML
+				text = text.replace("\\n", "<br/>");
+				
+				// Set style of non-Unicode glyphs in gyphs.unicode
+				if (text.contains("</g>")) {
+					text = text.replace("<g>", "<span class=\"latin-in-hiero\">");
+					text = text.replace("</g>", "</span>");
+				}
+				
+				// Set style of du./pl. markers
+				text = text.replace(":PL", "<span class=\"ling-glossing-transliteration\">.PL</span>");
+				text = text.replace(":DU", "<span class=\"ling-glossing-transliteration\">.PL</span>");
+				
+				// Cut out parts in 〈 ... 〉 in marked labels
+				if (text.contains("</label>")) {
+					text = text.replaceAll("(<label>.*?)〈.*?〉(.*</label>)", "$1$2");
+					text = text.replaceAll("(<label>.*?)〈.*?〉(.*</label>)", "$1$2"); // sic, up to two instances
+					text = text.replace("<label>", "");
+					text = text.replace("</label>", "");
+					
+					// Treat triple point workaround
+					//text = text.replace("\u205d", ":"); // not necessary anymore
+				}
         }
         return text;
     }

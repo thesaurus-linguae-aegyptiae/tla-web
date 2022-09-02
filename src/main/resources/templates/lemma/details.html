@@ -25,7 +25,7 @@
           <div th:replace="fragments/details :: object-property-type-subtype(${objectType})"/>
           <div th:replace="fragments/details :: translations"/>
           <div th:replace="fragments/details :: object-property-passport-properties"/>
-          <div th:replace="fragments/details :: lemma-property-attestations"/>
+          <th:block th:unless="${obj.type == 'root'}"><div th:replace="fragments/details :: lemma-property-attestations"/></th:block>
           <div th:replace="fragments/details :: bibliography"/>
           <div th:replace="fragments/details :: external-references"/>
           <div th:replace="fragments/details :: single-entry-annotations"/>

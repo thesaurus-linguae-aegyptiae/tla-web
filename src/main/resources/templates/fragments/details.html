@@ -94,12 +94,15 @@
     <div class="comment pb-2" id="single-entry-annotations" th:fragment="single-entry-annotations" th:unless="${#lists.isEmpty(annotations)}">
         <hr/>
         <strong th:text="#{object_property_annotations}" class="details-property-label">Comments</strong>
-        <div th:each="annotation : ${annotations}" class="comment-wrapper hide-comment">
-            <p>
-                <strong th:unless="${annotation.name} == null" th:utext="${{annotation.name}}">title</strong>
-            </p>
+        <div th:each="annotation, counter : ${annotations}" class="comment-wrapper hide-comment">
+            <p th:if="${counter.size} > 1" class="ml-3"><strong th:text="#{object_property_annotation} + ' ' + ${counter.index +1}">Comment 1<strong></p>
             <p class="comment-content text-justify ml-4" th:utext="${annotation.body}">annotation body</p>
             <p class="comment-author pt-1 ml-4" th:with="formatter=#{date_formatter}">
+                <!-- authors in Leipzig always Strukturen und Transformationen ... -->
+                <th:block th:unless="${annotation.edited.author} == '  Strukturen und Transformationen'">
+                   <span class="details-property-label" th:text="#{object_property_editors_author_commentary}">Main commentary author</span>:
+                   <span th:text="${annotation.edited.author}">author</span>, 
+                </th:block>
                 <span class="details-property-label" th:text="#{object_property_editors_updated}">Latest revision</span>:
                 <span th:text="${#calendars.format(annotation.edited.updated, formatter)}">xx.xx.20xx</span>
             </p>
@@ -158,10 +161,27 @@
     </div>
 
     <!-- Lemma details hieroglyphs -->
-    <div th:fragment="lemma-property-hieroglyphs" id="lemma-property-hieroglyphs" th:if="${obj.glyphs} != null">
+    <div th:fragment="lemma-property-hieroglyphs" id="lemma-property-hieroglyphs" th:if="${obj.glyphs.unicode} != null">
         <p>
             <strong th:text="#{lemma_property_hieroglyphs}" class="details-property-label">Hieroglyphic spelling(s)</strong>:
-            <span th:replace=" :: hieroglyphs"/>
+            <span th:replace=" :: hieroglyphsSuche"/>
+				  <button type="button" id="button_unicode" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" th:onClick="" >
+						  <span class="fas fa-clipboard"></span> <span th:text="#{button_copy_unicode}">Copy Unicode</span> 
+				  </button>  
+            <th:block th:if="${#strings.contains(obj.glyphs.unicode, '/g')}">
+               ; <span th:text="#{lemma_property_hieroglyphs_mdc}">JSesh/MdC</span>: <span th:replace=" :: hieroglyphs"></span>
+            </th:block>
+				  <button type="button" id="button_mdc" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" th:onClick="" >
+						  <span class="fas fa-clipboard"></span> <span th:text="#{button_copy_MdC}">Copy MdC</span> 
+				  </button>  
+				  <script th:inline="javascript">
+						/*<![CDATA[*/
+							var unicode_spelling = /*[[${obj.glyphs.unicode}]]*/ '0';
+							document.getElementById("button_unicode").setAttribute( "onClick", "javascript: copyStringToClipboard(unicode_spelling)");
+							var mdc_spelling = /*[[${obj.glyphs.mdcCompact}]]*/ '0';
+							document.getElementById("button_mdc").setAttribute( "onClick", "javascript: copyStringToClipboard(mdc_spelling)");
+						/*]]>*/
+					</script>  
         </p>
     </div>
 
@@ -215,7 +235,7 @@
                 <span th:text="#{|${objectType}_relation_predicate_${predicate.key}|}" class="details-property-label">Predicate</span>
             </div>
             <div class="col-md-12">
-                <div class="related-objects-item" th:each="obj : ${predicate.value}" th:object="${obj}" th:id="${obj.id}"
+                <div class="result-list-item" th:each="obj : ${predicate.value}" th:object="${obj}" th:id="${obj.id}"
                     th:unless="${obj == null || obj.eclass == 'BTSAnnotation'}"
                     th:include="fragments/search/results :: |${objectType}-search-result|">
                 </div>
@@ -226,6 +246,13 @@
    <div th:fragment="object-property-citationBox" id="object-property-citationBox" class="bg-light citation m-sm-2 m-lg-4"> 
     	<div class="bg-light citation  m-sm-1 m-lg-2"> 
     <p class="h6" ><strong th:text="#{citeas_heading}">Please cite as</strong>:</p>
+				(<em>Short citation</em>)
+				<blockquote id="full-citation">
+					<span th:text="${env.baseUrl}+'/lemma/' + ${obj.id} +', in: '"></span>
+					<span style="font-style: italic;" th:text="#{tla_Title}">Thesaurus Linguae Aegpyi</span>
+					(<span th:text="#{citeas_accessed}"></span>: <span id="current-date-short">xx.xx.20xx</span>)
+				</blockquote>
+				(<em>Full citation</em>)
 				<blockquote id="full-citation"><span th:text="${obj.name} + ' (' + #{citeas_lemma} +' '+ ${obj.id} + '), <' + ${env.baseUrl}+'/lemma/' + ${obj.id} +'>, in: '"></span>  
 					<span style="font-style: italic;" th:text="#{tla_Title}"></span>  
 					<span th:text="' <' + ${env.baseUrl} +'>, ' + #{citeas_corpus_version} + ' ' + #{tla_corpusversion} + ', ' + #{citeas_tla_version} + ' ' + #{tla_version} + ', ' + #{tla_ReleaseDate} + ', ' + #{citeas_editor} +' ' + #{tla_Editor} + ' ('+ #{citeas_accessed} + ': '"></span>
@@ -235,6 +262,7 @@
 					var date = new Date(); date.getUTCDate(); 
 					var today= date.getDate() + "." + (date.getMonth()+1) + "." + date.getFullYear(); 
 					document.getElementById('current-date').innerHTML =today;
+					document.getElementById('current-date-short').innerHTML =today;
 				</script>
 				<button type="button" class="btn btn-secondary btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document.getElementById('full-citation').textContent.replaceAll(/\s+/g,' '))"><i class="fas fa-clipboard"></i>&nbsp;<span th:text="#{citeas_copy_button}">Copy citation</span></button>
      </div>  
@@ -293,15 +321,13 @@
     </span>
 
     <!-- hieroglyphs in Lemma Detail-->
-    <th:block th:fragment="hieroglyphs" th:if="${obj.glyphs != null}">
-       
-            <span class="hieroglyphs" th:title="${obj.glyphs.mdcCompact}" th:utext="${obj.glyphs.svg}" style="height: 14pt"/>
-        </span>
+    <th:block th:fragment="hieroglyphs" th:if="${obj.glyphs.svg != null}">
+        <span class="hieroglyphs" th:title="${obj.glyphs.mdcCompact}" th:utext="${obj.glyphs.svg}" style="height: 14pt"/></span>
     </th:block>
+
      <!-- hieroglyphs in Such-Ergebniss-->
-     <th:block th:fragment="hieroglyphsSuche" th:if="${obj.glyphs != null}">
-       
-            <span class="hieroglyphs" th:title="${obj.glyphs.mdcCompact}" th:utext="${obj.glyphs.unicode}" style="height: 14pt"/>
+     <th:block th:fragment="hieroglyphsSuche" th:if="${obj.glyphs.unicode != null}">
+            <span class="unicode-hieroglyphs" th:utext="${{obj.glyphs.unicode}}" style="height: 14pt"/>
         </span>
     </th:block>
 
