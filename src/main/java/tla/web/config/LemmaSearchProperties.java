@@ -22,6 +22,11 @@ public class LemmaSearchProperties extends SearchProperties {
      * Word classes to choose from in search form
      */
     private Map<String, List<String>> wordClasses;
+    
+    private Map<String, List<String>> transcription;
+    
+    private Map<String, List<String>> root;
+
 
     /**
      * Annotation types to choose from in search form

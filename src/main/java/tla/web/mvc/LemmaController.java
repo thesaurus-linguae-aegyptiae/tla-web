@@ -47,7 +47,16 @@ public class LemmaController extends ObjectController<Lemma, LemmaSearch> {
         Language.EN,
         Language.FR
     };
-
+    
+    public static final String[] SEARCHABLE_TRANSCRIPTION_ENCODING = {
+            "unicode",
+            "mdc"
+        };
+ /*   public static final String[] SEARCHABLE_ROOT_ENCODING = {
+            "unicode",
+            "mdc"
+        };
+*/
     @Override
     public ObjectService<Lemma> getService() {
         return lemmaService;
@@ -69,6 +78,8 @@ public class LemmaController extends ObjectController<Lemma, LemmaSearch> {
     		return x;
     	}*/
     }
+    
+  
 
     @Override
     @RequestMapping(value="/search", method=RequestMethod.GET)
@@ -79,6 +90,9 @@ public class LemmaController extends ObjectController<Lemma, LemmaSearch> {
         Model model
     ) {
     	 model.addAttribute("wordClasses", searchConfig.getWordClasses());
+    	// model.addAttribute("transcription", searchConfig.getTranscription());
+    
+       //  model.addAttribute("encodTranscription", form.getTranscription()+"|"+form.getTranscription_enc());
        //  model.addAttribute("lemmaAnnotationTypes", searchConfig.getAnnotationTypes());
         return super.getSearchResultsPage(form, page, params, model);
     }
@@ -92,8 +106,16 @@ public class LemmaController extends ObjectController<Lemma, LemmaSearch> {
                 "allTranslationLanguages",
                 (form.getTranscription() != null) ? form.getTranslation().getLang() : Collections.EMPTY_LIST
             );
-            
+            model.addAttribute(
+                    "allTranscriptionEncodings",
+                    (form.getTranscription() != null) ? form.getTranscription().getEnc() : Collections.EMPTY_LIST
+                );
+        /*    model.addAttribute(
+                    "allRootEncodings",
+                    (form.getRoot() != null) ? form.getRoot().getEnc() : Collections.EMPTY_LIST
+                );*/
             model.addAttribute("allScripts", form.getScript());
+            
            // if (form.getSort()==null) {form.setSort("sortKey_asc");
             //model.addAttribute("sort",form.getSort());}
         }

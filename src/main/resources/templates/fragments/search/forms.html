@@ -124,28 +124,26 @@
         <a class="transliteration-help" href="#" role="button" data-toggle="modal" data-target="#transliteration-help">
         <i class="fas fa-info-circle"></i></a>
         </label>
+        
+        
+          <div class="bg-grey form-group row col-xl-12"
+        th:fragment="translation-spec(key, bind, languages)" th:object="${__${bind}__}">
+      <label class="col-form-label col-xl-2" th:for="|field-label-translation-${key}|" th:text="#{field_label_translation}">
+        Translation
+      </label>
+      <div class="col-xl-10">
+        <input class="form-control mb-3"  type="text" th:field="*{translation.text}" th:id="|field-label-translation-${key}|"/>
+        <div th:each="lang : ${languages}" class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" th:field="*{translation.lang}" th:value="${lang}"
+              th:id="|field-value-translation-checkbox-${lang}-${key}|"/>
+          <label class="form-check-label" th:for="|field-value-translation-checkbox-${lang}-${key}|"
+              th:text="#{|lang_label_${lang}|}">Language</label>
+           <script>
+        
     -->  
-          <div class="col-xl-10">
-				 <input type="text" class="bbaw-libertine form-control mb-3 keyboardInput" th:field="*{transcription}" id="dict-search-transcription" rows="3" name="transcription" lang="egy"/>
-                 
-						 <div class="form-check form-check-inline">
-							  <input class="form-check-input transcription-enc-btn"  type="radio" name="transcription_enc" id="transcription_enc_unicode" th:value="unicode"/>
-							  <label class="form-check-label" for="transcription_enc_unicode" th:text="#{field_value_label_enc_unicode}">Unicode</label>
-						</div>
-						<div class="form-check form-check-inline">
-							  <input class="form-check-input transcription-enc-btn" type="radio" name="transcription_enc" id="transcription_enc_mdc"  th:value="manuel_de_codage"/>
-							  <label class="form-check-label text-to-be-revised" for="transcription_enc_mdc" th:text="#{field_value_label_enc_manuel_de_codage}">Manuel de Codage</label>
-						</div>
-					</div>
-					<script>		
-						if (getUserSetting("TranscriptionEncoding")==null) {
-						storeUserSetting("TranscriptionEncoding", "unicode");
-						document.getElementById("transcription_enc_unicode").setAttribute("checked",true);
-						document.getElementById("transcription_enc_mdc").setAttribute("disabled",false);
-						}
-					</script>	          
-      </div>
-      
+     <div th:replace=" :: transcription-spec('dict', 'lemmaSearchForm', ${allTranscriptionEncodings})"/>
+     </div>
+          
 
       <div th:replace=" :: type-spec('wordClass', 'lemmaSearchForm.wordClass', ${wordClasses})"/>
        
@@ -155,6 +153,8 @@
         <a class="transliteration-help" href="#" role="button" data-toggle="modal" data-target="#transliteration-help">
         <i class="fas fa-info-circle"></i></a>
         </label>
+        
+         
         <div class="col-xl-10">
           <input class="bbaw-libertine form-control mb-3 keyboardInput" type="text" th:field="*{root}" lang="egy"/>
            <div class="form-check form-check-inline">
@@ -163,7 +163,7 @@
 						</div>
 						<div class="form-check form-check-inline">
 							  <input class="form-check-input transcription-enc-btn" type="radio" name="root_enc" id="root_enc_mdc" value="manuel_de_codage" >
-							  <label class="form-check-label text-to-be-revised" for="root_enc_mdc" th:text="#{field_value_label_enc_manuel_de_codage}">Manuel de Codage</label>
+							  <label class="form-check-label text-to-be-revised" for="root_enc_mdc" th:text="#{field_value_label_enc_mdc}">Manuel de Codage</label>
 						</div>
 						<script>		
 							if (getUserSetting("RootEncoding")==null){
@@ -175,8 +175,11 @@
 						</script>
         </div>
       </div>
+        
 
       <div th:replace=" :: translation-spec('dict', 'lemmaSearchForm', ${allTranslationLanguages})">
+     
+    
      
       </div>
 
@@ -316,6 +319,28 @@
         </div>
       </div>
     </div>
+    <!-- 
+    Encodings -->
+    
+    <div class="col-xl-10" th:fragment="transcription-spec(key, bind, encodings)" th:object="${__${bind}__}">
+				 <input type="text" class="bbaw-libertine form-control mb-3 keyboardInput" th:field="*{transcription.text}" th:id="dict-search-transcription" rows="3" name="transcription" lang="egy"/>
+                 <div th:each="enc : ${encodings}" class="form-check form-check-inline">
+						 
+							  <input class="form-check-input transcription-enc-btn"  type="radio" name="transcription_enc" th:id="|transcription_enc_${enc}|" th:field="*{transcription.enc}" th:value="${enc}"/>
+							  <label class="form-check-label" for="|transcription_enc_${enc}|"   th:text="#{|field_value_label_enc_${enc}|}">Unicode</label>
+							 
+						</div>
+					
+					<script>		
+						if (getUserSetting("TranscriptionEncoding")==null) {
+						storeUserSetting("TranscriptionEncoding", "unicode");
+						document.getElementById("transcription_enc_unicode").setAttribute("checked",true);
+						document.getElementById("transcription_enc_mdc").setAttribute("disabled",true);
+						}
+					</script>	          
+      </div>
+      
+       
 
     <!-- Type / Subtype selection multi-dropdown composite -->
 
