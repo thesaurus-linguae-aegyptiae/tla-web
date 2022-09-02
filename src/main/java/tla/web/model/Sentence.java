@@ -22,6 +22,7 @@ import tla.web.model.meta.BackendPath;
 import tla.web.model.meta.TLAObject;
 import tla.web.model.parts.Transcription;
 import tla.web.model.parts.Token;
+import tla.domain.model.ObjectReference;
 
 @Getter
 @Setter
@@ -85,8 +86,14 @@ public class Sentence extends TLAObject implements Hierarchic {
          
           for(int i=0;i<dates.size();i++) {
         	  for(int j=0;j<dates.get(i).extractObjectReferences().size();j++) {
+
+        	/*	 
+        	 System.out.println("Fields "+ i+ " "+ j+" "+ dates.get(i).extractObjectReferences().get(j).getName());
+        	 String idths=dates.get(i).extractObjectReferences().get(j).getId();
+        	 String nameths=dates.get(i).extractObjectReferences().get(j).getName();*/
+        	  // ObjectReference.builder().eclass("BTSThsEntry").id(idths).name(nameths).type("date").build()
         	 //System.out.println("Fields "+ i+ " "+ j+" "+ dates.get(i).extractObjectReferences().get(j).getName());
-        	 
+
         	 datierung.add(new DatePair(dates.get(i).extractObjectReferences().get(j).getId(),dates.get(i).extractObjectReferences().get(j).getName()));
         	  }
           }

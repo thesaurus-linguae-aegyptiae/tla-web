@@ -60,7 +60,15 @@ public class SearchController {
     public Language[] getAllTranslationLanguages() {
         return LemmaController.SEARCHABLE_TRANSLATION_LANGUAGES; // TODO
     }
-
+    @ModelAttribute("allTranscriptionEncodings")
+    public String[] getAllTranscriptionEncodings() {
+        return LemmaController.SEARCHABLE_TRANSCRIPTION_ENCODING; // TODO
+    }
+    /*  @ModelAttribute("allRootEncodings")
+    public String[] getAllRootEncodings() {
+        return LemmaController.SEARCHABLE_ROOT_ENCODING; // TODO
+    }
+*/
     @ModelAttribute("wordClasses")
     public Map<String, List<String>> getWordClasses() {
     	log.info(" wordclass "+ lemmaSearchConf.getWordClasses());

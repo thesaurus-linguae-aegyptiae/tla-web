@@ -49,6 +49,7 @@ public class TlaClient {
     public static void registerModelclass(Class<? extends TLAObject> modelClass) {
         for (Annotation a: modelClass.getAnnotations()) {
             if (a instanceof BackendPath) {
+            	System.out.println("put model class "+modelClass.getName()+ " "+ ((BackendPath) a).value());
                 backendPaths.put(
                     modelClass,
                     ((BackendPath) a).value()

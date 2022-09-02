@@ -44,6 +44,9 @@ public class Lemma extends BTSObject {
 
     @Singular
     private SortedMap<Language, List<String>> translations;
+    
+  
+    private SortedMap<String, List<String>> transcription;
 
     @Singular
     private List<Token> words;
