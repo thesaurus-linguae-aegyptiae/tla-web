@@ -111,7 +111,7 @@
       <div class="form-group row">
        <!--   <label class="col-form-label col-xl-2" for="transcription" th:text="#{field_label_transcription}">Transcription</label> -->
          <label class="col-form-label col-xl-2" th:for="*{transcription}">
-        <span th:text="#{field_label_transliteration}">Transcription </span>
+        <span th:text="#{field_label_transliteration}">Transliteration </span>
         <a class="transliteration-help" href="#" role="button" data-toggle="modal" data-target="#transliteration-help">
         <i class="fas fa-info-circle"></i></a>
         </label>
@@ -131,7 +131,8 @@
         
          
         <div class="col-xl-10">
-						<div class="form-check form-check-inline">
+          <input class="bbaw-libertine form-control mb-3 keyboardInput" type="text" th:field="*{root}" lang="egy"/>
+			 <div class="form-check form-check-inline">
 							  <input class="form-check-input transcription-enc-btn" type="radio" name="root_enc" id="root_enc_unicode" value="unicode" checked disabled>
 							  <label class="form-check-label" for="root_enc_unicode" th:text="#{field_value_label_enc_unicode}">Unicode</label>
 						</div>
@@ -147,7 +148,7 @@
 							document.getElementById("root_enc_mdc").setAttribute("disabled",false);
 							}
 						</script>-->
-          <input class="bbaw-libertine form-control mb-3 keyboardInput" type="text" th:field="*{root}" lang="egy"/>
+
         </div>
       </div>
         
