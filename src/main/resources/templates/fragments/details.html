@@ -297,7 +297,7 @@
 		  <br/>
 		  <strong>Persistent URL:</strong>
 		  <!-- Zitationsbutton -->
-		  <span th:text="|${env.baseUrl}/lemma/${obj.id}|" id="page-url">https://tla.bbaw.de/lemma/___</span>
+		  <span th:text="|${env.baseUrl}/lemma/${obj.id}|" id="page-url">https://thesaurus-linguae-aegyptiae.de/lemma/___</span>
 		  <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document.getElementById('page-url').textContent)"><span class="fas fa-clipboard"></span>&nbsp;<span th:text="#{button_copy_URL}">Copy URL</span></button>
 		  <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document.getElementById('full-citation').textContent.replaceAll(/\s+/g,' '))"><span class="fas fa-clipboard"></span>&nbsp;<span th:text="#{citeas_copy_button}">Copy citation</span></button><!-- take content of element "full-citation" from the page footer-->
 		</p>
