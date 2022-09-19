@@ -124,7 +124,7 @@
         </div>
         <div th:unless="${obj.edited.contributors} == null" class="editors">
             <strong class="details-property-label" th:text="#{object_property_editors}">Further editor(s)</strong>:
-            <span class="editor" th:each="editor : ${obj.edited.contributors}" th:text="${editor}"/>
+            <span th:each="contributor, nr : ${obj.edited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/>
         </div>
         <div class="updated" th:with="formatter=#{date_formatter}">
             <strong class="details-property-label" th:text="#{object_property_editors_updated}">Latest revision</strong>:
