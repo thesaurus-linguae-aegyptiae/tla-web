@@ -50,6 +50,12 @@
         </div>
       </fieldset>
 	  </form>
+	
+	   <form id="text-search" name="text-search"
+        th:action="@{${@searchController.getSearchResultsPageRoute(@__textController__)}}"
+        th:object="${textSearchForm}" method="get">
+      <div th:replace=" :: translation-spec('text', 'textSearchForm', ${allTranslationLanguages})"/>
+      </form>
 	  
     <!-- sentence/occurrence search form -->
     <form id="sentence-search" name="sentence-search"
