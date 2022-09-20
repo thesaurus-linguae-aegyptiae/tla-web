@@ -5,7 +5,7 @@
       xml:lang="en"
 >
   <head>
-    <title th:text="|${obj.name} (${obj.id})|"></title>
+    <title th:text="|#{object_id_label_BTSTCObject} ${obj.id}|"></title>
   </head>
 
   <body>
@@ -17,9 +17,12 @@
       <div class="row">
         <div class="col-sm-12 col-lg-8" id="details-content" th:object="${obj}">
 
+          <div th:replace="fragments/details :: property-pid('object')"/>
+			 <div th:replace="fragments/details :: object-property-type-subtype('object')"/>
+          <div th:replace="fragments/details :: external-references"/>
           <div th:replace="fragments/details :: object-property-object-paths('ths')"/>
-          <br/>paths: <span th:text="${obj.paths}">author</span>
-			 <br/>
+          <div th:replace="fragments/details :: object-property-related-objects"/>
+
 			 
           <br/>Passport: <span th:text="${obj.passport}">author</span>
 			 <br/>
@@ -27,25 +30,14 @@
 			 <br/>
           <br/>reviewState: <span th:text="${obj.reviewState}">author</span>
 			 <br/>
-          <br/>name: <span th:text="${obj.name}">author</span>
-			 <br/>
           <br/>subtype: <span th:text="${obj.subtype}">author</span>
-			 <br/>
-          <br/>externalReferences: <span th:text="${obj.externalReferences}">author</span>
-			 <br/>
-          <br/>id: <span th:text="${obj.id}">author</span>
-			 <br/>
-          <br/>type: <span th:text="${obj.type}">author</span>
-			 <br/>
-          <br/>relations: <span th:text="${obj.relations}">author</span>
-
         </div>
       </div>
 
       <div class="row">
         <div class="col-sm-12 col-lg-8" id="details-content-2" th:object="${obj}">
           <div th:replace="fragments/details :: object-property-citationBox('object')"/>
-
-        </div>  <!-- close content col-sm-12 -->    </div>
+        </div>
+      </div>
   </body>
 </html>
