@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}"
+      xml:lang="en"
+>
+  <head>
+    <title th:text="|${obj.name} (${obj.id})|"></title>
+  </head>
+
+  <body>
+
+    <div layout:fragment="content">
+
+      <div th:replace="fragments/details :: details-page-header"/>
+
+      <div class="row">
+        <div class="col-sm-12 col-lg-8" id="details-content" th:object="${obj}">
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>
