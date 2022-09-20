@@ -8,7 +8,7 @@
         <span class="float-right result-list-item-element type-subtype font-italic font-weight-light">
           <span th:replace="fragments/details :: type-subtype">Term category</span>
         </span>
-        <a th:href="${(#mvc.url('TC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">
+        <a th:href="${(#mvc.url('TOC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">
           <h2 class="result-list-item-element label bbaw-libertine" th:text="*{name}">Theben</h2>
         </a>
         <small class="text-muted text-monospace d-flex" th:text="*{id}">ID</small>
