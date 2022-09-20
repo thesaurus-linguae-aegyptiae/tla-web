@@ -5,7 +5,7 @@
       layout:decorate="~{base}"
 >
   <head>
-    <title th:text="#{citeas_sentence} + ' ' + ${obj.id}"></title>
+    <title th:text="#{object_id_label_BTSSentence} + ' ' + ${obj.id}"></title>
   </head>
 
   <body>
@@ -19,7 +19,7 @@
           <div class= "result-list m-sm-0 m-lg-4">
 				<th:block th:insert="fragments/search/results :: sentence-search-result"  th:object="${obj}"/>
 			</div>
-          <div th:replace="fragments/details :: sentence-citationBox"/>
+          <div th:replace="fragments/details :: object-property-citationBox('sentence')"/>
 		</div>
 	  
         <!--ALT: <div class="col-sm-12 col-lg-8 occ-list-item" id="details-content" th:object="${obj}">

@@ -928,12 +928,12 @@
         </a>
       </div>
 
-      <!-- Object details corpus/thesaurus path -->
+      <!-- Collapsed sentence path -->
       <div th:fragment="search-result-object-paths(objType)">
         <th:block th:with="controller = |${objType}Controller|">
          <th:block th:with="objectPaths = ${@__${controller}__.createObjectPathLinks(obj)}">
           <p>
-            <div th:replace="fragments/common::object-paths(${objectPaths},false)"/>
+            <div th:replace="fragments/common::object-paths(${objectPaths},true)"/>
           </p>
          </th:block>
         </th:block>
