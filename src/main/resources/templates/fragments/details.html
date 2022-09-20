@@ -85,7 +85,7 @@
             <br/>
             <span th:each="bib : ${obj.bibliography}">
                 <span class="fas fa-arrow-circle-right"></span>
-                <span class="bibliographic-reference" th:text="${bib}"></span>
+                <span class="bibliographic-reference" th:utext="${{bib}}"></span>
             </span>
         </p>
     </div>
