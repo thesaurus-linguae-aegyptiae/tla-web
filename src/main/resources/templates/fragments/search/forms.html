@@ -38,15 +38,47 @@
     <form id="text-id-search" name="text-id-search" th:object="${lemma}"
         th:action="@{/text/lookup}" method="get"> <!--##warum muss da th:object="${lemma}" stehen nicht th:object="${text}"-->
       <fieldset class="form-group row">
-        <label class="col-form-label col-xl-2 text-to-be-revised" th:text="#{field_label_text_id}" for="id-search-text">
+        <label class="col-form-label col-xl-2" th:text="#{field_label_text_id}" for="id-search-text">
           Sentence ID
         </label>
         <div class="col-xl-10">
           <input class="form-control mb-1 text-id" type="text" th:field="*{id}"
-              th:id="id-search-text" th:list="id-search-text-suggestions" disabled>
+              th:id="id-search-text" th:list="id-search-text-suggestions">
             <script th:replace="fragments/search/tools :: autocomplete('id-search-text')"></script>
           </input>
           <datalist th:id="id-search-text-suggestions"/>
+        </div>
+      </fieldset>
+	  </form>
+	
+    <form id="object-id-search" name="object-id-search" th:object="${lemma}"
+        th:action="@{/object/lookup}" method="get"> <!--##warum muss da th:object="${lemma}" stehen nicht th:object="${text}"-->
+      <fieldset class="form-group row bg-grey">
+        <label class="col-form-label col-xl-2" th:text="#{field_label_object_id}" for="id-search-object">
+          Sentence ID
+        </label>
+        <div class="col-xl-10">
+          <input class="form-control mb-1 object-id" type="text" th:field="*{id}"
+              th:id="id-search-object" th:list="id-search-object-suggestions">
+            <script th:replace="fragments/search/tools :: autocomplete('id-search-object')"></script>
+          </input>
+          <datalist th:id="id-search-object-suggestions"/>
+        </div>
+      </fieldset>
+	  </form>
+	
+    <form id="ths-id-search" name="ths-id-search" th:object="${lemma}"
+        th:action="@{/thesaurus/lookup}" method="get"> <!--##warum muss da th:object="${lemma}" stehen nicht th:object="${text}"-->
+      <fieldset class="form-group row">
+        <label class="col-form-label col-xl-2" th:text="#{field_label_ths_id}" for="id-search-ths">
+          Sentence ID
+        </label>
+        <div class="col-xl-10">
+          <input class="form-control mb-1 ths-id" type="text" th:field="*{id}"
+              th:id="id-search-ths" th:list="id-search-ths-suggestions">
+            <script th:replace="fragments/search/tools :: autocomplete('id-search-ths')"></script>
+          </input>
+          <datalist th:id="id-search-ths-suggestions"/>
         </div>
       </fieldset>
 	  </form>

@@ -16,17 +16,19 @@
 
       <div class="row">
         <div class="col-sm-12 col-lg-8" id="details-content" th:object="${obj}">
-
-          <div th:replace="fragments/details :: object-property-type-subtype('object')"/>
-          <div th:replace="fragments/details :: object-property-object-paths('ths')"/>
           <div th:replace="fragments/details :: translations"/>
+          <div th:replace="fragments/details :: object-property-type-subtype('object')"/>
           <div th:replace="fragments/details :: external-references"/>
-          <div th:replace="fragments/details :: editor-info"/>
+          <div th:replace="fragments/details :: object-property-object-paths('ths')"/>
           <div th:replace="fragments/details :: object-property-related-objects"/>
-
+          <div th:replace="fragments/details :: editor-info"/>
         </div>
       </div>
-
+      <div class="row">
+        <div class="col-sm-12 col-lg-8" id="details-content-2" th:object="${obj}">
+          <div th:replace="fragments/details :: object-property-citationBox('thesaurus')"/>
+        </div>
+      </div>
     </div>
   </body>
 </html>
