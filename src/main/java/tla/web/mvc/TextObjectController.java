@@ -30,7 +30,7 @@ public class TextObjectController extends ObjectController<Text, TextSearch> {
         return service;
     }
     
-    /*@Override
+  @Override
     @RequestMapping(value="/search", method=RequestMethod.GET)
     public String getSearchResultsPage(
         @ModelAttribute("textSearchForm") TextSearch form,
@@ -39,5 +39,5 @@ public class TextObjectController extends ObjectController<Text, TextSearch> {
         Model model
     ) {
         return super.getSearchResultsPage(form, page, params, model);
-    } */
+    } 
 }
