@@ -24,7 +24,7 @@
     <div th:fragment="review-state-header" id="review-state-header"
             class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-between align-items-end">
         <h2 class="id mt-1">
-          <span class="bbaw-libertine" th:utext="${(obj.type == 'root') ? '&radic;' : ''} + ${{obj.name}}">Object name</span><span th:utext="'(' + #{|object_id_label_${obj.eclass}|} +' ' + ${obj.id} +')'">Object ID</span>
+           <span class="bbaw-libertine" th:utext="${(obj.type == 'root') ? '&radic;' : ''} + ${{obj.name}}">Object name</span><span th:utext="'(' + #{|object_id_label_${obj.eclass}|} +' ' + ${obj.id} +')'">Object ID</span>
         </h2>
     </div>
 
@@ -154,7 +154,7 @@
             <strong th:text="#{|${objType}_property_object_paths|}" class="details-property-label">
                 Object path
             </strong>:
-            <div th:replace="fragments/common::object-paths(${objectPaths}, false)"/>
+            <div th:replace="fragments/common::object-paths(${objectPaths},false)"/>
         </p>
        </th:block>
       </th:block>
@@ -268,8 +268,8 @@
      </div>  
     </div>
 
-    <!-- Persitent ID  -->
-    <div th:fragment="property-pid(objtype)" id="property-pid">
+    <!-- Persitent Lemma ID  -->
+    <div th:fragment="lemma-property-pid" id="lemma-property-pid">
 		<hr/>
 		<p>         
 		  <strong th:text="#{property_pid}">Persistent ID</strong>:
