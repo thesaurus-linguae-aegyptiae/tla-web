@@ -76,7 +76,7 @@
               <br/>
               Strukturen und Transformationen des Wortschatzes der ägyptischen Sprache
               <br/><br/>
-              <a href="/" th:text="${env.baseUrl}">https://tla.bbaw.de</a>
+              <a href="/" th:text="${env.baseUrl}">https://thesaurus-linguae-aegyptiae.de</a>
             </address>
           </div>
           <div class="contact col-sm-2 col-lg-2 ">
@@ -387,10 +387,8 @@
     
        <!-- token translation -->
     <th:block th:fragment="token-translation">
-     <span th:if="${token.translations !=null}" th:utext="${{token.translations['de'][0]}}"
-             class="token-translation btr"/>
-     <span th:if="${token.translations ==null}" th:text="'&nbsp;'"
-             class="token-translation btr"/>
+     <div th:if="${token.translations !=null}" class="token-translation btr" th:each="entry : ${token.translations}" th:insert="fragments/common :: single-lang-translation(${entry})"/>
+     <div th:if="${token.translations ==null}" class="token-translation btr" th:text="'&nbsp;'"/>
     </th:block>
     
         <!-- token word-id -->

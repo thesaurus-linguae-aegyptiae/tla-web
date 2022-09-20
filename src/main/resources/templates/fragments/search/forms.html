@@ -248,16 +248,26 @@
            let form = /*[[${form}]]*/ null;
             $(`#clear-form-button-${form}`).click(() => {
               $(`form#${form} input[type="text"]`).val('');
-             // $(`form#${form} input[type="checkbox"]`).prop('checked', false);
+              //$(`form#${form} input[type="checkbox"]`).prop('checked', false);
               //$(`form#${form} select`).val('');
               $('#script1').prop("checked",true);
               $('#script2').prop("checked",false);
-             $('#transcription_enc_unicode').prop("checked",true);
+              $('#transcription_enc_unicode').prop("checked",true);
               $('#transcription_enc_mdc').prop("disabled",false);
-             $('#root_enc_unicode').prop("checked",true);
-             // $('#root_enc_mdc').prop("disabled",false);
+              $('#root_enc_unicode').prop("checked",true);
+              // $('#root_enc_mdc').prop("disabled",false); currently no MdC allowed
               $('#wordClass-type').prop("selectedIndex",1);
               $('#wordClass-subtype').prop("selectedIndex",0);
+              $('#field-value-translation-checkbox-de-dict').prop("checked", true);
+              $('#field-value-translation-checkbox-en-dict').prop("checked", false);	
+              $('#field-value-translation-checkbox-fr-dict').prop("checked", false);
+              
+              // User settings auf default
+              storeUserSetting("TranscriptionScript", "hieratic");
+              storeUserSetting("TranscriptionEncoding", "unicode");
+              storeUserSetting("Mdc","enabled");
+              storeUserSetting("RootEncoding", "unicode");
+              storeUserSetting("TranslationLang", "de");
            });
           }
           

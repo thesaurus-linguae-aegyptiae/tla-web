@@ -636,17 +636,12 @@ g,
 	display: inline;
 }
 
-.translation-de,
-.translation-fr,
-.translation-en,
-.translation-any {
+.result-list-item-element .translation-de,
+.result-list-item-element .translation-fr,
+.result-list-item-element .translation-en,
+.result-list-item-element .translation-any {
     font-weight: bold;
 }
-
-/*.translation-fr,
-.translation-en {
-    font-weight: 300;
-}*/
 
 .lang-icon {
     background-color: #E0E0E0;
