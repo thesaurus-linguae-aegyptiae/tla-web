@@ -17,11 +17,35 @@
       <div class="row">
         <div class="col-sm-12 col-lg-8" id="details-content" th:object="${obj}">
 
-
+          <div th:replace="fragments/details :: object-property-object-paths('ths')"/>
+          <br/>paths: <span th:text="${obj.paths}">author</span>
+			 <br/>
+			 
+          <br/>Passport: <span th:text="${obj.passport}">author</span>
+			 <br/>
+          <br/>Edited: <span th:text="${obj.edited}">author</span>
+			 <br/>
+          <br/>reviewState: <span th:text="${obj.reviewState}">author</span>
+			 <br/>
+          <br/>name: <span th:text="${obj.name}">author</span>
+			 <br/>
+          <br/>subtype: <span th:text="${obj.subtype}">author</span>
+			 <br/>
+          <br/>externalReferences: <span th:text="${obj.externalReferences}">author</span>
+			 <br/>
+          <br/>id: <span th:text="${obj.id}">author</span>
+			 <br/>
+          <br/>type: <span th:text="${obj.type}">author</span>
+			 <br/>
+          <br/>relations: <span th:text="${obj.relations}">author</span>
 
         </div>
       </div>
 
-    </div>
+      <div class="row">
+        <div class="col-sm-12 col-lg-8" id="details-content-2" th:object="${obj}">
+          <div th:replace="fragments/details :: object-property-citationBox('object')"/>
+
+        </div>  <!-- close content col-sm-12 -->    </div>
   </body>
 </html>
