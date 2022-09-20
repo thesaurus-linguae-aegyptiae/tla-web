@@ -20,11 +20,14 @@
           <div th:replace="fragments/details :: editor-info"/>
          <div th:replace="fragments/details :: object-property-type-subtype('object')"/>
           <div th:replace="fragments/details :: bibliography"/>
+         
+        
           
            <div class="row">
         <div class="col-sm-12 col-lg-8" id="details-content-2" th:object="${obj}">
+        <div th:replace="fragments/details :: object-property-object-paths('ths')"/>
           <div th:replace="fragments/details :: object-property-related-objects"/>
-		  
+       	  
           <div th:replace="fragments/details :: object-property-citationBox('text')"/>
 
         </div>
