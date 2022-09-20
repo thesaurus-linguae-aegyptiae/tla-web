@@ -24,7 +24,7 @@
     <div th:fragment="review-state-header" id="review-state-header"
             class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-between align-items-end">
         <h2 class="id mt-1">
-          <span class="bbaw-libertine" th:utext="${(obj.type == 'root') ? '&radic;' : ''} + ${obj.name}">Object name</span><span th:text="'(' + #{citeas_lemma} + ' ' + ${obj.id} + ')'">Object ID</span>
+          <span class="bbaw-libertine" th:utext="${(obj.type == 'root') ? '&radic;' : ''} + ${{obj.name}}">Object name</span><span th:utext="'(' + #{|object_id_label_${obj.eclass}|} +' ' + ${obj.id} +')'">Object ID</span>
         </h2>
     </div>
 
