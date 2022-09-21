@@ -19,18 +19,20 @@
 
           <div th:replace="fragments/details :: property-pid('object')"/>
 			 <div th:replace="fragments/details :: object-property-type-subtype('object')"/>
-          <div th:replace="fragments/details :: external-references"/>
           <div th:replace="fragments/details :: object-property-object-paths('ths')"/>
           <div th:replace="fragments/details :: object-property-related-objects"/>
 
 			 
-          <br/>Passport: <span th:text="${obj.passport}">author</span>
+          <br/>ext: <span th:text="${obj.externalReferences}"></span>
 			 <br/>
-          <br/>Edited: <span th:text="${obj.edited}">author</span>
+          <!--<div th:replace="fragments/details :: external-references"/> fails e.g. on http://localhost:8080/object/4JYU7WOWOZE2FOYYLP3KXEP3BE-->
+          <br/>Passport: <span th:text="${obj.passport}"></span>
 			 <br/>
-          <br/>reviewState: <span th:text="${obj.reviewState}">author</span>
+          <br/>Edited: <span th:text="${obj.edited}"></span>
 			 <br/>
-          <br/>subtype: <span th:text="${obj.subtype}">author</span>
+          <br/>reviewState: <span th:text="${obj.reviewState}"></span>
+			 <br/>
+          <br/>subtype: <span th:text="${obj.subtype}"></span>
         </div>
       </div>
 
