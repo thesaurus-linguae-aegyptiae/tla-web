@@ -119,18 +119,20 @@
     <!-- Editor information -->
     <div class="editor-info" id="editor-info" th:fragment="editor-info">
         <hr/>
-        <div class="author">
+        <th:block th:if="${obj.edited != null}">
+          <div class="author">
             <strong class="details-property-label" th:text="#{object_property_editors_author}">Main author</strong>:
             <span th:text="${obj.edited.author}">author</span>
-        </div>
-        <div th:unless="${obj.edited.contributors} == null" class="editors">
+          </div>
+          <div th:unless="${obj.edited.contributors} == null" class="editors">
             <strong class="details-property-label" th:text="#{object_property_editors}">Further editor(s)</strong>:
             <span th:each="contributor, nr : ${obj.edited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/>
-        </div>
-        <div class="updated" th:with="formatter=#{date_formatter}">
+          </div>
+          <div class="updated" th:with="formatter=#{date_formatter}">
             <strong class="details-property-label" th:text="#{object_property_editors_updated}">Latest revision</strong>:
             <span th:text="${#calendars.format(obj.edited.updated, formatter)}">date</span>
-        </div>
+          </div>
+        </th:block>
         <div class="review-state">
             <strong class="details-property-label" th:text="#{object_property_review_state}">Editorial state</strong>:
             <span th:text="#{|review_state_${obj.reviewState}|}">status</span>
