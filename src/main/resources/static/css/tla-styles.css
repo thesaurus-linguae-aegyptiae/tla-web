@@ -462,7 +462,8 @@ a.share-results:hover {
     color: grey !important;
 }
 
-.object-path-element a:hover {
+.object-path-element a:hover,
+.result-list-item-element.textdate a:hover {
     color: var(--BBAWred) !important;
 }
 
