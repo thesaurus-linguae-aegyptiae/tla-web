@@ -293,26 +293,27 @@
 			  <th:block th:if="${inAngleBrackets}">
 				  <th:block th:unless="${collapse}">
 					 <span th:class="|object-path-icon ${item.eclass} ${item.type}|"></span>
-					 <!--<a th:if="${item.href} != null" th:href="${item.href}">  ## landing page not yet implemented-->
+					 <a th:if="${item.href} != null" th:href="${item.href}">
 						<span th:utext="${{#strings.substring(item.label,1,#strings.length(item.label) - 1)}}">corpus path segment</span>
-					 <!--</a>-->
+					 </a>
+					 <span th:unless="${item.href} != null">
+						<span th:utext="${{#strings.substring(item.label,1,#strings.length(item.label) - 1)}}">unlinked path segment</span>
+					 </span>
 				  </th:block>
 			  </th:block>
 			  <th:block th:unless="${inAngleBrackets}">
 					 <span th:class="|object-path-icon ${item.eclass} ${item.type}|"></span>
-					 <!--<a th:if="${item.href} != null" th:href="${item.href}">  ## landing page not yet implemented-->
-						<span th:utext="${{'<label>'+item.label+'</label>'}}">corpus path segment</span>
-					 <!--</a>-->
-			  </th:block>		  </th:block>
+					 <a th:if="${item.href} != null" th:href="${item.href}">
+						<span th:utext="${{'<label>'+item.label+'</label>'}}">linked path segment</span>
+					 </a>
+					 <span th:unless="${item.href} != null">
+						<span th:utext="${{'<label>'+item.label+'</label>'}}">unlinked path segment</span>
+					 </span>
+			  </th:block>
+		  </th:block>
        </div>
       </div>
     </div>
-          <!-- OBEN RAUS GENOMMEN <span th:unless="${item.href} != null">
-            <span th:utext="${{item.label}}" th:class="${iter.last} ? lc">
-              corpus path segment
-            </span>
-          </span>-->
-
 
     <!-- sentence hieroglyphs -->
     <div th:fragment="sentence-hieroglyphs" class="result-list-item-element hieroglyphs">
