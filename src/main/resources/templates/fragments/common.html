@@ -433,10 +433,11 @@
         <span th:if="*{getDate}">
 		 		<span th:utext="#{sentence_date} + ':' " class="textdate"/>
 		 		<th:block th:each="date, dateStat : *{getDate}">
-		 		<!--  <a th:href="|${@searchController.getSearchResultsPageRoute(@__thsController__)}?q=${date.id}|">--> 
+		 		<!--<a th:href="|${@searchController.getSearchResultsPageRoute(@__thsController__)}?q=${date.id}|">-->
+				<a th:href="|/thesaurus/${date.id}|">
                     <span th:utext="${{'<label>'+date.named+'</label>'}}"/> <!-- filter cuts out parts in angles ininside <label/>-->
                   <span th:utext="${date.id}" hidden="true"/> 
-                 <!--   </a>   -->
+                 </a>
                   <span th:unless="${dateStat.last}">&nbsp;&ndash;&nbsp;</span>       
             </th:block>   	  
 				 <th:block th:unless="*{getDate.size}">(<em th:text="#{date_not_edited}">no date edited</em>)</th:block>
