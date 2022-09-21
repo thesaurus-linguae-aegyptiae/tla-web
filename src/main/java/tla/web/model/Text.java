@@ -35,12 +35,12 @@ public class Text extends CorpusObject {
     }
 
     /**
-     * Extract bibliographic information from lemma passport.
+     * Extract bibliographic information from text passport.
      *
      * Bibliography is being copied from the <code>bibliography.bibliographical_text_field</code>
-     * passport field. The value(s) found under that locator are split at semicolons <code>";"</code>.
+     * passport field. The value(s) found under that locator are split at line breaks <code>\r\n</code>.
      *
-     * @param lemma The Lemma instance from whose passport the bibliography is to be extracted.
+     * @param text The text instance from whose passport the bibliography is to be extracted.
      * @return List of textual bibliographic references or an empty list
      */
     private static List<String> extractBibliography(Text text) {
@@ -60,7 +60,7 @@ public class Text extends CorpusObject {
                 )
             );
         } catch (Exception e) {
-          System.out.println("could not extract bibliography from lemma {} "+text.getId());
+          System.out.println("could not extract bibliography from text {} "+text.getId());
         }
         return bibliography;
     }

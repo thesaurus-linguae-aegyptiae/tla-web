@@ -1,7 +1,11 @@
 package tla.web.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
+import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,4 +24,45 @@ public class CorpusObject extends BTSObject implements Hierarchic {
 
     private List<ObjectPath> paths;
 
+    public static final String PASSPORT_PROP_BIBL = "bibliography.bibliographical_text_field";
+    
+    @Setter(AccessLevel.NONE)
+    private List<String> bibliography;
+    public List<String> getBibliography() {
+        if (this.bibliography == null) {
+            this.bibliography = extractBibliography(this);
+        }
+        return this.bibliography;
+    }
+
+    /**
+     * Extract bibliographic information from coprus object passport.
+     *
+     * Bibliography is being copied from the <code>bibliography.bibliographical_text_field</code>
+     * passport field. The value(s) found under that locator are split at line breaks <code>\r\n</code>.
+     *
+     * @param corpusobj The corpus object instance from whose passport the bibliography is to be extracted.
+     * @return List of textual bibliographic references or an empty list
+     */
+    private static List<String> extractBibliography(CorpusObject corpusobj) {
+        List<String> bibliography = new ArrayList<>();
+        try {
+            corpusobj.getPassport().extractProperty(
+                PASSPORT_PROP_BIBL
+            ).forEach(
+                node -> bibliography.addAll(
+                    Arrays.asList(
+                        node.getLeafNodeValue().replaceAll("(\\r\\n|^)[\\s\\-]+", "$1").replaceAll("\\r\\n[\\r\\n\\s]*", "<br/>||").split("\\|\\|")
+                    ).stream().map(
+                        bibref -> bibref.strip()
+                    ).collect(
+                        Collectors.toList()
+                    )
+                )
+            );
+        } catch (Exception e) {
+          System.out.println("could not extract bibliography from object {} "+corpusobj.getId());
+        }
+        return bibliography;
+    }
 }
