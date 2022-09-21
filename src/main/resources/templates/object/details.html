@@ -24,11 +24,12 @@
           <div th:replace="fragments/details :: object-property-related-objects"/>
           <div th:replace="fragments/details :: editor-info"/>
 
-			 
-          <br/>ext: <span th:text="${obj.externalReferences}"></span>
-			 <br/>
+          <br/>ToDo: 
+          <br/>
+          <br/>External relations: <span th:text="${obj.externalReferences}"></span>
+          <br/>
           <!--<div th:replace="fragments/details :: external-references"/> fails e.g. on http://localhost:8080/object/4JYU7WOWOZE2FOYYLP3KXEP3BE http://localhost:8080/object/XQKKDM3PQ5GHVNOHAQBYMZBRWA -->
-          <br/>Passport: <span th:text="${obj.passport}"></span>
+          <br/>Date from passport: <span th:text="${obj.passport}"></span>
         </div>
       </div>
 

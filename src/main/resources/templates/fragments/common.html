@@ -431,7 +431,7 @@
     <!-- sentence dating -->
     <div th:fragment="sentence-dating" class="result-list-item-element textdate">
         <span th:if="*{getDate}">
-		 		<span th:utext="#{sentence_date} + ':' " class="textdate"/>
+		 		<strong th:utext="#{sentence_date}">Date</strong>:
 		 		<th:block th:each="date, dateStat : *{getDate}">
 		 		<!--<a th:href="|${@searchController.getSearchResultsPageRoute(@__thsController__)}?q=${date.id}|">-->
 				<a th:href="|/thesaurus/${date.id}|">
@@ -447,7 +447,7 @@
        <!-- sentence editor -->
     <div th:fragment="sentence-editor" class="result-list-item-element ">
      	 <span th:if="*{getEdited}">
-	     	  <span th:utext="#{sentence_main_editor} + ':' " class="texteditors"/>
+	     	  <strong th:utext="#{sentence_main_editor}"/>:
 	     	  <span th:utext="*{getEdited.author}" class="simpleed"/> 
 			  <span th:if="*{getEdited.contributors}" class="simpleed">
 				  ;
