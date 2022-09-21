@@ -54,7 +54,7 @@ public class Glyphs {
      */
     public static Glyphs of(tla.domain.model.SentenceToken.Glyphs dto, boolean rubrum) {
         if (dto != null) {
-        	System.out.println("Sentence DTO");
+        	//System.out.println("Sentence DTO");
             return Glyphs.builder()
                 .mdcCompact(dto.getMdcCompact())
                 .unicode(dto.getUnicodeTla())

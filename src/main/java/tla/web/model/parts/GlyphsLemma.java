@@ -52,7 +52,7 @@ public class GlyphsLemma {
     public static GlyphsLemma of(tla.domain.dto.LemmaDto.Glyphs dto, boolean rubrum) {
    
         if (dto != null) {
-        	System.out.println("Lemma DTO");
+        	//System.out.println("Lemma DTO");
             return GlyphsLemma.builder()
                 .mdcCompact(dto.getMdcCompact())
                 .unicode(dto.getUnicode())
