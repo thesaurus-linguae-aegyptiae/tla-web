@@ -90,6 +90,86 @@
             </span>
         </p>
     </div>
+    
+    <!-- Script -->
+    
+    <div class="skript" th:fragment="skript" id="skript" th:unless="${#lists.isEmpty(obj.skript)}">
+        <hr/>
+      
+        <p>
+            <strong th:text="#{object_property_skript}" class="details-property-label">Script</strong>
+            <br/>
+            <span th:each="scr : ${obj.skript}">
+                <span class="fas fa-arrow-circle-right"></span>
+                <span  th:utext="${{scr}}"></span>
+            </span>
+        </p>
+    </div>
+    
+     <!-- Language -->
+    
+    <div class="language" th:fragment="language" id="language" th:unless="${#lists.isEmpty(obj.language)}">
+        <hr/>
+      
+        <p>
+            <strong th:text="#{object_property_language}" class="details-property-label">Languaget</strong>
+            <br/>
+            <span th:each="lang : ${obj.language}">
+                <span class="fas fa-arrow-circle-right"></span>
+                <span  th:utext="${{lang}}"></span>
+            </span>
+        </p>
+    </div>
+    <!-- Original place -->
+    
+    <div class="origplace" th:fragment="origplace" id="origplace" th:unless="${#lists.isEmpty(obj.origplace)}">
+        <hr/>
+      
+        <p>
+            <strong th:text="#{object_property_origplace}" class="details-property-label">Original place</strong>
+            <br/>
+            <span th:each="orig : ${obj.origplace}">
+                <span class="fas fa-arrow-circle-right"></span>
+                <span  th:utext="${{orig}}"></span>
+                <span  th:text="#{object_property_isorigplace}" class="details-property-label" th:if="${obj.isorig !=null}">
+                 is original place
+                </span>
+            
+            </span>
+        </p>
+    </div>
+    
+         <!-- present location -->
+    
+    <div class="presloc" th:fragment="presloc" id="presloc" th:unless="${#lists.isEmpty(obj.presloc)}">
+        <hr/>
+      
+        <p>
+            <strong th:text="#{object_property_presentlocation}" class="details-property-label">Present Location</strong>
+            <br/>
+            <span th:each="ploc : ${obj.presloc}">
+                <span class="fas fa-arrow-circle-right"></span>
+                <span  th:utext="${{ploc}}"></span>
+            </span>
+        </p>
+    </div>
+    
+    <!-- Date  -->
+    
+    
+    <div class="date" th:fragment="date" id="date" th:unless="${#lists.isEmpty(obj.date)}">
+        <hr/>
+      
+        <p>
+            <strong th:text="#{object_property_date}" class="details-property-label">Date</strong>
+            <br/>
+            <span th:each="d : ${obj.date}">
+                <span class="fas fa-arrow-circle-right"></span>
+                <span  th:utext="${{d}}"></span>
+            </span>
+        </p>
+    </div>
+    
 
     <!-- Lemma/Thesaurus entry annotations -->
     <div class="comment pb-2" id="single-entry-annotations" th:fragment="single-entry-annotations" th:unless="${#lists.isEmpty(annotations)}">
@@ -118,7 +198,7 @@
 
     <!-- Editor information -->
     <div class="editor-info" id="editor-info" th:fragment="editor-info">
-        <hr/>
+        <hr/> 
         <th:block th:if="${obj.edited != null}">
           <div class="author">
             <strong class="details-property-label" th:text="#{object_property_editors_author}">Main author</strong>:
