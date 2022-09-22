@@ -93,15 +93,14 @@
     
     <!-- Script -->
     
-    <div class="skript" th:fragment="skript" id="skript" th:unless="${#lists.isEmpty(obj.skript)}">
+    <div class="textscript" th:fragment="textscript" id="textscript" th:unless="${#lists.isEmpty(obj.skript)}">
         <hr/>
       
         <p>
-            <strong th:text="#{object_property_skript}" class="details-property-label">Script</strong>
-            <br/>
-            <span th:each="scr : ${obj.skript}">
-                <span class="fas fa-arrow-circle-right"></span>
-                <span  th:utext="${{scr}}"></span>
+            <strong th:text="#{object_property_script}" class="details-property-label">Script</strong>:
+            <span th:each="scr, scrStat : ${obj.skript}">
+                <span th:text="${scr}"></span>
+                <span th:unless="${scrStat.last}">, </span>
             </span>
         </p>
     </div>
@@ -112,11 +111,10 @@
         <hr/>
       
         <p>
-            <strong th:text="#{object_property_language}" class="details-property-label">Languaget</strong>
-            <br/>
-            <span th:each="lang : ${obj.language}">
-                <span class="fas fa-arrow-circle-right"></span>
-                <span  th:utext="${{lang}}"></span>
+            <strong th:text="#{object_property_language}" class="details-property-label">Languaget</strong>:
+            <span th:each="lang, langStat : ${obj.language}">
+                <span th:text="${lang}"></span>
+                <span th:unless="${langStat.last}">, </span>
             </span>
         </p>
     </div>
@@ -126,15 +124,13 @@
         <hr/>
       
         <p>
-            <strong th:text="#{object_property_origplace}" class="details-property-label">Original place</strong>
-            <br/>
-            <span th:each="orig : ${obj.origplace}">
-                <span class="fas fa-arrow-circle-right"></span>
-                <span  th:utext="${{orig}}"></span>
-                <span  th:text="#{object_property_isorigplace}" class="details-property-label" th:if="${obj.isorig !=null}">
+            <strong th:text="#{object_property_origplace}" class="details-property-label">Original place</strong>:
+            <span th:each="orig, origStat : ${obj.origplace}">
+                <span  th:text="${orig}"></span>
+                <span th:if="${obj.isorig !=null}" class="details-property-label" th:text="'('+#{object_property_isorigplace}+')'">
                  is original place
                 </span>
-            
+                <span th:unless="${origStat.last}">, </span>
             </span>
         </p>
     </div>
@@ -145,27 +141,24 @@
         <hr/>
       
         <p>
-            <strong th:text="#{object_property_presentlocation}" class="details-property-label">Present Location</strong>
-            <br/>
-            <span th:each="ploc : ${obj.presloc}">
-                <span class="fas fa-arrow-circle-right"></span>
-                <span  th:utext="${{ploc}}"></span>
+            <strong th:text="#{object_property_presentlocation}" class="details-property-label">Present Location</strong>:
+            <span th:each="ploc, plocStat : ${obj.presloc}">
+                <span th:text="${ploc}"></span>
+                <span th:unless="${plocStat.last}">, </span>
             </span>
         </p>
     </div>
     
     <!-- Date  -->
     
-    
     <div class="date" th:fragment="date" id="date" th:unless="${#lists.isEmpty(obj.date)}">
         <hr/>
       
         <p>
-            <strong th:text="#{object_property_date}" class="details-property-label">Date</strong>
-            <br/>
-            <span th:each="d : ${obj.date}">
-                <span class="fas fa-arrow-circle-right"></span>
-                <span  th:utext="${{d}}"></span>
+            <strong th:text="#{object_property_date}" class="details-property-label">Date</strong>:
+            <span th:each="date, dateStat : ${obj.date}">
+              <span th:utext="${{'<label>'+date+'</label>'}}"/> <!-- filter cuts out parts in angles ininside <label/>-->
+              <span th:unless="${dateStat.last}">&nbsp;&ndash;&nbsp;</span>
             </span>
         </p>
     </div>
