@@ -16,27 +16,26 @@
 
       <div class="row">
         <div class="col-sm-12 col-lg-8" id="details-content" th:object="${obj}">
-
-          <div th:replace="fragments/details :: editor-info"/>
-         <div th:replace="fragments/details :: object-property-type-subtype('object')"/>
-          <div th:replace="fragments/details :: bibliography"/>
+          <div th:replace="fragments/details :: property-pid('text')"/>
+          <div th:replace="fragments/details :: object-property-type-subtype('object')"/>
           <div th:replace="fragments/details :: date"/>
-           <div th:replace="fragments/details :: skript"/>
-         <div th:replace="fragments/details :: language"/>
-        <div th:replace="fragments/details :: origplace"/>
-        <div th:replace="fragments/details :: presloc"/>
-          
-           <div class="row">
-        <div class="col-sm-12 col-lg-8" id="details-content-2" th:object="${obj}">
-        <div th:replace="fragments/details :: object-property-object-paths('ths')"/>
+          <div th:replace="fragments/details :: textscript"/>
+          <div th:replace="fragments/details :: language"/>
+          <div th:replace="fragments/details :: origplace"/>
+          <div th:replace="fragments/details :: presloc"/>
+          <div th:replace="fragments/details :: bibliography"/>
+          <div th:replace="fragments/details :: object-property-object-paths('ths')"/>
           <div th:replace="fragments/details :: object-property-related-objects"/>
-       	  
-          <div th:replace="fragments/details :: object-property-citationBox('text')"/>
-
-        </div>
+          <div th:replace="fragments/details :: editor-info"/>
         </div>
       </div>
-
+          
+      <div class="row">
+        <div class="col-sm-12 col-lg-8" id="details-content-2" th:object="${obj}">
+          <div th:replace="fragments/details :: object-property-citationBox('text')"/>
+        </div>
+      </div>
+		
     </div>
   </body>
 </html>
