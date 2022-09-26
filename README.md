@@ -141,5 +141,6 @@ reflected in the application's web interface without reboot.
 For config options and further methods of execution check out the [Dockerfile](Dockerfile),
 the [Docker Compose file](docker-compose.yml), the [env var template file](.env.template), the
 [Application Properties file](src/main/resources/application.yml), and the [build file](build.gradle).
+TLA-Public Port 9005
 
 
