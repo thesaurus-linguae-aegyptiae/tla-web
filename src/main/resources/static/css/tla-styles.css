@@ -1363,6 +1363,10 @@ span.multiselect-native-select select {
         text-align: right;
     }
 
+.modal {
+	z-index: 1500;
+}
+
 .modal-title {
 	font-size: 1rem;
 }
