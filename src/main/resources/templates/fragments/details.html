@@ -127,9 +127,11 @@
             <strong th:text="#{object_property_origplace}" class="details-property-label">Original place</strong>:
             <span th:each="orig, origStat : ${obj.origplace}">
                 <span  th:text="${orig}"></span>
+                <!-- to be discussed what this info means (label)
                 <span th:if="${obj.isorig !=null}" class="details-property-label" th:text="'('+#{object_property_isorigplace}+')'">
                  is original place
                 </span>
+                -->
                 <span th:unless="${origStat.last}">, </span>
             </span>
         </p>

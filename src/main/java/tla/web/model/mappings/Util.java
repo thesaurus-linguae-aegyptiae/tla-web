@@ -152,8 +152,7 @@ public class Util {
 				}
 				
 				// Set style of du./pl. markers
-				text = text.replace("PL", "<span class=\"ling-glossing-transliteration\">PL</span>");
-				text = text.replace("DU", "<span class=\"ling-glossing-transliteration\">DU</span>");
+				text = text.replaceAll("([:\\.\\(\\[{〈⸮⸢])(DU|PL)", "$1<span class=\"ling-glossing-transliteration\">$2</span>");
 				
 				// Cut out parts in 〈 ... 〉 in marked labels
 				if (text.contains("</label>")) {
