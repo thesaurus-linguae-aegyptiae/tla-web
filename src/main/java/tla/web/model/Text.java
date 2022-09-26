@@ -108,7 +108,7 @@ public class Text extends CorpusObject {
             ).forEach(
                 node -> bibliography.addAll(
                     Arrays.asList(
-                        node.getLeafNodeValue()
+                        node.getLeafNodeValue().replaceAll("(\\r?\\n|^)[\\s\\-]+", "$1").replaceAll("\\r?\\n[\\r?\\n\\s]*", "<br/>||").split("\\|\\|")
                     ).stream().map(
                         bibref -> bibref.strip()
                     ).collect(
