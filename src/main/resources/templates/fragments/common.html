@@ -432,11 +432,11 @@
    </th:block>
     
     
-    <!-- variants information dating -->
+    <!-- variants information -->
     <div th:fragment="variants-info" class="result-list-item-element variants-list" th:object="${obj}" th:with="vars =${obj.getContext().getVariants()}">
 		<th:block th:if="${vars > 1}">
 			(<span th:text="#{sentence_variants1}"></span> <strong th:text="${obj.getContext().getVariants()}"></strong> <strong th:text="#{sentence_variants2}"></strong>:
-			<th:block th:each="i: ${#numbers.sequence(0, obj.getContext().getVariants() - 1)}"><span th:unless="${i < 1}">, </span><a th:unless="${#strings.substringAfter(obj.id,'-') == #numbers.formatInteger(i,2)}" th:href="${'/sentence/'+#strings.substringBefore(obj.id,'-')+'-0'+i}" th:text="${'#'+ (i +1)}" target="_blank" rel="opener"></a><strong th:if="${#strings.substringAfter(obj.id,'-') == #numbers.formatInteger(i,2)}" th:text="${'#'+ (i +1)}"></strong></th:block>)
+			<th:block th:each="i: ${#numbers.sequence(0, obj.getContext().getVariants() - 1)}" th:with="formattedVarIndex=${#strings.substringAfter(obj.id,'-')}"><span th:unless="${i < 1}">, </span><a th:unless="${formattedVarIndex == #numbers.formatInteger(i,2)}" th:href="${'/sentence/'+#strings.substringBefore(obj.id,'-')+'-'+#numbers.formatInteger(i,2)}" th:text="${'#'+ (i +1)}" target="_blank" rel="opener"></a><strong th:if="${formattedVarIndex == #numbers.formatInteger(i,2)}" th:text="${'#'+ (i +1)}"></strong></th:block>)
 		</th:block>
     </div>
     
