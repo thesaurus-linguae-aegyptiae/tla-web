@@ -166,6 +166,30 @@
     </div>
     
 
+    <!-- Under construction message  -->
+    
+    <div class="construction" th:fragment="construction" id="construction">
+        <hr/>
+      
+        <p class="text-secondary"><i class="fas fa-wrench"></i> (<span th:text="#{msg_more_metadata}">More metadata to come.</span>)</p>
+    </div>
+    
+
+    <!-- Text content button  -->
+    
+    <div class="text-content-button" th:fragment="text-content-button" id="text-content-button">
+        <hr/>
+      
+        <p class="text-secondary">
+           <i class="fas fa-arrow-circle-right"></i>
+           <button id="text-content-button" type="button" class="btn btn-secondary text-left text-decoration-none disabled not-allowed" disabled>Sentences in the text</button>
+        </p>
+        <p class="text-secondary">
+           <i class="fas fa-wrench"></i> (<span th:text="#{msg_sentences_page}">Sentence page is currently being implemented.</span>)
+        </p>
+    </div>
+    
+
     <!-- Lemma/Thesaurus entry annotations -->
     <div class="comment pb-2" id="single-entry-annotations" th:fragment="single-entry-annotations" th:unless="${#lists.isEmpty(annotations)}">
         <hr/>

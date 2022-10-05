@@ -63,6 +63,11 @@ li {
     margin-bottom: 0.2rem;
 }
 
+.not-allowed{
+ cursor: not-allowed! important;
+    
+}
+
 .condensed {
     font-family: "Roboto Condensed";
 }

@@ -57,7 +57,7 @@ public class Text extends CorpusObject {
         if (this.skript == null) {
             this.skript = extractScript(this);
         }
-        System.out.println ("Skript "+this.skript.toString());
+        //System.out.println ("Skript "+this.skript.toString());
         return this.skript;
     }
     
