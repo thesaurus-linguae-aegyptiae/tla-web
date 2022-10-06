@@ -48,7 +48,10 @@
           <div class= "result-list m-sm-0 m-lg-4">
             <nav th:replace="fragments/search/results :: search-results-pagination"/>
 			<!-- Block and Annotation view -->
-            <th:block th:each="obj : ${searchResults}"    th:insert="fragments/search/results :: sentence-search-result"/>
+            <th:block th:each="obj : ${searchResults}">
+               <th:block th:insert="fragments/search/results :: sentence-search-result"/>
+               <th:block th:insert="fragments/search/results :: sentence-page-button"/>
+            </th:block>
 			
             <nav th:replace="fragments/search/results :: search-results-pagination"/>
           </div>
