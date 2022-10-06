@@ -1,6 +1,6 @@
 <article>
    <header>
-      <h1>TLA Lemma Lists</h1>
+      <h1 id="page-title">TLA Lemma Lists</h1>
    </header>
    <section>
       <p>A set of digital lemma lists is one of two core parts of the <i>Thesaurus Linguae Aegyptiae</i> (<i>TLA</i>), the other one being the <a href="text-corpus">text corpus</a>. Currently, there are two structured lists of lemmata of the ancient Egyptian language: (i) the <strong>hieroglyphic/hieratic lemma list</strong> (<span th:text="#{lemma-entries-types-hiero-en}">54 K</span> entries, <span th:text="#{lemma-tokens-hiero-en}">1,139 thous.</span> tokens), based on texts written in hieroglyphic or hieratic script, and (ii) the <strong>Demotic lemma list</strong> (<span th:text="#{lemma-entries-types-dem-en}">15 K</span> entries, <span th:text="#{lemma-tokens-dem-en}">331 thous.</span> tokens), based on texts written in Demotic. Soon, a third list with Coptic lemmata will be added (see below).</p>
@@ -115,5 +115,8 @@
       <h3>Lexical ontology</h3>
       <p>Another research project included in the Academies’ project is Simon Schweitzer’s exploration of semantic annotation of Egyptian-Coptic lemmata. As a first step, the future Coptic lemma list is currently being tagged semantically using the <strong><i>Interlingual Index</i></strong> in order to link lemmata to the <strong><i>Coptic Word Net</i></strong> ontology.</p>
    </section>
-   <footer>Text: S.Grallert, T.S.Richter, D.A.Werning</footer>
+   <footer>
+      <p class="credits">Text: S.Grallert, T.S.Richter, D.A.Werning</p>
+      <div th:replace="fragments/common :: static-page-citationBox"/>
+   </footer>
 </article>
