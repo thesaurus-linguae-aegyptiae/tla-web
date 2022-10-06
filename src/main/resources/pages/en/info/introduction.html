@@ -1,6 +1,6 @@
 <article>
    <header>
-      <h1>TLA – Introduction</h1>
+      <h1 id="page-title">TLA – Introduction</h1>
    </header>
    <section>
       <p>The <i>Thesaurus Linguae Aegyptiae</i> (<i>TLA</i>) is the non-commercial, freely accessible digital publication platform of the Academies’ project “Strukturen und Transformationen des Wortschatzes der ägyptischen Sprache: Text- und Wissenskultur im Alten Ägypten” (“Structure and Transformation in the Vocabulary of the Egyptian Language: Texts and Knowledge in the Culture of Ancient Egypt”). It is funded by the Academies’ Programme of the Union of the German Academies of Sciences and Humanities, and it is executed at the Berlin-Brandenburg Academy of Sciences and Humanities (Berlin) and the Saxon Academy of Sciences and Humanities (Leipzig).</p>
@@ -22,5 +22,8 @@
       <h3>TLA raw data: JSON and TEI/EpiDoc XML</h3>
       <p>The texts, lemma lists and thesauri that are edited in the input application <i>BTS</i> will not only be published on the <i>TLA</i> website, they will also be available in the form of raw JSON files in a lasting online repository as well as in the form of Text Encoding Initiative (TEI) XML files.</p>
    </section>
-   <footer>Text: S.Grallert, T.S.Richter, D.A.Werning</footer>
+   <footer>
+      <p class="credits">Text: S.Grallert, T.S.Richter, D.A.Werning</p>
+      <div th:replace="fragments/common :: static-page-citationBox"/>
+   </footer>
 </article>

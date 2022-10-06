@@ -1,6 +1,6 @@
 <article>
 	<header>
-	<h1 th:text="#{editorial_title_listings_bibliography}">Abbreviated Literature</h1>
+	<h1 id="page-title" th:text="#{editorial_title_listings_bibliography}">Abbreviated Literature</h1>
 	</header>
 	<section>
 		<table>
@@ -5031,5 +5031,8 @@
 			</tbody>
 		</table>
 	</section>
-	<footer>Text: A.Böhme, S.Diepold, A.Grischeck, V.Rätzke, S.D.Schweitzer, J.Treptow, Anja Weber, D.A.Werning, V.Zampedri</footer>
+   <footer>
+      <p class="credits">Text: A.Böhme, S.Diepold, A.Grischeck, V.Rätzke, S.D.Schweitzer, J.Treptow, Anja Weber, D.A.Werning, V.Zampedri</p>
+      <div th:replace="fragments/common :: static-page-citationBox"/>
+   </footer>
 </article>
