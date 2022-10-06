@@ -84,10 +84,13 @@
         <p>
             <strong th:text="#{object_property_bibliography}" class="details-property-label">Bibliography</strong>
             <br/>
-            <span th:each="bib : ${obj.bibliography}">
+            <ul>
+            <li th:each="bib, iStat : ${obj.bibliography}">
                 <span class="fas fa-arrow-circle-right"></span>
                 <span class="bibliographic-reference" th:utext="${{bib}}"></span>
-            </span>
+                <br th:unless="${iStat.last}"/>
+            </li>
+            </ul>
         </p>
     </div>
     
