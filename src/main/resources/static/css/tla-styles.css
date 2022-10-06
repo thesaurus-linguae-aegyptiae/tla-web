@@ -642,6 +642,12 @@ g,
 	display: inline;
 }
 
+.bibliography ul {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
+}
+
 .result-list-item-element .translation-de,
 .result-list-item-element .translation-fr,
 .result-list-item-element .translation-en,
