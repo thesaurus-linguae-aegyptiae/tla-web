@@ -184,8 +184,10 @@
         <hr/>
       
         <p class="text-secondary">
-           <i class="fas fa-arrow-circle-right"></i>
-           <button id="text-content-button" type="button" class="btn btn-secondary text-left text-decoration-none disabled not-allowed" disabled>Sentences in the text</button>
+           <button id="text-content-button" type="button" class="btn btn-secondary text-left text-decoration-none disabled not-allowed" disabled>
+              <span class="fas fa-arrow-circle-right"></span>&nbsp;
+              <span th:text="#{button_text_content}">Sentences in the text</span>
+           </button>
         </p>
         <p class="text-secondary">
            <i class="fas fa-wrench"></i> (<span th:text="#{msg_sentences_page}">Sentence page is currently being implemented.</span>)
@@ -307,8 +309,10 @@
            <span th:text="${obj.attestationCount}" id="attestationCount" style="visibility:hidden">0</span>
    
             <a th:href="|${@searchController.getSearchResultsPageRoute(@__sentenceController__)}?tokens[0].lemma.id=${obj.id}|">
-                <i class="fas fa-arrow-circle-right red"></i>
-               <button id="lemma-attestation-count-texts" type="button" class="btn btn-danger text-left text-decoration-none" th:text="#{lemma_property_attestation_occurrences} + ' ' + ${(obj.attestationCount >= 10000) ? '>' : ''} + ${obj.attestationCount} + ' ' + #{|lemma_property_instance${(obj.attestationCount > 1) ? 's' : ''}|}">Occurrences in __ sentences</button>
+               <button id="lemma-attestation-count-texts" type="button" class="btn btn-danger text-left text-decoration-none">
+               <span class="fas fa-arrow-circle-right"></span>&nbsp;
+               <span th:text="#{lemma_property_attestation_occurrences} + ' ' + ${(obj.attestationCount >= 10000) ? '>' : ''} + ${obj.attestationCount} + ' ' + #{|lemma_property_instance${(obj.attestationCount > 1) ? 's' : ''}|}">Occurrences in __ sentences</span>
+               </button>
             </a>
             <br/>
             <th:block th:replace=" :: lemma-timespan"/>

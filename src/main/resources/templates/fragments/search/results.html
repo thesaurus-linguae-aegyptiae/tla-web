@@ -179,8 +179,13 @@
 
         <div class="result-list-item-element paths" th:insert=" :: search-result-object-paths('sentence')"/>
          <div class="result-list-item-element">
-        
-                 <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" th:onclick="" th:id="*{id}">
+            <!--<a th:href="${(#mvc.url('SC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">
+               <button id="lemma-attestation-count-texts" type="button" class="btn btn-sm btn-outline-danger text-left text-decoration-none m-2">
+                  <span class="fas fa-arrow-circle-right"></span>&nbsp;
+                  <span th:text="#{button_sentence_page}">Go to/quote sentence</span>
+               </button>
+            </a>-->
+                 <!--<button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" th:onclick="" th:id="*{id}">
                  <span class="fas fa-clipboard"></span>
                  <span th:text="#{button_copy_sentenceID}">Copy sentence ID</span></button>   
                  
@@ -189,7 +194,7 @@
 					var id = /*[[*{id}]]*/ '0';
 					   document.getElementById(id).setAttribute( "onClick", "javascript: copyStringToClipboard(id)");
 					/*]]>*/
-		 		</script>   
+		 		</script>-->   
                  
                    
 		</div>
@@ -962,7 +967,15 @@
       </div>
       
       
-      
-
+      <div th:fragment="sentence-page-button">
+         <div class="result-list-item-element">
+            <a th:href="${(#mvc.url('SC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">
+               <button id="lemma-attestation-count-texts" type="button" class="btn btn-sm btn-outline-danger text-left text-decoration-none m-2">
+                  <span class="fas fa-arrow-circle-right"></span>&nbsp;
+                  <span th:text="#{button_sentence_page}">Go to/quote sentence</span>
+               </button>
+            </a>
+         </div>      
+      </div>
   </body>
 </html>

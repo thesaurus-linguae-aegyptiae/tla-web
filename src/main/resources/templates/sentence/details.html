@@ -19,6 +19,8 @@
           <div class= "result-list m-sm-0 m-lg-4">
 				<th:block th:insert="fragments/search/results :: sentence-search-result"  th:object="${obj}"/>
 			</div>
+          <div th:replace="fragments/details :: object-property-related-objects"/>
+          <div th:replace="fragments/details :: property-pid('sentence')"/>
           <div th:replace="fragments/details :: object-property-citationBox('sentence')"/>
 		</div>
 	  
