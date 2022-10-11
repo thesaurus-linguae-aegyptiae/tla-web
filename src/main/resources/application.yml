@@ -1,6 +1,7 @@
 ---
 
 server:
+    port: 9005
     tomcat:
         relaxed-query-chars: ['[', ']']
     error:
@@ -9,7 +10,7 @@ server:
 
 tla:
     name: Thesaurus Linguae Aegyptiae
-    baseurl: https://tla.bbaw.de
+    baseurl: https://thesaurus-linguae-aegyptiae.de
     backend-url: http://${BACKEND_HOST:localhost}:${BACKEND_PORT:8090}
     editorials:
         path: pages
