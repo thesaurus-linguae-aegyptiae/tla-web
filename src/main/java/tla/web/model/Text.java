@@ -25,6 +25,7 @@ import tla.web.model.meta.BackendPath;
 public class Text extends CorpusObject {
 
     private TextDto.WordCount wordCount;
+   // private List<Sentence> sentence;
     public static final String PASSPORT_PROP_BIBL = "bibliography.bibliographical_text_field";
     public static final String PASSPORT_PROP_SCRIPT = "text.textual_metadata.script";
     public static final String PASSPORT_PROP_DATE = "date.date.date";
@@ -47,10 +48,15 @@ public class Text extends CorpusObject {
     @Setter(AccessLevel.NONE)
     private List<String> presloc;
     
+ /*  public String getOneSentence() {
+	   return this.getSentence().get(0).getTranscription().getUnicode();
+   }
+    */
     public List<String> getBibliography() {
         if (this.bibliography == null) {
             this.bibliography = extractBibliography(this);
         }
+      //  System.out.println("First Sentence "+ getOneSentence());
         return this.bibliography;
     }
     public List<String> getSkript() {
