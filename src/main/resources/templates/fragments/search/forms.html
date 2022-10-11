@@ -88,6 +88,12 @@
         th:object="${textSearchForm}" method="get">
       <div th:replace=" :: translation-spec('text', 'textSearchForm', ${allTranslationLanguages})"/>
       </form>
+      
+        <form id="object-search" name="object-search"
+        th:action="@{${@searchController.getSearchResultsPageRoute(@__textController__)}}"
+        th:object="${objectSearchForm}" method="get">
+      <div th:replace=" :: translation-spec('object', 'objectSearchForm', ${allTranslationLanguages})"/>
+      </form>
 	  
     <!-- sentence/occurrence search form -->
     <form id="sentence-search" name="sentence-search"
