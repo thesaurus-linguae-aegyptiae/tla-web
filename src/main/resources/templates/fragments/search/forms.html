@@ -384,16 +384,17 @@
            
          </option>
          <script>
+         <!-- the indices need to be in line with the sequence in application.yml -->
      if(getUserSetting("form-field-wordClass-select-type")==null){
      		document.getElementById("wordClass-type").selectedIndex=1;
      				
      }
-     else  if(getUserSetting("form-field-wordClass-select-type")== "excl_namestitlesepithets"){
-        		document.getElementById("wordClass-type").selectedIndex=2;
+     else  if(getUserSetting("form-field-wordClass-select-type")== "excl_names"){
+        		document.getElementById("wordClass-type").selectedIndex=1;
         				
         }	
-        else  if(getUserSetting("form-field-wordClass-select-type")== "excl_names"){
-        		document.getElementById("wordClass-type").selectedIndex=1;
+        else  if(getUserSetting("form-field-wordClass-select-type")== "excl_namestitlesepithets"){
+        		document.getElementById("wordClass-type").selectedIndex=2;
         				
         }	
         else  if(getUserSetting("form-field-wordClass-select-type")== "adjective"){
@@ -405,7 +406,7 @@
     				
     }	
         else  if(getUserSetting("form-field-wordClass-select-type")== "entity_name"){
-    		document.getElementById("wordClass-type").selectedIndex=5;
+    		document.getElementById("wordClass-type").selectedIndex=7;
     				
     }	
         else  if(getUserSetting("form-field-wordClass-select-type")== "interjection"){
@@ -413,7 +414,7 @@
     				
     }	
         else  if(getUserSetting("form-field-wordClass-select-type")== "substantive"){
-    		document.getElementById("wordClass-type").selectedIndex=7;
+    		document.getElementById("wordClass-type").selectedIndex=5;
     				
     }	
         else  if(getUserSetting("form-field-wordClass-select-type")== "numeral"){

@@ -589,8 +589,7 @@ g,
     color: black !important;
 }
 
-.translations
-{
+.translations {
     display: inline;
 
 }
@@ -603,6 +602,9 @@ g,
   list-style-type: none; /* Remove bullets */
   padding: 0; /* Remove padding */
   margin: 0; /* Remove margins */
+}
+.bibliography li {
+  font-size: 0.9rem; 
 }
 
 .result-list-item-element .translation-de,
