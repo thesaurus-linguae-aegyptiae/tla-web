@@ -489,13 +489,13 @@
     </div>
     
        <!-- sentence editor -->
-    <div th:fragment="sentence-editor" class="result-list-item-element ">
+    <div th:fragment="sentence-editor" class="result-list-item-element texteditors">
      	 <span th:if="*{getEdited}">
 	     	  <strong th:utext="#{sentence_main_editor}"/>:
-	     	  <span th:utext="*{getEdited.author}" class="simpleed"/> 
-			  <span th:if="*{getEdited.contributors}" class="simpleed">
+	     	  <span th:utext="*{getEdited.author}"/> 
+			  <span th:if="*{getEdited.contributors}">
 				  ;
-				  <span th:text="#{sentence_contributors} + ': '" class="text-editor"/>
+				  <span th:text="#{sentence_contributors} + ': '"/>
 				  <span th:each="contributor, nr : *{getEdited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/>
 			  </span>
 			  <!-- fehlt hier: <span th:text="#{|review_state_${obj.reviewState}|}">status</span>-->
