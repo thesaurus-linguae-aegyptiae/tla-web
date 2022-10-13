@@ -14,7 +14,7 @@
 		<div id="title-header"
 				class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-between align-items-end">
 			<h2 class="id mt-1">
-			  <span th:text="#{object_id_label_BTSSentence} + ' ' + ${obj.id}">Sentence ID</span>
+			  <span class="words-breakable" th:text="#{object_id_label_BTSSentence} + ' ' + ${obj.id}">Sentence ID</span>
 			</h2>
 		</div>
 		<div th:replace="fragments/common :: social('sentence-page')"/>
@@ -24,7 +24,7 @@
     <div th:fragment="review-state-header" id="review-state-header"
             class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-between align-items-end">
         <h2 class="id mt-1">
-           <span class="bbaw-libertine" th:utext="${(obj.type == 'root') ? '&radic;' : ''} + ${{obj.name}}">Object name</span><span th:utext="'(' + #{|object_id_label_${obj.eclass}|} +' ' + ${obj.id} +')'">Object ID</span>
+           <span class="bbaw-libertine" th:utext="${(obj.type == 'root') ? '&radic;' : ''} + ${{obj.name}}">Object name</span><span class="words-breakable" th:utext="'(' + #{|object_id_label_${obj.eclass}|} +' ' + ${obj.id} +')'">Object ID</span>
         </h2>
     </div>
 

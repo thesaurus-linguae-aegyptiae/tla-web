@@ -33,6 +33,10 @@
     color: var(--BBAWred);
 }
 
+.words-breakable {
+    word-break: break-word;
+}
+
 .highlight-latin {
     background-color: #ffcccc;
 }
