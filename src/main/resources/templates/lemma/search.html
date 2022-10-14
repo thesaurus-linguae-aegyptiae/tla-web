@@ -31,6 +31,12 @@
 				</span>
 				<span th:unless="${#strings.isEmpty(translation)}"> ; <span th:text="#{field_label_translation}"/> = "<strong th:text="${translation}"/>"
 					<span th:unless="${#strings.isEmpty(translation_lang)}"> (<span th:text="#{field_label_translation_lang}"/> = <strong th:text="#{|button_label_show_property_${translation_lang}|}"/>)</span>
+               <script th:inline="javascript">
+						/*<![CDATA[*/
+						var langTranslation = /*[[${translation_lang}]]*/ 'de';
+                  storeUserSetting('lemma-results-show-property-'+langTranslation,'true');
+                  /*]]>*/
+               </script>
 				</span>
 				<span th:unless="${#strings.isEmpty(bibliography)}"> ; <span th:text="#{field_label_bibliography}"/> = "<strong th:text="${bibliography}"/>"</span>
 				<!--<span th:unless="${#strings.isEmpty(annotation_type)}"> ; <span th:text="#{field_label_annotation-type_type}"/> = "<strong th:text="${annotation_type}"/>"</span>-->

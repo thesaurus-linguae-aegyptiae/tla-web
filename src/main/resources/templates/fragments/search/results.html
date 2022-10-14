@@ -416,9 +416,9 @@
               let selectorLingGlossing = `.switchannotation-linguisticglossing`;
               let selectorTransl = `.switchannotation-tokentranslation`;
               let selectorId = `.switchannotation-wordtokenid`;
-              let selectorTR=`.translation`;
-              let selectorDate=`.dates`;
-              let selectorEditor=`.simpleed`;
+              //let selectorTR=`.translation`;
+              //let selectorDate=`.dates`;
+              //let selectorEditor=`.simpleed`;
               let selectorSW1=`.sentence-line-mode`;
               let selh=`.token-glyphs`;
            let selwc=`.bwc`;
@@ -442,7 +442,7 @@
         	  else if(name=="translation"){
         		  if(getUserSetting("corpus-translation")=="true"){
         			  button.children('i#off').toggle();        			
-        			  $(selectorTR).toggle();     		   		 
+        			  //$(selectorTR).toggle();     		   		 
         	   		  $(seltrgen).toggle();
                    }
                  else {
@@ -452,7 +452,7 @@
         	  else if(name=="dating"){
         		  if(getUserSetting("corpus-dating")=="true"){
         			  button.children('i#off').toggle();        			
-        			  $(selectorDate).toggle(); 
+        			  //$(selectorDate).toggle(); 
         		   		 
         	   		  $(seldate).toggle();
                    }
@@ -464,7 +464,7 @@
         	  else if(name=="texteditor"){
         		  if(getUserSetting("corpus-texteditor")=="true"){
         			  button.children('i#off').toggle();        			
-        			  $(selectorEditor).toggle(); 
+        			  //$(selectorEditor).toggle(); 
         		   		 
         	   		  $(seled).toggle();
                    }
@@ -595,7 +595,7 @@
          }
          
          if(name=="translation"){
-   		     $(selectorTR).fadeToggle('slow'); 
+   		     //$(selectorTR).fadeToggle('slow'); 
    		 
    		  $(seltrgen).slideToggle('fast');
    		  button.children('svg').toggle();
@@ -603,14 +603,14 @@
    	    }
          
          if(name=="dating"){
-   		      $(selectorDate).fadeToggle('slow'); 
+   		      //$(selectorDate).fadeToggle('slow'); 
    		 
    		     $(seldate).slideToggle('fast');
    		  button.children('svg').toggle();
    			  storeUserSetting("corpus-dating",""+ button.children('svg#off').attr('style') == 'display: none;');
    	  }
    	  if(name=="texteditor"){
-   		  $(selectorEditor).fadeToggle('slow'); 
+   		  //$(selectorEditor).fadeToggle('slow'); 
    		 
    		  $(seled).slideToggle('fast');
    		  button.children('svg').toggle();
