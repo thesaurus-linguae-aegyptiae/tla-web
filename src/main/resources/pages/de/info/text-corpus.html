@@ -1,0 +1,199 @@
+<article>
+   <header>
+      <h1 id="page-title">TLA Textkorpus</h1>
+   </header>
+   <section>
+      <h2>Einführung</h2>
+      <p>Das Textkorpus ist einer der beiden Kernbestandteile des <i>Thesaurus Linguae Aegyptiae</i> (<i>TLA</i>), der andere sind die <a href="lemma-lists">Lemmalisten</a>. Das Korpus enthält eine ständig wachsende Anzahl altägyptischer Texte, die in hieroglyphisch-hieratischer oder demotischer Schrift verfasst sind und derzeit von ca. 3.000 v.Chr. bis ca. 300 n.Chr. reichen. (Koptische Texte werden später im Projekt hinzugefügt.)</p>
+      <p>Die altägyptische Textwelt war kulturell und historisch gesehen recht bemerkenswert. Botschaften von unterschiedlicher Länge und Komplexität wurden auf verschiedenste Objekte aus den unterschiedlichsten Lebensbereichen geschrieben. Es gibt Texte auf tragbaren Gegenständen wie Papyrus, Ostraka (d.h. Steinplättchen oder Tonscherben) und (kompletten) Gefäßen sowie Texte auf unbeweglichen Gegenständen wie den Wänden von Tempeln und Gräbern, Obelisken, Statuen usw. Diese verschiedenen Arten von Textträgern, ihre materiellen, formalen und funktionalen Merkmale, tragen zu einer zusätzlichen Bedeutung bei, die diejenige der geschriebenen Texte konnotiert.</p>
+      <p>Angesichts dieser engen Wechselbeziehung und semantischen Interaktion zwischen geschriebenen Texten und ihren Textträgern muss ein besseres Verständnis der altägyptischen Weltanschauung anhand von Texten sowohl die textlichen als auch die materiellen Merkmale von Textobjekten systematisch in Betracht ziehen. Aus diesem Grund sind alle Texte im Textkorpus mit einer Vielzahl von Metadaten versehen, die sich sowohl auf die Texte selbst als auch auf ihre Textträger beziehen. Es war immer ein Ziel des Akademienprojekts, ein mehr oder weniger ausgewogenes, vielfältiges Korpus zu entwickeln, d.h. eine repräsentative Bandbreite an textlicher und chronologischer Variation im Korpus abzudecken. Derzeit umfasst das Textkorpus etwa <strong><span th:text="#{corpus-lemma-tokens-amount-de}">1,44</span> Millionen Lemma-Instanzen</strong> (Hieroglyphen/Hieratisch: <span th:text="#{lemma-tokens-hiero-de}">1.115 Tsd.</span>, Demotisch: <span th:text="#{lemma-tokens-dem-de}">326 Tsd.</span>).</p>
+      <p>Außerdem werden die Texte im <i>TLA</i> nicht primär als abstrakte Texte (z.B. <i>Sinuhe</i>), sondern als (semantisch kohärente) Textkette auf einem konkreten Textträger (z.B. Papyrus Berlin ÄM P 3022) konzeptualisiert.</p>
+   </section>
+   <section>
+      <h2>Details</h2>
+      <p>Jeder geschriebene Text und Satz sowie jedes Textobjekt (Textträger) im Korpus hat seine eigene <strong>eindeutige, stabile ID-Nummer</strong>, z.B. „MORHQGR3SNBI3KHAF6YOW5WLL4‟. Die grundlegende Ebene eines Textes ist seine ägyptologische Transkription. Ein wachsender Teil des Subkorpus der hieroglyphisch-hieratischen Texte ist auch mit einer digitalen hieroglyphischen Transliteration im <i>JSesh</i>-spezifischen <i>Manuel de Codage</i> und, soweit möglich, in Unicode versehen (bei Sätzen noch nicht im <i>TLA</i> sichtbar). Alle Texte enthalten außerdem eine Übersetzung in eine moderne Wissenschaftssprache (meist Deutsch, teils Englisch oder Französisch, je nach den Sprachkenntnissen der Autor:innen). Texte können außerdem kommentierende Anmerkungen enthalten.</p>
+   </section>
+   <section>
+      <h2>Text-Metadaten und Textobjekt-Metadaten</h2>
+      <p>Texte und Textobjekte werden systematisch mit zusätzlichen Metadaten versehen, die nicht im Text oder Textobjekt selbst immanent sind. Um die Datenabfrage zu verbessern, werden mögliche Werte von Metadaten in kontrollierten Vokabularen (Thesauri) bearbeitet. Kategorien von Daten und Metadaten, die sich auf Texte und Textobjekte beziehen, sind in der folgenden Tabelle aufgeführt:
+      <table class="bordered-table">
+         <tr><th>Textdaten und Metadaten</th><th>Textobjekt-Metadaten</th></tr>
+         <tr><td>Ägyptologische Transkription</td><td></td></tr>
+         <tr><td>(Digitale) Hieroglyphentransliteration</td><td></td></tr>
+         <tr><td>Übersetzung (Deutsch, Englisch oder Französisch)</td><td></td></tr>
+         <tr><td>Schriftart (Hieroglyphisch, Hieratisch, Demotisch)</td><td></td></tr>
+         <tr><td>Sprachphase (Altägyptisch, Mittelägyptisch, usw.)</td><td></td></tr>
+         <tr><td>Datierung des Textes</td><td>Datierung des Textobjekts</td></tr>
+         <tr><td>Textkategorie/Typ ('Genre')</td><td>Art des Textobjekts</td></tr>
+         <tr><td></td><td>Komponente</td></tr>
+         <tr><td></td><td>Akteur einer sozialen Handlung</td></tr>
+         <tr><td></td><td>Material</td></tr>
+         <tr><td></td><td>Abmessungen</td></tr>
+         <tr><td></td><td>Erhaltungszustand</td></tr>
+         <tr><td></td><td>Herstellungsart</td></tr>
+         <tr><td></td><td>Archäologischer Kontext</td></tr>
+         <tr><td></td><td>Kultureller Kontext</td></tr>
+         <tr><td></td><td>Fundort</td></tr>
+         <tr><td></td><td>Aktueller Standort</td></tr>
+         <tr><td>bibliographische Referenzen</td><td>bibliographische Referenzen</td></tr>
+      </table>
+   </section>
+   <section>
+      <h2>„Texte‟ und „Subtexte‟ im TLA</h2>
+      <p>Ein ‚Text‛ im weiteren Sinne, wie er im <i>TLA</i> konzeptualisiert wird, ist eine Einheit, die durch deutlich markierte Textbegrenzer (Anfang und Ende) als unabhängige Texteinheit gekennzeichnet ist. Ein einzelner Text kann entweder nur aus Schrift bestehen oder eine multimodale Komposition aus Schrift und Illustrationen sein. Ein Beispiel für multimodale Texte sind Opferszenen an den Wänden ägyptischer Tempel, die den König gegenüber einer Gottheit zeigen, wobei beide miteinander interagieren. Inschriften, kurze Phrasen oder Sätze, identifizieren die dargestellten Personen oder bieten Informationen über ihre Interaktionen. Solche kurzen Texteinheiten sind zwar formal eigenständige Einheiten, sind aber Teil der größeren Einheit der Szene und werden daher nicht als unabhängige „Texte‟, sondern als abhängige „Subtexte‟ im <i>TLA</i> konzipiert. Ein Merkmal von Subtexten im Vergleich zu Texten im <i>TLA</i> ist, dass eine feste Lesereihenfolge von Subtexten normalerweise nicht eindeutig ermittelt werden kann. Ein weiteres Merkmal ist, dass es bei der Interpretation von Subtexten notwendig ist, parallele Subtexte zu berücksichtigen, z.B. eine Szene als Ganzes.</p>
+   </section>
+   <section>
+      <h2>Allgemeine Grundsätze der Textbearbeitung im TLA</h2>
+      <p>Wie erwähnt, werden ägyptische Texte im <i>TLA</i> in erster Linie als Zeichenketten in ägyptologischer Transkription konzeptualisiert. Die Zählung der Zeilen/Kolumnen folgt im Allgemeinen der Originalquelle (Tag „lc‟, für ‚line[/column] count'). Zusätzlich kann auf übliche Zeilenzählungen in Standardpublikationen von (abstrakten) Texten Bezug genommen werden (Tag „para"). Texte werden in Einheiten von einfachen oder komplexen Sätzen unterteilt. Jeder Satz hat eine <strong>eindeutige, stabile ID-Nummer</strong>, mit der er zitiert werden kann und sollte, z.B. „<i>TLA</i> Satz IBUBd1NUc4LHaUPIlW0V9mCZyNQ‟.</p>
+      <p>Jede Wort-Instanz (ggf. auch eine Folge von Wörtern) ist <strong>lemmatisiert</strong>, d.h. sie ist mit einem Eintrag ('Lemma') in einer der Lemmalisten des <i>TLA</i> verknüpft. Darüber hinaus sind die Lemma-Instanzen in vielen Texten auch mit grammatischen Codes annotiert. Diese kodieren morphologische Flexion, hauptsächlich Flexion, die sichtbar in der Schrift markiert ist (z.B. Genus, Numerus der Substantive), aber manchmal auch Flexion, die in der rein konsonantischen Schrift nicht repräsentiert ist, aber kontextuell aus dem textlichen Zusammenhang rekonstruiert werden kann (z.B. <i>Genus verbi</i> eines unmarkierten <i class="transliteration">sḏm</i>(<i>=f</i>), Numerus eines relativen <i class="transliteration">sḏm.t.n</i>(<i>=f</i>)). Um die grammatische Annotation bis zu einem gewissen Grad unabhängig von immer wieder diskutierten theoretischen Prämissen zu halten, beschränkt sich die Markierung von Tempus/Aspekt/Modus (TAM)-Merkmalen von flektierten Verben strikt auf die sichtbare Flexion, d.h. auf morphologische Merkmale, die in der geschriebenen Form repräsentiert sind. Zum Beispiel wird ein morphologisch unmarkiertes <i class="transliteration">nḥm</i>(<i>=f</i> einfach als Instanz einer (aktiven oder passiven) „Suffixkonjugations"-Form ohne TAM-Spezifikation annotiert. Die Lemma-Instanzen eines immer größer werdenden Anteils der Texte werden auch in ihrer ursprünglichen hieroglyphischen Schreibweise (oder, im Falle des Hieratischen, in einer hieroglyphischen Transliteration) angegeben. Die Autor:innen werden außerdem ermutigt, eine bestimmte Bedeutung eines Lemmas im Kontext anzugeben, indem sie entweder eine Bedeutung aus einer Reihe von Übersetzungen aus der Lemmaliste auswählen oder selbst eine andere spezifische Bedeutung eingeben. Zusätzlich zu diesen Standard-Annotationen können die Eingebenden weitere Annotationen hinzufügen, wie z.B. andere semantische Merkmale (z.B. Art des Sprechakts), Layout-Merkmale (z.B. Rumbra, Verspunkte, geteilte Spalten, Listen), semantische Merkmale (z.B. metaphorische Domänen), usw.</p>
+   </section>
+   <section>
+      <h2>Der Inhalt des Textkorpus</h2>
+      <p>Aktuell sind die folgenden Teilkorpora altägyptischer Texte im <i>TLA</i>-Korpus zugänglich. Teilkorpora mit digitaler Hieroglyphen-Transliteration sind mit [H] gekennzeichnet, solche mit grammatischer Annotation mit [G]. (Listen-Stand Anfang 2022)</p>
+      <ul>
+         <li>
+            Texte aus der frühdynastischen Periode
+            <ul>
+               <li>Königliche und nicht-königliche Texte [H; G] (M. Rathenow, J.Schneider, G. Sperveslage)</li>
+            </ul>
+         </li>
+         <li>
+            Texte aus dem Alten Reich
+            <ul>
+               <li>Archivalische Texte [G] (S. Grunert, I. Hafemann)</li>
+               <li>Biographische Texte [teilweise H; G] (A. Burkhardt, S. Grunert, J. Stauder-Porchet)</li>
+               <li>Briefe [G] (I. Hafemann)</li>
+               <li>Briefe an die Toten [G] (I. Hafemann)</li>
+               <li>Nicht-königliche Gräber [teilweise H; G] (A. Burkhardt, S. Grunert)</li>
+               <li>Felseninschriften [G] (I. Hafemann, G. Sperveslage)</li>
+               <li>Pyramidentexte [teilweise H; G] (D. Topmann)</li>
+               <li>Votivinschriften [G] (S.J. Seidlmayer)</li>
+            </ul>
+         </li>
+         <li>
+            Texte aus der Ersten Zwischenzeit
+            <ul>
+               <li>Briefe [G] (I. Hafemann)</li>
+               <li>Briefe an die Toten [G] (I. Hafemann)</li>
+               <li>Pyramidentexte [teilweise H; G] (D. Topmann)</li>
+            </ul>
+         </li>
+         <li>
+            Texte aus dem Mittleren Reich
+            <ul>
+               <li>Würfelhocker [H] (R. Díaz Hernandez)</li>
+               <li>Historisch-biografische Texte von königlichen und nichtköniglichen Personen [teilweise H; G] (M. Brose, P. Dils, R. Landgráfová, L. Popko, A. Schütze)</li>
+               <li>Briefe [G] (I. Hafemann)</li>
+               <li>Literarische Texte [teilweise H; G] (P. Dils, R. Enmarch, F. Feder, H. Felber, V. Lepper, L. Popko)</li>
+               <li>Magische Texte [H; G] (A. Blöbaum, P. Dils, L. Popko, K. Stegbauer)</li>
+               <li>Medizinische Texte [H; G] (P. Dils, I. Köhler, L. Popko, G. Sperveslage)</li>
+               <li>Private Stelen [H; G] (S. Beck)</li>
+               <li>Religiöse Texte: Hymnen [H; G] (P. Dils, A. Schütze)</li>
+            </ul>
+         </li>
+         <li>
+            Texte aus der Zweiten Zwischenzeit
+            <ul>
+               <li>Briefe [G] (I. Hafemann)</li>
+               <li>Historisch-biografische Texte von königlichen und nicht-königlichen Personen [teilweise H; G] (M. Brose, P. Dils, R. Landgráfová, L. Popko, A. Schütze)</li>
+               <li>Literarische Texte [H; G] (P. Dils, L. Popko)</li>
+               <li>Private Stelen [H; G] (S. Beck)</li>
+            </ul>
+         </li>
+         <li>
+            Texte aus dem Neuen Reich
+            <ul>
+               <li>Verwaltungstexte aus Deir el-Medine [H; G] (M. Goecke-Bauer; M. Landrino)</li>
+               <li>Biographische Texte aus der Ramessidenzeit [H; G] (E. Frood)</li>
+               <li>Würfelhocker [H] (R. Díaz Hernandez)</li>
+               <li>Totenbuch [teilweise H] (B. Backes, J. Iskander)</li>
+               <li>Briefe [teilweise H; G] (I. Hafemann)</li>
+               <li>Literarische Texte [H; G] (M Brose, P. Dils, F. Feder, H. Felber, L. Popko)</li>
+               <li>Magische Texte [H; G] (A. Blöbaum, M. Brose, P. Dils, L. Popko, K. Stegbauer)</li>
+               <li>Medizinische Texte [H; G] (A. Blöbaum, B. Böhm, M. Brose, C. Di Biase-Dyson, P. Dils, A. Herzberg, I. Köhler, L. Popko)</li>
+               <li>Private religiöse Texte [H; G] (K. Dietze)</li>
+               <li>Private Stelen [H; G] (S. Beck)</li>
+               <li>Stundenritual [H; G] (E. Graefe)</li>
+               <li>Königliche historische und rhetorische Texte aus der Ramessidenzeit [teilweise H; G] (S. Grallert, I. Hafemann, L. Popko)</li>
+               <li>Königliche Stelen der 18. Dynastie bis zu Amenhotep III. [teilweise H; G] (M. Brose, J. Iskander)</li>
+               <li>Texte aus der Amarna-Zeit [H; G] (I. Hafemann, G. Sperveslage)</li>
+            </ul>
+         </li>
+         <li>
+            Texte aus der Dritten Zwischenzeit
+            <ul>
+               <li>Totenbuch [teilweise H] (B. Backes, A. Wüthrich)</li>
+               <li>Historisch-biographische Texte [H; G] (R. Díaz Hernandez, S. Grallert, G. Sperveslage)</li>
+               <li>Briefe [H; G] (I. Hafemann)</li>
+               <li>Literarische Texte [H; G] (P. Dils, L. Popko)</li>
+               <li>Magische Texte [H; G] (A. Blöbaum, M. Brose, P. Dils, L. Popko, K. Stegbauer)</li>
+               <li>Stundenritual [H; G] (E. Graefe)</li>
+               <li>Texte auf nicht-königlichen Särgen [H; G] (J. Schneider)</li>
+            </ul>
+         </li>
+         <li>
+            Texte aus der Spätzeit
+            <ul>
+               <li>Administrative Texte (G. Vittmann)</li>
+               <li>Totenbuch [H] (A. Wüthrich)</li>
+               <li>Literarische Texte [teilweise H; G] (P. Dils, L. Popko)</li>
+               <li>Medizinische Texte [H; G] (A. Blöbaum, B. Böhm, M. Brose, P. Dils, L. Popko)</li>
+               <li>Magische Texte [H; G] (A. Blöbaum, B. Böhm, M. Brose, P. Dils, L. Popko, J.-F. Quack, K. Stegbauer)</li>
+               <li>Nicht-königliche biographische Texte [H; G] (R. Díaz Hernandez, J. Iskander, S. Grallert)</li>
+               <li>Private Stelen (G. Vittmann)</li>
+               <li>Stundenritual [H; G] (P. Dils, E. Graefe, K. Griffin)</li>
+               <li>Felseninschriften (G. Vittmann)</li>
+               <li>Tempelinschriften [H; G] (S. Blaschta)</li>
+               <li>Texte aus nicht-königlichen Gräbern und auf Särgen undSarkophagen [teilweise H; teilweise G] (D. Topmann, G. Vittmann)</li>
+               <li>Texte aus Tempelbibliotheken [H; G] (F. Feder)</li>
+            </ul>
+         </li>
+         <li>
+            Texte aus der griechisch-römischen Zeit
+            <ul>
+               <li>Administrative Texte (G. Vittmann)</li>
+               <li>Totenbuch [H] (B. Backes, A. Wüthrich)</li>
+               <li>Rechtliche Texte (G. Vittmann)</li>
+               <li>Literarische Texte (G. Vittmann)</li>
+               <li>Mathematische Texte (G. Vittmann)</li>
+               <li>Magische Texte [teilweise H; teilweise G] (A. Blöbaum, B. Böhm, M. Brose, P. Dils, A.-K. Gill, L. Popko, K. Stegbauer, G. Vittmann)</li>
+               <li>Medizinische Texte [teilweise H; teilweise G] (A. Blöbaum, B. Böhm, M. Brose, P. Dils, I. Köhler, L. Popko, G. Vittmann)</li>
+               <li>Begräbnisliturgien [teilweise H; G] (F. Feder, S. Töpfer)</li>
+               <li>Nicht-königliche biographische Texte [H; G] (J. Schneider)</li>
+               <li>Private Stelen [teilweise H; teilweise G] (S. Beck, G. Vittmann)</li>
+               <li>Religiöse Texte (G. Vittmann)</li>
+               <li>Felseninschriften (G. Vittmann)</li>
+               <li>Königliche Texte [H; G] (R. Birk, D. Schäfer, J. Schneider, G. Sperveslage, G. Vittmann)</li>
+               <li>Wissenschaftliche Texte (G. Vittmann)</li>
+               <li>
+                  Tempelinschriften
+                  <ul>
+                     <li>Assuan, Bigge, Dakka, Deir el-Bahari, Deir el-Medine, Dendur, Opet [teilweise H; teilweise G] (M. Elebaut, A. Paulet, R. Preys)</li>
+                     <li>Dendera [teilweise H; teilweise G] (A. Rickert)</li>
+                     <li>Edfu (Ritual of the Hours) [H, G] (E. Graefe)</li>
+                     <li>Esna (D. v. Recklinghausen)</li>
+                  </ul>
+               </li>
+               <li>Texte auf Särgen und Sarkophagen (G. Vittmann)</li>
+               <li>Texte aus Tempelbibliotheken [H; G] (F. Feder)</li>
+            </ul>
+         </li>
+      </ul>
+   </section>
+   <section>
+      <h2>Geschichte des hieroglyphisch-hieratischen Textkorpus</h2>
+      <p>Das digitale Textkorpus des <i>TLA</i> wurde im Rahmen des Vorgängerprojekts „Altägyptisches Wörterbuch‟ (1992–2012) an der Berlin-Brandenburgischen Akademie der Wissenschaften initiiert (gefördert durch das Akademienprogramm der Union der deutschen Akademien der Wissenschaften). Die Idee war, im Zeitalter der korpusbasierten computergestützten Lexikographie einen digitalen Nachfolger von A. Ermans &amp; H. Grapows <i>Wörterbuch der aegyptischen Sprache</i> (1926–1931; 1950, 1963) zu schaffen, insbesondere einschließlich der <i>Belegstellen</i>-Bände (1935–1953): (a) ein lemmatisiertes, ausgewogenes digitales Korpus ägyptischer Texte in hieroglyphischer, hieratischer und demotischer Schrift, das (b) ein korpusbasiertes ‚Wörterbuch‛ der altägyptischen Sprache aufbaut.</p>
+      <p>Um die Lemmaliste weiter zu vervollständigen, wurden auf der Grundlage einer Reihe von Kriterien zusätzliche Texte ausgewählt, die in den <i>TLA</i> aufgenommen werden sollten. Texte, die nicht für das ursprüngliche <i>Wörterbuch</i>-Projekt verwendet worden waren, und Texte, die nach Abschluss des Projekts veröffentlicht oder neu bearbeitet worden waren, wurden bei der Aufnahme bevorzugt. Neuägyptische Texte, die im Rahmen des <i>Projet Ramsès</i> (Liège) kodiert werden sollten, wurden dagegen hinten angestellt. Mit der Vergrößerung des Projektteams und der zunehmenden Unterstützung durch <a href="collaboration">kooperierende</a> Projekte und einzelne Forscher:innen entwickelt sich ein breiteres, ausgewogeneres und vielfältigeres Korpus.</p>
+   </section>
+   <section>
+      <h2> Zukunftsaussichten</h2>
+      <p><h3>Koptisches Textkorpus</h3></p>
+      <p>Koptisch, die letzte Phase der altägyptischen Sprache, ist noch nicht im <i>TLA</i>-Textkorpus vertreten. Sobald die koptische <a href="lemma-lists">Lemmaliste</a> im <i>TLA</i> implementiert ist, wird ein Beispielkorpus mit Texten aus allen koptischen Dialekten importiert werden. Dieses wird aus den lemmatisierten digitalen Textdaten stammen, die von Wolf-Peter Funk über viele Jahrzehnte hinweg erstellt wurden. Diese Altdaten wurden von Katrin John (Kooperationsprojekt „<a href="https://www.geschkult.fu-berlin.de/en/e/ddglc" target="_blank"><i>Database and Dictionary of Greek Loanwords in Coptic</i></a>‟, FU Berlin) in ein modernes Kodierungsformat, d.h. Unicode, konvertiert und werden nun für die Einbindung in den <i>TLA</i> aufbereitet.</p>
+      <p><h3>Sargtexte</h3></p>
+      <p>In Zusammenarbeit mit Wolfgang Schenkel bereitet das Projekt die Transformation seiner Coffin Text Urtext-Daten (<i>CTURTEXT</i>) vor, damit die Sargtexte in den <i>TLA</i> aufgenommen werden können.</p>
+   </section>
+   <footer>
+      <p class="credits">Text: S.Grallert, T.S.Richter, S.Schweitzer, D.A.Werning</p>
+      <div th:replace="fragments/common :: static-page-citationBox"/>
+   </footer>
+</article>
