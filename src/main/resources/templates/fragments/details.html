@@ -375,11 +375,18 @@
 					<span th:text="' <' + ${env.baseUrl} +'>, ' + #{citeas_corpus_version} + ' ' + #{tla_corpusversion} + ', ' + #{citeas_tla_version} + ' ' + #{tla_version} + ', ' + #{tla_ReleaseDate} + ', ' + #{citeas_editor} +' ' + #{tla_Editor} + ' ('+ #{citeas_accessed} + ': '"></span>
 					<span id="current-date">xx.xx.20xx</span>)
 				</blockquote>
-				<script>
+			  <script th:inline="javascript">
+					/*<![CDATA[*/
+               var pageLang = /*[[${env.lang}]]*/ 'en';
 					var date = new Date(); date.getUTCDate(); 
-					var today= date.getDate() + "." + (date.getMonth()+1) + "." + date.getFullYear(); 
+					if (pageLang == 'de') {
+                  var today= date.getDate() + "." + (date.getMonth()+1) + "." + date.getFullYear();
+               } else {
+                  var today= (date.getMonth()+1) + "/" + date.getDate() + "/" + date.getFullYear();
+               }
 					document.getElementById('current-date').innerHTML =today;
 					document.getElementById('current-date-short').innerHTML =today;
+					/*]]>*/
 				</script>
 				<button type="button" class="btn btn-secondary btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document.getElementById('full-citation').textContent.replaceAll(/\s+/g,' '))"><i class="fas fa-clipboard"></i>&nbsp;<span th:text="#{citeas_copy_button}">Copy citation</span></button>
      </div>  
