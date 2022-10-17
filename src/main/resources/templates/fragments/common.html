@@ -502,7 +502,7 @@
     
        <!-- sentence editor -->
     <div th:fragment="sentence-editor" class="result-list-item-element texteditors">
-     	 <span th:if="*{getEdited}">
+     	 <span th:if="*{getEdited}" th:with="formatter=#{date_formatter}">
 	     	  <strong th:utext="#{sentence_main_editor}"/>:
 	     	  <span th:utext="*{getEdited.author}"/> 
 			  <span th:if="*{getEdited.contributors}">
@@ -511,7 +511,7 @@
 				  <span th:each="contributor, nr : *{getEdited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/>
 			  </span>
 			  <!-- fehlt hier: <span th:text="#{|review_state_${obj.reviewState}|}">status</span>-->
-			  <span th:utext="' (' + #{sentence_latest_access} + ': ' + *{getEdited.getDateOfLatestUpdate} + ')'" /><!-- formatiert: <span th:text="${#calendars.format(obj.edited.updated, formatter)}">date</span>-->
+			  <span th:utext="' (' + #{sentence_latest_access} + ': ' + ${#calendars.format(obj.edited.updated, formatter)} + ')'" />
          </span>
     </div>
    
