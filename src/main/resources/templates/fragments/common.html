@@ -137,17 +137,17 @@
    <div th:fragment="static-page-citationBox" id="static-page-citationBox" class="bg-light citation m-sm-2 m-lg-4"> 
     	<div class="bg-light citation  m-sm-1 m-lg-2"> 
          <p class="h6" ><strong th:text="#{citeas_heading}">Please cite as</strong>:</p>
-				(<em>Short citation</em>)
-				<blockquote id="short-citation">
-					<span id="short-citation-title"></span>, in:
-					<span style="font-style: italic;" th:text="#{tla_Title}">Thesaurus Linguae Aegpyi</span>
-					(<span th:text="#{citeas_accessed}"></span>: <span id="current-date-short">xx.xx.20xx</span>)
-				</blockquote>
-				(<em>Full citation</em>)
+				(<em th:text="#{citeas_full}">Full citation</em>)
 				<blockquote id="full-citation"><span id="full-citation-title"></span>, in:
 					<span style="font-style: italic;" th:text="#{tla_Title}"></span>  
 					<span th:text="' <' + ${env.baseUrl} +'>, ' + #{citeas_corpus_version} + ' ' + #{tla_corpusversion} + ', ' + #{citeas_tla_version} + ' ' + #{tla_version} + ', ' + #{tla_ReleaseDate} + ', ' + #{citeas_editor} +' ' + #{tla_Editor} + ' ('+ #{citeas_accessed} + ': '"></span>
 					<span id="current-date">xx.xx.20xx</span>)
+				</blockquote>
+				(<em th:text="#{citeas_short}">Short citation</em>)
+				<blockquote id="short-citation">
+					<span id="short-citation-title"></span>, in:
+					<span style="font-style: italic;" th:text="#{tla_Title}">Thesaurus Linguae Aegpyi</span>
+					(<span th:text="#{citeas_accessed}"></span>: <span id="current-date-short">xx.xx.20xx</span>)
 				</blockquote>
 			  <script th:inline="javascript">
 					/*<![CDATA[*/
