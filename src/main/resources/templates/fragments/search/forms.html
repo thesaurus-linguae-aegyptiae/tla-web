@@ -4,7 +4,7 @@
   <body>
 
     <!-- ID lookup search forms -->
-	<!-- ## um unterschiedliche actions zu ermöglichen, sind die ID-Suchen in drei forms verteilt, leider amit auch zwei Reiter auf der Suchseite ## -->
+	<!-- ## um unterschiedliche actions zu ermöglichen, sind die ID-Suchen in drei forms verteilt, leider damit aktuell auch jeweils ein Reiter auf der Suchseite ## -->
     <form id="lemma-id-search" name="lemma-id-search" th:object="${lemma}"
         th:action="@{/lemma/lookup}" method="get"> 
       <fieldset class="form-group row">
@@ -90,7 +90,7 @@
       </form>
       
         <form id="object-search" name="object-search"
-        th:action="@{${@searchController.getSearchResultsPageRoute(@__textController__)}}"
+        th:action="@{${@searchController.getSearchResultsPageRoute(@__objectController__)}}"
         th:object="${objectSearchForm}" method="get">
       <div th:replace=" :: translation-spec('object', 'objectSearchForm', ${allTranslationLanguages})"/>
       </form>
