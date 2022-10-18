@@ -1400,5 +1400,9 @@ span.multiselect-native-select select {
     .btn {
         display: none;
     }
+    
+    a {
+       text-decoration: none !important;
+    }
 
 }
