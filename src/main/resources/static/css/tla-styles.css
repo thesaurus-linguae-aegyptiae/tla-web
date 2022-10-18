@@ -902,6 +902,11 @@ footer.bg-light {
 	border-bottom: 1pt solid lightgrey;
 	border-top: 1pt solid lightgrey;
 }
+.centered-cell-content th,
+.centered-cell-content td {
+	vertical-align: middle;
+	text-align: center;
+}
 
 .modal-footer-text {
 	text-align: left;
