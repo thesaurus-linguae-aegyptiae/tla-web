@@ -49,6 +49,7 @@
                   <a class="dropdown-item" href="/listings/bibliography" th:text="#{editorial_title_listings_bibliography}">Abbreviated literature</a>
                 </div>
               </li>
+              <!-- ## no help pages yet ##
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{menu_global_help}">Help</a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown3">
@@ -58,6 +59,7 @@
                   <a class="dropdown-item text-to-be-revised" href="/help/sentence-search-results" th:text="#{editorial_title_help_sentence-search-results}">Sentence search results</a>
                 </div>
               </li>
+              -->
             </ul>
           </div>
         </div>
@@ -223,12 +225,16 @@
           <span class="mr-1" th:text="#{social-button-share}">Share</span>
           <i class="fa fa-share-alt share-results"></i></a>
       </div>
+      <!-- ## email-Funktionalität noch nicht nutzbar ##
       <div class="functional-icons">
         <a href="#" class="btn btn-red solo-icon text-secondary disabled" role="button" data-toggle="modal" data-target="#modal_comments">
           <span class="mr-1" th:text="#{social-button-comment}">Comment</span>
           <i class="far fa-comment"></i></a>
       </div>
+      -->
+      <!-- ## no help pages yet ##
       <div th:replace=" :: help-button(${helppage})"/>
+      -->
 
     <!-- Modal for Comments-->
     <div class="modal fade" id="modal_comments" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -291,7 +297,8 @@
     <!-- help icon for top right header placement -->
 
     <div id="page-help" class="button-bar col-md-6 col-lg-6 align-right align-baseline d-none d-lg-block" th:fragment="page-help(pagename)">
-      <div th:replace=" :: help-button(${pagename})"/>
+      <!-- ## no help pages yet ##
+      <div th:replace=" :: help-button(${pagename})"/>-->
     </div>
 
       <div id="help-button" class="functional-icons" th:fragment="help-button(pagename)">
