@@ -1392,8 +1392,8 @@ span.multiselect-native-select select {
 
     #cookie-container,
     #breadcrumbs,
-    footer,
-    header,
+    body > footer,
+    body > header,
     .no-print,
     .button-bar,
     .sidebar,
