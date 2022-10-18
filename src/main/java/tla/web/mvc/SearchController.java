@@ -49,7 +49,7 @@ public class SearchController {
     private String defaultForm;
 
    // public static final List<String> SEARCH_FORMS = List.of("lemma-quick", "lemma", "sentence");
-    public static final List<String> SEARCH_FORMS = List.of("lemma", "lemma-id", "sentence-id", "text-id", "object-id", "ths-id");
+    public static final List<String> SEARCH_FORMS = List.of("lemma", /*"sentence", "text", "object",*/ "lemma-id", "sentence-id", "text-id", "object-id", "ths-id");
 
     @ModelAttribute("allScripts")
     public Script[] getAllScripts() {
@@ -85,6 +85,8 @@ public class SearchController {
         @ModelAttribute("lemma") Lemma lemma,
         @ModelAttribute("lemmaSearchForm") LemmaSearch lemmaForm,
         @ModelAttribute("sentenceSearchForm") SentenceSearch sentenceForm,
+        //@ModelAttribute("textSearchForm") TextSearch textForm,
+        //@ModelAttribute("objectSearchForm") ObjectSearch objectForm,
         @RequestParam MultiValueMap<String, String> params,
         Model model
     ) {
