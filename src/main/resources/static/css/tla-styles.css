@@ -1253,6 +1253,7 @@ span.multiselect-native-select select {
     content: "Part of";
 }
 
+/* Superordinates */
 /* Achtung: Label 'Part of' nicht verwechseln mit Var. partOf */
 .contains:before {
     content: "Subord.";
@@ -1262,10 +1263,6 @@ span.multiselect-native-select select {
 .partOf:before {
     content: "Super.";
 }
-
-/* Superordinates */
-
-
 
 #editorial-content section {
     margin-bottom: 2rem;
@@ -1282,7 +1279,7 @@ span.multiselect-native-select select {
 }
 
 #editorial-content h3 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     margin: .4rem 0;
 }
 
@@ -1392,13 +1389,17 @@ span.multiselect-native-select select {
 
     #cookie-container,
     #breadcrumbs,
-    footer,
-    header,
+    body > footer,
+    body > header,
     .no-print,
     .button-bar,
     .sidebar,
     .btn {
         display: none;
+    }
+    
+    a {
+       text-decoration: none !important;
     }
 
 }
