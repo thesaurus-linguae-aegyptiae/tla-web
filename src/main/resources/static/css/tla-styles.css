@@ -1253,6 +1253,7 @@ span.multiselect-native-select select {
     content: "Part of";
 }
 
+/* Superordinates */
 /* Achtung: Label 'Part of' nicht verwechseln mit Var. partOf */
 .contains:before {
     content: "Subord.";
@@ -1262,10 +1263,6 @@ span.multiselect-native-select select {
 .partOf:before {
     content: "Super.";
 }
-
-/* Superordinates */
-
-
 
 #editorial-content section {
     margin-bottom: 2rem;
