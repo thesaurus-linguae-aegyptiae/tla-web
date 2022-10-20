@@ -107,6 +107,9 @@ blockline
     font-family: "BBAWLibertine", "New Athena Unicode", serif;
 }
 
+#tla-author-list {
+   font-size: 0.9rem;
+}
 
 /* loader animation */
 
