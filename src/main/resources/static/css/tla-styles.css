@@ -107,7 +107,8 @@ blockline
     font-family: "BBAWLibertine", "New Athena Unicode", serif;
 }
 
-#tla-author-list {
+#tla-author-list,
+.citation {
    font-size: 0.9rem;
 }
 
@@ -148,8 +149,9 @@ blockline
     font-weight: bold;
 }
 
-.navbar-light .navbar-nav .nav-link:focus,
-.navbar-light .navbar-nav .nav-link:hover {
+/*.navbar-light .navbar-nav .nav-link:focus,
+.navbar-light .navbar-nav .nav-link:hover,*/
+.navbar-light .navbar-nav .nav-link {
     color: var(--BBAWred);
 }
 
