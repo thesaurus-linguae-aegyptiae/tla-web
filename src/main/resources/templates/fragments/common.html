@@ -14,8 +14,12 @@
         <div class="container">
           <a class="navbar-brand" href="/">TLA</a>
           <div class="navbar-title">
-            <h1 th:text="#{tla_Title}">Thesaurus Linguae Aegyptiae</h1>
+            <h1 class="d-none d-sm-block" th:text="#{tla_Title}">Thesaurus Linguae Aegyptiae</h1>
+            <h1 class="d-block d-sm-none">TLA</h1>
             <p>v<span th:text="#{tla_version}">2.0 pre-beta</span></p>
+          </div>
+          <div id="navbar-search-button" class="d-lg-none d-xl-none">
+            <a type="button" class="btn btn-outline-danger nav-search-button" href="/search"><i class="fas fa-search"></i></a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"/>
@@ -23,7 +27,7 @@
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a class="nav-link" href="/search" th:text="#{menu_global_search}">Search</a>
+                <a class="nav-link nav-search" href="/search"><i class="fas fa-search"></i>&nbsp;<span th:text="#{menu_global_search}">Search</span></a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{menu_global_tla}">TLA</a>
