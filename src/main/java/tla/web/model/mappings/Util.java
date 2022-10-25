@@ -158,6 +158,14 @@ public class Util {
 				if (text.trim().startsWith("<label>") && text.trim().endsWith("</label>")) {
                text = text.replace("<label>", "");
                text = text.replace("</label>", "");
+               text = text.replace("〈", "");
+               text = text.replace("〉", "");
+               text = text.trim();
+				}
+				// Cut out 〈 and 〉 in marked titles
+				if (text.trim().startsWith("<shortlabel>") && text.trim().endsWith("</shortlabel>")) {
+               text = text.replace("<shortlabel>", "");
+               text = text.replace("</shortlabel>", "");
                text = text.trim();
                if ((text.lastIndexOf("〈") == 0)  && (text.indexOf("〉") == text.length()-1) ){
                   // Typ "〈A〉" => "A"
@@ -170,14 +178,6 @@ public class Util {
 					
 					// Treat triple point workaround
 					//text = text.replace("\u205d", ":"); // not necessary anymore
-				}
-				// Cut out 〈 and 〉 in marked titles
-				if (text.contains("</title>")) {
-					text = text.replace("〈", " ");
-					text = text.replace("〉", " ");
-					text = text.replace("<title>", "");
-					text = text.replace("</title>", "");
-               text = text.trim();
 				}
         }
         return text;

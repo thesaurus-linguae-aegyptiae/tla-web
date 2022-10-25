@@ -345,28 +345,13 @@
     <div th:fragment="object-paths(objectPaths, collapse)" class="object-paths">
       <div th:each="objectPath, outerIter : ${objectPaths}" class="object-path mt-2">
         <div th:each="item, iter : ${objectPath}" class="object-path-element">
-          <th:block th:unless="${item.label == Null}" th:with="inAngleBrackets=${#strings.startsWith(item.label,'〈') AND #strings.indexOf(item.label,'〉') == (#strings.length(item.label) - 1)}">
-			  <th:block th:if="${inAngleBrackets}">
-				  <th:block th:unless="${collapse}">
-					 <span th:class="|object-path-icon ${item.eclass} ${item.type}|"></span>
-					 <a th:if="${item.href} != null" th:href="${item.href}">
-						<span th:utext="${{#strings.substring(item.label,1,#strings.length(item.label) - 1)}}">corpus path segment</span>
-					 </a>
-					 <span th:unless="${item.href} != null">
-						<span th:utext="${{#strings.substring(item.label,1,#strings.length(item.label) - 1)}}">unlinked path segment</span>
-					 </span>
-				  </th:block>
-			  </th:block>
-			  <th:block th:unless="${inAngleBrackets}">
-					 <span th:class="|object-path-icon ${item.eclass} ${item.type}|"></span>
-					 <a th:if="${item.href} != null" th:href="${item.href}">
-						<span th:utext="${{'<label>'+item.label+'</label>'}}">linked path segment</span>
-					 </a>
-					 <span th:unless="${item.href} != null">
-						<span th:utext="${{'<label>'+item.label+'</label>'}}">unlinked path segment</span>
-					 </span>
-			  </th:block>
-		  </th:block>
+          <span th:class="|object-path-icon ${item.eclass} ${item.type}|"></span>
+          <a th:if="${item.href} != null" th:href="${item.href}">
+            <span th:utext="${{'<shortlabel>'+item.label+'</shortlabel>'}}">linked path segment</span>
+          </a>
+          <span th:unless="${item.href} != null">
+            <span th:utext="${{'<shortlabel>'+item.label+'</shortlabel>'}}">unlinked path segment</span>
+          </span>
        </div>
       </div>
     </div>
@@ -503,7 +488,7 @@
 		 		<th:block th:each="date, dateStat : *{getDate}">
 		 		<!--<a th:href="|${@searchController.getSearchResultsPageRoute(@__thsController__)}?q=${date.id}|">-->
 				<a th:href="|/thesaurus/${date.id}|">
-                    <span th:utext="${{'<label>'+date.named+'</label>'}}"/> <!-- filter cuts out parts in angles ininside <label/>-->
+                    <span th:utext="${{'<shortlabel>'+date.named+'</shortlabel>'}}"/> <!-- filter cuts out parts in angles ininside <label/>-->
                   <span th:utext="${date.id}" hidden="true"/> 
                  </a>
                   <span th:unless="${dateStat.last}">&nbsp;&ndash;&nbsp;</span>       
