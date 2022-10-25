@@ -146,8 +146,6 @@
 				storeUserSetting("Mdc","enabled");
 				}
             </script>
-
-
           </div>
         </div> 
       </div>
@@ -212,6 +210,9 @@
           <input class="form-control mb-3" type="text" th:field="*{bibliography}"/>
         </div>
       </div>
+
+      <div class="ml-2"><th:block th:replace="fragments/common :: construction(#{msg_collocation_search})"></th:block></div>
+
 
       <!--  <div th:replace=" :: type-spec('annotation-type', 'lemmaSearchForm.anno', ${lemmaAnnotationTypes})"/>-->
 <div class="modal fade" id="transliteration-help" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

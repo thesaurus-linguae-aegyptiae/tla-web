@@ -118,6 +118,13 @@
       <div th:replace="fragments/common :: cookie-banner"/>
     </footer>
 
+    <!-- Under construction message  -->
+    
+    <div class="construction" th:fragment="construction(msg)" id="construction">
+        <p class="text-secondary"><i class="fas fa-wrench"></i> (<span th:text="${msg}">Under construction message.</span>)</p>
+    </div>
+    
+
 
     <!-- Citation blocks -->
    
@@ -267,7 +274,6 @@
           </div>
             
           <div class="modal-footer">
-            <p class="text-danger"><i class="fas fa-wrench"></i> <span th:text="#{msg_sending_comments}">Sending comments under construction.</span></p>
             <button type="button" class="btn btn-secondary" data-dismiss="modal" th:text="#{modal_close}">Close</button>
             <button type="button" class="btn btn-secondary disabled not-allowed" disabled th:text="#{modal_send}">Send</button>
             <p class="modal-footer-text" th:utext="#{modal_comment_footer}">Thank you ....</p>
