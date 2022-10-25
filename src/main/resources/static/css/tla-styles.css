@@ -972,7 +972,7 @@ footer.bg-light {
 .search .form-group {
     margin-bottom: 1rem;
     margin-left: 0;
-    padding: 1rem 0;
+    padding: 0.8rem 0;
 }
 
 .search .form-check-inline {
