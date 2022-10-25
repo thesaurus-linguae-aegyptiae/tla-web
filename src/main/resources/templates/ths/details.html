@@ -5,14 +5,14 @@
       xml:lang="en"
 >
   <head>
-    <title th:text="|${obj.name} (#{object_id_label_BTSThsEntry} ${obj.id})|"></title>
+    <title th:text="|${#strings.replace(obj.#strings.replace(obj.name,'〈',' '),'〉',' ')} (#{object_id_label_BTSThsEntry} ${obj.id})|"></title>
   </head>
 
   <body>
 
     <div layout:fragment="content">
 
-      <div th:replace="fragments/details :: details-page-header"/>
+      <div th:replace="fragments/details :: details-page-header-short"/>
 
       <div class="row">
         <div class="col-sm-12 col-lg-8" id="details-content" th:object="${obj}">

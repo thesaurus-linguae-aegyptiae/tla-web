@@ -143,7 +143,7 @@ public class Util {
 				text = text.replaceAll(TRANSLITERATION_FONT_MARKUP_REGEX, MULTILING_FONT_MARKUP_REPLACEMENT);
 				
 				// line breaks to HTML
-				text = text.replace("\\n", "<br/>");
+				text = text.replaceAll("\\r?\\n", "<br/>");
 				
 				// Set style of non-Unicode glyphs in gyphs.unicode
 				if (text.contains("</g>")) {
@@ -155,11 +155,26 @@ public class Util {
 				text = text.replaceAll("([:\\.\\(\\[{〈⸮⸢])(DU|PL)", "$1<span class=\"ling-glossing-transliteration\">$2</span>");
 				
 				// Cut out parts in 〈 ... 〉 in marked labels
-				if (text.contains("</label>")) {
-					text = text.replaceAll("(<label>.*?)〈.*?〉(.*</label>)", "$1$2");
-					text = text.replaceAll("(<label>.*?)〈.*?〉(.*</label>)", "$1$2"); // sic, up to two instances
-					text = text.replace("<label>", "");
-					text = text.replace("</label>", "");
+				if (text.trim().startsWith("<label>") && text.trim().endsWith("</label>")) {
+               text = text.replace("<label>", "");
+               text = text.replace("</label>", "");
+               text = text.replace("〈", "");
+               text = text.replace("〉", "");
+               text = text.trim();
+				}
+				// Cut out 〈 and 〉 in marked titles
+				if (text.trim().startsWith("<shortlabel>") && text.trim().endsWith("</shortlabel>")) {
+               text = text.replace("<shortlabel>", "");
+               text = text.replace("</shortlabel>", "");
+               text = text.trim();
+               if ((text.lastIndexOf("〈") == 0)  && (text.indexOf("〉") == text.length()-1) ){
+                  // Typ "〈A〉" => "A"
+                  text = text.replace("〈", "");
+                  text = text.replace("〉", "");
+               } else {
+                  // Typ "〈A〉B〈C〉" => "B"
+                  text = text.replaceAll("〈.*?〉", "");
+               }
 					
 					// Treat triple point workaround
 					//text = text.replace("\u205d", ":"); // not necessary anymore

@@ -35,7 +35,7 @@
           <span th:replace="fragments/details :: type-subtype">Term category</span>
         </span>
         <a th:href="${(#mvc.url('TC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">
-          <h2 class="result-list-item-element label bbaw-libertine" th:utext="${{'<label>'+obj.name+'</label>'}}">Theben</h2>
+          <h2 class="result-list-item-element label bbaw-libertine" th:utext="${{'<shortlabel>'+obj.name+'</shortlabel>'}}">Theben</h2>
         </a>
         <div>
           <th:block th:each="entry : *{translations}" th:unless="*{translations} == null" th:insert="fragments/common :: single-lang-translation(${entry})"/>

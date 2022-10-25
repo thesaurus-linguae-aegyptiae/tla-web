@@ -1,7 +1,7 @@
 ---
 
 server:
-    #port: 9005
+    port: 9005
     tomcat:
         relaxed-query-chars: ['[', ']']
     error:
