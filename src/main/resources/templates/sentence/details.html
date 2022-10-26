@@ -16,9 +16,12 @@
 
       <div class="row" >
         <div class="col-lg-8 content">
-          <div class= "result-list m-sm-0 m-lg-4">
+          <div class= "result-list">
 				<th:block th:insert="fragments/search/results :: sentence-search-result"  th:object="${obj}"/>
-			</div>
+          </div>
+          <div class="mt-2 text-secondary development-msg">
+             <i class="fas fa-wrench"></i> (<span th:utext="#{msg_sentence_comments}">Sentence comments coming.</span>)
+          </div>
           <div th:replace="fragments/details :: object-property-related-objects"/>
           <div th:replace="fragments/details :: property-pid('sentence')"/>
           <div th:replace="fragments/details :: object-property-citationBox('sentence')"/>

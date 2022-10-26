@@ -108,7 +108,8 @@ blockline
 }
 
 #tla-author-list,
-.citation {
+.citation,
+.development-msg {
    font-size: 0.9rem;
 }
 
