@@ -1,0 +1,82 @@
+<article>
+   <header>
+      <h1 id="page-title">TLA-Webanwendungsentwicklung</h1>
+   </header>
+   <section>
+      <h2>Vergleich alter vs. neuer TLA, mit Entwicklungsperspektiven</h2>
+      <table class="bordered-table">
+         <tr><th></th><th><a href="https://aaew.bbaw.de/tla/" target="_blank">Alter TLA</a> (v1.x)</th><th>Neuer TLA (v2.x)</th></tr>
+         <tr><th colspan="3">Neue/erweiterte/verbesserte Informationen</th></tr>
+         <tr><td>Lemmata: Hieroglyphen</td><td class="bg-success">✓ (JSesh-MdC)</td><td class="bg-success">✓ (Unicode, JSesh-MdC)</td></tr>
+         <tr><td class="text-success">Lemmata: Bezeugungszeitspanne im TLA-Korpus</td><td>✕</td><td class="bg-success">✓</td></tr>
+         <tr><td class="text-success">Lemmata: Nominalklassen</td><td>✕</td><td class="bg-success">✓</td></tr>
+         <tr><td>Lemmata: englische, französische Übersetzungsäquivalente</td><td class="bg-success">EN: teils</td><td class="bg-success">EN: ergänzt, FR: teilsweise </td></tr>
+         <tr><td class="text-success">Lemmata: Kommentare</td><td>✕</td><td class="bg-success">✓ (insb. medizinische Texte)</td></tr>
+         <tr><td class="text-success">Lemmata: Verlinkung Ganzes/Teile (<span class="transliteration">ḥm-nṯr &gt; ḥm, ...</span>)</td><td>✕</td><td class="bg-success">✓</td></tr>
+         <tr><td class="text-warning">Sätze/Satzwörter: Kommentare</td><td>✓</td><td class="bg-warning">kommt (<strong>hohe Priorität</strong>)</td></tr>
+         <tr><td class="text-success">Satzwörter: Hieroglyphen</td><td>(✓) (JSesh-MdC; vereinzelt)</td><td class="bg-success">✓ (JSesh-MdC)</td></tr>
+         <tr><td class="text-success">Satzwörter: Wortklasse</td><td>✕</td><td class="bg-success">✓</td></tr>
+         <tr><td class="text-success">Satzwörter: grammatische Annotation</td><td>✕</td><td class="bg-success">✓ (BTS, LMG)</td></tr>
+         <tr><td class="text-success">Satzwörter: Spezifizierung Kontextbedeutung</td><td>✕</td><td class="bg-success">✓</td></tr>
+         <tr><td>Texte/Objekte: Autor:innenschaft</td><td class="bg-success">✓ (Hauptautor:in)</td><td class="bg-success">✓ (Hauptautor:in, weitere Editor:innen)</td></tr>
+         <tr><td class="text-success">Inhalte mit freier Lizenz</td><td>✕</td><td class="bg-success">✓ (<a href="licenses">CC BY-SA 4.0 Int.</a>)</td></tr>
+         <tr><td class="text-success">Inhalte ohne freie Lizenz</td><td>✓</td><td>✕ (<a href="https://aaew.bbaw.de/tla/" target="_blank">Weiternutzung im alten TLA</a>; <br/>betrifft Edfu-Projekt-Daten)</td></tr>
+         <tr><th colspan="3">Digitale Verweise</th></tr>
+         <tr><td>Verweise auf DZA</td><td class="bg-success">✓ (Website-intern)</td><td class="bg-success">✓ (vorerst Verweis auf alten TLA)</td></tr>
+         <tr><td class="text-success">Verweise auf andere digitale Projekte</td><td>✕</td><td class="bg-success">✓</td></tr>
+         <tr><th colspan="3">Basis-Funktionalitäten</th></tr>
+         <tr><td>Lemma-Suche: via Transkription, Wortklasse, Bibliographie</td><td class="bg-success">✓</td><td class="bg-success">✓</td></tr>
+         <tr><td>Lemma-Suche: Transkriptionskodierungsart</td><td class="bg-success">MdC</td><td class="bg-success">Unicode, MdC</td></tr>
+         <tr><td class="text-warning">Lemma-Suche: inkl. Hierarchie</td><td class="bg-success">✓</td><td>kommt (mittlere Priorität)</td></tr>
+         <tr><td>Lemma-Suche: inkl. Zusammensetzungen (<span class="transliteration">ḥm &gt; ḥm-nṯr, ...</span>)</td><td>✕</td><td>kommt (mittlere Priorität)</td></tr>
+         <tr><td class="text-success">Wurzel-Suche; Lemma-Suche: via Wurzeltranskription</td><td>✕</td><td class="bg-success">✓</td></tr>
+         <tr><td>Lemmasuchen-Sortierung</td><td class="bg-success">✓</td><td class="bg-success">✓ (neu: chronologisch)</td></tr>
+         <tr><td class="text-warning">Kollokationssuche</td><td class="bg-success">✓</td><td>kommt (mittlere Priorität)</td></tr>
+         <tr><td>Satz-Suche (Textkorpus)</td><td>✕</td><td>kommt (mittlere Priorität)</td></tr>
+         <tr><td class="text-warning">Hieroglyphen-Suche, Lemma-Nennschreibung</td><td class="bg-success">✓ </td><td>(niedrige Priorität)</td></tr>
+         <tr><td>Hieroglyphen-Suche, Sätze</td><td>✕</td><td>kommt (mittlere Priorität)</td></tr>
+         <tr><td>Satzsuche</td><td>✕</td><td>kommt (mittlere Priorität)</td></tr>
+         <tr><td class="text-success">Satzanzeige-Seiten</td><td>✕</td><td class="bg-success">✓</td></tr>
+         <tr><td>Belegstellen-Liste</td><td class="bg-success">✓</td><td class="bg-success">✓</td></tr>
+         <tr><td class="text-warning">Belegstellen-Sortierung</td><td class="bg-success">✓</td><td>kommt (mittlere Priorität)</td></tr>
+         <tr><td>Text-Seite: Metadaten</td><td class="bg-success">✓</td><td class="bg-success">✓</td></tr>
+         <tr><td class="text-warning">Text-Seite: Textinhalt (Sätze)</td><td class="bg-success">✓</td><td class="bg-warning">kommt (<strong>höchste Priorität</strong>)</td></tr>
+         <tr><td>0bjektanzeige-Seite</td><td class="bg-success">✓</td><td class="bg-success">✓</td></tr>
+         <tr><td class="text-warning">Text-/Objekt-Browser/-suche</td><td class="bg-success">✓</td><td class="bg-warning">kommt (<strong>hohe Priorität</strong>)</td></tr>
+         <tr><td class="text-success">Thesauruseintrag-Seiten</td><td>✕</td><td class="bg-success">✓</td></tr>
+         <tr><th colspan="3">Auswertung</td><td></td><td></th></tr>
+         <tr><td class="text-warning">Wortstatistiken</td><td class="bg-success">✓</td><td>(niedrige Priorität)</td></tr>
+         <tr><td class="text-warning">Kollokationsanalyse</td><td class="bg-success">✓</td><td>(niedrige Priorität)</td></tr>
+         <tr><td class="text-warning">Lexikalische Gravitation</td><td class="bg-success">✓</td><td>✕</td></tr>
+         <tr><th colspan="3">Zitierbarkeit/Verifizierbarkeit</th></tr>
+         <tr><td>Persistente Lemma-IDs/-URLs</td><td class="bg-success">✓</td><td class="bg-success">✓</td></tr>
+         <tr><td class="text-success">Lemma-ID nachschlagen</td><td>(✓) (via URL)</td><td class="bg-success">✓</td></tr>
+         <tr><td class="text-success">Persistente Satz/Satzwort-IDs/-URLs</td><td>✕</td><td class="bg-success">✓</td></tr>
+         <tr><td class="text-success">Satz-ID nachschlagen</td><td>✕</td><td class="bg-success">✓</td></tr>
+         <tr><td>Satzwort-ID nachschlagen</td><td>✕</td><td>kommt (mittlere Priorität)</td></tr>
+         <tr><td class="text-success">Persistente Text/Objekt-IDs/-URLs</td><td>✕</td><td class="bg-success">✓</td></tr>
+         <tr><td class="text-success">Text/Objekt-ID nachschlagen</td><td>✕</td><td class="bg-success">✓</td></tr>
+         <tr><td class="text-success">Persistente Thesaurus-Eintrag-IDs/-URLs</td><td>✕</td><td class="bg-success">✓</td></tr>
+         <tr><td class="text-success">Thesaurus-Eintrag-ID nachschlagen</td><td>✕</td><td class="bg-success">✓</td></tr>
+         <tr><td>Inhalt nachhaltig verifizierbar</td><td>✕</td><td class="bg-warning">kommt: Rohdaten-Publikation <br/>(<strong>hohe Priorität</strong>)</td></tr>
+         <tr><th colspan="3">Usability</th></tr>
+         <tr><td>Webanwendungssprachen</td><td class="bg-success">DE, EN</td><td class="bg-success">DE, EN; perspektivisch weitere</td></tr>
+         <tr><td class="text-success">Smartphone-Tauglichkeit (Responsive Design)</td><td>✕</td><td class="bg-success">✓</td></tr>
+         <tr><td class="text-success">Zitierhilfe auf Seiten</td><td>✕</td><td class="bg-success">✓</td></tr>
+         <tr><td class="text-success">Share-Funktionalität</td><td>✕</td><td class="bg-success">✓</td></tr>
+         <tr><td>Feedback-Formular</td><td>✕</td><td>kommt (<strong>hohe Priorität</strong>)
+         <tr><th colspan="3">Nachnutzung</th></tr>
+         <tr><td class="text-success">Freie Lizensierung der Daten</td><td>✕</td><td class="bg-success">✓ (<a href="licenses">CC BY-SA 4.0 Int.</a>)</td></tr>
+         <tr><td class="text-success">Transkription in Unicode</td><td>✕</td><td class="bg-success">✓</td></tr>
+         <tr><td class="text-success">Hieroglyphen in Unicode</td><td>✕</td><td class="bg-success">✓ (Lemmata; für Sätze experimentell)</td></tr>
+         <tr><th colspan="3">Zusatzangebote</th></tr>
+         <tr><td><i>Wb.</i>-Browser</td><td class="bg-success">✓ (Website-intern)</td><td>✕ (vorerst <a href="https://aaew.bbaw.de/tla/" target="_blank">Weiternutzung im alten TLA</a>)</td></tr>
+         <tr><td>Vormanuskript-Browser</td><td class="bg-success">✓ (Website-intern)</td><td>✕ (vorerst <a href="https://aaew.bbaw.de/tla/" target="_blank">Weiternutzung im alten TLA</a>)</td></tr>
+         <tr><td><i>DZA</i>-Browser</td><td class="bg-success">✓ (Website-intern)</td><td>✕ (vorerst <a href="https://aaew.bbaw.de/tla/" target="_blank">Weiternutzung im alten TLA</a>)</td></tr>
+      </table>
+   </section>
+   <footer>
+      <p class="credits">Text: D.A.Werning</p>
+      <div th:replace="fragments/common :: static-page-citationBox"/>
+   </footer>
+</article>
