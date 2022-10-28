@@ -407,8 +407,8 @@
 		<th:block th:unless="${token.glyphs.svg}">
 			<span th:if="${token.type == 'word' OR  token.type == 'lc'}" class="token-glyphs" style="height: 14pt"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1 28.0"></svg></span>
 			<th:block th:unless="${token.type == 'word' OR token.type == 'lc'}">
-				<span th:if="${token.label}" th:utext="${token.label}" class="|sentence-token token-${(token.type == 'lc' OR token.type == 'para' OR token.type == 'destruction_marker' OR token.type == 'verse_point') ? token.type : 'default'}|"></span>
-				<span th:unless="${token.label}" th:utext="${token.type}" class="sentence-token token-default"></span>
+				<span th:if="${token.label}" th:utext="${token.label}" th:class="|token-glyphs token-${(token.type == 'lc' OR token.type == 'para' OR token.type == 'destruction_marker' OR token.type == 'verse_point') ? token.type : 'default'}|"></span>
+				<span th:unless="${token.label}" th:utext="${token.type}" class="token-glyphs token-default"></span>
 			</th:block>
 		</th:block>
 	 </th:block>
