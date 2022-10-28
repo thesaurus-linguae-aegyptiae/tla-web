@@ -1,9 +1,74 @@
 <article>
    <header>
-      <h1>Introduction to Search Page</h1>
+      <h1 id="page-title">About the Search Forms</h1>
    </header>
    <section>
-      <p>### to do ###</p>
+      <h2> Form “<span th:text="#{form_label_lemma-search}">Lemma search</span>”</h2>
+      <h3 th:text="#{field_label_script}">Lemma list(s)</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>In this <em>mandatory</em> search option field you need to choose in <strong>which lemma list</strong> you want to search: the hieroglyphic-hieratic or/and the Demotic lemma lists. You can either search in only one of the two lists or in both lists simultaneously.</p>
+      </div>
+
+      <h3 th:text="#{field_label_transliteration}">Transliteration</h3>
+      <div class="ml-sm-4">
+         <p>In this <em>optional</em> search field, you can specify the transliteration or a part of the <strong>transliteration of a lemma or root</strong> that you want to search for.</p>
+      </div>
+      <div class="ml-sm-4 mb-3" th:utext="#{modal_transliteration_text}"></div>
+
+      <h4 class="ml-sm-4" th:text="#{field_label_transliteration_encoding}">Transliteration encoding</h4>
+      <div class="ml-sm-4 mb-3">
+         <p>With this <em>mandatory</em> search option field, you have to specify the <strong>encoding type of the transliteration</strong> that you may have entered: Unicode or traditional <i>Manuel de Codage</i>.</p>
+         <p>The search form is able to handle different Unicode encoding variants, e.g., both <span class="transliteration">qḏ</span> and <span class="transliteration">ḳč̣</span>. For entering in Unicode you can also use the on-screen keyboard, opened by a click on the icon <i class="fas fa-keyboard"></i>. For information on the Unicode symbol inventory used in the lemma lists, see <a href="/info/lemma-lists">here</a>.</p>
+         <p>If you want to search in both lemma lists simultaneously (see above), the transliteration must be entered in Unicode. This is because the <i>MdC</i> symbol <code>i</code> does not correspond to the same phoneme in the hieroglyphic-hieratic and in the Demotic lemma lists (<span class="transliteration">i̯</span> and <span class="transliteration">ꞽ</span> respectively); cf. the information on the <a href="/info/lemma-lists">lemma lists</a>. Consequently, the option to enter the transliteration in <i>MdC</i> is automatically disabled in this case.</p>
+      </div>
+      
+      <h3 th:text="#{field_label_wordClass_type} + '/' + #{field_label_wordClass_subtype}">Word class/subclass</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>With this <em>optional</em> search field, you can specify the <strong>word class</strong> that the lemma you are searching for is supposed to have.</p>
+      </div>
+
+      <h3 th:text="#{field_label_root_transliteration}">Root</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>With this <em>optional</em> search field, you can specify the transliteration or a part of a <strong>transliteration of a root</strong> that the lemma you are searching for is supposed to have.</p>
+         <p>However, in order to search for <strong>roots directly</strong>, select the word class <code>Root</code> and enter, for example, a transliteration in the field “<span th:text="#{field_label_transliteration}">Transliteration</span>” (not in the field “<span th:text="#{field_label_root_transliteration}">Root</span>”).</p>
+      </div>
+
+      <h4 class="ml-sm-4" th:text="#{field_label_root_transliteration_encoding}">Root transcription coding</h4>
+      <div class="ml-sm-4 mb-3">
+         <p>For technical reasons, the transliteration in the root field can currently <strong>only</strong> be entered <strong>in Unicode</strong>. The radio button is therefore fixed and deactivated. For transliteration in Unicode, see the information on <span th:text="#{field_label_transliteration_encoding}">transliteration encoding</span> above.</p>
+      </div>
+      
+      
+      <h3 th:text="#{field_label_translation}">Translation</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>In this <em>optional</em> search field you can specify the translation or a part of the <strong>translation of a lemma</strong> that you want to search for. A language-specific mechanism operates in the background, leveling the differences between inflectional forms (e.g., <code>house</code> vs. <code>houses</code>).</p>
+         <p>Currently, phrase search is not yet available in this case. A sequence of words separated by spaces is interpreted in terms of “A (anywhere)<code>and</code> B (anywhere).”</p>
+      </div>
+
+      <h4 class="ml-sm-4" th:text="#{field_label_translation_lang}">Übersetzungssprache</h4>
+      <div class="ml-sm-4 mb-3">
+         <p>In this <em>mandatory</em> search option field you need to specify in which <strong>language</strong> you entered the translation that you want to search for: in English, French, or German. Please note that while all (translatable) lemmata include a translation in German, not all lemmata have English or French translation equivalents. For more information on this, see <a href="/info/lemma-lists">here</a>.</p>
+         <p>If you leave the field “<span th:text="#{field_label_translation}">Translation</span>” blank, the language setting will have <em>no</em> effect on the search.</p>
+      </div>
+            
+      <h3 th:text="#{field_label_bibliography}">Bibliography</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>In this <em>optional</em> search field, you can specify elements of a <strong>bibliographic reference</strong> that should be included in the lemma entry that you want to search for (e.g., <code>Wb.</code>).</p>
+         <div th:utext="#{modal_bibliography_text}"></div>
+         <p>Currently, phrase search is not yet available in this case. A sequence of words separated by spaces is interpreted in terms of “A (anywhere)<code>and</code> B (anywhere).”</p>
+
+      </div>
+      
+      <div class="ml-sm-4"><th:block th:replace="fragments/common :: construction(#{msg_collocation_search})"></th:block></div>
    </section>
-   <footer>Text: N.N.</footer>
+   <section>
+      <h2>“<span th:text="#{form_label_some-id-search}">Look up ID</span>” forms</h2>
+      <div class="ml-sm-4 mb-3">
+         <p>These search fields allow you to look up a <strong>persistent <i>TLA</i> ID</strong> which you may have found in the <i>TLA</i> or which was cited in another publication. Please enter the bare ID (<em>not</em> an entire URL), e.g., a lemma or root ID such as <code>170860</code>, or a sentence, text, object, or thesaurus entry ID such as <code>BCU37HWBF5BL5APKALEPWE2RWY</code>.</p>
+      </div>
+   </section>
+   <footer>
+      <p class="credits">Text: D.A.Werning</p>
+      <div th:replace="fragments/common :: static-page-citationBox"/>
+   </footer>
 </article>

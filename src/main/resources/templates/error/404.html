@@ -23,22 +23,32 @@
       </div>
 
       <div class="row">
-        <div class="col-sm-12 col-lg-8" id="details-content">
+        <div id="details-content">
           <div class="my-5">
             <h5 class="border-bottom">
 						<span class="error-msg text-danger" th:text="#{error_404} + ':'"></span>
 						<span class="text-monospace" th:text="'...' + ${url}">.../object/0000</span>
 					</h5>
 					<p class="error-msg text-muted" th:text="${msg}">Error description</p>
+               <div class="mt-3 text-secondary development-msg">
+                  <p><i class="fas fa-wrench"></i> Unfortunately, ten highly frequent lemmata are currently not properly delivered in time by the server (timeout).<br/>These are</p>
+                  <ul>
+                     <li>=j (lemma ID 10030)</li>
+                     <li>=k (lemma ID 10110)</li>
+                     <li>=f (lemma ID d2193)</li>
+                     <li>=f (lemma ID 10050)</li>
+                     <li>m (lemma ID 400007)</li>
+                     <li>n (lemma ID 400055)</li>
+                     <li>n.j (lemma ID 79800)</li>
+                     <li>pꜣ (lemma ID d1839)</li>
+                     <li>nb (lemma ID 81660)</li>
+                     <li>1...n (lemma ID 850814)</li>
+                  </ul>
+                  <p>We are struggeling to fix the problem.</p>
+               </div>
           </div>
         </div>
 
-        <div class="sidebar col-lg-4 d-none d-lg-block">
-          <div class="sticky-top">
-
-
-          </div>
-        </div>
       </div>
 
     </div>
