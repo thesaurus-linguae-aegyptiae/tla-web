@@ -27,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ExternalReferencesConverter extends AbstractConverter<
     SortedMap<String, SortedSet<tla.domain.model.ExternalReference>>,
     SortedMap<String, List<tla.web.model.parts.ExternalReference>>
+
 > {
 
     private Map<String, LinkFormatter> linkFormatters;
@@ -40,9 +41,12 @@ public class ExternalReferencesConverter extends AbstractConverter<
     private String formatLink(String provider, String id, String type) {
         assert linkFormatters != null;
         if (linkFormatters.containsKey(provider)) {
+        	System.out.println(" link  for provider {}"+ linkFormatters.get(provider)+" id "+id+" type "+type);
+        	System.out.println ("link "+ linkFormatters.get(provider).format(id, type));
             return linkFormatters.get(provider).format(id, type);
         }
         log.debug("no link format configuration for provider {}", provider);
+        
         return null;
     }
 
@@ -51,13 +55,31 @@ public class ExternalReferencesConverter extends AbstractConverter<
         SortedMap<String, SortedSet<tla.domain.model.ExternalReference>> source
     ) {
         TreeMap<String, List<tla.web.model.parts.ExternalReference>> res = new TreeMap<>();
+        
         if (source != null) {
+        	
             source.forEach(
                 (provider, refs) -> {
+                	
                     res.put(
                         provider,
                         refs.stream().map(
                             dto -> {
+                            	//System.out.println("provider "+provider);
+                            	//System.out.println("dto id "+dto.getId()+  " "+dto.getClass() );
+                            	
+                            	//System.out.println("dto type "+dto.getType() );
+                            	if (provider.equals("trismegistos")) dto.setType("text");
+                            	/*tla.web.model.parts.ExternalReference linkw=tla.web.model.parts.ExternalReference.builder().href(
+                                        formatLink(
+                                            provider,
+                                            dto.getId(),
+                                            dto.getType()
+                                        )
+                                    )
+                                    .value(dto.getId())
+                                    .type(dto.getType()).build();*/
+                            	//System.out.println("formatted Link  " + linkw );
                                 return tla.web.model.parts.ExternalReference.builder().href(
                                     formatLink(
                                         provider,
@@ -73,6 +95,7 @@ public class ExternalReferencesConverter extends AbstractConverter<
                 }
             );
         }
+        System.out.println("Converted "+res.values());
         return res;
     }
 }

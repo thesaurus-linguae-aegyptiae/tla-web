@@ -85,7 +85,8 @@ public class LemmaController extends ObjectController<Lemma, LemmaSearch> {
     @RequestMapping(value="/search", method=RequestMethod.GET)
     public String getSearchResultsPage(
         @ModelAttribute("lemmaSearchForm") LemmaSearch form,
-        @RequestParam(defaultValue = "1") String page,
+      @RequestParam(defaultValue = "1") String page,
+       
         @RequestParam MultiValueMap<String, String> params,
         Model model
     ) {
