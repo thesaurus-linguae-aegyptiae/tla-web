@@ -189,12 +189,12 @@
         <hr/>
       
         <p class="text-secondary">
-        <a th:href="|${@searchController.getSearchResultsPageRoute(@__sentenceController__)}?context.textId=${obj.id}|">
-           <button id="text-content-button" type="button" class="btn btn-secondary text-left text-decoration-none " >
+        <!--<a th:href="|${@searchController.getSearchResultsPageRoute(@__sentenceController__)}?context.textId=${obj.id}|">-->
+           <button id="text-content-button" type="button" class="btn btn-secondary text-left text-decoration-none disabled not-allowed" disabled>
               <span class="fas fa-arrow-circle-right"></span>&nbsp;
               <span th:text="#{button_text_content}">Sentences in the text</span>
            </button>
-           </a>
+        <!--</a>-->
         </p>
         <p class="text-secondary development-msg">
            <i class="fas fa-wrench"></i> (<span th:utext="#{msg_sentences_page}">Sentence page is currently being implemented.</span>)
