@@ -1,9 +1,79 @@
 <article>
    <header>
-      <h1>Introduction to Sentence Search Result Page</h1>
+      <h1 id="page-title">Hinweise zur Belegstellen-Anzeige</h1>
    </header>
    <section>
-      <p>### to do ###</p>
+      <h2>Ein-/Ausblend-Buttons</h2>
+
+      <h3 th:text="#{button_label_hide_property_hieroglyphs}">Hieroglyphen</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Mit diesem Button blenden Sie die Hieroglpyhen der Satzelemente ein bzw. aus.</p>
+      </div>
+
+      <h3 th:text="#{button_label_hide_property_switchannotation}">Wechsel Annotations-/Block-Ansicht</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Mit diesem Button wechseln Sie zwischen der Blockansicht und der Annotationsansicht des Satzes.</p>
+         <ul>
+            <li>In der <strong>Blockansicht</strong> sind Transkription und ggf. Hieroglyphen des gesamten Satzes je für sich in einer Reihe dargestellt.</li>
+            <li>In der <strong>Annotationsansicht</strong> sind alle Satzelemente in kleinen Blöcken mit ihren jeweiligen Annotationen dargestellt. 
+               <br/>In dieser Darstellung können die Hieroglyphen sowie folgenden Annotationen ein- und ausgeblendet werden:</li>
+         </ul>
+      </div>
+
+      <div class="ml-sm-4">
+         <h4 th:text="#{button_label_hide_property_switchannotation-wordclass}">Wort-Klasse</h4>
+         <div class="ml-sm-4 mb-3">
+            <p>Mit diesem Button blenden Sie die Wort-Klassen der einzelnen Satz-Elemente ein bzw. aus.</p>
+            <p>Einen Überblick über die verwendeten Wort-Klassen finden Sie <a href="/info/lemma-lists">hier</a>.</p>
+         </div>
+
+         <h4 th:text="#{button_label_hide_property_switchannotation-tlaglossing}">Gram. Annotation TLA</h4>
+         <div class="ml-sm-4 mb-3">
+            <p>Mit diesem Button blenden Sie die grammatischen Annotationen entsprechend der Kodierung im <i>Berliner Texterfassungssystems</i> (<i>BTS</i>) der einzelnen Satz-Elemente ein bzw. aus.</p>
+            <p>Einen Überblick über die Glossierungsabkürzungen der grammatischen Annotationen des <i>BTS</i> finden Sie <a href="/info/bts-glossings">hier</a>.</p>
+         </div>
+
+         <h4 th:text="#{button_label_hide_property_switchannotation-linguisticglossing}">Morphem-Glossierung</h4>
+         <div class="ml-sm-4 mb-3">
+            <p>Mit diesem Button blenden Sie die grammatischen Annotationen angelehnt an eine linguistische interlineare Morphemglossierung der einzelnen Satz-Elemente ein bzw. aus. Diese wurde anhand der Wortklasse und der <i>BTS</i>-Grammatikkodierung, vereinzelt der Lemma-ID eines Elements errechnet.</p>
+            <p>Einen Überblick über die Abkürzungen der linguistischen Glossierung finden Sie <a href="/info/ling-glossings">hier</a>.</p>
+         </div>
+
+         <h4 th:text="#{button_label_hide_property_switchannotation-tokentranslation}">Wort-Übersetzung</h4>
+         <div class="ml-sm-4 mb-3">
+            <p>Mit diesem Button blenden Sie die Kontext-Bedeutung der einzelnen Satz-Elemente ein bzw. aus. Diese können die Text-Autor:innen aus der Menge der Übersetzungsäquivalente des betreffenden Lemmas auswählen oder händisch eingeben. (Nicht immer wird diese Möglichkeit genutzt.)</p>
+         </div>
+
+         <h4 th:text="#{button_label_hide_property_switchannotation-wordtokenid}">Wort-Instanz-ID</h4>
+         <div class="ml-sm-4 mb-3">
+            <p>Mit diesem Button blenden Sie die persistente Satzelement-ID der einzelnen Satz-Elemente ein bzw. aus. Anhand dieser können einzelne Satzelemente zitiert und nachhaltig referenziert werden.</p>
+            <p class="text-secondary development-msg"><i class="fas fa-wrench"></i> (Die Möglichkeit auf der <a href="/search">Suchseite</a> auch Satzelement-IDs nachzuschlagen, wird in einer späteren Version der <i>TLA</i>-Webanwendung hinzugefügt werden.)</p>
+         </div>
+      </div>
+      
+      <h3 th:text="#{button_label_hide_property_translation}">Übersetzung</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Mit diesem Button blenden Sie die Satz-Übersetzung ein bzw. aus.</p>
+      </div>
+
+      <h3 th:text="#{button_label_hide_property_dating}">Datierung</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Mit diesem Button blenden Sie die Datierung des Textes ein bzw. aus, in dem sich der Satz befindet.</p>
+      </div>
+
+      <h3 th:text="#{button_label_hide_property_texteditor}">Text-Editor:innen</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Mit diesem Button blenden Sie die Autor:innen und Editor:innen des Textes ein bzw. aus, in dem sich der Satz befindet.</p>
+      </div>
    </section>
-   <footer>Text: N.N.</footer>
+   <section>
+      <h2>Satzdarstellung</h2>
+      <div class="ml-sm-4 mb-3">
+         <p>Über den Button „<span th:text="#{button_sentence_page}">Satz-Seite/Zitation</span>‟ gelangen Sie zu einer Datstellung eines einzelnen Satzes mit <strong>weiteren Metadaten und Zitierhinweisen</strong>.</p>
+      </div>
+   </section>
+   <footer>
+      <p class="credits">Text: D.A.Werning</p>
+      <div th:replace="fragments/common :: static-page-citationBox"/>
+   </footer>
 </article>
