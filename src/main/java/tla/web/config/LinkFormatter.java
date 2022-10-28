@@ -79,16 +79,23 @@ public class LinkFormatter {
     public String format(String id) {
         if (!this.canFormat(id)) {
             log.warn("can not format URL template for ID {} because it is invalid", id);
+            
             return null;
         }
         try {
             if (this.defaultFormat != null) {
+            	//System.out.println("id "+ id);
+            	//System.out.println("default format "+ this.defaultFormat);
+            	//System.out.println("default format "+ this.defaultFormat.expand(id).toString());
+            	
                 return this.defaultFormat.expand(id).toString();
             } else {
                 if (this.typeFormats.containsKey("default")) {
+                	//System.out.println("2");
                     log.info("didn't get a type for ID {}, but default-format is undefined; trying 'default' type format", id);
                     return this.typeFormats.get("default").expand(id).toString();
                 } else {
+                	//System.out.println("3");
                     log.warn("didn't get a type for ID {}, but neither default-format nor 'default' type-format is undefined", id);
                     return null;
                 }

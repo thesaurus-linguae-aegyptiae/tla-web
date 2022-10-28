@@ -228,15 +228,20 @@ public class MappingConfig {
      */
     public static TLAObject convertDTO(AbstractDto dto) {
         try {
+        	//System.out.println("dto class "+dto.getEclass() + " id "+dto.getId());
+        	//System.out.println("Object class "+getModelClass(dto.getEclass()));
+        
             return modelMapper.map(
                 dto,
                 getModelClass(dto.getEclass())
             );
         } catch (IllegalArgumentException e) {
-            log.error("No model mapping for DTO type {}!", dto.getEclass());
+            log.error("No model mapping for DTO type {}!", dto.getEclass() +" "+ dto.getId());
+           System.out.println( "No model mapping for DTO type {}!"+ dto.getEclass() +" "+ dto.getId());
             return new TLAObject(){};
         } catch (NullPointerException e) {
             log.error("Could not map DTO to web model. Model mapper not yet initialized!");
+            System.out.println("Could not map DTO to web model. Model mapper not yet initialized!");
             return null;
         }
     }
