@@ -60,11 +60,16 @@ p,
 h1,
 h2,
 h3,
+h4,
 ul,
 li {
     font-family: "roboto", arial, sans-serif;
     font-weight: 400;
     margin-bottom: 0.2rem;
+}
+
+code {
+   color: black;
 }
 
 .not-allowed{
@@ -1287,6 +1292,11 @@ span.multiselect-native-select select {
 
 #editorial-content h3 {
     font-size: 1.2rem;
+    margin: .4rem 0;
+}
+
+#editorial-content h4 {
+    font-size: 1.1rem;
     margin: .4rem 0;
 }
 

@@ -1,0 +1,72 @@
+<article>
+   <header>
+      <h1 id="page-title">Hinweise zu den Such-Formularen</h1>
+   </header>
+   <section>
+      <h2> Formular „<span th:text="#{form_label_lemma-search}">Lemma suchen</span>‟</h2>
+      <h3 th:text="#{field_label_script}">Lemma-Liste(n)</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>In diesem <em>obligatorischen</em> Sucheinstellungsfeld können Sie wählen, in welcher Lemmaliste Sie suchen wollen: der hieroglyphisch-hieratischen oder/und der demotischen Lemmaliste. Sie können entweder in nur einer der beiden Listen oder gleichzeitig in beiden Listen suchen.</p>
+      </div>
+
+      <h3 th:text="#{field_label_transliteration}">Transkription</h3>
+      <div class="ml-sm-4">
+         <p>In diesem <em>optionalen</em> Suchfeld können Sie die Transkription oder einen Teil einer <strong>Transkription eines Lemmas oder einer Wurzel</strong> angeben, nach der Sie suchen wollen.</p>
+      </div>
+      <div class="ml-sm-4 mb-3" th:utext="#{modal_transliteration_text}"></div>
+
+      <h4 class="ml-sm-4" th:text="#{field_label_transliteration_encoding}">Transkriptionskodierung</h4>
+      <div class="ml-sm-4 mb-3">
+         <p>In diesem <em>obligatorischen</em> Sucheinstellungsfeld müssen Sie ggf. spezifizieren, in welcher Kodierungsart Sie die Transkription eingegeben haben: <strong>in Unicode oder traditionell in <i>Manuel de Codage</i></strong>.</p>
+         <p>Das System ist in der Lage, mit verschiedenen Unicode-Kodierungsvarianten umzugehen, z.B. sowohl mit <span class="transliteration">qḏ</span> als auch mit <span class="transliteration">ḳč̣</span>. Für die Eingabe in Unicode können Sie optional die Bildschirmtastatur nutzen, die durch das Symbol <i class="fas fa-keyboard"></i> aufgerufen wird. Informationen zum verwendeten Unicode-Symbol-Inventar innerhalb der Lemmalisten finden Sie <a href="/info/lemma-lists">hier</a>.</p>
+         <p>Falls Sie in beiden Lemmalisten gleichzeitig suchen wollen (s. oben), muss die Eingabe der Transkription in Unicode erfolgen, da das <i>MdC</i>-Symbol <code>i</code> in der hieroglyphisch-hieratischen und in der demotischen Liste nicht dem selben Phonem entspricht (<span class="transliteration">i̯</span> bzw. <span class="transliteration">ꞽ</span>); vgl. Sie die Informationen zu den <a href="/info/lemma-lists">Lemmalisten</a>. Daher wird die Option, die Transkription in <i>MdC</i> einzugeben, in diesem Fall automatisch deaktiviert.</p>
+      </div>
+      
+      <h3 th:text="#{field_label_wordClass_type} + '/' + #{field_label_wordClass_subtype}">Wort-Klasse / Unterklasse</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>In diesen <em>optionalen</em> Suchfelder können Sie die <strong>Wortklasse</strong> spezifizieren, die das Lemma haben soll, nach dem Sie suchen.</p>
+      </div>
+
+      <h3 th:text="#{field_label_root_transliteration}">Wurzel</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>In diesem <em>optionalen</em> Suchfeld können Sie die Transkription oder einen Teil einer <strong>Transkription einer Wurzel</strong> angeben, die das Lemma haben soll, nach dem Sie suchen wollen.</p>
+         <p>Um nach <strong>Wurzeln selbst</strong> zu suchen, wählen Sie die Wort-Klasse <code>Wurzel</code> und geben z.B. eine Transkription im Feld „<span th:text="#{field_label_transliteration}">Transkription</span>‟ ein (nicht im Feld „<span th:text="#{field_label_root_transliteration}">Wurzel</span>‟).</p>
+      </div>
+
+      <h4 class="ml-sm-4" th:text="#{field_label_root_transliteration_encoding}">Wurzeltranskriptionskodierung</h4>
+      <div class="ml-sm-4 mb-3">
+         <p>Aus technischen Gründen, kann die Transkription im Wurzel-Feld aktuell <strong>nur in Unicode</strong> eingegeben werden. Der Auswahl-Knopf ist daher festgestellt und deaktiviert. Zur Transkription in Unicode siehe die Informationen zur <span th:text="#{field_label_transliteration_encoding}">Transkriptionskodierung</span> oben.</p>
+      </div>
+      
+      
+      <h3 th:text="#{field_label_translation}">Übersetzung</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>In diesem <em>optionalen</em> Suchfeld können Sie die Übersetzung oder einen Teil der <strong>Übersetzung eines Lemmas</strong> angeben, nach dem Sie suchen wollen. Dabei operiert ein sprachspezifisches System im Hintergrund, das den Unterschied zwischen Flexionsformen nivelliert (z.B. <code>Haus</code> vs. <code>Häuser</code>).</p>
+         <p>Aktuell ist hier noch keine Phrasensuche möglich. Mehrere durch Leerzeichen getrennte Wörter werden im Sinne von „(irgendwo) A <code>und</code> (irgendwo) B‟ interpretiert.</p>
+      </div>
+
+      <h4 class="ml-sm-4" th:text="#{field_label_translation_lang}">Übersetzungssprache</h4>
+      <div class="ml-sm-4 mb-3">
+         <p>In diesem <em>obligatorischen</em> Sucheinstellungsfeld müssen Sie ggf. spezifizieren, in welcher <strong>Sprache</strong> Sie die Übersetzung eingegeben haben, nach der Sie suchen wollen: auf Deutsch, Englisch oder Französisch. Bitte beachten Sie, dass zwar alle (übersetzbaren) Lemmata eine Übersetzung auf Deutsch enthalten, aber nicht alle Lemmata über englische oder französische Übersetzungsäquivalente verfügen. Weitere Informationen dazu finden Sie <a href="/info/lemma-lists">hier</a>.</p>
+         <p>Wenn Sie das Feld „<span th:text="#{field_label_translation}">Übersetzung</span>‟ frei lassen, hat diese Einstellung <em>keine</em> Auswirkungen auf die Suche.</p>
+      </div>
+            
+      <h3 th:text="#{field_label_bibliography}">Bibliographie</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>In diesem <em>optionalen</em> Suchfeld können Sie <strong>Elemente einer bibliographischen Angabe</strong> angeben, die der Lemma-Eintrag enthalten soll, nach dem Sie suchen wollen (z.B. „<code>Wb.</code>‟).</p>
+         <div th:utext="#{modal_bibliography_text}"></div>
+         <p>Aktuell ist hier leider noch keine Phrasensuche möglich. Mehrere durch Leerzeichen getrennte Wörter werden im Sinne von „(irgendwo) A <code>und</code> (irgendwo) B‟ interpretiert.</p>
+      </div>
+      
+      <div class="ml-sm-4"><th:block th:replace="fragments/common :: construction(#{msg_collocation_search})"></th:block></div>
+   </section>
+   <section>
+      <h2> Formulare „<span th:text="#{form_label_some-id-search}">ID nachschlagen</span>‟</h2>
+      <div class="ml-sm-4 mb-3">
+         <p>In diesen Suchfeldern können Sie eine <strong>persistente <i>TLA</i>-ID</strong> nachschlagen, die Sie im <i>TLA</i> oder in einer anderen Publikation zitiert gefunden haben. Bitte geben Sie hier die reine ID (<em>nicht</em> eine ganze URL) ein, z.B. eine Lemma- oder Wurzel-ID wie <code>170860</code> oder eine Satz-, Text-, Objekt- oder Thesaursuseintrag-ID wie <code>BCU37HWBF5BL5APKALEPWE2RWY</code>.</p>      </div>
+   </section>
+   <footer>
+      <p class="credits">Text: D.A.Werning</p>
+      <div th:replace="fragments/common :: static-page-citationBox"/>
+   </footer>
+</article>
