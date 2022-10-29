@@ -1,9 +1,96 @@
 <article>
    <header>
-      <h1>Introduction to Sentence Search Result Page</h1>
+      <h1 id="page-title">Hinweise zur Seite <span th:text="#{result_page_title_sentence}">Belegstellen-Suchergebnisse</span></h1>
    </header>
    <section>
-      <p>### to do ###</p>
+      <h2>Ein-/Ausblend-Buttons</h2>
+
+      <h3 th:text="#{button_label_hide_property_hieroglyphs}">Hieroglyphen</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Mit diesem Button blenden Sie die Hieroglpyhen der Satzelemente aus/ein.</p>
+      </div>
+
+      <h3 th:text="#{button_label_hide_property_switchannotation}">Wechsel Annotations-/Block-Ansicht</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Mit diesem Button wechseln Sie zwischen der Blockansicht und der Annotationsansicht des Satzes.</p>
+         <ul>
+            <li>In der <strong>Blockansicht</strong> sind Transkription und ggf. Hieroglyphen des gesamten Satzes je für sich in getrennten Reihen dargestellt.</li>
+            <li>In der <strong>Annotationsansicht</strong> sind die einzelnen Satzelemente in kleinen Blöcken mit ihren jeweiligen Annotationen dargestellt. 
+               <br/>In dieser Darstellung können die Hieroglyphen sowie folgenden Annotationen aus- und eingeblendet werden:</li>
+         </ul>
+      </div>
+
+      <div class="ml-sm-4">
+         <h4 th:text="#{button_label_hide_property_switchannotation-wordclass}">Wort-Klasse</h4>
+         <div class="ml-sm-4 mb-3">
+            <p>Mit diesem Button blenden Sie die Wort-Klassen der einzelnen Satz-Elemente aus/ein.</p>
+            <p>Einen Überblick über die verwendeten Wort-Klassen finden Sie <a href="/info/lemma-lists">hier</a>.</p>
+         </div>
+
+         <h4 th:text="#{button_label_hide_property_switchannotation-tlaglossing}">Gram. Annotation BTS</h4>
+         <div class="ml-sm-4 mb-3">
+            <p>Mit diesem Button blenden Sie die grammatischen Annotationen der einzelnen Satz-Elemente entsprechend der originalen Kodierung im <i>Berliner Texterfassungssystem</i> (<i>BTS</i>) aus/ein.</p>
+            <p>Einen Überblick über die Glossierungsabkürzungen der grammatischen Annotationen des <i>BTS</i> finden Sie <a href="/listings/bts-glossings">hier</a>. (Diese sind immer auf Englisch.)</p>
+            <p><em class="text-warning">Achtung:</em> Nicht alle Sätze im <i>TLA</i> wurden grammatisch annotiert (siehe hierzu die Markierungen „[G]‟ im groben Überblick auf der <a href="/info/text-corpus">Textkorpus</a>-Seite). Falls dem nicht so ist, erscheint dann bei <em>allen</em> Satzwörtern idealerweise „(unedited)‟, oder aber das mehrdeutige „(unspecified)‟, das auch bei grammatisch annotierten Texten zur Markierung von Formen dient, deren Form der des zugeordneten Lemmaeintrags entspricht (Grundform). In diesen Fällen werden für die <span th:text="#{button_label_hide_property_switchannotation-linguisticglossing}">Ling. Glossierung</span> nur grammatische Formen des Lemmas errechnen (s.unten).</p>
+         </div>
+
+         <h4 th:text="#{button_label_hide_property_switchannotation-linguisticglossing}">Ling. Glossierung</h4>
+         <div class="ml-sm-4 mb-3">
+            <p>Mit diesem Button blenden Sie eine automatisch erzeugte linguistische interlineare Morphemglossierung der einzelnen Satz-Elemente aus/ein. Diese wurde anhand der Wortklasse und der <i>BTS</i>-Grammatikkodierung errechnet (vereinzelt direkt anhand des zugeordneten Lemmas).</p>
+            <p>Einen Überblick über die Abkürzungen der linguistischen Glossierung finden Sie <a href="/listings/ling-glossings">hier</a>. (Diese sind immer auf Englisch.)</p>
+            <p><em class="text-warning">Achtung:</em> Im Falle von Sätzen, die  im <i>BTS</i> nicht grammatisch annotiert wurden (s.oben „<span th:text="#{button_label_hide_property_switchannotation-tlaglossing}">Gram. Annotation BTS</span>‟), können für die linguistische Morphemglossierung nur die Merkmale des Lemmas, nicht die des fallweise flektierten Satzelements errechnet werden. Dies betrifft insbesondere Nomina, für die jeweils, fallweise irreführend, <span class="ling-glossing-static">m.sg</span> errechnet wird.</p>
+            <p class="text-secondary development-msg"><i class="fas fa-wrench"></i> (Leider können wir aktuell noch nicht zuverlässig automatisch ermitteln, welche Texte (nicht) grammatisch annotiert sind, und daher nicht entsprechend angepasst reagieren.)</p>
+         </div>
+
+         <h4 th:text="#{button_label_hide_property_switchannotation-tokentranslation}">Wort-Übersetzung</h4>
+         <div class="ml-sm-4 mb-3">
+            <p>Mit diesem Button blenden Sie die Bedeutung der einzelnen Satz-Elemente aus/ein. Diese können die Text-Autor:innen im <i>BTS</i> optional aus der Menge der Übersetzungsäquivalente des betreffenden Lemmas auswählen oder händisch selbst eingeben (Kontextbedeutung).</p>
+            <p><em class="text-warning">Achtung:</em> Nicht immer wird diese Möglichkeit einer kontextuellen Präzisierung von Autor:innen durchgehend genutzt. Hier erscheinen dann fallweise einfach <em>alle</em> möglichen Übersetzungsäquivalente des zugeordneten Lemmas.</p>
+         </div>
+
+         <h4 th:text="#{button_label_hide_property_switchannotation-wordtokenid}">Satzelement-ID</h4>
+         <div class="ml-sm-4 mb-3">
+            <p>Mit diesem Button blenden Sie die persistenten IDs der einzelnen Satz-Elemente ein/aus. Anhand dieser können einzelne Satzelemente <strong>zitiert und nachhaltig referenziert</strong> werden.</p>
+            <p class="text-secondary development-msg"><i class="fas fa-wrench"></i> (Die Möglichkeit auf der <a href="/search">Suchseite</a> auch Satzelement-IDs nachzuschlagen, wird in einer späteren Version der <i>TLA</i>-Webanwendung hinzugefügt werden.)</p>
+         </div>
+      </div>
+      
+      <h3 th:text="#{button_label_hide_property_translation}">Übersetzung</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Mit diesem Button blenden Sie die Satz-Übersetzung aus/ein.</p>
+      </div>
+
+      <h3 th:text="#{button_label_hide_property_dating}">Datierung</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Mit diesem Button blenden Sie die Datierung des Textes aus/ein, in dem sich der Satz befindet.</p>
+      </div>
+
+      <h3 th:text="#{button_label_hide_property_texteditor}">Text-Editor:innen</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Mit diesem Button blenden Sie die Autor:innen und Editor:innen sowie das Datum der letzten Revision des Textes aus/ein, in dem sich der Satz befindet.</p>
+         <p><em class="text-warning">Hinweis:</em> Diese Angaben bezieht sich, technisch bedingt, auf den <em>beinhaltenden Text als Ganzes</em>, nicht auf den einzelnen Satz.</p>
+      </div>
    </section>
-   <footer>Text: N.N.</footer>
+   <section>
+      <h2>Sortierung</h2>
+      <p class="text-secondary development-msg ml-sm-4 mb-3">
+         <i class="fas fa-wrench"></i> (<span th:utext="#{msg_occurences_sorting}">Sorting being implemented.</span>)
+      </p>
+   </section>
+   <section>
+      <h2>Satzdarstellung</h2>
+      <h3>Textkorpuspfad und Textstelle</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Zu jedem Satz wird obligatorisch ein kompakter Pfad angegeben, der über ausgewählte Korpusbaum-Knoten-Objekte (<i class="fas fa-folder text-muted"></i>) zum Text (<i class="fas fa-file-alt text-muted"></i>) und oft bis zu Textstellen-Angaben (<i class="fas fa-paragraph text-muted"></i>: moderne Textabschnittsangabe, <i class="fas fa-indent text-muted"></i>: Zeilen-/Kolumnenzählung) führt. Der Pfad erscheint dabei im Vergleich mit den Informationen im Textkorpus-Baum fallweise auf das Wesentliche gekürzt.</p>
+         <p><em class="text-warning">Hinweis:</em> Die Angaben zur Textstelle (<i class="fas fa-paragraph text-muted"></i>/<i class="fas fa-indent text-muted"></i>) beziehen sich jeweils auf den <em>Satzanfang</em>, nicht auf die Position des gesuchten Lemmas innerhalb des Satzes.</p>
+      </div>
+      <h3>Verweis-Button</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Über den Button „<span th:text="#{button_sentence_page}">Satz-Seite/Zitation</span>‟ gelangen Sie zu einer Darstellung eines einzelnen Satzes mit <strong>weiteren Metadaten und Zitierhinweisen</strong>.</p>
+      </div>
+   </section>
+   <footer>
+      <p class="credits">Text: D.A.Werning</p>
+      <div th:replace="fragments/common :: static-page-citationBox"/>
+   </footer>
 </article>

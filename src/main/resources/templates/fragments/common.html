@@ -26,7 +26,7 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
+              <li class="nav-item d-none d-lg-block">
                 <a class="nav-link nav-search" href="/search"><i class="fas fa-search"></i>&nbsp;<span th:text="#{menu_global_search}">Search</span></a>
               </li>
               <li class="nav-item dropdown">
@@ -59,11 +59,9 @@
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{menu_global_help}">Help</a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown3">
                   <a class="dropdown-item" href="/help/search-page" th:text="#{editorial_title_help_search-page}">Search page</a>
-              <!-- ## no help pages yet ##
                   <a class="dropdown-item" href="/help/lemma-search-results" th:text="#{editorial_title_help_lemma-search-results}">Lemma search results</a>
-                  <a class="dropdown-item" href="/help/lemma-page" th:text="#{editorial_title_help_lemma-page}">Lemma page</a>
                   <a class="dropdown-item" href="/help/sentence-search-results" th:text="#{editorial_title_help_sentence-search-results}">Sentence search results</a>
-              -->
+                  <a class="dropdown-item" href="/help/sentence-page" th:text="#{editorial_title_help_sentence-page}">Sentence page</a>
                 </div>
               </li>
             </ul>
@@ -245,9 +243,10 @@
           <i class="far fa-comment"></i></a>
       </div>
       -->
-      <!-- ## no help pages yet ##
+      <!-- ## selected help pages th:if ## -->
+      <th:block th:if="${helppage} == 'lemma-search-results' OR ${helppage} == 'sentence-search-results' OR ${helppage} == 'sentence-page'">
       <div th:replace=" :: help-button(${helppage})"/>
-      -->
+      </th:block>
 
     <!-- Modal for Comments-->
     <div class="modal fade" id="modal_comments" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -407,8 +406,8 @@
 		<th:block th:unless="${token.glyphs.svg}">
 			<span th:if="${token.type == 'word' OR  token.type == 'lc'}" class="token-glyphs" style="height: 14pt"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1 28.0"></svg></span>
 			<th:block th:unless="${token.type == 'word' OR token.type == 'lc'}">
-				<span th:if="${token.label}" th:utext="${token.label}" class="|sentence-token token-${(token.type == 'lc' OR token.type == 'para' OR token.type == 'destruction_marker' OR token.type == 'verse_point') ? token.type : 'default'}|"></span>
-				<span th:unless="${token.label}" th:utext="${token.type}" class="sentence-token token-default"></span>
+				<span th:if="${token.label}" th:utext="${token.label}" th:class="|token-glyphs token-${(token.type == 'lc' OR token.type == 'para' OR token.type == 'destruction_marker' OR token.type == 'verse_point') ? token.type : 'default'}|"></span>
+				<span th:unless="${token.label}" th:utext="${token.type}" class="token-glyphs token-default"></span>
 			</th:block>
 		</th:block>
 	 </th:block>

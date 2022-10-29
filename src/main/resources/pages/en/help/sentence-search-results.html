@@ -1,9 +1,96 @@
 <article>
    <header>
-      <h1>Introduction to Sentence Search Result Page</h1>
+      <h1 id="page-title">About the <span th:text="#{result_page_title_sentence}">Attestation Search Results</span> Page</h1>
    </header>
    <section>
-      <p>### to do ###</p>
+      <h2>Show/hide buttons</h2>
+
+      <h3 th:text="#{button_label_hide_property_hieroglyphs}">Hieroglyphs</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Use this button to hide/show the hieroglyphs of the sentence elements.</p>
+      </div>
+
+      <h3 th:text="#{button_label_hide_property_switchannotation}">Switch annotation/block view</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Use this button to switch between the block view and the annotation view of the sentence.</p>
+         <ul>
+            <li>In the <strong>block view</strong>  the transliteration and, where applicable, the hieroglyphs of the whole sentence are displayed in separate rows.</li>
+            <li>In the <strong>annotation view</strong> the individual sentence elements are displayed in small blocks each with their respective annotations. 
+               <br/>In this view, the hieroglyphs as well as the following annotations can be hidden or shown:</li>
+         </ul>
+      </div>
+
+      <div class="ml-sm-4">
+         <h4 th:text="#{button_label_hide_property_switchannotation-wordclass}">Word class</h4>
+         <div class="ml-sm-4 mb-3">
+            <p>Use this button to hide/show the word classes of the individual sentence elements.</p>
+            <p>For an overview of the different word classes employed, see <a href="/info/lemma-lists">here</a>.</p>
+         </div>
+
+         <h4 th:text="#{button_label_hide_property_switchannotation-tlaglossing}">Gram. Annotation BTS</h4>
+         <div class="ml-sm-4 mb-3">
+            <p>Use this button to hide/show the grammatical annotations of the individual sentence elements according to the original encoding in the <i>Berlin Text System</i> (<i>BTS</i>).</p>
+            <p>For an overview of the glossing abbreviations of the grammatical annotations of the <i>BTS</i>, see <a href="/listings/bts-glossings">here</a>.</p>
+            <p><em class="text-warning">Note:</em> Not all sentences in the <i>TLA</i> are grammatically annotated (see the tags “[G]” in the broad overview on the <a href="/info/text-corpus">text corpus</a> page). If this is not the case, ideally  “(unedited)” is displayed for <em>all</em> sentence words, or else the ambiguous “(unspecified),” which is also used in grammatically annotated texts to mark forms whose form corresponds to that of the assigned lemma entry (base form). In these cases, only grammatical forms of the lemma are calculated for the <span th:text="#{button_label_hide_property_switchannotation-linguisticglossing}">Ling. Glossierung</span> (see below).</p>
+         </div>
+
+         <h4 th:text="#{button_label_hide_property_switchannotation-linguisticglossing}">Linguistic glossing</h4>
+         <div class="ml-sm-4 mb-3">
+            <p>Use this button to hide/show an automatically generated linguistic interlinear morphemic glossing of the individual sentence elements. This is calculated based on the word class and the grammatical encoding in the <i>BTS</i> (in specific cases directly on the basis of the assigned lemma).</p>
+            <p>For an overview of the linguistic glossing abbreviations, see <a href="/listings/ling-glossings">here</a>.</p>
+            <p><em class="text-warning">Note:</em> In the case of sentences that have not been grammatically annotated in the <i>BTS</i> (see “<span th:text="#{button_label_hide_property_switchannotation-tlaglossing}">Gram. Annotation BTS</span>” above), only the features of the lemma, not those of the eventually inflected sentence element, can be computed for the linguistic morphemic glossing. This concerns especially nominal elements, for which <span class="ling-glossing-static">m.sg</span> is computed in each case, sometimes misleadingly.</p>
+            <p class="text-secondary development-msg"><i class="fas fa-wrench"></i> (Unfortunately, we are currently not yet able to reliably determine automatically which texts are (not) grammatically annotated, and therefore cannot react accordingly.)</p>
+         </div>
+
+         <h4 th:text="#{button_label_hide_property_switchannotation-tokentranslation}">Token translation</h4>
+         <div class="ml-sm-4 mb-3">
+            <p>Use this button to hide/show the meaning of the individual sentence elements. The text authors can optionally select these in the <i>BTS</i> from the set of translation equivalents of the respective lemma, or they can enter them manually (contextual meaning).</p>
+            <p><em class="text-warning">Note:</em> This possibility of a contextual specification is not always used by authors. In this case <em>all</em> suggested translation equivalents of the assigned lemma are displayed.</p>
+         </div>
+
+         <h4 th:text="#{button_label_hide_property_switchannotation-wordtokenid}">Sentence token ID</h4>
+         <div class="ml-sm-4 mb-3">
+            <p>Use this button to show/hide the stable IDs of the individual sentence elements. By means of these, individual sentence elements can be <strong>cited and referred to persistently</strong>.</p>
+            <p class="text-secondary development-msg"><i class="fas fa-wrench"></i> (The possibility to also look up sentence element IDs on the <a href="/search">search page</a> will be added in a later version of the <i>TLA</i> web application.)</p>
+         </div>
+      </div>
+      
+      <h3 th:text="#{button_label_hide_property_translation}">Translation</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Use this button to hide/show the sentence translation.</p>
+      </div>
+
+      <h3 th:text="#{button_label_hide_property_dating}">Dating</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Use this button to hide/show the dating of the text in which the sentence is found.</p>
+      </div>
+
+      <h3 th:text="#{button_label_hide_property_texteditor}">Text editors</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Use this button to hide/show the main author(s) and editor(s) and the date of the latest revision of the text in which the sentence is found. The date follows the pattern <span th:text="#{date_formatter}">MM/dd/yyyy</span>.</p>
+         <p><em class="text-warning">Note:</em> For technical reasons, all these information refer to the <em>containing text as a whole</em>, not to the individual sentence.</p>
+      </div>
    </section>
-   <footer>Text: N.N.</footer>
+   <section>
+      <h2>Sorting</h2>
+      <p class="text-secondary development-msg ml-sm-4 mb-3">
+         <i class="fas fa-wrench"></i> (<span th:utext="#{msg_occurences_sorting}">Sorting being implemented.</span>)
+      </p>
+   </section>
+   <section>
+      <h2>Sentence presentation</h2>
+      <h3>Text corpus path and text passage</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>For each sentence a compact path is obligatorily indicated, which leads via selected corpus tree objects (<i class="fas fa-folder text-muted"></i>) towards the text (<i class="fas fa-file-alt text-muted"></i>) and often up to an indication of the text passage (<i class="fas fa-paragraph text-muted"></i>: modern text passage indication, <i class="fas fa-indent text-muted"></i>: line/column count). In comparison with the information in the text corpus tree, the path appears shortened to its essentials in some cases.</p>
+         <p><em class="text-warning">Note:</em> The indication of the text passage (<i class="fas fa-paragraph text-muted"></i>/<i class="fas fa-indent text-muted"></i>) refer to the <em>beginning</em> of the sentence, not to the position of the lemma within the sentence.</p>
+      </div>
+      <h3>Reference button</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>The “<span th:text="#{button_sentence_page}">Sentence page/citation</span>” button takes you to a presentation of the single sentence with <strong>further metadata and citation information</strong>.</p>
+      </div>
+   </section>
+   <footer>
+      <p class="credits">Text: D.A.Werning</p>
+      <div th:replace="fragments/common :: static-page-citationBox"/>
+   </footer>
 </article>
