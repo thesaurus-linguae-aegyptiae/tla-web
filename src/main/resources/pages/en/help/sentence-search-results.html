@@ -31,14 +31,14 @@
          <div class="ml-sm-4 mb-3">
             <p>Use this button to hide/show the grammatical annotations of the individual sentence elements according to the original encoding in the <i>Berlin Text System</i> (<i>BTS</i>).</p>
             <p>For an overview of the glossing abbreviations of the grammatical annotations of the <i>BTS</i>, see <a href="/listings/bts-glossings">here</a>.</p>
-            <p><em class="text-warning">Note:</em> Not all sentences in the <i>TLA</i> are grammatically annotated (see the tags „[G]‟ in the broad overview on the <a href="/info/text-corpus">text corpus</a> page). If this is not the case, ideally  „(unedited)‟ is displayed for <em>all</em> sentence words, or else the ambiguous „(unspecified)‟, which is also used in grammatically annotated texts to mark forms whose form corresponds to that of the assigned lemma entry (base form). In these cases, only grammatical forms of the lemma are calculated for the <span th:text="#{button_label_hide_property_switchannotation-linguisticglossing}">Ling. Glossierung</span> (see below).</p>
+            <p><em class="text-warning">Note:</em> Not all sentences in the <i>TLA</i> are grammatically annotated (see the tags “[G]” in the broad overview on the <a href="/info/text-corpus">text corpus</a> page). If this is not the case, ideally  “(unedited)” is displayed for <em>all</em> sentence words, or else the ambiguous “(unspecified),” which is also used in grammatically annotated texts to mark forms whose form corresponds to that of the assigned lemma entry (base form). In these cases, only grammatical forms of the lemma are calculated for the <span th:text="#{button_label_hide_property_switchannotation-linguisticglossing}">Ling. Glossierung</span> (see below).</p>
          </div>
 
          <h4 th:text="#{button_label_hide_property_switchannotation-linguisticglossing}">Linguistic glossing</h4>
          <div class="ml-sm-4 mb-3">
             <p>Use this button to hide/show an automatically generated linguistic interlinear morphemic glossing of the individual sentence elements. This is calculated based on the word class and the grammatical encoding in the <i>BTS</i> (in specific cases directly on the basis of the assigned lemma).</p>
             <p>For an overview of the linguistic glossing abbreviations, see <a href="/listings/ling-glossings">here</a>.</p>
-            <p><em class="text-warning">Note:</em> In the case of sentences that have not been grammatically annotated in the <i>BTS</i> (see „<span th:text="#{button_label_hide_property_switchannotation-tlaglossing}">Gram. Annotation BTS</span>‟ above), only the features of the lemma, not those of the eventually inflected sentence element, can be computed for the linguistic morphemic glossing. This concerns especially nominal elements, for which <span class="ling-glossing-static">m.sg</span> is computed in each case, sometimes misleadingly.</p>
+            <p><em class="text-warning">Note:</em> In the case of sentences that have not been grammatically annotated in the <i>BTS</i> (see “<span th:text="#{button_label_hide_property_switchannotation-tlaglossing}">Gram. Annotation BTS</span>” above), only the features of the lemma, not those of the eventually inflected sentence element, can be computed for the linguistic morphemic glossing. This concerns especially nominal elements, for which <span class="ling-glossing-static">m.sg</span> is computed in each case, sometimes misleadingly.</p>
             <p class="text-secondary development-msg"><i class="fas fa-wrench"></i> (Unfortunately, we are currently not yet able to reliably determine automatically which texts are (not) grammatically annotated, and therefore cannot react accordingly.)</p>
          </div>
 
@@ -86,7 +86,7 @@
       </div>
       <h3>Reference button</h3>
       <div class="ml-sm-4 mb-3">
-         <p>The „<span th:text="#{button_sentence_page}">Sentence page/citation</span>‟ button takes you to a presentation of the single sentence with <strong>further metadata and citation information</strong>.</p>
+         <p>The “<span th:text="#{button_sentence_page}">Sentence page/citation</span>” button takes you to a presentation of the single sentence with <strong>further metadata and citation information</strong>.</p>
       </div>
    </section>
    <footer>
