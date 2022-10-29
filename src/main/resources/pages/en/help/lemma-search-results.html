@@ -1,9 +1,64 @@
 <article>
    <header>
-      <h1>Introduction to Lemma Search Result Page</h1>
+      <h1 id="page-title">About the <span th:text="#{result_page_title_lemma}">Lemma search results</span> Page</h1>
    </header>
    <section>
-      <p>### to do ###</p>
+      <h2>Sorting</h2>
+      <div class="ml-sm-4 mb-3">
+         <p>With this drop-down menu you can change the sorting of the result list. Basically, there is the possibility to sort in ascending and descending order according to the following criteria:</p>
+         <ul>
+            <li>Lemma transliteration, alphabetical</li>
+            <li>Beginning of attestation timespan</li>
+            <li>End of attestation timespan</li>
+         </ul>
+         <p>If sorting by attestation timespan (more on this below), lemmata without a calculable attestation timespan will be listed at the end of the list (currently still unsorted).</p>
+         <p>The default setting is „<span th:text="#{field_value_label_sort_by_sortKey_asc_type_lemma}">alphabetical (asc.)</span>‟.</p>
+      </div>
    </section>
-   <footer>Text: N.N.</footer>
+   <section>
+      <h2>Show/hide buttons</h2>
+      <h3 th:text="#{button_label_hide_property_hieroglyphs}">Hieroglyphs</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Use this button to hide/show the hieroglyphs of the lemmata. For demotic lemmata as well as lemmata that do not have a nominal hieroglyphic spelling, the belonging to one of the two lemma lists is displayed instead.</p>
+      </div>
+      
+      <h3 th:text="#{button_label_hide_property_lemma-id}">Lemma ID</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Use this button to show/hide the persistent IDs of the lemmata. Using these, lemmata can be <strong>cited, persistently referenced</strong>, and looked up on the <i>TLA</i> <a href="/search">search page</a>.</p>
+         <p><em class="text-info">Note/hint:</em> Clicking on the ID writes it to your computer’s clipboard.</p>
+      </div>
+      
+      <h3 th:text="#{button_label_hide_property_wordClass}">Word classe</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Use this button to hide/show the word classes of the lemmata.</p>
+         <p>For an overview of the different word classes, see <a href="/info/lemma-lists">here</a>.</p>
+      </div>
+      
+      <h3 th:text="#{button_label_hide_property_translations}">Übersetzungen</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Use this button block to show/hide the meaning of the lemmata in German, English, and/or French. Please note that while all (translatable) lemmata contain a translation in German, not all lemmata have English or French translation equivalents yet. For more information, see <a href="/info/lemma-lists">here</a>.</p>
+      </div>
+      
+      <h3 th:text="#{button_label_hide_property_attested-timespan}">Attestation timespan</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Use this button to hide/show the attestation timespan of the lemmata in the <i>TLA</i>.</p>
+         <p><em class="text-warning">Note:</em> Please be aware that only the attestation timespan in the <em>digital text corpus</em> of the <i>TLA</i> is calculated here. Attestation time information from the <i>DZA</i> or the printed <i>Wb.</i> are not included.</p>
+      </div>
+      
+      <h3 th:text="#{button_label_hide_property_bibliography}">Bibliographic references</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Use this button to hide/show bibliographic references of the lemmata. For a list of bibliographic abbreviations, see <a href="/listings/bibliography/">here</a>.</p>
+      </div>
+   </section>
+   <section>
+      <h2>Lemma entry</h2>
+      <h3 th:text="#{button_label_hide_property_transliteration}">Transliteration</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>The display of the lemma transliteration is mandatory. Clicking on the entry leads to the corresponding lemma page.</p>
+      </div>
+   </section>
+   <footer>
+      <p class="credits">Text: D.A.Werning</p>
+      <div th:replace="fragments/common :: static-page-citationBox"/>
+   </footer>
 </article>

@@ -1,9 +1,64 @@
 <article>
    <header>
-      <h1>Introduction to Lemma Search Result Page</h1>
+      <h1 id="page-title">Hinweise zur Seite <span th:text="#{result_page_title_lemma}">Lemma-Suchergebnisse</span></h1>
    </header>
    <section>
-      <p>### to do ###</p>
+      <h2>Sortierung</h2>
+      <div class="ml-sm-4 mb-3">
+         <p>Mit diesem Auswahlmenü können Sie die Sortierung der Ergebnisliste ändern. Grundsätzlich gibt es die Möglichkeit, auf- und absteigend nach folgenden Kriterien zu sortieren:</p>
+         <ul>
+            <li>Lemma-Transkription, alphabetisch</li>
+            <li>Belegzeitspannen-Anfang</li>
+            <li>Belegzeitspannen-Ende</li>
+         </ul>
+         <p>Bei der Sortierung nach Belegzeitspannen-Grenzen (dazu mehr unten) werden Lemmata ohne errechenbare Belegzeitspanne (aktuell noch unsortiert) am Ende der Liste eingereit.</p>
+         <p>Die Grundeinstellung ist „<span th:text="#{field_value_label_sort_by_sortKey_asc_type_lemma}">alphabetisch (aufsteigend)</span>‟.</p>
+      </div>
    </section>
-   <footer>Text: N.N.</footer>
+   <section>
+      <h2>Ein-/Ausblend-Buttons</h2>
+      <h3 th:text="#{button_label_hide_property_hieroglyphs}">Hieroglyphen</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Mit diesem Button blenden Sie die Hieroglpyhen der Lemmata aus/ein. Bei demotischen Lemmata sowie Lemmata, die über keine hieroglyphische Nennschreibung verfügen, wird stattdessen die Zugehörigkeit zu einer der beiden Lemmalisten angezeigt.</p>
+      </div>
+      
+      <h3 th:text="#{button_label_hide_property_lemma-id}">Lemma-ID</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Mit diesem Button blenden Sie die persistenten IDs der Lemmata ein/aus. Anhand dieser können Lemmata <strong>zitiert, nachhaltig referenziert</strong> und auf der <a href="/search">Suchseite</a> des <i>TLA</i> nachgeschlagen werden.</p>
+         <p><em class="text-info">Hinweis/Tipp:</em> Ein Klick auf die ID schreibt diese in die Zwischenablage Ihres Computers.</p>
+      </div>
+      
+      <h3 th:text="#{button_label_hide_property_wordClass}">Wort-Klasse</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Mit diesem Button blenden Sie die Wort-Klassen der Lemmata ein/aus.</p>
+         <p>Einen Überblick über die verwendeten Wort-Klassen finden Sie <a href="/info/lemma-lists">hier</a>.</p>
+      </div>
+      
+      <h3 th:text="#{button_label_hide_property_translations}">Übersetzungen</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>In diesem Button-Block können Sie die Bedeutungsangaben der Lemmata auf Deutsch, Englisch und/oder Französisch ein- und ausblenden. Bitte beachten Sie, dass zwar alle (übersetzbaren) Lemmata eine Übersetzung auf Deutsch enthalten, aber nicht alle Lemmata schon über englische oder französische Übersetzungsäquivalente verfügen. Weitere Informationen dazu finden Sie <a href="/info/lemma-lists">hier</a>.</p>
+      </div>
+      
+      <h3 th:text="#{button_label_hide_property_attested-timespan}">Belegzeit</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Mit diesem Button blenden Sie die Belegzeitspanne der Lemmata im <i>TLA</i> ein/aus.</p>
+         <p><em class="text-warning">Achtung:</em> Bitte beachten Sie, dass hier nur die Zeitspanne der Belege <em>im digitalen Textkorpus</em> des <i>TLA</i> berechnet wird. Belegzeitinformationen aus dem <i>DZA</i> und dem gedruckten <i>Wb.</i> sind hier nicht mit eingerechnet.</p>
+      </div>
+      
+      <h3 th:text="#{button_label_hide_property_bibliography}">Bibliographische Verweise</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Mit diesem Button blenden Sie bibliographische Verweise der Lemmata ein/aus. Eine Liste bibliographischer Abkürzungen finden Sie <a href="/listings/bibliography/">hier</a>.</p>
+      </div>
+   </section>
+   <section>
+      <h2>Lemma-Eintrag</h2>
+      <h3 th:text="#{button_label_hide_property_transliteration}">Transkription</h3>
+      <div class="ml-sm-4 mb-3">
+         <p>Die Anzeige der Lemma-Transkription ist obligatorisch. Ein Klick auf den Eintrag führt zur entsprechenden Lemma-Seite.</p>
+      </div>
+   </section>
+   <footer>
+      <p class="credits">Text: D.A.Werning</p>
+      <div th:replace="fragments/common :: static-page-citationBox"/>
+   </footer>
 </article>
