@@ -166,7 +166,7 @@ public class Text extends CorpusObject {
            List<Passport> pass= text.getPassport().extractProperty(PASSPORT_PROP_ISORIG);
            
             	isOrigPl=pass.get(0).toString();
-            	System.out.println("isOrig "+ isOrigPl);
+            	//System.out.println("isOrig "+ isOrigPl);
             		if (isOrigPl.equals("true")) isOrigPl="original";
             		else isOrigPl=null;
        

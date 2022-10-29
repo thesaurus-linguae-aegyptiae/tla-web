@@ -87,8 +87,8 @@ public class Lemma extends BTSObject {
    
     {
     	 if (this.getDictionaryName().equals(Script.HIERATIC)) {
-    		 System.out.println ("Glyphs Lemma"+ this.getGlyphs().getMdcCompact());
-    		 System.out.println ("Unicode Lemma"+ this.getGlyphs().getUnicode());
+    		 //System.out.println ("Glyphs Lemma"+ this.getGlyphs().getMdcCompact());
+    		 //System.out.println ("Unicode Lemma"+ this.getGlyphs().getUnicode());
     		 return this.getGlyphs();
     	 }
     	 else return null;
