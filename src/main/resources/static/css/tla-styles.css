@@ -1030,10 +1030,12 @@ footer.bg-light {
     vertical-align: -.1em;
 }
 
+#page-title,
 .id {
-	font-size: 1.5em;
+    font-size: 1.5em;
     font-weight: 600;
-    padding: 0em 0.2em;
+    padding: 0em 0.4em;
+    /*border-radius: 5px;*/
     background-color: var(--BBAWlightbluegrey);
     color: white;
     display: inline-block;

@@ -26,7 +26,7 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
+              <li class="nav-item d-none d-lg-block">
                 <a class="nav-link nav-search" href="/search"><i class="fas fa-search"></i>&nbsp;<span th:text="#{menu_global_search}">Search</span></a>
               </li>
               <li class="nav-item dropdown">
@@ -245,9 +245,10 @@
           <i class="far fa-comment"></i></a>
       </div>
       -->
-      <!-- ## no help pages yet ##
+      <!-- ## selected help pages th:if ## -->
+      <th:block th:if="${helppage} == 'sentence-search-results'">
       <div th:replace=" :: help-button(${helppage})"/>
-      -->
+      </th:block>
 
     <!-- Modal for Comments-->
     <div class="modal fade" id="modal_comments" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
