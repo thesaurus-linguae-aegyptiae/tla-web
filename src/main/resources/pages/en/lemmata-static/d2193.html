@@ -1,0 +1,962 @@
+﻿<article>
+   <section>
+
+      <div>
+
+      <div class="row mb-3 details-header">
+        <div id="review-state-header"
+            class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-between align-items-end">
+        <h2 class="id mt-1">
+           <span class="bbaw-libertine">=f</span><span class="words-breakable">(Lemma ID d2193)</span>
+        </h2>
+    </div>
+        <div id="social" class="button-bar col-md-6 col-lg-6 align-right align-baseline d-none d-lg-block">
+      <div class="functional-icons">
+        <a href="#" class="btn btn-red solo-icon" role="button" data-toggle="modal" data-target="#modal_sharing">
+          <span class="mr-1">Share</span>
+          <i class="fa fa-share-alt share-results"></i></a>
+      </div>
+      <!-- ## email-Funktionalität noch nicht nutzbar ##
+      <div class="functional-icons">
+        <a href="#" class="btn btn-red solo-icon text-secondary disabled" role="button" data-toggle="modal" data-target="#modal_comments">
+          <span class="mr-1" th:text="#{social-button-comment}">Comment</span>
+          <i class="far fa-comment"></i></a>
+      </div>
+      -->
+      <!-- ## selected help pages th:if ## -->
+      
+
+    <!-- Modal for Comments-->
+    <div class="modal fade" id="modal_comments" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Comment the content of this page</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+             <input type="hidden" id="pageHREF" name="pageHREF" value="javascript:getCurrentHREF()"/><!--does this work, or do we need a separate script to change the value?-->
+             <div class="input-group mb-2">
+                <input type="text" class="form-control" disabled placeholder="Your name" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+             <div class="input-group mb-2">
+                <input type="text" class="form-control" disabled placeholder="Your e-mail address" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+              
+            <div class="input-group">           
+              <textarea class="form-control" disabled aria-label="With textarea" placeholder="Your comment"></textarea>
+            </div>
+              
+          </div>
+            
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary disabled not-allowed" disabled>Send</button>
+            <p class="modal-footer-text">Thank you for helping to improve the data! Your comment will be send to the <i>TLA</i> team for evaluation. For more information, see our <a href="/legal/privacy" target="_blank" rel="opener">privacy policy</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for Sharing-->
+    <div class="modal fade" id="modal_sharing" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Share this page</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <div class="btn btn-block btn-info" role="button" onClick="window.location.href='mailto:?subject=TLA,%20page&amp;body='+ encodeURIComponent(getCitation())" data-dismiss="modal"><span class="far fa-envelope"></span> <span>E-mail citation</span></div> 
+              <a href="#" class="btn btn-block btn-info" role="button" onClick="window.open('https://www.facebook.com/share.php?t=TLA,%20page&amp;u='+ encodeURIComponent(getCurrentHREF()))" data-dismiss="modal"><span class="fab fa-facebook"></span> <span>Facebook</span></a>
+              <a href="#" title="Twitter" class="btn btn-block btn-info" role="button" onClick="window.open('https://twitter.com/intent/tweet?text=TLA,%20page&amp;url=' + encodeURIComponent(getCurrentHREF()))" data-dismiss="modal"><span class="fab fa-twitter"></span> <span>Twitter URL</span></a>
+          </div>
+          <div class="modal-footer">
+            <p class="modal-footer-text">Note that if you use the social media buttons (e.g., <i>Twitter</i>, <i>Facebook</i>), data will be delivered to the respective service. For details, see the privacy policies of the respective service(s).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+   </div>
+
+      <div class="row">
+        <div class="col-sm-12 col-lg-8" id="details-content">
+          <a class="review-state" title="Review status: Verified">
+      <span class="solo-icon red-status float-right badge badge-pill badge-light">
+        <span class="font-weight-light">Verified</span>
+        <span class="icon ok"/>
+      </span>
+    </a>
+        
+          
+          <div id="property-pid">
+		<hr/>
+		<p>         
+		  <strong>Persistent ID</strong>:
+		  <span id="id">d2193</span>
+		  <script> 
+		  </script>
+		  <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document.getElementById(&#39;id&#39;).textContent)" ><span class="fas fa-clipboard"></span>&nbsp;<span>Copy ID</span></button>
+		  <br/>
+		  <strong>Persistent URL</strong>:
+		  <!-- Zitationsbutton -->
+		  <span id="page-url">https://thesaurus-linguae-aegyptiae.de/lemma/d2193</span>
+		  <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document.getElementById('page-url').textContent)"><span class="fas fa-clipboard"></span>&nbsp;<span>Copy URL</span></button>
+		  <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document.getElementById('full-citation').textContent.replaceAll(/\s+/g,' '))"><span class="fas fa-clipboard"></span>&nbsp;<span>Copy citation</span></button><!-- take content of element "full-citation" from the page footer-->
+		</p>
+	  </div>
+          <div id="lemma-property-dict">
+        <hr/>
+        <strong class="details-property-label">Lemma list</strong>:
+        <span>Demotic</span>
+    </div>
+          <div id="lemma-property-type-subtype">
+        <hr/>
+        <p>
+            <strong class="details-property-label">Word class</strong>:
+            <span name="type-subtype" class="type-subtype lemma">
+        
+            
+                
+                
+                    <span>pronoun</span>
+                    <span>
+                        (<span>personal pronoun</span>)
+                    </span>
+                
+            
+        
+    </span>
+        </p>
+    </div>
+          <div class="translations" id="translations">
+        <hr />
+        <p>
+            <strong class="details-property-label">Translation</strong>
+        </p>
+        <div><span>
+      <span class="tr-de">
+         <span class="lang-icon text-uppercase">de</span>
+       </span>        
+      <span class="translation-de">
+        <span class="translation">[Suffix 3. P. Sg. masc.]; [vorgezogenes Suffix bei folgendem Genitiv]</span>
+        
+      </span>
+    </span></div>
+    </div>
+          
+          <div id="lemma-property-attestations">
+        <hr/>
+        <p>
+            <strong class="details-property-label">Attestation in the TLA text corpus</strong>
+        </p>
+		 <p>
+           <span id="attestationCount" style="visibility:hidden">10000</span>
+   
+            <a href="/search/sentence?tokens[0].lemma.id=d2193">
+               <button id="lemma-attestation-count-texts" type="button" class="btn btn-danger text-left text-decoration-none">
+               <span class="fas fa-arrow-circle-right"></span>&nbsp;
+               <span>Occurences in &gt;10000 sentences</span>
+               </button>
+            </a>
+            <br/>
+            <span>
+        <strong class="details-property-label">Attestation time frame in the TLA text corpus</strong>:
+        <span>from</span>
+        <span id="attestation-timespan-from">
+        <span>664</span>
+        <span>BCE</span>
+    </span>
+        <span>to</span>
+        <span id="attestation-timespan-to">
+        <span>475</span>
+        <span>CE</span>
+    </span>
+    </span>
+        </p>
+		 		 
+    </div>
+          <div class="bibliography" id="bibliography">
+        <hr/>
+        <p>
+            <strong class="details-property-label">Bibliography</strong>
+            <br/>
+            <ul>
+            <li>
+                <span class="fas fa-arrow-circle-right"></span>
+                <span class="bibliographic-reference">Erichsen, Glossar 143</span>
+                
+            </li>
+            </ul>
+        </p>
+    </div>
+          <div id="external-references">
+        <hr />
+        <p>
+            <strong class="details-property-label">External references</strong>
+        </p>
+        <div class="align-items-start" id="external-references-aaew">
+            <span class="external-reference-provider pr-2">Legacy TLA</span>
+            <span class="external-reference">
+                <!--<p th:text="${ref}"/>-->
+                <a href="https://aaew.bbaw.de/tla/servlet/GetWcnDetails?u=guest&amp;f=0&amp;l=0&amp;wn=2193&amp;db=1" target="_blank">
+                    <span class="fas fa-arrow-circle-right red"></span>
+                    <span class="external-reference-id">2193</span>
+                </a>
+                
+            </span>
+        </div>
+        <div class="align-items-start" id="external-references-dwl">
+            <span class="external-reference-provider pr-2">Demotische Wortliste</span>
+            <span class="external-reference">
+                <!--<p th:text="${ref}"/>-->
+                <a href="https://www.dwl.aegyptologie.lmu.de/suche.php?nummer=02193" target="_blank">
+                    <span class="fas fa-arrow-circle-right red"></span>
+                    <span class="external-reference-id">02193</span>
+                </a>
+                
+            </span>
+        </div>
+    </div>
+          
+          <div class="editor-info" id="editor-info">
+        <hr/> 
+        
+          <div class="author">
+            <strong class="details-property-label">Main author</strong>:
+            <span>Altägyptisches Wörterbuch</span>
+          </div>
+          <div class="editors">
+            <strong class="details-property-label">Further editor(s)</strong>:
+            <span>Simon D. Schweitzer</span>
+          </div>
+          <div class="updated">
+            <strong class="details-property-label">Latest revision</strong>:
+            <span>10/06/2022</span>
+          </div>
+        
+        <div class="review-state">
+            <strong class="details-property-label">Editorial state</strong>:
+            <span>Verified</span>
+        </div>
+    </div>
+        </div>  <!-- close content col-sm-12 -->
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-lg-8" id="details-content-2">
+          <div id="object-property-related-objects">
+        <hr/>
+        <strong class="border-bottom details-property-label">Related lemmata</strong>
+        <div class="row py-1 ml-2 mr-2">
+            <div class="pl-0 col-md-12 border-bottom">
+                <span class="details-property-label">Historical predecessors</span>
+            </div>
+            <div class="col-md-12">
+                
+                  
+                    <div class="result-list-item"  id="10050">
+        <a class="review-state" title="Review status: Verified">
+      <span class="solo-icon red-status float-right badge badge-pill badge-light">
+        <span class="font-weight-light">Verified</span>
+        <span class="icon ok"/>
+      </span>
+    </a>
+         <div>
+         <!-- line 1 -->
+          <a href="/lemma/10050">
+          <h2 class="result-list-item-element transcription bbaw-libertine">=f</h2>
+          
+          <span class="result-list-item-element hieroglyphs">
+            
+            <span class="unicode-hieroglyphs" style="height: 14pt">𓆑</span>
+        </span>
+    
+          </span>
+          </a>
+		  <!--class="result-list-item-element lemma-id text-muted"  -->
+          <button type="button" id="button_10050" class="result-list-item-element lemma-id btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onClick="">
+            (ID<span class="ml-1">10050</span>)
+          </button>
+		  	 <script>
+					/*<![CDATA[*/
+						var id = "10050";
+						document.getElementById("button_"+id).setAttribute( "onClick", "javascript: copyStringToClipboard(id.substring(7,id.length))");
+					/*]]>*/
+		     </script> 
+         </div>
+        <div>
+          <!-- line 2 -->
+          <a href="/lemma/10050">
+          <span class="result-list-item-element wordClass font-italic font-weight-light">
+            <span name="type-subtype" class="type-subtype lemma">
+        
+            
+                
+                
+                    <span>pronoun</span>
+                    <span>
+                        (<span>personal pronoun</span>)
+                    </span>
+                
+            
+        
+    </span>
+          </span>
+          <span class="result-list-item-element translations">
+            <span>
+      <span class="tr-de">
+         <span class="lang-icon text-uppercase">de</span>
+       </span>        
+      <span class="translation-de">
+        <span class="translation">[Suffix Pron. sg.3.m.]</span>
+        
+      </span>
+    </span><span>
+      <span class="tr-en">
+         <span class="lang-icon text-uppercase">en</span>
+       </span>        
+      <span class="translation-en">
+        <span class="translation">he; him; his (suffix pron., 3rd. per. masc. sing.)</span>
+        
+      </span>
+    </span>
+          </span>
+		   
+          <span class="result-list-item-element attested-timespan">
+		     <i class="text-muted fas fa-calendar mr-0 ml-2"></i>
+            <span>
+        <span>3150</span>
+        <span>BCE</span>
+    </span>
+            <span>&#8212;</span>
+            <span>
+        <span>324</span>
+        <span>CE</span>
+    </span>
+          </span>
+          <span class="result-list-item-element bibliography">
+            <i class="text-muted fas fa-book mr-0 ml-2"></i>
+            <span class="bibliographic-reference">
+              <span class="font-weight-light">Wb 1, 572.1</span>
+              <small class="text-muted">•</small>
+            </span><span class="bibliographic-reference">
+              <span class="font-weight-light">EAG § 159</span>
+              <small class="text-muted">•</small>
+            </span><span class="bibliographic-reference">
+              <span class="font-weight-light">Schenkel, Einf., 105</span>
+              <small class="text-muted">•</small>
+            </span><span class="bibliographic-reference">
+              <span class="font-weight-light">ENG § 69</span>
+              <small class="text-muted">•</small>
+            </span><span class="bibliographic-reference">
+              <span class="font-weight-light">Junge, Näg. Gr., 53</span>
+              
+            </span>
+          </span>
+          </a>
+        </div>
+        <hr/>
+      </div>
+                    
+                    
+                    
+                    
+                  
+                
+            </div>
+        </div>
+    </div>
+		  
+          <div id="object-property-citationBox" class="bg-light citation m-sm-2 m-lg-4"> 
+    	<div class="bg-light citation  m-sm-1 m-lg-2"> 
+    <p class="h6" ><strong>Please cite as</strong>:</p>
+				(<em>Full citation</em>)
+				<blockquote id="full-citation"><span>=f (Lemma ID d2193), &lt;https://thesaurus-linguae-aegyptiae.de/lemma/d2193&gt;, in: </span>  
+					<span style="font-style: italic;">Thesaurus Linguae Aegyptiae</span>  
+					<span> &lt;https://thesaurus-linguae-aegyptiae.de&gt;, Corpus issue 17, Web app version 2.0, 10/31/2022, ed. by Tonio Sebastian Richter &amp; Daniel A. Werning by order of the Berlin-Brandenburgische Akademie der Wissenschaften and Hans-Werner Fischer-Elfert &amp; Peter Dils by order of the Sächsische Akademie der Wissenschaften zu Leipzig (accessed: </span>
+					<span id="current-date-long">xx.xx.20xx</span>)
+				</blockquote>
+				(<em>Short citation</em>)
+				<blockquote id="short-citation">
+					<span>https://thesaurus-linguae-aegyptiae.de/lemma/d2193, in: </span>
+					<span style="font-style: italic;">Thesaurus Linguae Aegyptiae</span>
+					(<span>accessed</span>: <span id="current-date-short">xx.xx.20xx</span>)
+				</blockquote>
+			  <script>
+					/*<![CDATA[*/
+               var pageLang = "en";
+					var date = new Date(); date.getUTCDate(); 
+					if (pageLang == 'de') {
+                  var today= date.getDate() + "." + (date.getMonth()+1) + "." + date.getFullYear();
+               } else {
+                  var today= (date.getMonth()+1) + "/" + date.getDate() + "/" + date.getFullYear();
+               }
+					document.getElementById('current-date-long').innerHTML =today;
+					document.getElementById('current-date-short').innerHTML =today;
+					/*]]>*/
+				</script>
+				<button type="button" class="btn btn-secondary btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document.getElementById('full-citation').textContent.replaceAll(/\s+/g,' '))"><i class="fas fa-clipboard"></i>&nbsp;<span>Copy citation</span></button>
+     </div>  
+    </div>
+
+        </div>  <!-- close content col-sm-12 -->
+
+				<!-- Sidebar large -->
+			<div class="sidebar col-lg-4 d-none d-lg-block">
+				<div class="sticky-top">
+					<div class="hide1Lemma-properties-buttons">
+      <!-- <input type="num_text" id="result" /> -->
+     
+      
+      
+          
+        <button type="button"
+            class="btn btn-secondary btn-block text-left" id="hide1Lemma-property-button-hieroglyphs">
+          <i class="fas fa-plus-circle" id="on"></i>
+          <i class="fas fa-minus-circle" id="off"></i>
+          <span>Hieroglyphs</span>
+          <script>
+            //<![CDATA[
+            {
+              let name = "hieroglyphs";
+              
+              let property = "hieroglyphs";
+              let subProperty = null;
+              let x="subcorpus";
+              let objectType = "lemma";
+              let button = $(`#hide1Lemma-property-button-${name}`);
+              let selector = `.result-list-item-element.${property}`;
+              let selector1 = `.${x}`;
+              if (subProperty != null) {
+                selector = `${selector} .${subProperty}`;
+                //selector1 = `${selector1} .${x}`;
+              }
+              
+              if(name!="hieroglyphs") {
+	                 button.children('i#on').toggle();
+
+              }
+              else {button.children('i#off').toggle();  $(selector).toggle();
+           
+              
+
+              }
+
+
+   if(name!="hieroglyphs") {
+	  
+       if ((getUserSetting(`${objectType}-results-hide1Lemma-property-${name}`) != 'true')) {
+	  
+	 // if (getCookie(`${name}`) == 'true') {
+           button.children('i').toggle();
+         $(selector).toggle();
+        }
+	  }    
+   else{
+	    if ((getUserSetting(`${objectType}-results-hide1Lemma-property-${name}`) != 'false')) {
+ 	  
+  	 // if (getCookie(`${name}`) == 'true') {
+      button.children('i').toggle();
+     
+          $(selector).toggle();
+      
+    }
+}
+
+                	  
+             
+              button.click(() => {
+            	  if(name=="hieroglyphs") {
+              
+            	 }
+            	  $(selector).fadeToggle('slow');
+
+                button.children('svg').toggle();
+                storeUserSetting(`${objectType}-results-hide1Lemma-property-${name}`,""+ button.children('svg#on').attr('style') == 'display: none;');
+              });
+            }
+            //]]>
+          </script>
+        </button>
+      
+          
+            
+          
+        
+          
+        <button type="button"
+            class="btn btn-secondary btn-block text-left" id="hide1Lemma-property-button-lemma-id">
+          <i class="fas fa-plus-circle" id="on"></i>
+          <i class="fas fa-minus-circle" id="off"></i>
+          <span>Lemma ID</span>
+          <script>
+            //<![CDATA[
+            {
+              let name = "lemma-id";
+              
+              let property = "lemma-id";
+              let subProperty = null;
+              let x="subcorpus";
+              let objectType = "lemma";
+              let button = $(`#hide1Lemma-property-button-${name}`);
+              let selector = `.result-list-item-element.${property}`;
+              let selector1 = `.${x}`;
+              if (subProperty != null) {
+                selector = `${selector} .${subProperty}`;
+                //selector1 = `${selector1} .${x}`;
+              }
+              
+              if(name!="hieroglyphs") {
+	                 button.children('i#on').toggle();
+
+              }
+              else {button.children('i#off').toggle();  $(selector).toggle();
+           
+              
+
+              }
+
+
+   if(name!="hieroglyphs") {
+	  
+       if ((getUserSetting(`${objectType}-results-hide1Lemma-property-${name}`) != 'true')) {
+	  
+	 // if (getCookie(`${name}`) == 'true') {
+           button.children('i').toggle();
+         $(selector).toggle();
+        }
+	  }    
+   else{
+	    if ((getUserSetting(`${objectType}-results-hide1Lemma-property-${name}`) != 'false')) {
+ 	  
+  	 // if (getCookie(`${name}`) == 'true') {
+      button.children('i').toggle();
+     
+          $(selector).toggle();
+      
+    }
+}
+
+                	  
+             
+              button.click(() => {
+            	  if(name=="hieroglyphs") {
+              
+            	 }
+            	  $(selector).fadeToggle('slow');
+
+                button.children('svg').toggle();
+                storeUserSetting(`${objectType}-results-hide1Lemma-property-${name}`,""+ button.children('svg#on').attr('style') == 'display: none;');
+              });
+            }
+            //]]>
+          </script>
+        </button>
+      
+          
+            
+          
+        
+          
+        <button type="button"
+            class="btn btn-secondary btn-block text-left" id="hide1Lemma-property-button-wordClass">
+          <i class="fas fa-plus-circle" id="on"></i>
+          <i class="fas fa-minus-circle" id="off"></i>
+          <span>Word class</span>
+          <script>
+            //<![CDATA[
+            {
+              let name = "wordClass";
+              
+              let property = "wordClass";
+              let subProperty = null;
+              let x="subcorpus";
+              let objectType = "lemma";
+              let button = $(`#hide1Lemma-property-button-${name}`);
+              let selector = `.result-list-item-element.${property}`;
+              let selector1 = `.${x}`;
+              if (subProperty != null) {
+                selector = `${selector} .${subProperty}`;
+                //selector1 = `${selector1} .${x}`;
+              }
+              
+              if(name!="hieroglyphs") {
+	                 button.children('i#on').toggle();
+
+              }
+              else {button.children('i#off').toggle();  $(selector).toggle();
+           
+              
+
+              }
+
+
+   if(name!="hieroglyphs") {
+	  
+       if ((getUserSetting(`${objectType}-results-hide1Lemma-property-${name}`) != 'true')) {
+	  
+	 // if (getCookie(`${name}`) == 'true') {
+           button.children('i').toggle();
+         $(selector).toggle();
+        }
+	  }    
+   else{
+	    if ((getUserSetting(`${objectType}-results-hide1Lemma-property-${name}`) != 'false')) {
+ 	  
+  	 // if (getCookie(`${name}`) == 'true') {
+      button.children('i').toggle();
+     
+          $(selector).toggle();
+      
+    }
+}
+
+                	  
+             
+              button.click(() => {
+            	  if(name=="hieroglyphs") {
+              
+            	 }
+            	  $(selector).fadeToggle('slow');
+
+                button.children('svg').toggle();
+                storeUserSetting(`${objectType}-results-hide1Lemma-property-${name}`,""+ button.children('svg#on').attr('style') == 'display: none;');
+              });
+            }
+            //]]>
+          </script>
+        </button>
+      
+          
+            
+          
+        
+      </div>
+					  <button class="btn btn-block btn-secondary text-left text-decoration-none show-detail languages-btn" type="button" >Translation</button>
+					  <div class="indented-buttons indented-buttons-lang hide" style="display: block;">
+						 <div class="show-properties-buttons">
+ 
+       
+        
+          
+        <button type="button"
+            class="btn btn-secondary btn-block text-left text-decoration-none show-detail" id="show-property-button-de">
+           
+          <i class="fas fa-plus-circle" id="on"></i>
+          <i class="fas fa-minus-circle" id="off"></i>
+          <span>German</span>
+          <script>
+            //<![CDATA[
+            {
+              let name = "de";
+              let x="tr-"+"de";
+              let subProperty = "translation-"+"de";
+              //let property ="translation"+ /*"de"*/ null;
+              let property ="translations";
+             // let subProperty = /*null*/ null;
+              let objectType = "lemma";
+             
+              let button = $(`#show-property-button-${name}`);
+             
+              let selector = `.result-list-item-element.${property}`;
+              let selector1 = `.result-list-item-element.${property}`;
+            
+             
+              if (subProperty != null) {
+                selector = `${selector} .${subProperty}`;
+                selector1 = `${selector1} .${x}`;
+              }
+              if(name!="de") {
+            	                 button.children('i#on').toggle();
+              }
+              else {button.children('i#off').toggle(); $(selector1).toggle(); $(selector).toggle();
+             
+              }
+             
+              
+              
+             // else {button.children('i#off').toggle(); $(selector1).toggle(); $(selector).toggle();}
+              if(name!="de") {
+                       if ((getUserSetting(`${objectType}-results-show-property-${name}`) != 'true')) {
+            	  
+            	 // if (getCookie(`${name}`) == 'true') {
+                          button.children('i').toggle();
+                         $(selector1).toggle();$(selector).toggle();
+                       }
+            	  }    
+                  else{
+            	    if ((getUserSetting(`${objectType}-results-show-property-${name}`) != 'false')) {
+                	  
+                 	 // if (getCookie(`${name}`) == 'true') {
+                     button.children('i').toggle();
+                     $(selector1).toggle();$(selector).toggle();
+                   }
+              }
+              
+           
+              button.click(() => {
+            	  $(selector1).fadeToggle('slow');$(selector).fadeToggle('slow');
+                button.children('svg').toggle();
+              storeUserSetting(`${objectType}-results-show-property-${name}`,""+ button.children('svg#on').attr('style') == 'display: none;');
+              });
+            }
+            //]]>
+          </script>
+        </button>
+      
+          
+            
+          
+        
+          
+        <button type="button"
+            class="btn btn-secondary btn-block text-left text-decoration-none show-detail" id="show-property-button-en">
+           
+          <i class="fas fa-plus-circle" id="on"></i>
+          <i class="fas fa-minus-circle" id="off"></i>
+          <span>English</span>
+          <script>
+            //<![CDATA[
+            {
+              let name = "en";
+              let x="tr-"+"en";
+              let subProperty = "translation-"+"en";
+              //let property ="translation"+ /*"en"*/ null;
+              let property ="translations";
+             // let subProperty = /*null*/ null;
+              let objectType = "lemma";
+             
+              let button = $(`#show-property-button-${name}`);
+             
+              let selector = `.result-list-item-element.${property}`;
+              let selector1 = `.result-list-item-element.${property}`;
+            
+             
+              if (subProperty != null) {
+                selector = `${selector} .${subProperty}`;
+                selector1 = `${selector1} .${x}`;
+              }
+              if(name!="de") {
+            	                 button.children('i#on').toggle();
+              }
+              else {button.children('i#off').toggle(); $(selector1).toggle(); $(selector).toggle();
+             
+              }
+             
+              
+              
+             // else {button.children('i#off').toggle(); $(selector1).toggle(); $(selector).toggle();}
+              if(name!="de") {
+                       if ((getUserSetting(`${objectType}-results-show-property-${name}`) != 'true')) {
+            	  
+            	 // if (getCookie(`${name}`) == 'true') {
+                          button.children('i').toggle();
+                         $(selector1).toggle();$(selector).toggle();
+                       }
+            	  }    
+                  else{
+            	    if ((getUserSetting(`${objectType}-results-show-property-${name}`) != 'false')) {
+                	  
+                 	 // if (getCookie(`${name}`) == 'true') {
+                     button.children('i').toggle();
+                     $(selector1).toggle();$(selector).toggle();
+                   }
+              }
+              
+           
+              button.click(() => {
+            	  $(selector1).fadeToggle('slow');$(selector).fadeToggle('slow');
+                button.children('svg').toggle();
+              storeUserSetting(`${objectType}-results-show-property-${name}`,""+ button.children('svg#on').attr('style') == 'display: none;');
+              });
+            }
+            //]]>
+          </script>
+        </button>
+      
+          
+            
+          
+        
+          
+        <button type="button"
+            class="btn btn-secondary btn-block text-left text-decoration-none show-detail" id="show-property-button-fr">
+           
+          <i class="fas fa-plus-circle" id="on"></i>
+          <i class="fas fa-minus-circle" id="off"></i>
+          <span>French</span>
+          <script>
+            //<![CDATA[
+            {
+              let name = "fr";
+              let x="tr-"+"fr";
+              let subProperty = "translation-"+"fr";
+              //let property ="translation"+ /*"fr"*/ null;
+              let property ="translations";
+             // let subProperty = /*null*/ null;
+              let objectType = "lemma";
+             
+              let button = $(`#show-property-button-${name}`);
+             
+              let selector = `.result-list-item-element.${property}`;
+              let selector1 = `.result-list-item-element.${property}`;
+            
+             
+              if (subProperty != null) {
+                selector = `${selector} .${subProperty}`;
+                selector1 = `${selector1} .${x}`;
+              }
+              if(name!="de") {
+            	                 button.children('i#on').toggle();
+              }
+              else {button.children('i#off').toggle(); $(selector1).toggle(); $(selector).toggle();
+             
+              }
+             
+              
+              
+             // else {button.children('i#off').toggle(); $(selector1).toggle(); $(selector).toggle();}
+              if(name!="de") {
+                       if ((getUserSetting(`${objectType}-results-show-property-${name}`) != 'true')) {
+            	  
+            	 // if (getCookie(`${name}`) == 'true') {
+                          button.children('i').toggle();
+                         $(selector1).toggle();$(selector).toggle();
+                       }
+            	  }    
+                  else{
+            	    if ((getUserSetting(`${objectType}-results-show-property-${name}`) != 'false')) {
+                	  
+                 	 // if (getCookie(`${name}`) == 'true') {
+                     button.children('i').toggle();
+                     $(selector1).toggle();$(selector).toggle();
+                   }
+              }
+              
+           
+              button.click(() => {
+            	  $(selector1).fadeToggle('slow');$(selector).fadeToggle('slow');
+                button.children('svg').toggle();
+              storeUserSetting(`${objectType}-results-show-property-${name}`,""+ button.children('svg#on').attr('style') == 'display: none;');
+              });
+            }
+            //]]>
+          </script>
+        </button>
+      
+          
+            
+          
+        
+        
+      </div>
+					</div>
+            <div class="hide2Lemma-properties-buttons">
+      <!-- <input type="num_text" id="result" /> -->
+        
+      
+      
+          
+        <button type="button"
+            class="btn btn-secondary btn-block text-left" id="hide2Lemma-property-button-attested-timespan">
+          <i class="fas fa-plus-circle" id="on"></i>
+          <i class="fas fa-minus-circle" id="off"></i>
+          <span>Attestation time</span>
+          <script>
+            //<![CDATA[
+            {
+              let name = "attested-timespan";
+              
+              let property = "attested-timespan";
+              let subProperty = null;
+              let objectType = "lemma";
+              let button = $(`#hide2Lemma-property-button-${name}`);
+              let selector = `.result-list-item-element.${property}`;
+              if (subProperty != null) {
+                selector = `${selector} .${subProperty}`;
+              }
+              
+            
+             button.children('i#on').toggle(); 
+             //$(selector).toggle();
+
+                	  if ((getUserSetting(`${objectType}-results-hide2Lemma-property-${name}`) != 'true')){
+                    	  
+                     	 // if (getCookie(`${name}`) == 'true') {
+                         button.children('i').toggle();
+                        $(selector).toggle();
+                       }
+             
+              button.click(() => {
+                $(selector).fadeToggle('slow');
+
+                button.children('svg').toggle();
+                storeUserSetting(`${objectType}-results-hide2Lemma-property-${name}`,""+ button.children('svg#on').attr('style') == 'display: none;');
+              });
+            }
+            //]]>
+          </script>
+        </button>
+      
+          
+            
+          
+        
+          
+        <button type="button"
+            class="btn btn-secondary btn-block text-left" id="hide2Lemma-property-button-bibliography">
+          <i class="fas fa-plus-circle" id="on"></i>
+          <i class="fas fa-minus-circle" id="off"></i>
+          <span>Bibliographical references</span>
+          <script>
+            //<![CDATA[
+            {
+              let name = "bibliography";
+              
+              let property = "bibliography";
+              let subProperty = null;
+              let objectType = "lemma";
+              let button = $(`#hide2Lemma-property-button-${name}`);
+              let selector = `.result-list-item-element.${property}`;
+              if (subProperty != null) {
+                selector = `${selector} .${subProperty}`;
+              }
+              
+            
+             button.children('i#on').toggle(); 
+             //$(selector).toggle();
+
+                	  if ((getUserSetting(`${objectType}-results-hide2Lemma-property-${name}`) != 'true')){
+                    	  
+                     	 // if (getCookie(`${name}`) == 'true') {
+                         button.children('i').toggle();
+                        $(selector).toggle();
+                       }
+             
+              button.click(() => {
+                $(selector).fadeToggle('slow');
+
+                button.children('svg').toggle();
+                storeUserSetting(`${objectType}-results-hide2Lemma-property-${name}`,""+ button.children('svg#on').attr('style') == 'display: none;');
+              });
+            }
+            //]]>
+          </script>
+        </button>
+      
+          
+            
+          
+        
+      </div>
+			</div>
+        </div>
+      </div>
+    </div>
+   </section>
+</article>
