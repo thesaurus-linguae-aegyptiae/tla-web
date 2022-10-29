@@ -59,7 +59,7 @@ public class GlyphsLemma {
                 .svg(Util.jseshRender(dto.getMdcCompact(), rubrum))
                 .build();
         } else {
-        	System.out.println("Lemma DTO EMPTY");
+        	//System.out.println("Lemma DTO EMPTY");
             return GlyphsLemma.EMPTY;
         }
     }

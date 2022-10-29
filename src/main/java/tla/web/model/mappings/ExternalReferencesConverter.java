@@ -41,8 +41,8 @@ public class ExternalReferencesConverter extends AbstractConverter<
     private String formatLink(String provider, String id, String type) {
         assert linkFormatters != null;
         if (linkFormatters.containsKey(provider)) {
-        	System.out.println(" link  for provider {}"+ linkFormatters.get(provider)+" id "+id+" type "+type);
-        	System.out.println ("link "+ linkFormatters.get(provider).format(id, type));
+        	//System.out.println(" link  for provider {}"+ linkFormatters.get(provider)+" id "+id+" type "+type);
+        	//System.out.println ("link "+ linkFormatters.get(provider).format(id, type));
             return linkFormatters.get(provider).format(id, type);
         }
         log.debug("no link format configuration for provider {}", provider);
@@ -95,7 +95,7 @@ public class ExternalReferencesConverter extends AbstractConverter<
                 }
             );
         }
-        System.out.println("Converted "+res.values());
+        //System.out.println("Converted "+res.values());
         return res;
     }
 }
