@@ -199,6 +199,29 @@
         <p class="text-secondary development-msg">
            <i class="fas fa-wrench"></i> (<span th:utext="#{msg_sentences_page}">Sentence page is currently being implemented.</span>)
         </p>
+        
+        <!--  -->
+        
+           
+        <hr/> 
+        <th:block th:if="${obj.relations != null}">
+         
+          <div th:unless="${obj.relations.parts} == null" class="sentences">
+           <!--   <strong class="details-property-label" th:text="#{object_property_editors}">Further editor(s)</strong>:-->
+            <span th:each="sent, nr : ${obj.relations.parts}" >
+            <a th:href="@{/sentence/{id}(id=${sent.id})}"><span th:utext="${nr.first} ? ${sent.id} : ', ' + ${sent.id}"> xxx</span>
+            </a></span>
+           <!--  <a th:href="|${@searchController.getSearchResultsPageRoute(@__sentenceController__)}|"> -->
+           
+          </div>
+          
+        </th:block>
+        
+        </div>
+    
+        <!--  -->
+        
+        
     </div>
     
 
