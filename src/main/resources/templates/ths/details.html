@@ -5,7 +5,7 @@
       xml:lang="en"
 >
   <head>
-    <title th:text="|${#strings.replace(obj.#strings.replace(obj.name,'〈',' '),'〉',' ')} (#{object_id_label_BTSThsEntry} ${obj.id})|"></title>
+    <title th:text="|${{'<shortlabel>' + obj.name + '</shortlabel>'}} (#{object_id_label_BTSThsEntry} ${obj.id})|"></title>
   </head>
 
   <body>

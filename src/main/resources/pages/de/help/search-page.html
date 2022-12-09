@@ -28,10 +28,7 @@
       </div>
 
       <h3 th:text="#{field_label_root_transliteration}">Wurzel</h3>
-      <div class="ml-sm-4 mb-3">
-         <p>In diesem <em>optionalen</em> Suchfeld können Sie die Transkription oder einen Teil einer <strong>Transkription einer Wurzel</strong> angeben, die das Lemma haben soll, nach dem Sie suchen wollen.</p>
-         <p>Um nach <strong>Wurzeln selbst</strong> zu suchen, wählen Sie die Wort-Klasse <code>Wurzel</code> und geben z.B. eine Transkription im Feld „<span th:text="#{field_label_transliteration}">Transkription</span>‟ ein (nicht im Feld „<span th:text="#{field_label_root_transliteration}">Wurzel</span>‟).</p>
-      </div>
+      <div class="ml-sm-4 mb-3" th:utext="#{modal_root_text}"></div>
 
       <h4 class="ml-sm-4" th:text="#{field_label_root_transliteration_encoding}">Wurzeltranskriptionskodierung</h4>
       <div class="ml-sm-4 mb-3">

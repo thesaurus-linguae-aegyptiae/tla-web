@@ -350,6 +350,7 @@
     <div th:fragment="object-paths(objectPaths, collapse)" class="object-paths">
       <div th:each="objectPath, outerIter : ${objectPaths}" class="object-path mt-2">
         <div th:each="item, iter : ${objectPath}" class="object-path-element">
+          <th:block th:if="${item.label} != null">
           <span th:class="|object-path-icon ${item.eclass} ${item.type}|"></span>
           <a th:if="${item.href} != null" th:href="${item.href}">
             <span th:utext="${{'<shortlabel>'+item.label+'</shortlabel>'}}">linked path segment</span>
@@ -357,6 +358,7 @@
           <span th:unless="${item.href} != null">
             <span th:utext="${{'<shortlabel>'+item.label+'</shortlabel>'}}">unlinked path segment</span>
           </span>
+          </th:block>
        </div>
       </div>
     </div>
@@ -506,9 +508,7 @@
     <div th:fragment="sentence-editor" class="result-list-item-element texteditors">
      	 <span th:if="*{getEdited}" th:with="formatter=#{date_formatter}">
 	     	  <strong th:utext="#{sentence_main_editor}"/>:
-	     	  <span th:utext="*{getEdited.author}"/> 
-			  <span th:if="*{getEdited.contributors}">
-				  ;
+	     	  <span th:utext="*{getEdited.author}"/><span th:if="*{getEdited.contributors}">;
 				  <span th:text="#{sentence_contributors} + ': '"/>
 				  <span th:each="contributor, nr : *{getEdited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/>
 			  </span>
