@@ -6,7 +6,7 @@
       layout:decorate="~{base}"
 >
   <head>
-    <title th:text="${obj.name} + ' (' + #{object_id_label_BTSLemmaEntry} + ' ' + ${obj.id} + ')'"></title>
+    <title th:text="${(obj.type == 'root') ? '&radic;' : ''} + ${obj.name} + ' (' + #{object_id_label_BTSLemmaEntry} + ' ' + ${obj.id} + ')'"></title>
   </head>
   
   <body>

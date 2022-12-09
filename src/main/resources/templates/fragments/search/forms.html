@@ -132,8 +132,8 @@
         th:action="@{${@searchController.getSearchResultsPageRoute(@__lemmaController__)}}"
         th:object="${lemmaSearchForm}" method="get">
       <div class="form-group row bg-grey">
-        <label class="col-form-label col-xl-2" th:text="#{field_label_script}">Script</label>
-        <div class="col-xl-10">
+        <label class="col-form-label col-xl-3" th:text="#{field_label_script}">Script</label>
+        <div class="col-xl-9">
           <div th:each="item : ${allScripts}" class="form-check form-check-inline lemma-script">
             <input class="form-check-input"   type="checkbox"  th:field="*{script}" th:value="${item}" />
             
@@ -151,8 +151,8 @@
       </div>
 
       <div class="form-group row">
-       <!--   <label class="col-form-label col-xl-2" for="transcription" th:text="#{field_label_transcription}">Transcription</label> -->
-         <label class="col-form-label col-xl-2" th:for="*{transcription}">
+       <!--   <label class="col-form-label col-xl-3" for="transcription" th:text="#{field_label_transcription}">Transcription</label> -->
+         <label class="col-form-label col-xl-3" th:for="*{transcription}">
         <span th:text="#{field_label_transliteration}">Transliteration </span>
         <a class="transliteration-help" href="#" role="button" data-toggle="modal" data-target="#transliteration-help">
         <i class="fas fa-info-circle"></i></a>
@@ -165,18 +165,18 @@
       <div th:replace=" :: type-spec('wordClass', 'lemmaSearchForm.wordClass', ${wordClasses})"/>
        
       <div class="form-group row">
-        <label  class="col-form-label col-xl-2" th:for="*{root}">
+        <label  class="col-form-label col-xl-3" th:for="*{root}">
         <span th:text="#{field_label_root_transliteration}">Root </span>
-        <a class="transliteration-help" href="#" role="button" data-toggle="modal" data-target="#transliteration-help">
+        <a class="root-help" href="#" role="button" data-toggle="modal" data-target="#root-help">
         <i class="fas fa-info-circle"></i></a>
         </label>
         
          
-        <div class="col-xl-10">
+        <div class="col-xl-9">
           <input class="bbaw-libertine form-control mb-3 keyboardInput" type="text" th:field="*{root}" lang="egy"/>
 			 <div class="form-check form-check-inline">
 							  <input class="form-check-input transcription-enc-btn" type="radio" name="root_enc" id="root_enc_unicode" value="unicode" checked disabled>
-							  <label class="form-check-label" for="root_enc_unicode" th:text="#{field_value_label_enc_unicode}">Unicode</label>
+							  <label class="form-check-label" for="root_enc_unicode" th:text="#{field_value_label_enc_unicode_only}">Unicode (only)</label>
 						</div>
 						<!--<div class="form-check form-check-inline">
 							  <input class="form-check-input transcription-enc-btn" type="radio" name="root_enc" id="root_enc_mdc" value="manuel_de_codage" >
@@ -202,11 +202,11 @@
       </div>
 
       <div class="form-group row">
-        <label class="col-form-label col-xl-2" th:for="*{bibliography}">
+        <label class="col-form-label col-xl-3" th:for="*{bibliography}">
 		 <span th:text="#{field_label_bibliography}">Bibliography</span>
 		<a class="transliteration-help" href="#" role="button" data-toggle="modal" data-target="#bibliography-help"><i class="fas fa-info-circle"></i></a>
 		</label>
-			<div class="col-xl-10">
+			<div class="col-xl-9">
           <input class="form-control" type="text" th:field="*{bibliography}"/>
         </div>
       </div>
@@ -234,6 +234,26 @@
       </div>
     </div>
   <!--   <input type="hidden" value="sortKey_asc" th:value="*{sort}" name='sort'/>-->
+  
+<div class="modal fade" id="root-help" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered"  pointer-events="all" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle" th:text="#{modal_root_title}">Root specification</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+           <div class="modal-body">
+           <span th:utext="#{modal_root_text}">...</span>
+          </div> 
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" th:text="#{modal_close}">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
 <div class="modal fade" id="bibliography-help" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered"  pointer-events="all" role="document">
@@ -332,10 +352,10 @@
     -->
     <div class="bg-grey form-group row col-xl-12"
         th:fragment="translation-spec(key, bind, languages)" th:object="${__${bind}__}">
-      <label class="col-form-label col-xl-2" th:for="|field-label-translation-${key}|" th:text="#{field_label_translation}">
+      <label class="col-form-label col-xl-3" th:for="|field-label-translation-${key}|" th:text="#{field_label_translation}">
         Translation
       </label>
-      <div class="col-xl-10">
+      <div class="col-xl-9">
         <input class="form-control mb-3"  type="text" th:field="*{translation.text}" th:id="|field-label-translation-${key}|"/>
         <div th:each="lang : ${languages}" class="form-check form-check-inline">
           <input class="form-check-input" type="radio" th:field="*{translation.lang}" th:value="${lang}"
@@ -354,7 +374,7 @@
     <!-- 
     Encodings -->
     
-    <div class="col-xl-10" th:fragment="transcription-spec(key, bind, encodings)" th:object="${__${bind}__}">
+    <div class="col-xl-9" th:fragment="transcription-spec(key, bind, encodings)" th:object="${__${bind}__}">
 				 <input type="text" class="bbaw-libertine form-control mb-3 keyboardInput" th:field="*{transcription.text}" th:id="dict-search-transcription" rows="3" name="transcription" lang="egy"/>
                  <div th:each="enc : ${encodings}" class="form-check form-check-inline">
 						 
@@ -377,8 +397,8 @@
     <!-- Type / Subtype selection multi-dropdown composite -->
 
    <div class="form-group row bg-grey" th:fragment="type-spec(name, bind, typeMap)" th:object="${__${bind}__}">
-        <label class="col-form-label col-xl-2" th:for="|${name}-type|" th:text="#{|field_label_${name}_type|}">Type/Subtype specification</label>
-        <div class="col-xl-10">
+        <label class="col-form-label col-xl-3" th:for="|${name}-type|" th:text="#{|field_label_${name}_type|}">Type/Subtype specification</label>
+        <div class="col-xl-9">
           <select class="form-control" th:id="|${name}-type|" th:field="*{type}">
            <option value=""/>
             <option th:each="type : ${typeMap}" th:value="${type.key}" th:text="#{|field_value_label_${name}_type_${type.key}|}" >Type
@@ -460,8 +480,8 @@
             <option th:each="subtype : ${type.value}" th:value="${subtype}" th:text="#{|field_value_label_${name}_subtype_${subtype}|}" th:selected="${subtype} == ${__${bind}__.subtype}">Subtype</option>
           </select>
         </div>
-        <label class="col-form-label col-xl-2" th:for="|${name}-subtype|" th:text="#{|field_label_${name}_subtype|}">Subtype</label>
-        <div class="col-xl-10">
+        <label class="col-form-label col-xl-3" th:for="|${name}-subtype|" th:text="#{|field_label_${name}_subtype|}">Subtype</label>
+        <div class="col-xl-9">
           <select class="form-control" th:id="|${name}-subtype|" th:field="*{subtype}">
             <script th:inline="javascript">
               //<![CDATA[
