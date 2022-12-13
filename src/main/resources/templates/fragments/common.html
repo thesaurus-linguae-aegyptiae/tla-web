@@ -129,7 +129,7 @@
    
 	<div class="bg-light citation mt-2 mb-2" th:fragment="citation-website">
 		<p class="h6"><strong th:text="#{citeas_website_heading}">Please cite this website as</strong>:</p>
-		<blockquote id="full-citation"><span style="font-style: italic;" th:text="#{tla_Title}"></span> <span th:text="' <' + ${env.baseUrl} +'>, ' + #{citeas_corpus_version} + ' ' + #{tla_corpusversion} + ', ' + #{citeas_tla_version} + ' ' + #{tla_version} + ', ' + #{tla_ReleaseDate} + ', ' + #{citeas_editor} +' ' + #{tla_Editor} + ' ('+ #{citeas_accessed}+ ': '"></span>
+		<blockquote id="full-citation"><i th:text="#{tla_Title}"></i> <span th:text="' <' + ${env.baseUrl} +'>, ' + #{citeas_corpus_version} + ' ' + #{tla_corpusversion} + ', ' + #{citeas_tla_version} + ' ' + #{tla_version} + ', ' + #{tla_ReleaseDate} + ', ' + #{citeas_editor} +' ' + #{tla_Editor} + ' ('+ #{citeas_accessed}+ ': '"></span>
 			<span id="current-date">xx.xx.20xx</span>)
 		</blockquote>
 			  <script th:inline="javascript">
@@ -147,27 +147,27 @@
 		<button type="button" class="btn btn-secondary btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document.getElementById('full-citation').textContent.replaceAll(/\s+/g,' '))"><span class="fas fa-clipboard"></span>&nbsp;<span th:text="#{citeas_copy_button}">Copy citation</span></button>
 	</div>  
 
-   <div th:fragment="static-page-citationBox" id="static-page-citationBox" class="bg-light citation m-sm-2 m-lg-4"> 
+   <div th:fragment="static-page-citationBox(author,contributors)" id="static-page-citationBox" class="bg-light citation m-sm-2 m-lg-4"> 
     	<div class="bg-light citation  m-sm-1 m-lg-2"> 
          <p class="h6" ><strong th:text="#{citeas_heading}">Please cite as</strong>:</p>
 				(<em th:text="#{citeas_full}">Full citation</em>)
-				<blockquote id="full-citation"><span id="full-citation-title"></span>, in:
-					<span style="font-style: italic;" th:text="#{tla_Title}"></span>  
-					<span th:text="' <' + ${env.baseUrl} +'>, ' + #{citeas_corpus_version} + ' ' + #{tla_corpusversion} + ', ' + #{citeas_tla_version} + ' ' + #{tla_version} + ', ' + #{tla_ReleaseDate} + ', ' + #{citeas_editor} +' ' + #{tla_Editor} + ' ('+ #{citeas_accessed} + ': '"></span>
+				<blockquote id="full-citation"><span th:text="${author}">author</span><span th:unless="${contributors} == ''" class="editors">, <span class="details-property-label" th:text="#{object_property_editors}">contributors</span> <span th:text="${contributors}"/></span>, 
+            <span id="full-citation-title"></span>, in:
+					<i th:text="#{tla_Title}"></i>, 
+					<span th:text="#{citeas_corpus_version} + ' ' + #{tla_corpusversion} + ', ' + #{citeas_tla_version} + ' ' + #{tla_version} + ', ' + #{tla_ReleaseDate} + ', ' + #{citeas_editor} +' ' + #{tla_Editor} + ' ('+ #{citeas_accessed} + ': '"></span>
 					<span id="current-date-long">xx.xx.20xx</span>)
 				</blockquote>
 				(<em th:text="#{citeas_short}">Short citation</em>)
 				<blockquote id="short-citation">
 					<span id="short-citation-title"></span>, in:
-					<span style="font-style: italic;" th:text="#{tla_Title}">Thesaurus Linguae Aegpyi</span>
+					<span style="font-style: italic;" th:text="#{tla_Title}">Thesaurus Linguae Aegpyiae</span>
 					(<span th:text="#{citeas_accessed}"></span>: <span id="current-date-short">xx.xx.20xx</span>)
 				</blockquote>
 			  <script th:inline="javascript">
 					/*<![CDATA[*/
 					var baseUrl = /*[[${env.baseUrl}]]*/ "https://thesaurus-linguae-aegyptiae.de";
                document.getElementById('short-citation-title').innerHTML = baseUrl + window.location.pathname;
-               document.getElementById('full-citation-title').innerHTML =document.getElementById('page-title').innerHTML + " &lt;" + baseUrl + window.location.pathname + "&gt;";
-               
+               document.getElementById('full-citation-title').innerHTML = "&quot;" + document.getElementById('page-title').innerHTML + "&quot; &lt;" + baseUrl + window.location.pathname + "&gt;";
                var pageLang = /*[[${env.lang}]]*/ 'en';
 					var date = new Date(); date.getUTCDate(); 
 					if (pageLang == 'de') {

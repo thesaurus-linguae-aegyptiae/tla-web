@@ -5032,8 +5032,7 @@
 		</table>
 	</section>
    <footer>
-      <p class="credits" th:with="formatter=#{date_formatter}">Text: A.Böhme, S.Diepold, A.Grischeck, V.Rätzke, S.D.Schweitzer, J.Treptow, Anja Weber, D.A.Werning, V.Zampedri
-      <br/><span th:text="#{state_of}">state of</span>: <span th:text="${#calendars.format(#calendars.create(2021,12,6), formatter)}">6.12.2021</span>.</p>
-      <div th:replace="fragments/common :: static-page-citationBox"/>
+      <p class="credits" th:with="formatter=#{date_formatter}"><span th:text="#{state_of}">state of</span>: <span th:text="${#calendars.format(#calendars.create(2021,12,6), formatter)}">6.12.2021</span>.</p>
+      <div th:replace="fragments/common :: static-page-citationBox('Angela Böhme, Sophie Diepold, Anne Grischeck, Vivian Rätzke, Simon D. Schweitzer, Jonas Treptow, Anja Weber, Veronica Zampedri', 'Daniel A.Werning')"/>
    </footer>
 </article>
