@@ -196,6 +196,7 @@ a.navbar-brand {
     color: var(--BBAWmiddlegrey);
 }
 
+#tla-version > a,
 #breadcrumbs .language > a.active {
     color: var(--BBAWdarkgrey);
     font-weight : bold;
