@@ -106,7 +106,7 @@
 
       <!-- Block view -->
         <div class="sentence-line-mode" >
-          <div class="occ-list-item mt-3 pt-1 pb-1">
+          <div class="occ-list-item mt-sm-3 py-sm-1">
             <th:block th:if="${hasGlyphs}">
 			    <th:block th:if="${isArtificiallyAligned}"><a th:replace="fragments/common :: artificial-alignment"></a></th:block>
               <div th:replace="fragments/common :: sentence-hieroglyphs"/>
@@ -117,7 +117,7 @@
         
         <!-- Annotation view --> 
         <div class="container-annotation-switch">
-          <div class="mt-3 pt-1 pb-1">
+          <div class="mt-sm-3 py-sm-1">
             <div class="container-annotation">
 				         <div th:each="token : *{tokens}"  th:id="|block-${token.id}|">
 								<!--Bug: ul/li-Struktur ungültig-->
@@ -215,7 +215,7 @@
      
 	<!-- DOPPELUNG
 	<div th:fragment="sentence-search-result_anno" class="result-list-item" th:object="${obj}">
-        <div class="occ-list-item mt-3 pt-1 pb-1">
+        <div class="occ-list-item mt-sm-3 py-sm-1">
           <div class="container-annotation-switch">
             <div class="container-annotation">
 				         <div th:each="token : *{tokens}" th:id="${token.id}">
@@ -292,7 +292,7 @@
           <form th:replace="fragments/search/forms :: #lemma-search"/>
         </div>
 
-        <div class="input-group mb-3">
+        <div class="input-group mb-sm-3">
           <div class="input-group-prepend">
             <label class="input-group-text" for="select-sort-order" th:text="#{field_label_sort_order}">Order by</label>
           </div>
@@ -935,7 +935,7 @@
 
       <!-- result page description -->
 
-      <div class="result-page-desc col-md-8" th:object="${pagination}" th:fragment="result-page-desc">  
+      <div class="result-page-desc" th:object="${pagination}" th:fragment="result-page-desc">  
         <span th:text="#{result_page_description_left}">Results</span>:
         <b class="mx-1" th:text="|*{fromResult} - *{toResult}|">1 - 24</b>
         <span class="font-italic" th:text="#{result_page_description_middle}">of</span>

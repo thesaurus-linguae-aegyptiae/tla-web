@@ -27,19 +27,20 @@
     <div class="hidden-content hide-content" th:if="${lemmaID} != null AND ${lemmaID} != ''">
 
       <!-- result page heading -->
-      <div class="search-header row mb-3">
-         <div class="col-sm-12 col-md-6 rcol-lg-6 result">
-            <h2 class="id mt-1" th:text="#{result_page_title_sentence}">Sentence Search Results</h2> 
-            <div class="ml-3 flex"><strong th:text="#{result_page_description_query}">Search parameter</strong>: 
-					<span id="queryLemmaIDHeader" th:text="#{field_label_lemma_id}"> </span> = 
-					<span id="queryLemmaID" th:text="${lemmaID}"> </span>
-             </div>
+      <div class="search-header row mb-sm-3 d-flex justify-content-between">
+         <div class="result">
+            <h2 class="id mt-sm-1" th:text="#{result_page_title_sentence}">Sentence Search Results</h2> 
          </div>
         <div th:replace="fragments/common :: social('sentence-search-results')"/>
       </div>
-      <div th:if="${searchResults.size} > 0" >
-           <p th:replace="fragments/search/results :: result-page-desc"/>            
-           <p class="text-secondary development-msg ml-3">
+      
+      <div class="row ml-sm-2"><strong th:text="#{result_page_description_query}">Search parameter</strong>: 
+         <span id="queryLemmaIDHeader" th:text="#{field_label_lemma_id}"></span> = <span id="queryLemmaID" th:text="${lemmaID}"> </span>
+       </div>
+             
+      <div class="row ml-sm-2" th:if="${searchResults.size} > 0" >
+           <p th:replace="fragments/search/results :: result-page-desc"/>
+           <p class="text-secondary development-msg">
               <i class="fas fa-wrench"></i> (<span th:utext="#{msg_occurences_sorting}">Sorting being implemented.</span>)
            </p>
       </div>

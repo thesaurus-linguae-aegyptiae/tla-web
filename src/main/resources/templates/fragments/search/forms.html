@@ -10,7 +10,7 @@
       <fieldset class="form-group row">
         <label class="col-form-label col-xl-2" th:text="#{field_label_lemma_id}" for="id-search-lemma">Lemma ID</label>
         <div class="col-xl-10">
-          <input class="form-control mb-1 lemma-id" type="text" th:field="*{id}"
+          <input class="form-control mb-sm-1 lemma-id" type="text" th:field="*{id}"
               th:id="id-search-lemma" th:list="id-search-lemma-suggestions">
             <script th:replace="fragments/search/tools :: autocomplete('id-search-lemma')"></script>
           </input>
@@ -26,7 +26,7 @@
           Sentence ID
         </label>
         <div class="col-xl-10">
-          <input class="form-control mb-1 sentence-id" type="text" th:field="*{id}"
+          <input class="form-control mb-sm-1 sentence-id" type="text" th:field="*{id}"
               th:id="id-search-sentence" th:list="id-search-sentence-suggestions">
             <script th:replace="fragments/search/tools :: autocomplete('id-search-sentence')"></script>
           </input>
@@ -42,7 +42,7 @@
           Sentence ID
         </label>
         <div class="col-xl-10">
-          <input class="form-control mb-1 text-id" type="text" th:field="*{id}"
+          <input class="form-control mb-sm-1 text-id" type="text" th:field="*{id}"
               th:id="id-search-text" th:list="id-search-text-suggestions">
             <script th:replace="fragments/search/tools :: autocomplete('id-search-text')"></script>
           </input>
@@ -58,7 +58,7 @@
           Sentence ID
         </label>
         <div class="col-xl-10">
-          <input class="form-control mb-1 object-id" type="text" th:field="*{id}"
+          <input class="form-control mb-sm-1 object-id" type="text" th:field="*{id}"
               th:id="id-search-object" th:list="id-search-object-suggestions">
             <script th:replace="fragments/search/tools :: autocomplete('id-search-object')"></script>
           </input>
@@ -74,7 +74,7 @@
           Sentence ID
         </label>
         <div class="col-xl-10">
-          <input class="form-control mb-1 ths-id" type="text" th:field="*{id}"
+          <input class="form-control mb-sm-1 ths-id" type="text" th:field="*{id}"
               th:id="id-search-ths" th:list="id-search-ths-suggestions">
             <script th:replace="fragments/search/tools :: autocomplete('id-search-ths')"></script>
           </input>
@@ -102,7 +102,7 @@
       <div th:replace=" :: translation-spec('sentence', 'sentenceSearchForm', ${allTranslationLanguages})"/>
       <div>
         <!--<div class="form-group row">
-          <input class="form-control mb-3 col-xl-10" type="text" th:name="|passport['date.date.date'].values|"/>
+          <input class="form-control mb-sm-3 col-xl-10" type="text" th:name="|passport['date.date.date'].values|"/>
           <input class="form-check-input col-xl-2" type="checkbox" th:name="|passport['date.date.date'].expand|" value="true"/>
         </div>-->
         <fieldset th:each="token, i : *{tokens}" class="form-group row">
@@ -110,7 +110,7 @@
           <!--<label class="col-form-label col-xl-1" th:text="${token.empty}"></label>-->
           <div class="col-xl-10">
 
-            <input class="form-control mb-3 lemma-id" type="text" th:field="*{tokens[__${i.index}__].lemma.id}"
+            <input class="form-control mb-sm-3 lemma-id" type="text" th:field="*{tokens[__${i.index}__].lemma.id}"
                 th:id="|token-${i.index}-lemma|" th:list="|token-${i.index}-lemma-suggestions|">
               <script th:replace="fragments/search/tools :: autocomplete(__|token-${i.index}-lemma|__)"></script>
             </input>
@@ -119,14 +119,14 @@
 
           <label class="col-form-label col-xl-2" th:text="#{field_label_hieroglyphs}">Hieroglyphs</label>
           <div class="col-xl-10">
-            <input class="form-control mb-3" type="text" th:field="*{tokens[__${i.index}__].glyphs}"/>
+            <input class="form-control mb-sm-3" type="text" th:field="*{tokens[__${i.index}__].glyphs}"/>
           </div>
           <div th:replace=" :: translation-spec('token-__${i.index}__', 'sentenceSearchForm.tokens[__${i.index}__]', ${allTranslationLanguages})"/>
         </fieldset>
       </div>
     </form>
 
-    <!-- dictionary search form -->
+    <!-- lemma/dictionary search form -->
 
     <form id="lemma-search" name="lemma-search"
         th:action="@{${@searchController.getSearchResultsPageRoute(@__lemmaController__)}}"
@@ -173,7 +173,7 @@
         
          
         <div class="col-xl-9">
-          <input class="bbaw-libertine form-control mb-3 keyboardInput" type="text" th:field="*{root}" lang="egy"/>
+          <input class="bbaw-libertine form-control mb-sm-3 keyboardInput" type="text" th:field="*{root}" lang="egy"/>
 			 <div class="form-check form-check-inline">
 							  <input class="form-check-input transcription-enc-btn" type="radio" name="root_enc" id="root_enc_unicode" value="unicode" checked disabled>
 							  <label class="form-check-label" for="root_enc_unicode" th:text="#{field_value_label_enc_unicode_only}">Unicode (only)</label>
@@ -211,7 +211,7 @@
         </div>
       </div>
 
-      <div class="ml-2 mb-3"><th:block th:replace="fragments/common :: construction(#{msg_collocation_search})"></th:block></div>
+      <div class="ml-2 mb-sm-3"><th:block th:replace="fragments/common :: construction(#{msg_collocation_search})"></th:block></div>
 
 
       <!--  <div th:replace=" :: type-spec('annotation-type', 'lemmaSearchForm.anno', ${lemmaAnnotationTypes})"/>-->
@@ -286,7 +286,7 @@
     -->
         <div th:fragment="submit-form-button(form)" th:with="formId=|${form.key}-search|">
        
-      <button class="btn btn-block btn-danger text-left text-decoration-none mt-4 mb-2"
+      <button class="btn btn-block btn-danger text-left text-decoration-none mt-sm-4 mb-sm-2"
           th:id="|submit-${formId}|"
           th:form="${formId}" type="submit">
       
@@ -356,7 +356,7 @@
         Translation
       </label>
       <div class="col-xl-9">
-        <input class="form-control mb-3"  type="text" th:field="*{translation.text}" th:id="|field-label-translation-${key}|"/>
+        <input class="form-control mb-sm-3"  type="text" th:field="*{translation.text}" th:id="|field-label-translation-${key}|"/>
         <div th:each="lang : ${languages}" class="form-check form-check-inline">
           <input class="form-check-input" type="radio" th:field="*{translation.lang}" th:value="${lang}"
               th:id="|field-value-translation-checkbox-${lang}-${key}|"/>
@@ -375,7 +375,7 @@
     Encodings -->
     
     <div class="col-xl-9" th:fragment="transcription-spec(key, bind, encodings)" th:object="${__${bind}__}">
-				 <input type="text" class="bbaw-libertine form-control mb-3 keyboardInput" th:field="*{transcription.text}" th:id="dict-search-transcription" rows="3" name="transcription" lang="egy"/>
+				 <input type="text" class="bbaw-libertine form-control mb-sm-3 keyboardInput" th:field="*{transcription.text}" th:id="dict-search-transcription" rows="3" name="transcription" lang="egy"/>
                  <div th:each="enc : ${encodings}" class="form-check form-check-inline">
 						 
 							  <input class="form-check-input transcription-enc-btn"  type="radio" name="transcription_enc" th:id="|transcription_enc_${enc}|" th:field="*{transcription.enc}" th:value="${enc}"/>

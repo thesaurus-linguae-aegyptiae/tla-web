@@ -181,8 +181,8 @@ a.navbar-brand {
 
 .breadcrumb {
     background-color: white;
-    padding: 1rem 0rem;
-    margin-bottom: 0;
+    padding: 0rem;
+    margin: 0.4rem 0rem;
 }
 
 .breadcrumb-item,
@@ -196,8 +196,9 @@ a.navbar-brand {
     color: var(--BBAWmiddlegrey);
 }
 
-.breadcrumb.language > a.active {
+#breadcrumbs .language > a.active {
     color: var(--BBAWdarkgrey);
+    font-weight : bold;
 }
 
 .cookie-wrapper {
@@ -1306,7 +1307,7 @@ span.multiselect-native-select select {
 /**************/
 /* Smartphone */
 /**************/
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 575px) {
 
     .container {
         max-width: 100% !important;
@@ -1398,6 +1399,35 @@ span.multiselect-native-select select {
     .result-list-item-element {
         display: block;
     }
+    
+/*
+.search .form-group {
+   padding : 0px!important;
+   padding-top: 0.2rem!important;
+   padding-bottom: 0.2rem!important;
+   margin : 0px!important;
+}
+.search .col-form-label,
+.search .form-control {
+   padding: 0px!important;
+   padding-left: 0.4rem!important;
+   margin: 0px!important;
+}
+*/
+
+#details-content hr  {
+    margin: 0.2rem !important;
+}
+
+.breadcrumb {
+   padding: 0;
+   margin: 0;
+}
+
+h2.id {
+    padding: 0 !important;
+}
+
 }
 
 

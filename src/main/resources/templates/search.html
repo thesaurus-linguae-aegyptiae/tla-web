@@ -7,8 +7,8 @@
 	
     <div layout:fragment="content">
 	
-		<div class="row mb-3">
-			<div class="col-6"><h2 class="id mt-1" th:text="#{menu_global_search}">Search</h2></div>
+		<div id="title-header" class="row mb-sm-3 d-flex justify-content-between">
+			<div><h2 class="id mt-sm-1" th:text="#{menu_global_search}">Search</h2></div>
 			<div th:replace="fragments/common :: page-help('search-page')"/>
 		</div>
 	
@@ -17,7 +17,7 @@
 				storeUserSetting(`form-field-${name}-select-${prop}`, $(`#${name}-${prop}`).val() )
         }
       </script>
-      <div class="row search my-4">
+      <div class="row search">
         <div class="col-lg-8 col-sm-12">
           <div class="accordion" id="search-forms-container">
 

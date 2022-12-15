@@ -3,41 +3,38 @@
 
 <body>
 
-    <!-- Object details page header (incl. social media stuff) -->
-    <div th:fragment="details-page-header" class="row mb-3 details-header">
-        <div th:replace=" :: review-state-header"/>
-        <div th:replace="fragments/common :: social('lemma-page')"/>
-   </div>
-
-    <!-- Object details page header (incl. social media stuff), shortened -->
-    <div th:fragment="details-page-header-short" class="row mb-3 details-header">
-        <div th:replace=" :: review-state-header-short"/>
-        <div th:replace="fragments/common :: social('ths-page')"/>
-   </div>
-
     <!-- Sentence page header (incl. social media stuff) -->
-    <div th:fragment="sentence-page-header" class="row mb-3 details-header">
-		<div id="title-header"
-				class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-between align-items-end">
-			<h2 class="id mt-1">
+    <div th:fragment="sentence-page-header" class="row mb-sm-3 d-flex justify-content-between details-header">
+		<div id="title-header">
+			<h2 class="id ml-3 mt-sm-1">
 			  <span class="words-breakable" th:text="#{object_id_label_BTSSentence} + ' ' + ${obj.id}">Sentence ID</span>
 			</h2>
 		</div>
 		<div th:replace="fragments/common :: social('sentence-page')"/>
    </div>
 
+    <!-- Object details page header (incl. social media stuff) -->
+    <div th:fragment="details-page-header" class="row mb-sm-3 d-flex justify-content-between details-header">
+        <div th:replace=" :: review-state-header"/>
+        <div th:replace="fragments/common :: social('lemma-page')"/>
+   </div>
+
+    <!-- Object details page header (incl. social media stuff), shortened -->
+    <div th:fragment="details-page-header-short" class="row d-flex justify-content-between mb-sm-3 details-header">
+        <div th:replace=" :: review-state-header-short"/>
+        <div th:replace="fragments/common :: social('ths-page')"/>
+   </div>
+
     <!-- Object details header (name && review state) -->
-    <div th:fragment="review-state-header" id="review-state-header"
-            class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-between align-items-end">
-        <h2 class="id mt-1">
+    <div th:fragment="review-state-header" id="review-state-header">
+        <h2 class="id ml-3 mt-sm-1">
            <span class="bbaw-libertine" th:utext="${(obj.type == 'root') ? '&radic;' : ''} + ${{'<label>'+obj.name+'</label>'}}">Object name</span><span class="words-breakable" th:utext="'(' + #{|object_id_label_${obj.eclass}|} +' ' + ${obj.id} +')'">Object ID</span>
         </h2>
     </div>
 
     <!-- Object details header (name && review state), shortened (<...>) -->
-    <div th:fragment="review-state-header-short" id="review-state-header-short"
-            class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-between align-items-end">
-        <h2 class="id mt-1">
+    <div th:fragment="review-state-header-short" id="review-state-header-short">
+        <h2 class="id ml-3 mt-sm-1">
            <span class="bbaw-libertine" th:utext="${(obj.type == 'root') ? '&radic;' : ''} + ${{'<shortlabel>'+obj.name+'</shortlabel>'}}">Object name</span><span class="words-breakable" th:utext="'(' + #{|object_id_label_${obj.eclass}|} +' ' + ${obj.id} +')'">Object ID</span>
         </h2>
     </div>
@@ -245,7 +242,7 @@
 			<div class="show-comment-button">
 				<button class="btn btn-sm btn-grey">Show Comment</button>
 			</div>
-			<div class="hide-comment-button mt-2 d-none">
+			<div class="hide-comment-button mt-sm-2 d-none">
 				<button class="btn btn-sm btn-grey">Hide Comment</button>
 			</div>
     </div>
