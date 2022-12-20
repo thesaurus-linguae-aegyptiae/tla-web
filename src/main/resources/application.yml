@@ -144,6 +144,7 @@ search:
                 - verb_caus_3-inf
                 - verb_caus_4-inf
                 - verb_irr
+            undefined: []
 
         annotation-types:
             lemma: []
