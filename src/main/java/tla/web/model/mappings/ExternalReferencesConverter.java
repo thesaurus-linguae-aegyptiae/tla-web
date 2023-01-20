@@ -69,7 +69,10 @@ public class ExternalReferencesConverter extends AbstractConverter<
                             	//System.out.println("dto id "+dto.getId()+  " "+dto.getClass() );
                             	
                             	//System.out.println("dto type "+dto.getType() );
-                            	if ((provider.equals("trismegistos")&&dto.getType().isEmpty())) dto.setType("text");
+                            	if (provider.equals("trismegistos")){
+                            		if (dto.getType()==null) dto.setType("text");
+                            		else if (dto.getType().isEmpty()) dto.setType("text");
+                            	}
                             	/*tla.web.model.parts.ExternalReference linkw=tla.web.model.parts.ExternalReference.builder().href(
                                         formatLink(
                                             provider,
