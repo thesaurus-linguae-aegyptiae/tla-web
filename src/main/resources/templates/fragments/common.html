@@ -240,7 +240,7 @@
           <i class="fa fa-share-alt share-results"></i></a>
       </div>
       <div class="functional-icons">
-        <a href="#" class="btn btn-red solo-icon text-secondary disabled" role="button" data-toggle="modal" data-target="#modal_comments">
+        <a href="#" class="btn btn-red solo-icon" role="button" data-toggle="modal" data-target="#modal_comments">
           <span class="mr-1" th:text="#{social-button-comment}">Comment</span>
           <i class="far fa-comment"></i></a>
       </div>
@@ -262,21 +262,21 @@
           <div class="modal-body">
              <input type="hidden" id="pageHREF" name="pageHREF" value="javascript:getCurrentHREF()"/><!--does this work, or do we need a separate script to change the value?-->
              <div class="input-group mb-sm-2">
-                <input type="text" class="form-control" disabled th:placeholder="#{modal_comment_name}" aria-label="Username" aria-describedby="basic-addon1">
+                <input type="text" class="form-control" th:placeholder="#{modal_comment_name}" aria-label="Username" aria-describedby="basic-addon1">
               </div>
              <div class="input-group mb-sm-2">
-                <input type="text" class="form-control" disabled th:placeholder="#{modal_comment_email}" aria-label="Username" aria-describedby="basic-addon1">
+                <input type="text" class="form-control" th:placeholder="#{modal_comment_email}" aria-label="Username" aria-describedby="basic-addon1">
               </div>
               
             <div class="input-group">           
-              <textarea class="form-control" disabled aria-label="With textarea" th:placeholder="#{modal_comment_content}"></textarea>
+              <textarea class="form-control" aria-label="With textarea" th:placeholder="#{modal_comment_content}"></textarea>
             </div>
               
           </div>
             
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" th:text="#{modal_close}">Close</button>
-            <button type="button" class="btn btn-secondary disabled not-allowed" disabled th:text="#{modal_send}">Send</button>
+            <button type="button" class="btn btn-secondary" th:text="#{modal_send}"  onClick="window.location.href='mailto:?subject=TLA,%20page&amp;body='+ encodeURIComponent(getCitation())">Send</button>
             <p class="modal-footer-text" th:utext="#{modal_comment_footer}">Thank you ....</p>
           </div>
         </div>
