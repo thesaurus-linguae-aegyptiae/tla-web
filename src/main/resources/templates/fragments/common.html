@@ -373,11 +373,12 @@
 			 <span th:unless="${token.lemma.id}"><th:block th:replace=" :: token-hieroglyphs"/></span>
 		</span>
 	   </p>
-			<!--<p class="bbaw-libertine mb-sm-2">
-			<span th:if="*{getGlyphs}">
-				<span th:utext="*{getGlyphs.unicode}"></span>
-			</span>
-			</p>-->
+			<p class="bbaw-libertine mb-sm-2">
+			<span th:if="*{glyphs}">
+          <!--<th:block th:replace=" :: sentence-hieroglyphs-string"/> JSesh, Problem: no line break-->
+          <th:block th:replace="fragments/details :: hieroglyphs-unicode-with-controls"/>
+        </span>
+			</p>
     </div>
 
     <!-- sentence transliteration -->
@@ -402,6 +403,11 @@
 		</span>
       </p>
     </div>
+
+    <!-- sentence hieroglyphs string -->
+    <th:block th:fragment="sentence-hieroglyphs-string">
+		<span th:if="*{glyphs.svg}" th:utext="*{glyphs.svg}" th:title="*{glyphs.mdcCompact}" class="token-glyphs" style="height: 14pt"></span>
+	 </th:block>
 
     <!-- token hieroglyphs -->
     <th:block th:fragment="token-hieroglyphs">

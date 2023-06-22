@@ -22,6 +22,7 @@ import tla.web.model.meta.BackendPath;
 import tla.web.model.meta.TLAObject;
 import tla.web.model.parts.Transcription;
 import tla.web.model.parts.Token;
+import tla.web.model.parts.GlyphsSentence;
 import tla.domain.model.ObjectReference;
 
 @Getter
@@ -34,6 +35,8 @@ public class Sentence extends TLAObject implements Hierarchic {
 	public static final String PASSPORT_PROP_DATE = "date.date.date";
 
     private SentenceContext context;
+    
+    private GlyphsSentence glyphs;
 
     private List<Token> tokens;
 
