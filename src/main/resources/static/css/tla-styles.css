@@ -12,6 +12,11 @@
     src: url('../font/EgyptianHiero3.03.woff');
 }
 
+@font-face {
+    font-family: "Egyptian Text";
+    font-style: normal;
+    src: url('../font/EgyptianText.ttf');
+}
 
 /*!
  * TLA - styles
@@ -515,6 +520,11 @@ span.lc:hover {
 
 .unicode-hieroglyphs {
     font-family: "EgyptianHiero";
+    vertical-align: middle;
+}
+
+.egyptian-text-unicode {
+    font-family: "Egyptian Text";
     vertical-align: middle;
 }
 

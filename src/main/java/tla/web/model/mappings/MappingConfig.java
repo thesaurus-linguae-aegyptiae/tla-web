@@ -18,6 +18,7 @@ import tla.domain.dto.meta.DocumentDto;
 import tla.domain.dto.meta.NamedDocumentDto;
 import tla.domain.model.SentenceToken;
 import tla.domain.dto.LemmaDto;
+import tla.domain.dto.SentenceDto;
 import tla.domain.model.meta.BTSeClass;
 import tla.domain.model.meta.TLADTO;
 import tla.web.config.ApplicationProperties;
@@ -26,7 +27,9 @@ import tla.web.model.meta.ModelClass;
 import tla.web.model.meta.TLAObject;
 import tla.web.model.parts.Glyphs;
 import tla.web.model.Lemma;
+import tla.web.model.Sentence;
 import tla.web.model.parts.GlyphsLemma;
+import tla.web.model.parts.GlyphsSentence;
 import tla.web.model.parts.Token;
 
 /**
@@ -68,6 +71,16 @@ public class MappingConfig {
         @Override
         protected GlyphsLemma convert(LemmaDto source) {
             return GlyphsLemma.of(
+                source.getGlyphs(),
+                false
+            );
+        }
+    }
+
+    private static class SentenceGlyphsConverter extends AbstractConverter<SentenceDto, GlyphsSentence> {
+        @Override
+        protected GlyphsSentence convert(SentenceDto source) {
+            return GlyphsSentence.of(
                 source.getGlyphs(),
                 false
             );
@@ -119,6 +132,12 @@ public class MappingConfig {
         modelMapper.createTypeMap(LemmaDto.class, Lemma.class).addMappings(
                 m -> m.using(new LemmaGlyphsConverter()).map(
                     dto -> dto, Lemma::setGlyphs
+                )
+            );
+
+        modelMapper.createTypeMap(SentenceDto.class, Sentence.class).addMappings(
+                m -> m.using(new SentenceGlyphsConverter()).map(
+                    dto -> dto, Sentence::setGlyphs
                 )
             );
         /* add mappings for registered model classes and apply base type mappings */
