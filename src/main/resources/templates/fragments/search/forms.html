@@ -5,6 +5,20 @@
 
     <!-- ID lookup search forms -->
 	<!-- ## um unterschiedliche actions zu ermöglichen, sind die ID-Suchen in drei forms verteilt, leider damit aktuell auch jeweils ein Reiter auf der Suchseite ## -->
+    <form id="token-id-search" name="token-id-search" th:object="${lemma}"
+        th:action="@{/token/lookup}" method="get">  <!--##warum muss da th:object="${lemma}" stehen nicht th:object="${token}"-->
+      <fieldset class="form-group row">
+        <label class="col-form-label col-xl-2" th:text="#{field_label_token_id}" for="id-search-token">Token ID</label>
+        <div class="col-xl-10">
+          <input class="form-control mb-sm-1 token-id" type="text" th:field="*{id}"
+              th:id="id-search-token" th:list="id-search-token-suggestions">
+            <script th:replace="fragments/search/tools :: autocomplete('id-search-token')"></script>
+          </input>
+          <datalist th:id="id-search-token-suggestions"/>
+        </div>
+      </fieldset>
+	  </form>
+
     <form id="lemma-id-search" name="lemma-id-search" th:object="${lemma}"
         th:action="@{/lemma/lookup}" method="get"> 
       <fieldset class="form-group row">
@@ -20,7 +34,7 @@
 	  </form>
 	  
     <form id="sentence-id-search" name="sentence-id-search" th:object="${lemma}"
-        th:action="@{/sentence/lookup}" method="get">
+        th:action="@{/sentence/lookup}" method="get"> <!--##warum muss da th:object="${lemma}" stehen nicht th:object="${sentence}"-->
       <fieldset class="form-group row bg-grey">
         <label class="col-form-label col-xl-2" th:text="#{field_label_sentence_id}" for="id-search-sentence">
           Sentence ID
@@ -94,7 +108,13 @@
         th:object="${objectSearchForm}" method="get">
       <div th:replace=" :: translation-spec('object', 'objectSearchForm', ${allTranslationLanguages})"/>
       </form>
-	  
+
+        <form id="token-search" name="token-search"
+        th:action="@{${@searchController.getSearchResultsPageRoute(@__objectController__)}}"
+        th:object="${tokenSearchForm}" method="get">
+      <div th:replace=" :: translation-spec('token', 'tokenSearchForm', ${allTranslationLanguages})"/>
+      </form>
+      
     <!-- sentence/occurrence search form -->
     <form id="sentence-search" name="sentence-search"
         th:action="@{${@searchController.getSearchResultsPageRoute(@__sentenceController__)}}"
