@@ -239,11 +239,13 @@
           <span class="mr-1 d-none d-sm-inline" th:text="#{social-button-share}">Share</span>
           <i class="fa fa-share-alt share-results"></i></a>
       </div>
+      <!-- ## email-Funktionalität noch nicht nutzbar ##
       <div class="functional-icons">
         <a href="#" class="btn btn-red solo-icon" role="button" data-toggle="modal" data-target="#modal_comments">
           <span class="mr-1" th:text="#{social-button-comment}">Comment</span>
           <i class="far fa-comment"></i></a>
       </div>
+      -->
       <!-- ## selected help pages th:if ## -->
       <th:block th:if="${helppage} == 'lemma-search-results' OR ${helppage} == 'sentence-search-results' OR ${helppage} == 'sentence-page'">
       <div th:replace=" :: help-button(${helppage})"/>
@@ -373,12 +375,14 @@
 			 <span th:unless="${token.lemma.id}"><th:block th:replace=" :: token-hieroglyphs"/></span>
 		</span>
 	   </p>
-			<p class="bbaw-libertine mb-sm-2">
-			<span th:if="*{glyphs}">
-          <!--<th:block th:replace=" :: sentence-hieroglyphs-string"/> JSesh, Problem: no line break-->
-          <th:block th:replace="fragments/details :: hieroglyphs-unicode-with-controls"/>
+			<!-- ### experimentelle Unicode-Hieroglyphen-Anzeige 
+         <p class="bbaw-libertine mb-sm-2">
+			<span th:if="*{glyphs}">-->
+           <!-- <th:block th:replace=" :: sentence-hieroglyphs-string"/> JSesh, Problem: no line break-->
+          <!--<th:block th:replace="fragments/details :: hieroglyphs-unicode-with-controls"/>
         </span>
 			</p>
+         -->
     </div>
 
     <!-- sentence transliteration -->
