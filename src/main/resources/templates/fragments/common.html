@@ -375,12 +375,14 @@
 			 <span th:unless="${token.lemma.id}"><th:block th:replace=" :: token-hieroglyphs"/></span>
 		</span>
 	   </p>
-			<p class="bbaw-libertine mb-sm-2">
-			<span th:if="*{glyphs}">
-          <!--<th:block th:replace=" :: sentence-hieroglyphs-string"/> JSesh, Problem: no line break-->
-          <th:block th:replace="fragments/details :: hieroglyphs-unicode-with-controls"/>
+			<!-- ### experimentelle Unicode-Hieroglyphen-Anzeige 
+         <p class="bbaw-libertine mb-sm-2">
+			<span th:if="*{glyphs}">-->
+           <!-- <th:block th:replace=" :: sentence-hieroglyphs-string"/> JSesh, Problem: no line break-->
+          <!--<th:block th:replace="fragments/details :: hieroglyphs-unicode-with-controls"/>
         </span>
 			</p>
+         -->
     </div>
 
     <!-- sentence transliteration -->
