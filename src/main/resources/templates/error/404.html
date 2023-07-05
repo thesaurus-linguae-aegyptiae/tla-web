@@ -30,7 +30,7 @@
 						<span class="text-monospace" th:text="'...' + ${url}">.../object/0000</span>
 					</h5>
 					<p class="error-msg text-muted" th:text="${msg}">Error description</p>
-               <div class="mt-3 text-secondary development-msg">
+              <th:div class="mt-3 text-secondary development-msg" th:if="${url} == '/lemma/10030' OR ${url} == '/lemma/10110'  OR ${url} == '/lemma/d2193'  OR ${url} == '/lemma/10050'  OR ${url} == '/lemma/400007'  OR ${url} == '/lemma/400055'  OR ${url} == '/lemma/79800'  OR ${url} == '/lemma/d1839'  OR ${url} == '/lemma/81660'  OR ${url} == '/lemma/28550'  OR ${url} == '/lemma/850814'">
                   <p><i class="fas fa-wrench"></i> Unfortunately, eleven highly frequent lemmata are currently not properly delivered in time by the server (timeout).<br/>These are</p>
                   <ul>
                      <li> For <span class="transliteration">=j</span> (lemma ID 10030), <a class="bg-warning" href="/lemmata-static/10030">follow this link</a>.</li>
@@ -46,7 +46,7 @@
                      <li> For <span class="transliteration">1...n</span> (lemma ID 850814), <a class="bg-warning" href="/lemmata-static/850814">follow this link</a>.</li>
                   </ul>
                   <p>We are struggeling to fix the problem.</p>
-               </div>
+               </th:div>
           </div>
         </div>
 
