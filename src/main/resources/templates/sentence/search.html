@@ -35,8 +35,8 @@
       </div>
       
       <div class="row ml-sm-2"><strong th:text="#{result_page_description_query}">Search parameter</strong>:&nbsp;
-         <span id="queryLemmaIDHeader" th:text="#{field_label_lemma_id}"></span> = <span id="queryLemmaID" th:text="${lemmaID}"> </span>
-         <span th:if="${lemmaID2} != null AND ${lemmaID2} != ''"  id="queryLemmaID2Header" th:text="', '+#{field_label_lemma_id}+' 2'"></span> = <span id="queryLemmaID2" th:text="${lemmaID2}"> </span>
+         <span id="queryLemmaIDHeader" th:text="#{field_label_lemma_id}+(${lemmaID2} != null AND ${lemmaID2} != ''?' 1':'')"></span> = <span id="queryLemmaID" th:text="${lemmaID}"> </span>
+         <th:block th:if="${lemmaID2} != null AND ${lemmaID2} != ''"><span  id="queryLemmaID2Header" th:text="', '+#{field_label_lemma_id}+' 2'"></span> = <span id="queryLemmaID2" th:text="${lemmaID2}"> </span></th:block>
        </div>
              
       <div class="row ml-sm-2" th:if="${searchResults.size} > 0">
