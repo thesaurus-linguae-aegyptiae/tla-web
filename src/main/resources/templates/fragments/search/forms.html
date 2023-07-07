@@ -126,8 +126,34 @@
       </div>
     </form>
 
-    <!-- lemma/dictionary search form -->
 
+    <!-- collocation search form -->
+    <form id="collocation-search" name="collocation-search"
+        th:action="@{${@searchController.getSearchResultsPageRoute(@__sentenceController__)}}"
+        th:object="${sentenceSearchForm}" method="get">
+       
+      <div class="form-group row">
+        <label class="col-form-label col-xl-3" for="collocation_lemma_1">
+          <span th:text="#{field_label_collocation_lemma_1}">Lemma ID 1</span>
+        </label>
+			<div class="col-xl-9">
+          <input class="form-control" type="text" th:field="*{tokens[0].lemma.id}" id="collocation_lemma_1"/>
+        </div>
+      </div>
+       <div class="form-group row">
+        <label class="col-form-label col-xl-3" for="collocation_lemma_2">
+          <span th:text="#{field_label_collocation_lemma_2}">Lemma ID 2</span>
+        </label>
+			<div class="col-xl-9">
+          <input class="form-control" type="text" th:field="*{tokens[1].lemma.id}" id="collocation_lemma_2"/>
+        </div>
+      </div>
+      
+      <div class="ml-2 mb-sm-3"><th:block th:replace="fragments/common :: construction(#{msg_collocation_search})"></th:block></div>
+    </form>
+
+
+    <!-- lemma/dictionary search form -->
     <form id="lemma-search" name="lemma-search"
         th:action="@{${@searchController.getSearchResultsPageRoute(@__lemmaController__)}}"
         th:object="${lemmaSearchForm}" method="get">
@@ -211,7 +237,7 @@
         </div>
       </div>
 
-      <div class="ml-2 mb-sm-3"><th:block th:replace="fragments/common :: construction(#{msg_collocation_search})"></th:block></div>
+      <div class="ml-2 mb-sm-3"><th:block th:replace="fragments/common :: construction(#{msg_hieroglyph_search})"></th:block></div>
 
 
       <!--  <div th:replace=" :: type-spec('annotation-type', 'lemmaSearchForm.anno', ${lemmaAnnotationTypes})"/>-->
