@@ -132,14 +132,29 @@
             </span>
         </p>
     </div>
+    
+    <!-- Object type -->
+    
+    <div class="object-type" th:fragment="object-type" id="object-type" th:unless="${#lists.isEmpty(obj.objType)}">
+        <hr/>
+      
+        <p>
+            <strong th:text="#{object_property_objecttype}" class="details-property-label">Original place</strong>:
+            <span th:each="otype, otypeStat : ${obj.objType}">
+                <span  th:text="${otype}"></span>
+                <span th:unless="${otypeStat.last}">, </span>
+            </span>
+        </p>
+    </div>
+ 
     <!-- Original place -->
     
-    <div class="origplace" th:fragment="origplace" id="origplace" th:unless="${#lists.isEmpty(obj.origplace)}">
+    <div class="origin" th:fragment="origin" id="origin" th:unless="${#lists.isEmpty(obj.origin)}">
         <hr/>
       
         <p>
             <strong th:text="#{object_property_origplace}" class="details-property-label">Original place</strong>:
-            <span th:each="orig, origStat : ${obj.origplace}">
+            <span th:each="orig, origStat : ${obj.origin}">
                 <span  th:text="${orig}"></span>
                 <!-- to be discussed what this info means (label)
                 <span th:if="${obj.isorig !=null}" class="details-property-label" th:text="'('+#{object_property_isorigplace}+')'">
@@ -151,14 +166,14 @@
         </p>
     </div>
     
-         <!-- present location -->
+    <!-- present location -->
     
-    <div class="presloc" th:fragment="presloc" id="presloc" th:unless="${#lists.isEmpty(obj.presloc)}">
+    <div class="present-location" th:fragment="present-location" id="present-location" th:unless="${#lists.isEmpty(obj.locations)}">
         <hr/>
       
         <p>
             <strong th:text="#{object_property_presentlocation}" class="details-property-label">Present Location</strong>:
-            <span th:each="ploc, plocStat : ${obj.presloc}">
+            <span th:each="ploc, plocStat : ${obj.locations}">
                 <span th:text="${ploc}"></span>
                 <span th:unless="${plocStat.last}">, </span>
             </span>
@@ -232,7 +247,9 @@
                    <span class="details-property-label" th:text="#{object_property_editors_author_commentary}">Commentary author</span>:
                    <span th:text="${annotation.edited.author}">author</span>, 
                 </th:block>
-                <span class="details-property-label" th:text="#{object_property_editors_updated}">Latest revision</span>:
+                <span class="details-property-label" th:text="#{object_property_editors_created}">File created</span>:
+                <span th:text="${#calendars.format(annotation.edited.created, formatter)}">xx.xx.20xx</span>, 
+                <span class="details-property-label" th:text="#{object_property_editors_updated}">latest revision</span>:
                 <span th:text="${#calendars.format(annotation.edited.updated, formatter)}">xx.xx.20xx</span>
             </p>
         </div>
@@ -256,8 +273,10 @@
              </span>
           </div>
           <div class="updated" th:with="formatter=#{date_formatter}">
-            <strong class="details-property-label" th:text="#{object_property_editors_updated}">Latest revision</strong>:
-            <span th:text="${#calendars.format(obj.edited.updated, formatter)}">date</span>
+            <strong class="details-property-label" th:text="#{object_property_editors_created}">File created</strong>:
+            <span th:text="${#calendars.format(obj.edited.created, formatter)}">xx.xx.20xx</span>, 
+            <strong class="details-property-label" th:text="#{object_property_editors_updated}">latest revision</strong>:
+            <span th:text="${#calendars.format(obj.edited.updated, formatter)}">xx.xx.20xx</span>
           </div>
         </th:block>
         <div class="review-state">
