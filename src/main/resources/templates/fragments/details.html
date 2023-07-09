@@ -4,6 +4,7 @@
 <body>
 
     <!-- Sentence page header (incl. social media stuff) -->
+    
     <div th:fragment="sentence-page-header" class="row mb-sm-3 d-flex justify-content-between details-header">
 		<div id="title-header">
 			<h2 class="id ml-3 mt-sm-1">
@@ -14,18 +15,21 @@
    </div>
 
     <!-- Object details page header (incl. social media stuff) -->
+    
     <div th:fragment="details-page-header" class="row mb-sm-3 d-flex justify-content-between details-header">
         <div th:replace=" :: review-state-header"/>
         <div th:replace="fragments/common :: social('lemma-page')"/>
    </div>
 
     <!-- Object details page header (incl. social media stuff), shortened -->
+    
     <div th:fragment="details-page-header-short" class="row d-flex justify-content-between mb-sm-3 details-header">
         <div th:replace=" :: review-state-header-short"/>
         <div th:replace="fragments/common :: social('ths-page')"/>
    </div>
 
     <!-- Object details header (name && review state) -->
+    
     <div th:fragment="review-state-header" id="review-state-header">
         <h2 class="id ml-3 mt-sm-1">
            <span class="bbaw-libertine" th:utext="${(obj.type == 'root') ? '&radic;' : ''} + ${{'<label>'+obj.name+'</label>'}}">Object name</span><span class="words-breakable" th:utext="'(' + #{|object_id_label_${obj.eclass}|} +' ' + ${obj.id} +')'">Object ID</span>
@@ -33,6 +37,7 @@
     </div>
 
     <!-- Object details header (name && review state), shortened (<...>) -->
+    
     <div th:fragment="review-state-header-short" id="review-state-header-short">
         <h2 class="id ml-3 mt-sm-1">
            <span class="bbaw-libertine" th:utext="${(obj.type == 'root') ? '&radic;' : ''} + ${{'<shortlabel>'+obj.name+'</shortlabel>'}}">Object name</span><span class="words-breakable" th:utext="'(' + #{|object_id_label_${obj.eclass}|} +' ' + ${obj.id} +')'">Object ID</span>
@@ -40,6 +45,7 @@
     </div>
 
     <!-- Generic Passport Properties, notably noun classes -->
+    
     <div th:fragment="object-property-passport-properties" id="passport-properties"
             th:unless="${#maps.isEmpty(passport)}">
         <hr/>
@@ -57,6 +63,7 @@
     </div>
 
     <!-- External references -->
+    
     <div th:fragment="external-references" id="external-references" th:unless="${#maps.isEmpty(obj.externalReferences)}">
         <hr />
         <p>
@@ -80,6 +87,7 @@
     </div>
 
     <!-- translations -->
+    
     <div class="translations" th:fragment="translations" id="translations" th:unless="${#maps.isEmpty(obj.translations)}">
         <hr />
         <p>
@@ -90,12 +98,13 @@
     </div>
 
     <!-- bibliography -->
+    
     <div class="bibliography" th:fragment="bibliography" id="bibliography" th:unless="${#lists.isEmpty(obj.bibliography)}">
         <hr/>
         <p>
             <strong th:text="#{object_property_bibliography}" class="details-property-label">Bibliography</strong>
             <br/>
-            <ul>
+            <ul class="no-bullet-list">
             <li th:each="bib, iStat : ${obj.bibliography}">
                 <span class="fas fa-arrow-circle-right"></span>
                 <span class="bibliographic-reference" th:utext="${{bib}}"></span>
@@ -109,7 +118,6 @@
     
     <div class="textscript" th:fragment="textscript" id="textscript" th:unless="${#lists.isEmpty(obj.skript)}">
         <hr/>
-      
         <p>
             <strong th:text="#{object_property_script}" class="details-property-label">Script</strong>:
             <span th:each="scr, scrStat : ${obj.skript}">
@@ -122,10 +130,9 @@
      <!-- Language -->
     
     <div class="language" th:fragment="language" id="language" th:unless="${#lists.isEmpty(obj.language)}">
-        <hr/>
-      
+        <hr  th:if="${#lists.isEmpty(obj.skript)}"/>
         <p>
-            <strong th:text="#{object_property_language}" class="details-property-label">Languaget</strong>:
+            <strong th:text="#{object_property_language}" class="details-property-label">Language</strong>:
             <span th:each="lang, langStat : ${obj.language}">
                 <span th:text="${lang}"></span>
                 <span th:unless="${langStat.last}">, </span>
@@ -137,12 +144,24 @@
     
     <div class="object-type" th:fragment="object-type" id="object-type" th:unless="${#lists.isEmpty(obj.objType)}">
         <hr/>
-      
         <p>
-            <strong th:text="#{object_property_objecttype}" class="details-property-label">Original place</strong>:
+            <strong th:text="#{object_property_objecttype}" class="details-property-label">Object type</strong>:
             <span th:each="otype, otypeStat : ${obj.objType}">
                 <span  th:text="${otype}"></span>
                 <span th:unless="${otypeStat.last}">, </span>
+            </span>
+        </p>
+    </div>
+ 
+    <!-- Object components -->
+    
+    <div class="object-components" th:fragment="object-components" id="object-components" th:unless="${#lists.isEmpty(obj.components)}">
+        <hr  th:if="${#lists.isEmpty(obj.objType)}"/>
+        <p>
+            <strong th:text="#{object_property_components}" class="details-property-label">Components</strong>:
+            <span th:each="elem, elemStat : ${obj.components}">
+                <span  th:text="${elem}"></span>
+                <span th:unless="${elemStat.last}">, </span>
             </span>
         </p>
     </div>
@@ -151,7 +170,6 @@
     
     <div class="origin" th:fragment="origin" id="origin" th:unless="${#lists.isEmpty(obj.origin)}">
         <hr/>
-      
         <p>
             <strong th:text="#{object_property_origplace}" class="details-property-label">Original place</strong>:
             <span th:each="orig, origStat : ${obj.origin}">
@@ -166,11 +184,10 @@
         </p>
     </div>
     
-    <!-- present location -->
+    <!-- Present location -->
     
     <div class="present-location" th:fragment="present-location" id="present-location" th:unless="${#lists.isEmpty(obj.locations)}">
         <hr/>
-      
         <p>
             <strong th:text="#{object_property_presentlocation}" class="details-property-label">Present Location</strong>:
             <span th:each="ploc, plocStat : ${obj.locations}">
@@ -180,11 +197,109 @@
         </p>
     </div>
     
+     <!-- Object inv.nos. -->
+    
+    <div class="object-inv-nos" th:fragment="object-inv-nos" id="object-inv-nos" th:unless="${#lists.isEmpty(obj.invNos)}">
+        <hr  th:if="${#lists.isEmpty(obj.locations)}"/>
+        <p>
+            <strong th:text="#{object_property_inv_nos}" class="details-property-label">Inventory nos.</strong>:
+            <span th:each="elem, elemStat : ${obj.invNos}">
+                <span class="fas fa-arrow-circle-right"></span>
+                <span  th:text="${elem}"></span>
+                <span th:unless="${elemStat.last}">, </span>
+            </span>
+        </p>
+    </div>   
+    
+    <!-- Materials -->
+    
+    <div class="materials" th:fragment="materials" id="materials" th:unless="${#lists.isEmpty(obj.materials)}">
+        <hr/>
+        <p>
+            <strong th:text="#{object_property_materials}" class="details-property-label">Materials</strong>:
+            <span th:each="elem, elemStat : ${obj.materials}">
+                <span th:text="${elem}"></span><th:block th:unless="${elemStat.last}"> / </th:block>
+            </span>
+        </p>
+    </div>
+    
+    <!-- Dimensions -->
+    
+    <div class="dimensions" th:fragment="dimensions" id="dimensions" th:unless="${#lists.isEmpty(obj.dimensions)}">
+        <hr th:if="${#lists.isEmpty(obj.materials)}"/>
+        <p>
+            <strong th:text="#{object_property_dimensions}" class="details-property-label">Dimensions</strong>:
+            <span th:each="elem, elemStat : ${obj.dimensions}">
+                <span th:text="${elem}"></span><th:block th:unless="${elemStat.last}"> &times; </th:block>
+            </span> cm
+        </p>
+    </div>
+    
+    <!-- Protocol -->
+    
+    <div class="protocol" th:fragment="protocol" id="protocol" th:unless="${#lists.isEmpty(obj.protocol)}">
+        <hr/>
+        <p>
+            <strong th:text="#{object_property_protocol}" class="details-property-label">Protocol</strong>
+            <br/>
+            <ul class="no-bullet-list">
+            <li th:each="elem, elemStat : ${obj.protocol}">
+                <span class="fas fa-arrow-circle-right"></span>
+                <span th:utext="${elem}"></span>
+                <br th:unless="${elemStat.last}"/>
+            </li>
+            </ul>
+        </p>
+    </div>
+    
+    <!-- File description -->
+    
+    <div class="file-description" th:fragment="file-description" id="file-description" th:unless="${#lists.isEmpty(obj.description)}">
+        <hr/>
+        <p>
+            <strong th:text="#{object_property_description}" class="details-property-label">Description</strong>
+            <br/>
+            <ul class="no-bullet-list">
+            <li th:each="elem, elemStat : ${obj.description}">
+                <span th:utext="${elem}"></span>
+                <br th:unless="${elemStat.last}"/>
+            </li>
+            </ul>
+        </p>
+    </div>
+    
+    <!-- File comment -->
+    
+    <div class="file-comment" th:fragment="file-comment" id="file-comment" th:unless="${#lists.isEmpty(obj.fileComment)}">
+        <hr/>
+        <p>
+            <strong th:text="#{object_property_file_comment}" class="details-property-label">File comment</strong>
+            <br/>
+            <ul class="no-bullet-list">
+            <li th:each="elem, elemStat : ${obj.fileComment}">
+                <span th:utext="${elem}"></span>
+                <br th:unless="${elemStat.last}"/>
+            </li>
+            </ul>
+        </p>
+    </div>
+    
+    <!-- Synonyms -->
+    
+    <div class="synonyms" th:fragment="synonyms" id="synonyms" th:unless="${#lists.isEmpty(obj.synonyms)}">
+        <hr/>
+        <p>
+            <strong th:text="#{object_property_synonyms}" class="details-property-label">Synonyms</strong>:
+            <span th:each="elem, elemStat : ${obj.synonyms}">
+                <span th:text="${elem}"></span><th:block th:unless="${elemStat.last}"> / </th:block>
+            </span>
+        </p>
+    </div>
+    
     <!-- Date  -->
     
     <div class="date" th:fragment="date" id="date" th:unless="${#lists.isEmpty(obj.date)}">
         <hr/>
-      
         <p>
             <strong th:text="#{object_property_date}" class="details-property-label">Date</strong>:
             <span th:each="date, dateStat : ${obj.date}">
@@ -194,12 +309,26 @@
         </p>
     </div>
     
-
+    <!-- Dating comment -->
+    
+    <div class="date-comment" th:fragment="date-comment" id="date-comment" th:unless="${#lists.isEmpty(obj.dateComment)}">
+        <hr th:if="${#lists.isEmpty(obj.date)}"/>
+        <p>
+            <strong th:text="#{object_property_date_comment}" class="details-property-label">Date comment</strong>:
+            <br/>
+            <ul class="no-bullet-list">
+            <li th:each="elem, elemStat : ${obj.dateComment}">
+                <span th:utext="${elem}"></span>
+                <br th:unless="${elemStat.last}"/>
+            </li>
+            </ul>
+        </p>
+    </div>
+    
     <!-- Text content button  -->
     
     <div class="text-content-button" th:fragment="text-content-button" id="text-content-button">
         <hr/>
-      
         <p class="text-secondary">
         <!--<a th:href="|${@searchController.getSearchResultsPageRoute(@__sentenceController__)}?context.textId=${obj.id}|">-->
            <button id="text-content-button" type="button" class="btn btn-secondary text-left text-decoration-none disabled not-allowed" disabled>
