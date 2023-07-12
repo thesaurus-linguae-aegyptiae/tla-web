@@ -524,7 +524,8 @@
 				  <span th:each="contributor, nr : *{getEdited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/>
 			  </span>
 			  <!-- fehlt hier: <span th:text="#{|review_state_${obj.reviewState}|}">status</span>-->
-			  <span th:utext="' (' + #{sentence_created} + ': ' + ${#calendars.format(obj.edited.created, formatter)} + ', ' + #{sentence_latest_access} + ': ' + ${#calendars.format(obj.edited.updated, formatter)} + ')'" />
+			  (<span th:text="#{sentence_created}"/>: <span th:utext="${(obj.edited.wasCreatedBeforeBTS3()?'< ':'')+#calendars.format(obj.edited.created, formatter)}"/>, 
+           <span th:text="#{sentence_latest_access}"/>: <span th:utext="${#calendars.format(obj.edited.updated, formatter)}" />)
          </span>
     </div>
    
