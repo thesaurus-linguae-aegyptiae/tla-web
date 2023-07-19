@@ -9,7 +9,7 @@
 
   <body>
 
-   <div layout:fragment="content" th:with="lemmaID=${#request.getParameter('tokens[0].lemma.id')}">
+   <div layout:fragment="content" >
    
     <!-- loading animation -->
 	 <!--<div class="loader-wrapper">
@@ -24,7 +24,7 @@
            </span></p>
         </div>
 			
-    <div class="hidden-content hide-content" th:if="${lemmaID} != null AND ${lemmaID} != ''">
+    <div class="hidden-content hide-content" >
 
       <!-- result page heading -->
       <div class="search-header row mb-sm-3 d-flex justify-content-between">
@@ -35,7 +35,7 @@
       </div>
       
       <div class="row ml-sm-2"><strong th:text="#{result_page_description_query}">Search parameter</strong>: 
-         <span id="queryLemmaIDHeader" th:text="#{field_label_lemma_id}"></span> = <span id="queryLemmaID" th:text="${lemmaID}"> </span>
+         <span id="queryLemmaIDHeader" th:text="#{field_label_lemma_id}"></span> = <span id="queryLemmaID" > </span>
        </div>
              
       <div class="row ml-sm-2" th:if="${searchResults.size} > 0" >
@@ -90,21 +90,7 @@
 
     </div>
 
-    <!-- no valid lemma search paramenter name -->
-    <div th:if="${lemmaID} == null OR ${lemmaID} == ''">
-      <div class="row">
-        <div class="col-lg-8 content">
-             <strong>404: No valid search parameter submitted.</strong>
-        </div>
 
-        <!-- sidebar -->
-        <!--<div class="col-lg-4 sidebar">
-          <div class="sticky-top m-sm-0 m-lg-4">
-            <div th:replace="fragments/search/results :: modify-search-button(${modifySearchUrl})"/>
-          </div>
-        </div>-->
-      </div>
-    </div>
 	
 	 <script>
         $(window).on("load",function(){
