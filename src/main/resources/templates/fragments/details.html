@@ -166,14 +166,18 @@
         </p>
     </div>
  
-    <!-- Original place -->
+    <!-- Find spot -->
     
-    <div class="origin" th:fragment="origin" id="origin" th:unless="${#lists.isEmpty(obj.origin)}">
+    <div class="find-spot" th:fragment="find-spot" id="find-spot" th:unless="${#lists.isEmpty(obj.getFindSpots)}">
         <hr/>
         <p>
             <strong th:text="#{object_property_origplace}" class="details-property-label">Original place</strong>:
-            <span th:each="orig, origStat : ${obj.origin}">
-                <span  th:text="${orig}"></span>
+            <span th:each="orig, origStat : ${obj.getFindSpots}">
+                <span  th:text="${orig.test}"></span>
+                <span th:each="elem, elemStat : ${orig.getPlaces}">
+                <span th:text = "${elem.getCertainty}">
+                </span>
+                </span>
                 <!-- to be discussed what this info means (label)
                 <span th:if="${obj.isorig !=null}" class="details-property-label" th:text="'('+#{object_property_isorigplace}+')'">
                  is original place
@@ -286,13 +290,35 @@
     
     <!-- Synonyms -->
     
-    <div class="synonyms" th:fragment="synonyms" id="synonyms" th:unless="${#lists.isEmpty(obj.synonyms)}">
+    <div class="synonyms" th:fragment="synonyms" id="synonyms" th:unless="${#lists.isEmpty(obj.synonymGroups)}">
+      <hr/>
+        <p>  
+            <strong th:text="#{object_property_synonyms}" class="details-property-label">Synonyms</strong>
+            <br/>
+            <ul class="no-bullet-list">
+            <li th:each="synonymGroup, sGStat : ${obj.synonymGroups}">
+                <span class="lang-icon text-uppercase" th:text="${synonymGroup.language}">EN</span>
+    			<span th:text="${synonymGroup.synonym}">Synonym</span>
+     			<br th:unless="${sGStat.last}" />
+            </li>
+            </ul>
+        </p>
+    </div>
+    
+    
+    <!-- Find spot -->
+    
+    <div class="find-spot" th:fragment="find-spot" id="find-spot" th:unless="${#lists.isEmpty(obj.description)}">
         <hr/>
         <p>
-            <strong th:text="#{object_property_synonyms}" class="details-property-label">Synonyms</strong>:
-            <span th:each="elem, elemStat : ${obj.synonyms}">
-                <span th:text="${elem}"></span><th:block th:unless="${elemStat.last}"> / </th:block>
-            </span>
+            <strong th:text="#{object_property_description}" class="details-property-label">Description</strong>
+            <br/>
+            <ul class="no-bullet-list">
+            <li th:each="elem, elemStat : ${obj.description}">
+                <span th:utext="${elem}"></span>
+                <br th:unless="${elemStat.last}"/>
+            </li>
+            </ul>
         </p>
     </div>
     
