@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import tla.domain.dto.CorpusObjectDto;
 import tla.domain.model.ObjectPath;
+import tla.domain.model.ObjectReference;
 import tla.domain.model.Passport;
 import tla.domain.model.meta.BTSeClass;
 import tla.domain.model.meta.Hierarchic;
@@ -98,30 +99,47 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     
     // Synonyms
     
-    public static final String PASSPORT_PROP_SYNONYMS = "synonyms.synonym_group.synonym";
+    public static final String PASSPORT_PROP_SYNONYMGROUP = "synonyms.synonym_group";
 
     @Setter(AccessLevel.NONE)
-    private List<String> synonyms;
-
-    public List<String> getSynonyms() {
-        if (this.synonyms == null) {
-            this.synonyms = extractSynonyms(this);
-        }
-        return this.synonyms;
+    private List<SynonymGroup> synonymGroups;
+    
+    public static class SynonymGroup{
+    	public SynonymGroup(Passport passport) {
+    		this.language = extractValue(passport, "language");
+    		this.synonym = extractValue(passport, "synonym");
+    	}
+    	private String language;
+    	private String synonym;
+    	
+    	public String getSynonym() {
+    		return this.synonym;
+    	}
+    	
+    	public String getLanguage() {
+    		return this.language;
+    	}
     }
 
-    private static List<String> extractSynonyms(CorpusObject corpusobj) {
-        List<String> synonyms = new ArrayList<>();
+    public List<SynonymGroup> getSynonymGroups() {
+        if (this.synonymGroups == null) {
+            this.synonymGroups = extractSynonymGroups(this);
+        }
+        return this.synonymGroups;
+    }
+
+    private static List<SynonymGroup> extractSynonymGroups(CorpusObject corpusobj) {
+        List<SynonymGroup> synonymGroups = new ArrayList<>();
         try {
             corpusobj.getPassport().extractProperty(
-                PASSPORT_PROP_SYNONYMS
+                PASSPORT_PROP_SYNONYMGROUP
             ).forEach(
-                node -> synonyms.add(node.getLeafNodeValue())
+                node -> synonymGroups.add(new SynonymGroup(node))
             );
         } catch (Exception e) {
           System.out.println("INFO: Could not extract synonyms from object "+corpusobj.getId());
         }
-        return synonyms;
+        return synonymGroups;
     }
     
     // Bibliography
@@ -170,34 +188,103 @@ public class CorpusObject extends BTSObject implements Hierarchic {
  
     // Object origin
     
-    public static final String PASSPORT_PROP_ORIGIN = "find_spot.find_spot.place.place";
+    public static final String PASSPORT_PROP_FINDSPOT = "find_spot.find_spot";
+    public static final String PASSPORT_PROP_FINDSPOT_FORMERPLACE = "former_place";
+    public static final String PASSPORT_PROP_FINDSPOT_PLACE = "place";
+
     
     @Setter(AccessLevel.NONE)
-    private List<String> origin;
-
-    public List<String> getOrigin() {
-        if (this.origin == null) {
-            this.origin = extractOrigin(this);
+    private List<FindSpot> findspots;
+    
+    public static String extractValue(Passport passport, String searchString) {
+    	String result=null;
+    	try{
+    		result = passport.extractProperty(searchString).get(0).getLeafNodeValue();
+    	}catch(Exception e) {
+    		System.out.println("INFO: Could not extract " + searchString);
+    	}
+    	return result;
+    }
+    
+    public static ObjectReference extractObjectReference(Passport passport) {
+    	ObjectReference object=null;
+    	try{
+    		object = passport.extractObjectReferences().get(0);
+    	}catch(Exception e) {
+    		System.out.println("INFO: Could not extract ObjectReference");
+    	}
+    	return object;
+    }
+    
+    
+    public static class Place{
+    	public Place(Passport passport) {
+    		this.certainty = extractValue(passport, "certainty");
+    		this.comment = extractValue(passport, "comment");
+    		this.isorigin = extractValue(passport, "is_origin");
+    		this.place = extractObjectReference(passport);
+    	}
+    	private String certainty;
+    	private String comment;
+    	private String isorigin;
+    	private ObjectReference place;
+    	
+    	public String getCertainty() {
+    		return this.certainty;
+    	}
+    	public String getComment() {
+    		return this.comment;
+    	}
+    }
+    
+    public static class FindSpot{
+    	public FindSpot(Passport passport) {
+    		this.places = extractPlace(passport,PASSPORT_PROP_FINDSPOT_PLACE);
+    		this.formerPlaces = extractPlace(passport,PASSPORT_PROP_FINDSPOT_FORMERPLACE);
+    	}
+    	private List<Place> places;
+    	private List<Place> formerPlaces;
+    	
+    	public List<Place> getPlaces() {
+    		return this.places;
+    	}
+    	
+    	public List<Place> getFormerPlaces() {
+    		return this.formerPlaces;
+    	}
+     }
+    
+    public List<FindSpot> getFindSpots() {
+        if (this.findspots == null) {
+            this.findspots = extractFindSpot(this);
         }
-        return this.origin;
+        return this.findspots;
     }
 
-    private static List<String> extractOrigin(CorpusObject corpusobj) {
-        List<String> origin = new ArrayList<String>();
-        try {
-        
-          List<Passport> findSpotPassports =corpusobj.getPassport().extractProperty(PASSPORT_PROP_ORIGIN);
-         
-          for(int i=0;i<findSpotPassports.size();i++) {
-        	  for(int j=0;j<findSpotPassports.get(i).extractObjectReferences().size();j++) {
-
-        	 origin.add(findSpotPassports.get(i).extractObjectReferences().get(j).getName());
-        	  }
-          }
+    private static List<FindSpot> extractFindSpot(CorpusObject corpusobj) {
+        List<FindSpot> findspots = new ArrayList<FindSpot>();
+        try {       
+          List<Passport> findSpotPassports =corpusobj.getPassport().extractProperty(PASSPORT_PROP_FINDSPOT);
+         findSpotPassports.forEach(
+        		 entry -> findspots.add(new FindSpot(entry)));        
         } catch (Exception e) {
           System.out.println("INFO: Could not extract find spot (origin) from object "+corpusobj.getId());
         }
-        return origin;
+        return findspots;
+    }
+    
+    private static List<Place> extractPlace(Passport passport, String searchString){	
+    	List<Passport> placesPassport = new ArrayList<Passport>();
+    	List<Place> places = new ArrayList<Place>();
+        try {
+          placesPassport = passport.extractProperty(searchString);
+         placesPassport.forEach(
+        		 entry -> places.add(new Place(entry)));
+         
+        } catch (Exception e) {
+          System.out.println("INFO: Could not extract a place from findspot from object ");
+        }
+        return places;	
     }
     
      // Object location
