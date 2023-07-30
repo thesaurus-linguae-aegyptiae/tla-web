@@ -170,31 +170,69 @@
     
     <div class="find-spot" th:fragment="find-spot" id="find-spot" th:unless="${#lists.isEmpty(obj.FindSpots)}">
         <hr/>
-        <p>
-        
-        
-                       <strong th:text="#{object_property_origplace}" class="details-property-label"  >Find Spot</strong>:
-
-            
-            
+        <p>           
               <ul class="no-bullet-list">
             <li th:each="findspot, findspotStat : ${obj.FindSpots}">
+            <!-- Places -->
+           <strong th:text="#{object_property_origplace}" class="details-property-label" th:unless="${#lists.isEmpty(findspot.getPlaces)}">Find Spot</strong>:           
             
             <ul class="no-bullet-list">
             <li th:each="place, placeStat : ${findspot.getPlaces}">
-            <span th:unless="${place.getCertainty}">  prüfen auf null
-            <strong  th:text="#{object_property_annotation}" class="details-property-label">:</strong>
-					<span  th:text="${place.getCertainty}"></span>
-			<span>
-					<span  th:text="${place.getComment}"></span>
-                    <br th:unless="${placeStat.last}">
+	            <span th:unless="${place.getComment}==null"> 
+	            <strong  th:text="#{object_property_annotation}" class="details-property-label">:</strong>
+						<span  th:text="${place.getComment}"></span>
+						</br>
+				</span>
+				<span th:unless="${place.getCertainty}==null"> 
+	            <strong  th:text="#{object_property_certainty}" class="details-property-label">:</strong>
+						<span  th:text="${place.getCertainty}"></span>
+						</br>
+				</span>
+				<strong  th:text="#{object_property_isorigplace}" class="details-property-label">:</strong>
+				<span th:if="${place.getIsorigin}">
+						<span  th:text="#{object_property_isorigplace_yes}"></span>
+						</br>
+				</span>
+				<span th:unless="${place.getIsorigin}">
+						<span  th:text="#{object_property_isorigplace_no}"></span>
+						</br>
+				</span>
+            <br th:unless="${placeStat.last}">
             </li>
              </ul>	
+             
+                 <!-- Former Places -->
+            <strong th:text="#{object_property_formerplace}" class="details-property-label" th:unless="${#lists.isEmpty(findspot.getPlaces)}">Find Spot</strong>:           
+                 
+            <ul class="no-bullet-list">
+            <li th:each="place, placeStat : ${findspot.getFormerPlaces}">
+	            <span th:unless="${place.getComment}==null"> 
+	            <strong  th:text="#{object_property_annotation}" class="details-property-label">:</strong>
+						<span  th:text="${place.getComment}"></span>
+						</br>
+				</span>
+				<span th:unless="${place.getCertainty}==null"> 
+	            <strong  th:text="#{object_property_certainty}" class="details-property-label">:</strong>
+						<span  th:text="${place.getCertainty}"></span>
+						</br>
+				</span>
+				<strong  th:text="#{object_property_isorigplace}" class="details-property-label">:</strong>
+				<span th:if="${place.getIsorigin}">
+						<span  th:text="#{object_property_isorigplace_yes}"></span>
+						</br>
+				</span>
+				<span th:unless="${place.getIsorigin}">
+						<span  th:text="#{object_property_isorigplace_no}"></span>
+						</br>
+				</span>
+			
+            <br th:unless="${placeStat.last}">
+            </li>
+             </ul>
              
               <br th:unless="${findspotStat.last}">
               </li>
              </ul>		
-          formerplace
         </p>
     </div>
     

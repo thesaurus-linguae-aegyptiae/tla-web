@@ -221,12 +221,12 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     	public Place(Passport passport) {
     		this.certainty = extractValue(passport, "certainty");
     		this.comment = extractValue(passport, "comment");
-    		this.isorigin = extractValue(passport, "is_origin");
+    		this.isorigin= Boolean.parseBoolean( extractValue(passport, "is_origin"));
     		this.place = extractObjectReference(passport);
-    	}
+    		}
     	private String certainty;
     	private String comment;
-    	private String isorigin;
+    	private boolean isorigin;
     	private ObjectReference place;
     	
     	public String getCertainty() {
@@ -234,6 +234,9 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     	}
     	public String getComment() {
     		return this.comment;
+    	}
+    	public boolean getIsorigin() {
+    		return this.isorigin;
     	}
     }
     
