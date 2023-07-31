@@ -186,7 +186,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
         return bibliography;
     }
  
-    // Object origin
+    // Object origin Find-spot
     
     public static final String PASSPORT_PROP_FINDSPOT = "find_spot.find_spot";
     public static final String PASSPORT_PROP_FINDSPOT_FORMERPLACE = "former_place";
@@ -221,7 +221,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     	public Place(Passport passport) {
     		this.certainty = extractValue(passport, "certainty");
     		this.comment = extractValue(passport, "comment");
-    		this.isorigin= Boolean.parseBoolean( extractValue(passport, "is_origin"));
+    		this.isorigin= Boolean.parseBoolean(extractValue(passport, "is_origin"));
     		this.place = extractObjectReference(passport);
     		}
     	private String certainty;
@@ -292,29 +292,58 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     
      // Object location
      
-    public static final String PASSPORT_PROP_PRESLOC = "present_location.location.location";
+    public static final String PASSPORT_PROP_PRESLOC = "present_location.location";
     
     @Setter(AccessLevel.NONE)
-    private List<String> locations;
+    private List<Location> locations;
+    
+    public static class Location{
+    	public Location(Passport passport) {
+    		this.comment = extractValue(passport, "comment");
+    		this.inventory_number = extractValue(passport, "inventory_number");
+    	    this.is_present_location = Boolean.parseBoolean(extractValue(passport, "is_present_location"));
+    		this.in_situ = Boolean.parseBoolean(extractValue(passport, "in_situ"));
+    		this.location = extractObjectReference(passport);
+    		
+    	}
+    	private String comment;
+    	private String inventory_number;
+    	private Boolean is_present_location;
+    	private Boolean in_situ;
+    	private ObjectReference location;
+    	
+    	public String getComment() {
+    		return comment;
+    	}
+    	
+    	public String getInventory_number() {
+			return inventory_number;
+		}
+		public Boolean getIs_present_location() {
+			return is_present_location;
+		}
+		public Boolean getIn_situ() {
+			return in_situ;
+		}
+		public ObjectReference getLocation() {
+			return location;
+		} 	
+    }
 
-   public List<String> getLocations() {
+   public List<Location> getLocations() {
         if (this.locations == null) {
             this.locations = extractLocations(this);
         }
         return this.locations;
     }
  
-    private static List<String> extractLocations(CorpusObject corpusobj) {
-        List<String> locations = new ArrayList<String>();
+    private static List<Location> extractLocations(CorpusObject corpusobj) {
+        List<Location> locations = new ArrayList<Location>();
         try {
-          List<Passport> locationsPassports =corpusobj.getPassport().extractProperty(PASSPORT_PROP_PRESLOC);
-
-          for(int i=0;i<locationsPassports.size();i++) {
-        	  for(int j=0;j<locationsPassports.get(i).extractObjectReferences().size();j++) {
-
-        	 locations.add(locationsPassports.get(i).extractObjectReferences().get(j).getName());
-        	  }
-          }
+          List<Passport> locationsPassports = corpusobj.getPassport().extractProperty(PASSPORT_PROP_PRESLOC);
+          locationsPassports.forEach(
+        		  passport -> locations.add(new Location(passport))
+        		  );
         } catch (Exception e) {
           System.out.println("INFO: Could not extract locations from object "+corpusobj.getId());
         }

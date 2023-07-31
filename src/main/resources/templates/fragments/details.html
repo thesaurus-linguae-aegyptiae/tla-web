@@ -247,11 +247,21 @@
     <div class="present-location" th:fragment="present-location" id="present-location" th:unless="${#lists.isEmpty(obj.locations)}">
         <hr/>
         <p>
-            <strong th:text="#{object_property_presentlocation}" class="details-property-label">Present Location</strong>:
-            <span th:each="ploc, plocStat : ${obj.locations}">
-                <span th:text="${ploc}"></span>
-                <span th:unless="${plocStat.last}">, </span>
-            </span>
+        
+         <strong th:text="#{object_property_presentlocation}" class="details-property-label">Present Location</strong>:
+             <ul class="no-bullet-list">
+             <li th:each="location, elemStat : ${obj.getLocations}">
+             	<span th:unless="${location.getComment}==null"> 
+	            <strong  th:text="#{object_property_annotation}" class="details-property-label">:</strong>
+						<span  th:text="${location.getComment}"></span>
+						</br>
+				</span>
+                <span th:text="${location.getInventory_number}"></span>
+                <span th:text="${location.getIs_present_location}"></span>
+                <span th:text="${location.getIn_situ}"></span>
+                <br th:unless="${elemStat.last}">
+            </li>
+            </ul>
         </p>
     </div>
     
