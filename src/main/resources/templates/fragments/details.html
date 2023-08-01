@@ -190,11 +190,11 @@
 				</span>
 				<strong  th:text="#{object_property_isorigplace}" class="details-property-label">:</strong>
 				<span th:if="${place.getIsorigin}">
-						<span  th:text="#{object_property_isorigplace_yes}"></span>
+						<span  th:text="#{object_property_yes}"></span>
 						</br>
 				</span>
 				<span th:unless="${place.getIsorigin}">
-						<span  th:text="#{object_property_isorigplace_no}"></span>
+						<span  th:text="#{object_property_no}"></span>
 						</br>
 				</span>
             <br th:unless="${placeStat.last}">
@@ -218,11 +218,11 @@
 				</span>
 				<strong  th:text="#{object_property_isorigplace}" class="details-property-label">:</strong>
 				<span th:if="${place.getIsorigin}">
-						<span  th:text="#{object_property_isorigplace_yes}"></span>
+						<span  th:text="#{object_property_yes}"></span>
 						</br>
 				</span>
 				<span th:unless="${place.getIsorigin}">
-						<span  th:text="#{object_property_isorigplace_no}"></span>
+						<span  th:text="#{object_property_no}"></span>
 						</br>
 				</span>
 			
@@ -256,8 +256,33 @@
 						<span  th:text="${location.getComment}"></span>
 						</br>
 				</span>
-                <span th:text="${location.getInventory_number}"></span>
+                <span th:unless="${location.getInventory_number}==null"> 
+	            <strong  th:text="#{object_property_inv_no}" class="details-property-label">:</strong>
+						<span  th:text="${location.getInventory_number}"></span>
+						</br>
+				</span>
                 <span th:text="${location.getIs_present_location}"></span>
+ text               <strong  th:text="#{object_property_ispresentlocation}" class="details-property-label">:</strong>
+					<span th:if="${place.getIs_present_location}">
+							<span  th:text="#{object_property_yes}"></span>
+							</br>
+					</span>
+					<span th:unless="${place.getIs_present_location}">
+							<span  th:text="#{object_property_no}"></span>
+							</br>
+					</span>
+					
+				<strong  th:text="#{object_property_in_situ}" class="details-property-label">:</strong>
+					<span th:if="${place.getIn_situ}">
+							<span  th:text="#{object_property_yes}"></span>
+							</br>
+					</span>
+					<span th:unless="${place.getIn_situ}">
+							<span  th:text="#{object_property_no}"></span>
+							</br>
+					</span>
+	                
+                
                 <span th:text="${location.getIn_situ}"></span>
                 <br th:unless="${elemStat.last}">
             </li>
