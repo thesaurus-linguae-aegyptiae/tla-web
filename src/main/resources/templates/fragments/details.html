@@ -261,29 +261,27 @@
 						<span  th:text="${location.getInventory_number}"></span>
 						</br>
 				</span>
-                <span th:text="${location.getIs_present_location}"></span>
- text               <strong  th:text="#{object_property_ispresentlocation}" class="details-property-label">:</strong>
-					<span th:if="${place.getIs_present_location}">
+
+                <strong  th:text="#{object_property_ispresentlocation}" class="details-property-label">:</strong>
+					<span th:if="${location.getIs_present_location}">
 							<span  th:text="#{object_property_yes}"></span>
 							</br>
 					</span>
-					<span th:unless="${place.getIs_present_location}">
+					<span th:unless="${location.getIs_present_location}">
 							<span  th:text="#{object_property_no}"></span>
 							</br>
 					</span>
 					
 				<strong  th:text="#{object_property_in_situ}" class="details-property-label">:</strong>
-					<span th:if="${place.getIn_situ}">
+					<span th:if="${location.getIn_situ}">
 							<span  th:text="#{object_property_yes}"></span>
 							</br>
 					</span>
-					<span th:unless="${place.getIn_situ}">
+					<span th:unless="${location.getIn_situ}">
 							<span  th:text="#{object_property_no}"></span>
 							</br>
-					</span>
-	                
-                
-                <span th:text="${location.getIn_situ}"></span>
+					</span>           
+               
                 <br th:unless="${elemStat.last}">
             </li>
             </ul>
@@ -345,21 +343,28 @@
         </p>
     </div>
     
-    <!-- File description -->
-    
-    <div class="file-description" th:fragment="file-description" id="file-description" th:unless="${#lists.isEmpty(obj.description)}">
+    <!-- File description  -->
+    <!-- TODO obj.getDescription. zu einem Datum hinzuweisen um mehrfach Aufrufe zu vermeiden -->
+    <div class="file-description" th:fragment="file-description" id="file-description" th:unless="${#lists.isEmpty(obj.getDescription)}">
         <hr/>
         <p>
-            <strong th:text="#{object_property_description}" class="details-property-label">Description</strong>
-            <br/>
-            <ul class="no-bullet-list">
-            <li th:each="elem, elemStat : ${obj.description}">
-                <span th:utext="${elem}"></span>
-                <br th:unless="${elemStat.last}"/>
-            </li>
-            </ul>
+            <span th:unless="${obj.getDescription.getDefinition}==null"> 
+	            <strong  th:text="#{object_property_description}" class="details-property-label">:</strong>
+						<span  th:text="${obj.getDescription.getDefinition}"></span>
+						</br>
+				</span>
+				<strong  th:text="#{object_property_reconstructed}" class="details-property-label">:</strong>
+					<span th:if="${obj.getDescription.getReconstructed}">
+							<span  th:text="#{object_property_yes}"></span>
+							</br>
+					</span>
+					<span th:unless="${obj.getDescription.getReconstructed}">
+							<span  th:text="#{object_property_no}"></span>
+							</br>
+					</span>        
         </p>
     </div>
+   
     
     <!-- File comment -->
     

@@ -417,38 +417,47 @@ public class CorpusObject extends BTSObject implements Hierarchic {
         
     // Description
     
-    public static final String PASSPORT_PROP_DESCR = "definition.main_group.definition";
+    public static final String PASSPORT_PROP_DESCR = "definition.main_group";
 
-    @Setter(AccessLevel.NONE)
-    private List<String> description;
+    
+    @Getter
+    public static class Description{
+    	Description(Passport passport){
+    		this.reconstructed = Boolean.parseBoolean(extractValue(passport, "reconstructed"));
+    		this.protocol = extractValue(passport, "protocol");
+    		this.comment = extractValue(passport, "comment");
+    		this.definition = extractValue(passport, "definition");
+    	}
+    	private Boolean reconstructed;
+	    private String 	protocol;
+	    private String comment;
+	    private String definition;
+    	
+    }
+    
+    Description description = null;
 
-    public List<String> getDescription() {
-        if (this.description == null) {
-            this.description = extractDescription(this);
+    public Description getDescription() {
+    	
+        if (description == null) {
+            description = new Description(extractDescription(this));
         }
-        return this.description;
+        return description;
     }
 
-    private static List<String> extractDescription(CorpusObject corpusobj) {
-        List<String> description = new ArrayList<>();
+    private static Passport extractDescription(CorpusObject corpusobj) { //only one description in an object
+        Passport descriptionPassport = new Passport();
         try {
-            corpusobj.getPassport().extractProperty(
+           descriptionPassport = corpusobj.getPassport().extractProperty(
                 PASSPORT_PROP_DESCR
-            ).forEach(
-                node -> description.addAll(
-                    Arrays.asList(
-                        node.getLeafNodeValue().replaceAll("(\\r?\\n|^)[\\s\\-]+", "$1").replaceAll("\\r?\\n[\\r?\\n\\s]*", "||").split("\\|\\|")
-                    ).stream().map(
-                        bibref -> bibref.strip()
-                    ).collect(
-                        Collectors.toList()
-                    )
-                )
-            );
+            ).get(0);
+                        //node.getLeafNodeValue().replaceAll("(\\r?\\n|^)[\\s\\-]+", "$1").replaceAll("\\r?\\n[\\r?\\n\\s]*", "||").split("\\|\\|")
+                   
+           
         } catch (Exception e) {
           System.out.println("INFO: Could not extract description from object "+corpusobj.getId());
         }
-        return description;
+        return descriptionPassport;
     }
     
     // File comment
