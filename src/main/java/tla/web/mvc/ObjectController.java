@@ -270,6 +270,7 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
 
         // if(!params.containsKey("sort")) params.add("sort", "sortKey_asc");
          //else if (!params.get("sort").contains("sortKey")) params.set("sort","sortKey_asc");
+    	System.out.println("Submitted Form class "+form.getClass().toString());
    if( form.getClass().toString().contains("LemmaSearch"))
     	if (form.getSort()==null) form.setSort("sortKey_asc");
       
@@ -361,5 +362,7 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
         }
         return model;
     }
+    
+
 
 }

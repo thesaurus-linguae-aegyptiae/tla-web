@@ -30,10 +30,12 @@ public class CorpusObject extends BTSObject implements Hierarchic {
 
     public static final String PASSPORT_PROP_BIBL = "bibliography.bibliographical_text_field";
     public static final String PASSPORT_PROP_DATE = "date.date.date";
+    public static final String PASSPORT_PROP_PRESLOC = "present_location.location.location";
     @Setter(AccessLevel.NONE)
     private List<String> bibliography;
     @Setter(AccessLevel.NONE)
     private List<String> date;
+    private List<String> presloc;
     public List<String> getBibliography() {
         if (this.bibliography == null) {
             this.bibliography = extractBibliography(this);
@@ -92,7 +94,26 @@ public class CorpusObject extends BTSObject implements Hierarchic {
         return datierung;
     }
     
-  
+    private static List<String> extractPresloc(CorpusObject corpus) {
+        List<String> plocation = new ArrayList<String>();
+        try {
+        
+          List<Passport> preslocations =corpus.getPassport().extractProperty(PASSPORT_PROP_PRESLOC);
+         
+          for(int i=0;i<preslocations.size();i++) {
+        	  for(int j=0;j<preslocations.get(i).extractObjectReferences().size();j++) {
+
+        	 plocation.add(preslocations.get(i).extractObjectReferences().get(j).getName()+"!"+preslocations.get(i).extractObjectReferences().get(j).getId());
+        	  }
+          }
+           
+        } catch (Exception e) {
+           // log.debug("could not extract date from text {}", text.getId());
+           System.out.println("could not extract date from object ");
+        }
+        return plocation;
+    }
+    
     public List<String> getDate() {
         if (this.date == null) {
             this.date = extractDate(this);
@@ -100,4 +121,10 @@ public class CorpusObject extends BTSObject implements Hierarchic {
         return this.date;
     }
 
+    public List<String> getPresloc() {
+        if (this.presloc == null) {
+            this.presloc = extractPresloc(this);
+        }
+        return this.presloc;
+    }
 }

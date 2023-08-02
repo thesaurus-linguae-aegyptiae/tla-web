@@ -22,6 +22,7 @@ import tla.web.model.meta.BackendPath;
 import tla.web.model.meta.TLAObject;
 import tla.web.model.parts.Transcription;
 import tla.web.model.parts.Token;
+import tla.web.model.parts.Glyphs;
 import tla.domain.model.ObjectReference;
 
 @Getter
@@ -32,10 +33,14 @@ import tla.domain.model.ObjectReference;
 @TLADTO(SentenceDto.class)
 public class Sentence extends TLAObject implements Hierarchic {
 	public static final String PASSPORT_PROP_DATE = "date.date.date";
+	
+	public static final String FULLHIEROGLYPHS = "";
 
     private SentenceContext context;
 
     private List<Token> tokens;
+    
+    private Glyphs fullglyphs;
 
     private int wordCount;
 
@@ -68,6 +73,10 @@ public class Sentence extends TLAObject implements Hierarchic {
 
     public String getName() {
         return this.getText() != null ? this.getText().getName() : null;
+    }
+    public String getFullhieroglyphs() {
+    	System.out.println("Full hieroglyphs"+this.getFullglyphs().getUnicode());
+        return this.getFullglyphs() != null ? this.getFullglyphs().getUnicode(): null;
     }
 
     public String reviewState() {

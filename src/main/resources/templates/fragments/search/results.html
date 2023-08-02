@@ -109,7 +109,7 @@
           <div class="occ-list-item mt-sm-3 py-sm-1">
             <th:block th:if="${hasGlyphs}">
 			    <th:block th:if="${isArtificiallyAligned}"><a th:replace="fragments/common :: artificial-alignment"></a></th:block>
-              <div th:replace="fragments/common :: sentence-hieroglyphs"/>
+              <div th:replace="fragments/common :: sentence-fullhieroglyphs"/>
             </th:block>
             <div th:replace="fragments/common :: sentence-transcription"/>
           </div>

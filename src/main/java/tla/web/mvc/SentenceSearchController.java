@@ -24,70 +24,51 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 import lombok.extern.slf4j.Slf4j;
 import tla.domain.command.LemmaSearch;
+import tla.domain.command.SentenceSearch;
 import tla.domain.command.SearchCommand;
 import tla.domain.command.SentenceSearch;
 import tla.domain.command.TextSearch;
 import tla.domain.command.SentenceSearch.TokenSpec;
+import tla.domain.command.ContextSpec;
 import tla.domain.model.Language;
 import tla.domain.model.Script;
-import tla.web.config.LemmaSearchProperties;
+import tla.web.config.SentenceSearchProperties;
 import tla.web.model.Lemma;
+import tla.web.model.Sentence;
 import tla.web.model.ui.BreadCrumb;
 import tla.web.model.ui.SearchFormExpansionState;
 
 @Slf4j
 @Controller
 @RequestMapping("/search")
-public class SearchController {
+public class SentenceSearchController {
 
     @Autowired
-    private LemmaSearchProperties lemmaSearchConf;
+    private SentenceSearchProperties sentenceSearchConf;
 
     @Autowired
     private RequestMappingHandlerMapping handlerMapping;
 
-    @Value("${search.config.default}")
+    @Value("${search.config.sentence}")
     private String defaultForm;
 
    // public static final List<String> SEARCH_FORMS = List.of("lemma-quick", "lemma", "sentence");
-    public static final List<String> SEARCH_FORMS = List.of("lemma", /*"sentence", "text", "object",*/ "lemma-id", "sentence-id", "text-id", "object-id", "ths-id");
+    public static final List<String> SEARCH_FORMS = List.of("sentence");
 
-    @ModelAttribute("allScripts")
-    public Script[] getAllScripts() {
-        return LemmaController.SEARCHABLE_SCRIPTS; // TODO
-    }
+    
 
-    @ModelAttribute("allTranslationLanguages")
-    public Language[] getAllTranslationLanguages() {
-        return LemmaController.SEARCHABLE_TRANSLATION_LANGUAGES; // TODO
-    }
-    @ModelAttribute("allTranscriptionEncodings")
-    public String[] getAllTranscriptionEncodings() {
-        return LemmaController.SEARCHABLE_TRANSCRIPTION_ENCODING; // TODO
-    }
-    /*  @ModelAttribute("allRootEncodings")
-    public String[] getAllRootEncodings() {
-        return LemmaController.SEARCHABLE_ROOT_ENCODING; // TODO
-    }
-*/
-    @ModelAttribute("wordClasses")
-    public Map<String, List<String>> getWordClasses() {
-    	log.info(" wordclass "+ lemmaSearchConf.getWordClasses());
-        return lemmaSearchConf.getWordClasses();
+    @ModelAttribute("contextInformation")
+    public Map<String, List<String>> getContextInformation() {
+    	log.info("contextinformation "+ sentenceSearchConf.getContextInformation());
+        return sentenceSearchConf.getContextInformation();
     }
 
-    @ModelAttribute("lemmaAnnotationTypes")
-    public Map<String, List<String>> getLemmaAnnotationTypes() {
-        return lemmaSearchConf.getAnnotationTypes();
-    }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/sentence", method = RequestMethod.GET)
     public String mainSearchPage(
-        @ModelAttribute("lemma") Lemma lemma,
-        @ModelAttribute("lemmaSearchForm") LemmaSearch lemmaForm,
+        @ModelAttribute("sentence") Sentence sentence,
         @ModelAttribute("sentenceSearchForm") SentenceSearch sentenceForm,
-       @ModelAttribute("textSearchForm") TextSearch textForm,
-        //@ModelAttribute("objectSearchForm") ObjectSearch objectForm,
         @RequestParam MultiValueMap<String, String> params,
         Model model
     ) {
@@ -101,6 +82,11 @@ public class SearchController {
         if (sentenceForm.getTokens() == null || sentenceForm.getTokens().isEmpty()) {
             sentenceForm.setTokens(
                 List.of(new TokenSpec(), new TokenSpec())
+            );
+        }
+        if (sentenceForm.getContext() == null || sentenceForm.getContext().isEmpty()) {
+            sentenceForm.setContext(
+                new ContextSpec()
             );
         }
         model.addAttribute(
@@ -142,6 +128,7 @@ public class SearchController {
      * returns the URL path leading to the search result page provided by given object controller
      */
     public String getSearchResultsPageRoute(ObjectController<?,?> controller) {
+    	System.out.println("URL SentenceSearch"+String.format("/search%s", controller.getRequestMapping()));
         return String.format("/search%s", controller.getRequestMapping());
     }
 
@@ -207,3 +194,4 @@ public class SearchController {
     }
 
 }
+
