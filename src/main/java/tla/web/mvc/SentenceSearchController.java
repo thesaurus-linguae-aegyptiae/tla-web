@@ -29,7 +29,7 @@ import tla.domain.command.SearchCommand;
 import tla.domain.command.SentenceSearch;
 import tla.domain.command.TextSearch;
 import tla.domain.command.SentenceSearch.TokenSpec;
-import tla.domain.command.ContextSpec;
+//import tla.domain.command.ContextSpec;
 import tla.domain.model.Language;
 import tla.domain.model.Script;
 import tla.web.config.SentenceSearchProperties;
@@ -84,11 +84,11 @@ public class SentenceSearchController {
                 List.of(new TokenSpec(), new TokenSpec())
             );
         }
-        if (sentenceForm.getContext() == null || sentenceForm.getContext().isEmpty()) {
+ /*       if (sentenceForm.getContext() == null || sentenceForm.getContext().isEmpty()) {
             sentenceForm.setContext(
                 new ContextSpec()
             );
-        }
+        }*/
         model.addAttribute(
             "forms", initFormExpansionStates(params)
         );

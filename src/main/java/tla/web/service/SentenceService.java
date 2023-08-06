@@ -70,6 +70,7 @@ public class SentenceService extends ObjectService<Sentence> {
     }
     
     public List<Sentence> searchSentencesByContextTextId(String textId) {
+    	System.out.println("Search all sentences with "+textId);
         return backend.getSentencesByTextId(textId);
     }
 
