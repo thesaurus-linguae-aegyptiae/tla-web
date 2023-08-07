@@ -248,7 +248,7 @@ document.getElementById('ref').style.display="none";
                <span th:text="#{lemma_property_attestation_occurrences} + ' ' + ${(obj.attestationCount >= 10000) ? '>' : ''} + ${obj.attestationCount} + ' ' + #{|lemma_property_instance${(obj.attestationCount > 1) ? 's' : ''}|}">Occurrences in __ sentences</span>
                </button>
             </a> -->
-        <a th:href="|${@sentenceSearchController.getSearchResultsPageRoute(@__sentenceController__)}?context.textId=${obj.id}|">
+        <a th:href="|${@sentenceSearchController.getSearchResultsPageRoute(@__sentenceController__)}?context.textId=${obj.id}&sort=context.position|">
            <button id="text-content-button" type="button" class="btn btn-secondary text-left text-decoration-none ">
               <span class="fas fa-arrow-circle-right"></span>&nbsp;
               <span th:text="#{button_text_content}">Sentences in the text</span>

@@ -115,5 +115,103 @@
     </script>
 	
    </div>
+   
+   
+    <div layout:fragment="content" th:with="textID=${#request.getParameter('context.textId')}">
+   
+    <!-- loading animation -->
+	 <!--<div class="loader-wrapper">
+	  <span class="loader"><span class="loader-inner"></span></span>
+	</div>-->
+	
+		<div class="text-center spinner-wrapper">
+         <p><span class="spinner-border text-danger m-2" role="status"></span>
+			<span class="m-2" th:text="#{msg_loading_sentences}">Loading...</span></p>
+           <p><span class="text-secondary development-msg">
+              <i class="fas fa-wrench"></i> (<span th:utext="#{msg_loading_sentences_browser}">Performs ...</span>)
+           </span></p>
+        </div>
+			
+    <div class="hidden-content hide-content" th:if="${textID} != null AND ${textID} != ''">
+
+      <!-- result page heading -->
+      <div class="search-header row mb-sm-3 d-flex justify-content-between">
+         <div class="result">
+            <h2 class="id mt-sm-1" th:text="#{result_page_title_sentence}">Sentence Search Results</h2> 
+         </div>
+        <div th:replace="fragments/common :: social('sentence-search-results')"/>
+      </div>
+      
+
+      <div  th:if="${searchResults.size} > 0" class="row">
+
+        <!-- search results -->
+        <div class="col-lg-8 content">
+          <div class= "result-list m-sm-0 m-lg-4">
+            <nav th:replace="fragments/search/results :: search-results-pagination"/>
+			<!-- Block and Annotation view -->
+            <th:block th:each="obj : ${searchResults}">
+               <th:block th:insert="fragments/search/results :: sentence-search-result"/>
+               <th:block th:insert="fragments/search/results :: sentence-page-button"/>
+            </th:block>
+			
+            <nav th:replace="fragments/search/results :: search-results-pagination"/>
+          </div>
+        </div>
+
+        <!-- sidebar -->
+        <div class="col-lg-4 sidebar">
+          <div class="sticky-top m-sm-0 m-lg-4">
+
+            <div th:replace="fragments/search/results :: hide-properties-buttons"/>
+
+            <!--<div th:replace="fragments/search/results :: modify-search-button(${modifySearchUrl})"/>-->
+            <div th:replace="fragments/search/results :: search-facets"/>
+          </div>
+        </div>
+      </div>
+
+      <div th:if="${searchResults.size} == 0" class="row">
+
+        <!-- no search results -->
+        <div class="col-lg-8 content">
+             <strong th:text="#{result_page_no_results}">No results</strong>
+        </div>
+
+        <!-- sidebar -->
+        <!--<div class="col-lg-4 sidebar">
+          <div class="sticky-top m-4">
+            <div th:replace="fragments/search/results :: modify-search-button(${modifySearchUrl})"/>
+          </div>
+        </div>-->
+      </div>
+
+    </div>
+
+    <!-- no valid text search paramenter name -->
+    <div th:if="${textID} == null OR ${textID} == ''">
+      <div class="row">
+        <div class="col-lg-8 content">
+             <strong>404: No valid search text parameter submitted.</strong>
+        </div>
+
+        <!-- sidebar -->
+        <!--<div class="col-lg-4 sidebar">
+          <div class="sticky-top m-sm-0 m-lg-4">
+            <div th:replace="fragments/search/results :: modify-search-button(${modifySearchUrl})"/>
+          </div>
+        </div>-->
+      </div>
+    </div>
+	
+	 <script>
+        $(window).on("load",function(){
+          //$(".loader-wrapper").addClass("hide");
+          $(".spinner-wrapper").addClass("hide-content");
+          $(".hidden-content").addClass("show-content");
+        });
+    </script>
+	
+   </div>
   </body>
 </html>
