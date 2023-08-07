@@ -382,7 +382,7 @@
         Translation
       </label>
       <div class="col-xl-9">
-        <input class="form-control mb-sm-3"  type="text" th:field="*{translation.text}" th:id="|field-label-translation-${key}|" th:placeholder="#{field_label_translation}"/>
+        <input class="form-control mb-sm-3"  type="text" th:field="*{translation.text}" th:id="|field-label-translation-${key}|" th:placeholder="#{field_label_translation_placeholder}"/>
         <div th:each="lang : ${languages}" class="form-check form-check-inline">
           <input class="form-check-input" type="radio" th:field="*{translation.lang}" th:value="${lang}"
               th:id="|field-value-translation-checkbox-${lang}-${key}|"/>
