@@ -38,17 +38,18 @@
     color: var(--BBAWred);
 }
 
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #F2F3F4;
+form .form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #cccccc;
   opacity: 1; /* Firefox */
 }
-
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color: #F2F3F4;
+form .form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #cccccc;
 }
-
-::-ms-input-placeholder { /* Microsoft Edge */
-  color: #F2F3F4;
+form .form-control::-ms-input-placeholder { /* Microsoft Edge */
+  color: #cccccc;
+}
+form .form-control:placeholder {
+  color: #cccccc;
 }
 
 .words-breakable {
