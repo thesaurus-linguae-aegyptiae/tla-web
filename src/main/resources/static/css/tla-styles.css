@@ -38,6 +38,19 @@
     color: var(--BBAWred);
 }
 
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--BBAWlightgrey);
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: var(--BBAWlightgrey);
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: var(--BBAWlightgrey);
+}
+
 .words-breakable {
     word-break: break-word;
 }
