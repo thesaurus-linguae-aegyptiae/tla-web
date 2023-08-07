@@ -10,7 +10,7 @@
       <fieldset class="form-group row">
         <label class="col-form-label col-xl-2" th:text="#{field_label_lemma_id}" for="id-search-lemma">Lemma ID</label>
         <div class="col-xl-10">
-          <input class="form-control mb-sm-1 lemma-id" type="text" th:field="*{id}" th:attr="placeholder=48240"
+          <input class="form-control mb-sm-1 lemma-id" type="text" th:field="*{id}" th:attr="placeholder=80"
               th:id="id-search-lemma" th:list="id-search-lemma-suggestions">
             <script th:replace="fragments/search/tools :: autocomplete('id-search-lemma')"></script>
           </input>
@@ -382,7 +382,7 @@
         Translation
       </label>
       <div class="col-xl-9">
-        <input class="form-control mb-sm-3"  type="text" th:field="*{translation.text}" th:id="|field-label-translation-${key}|" th:attr="placeholder=Ente"/>
+        <input class="form-control mb-sm-3"  type="text" th:field="*{translation.text}" th:id="|field-label-translation-${key}|" th:attr="placeholder=elephant"/>
         <div th:each="lang : ${languages}" class="form-check form-check-inline">
           <input class="form-check-input" type="radio" th:field="*{translation.lang}" th:value="${lang}"
               th:id="|field-value-translation-checkbox-${lang}-${key}|"/>
@@ -402,7 +402,7 @@
     
     <div class="col-xl-9" th:fragment="transcription-spec(key, bind, encodings)" th:object="${__${bind}__}">
 				 <input type="text" class="bbaw-libertine form-control mb-sm-3 keyboardInput" th:field="*{transcription.text}" th:id="dict-search-transcription" rows="3" 
-				 th:attr="placeholder=wrd" name="transcription" lang="egy"/>
+				 th:attr="placeholder=ꜣbw" name="transcription" lang="egy"/>
                  <div th:each="enc : ${encodings}" class="form-check form-check-inline">
 						 
 							  <input class="form-check-input transcription-enc-btn"  type="radio" name="transcription_enc" th:id="|transcription_enc_${enc}|" th:field="*{transcription.enc}" th:value="${enc}"/>
