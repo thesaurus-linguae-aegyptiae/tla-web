@@ -186,12 +186,14 @@
                   <br/><strong  th:text="#{object_property_certainty}" class="details-property-label"></strong>:
                      <span  th:text="${place.getCertainty}"></span>
                </th:block>
-               <br/><strong  th:text="#{object_property_isorigplace}" class="details-property-label"></strong>:
                <th:block th:if="${place.getIsorigin}">
-                     <span  th:text="#{object_property_yes}"></span>
-               </th:block>
-               <th:block th:unless="${place.getIsorigin}">
-                     <span  th:text="#{object_property_no}"></span>
+                  <br/><strong  th:text="#{object_property_isorigplace}" class="details-property-label"></strong>:
+                  <th:block th:if="${#bools.isTrue(place.getIsorigin)}">
+                        <span  th:text="#{object_property_yes}"></span>
+                  </th:block>
+                  <th:block th:unless="${#bools.isTrue(place.getIsorigin)}">
+                        <span  th:text="#{object_property_no}"></span>
+                  </th:block>
                </th:block>
                   <th:block th:unless="${place.getComment}==null"> 
                   <br/><strong  th:text="#{object_property_place_comment}" class="details-property-label"></strong>:
@@ -212,12 +214,14 @@
                   <br/><strong  th:text="#{object_property_certainty}" class="details-property-label"></strong>:
                      <span  th:text="${place.getCertainty}"></span>
                </th:block>
-               <br/><strong  th:text="#{object_property_isorigplace}" class="details-property-label"></strong>:
                <th:block th:if="${place.getIsorigin}">
-                     <span  th:text="#{object_property_yes}"></span>
-               </th:block>
-               <th:block th:unless="${place.getIsorigin}">
-                     <span  th:text="#{object_property_no}"></span>
+                  <br/><strong  th:text="#{object_property_isorigplace}" class="details-property-label"></strong>:
+                  <th:block th:if="${#bools.isTrue(place.getIsorigin)}">
+                        <span  th:text="#{object_property_yes}"></span>
+                  </th:block>
+                  <th:block th:unless="${#bools.isTrue(place.getIsorigin)}">
+                        <span  th:text="#{object_property_no}"></span>
+                  </th:block>
                </th:block>
                   <th:block th:unless="${place.getComment}==null"> 
                   <br/><strong  th:text="#{object_property_place_comment}" class="details-property-label"></strong>:
@@ -252,23 +256,31 @@
                <span th:text="${location.getLocation().getName()}"></span>
                 <th:block th:unless="${location.getInventory_number}==null"> 
 	            <br/><strong  th:text="#{object_property_inv_no}" class="details-property-label"></strong>:
-						<span  th:text="${location.getInventory_number}"></span>
+               <span th:each="idno, idnoStat : ${location.getInventory_number}">
+                   <span class="fas fa-arrow-circle-right"></span>
+                   <span  th:text="${idno}"></span>
+                   <span th:unless="${idnoStat.last}">, </span>
+               </span>
 				   </th:block>
-               <br/><strong  th:text="#{object_property_ispresentlocation}" class="details-property-label"></strong>:
 					<th:block th:if="${location.getIs_present_location}">
-							<span  th:text="#{object_property_yes}"></span>
-					</th:block>
-					<th:block th:unless="${location.getIs_present_location}">
-							<span  th:text="#{object_property_no}"></span>
+                  <br/><strong  th:text="#{object_property_ispresentlocation}" class="details-property-label"></strong>:
+                  <th:block th:if="${#bools.isTrue(location.getIs_present_location)}">
+                        <span  th:text="#{object_property_yes}"></span>
+                  </th:block>
+                  <th:block th:unless="${#bools.isTrue(location.getIs_present_location)}">
+                        <span  th:text="#{object_property_no}"></span>
+                  </th:block>
 					</th:block>
 					
-				   <br/><strong  th:utext="#{object_property_in_situ}" class="details-property-label"></strong>:
 					<th:block th:if="${location.getIn_situ}">
-							<span  th:text="#{object_property_yes}"></span>
+                  <br/><strong  th:utext="#{object_property_in_situ}" class="details-property-label"></strong>:
+                  <th:block th:if="${#bools.isTrue(location.getIn_situ)}">
+                        <span  th:text="#{object_property_yes}"></span>
+                  </th:block>
+                  <th:block th:unless="${#bools.isTrue(location.getIn_situ)}">
+                        <span  th:text="#{object_property_no}"></span>
+                  </th:block>     
 					</th:block>
-					<th:block th:unless="${location.getIn_situ}">
-							<span  th:text="#{object_property_no}"></span>
-					</th:block>     
                
              	<th:block th:unless="${location.getComment}==null"> 
 	            <br/><strong  th:text="#{object_property_place_comment}" class="details-property-label"></strong>:
