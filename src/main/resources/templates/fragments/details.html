@@ -181,7 +181,7 @@
                <li th:each="place, placeStat : ${findspot.getPlaces}">
                <p>
                  <span class="fas fa-arrow-circle-right"></span>
-                 <!-- TO DO getName() -->###TO DO###
+                 <span th:text="${place.getPlace().getName()}"></span>
                <th:block th:unless="${place.getCertainty}==null"> 
                   <br/><strong  th:text="#{object_property_certainty}" class="details-property-label"></strong>:
                      <span  th:text="${place.getCertainty}"></span>
@@ -207,7 +207,7 @@
                <li th:each="place, placeStat : ${findspot.getFormerPlaces}">
                <p>
                   <span class="fas fa-arrow-circle-right"></span>
-                  <!-- TO DO getName() -->###TO DO###           
+                  <span th:text="${place.getPlace().getName()}"></span>   
                <th:block th:unless="${place.getCertainty}==null"> 
                   <br/><strong  th:text="#{object_property_certainty}" class="details-property-label"></strong>:
                      <span  th:text="${place.getCertainty}"></span>

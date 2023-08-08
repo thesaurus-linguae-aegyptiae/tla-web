@@ -228,7 +228,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     	return object;
     }
     
-    
+    @Getter
     public static class Place{
     	public Place(Passport passport) {
     		this.certainty = extractValue(passport, "certainty");
@@ -238,19 +238,17 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     		}
     	private String certainty;
     	private String comment;
+    	
     	private boolean isorigin;
     	private ObjectReference place;
+
+    	public boolean getIsorigin() { //TODO Lombok
+    		return isorigin;
+    	}
     	
-    	public String getCertainty() {
-    		return this.certainty;
-    	}
-    	public String getComment() {
-    		return this.comment;
-    	}
-    	public boolean getIsorigin() {
-    		return this.isorigin;
-    	}
+    
     }
+    
     
     public static class FindSpot{
     	public FindSpot(Passport passport) {
@@ -309,6 +307,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     @Setter(AccessLevel.NONE)
     private List<Location> locations;
     
+    @Getter
     public static class Location{
     	public Location(Passport passport) {
     		this.comment = extractValue(passport, "comment");
@@ -323,23 +322,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     	private Boolean is_present_location;
     	private Boolean in_situ;
     	private ObjectReference location;
-    	
-    	public String getComment() {
-    		return comment;
-    	}
-    	
-    	public String getInventory_number() {
-			return inventory_number;
-		}
-		public Boolean getIs_present_location() {
-			return is_present_location;
-		}
-		public Boolean getIn_situ() {
-			return in_situ;
-		}
-		public ObjectReference getLocation() {
-			return location;
-		} 	
+    		
     }
 
    public List<Location> getLocations() {
