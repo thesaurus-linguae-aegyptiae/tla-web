@@ -165,7 +165,7 @@
             </span>
         </p>
     </div>
- 
+
     <!-- Find Spot -->
     
     <div class="find-spot" th:fragment="find-spot" id="find-spot" th:unless="${#lists.isEmpty(obj.FindSpots)}">
@@ -233,6 +233,7 @@
     </div>
     
     <!-- to be discussed what this info means (label)
+
                 <span th:if="${obj.isorig !=null}" class="details-property-label" th:text="'('+#{object_property_isorigplace}+')'">
                  is original place
                 </span>
@@ -371,7 +372,6 @@
     </div>
     
     <!-- Synonyms -->
-    
     <div class="synonyms" th:fragment="synonyms" id="synonyms" th:unless="${#lists.isEmpty(obj.getSynonymGroups)}">
         <hr/>
         <p>
@@ -381,6 +381,7 @@
                 <span class="lang-icon text-uppercase" th:text="${synonymGroup.getLanguage}">DE</span>
                 <span th:text="${synonymGroup.getSynonym}"></span>
                 <br th:unless="${elemStat.last}">
+
             </li>
             </ul>
         </p>
