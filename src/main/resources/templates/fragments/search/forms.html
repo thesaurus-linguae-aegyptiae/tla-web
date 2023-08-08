@@ -406,7 +406,7 @@
                  <div th:each="enc : ${encodings}" class="form-check form-check-inline">
 						 
 							  <input class="form-check-input transcription-enc-btn"  type="radio" name="transcription_enc" th:id="|transcription_enc_${enc}|" th:field="*{transcription.enc}" th:value="${enc}"/>
-							  <label class="form-check-label" for="|transcription_enc_${enc}|"   th:text="#{|field_value_label_enc_${enc}|}">Unicode</label>
+							  <label class="form-check-label" th:for="|transcription_enc_${enc}|"   th:text="#{|field_value_label_enc_${enc}|}">Unicode</label>
 							 
 						</div>
 					
