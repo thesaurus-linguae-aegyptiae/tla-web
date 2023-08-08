@@ -196,6 +196,18 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     @Setter(AccessLevel.NONE)
     private List<FindSpot> findspots;
     
+    public static List<String> extractValueS(Passport passport, String searchString) {
+    	List<Passport> passports;
+    	List<String> result = new ArrayList<String>();
+    	try{
+    		passports = passport.extractProperty(searchString);
+    		passports.forEach( node -> result.add(node.getLeafNodeValue()));
+    	}catch(Exception e) {
+    		System.out.println("INFO: Could not extract " + searchString);
+    	}
+    	return result;
+    }
+    
     public static String extractValue(Passport passport, String searchString) {
     	String result=null;
     	try{
@@ -300,14 +312,14 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     public static class Location{
     	public Location(Passport passport) {
     		this.comment = extractValue(passport, "comment");
-    		this.inventory_number = extractValue(passport, "inventory_number");
+    		this.inventory_number = extractValueS(passport, "inventory_number");
     	    this.is_present_location = Boolean.parseBoolean(extractValue(passport, "is_present_location"));
     		this.in_situ = Boolean.parseBoolean(extractValue(passport, "in_situ"));
     		this.location = extractObjectReference(passport);
     		
     	}
     	private String comment;
-    	private String inventory_number;
+    	private List<String> inventory_number;
     	private Boolean is_present_location;
     	private Boolean in_situ;
     	private ObjectReference location;
