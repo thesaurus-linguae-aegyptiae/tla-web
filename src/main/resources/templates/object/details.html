@@ -24,23 +24,23 @@
           <div th:replace="fragments/details :: object-components"/>
           <div th:replace="fragments/details :: materials"/>
           <div th:replace="fragments/details :: dimensions"/>
-          <div th:replace="fragments/details :: present-location"/>
-          <div th:replace="fragments/details :: object-inv-nos"/>
           <div th:replace="fragments/details :: find-spot"/>
+          <div th:replace="fragments/details :: present-location"/>
+          <!--<div th:replace="fragments/details :: object-inv-nos"/>-->
           <div th:replace="fragments/details :: date"/>
           <div th:replace="fragments/details :: date-comment"/>
          
           <div th:replace="fragments/details :: bibliography"/>
           <div th:replace="fragments/details :: external-references"/>
+          <div th:replace="fragments/details :: file-description"/>
           <div>
              <hr/>
              <th:block th:replace="fragments/common :: construction(#{msg_more_metadata})"></th:block>
           </div>
           <div th:replace="fragments/details :: object-property-object-paths('ths')"/>
           <div th:replace="fragments/details :: object-property-related-objects"/>
-          <div th:replace="fragments/details :: file-description"/>
-          <div th:replace="fragments/details :: file-comment"/>
           <div th:replace="fragments/details :: protocol"/>
+          <div th:replace="fragments/details :: file-comment"/>
           <div th:replace="fragments/details :: editor-info"/>
       
         <!-- 
