@@ -120,9 +120,8 @@
         <hr/>
         <p>
             <strong th:text="#{object_property_script}" class="details-property-label">Script</strong>:
-            <span th:each="scr, scrStat : ${obj.skript}">
-                <span th:text="${scr}"></span>
-                <span th:unless="${scrStat.last}">, </span>
+            <span th:each="elem, elemStat : ${obj.skript}">
+                <span th:text="${elem}"></span><th:block th:unless="${elemStat.last}">, </th:block>
             </span>
         </p>
     </div>
@@ -133,23 +132,19 @@
         <hr  th:if="${#lists.isEmpty(obj.skript)}"/>
         <p>
             <strong th:text="#{object_property_language}" class="details-property-label">Language</strong>:
-            <span th:each="lang, langStat : ${obj.language}">
-                <span th:text="${lang}"></span>
-                <span th:unless="${langStat.last}">, </span>
+            <span th:each="elem, elemStat : ${obj.language}">
+                <span th:text="${elem}"></span><th:block th:unless="${elemStat.last}">, </th:block>
             </span>
         </p>
     </div>
     
     <!-- Object type -->
     
-    <div class="object-type" th:fragment="object-type" id="object-type" th:unless="${#lists.isEmpty(obj.objType)}">
+    <div class="object-type" th:fragment="object-type" id="object-type" th:if="${obj.objType}">
         <hr/>
         <p>
             <strong th:text="#{object_property_objecttype}" class="details-property-label">Object type</strong>:
-            <span th:each="otype, otypeStat : ${obj.objType}">
-                <span  th:text="${otype}"></span>
-                <span th:unless="${otypeStat.last}">, </span>
-            </span>
+            <a th:href="${'/thesaurus/'+obj.objType.getId()}"  th:text="${obj.objType.getName()}"></a>
         </p>
     </div>
  
@@ -160,9 +155,53 @@
         <p>
             <strong th:text="#{object_property_components}" class="details-property-label">Components</strong>:
             <span th:each="elem, elemStat : ${obj.components}">
-                <span  th:text="${elem}"></span>
-                <span th:unless="${elemStat.last}">, </span>
+                <a th:href="${'/thesaurus/'+elem.getId()}"  th:text="${elem.getName()}"></a><th:block th:unless="${elemStat.last}">, </th:block>
             </span>
+        </p>
+    </div>
+
+    <!-- Special object types -->
+    
+    <div class="special-object-types" th:fragment="special-object-types" id="special-object-types">
+        <p>
+					<th:block th:if="${obj.isModel}">
+                  <br/><strong  th:text="#{object_property_is_model}" class="details-property-label"></strong>:
+                  <th:block th:if="${#bools.isTrue(obj.isModel)}">
+                        <span  th:text="#{object_property_yes}"></span>
+                  </th:block>
+                  <th:block th:unless="${#bools.isTrue(obj.isModel)}">
+                        <span  th:text="#{object_property_no}"></span>
+                  </th:block>
+					</th:block>
+					
+					<th:block th:if="${obj.isImitation}">
+                  <br/><strong  th:utext="#{object_property_is_imitation}" class="details-property-label"></strong>:
+                  <th:block th:if="${#bools.isTrue(obj.isImitation)}">
+                        <span  th:text="#{object_property_yes}"></span>
+                  </th:block>
+                  <th:block th:unless="${#bools.isTrue(obj.isImitation)}">
+                        <span  th:text="#{object_property_no}"></span>
+                  </th:block>     
+					</th:block>
+					
+					<th:block th:if="${obj.isMiniature}">
+                  <br/><strong  th:utext="#{object_property_is_miniature}" class="details-property-label"></strong>:
+                  <th:block th:if="${#bools.isTrue(obj.isMiniature)}">
+                        <span  th:text="#{object_property_yes}"></span>
+                  </th:block>
+                  <th:block th:unless="${#bools.isTrue(obj.isMiniature)}">
+                        <span  th:text="#{object_property_no}"></span>
+                  </th:block>     
+					</th:block>					
+					<th:block th:if="${obj.isSkeuomorph}">
+                  <br/><strong  th:utext="#{object_property_is_skeuomorph}" class="details-property-label"></strong>:
+                  <th:block th:if="${#bools.isTrue(obj.isSkeuomorph)}">
+                        <span  th:text="#{object_property_yes}"></span>
+                  </th:block>
+                  <th:block th:unless="${#bools.isTrue(obj.isSkeuomorph)}">
+                        <span  th:text="#{object_property_no}"></span>
+                  </th:block>     
+					</th:block>
         </p>
     </div>
 
@@ -181,7 +220,7 @@
                <li th:each="place, placeStat : ${findspot.getPlaces}">
                <p>
                  <span class="fas fa-arrow-circle-right"></span>
-                 <span th:text="${place.getPlace().getName()}"></span>
+                 <a th:href="${'/thesaurus/'+place.getPlace().getId()}"  th:text="${place.getPlace().getName()}"></a>
                <th:block th:unless="${place.getCertainty}==null"> 
                   <br/><strong  th:text="#{object_property_certainty}" class="details-property-label"></strong>:
                      <span  th:text="${place.getCertainty}"></span>
@@ -209,7 +248,7 @@
                <li th:each="place, placeStat : ${findspot.getFormerPlaces}">
                <p>
                   <span class="fas fa-arrow-circle-right"></span>
-                  <span th:text="${place.getPlace().getName()}"></span>   
+                  <a th:href="${'/thesaurus/'+place.getPlace().getId()}"  th:text="${place.getPlace().getName()}"></a>   
                <th:block th:unless="${place.getCertainty}==null"> 
                   <br/><strong  th:text="#{object_property_certainty}" class="details-property-label"></strong>:
                      <span  th:text="${place.getCertainty}"></span>
@@ -242,6 +281,16 @@
                  is original place
                 </span>
                 -->
+                
+    <!-- Object grouping -->
+    
+    <div class="object-grouping" th:fragment="object-grouping" id="object-grouping" th:if="${obj.grouping}">
+        <hr/>
+        <p>
+            <strong th:text="#{object_property_grouping}" class="details-property-label">Object grouping</strong>:
+            <a th:href="${'/thesaurus/'+obj.grouping.getId()}"  th:text="${obj.grouping.getName()}"></a>
+        </p>
+    </div>    
     
     <!-- Present location -->
     
@@ -253,7 +302,7 @@
              <li th:each="location, elemStat : ${obj.getLocations}">
               <p>
                <span class="fas fa-arrow-circle-right"></span>
-               <span th:text="${location.getLocation().getName()}"></span>
+               <a th:href="${'/thesaurus/'+location.getLocation().getId()}"  th:text="${location.getLocation().getName()}"></a>
                 <th:block th:unless="${location.getInventory_number}==null"> 
 	            <br/><strong  th:text="#{object_property_inv_no}" class="details-property-label"></strong>:
                <span th:each="idno, idnoStat : ${location.getInventory_number}">
@@ -292,20 +341,6 @@
         </p>
     </div>
     
-     <!-- Object inv.nos. -->
-    
-    <div class="object-inv-nos" th:fragment="object-inv-nos" id="object-inv-nos" th:unless="${#lists.isEmpty(obj.invNos)}">
-        <hr  th:if="${#lists.isEmpty(obj.locations)}"/>
-        <p>
-            <strong th:text="#{object_property_inv_nos}" class="details-property-label">Inventory nos.</strong>:
-            <span th:each="elem, elemStat : ${obj.invNos}">
-                <span class="fas fa-arrow-circle-right"></span>
-                <span  th:text="${elem}"></span>
-                <span th:unless="${elemStat.last}">, </span>
-            </span>
-        </p>
-    </div>   
-    
     <!-- Materials -->
     
     <div class="materials" th:fragment="materials" id="materials" th:unless="${#lists.isEmpty(obj.materials)}">
@@ -313,7 +348,19 @@
         <p>
             <strong th:text="#{object_property_materials}" class="details-property-label">Materials</strong>:
             <span th:each="elem, elemStat : ${obj.materials}">
-                <span th:text="${elem}"></span><th:block th:unless="${elemStat.last}"> / </th:block>
+                <a th:href="${'/thesaurus/'+elem.getId()}"  th:text="${elem.getName()}"></a><th:block th:unless="${elemStat.last}">, </th:block>
+            </span>
+        </p>
+    </div>
+
+    <!-- Object technique -->
+    
+    <div class="object-technique" th:fragment="object-technique" id="object-technique" th:unless="${#lists.isEmpty(obj.technique)}">
+        <hr/>
+        <p>
+            <strong th:text="#{object_property_technique}" class="details-property-label">Techniques</strong>:
+            <span th:each="elem, elemStat : ${obj.technique}">
+                <a th:href="${'/thesaurus/'+elem.getId()}"  th:text="${elem.getName()}"></a><th:block th:unless="${elemStat.last}">, </th:block>
             </span>
         </p>
     </div>
@@ -327,6 +374,69 @@
             <span th:each="elem, elemStat : ${obj.dimensions}">
                 <span th:text="${elem}"></span><th:block th:unless="${elemStat.last}"> &times; </th:block>
             </span> cm
+        </p>
+    </div>
+    
+    <!-- Condition -->
+    
+    <div class="object-condition" th:fragment="object-condition" id="object-condition" th:if="${obj.condition}">
+        <hr/>
+        <p>
+            <strong th:text="#{object_property_condition}" class="details-property-label">Condition</strong>:
+            <a th:href="${'/thesaurus/'+obj.condition.getId()}"  th:text="${obj.condition.getName()}"></a>
+        </p>
+    </div>
+    
+    <!-- Materiality comment -->
+    
+    <div class="materiality-comment" th:fragment="materiality-comment" id="materiality-comment" th:unless="${#lists.isEmpty(obj.materialityComment)}">
+        <p>
+            <strong th:text="#{object_property_materiality_comment}" class="details-property-label">Materiality comment</strong>
+            <br/>
+            <ul class="no-bullet-list">
+            <li th:each="elem, elemStat : ${obj.materialityComment}">
+                <span th:text="${elem}"></span>
+                <br th:unless="${elemStat.last}"/>
+            </li>
+            </ul>
+        </p>
+    </div>    
+    
+    <!-- Owner -->
+    
+    <div class="object-owner" th:fragment="object-owner" id="object-owner" th:if="${obj.owner}">
+        <hr/>
+        <p>
+            <strong th:text="#{object_property_owner}" class="details-property-label">Owner</strong>:
+            <a th:href="${'/thesaurus/'+obj.owner.getId()}"  th:text="${obj.owner.getName()}"></a>
+        </p>
+    </div>
+
+    <!-- Object context -->
+    
+    <div class="object-context" th:fragment="object-context" id="object-context" th:unless="${#lists.isEmpty(obj.culturalContext)}">
+        <hr/>
+        <p>
+            <strong th:text="#{object_property_context}" class="details-property-label">Cultural context</strong>:
+            <span th:each="elem, elemStat : ${obj.culturalContext}">
+                <a th:href="${'/thesaurus/'+elem.getId()}"  th:text="${elem.getName()}"></a><th:block th:unless="${elemStat.last}">, </th:block>
+            </span>
+        </p>
+    </div>
+
+    <!-- Cultural context comment -->
+    
+    <div class="context-comment" th:fragment="context-comment" id="context-comment" th:unless="${#lists.isEmpty(obj.contextComment)}">
+        <hr/>
+        <p>
+            <strong th:text="#{object_property_context_comment}" class="details-property-label">Cultural comment</strong>
+            <br/>
+            <ul class="no-bullet-list">
+            <li th:each="elem, elemStat : ${obj.contextComment}">
+                <span th:utext="${elem}"></span>
+                <br th:unless="${elemStat.last}"/>
+            </li>
+            </ul>
         </p>
     </div>
     
@@ -393,7 +503,6 @@
                 <span class="lang-icon text-uppercase" th:text="${synonymGroup.getLanguage}">DE</span>
                 <span th:text="${synonymGroup.getSynonym}"></span>
                 <br th:unless="${elemStat.last}">
-
             </li>
             </ul>
         </p>

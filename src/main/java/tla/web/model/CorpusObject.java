@@ -192,7 +192,6 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     public static final String PASSPORT_PROP_FINDSPOT = "find_spot.find_spot";
     public static final String PASSPORT_PROP_FINDSPOT_FORMERPLACE = "former_place";
     public static final String PASSPORT_PROP_FINDSPOT_PLACE = "place";
-
     
     @Setter(AccessLevel.NONE)
     private List<FindSpot> findspots;
@@ -218,6 +217,46 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     	}
     	return result;
     }
+
+    public static ObjectReference extractThsEntry(Passport passport, String searchString) {
+    	ObjectReference result=null;
+    	try{
+    		result = passport.extractProperty(searchString).get(0).extractObjectReferences().get(0);
+    	}catch(Exception e) {
+    		System.out.println("INFO: Could not extract " + searchString);
+    	}
+    	return result;
+    }
+
+    public static List<ObjectReference> extractThsEntries(Passport passport, String searchString) {
+    	List<ObjectReference> result = new ArrayList<ObjectReference>();
+        try {       
+          result =passport.extractProperty(searchString).get(0).extractObjectReferences();
+    	}catch(Exception e) {
+    		System.out.println("INFO: Could not extract " + searchString);
+    	}
+    	return result;
+    }
+
+    private static List<String> extractComment(Passport passport, String searchString) {
+        List<String> comment = new ArrayList<>();
+        try {
+            passport.extractProperty(searchString).forEach(
+                node -> comment.addAll(
+                    Arrays.asList(
+                        node.getLeafNodeValue().replaceAll("(\\r?\\n|^)[\\s\\-]+", "$1").replaceAll("\\r?\\n[\\r?\\n\\s]*", "||").split("\\|\\|")
+                    ).stream().map(
+                        para -> para.strip()
+                    ).collect(
+                        Collectors.toList()
+                    )
+                )
+            );
+        } catch (Exception e) {
+          System.out.println("INFO: Could not extract "+searchString);
+        }
+        return comment;
+    }
     
     public static ObjectReference extractObjectReference(Passport passport) {
     	ObjectReference object=null;
@@ -234,16 +273,16 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     	public Place(Passport passport) {
     		this.certainty = extractValue(passport, "certainty");
     		this.comment = extractValue(passport, "comment");
-    		this.isorigin= Boolean.parseBoolean(extractValue(passport, "is_origin"));
+    		this.isorigin= extractValue(passport, "is_origin");
     		this.place = extractObjectReference(passport);
     		}
     	private String certainty;
     	private String comment;
     	
-    	private boolean isorigin;
+    	private String isorigin;
     	private ObjectReference place;
 
-    	public boolean getIsorigin() { //TODO Lombok
+    	public String getIsorigin() { //TODO Lombok
     		return isorigin;
     	}
     	
@@ -313,15 +352,15 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     	public Location(Passport passport) {
     		this.comment = extractValue(passport, "comment");
     		this.inventory_number = extractValueS(passport, "inventory_number");
-    	    this.is_present_location = Boolean.parseBoolean(extractValue(passport, "is_present_location"));
-    		this.in_situ = Boolean.parseBoolean(extractValue(passport, "in_situ"));
+    	    this.is_present_location = extractValue(passport, "is_present_location");
+    		this.in_situ = extractValue(passport, "in_situ");
     		this.location = extractObjectReference(passport);
     		
     	}
     	private String comment;
     	private List<String> inventory_number;
-    	private Boolean is_present_location;
-    	private Boolean in_situ;
+    	private String is_present_location;
+    	private String in_situ;
     	private ObjectReference location;
     		
     }
@@ -419,13 +458,13 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     @Getter
     public static class Description{
     	Description(Passport passport){
-    		this.reconstructed = Boolean.parseBoolean(extractValue(passport, "reconstructed"));
+    		this.reconstructed = extractValue(passport, "reconstructed");
     		this.protocol = extractValue(passport, "protocol");
     		this.comment = extractValue(passport, "comment");
     		this.definition = extractValue(passport, "definition");
     	}
-    	private Boolean reconstructed;
-	    private String 	protocol;
+    	private String reconstructed;
+	    private String protocol;
 	    private String comment;
 	    private String definition;
     	
@@ -495,49 +534,131 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     // Object description
     ///////////////////////////
     public static final String PASSPORT_PROP_OBJ_MODEL= "object.description_of_object.model";
+    private String isModel;
+    public String getIsModel() {
+        if (this.isModel == null) {
+            this.isModel = extractValue(this.getPassport(), PASSPORT_PROP_OBJ_MODEL);
+        }
+        return this.isModel;
+    }
+    
     public static final String PASSPORT_PROP_OBJ_IMITATION= "object.description_of_object.imitation";
+    private String isImitation;
+    public String getIsImitation() {
+        if (this.isImitation == null) {
+            this.isImitation = extractValue(this.getPassport(), PASSPORT_PROP_OBJ_IMITATION);
+        }
+        return this.isImitation;
+    }
+    
     public static final String PASSPORT_PROP_OBJ_MINIATURE= "object.description_of_object.miniature";
+    private String isMiniature;
+    public String getIsMiniature() {
+        if (this.isMiniature == null) {
+            this.isMiniature = extractValue(this.getPassport(), PASSPORT_PROP_OBJ_MINIATURE);
+        }
+        return this.isMiniature;
+    }
+    
     public static final String PASSPORT_PROP_OBJ_SKEUO= "object.description_of_object.skeuomorph";
+    private String isSkeuomorph;
+    public String getIsSkeuomorph() {
+        if (this.isSkeuomorph == null) {
+            this.isSkeuomorph = extractValue(this.getPassport(), PASSPORT_PROP_OBJ_SKEUO);
+        }
+        return this.isSkeuomorph;
+    }
+    
     public static final String PASSPORT_PROP_OBJ_OWNER = "object.description_of_object.owner";
+    private ObjectReference owner;
+    public ObjectReference getOwner() {
+        if (this.owner == null) {
+            this.owner = extractThsEntry(this.getPassport(), PASSPORT_PROP_OBJ_OWNER);
+        }
+        return this.owner;
+    }
+    
     public static final String PASSPORT_PROP_OBJ_DESCR = "object.description_of_object.description";
     public static final String PASSPORT_PROP_OBJ_COMMENT = "object.description_of_object.comment";
+    
     public static final String PASSPORT_PROP_OBJ_CONDITION = "object.technical_details.condition";
+    private ObjectReference condition;
+    public ObjectReference getCondition() {
+        if (this.condition == null) {
+            this.condition = extractThsEntry(this.getPassport(), PASSPORT_PROP_OBJ_CONDITION);
+        }
+        return this.condition;
+    }
+
     public static final String PASSPORT_PROP_OBJ_TECH = "object.technical_details.technique";
+    private List<ObjectReference> technique;
+    public List<ObjectReference> getTechnique() {
+        if (this.technique == null) {
+            this.technique = extractThsEntries(this.getPassport(), PASSPORT_PROP_OBJ_TECH);
+        }
+        return this.technique;
+    }    
+    
     public static final String PASSPORT_PROP_OBJ_TECH_COMMENT = "object.technical_details.comment";
-    public static final String PASSPORT_PROP_OBJ_GROUPING = "object.description_of_object.context.grouping";
-    public static final String PASSPORT_PROP_OBJ_CONTEXT = "object.description_of_object.context.context";
-    public static final String PASSPORT_PROP_OBJ_ARCH_COMMENT = "object.description_of_object.context.comment";
+    
+    @Setter(AccessLevel.NONE)
+    private List<String> materialityComment;
+    
+    public List<String> getMaterialityComment() {
+        if (this.materialityComment == null) {
+            this.materialityComment = extractComment(this.getPassport(), PASSPORT_PROP_OBJ_TECH_COMMENT);
+        }
+        return this.materialityComment;
+    }
+    
+    public static final String PASSPORT_PROP_OBJ_GROUPING = "object.archaeological_cultural_context_of_object.grouping";
+    
+    @Setter(AccessLevel.NONE)
+    private ObjectReference grouping;
+    
+    public ObjectReference getGrouping() {
+        if (this.grouping == null) {
+            this.grouping = extractThsEntry(this.getPassport(), PASSPORT_PROP_OBJ_GROUPING);
+        }
+        return this.grouping;
+    }
+    
+    public static final String PASSPORT_PROP_OBJ_CONTEXT = "object.archaeological_cultural_context_of_object.cultural_context";
+    
+    @Setter(AccessLevel.NONE)
+    private List<ObjectReference> culturalContext;
+    
+    public List<ObjectReference> getCulturalContext() {
+        if (this.culturalContext == null) {
+            this.culturalContext = extractThsEntries(this.getPassport(), PASSPORT_PROP_OBJ_CONTEXT);
+        }
+        return this.culturalContext;
+    }
+    
+    public static final String PASSPORT_PROP_OBJ_ARCH_COMMENT = "object.archaeological_cultural_context_of_object.comment";
+    
+    @Setter(AccessLevel.NONE)
+    private List<String> contextComment;
+    
+    public List<String> getContextComment() {
+        if (this.contextComment == null) {
+            this.contextComment = extractComment(this.getPassport(), PASSPORT_PROP_OBJ_ARCH_COMMENT);
+        }
+        return this.contextComment;
+    }
 
     // Object type
     
     public static final String PASSPORT_PROP_OBJ_TYPE = "object.description_of_object.type";
     
     @Setter(AccessLevel.NONE)
-    private List<String> objType;
+    private ObjectReference objType;
     
-    public List<String> getObjType() {
+    public ObjectReference getObjType() {
         if (this.objType == null) {
-            this.objType = extractObjType(this);
+            this.objType = extractThsEntry(this.getPassport(), PASSPORT_PROP_OBJ_TYPE);
         }
         return this.objType;
-    }
-    
-    private static List<String> extractObjType(CorpusObject corpusobj) {
-        List<String> objType = new ArrayList<String>();
-        try {
-        
-          List<Passport> objTypePassports =corpusobj.getPassport().extractProperty(PASSPORT_PROP_OBJ_TYPE);
-         
-          for(int i=0;i<objTypePassports.size();i++) {
-        	  for(int j=0;j<objTypePassports.get(i).extractObjectReferences().size();j++) {
-
-        	 objType.add(objTypePassports.get(i).extractObjectReferences().get(j).getName());
-        	  }
-          }
-        } catch (Exception e) {
-          System.out.println("INFO: Could not extract object type from object "+corpusobj.getId());
-        }
-        return objType;
     }
 
     // Object component
@@ -545,31 +666,13 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     public static final String PASSPORT_PROP_OBJ_COMPONENT = "object.description_of_object.component";
     
     @Setter(AccessLevel.NONE)
-    private List<String> components;
+    private List<ObjectReference> components;
     
-    public List<String> getComponents() {
+    public List<ObjectReference> getComponents() {
         if (this.components == null) {
-            this.components = extractComponents(this);
+            this.components = extractThsEntries(this.getPassport(), PASSPORT_PROP_OBJ_COMPONENT);
         }
         return this.components;
-    }
-    
-    private static List<String> extractComponents(CorpusObject corpusobj) {
-        List<String> components = new ArrayList<String>();
-        try {
-        
-          List<Passport> componentsPassports =corpusobj.getPassport().extractProperty(PASSPORT_PROP_OBJ_COMPONENT);
-         
-          for(int i=0;i<componentsPassports.size();i++) {
-        	  for(int j=0;j<componentsPassports.get(i).extractObjectReferences().size();j++) {
-
-        	 components.add(componentsPassports.get(i).extractObjectReferences().get(j).getName());
-        	  }
-          }
-        } catch (Exception e) {
-          System.out.println("INFO: Could not extract components from object "+corpusobj.getId());
-        }
-        return components;
     }
 
     // Material
@@ -577,30 +680,13 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     public static final String PASSPORT_PROP_OBJ_MATERIAL = "object.technical_details.material";
 
     @Setter(AccessLevel.NONE)
-    private List<String> materials;
+    private List<ObjectReference> materials;
 
-    public List<String> getMaterials() {
+    public List<ObjectReference> getMaterials() {
         if (this.materials == null) {
-            this.materials = extractMaterials(this);
+            this.materials = extractThsEntries(this.getPassport(), PASSPORT_PROP_OBJ_MATERIAL);
         }
         return this.materials;
-    }
-
-    private static List<String> extractMaterials(CorpusObject corpusobj) {
-        List<String> materials = new ArrayList<String>();
-        try {
-        
-          List<Passport> materialsPassports =corpusobj.getPassport().extractProperty(PASSPORT_PROP_OBJ_MATERIAL);
-         
-          for(int i=0;i<materialsPassports.size();i++) {
-        	  for(int j=0;j<materialsPassports.get(i).extractObjectReferences().size();j++) {
-        	 materials.add(materialsPassports.get(i).extractObjectReferences().get(j).getName());
-        	  }
-          }
-        } catch (Exception e) {
-          System.out.println("INFO: Could not extract materials from object "+corpusobj.getId());
-        }
-        return materials;
     }
     
     // Dimensions
