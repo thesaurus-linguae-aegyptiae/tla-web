@@ -109,7 +109,7 @@
       <!-- Block view -->
       <table class="sentence-line-mode">
          <tr th:each="obj : ${searchResults}" class="occ-list-item" th:object="${obj}" th:with="hasGlyphs=*{hasGlyphs},isArtificiallyAligned=*{isArtificiallyAligned},position=*{getContextPosition}">
-              <td>(<a th:href="${(#mvc.url('SC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}" th:text="${position + 1}">1</a>)</td>
+              <td>(<a th:href="${(#mvc.url('SC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}" th:text="${position}">1</a>)</td>
               
               <td>
                 <div class="mt-sm-1 py-sm-1">
