@@ -149,12 +149,8 @@
         <div class="col-lg-8 content">
           <div class= "result-list m-sm-0 m-lg-4">
             <nav th:replace="fragments/search/results :: search-results-pagination"/>
-			<!-- Block and Annotation view -->
-            <th:block th:each="obj : ${searchResults}">
-               <th:block th:insert="fragments/search/results :: sentence-search-result"/>
-               <th:block th:insert="fragments/search/results :: sentence-page-button"/>
-            </th:block>
-			
+               <!-- Block and Annotation view -->   
+               <div th:replace="fragments/search/results :: text-sentences-table"/>
             <nav th:replace="fragments/search/results :: search-results-pagination"/>
           </div>
         </div>
@@ -192,7 +188,7 @@
     <div th:if="${textID} == null OR ${textID} == ''">
       <div class="row">
         <div class="col-lg-8 content">
-             <strong>404: No valid search text parameter submitted.</strong>
+             <strong>404: No valid text ID parameter submitted.</strong>
         </div>
 
         <!-- sidebar -->

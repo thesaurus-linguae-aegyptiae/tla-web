@@ -100,18 +100,113 @@
         <hr/>
       </div>
 
+     <!-- Text sentences -->
+
+      <div th:fragment="text-sentences-table" th:object="${obj}" >
+ 
+      <!--<th:block th:if="${isArtificiallyAligned AND hasGlyphs}"><a th:replace="fragments/common :: artificial-alignment"></a></th:block>-->
+ 
+      <!-- Block view -->
+      <table class="sentence-line-mode">
+         <tr th:each="obj : ${searchResults}" class="occ-list-item" th:object="${obj}" th:with="hasGlyphs=*{hasGlyphs},isArtificiallyAligned=*{isArtificiallyAligned},position=*{getContextPosition}">
+              <td>(<a th:href="${(#mvc.url('SC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}" th:text="${position + 1}">1</a>)</td>
+              
+              <td>
+                <div class="mt-sm-1 py-sm-1">
+                    <div th:replace="fragments/common :: sentence-hieroglyphs"/>
+                </div>
+              </td>
+
+              <td>
+                <div class="mt-sm-1 py-sm-1">
+                  <div th:replace="fragments/common :: sentence-transcription"/>
+                </div>
+              </td>
+
+              <td class="translations">
+               <div class="mt-sm-1 py-sm-1">
+                <th:block th:each="entry : *{translations}"> 
+                  <p th:insert="fragments/common :: single-lang-translation(${entry})"/> 			
+                </th:block>
+                </div>
+              </td>
+           </tr>
+        </table>
+        
+        <!-- Annotation view --> 
+        <div class="container-annotation-switch">
+        <div th:each="obj : ${searchResults}" class="result-list-item occ-list-item" th:object="${obj}" th:with="hasGlyphs=*{hasGlyphs},isArtificiallyAligned=*{isArtificiallyAligned},position=*{getContextPosition}">
+        
+          <div class="mt-sm-3 py-sm-1">
+            <div class="container-annotation">
+				         <div th:each="token : *{tokens}"  th:id="|block-${token.id}|">
+								<!--Bug: ul/li-Struktur ungültig-->
+					         <ul class="annotation-block"  th:classappend="${(token.lemma.id != null and #request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }">
+							      <th:block th:if="${hasGlyphs}">
+									  <div class="occ-list-item-element hieroglyphs">
+											<a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank" rel="opener"><li th:replace="fragments/common :: token-hieroglyphs"/></a>
+											<hr class="blockline"> 
+									  </div>
+									  <div  th:unless="${token.lemma.id}"class="occ-list-item-element hieroglyphs">
+											<li th:replace="fragments/common :: token-hieroglyphs"/>
+											<hr class="blockline"> 
+									  </div>
+								  </th:block>
+								   <div class="occ-list-item-element">
+								  		<a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank" rel="opener"><li th:replace="fragments/common :: token-transcription"/></a>
+								  		<hr class="blockline"> 
+								  </div>
+								   <div th:unless="${token.lemma.id}" class="occ-list-item-element">
+								  		<li th:replace="fragments/common :: token-transcription"/>
+								  		<hr class="blockline"> 
+								  </div>
+						          <div class="occ-list-item-element">
+						          		<li th:replace="fragments/common :: token-word-class"/>
+						          		<hr class="blockline bwc">  
+								  </div>
+						          <div class="occ-list-item-element">
+						             	<li th:replace="fragments/common :: token-bts-glossing"/>
+						             	<hr class="blockline bgloss"> 
+					              </div>
+							      <div class="occ-list-item-element">      
+								        <li th:replace="fragments/common :: token-ling-glossing"/>
+								        <hr class="blockline bling">  
+								  </div>
+								  <div class="occ-list-item-element">
+								  		<li th:replace="fragments/common :: token-translation"/>
+								  		<hr class="blockline btr">  
+								  </div>
+								  <div class="occ-list-item-element">
+								  		<li th:replace="fragments/common :: token-word-id"/>
+								  		<hr class="blockline bid">  
+								  </div>
+						    </ul>
+			         	</div>
+                 <!--<th:block th:if="${hasGlyphs} AND ${isArtificiallyAligned}"><a th:replace="fragments/common :: artificial-alignment"></a></th:block>-->
+               </div>
+            </div>
+	          
+           <div class="result-list-item-element translations">
+             <th:block th:each="entry : *{translations}"> 
+               <p th:insert="fragments/common :: single-lang-translation(${entry})"/> 			
+             </th:block>
+           </div>
+         </div>
+       </div>
+      </div>
+
       <!-- SENTENCE search result -->
 
-      <div th:fragment="sentence-search-result" class="result-list-item" th:object="${obj}" th:with="hasGlyphs=*{hasGlyphs},isArtificiallyAligned=*{isArtificiallyAligned},position=*{getContextPosition}">
+      <div th:fragment="sentence-search-result" class="result-list-item" th:object="${obj}" th:with="hasGlyphs=*{hasGlyphs},isArtificiallyAligned=*{isArtificiallyAligned}">
 
       <!-- Block view -->
         <div class="sentence-line-mode" >
-        <span th:text="${position}">xx</span>
+
           <div class="occ-list-item mt-sm-3 py-sm-1">
             
             <th:block th:if="${hasGlyphs}">
 			    <th:block th:if="${isArtificiallyAligned}"><a th:replace="fragments/common :: artificial-alignment"></a></th:block>
-              <div th:replace="fragments/common :: sentence-fullhieroglyphs"/>
+              <div th:replace="fragments/common :: sentence-hieroglyphs"/>
             </th:block>
             <div th:replace="fragments/common :: sentence-transcription"/>
           </div>
