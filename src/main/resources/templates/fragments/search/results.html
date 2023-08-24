@@ -407,6 +407,26 @@
           </th:block>
         </th:block>
       </div>
+      
+      <!-- hide search results properties button rack  general -->
+
+      <div th:fragment="hideTextsentences-properties-buttons" class="hideTextsentences-properties-buttons">
+      <!-- <input type="num_text" id="result" /> -->
+     
+      
+      <th:block th:each="e : ${hideableTextsentencesProperties}" th:with="property=${e.key}">
+          <div th:replace=" :: hide-property-button(${property}, null)"/>
+          <th:block th:with="subProperties=${e.value}">
+            <div th:unless="${#lists.isEmpty(subProperties)}"
+                class="indented-buttons indented-buttons-annotation"
+                >
+              <th:block th:each="subProperty : ${subProperties}">
+                <div th:replace=" :: hide-property-button(${property}, ${subProperty})"/>
+              </th:block>
+            </div>
+          </th:block>
+        </th:block>
+      </div>
 
       <!-- Hide property Button.
         hides particular DOM elements of search result list items. In order to be hideable

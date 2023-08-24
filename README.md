@@ -1,7 +1,7 @@
 ![build](https://github.com/thesaurus-linguae-aegyptiae/tla-web/workflows/build/badge.svg)
 ![deploy](https://github.com/thesaurus-linguae-aegyptiae/tla-web/workflows/deploy/badge.svg)
-![LINE](https://img.shields.io/badge/line--coverage-77,49%25-yellow.svg)
-![METHOD](https://img.shields.io/badge/method--coverage-74,24%25-yellow.svg)
+![LINE](https://img.shields.io/badge/line--coverage-18,51%25-red.svg)
+![METHOD](https://img.shields.io/badge/method--coverage-16,81%25-red.svg)
 
 TLA web frontend.
 
