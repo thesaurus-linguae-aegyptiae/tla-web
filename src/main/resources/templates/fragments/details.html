@@ -240,24 +240,13 @@ document.getElementById('ref').style.display="none";
     <div class="text-content-button" th:fragment="text-content-button" id="text-content-button">
         <hr/>
       
-        <p class="text-secondary">
-        
-        <!--   <a th:href="|${@searchController.getSearchResultsPageRoute(@__sentenceController__)}?tokens[0].lemma.id=${obj.id}|">
-               <button id="lemma-attestation-count-texts" type="button" class="btn btn-danger text-left text-decoration-none">
-               <span class="fas fa-arrow-circle-right"></span>&nbsp;
-               <span th:text="#{lemma_property_attestation_occurrences} + ' ' + ${(obj.attestationCount >= 10000) ? '>' : ''} + ${obj.attestationCount} + ' ' + #{|lemma_property_instance${(obj.attestationCount > 1) ? 's' : ''}|}">Occurrences in __ sentences</span>
-               </button>
-            </a> -->
+        <p>
         <a th:href="|${@sentenceSearchController.getSearchResultsPageRoute(@__sentenceController__)}?context.textId=${obj.id}&sort=context.position|">
-           <button id="text-content-button" type="button" class="btn btn-secondary text-left text-decoration-none ">
+           <button id="text-content-button" type="button" class="btn btn-danger text-left text-decoration-none ">
               <span class="fas fa-arrow-circle-right"></span>&nbsp;
               <span th:text="#{button_text_content}">Sentences in the text</span>
            </button>
            </a>
-        <!--</a>-->
-        </p>
-        <p class="text-secondary development-msg">
-           <i class="fas fa-wrench"></i> (<span th:utext="#{msg_sentences_page}">Sentence page is currently being implemented.</span>)
         </p>
         
         <!--  List of sentence IDs (Achtung nicht alle relations sind notwendigerweise sentences, teils subtexte)
@@ -275,9 +264,6 @@ document.getElementById('ref').style.display="none";
         </th:block>
          -->
         </div>
-    
-        <!--  -->
-        
         
     </div>
     
