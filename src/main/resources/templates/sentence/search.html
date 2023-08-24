@@ -167,6 +167,13 @@
         </div>
       </div>
 
+     <!-- Citation block -->
+      <div class="row">
+        <div class="col-sm-12 col-lg-8" id="details-content-2" th:with="obj=${searchResults[0]}">
+          <div th:replace="fragments/details :: object-property-citationBox('sentences/text')"/>
+        </div>
+      </div>
+
     </div>
 
     <!-- No valid text ID submitted -->
