@@ -237,6 +237,7 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
             )
         );
         this.addHideableProperties(model);
+        this.addHideableTextsentenesProperties(model);
         this.addHideable1LemmaProperties(model);
         this.addShowableProperties(model);
         this.addHideable2LemmaProperties(model);
@@ -290,6 +291,7 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
             )
         );
         this.addHideableProperties(model);
+        this.addHideableTextsentenesProperties(model);
         this.addShowableProperties(model);
         this.addHideable1LemmaProperties(model);
         this.addHideable2LemmaProperties(model);
@@ -362,7 +364,17 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
         }
         return model;
     }
-    
+    protected Model addHideableTextsentenesProperties(Model model) {
+        var searchProperties = this.getService().getSearchProperties();
+        if (searchProperties != null) {
+            model.addAttribute(
+                "hideableTextsentencesProperties",
+                searchProperties.getHideableTextsentencesProperties()
+            );
+           
+        }
+        return model;
+    } 
 
 
 }
