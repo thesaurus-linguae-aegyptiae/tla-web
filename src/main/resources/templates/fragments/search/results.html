@@ -106,8 +106,6 @@
 
       <div th:fragment="text-sentences-table" th:object="${obj}" >
  
-      <!--<th:block th:if="${isArtificiallyAligned AND hasGlyphs}"><a th:replace="fragments/common :: artificial-alignment"></a></th:block>-->
- 
       <!-- Block view -->
       <table class="sentence-line-mode">
          <tr th:each="obj : ${searchResults}" class="occ-list-item" th:object="${obj}" th:with="hasGlyphs=*{hasGlyphs},isArtificiallyAligned=*{isArtificiallyAligned},position=*{getContextPosition}">
@@ -116,6 +114,7 @@
               <td>
                 <div class="mt-sm-1 py-sm-1">
                     <div th:replace="fragments/common :: sentence-hieroglyphs"/>
+                    <th:block th:if="${isArtificiallyAligned AND hasGlyphs}"><a th:replace="fragments/common :: artificial-alignment"></a></th:block>
                 </div>
               </td>
 
@@ -350,6 +349,20 @@
          
         </div>
       </div>
+
+
+    <!-- Text metadata button  -->
+    
+    <div class="text-metadata-button" th:fragment="text-metadata-button" id="text-metadata-button"> 
+        <a th:href="${(#mvc.url('TOC#getSingleObjectDetailsPage').arg(0,obj.context.textId)).build()}">
+           <button id="text-metadata-button" type="button" class="btn btn-danger text-left text-decoration-none">
+              <span class="fas fa-arrow-circle-right"></span>&nbsp;
+              <span th:text="#{button_text_metadata}">Text metadata</span>
+           </button>
+           </a>
+     </div>
+        
+        
 
       <!-- search facets -->
 
