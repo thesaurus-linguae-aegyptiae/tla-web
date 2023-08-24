@@ -247,7 +247,7 @@
       </div>
       -->
       <!-- ## selected help pages th:if ## -->
-      <th:block th:if="${helppage} == 'lemma-search-results' OR ${helppage} == 'sentence-search-results' OR ${helppage} == 'sentence-page'">
+      <th:block th:if="${helppage} == 'lemma-search-results' OR ${helppage} == 'sentence-search-results' OR ${helppage} == 'sentence-page' OR ${helppage} == 'text-sentences'">
       <div th:replace=" :: help-button(${helppage})"/>
       </th:block>
 

@@ -4,17 +4,14 @@
       layout:decorate="~{base}"
 >
   <head>
-    <title>Sentence Search</title>
+    <title>Sentence search page / Text sentences</title>
   </head>
 
   <body>
   <div layout:fragment="content">
+
    <div th:if="${#request.getParameter('tokens[0].lemma.id')}" th:with="lemmaID=${#request.getParameter('tokens[0].lemma.id')}">
-   
-    <!-- loading animation -->
-	 <!--<div class="loader-wrapper">
-	  <span class="loader"><span class="loader-inner"></span></span>
-	</div>-->
+   <!-- Sentence search page -->
 	
 		<div class="text-center spinner-wrapper">
          <p><span class="spinner-border text-danger m-2" role="status"></span>
@@ -114,15 +111,13 @@
         });
     </script>
 	
+   <!-- Sentences search page -->
    </div>
    
+
    
     <div  th:if="${#request.getParameter('context.textId')}" th:with="textID=${#request.getParameter('context.textId')}">
-   
-    <!-- loading animation -->
-	 <!--<div class="loader-wrapper">
-	  <span class="loader"><span class="loader-inner"></span></span>
-	</div>-->
+    <!-- Text sentences page -->
 	
 		<div class="text-center spinner-wrapper">
          <p><span class="spinner-border text-danger m-2" role="status"></span>
@@ -137,9 +132,9 @@
       <!-- result page heading -->
       <div class="search-header row mb-sm-3 d-flex justify-content-between">
          <div class="result">
-            <h2 class="id mt-sm-1" th:text="#{result_page_title_sentence}">Sentence Search Results</h2> 
+            <h2 class="id mt-sm-1" th:text="#{text_sentences_title}+' '+${textID}">Sentences of text ...</h2> 
          </div>
-        <div th:replace="fragments/common :: social('sentence-search-results')"/>
+        <div th:replace="fragments/common :: social('text-sentences')"/>
       </div>
       
 
@@ -149,42 +144,32 @@
         <div class="col-lg-8 content">
           <div class= "result-list m-sm-0 m-lg-4">
             <nav th:replace="fragments/search/results :: search-results-pagination"/>
-               <!-- Block and Annotation view -->   
-               <div th:replace="fragments/search/results :: text-sentences-table"/>
+            
+            <div th:replace="fragments/search/results :: text-sentences-table"/>
+            
             <nav th:replace="fragments/search/results :: search-results-pagination"/>
           </div>
         </div>
 
-        <!-- sidebar -->
+        <!-- Sidebar -->
         <div class="col-lg-4 sidebar">
           <div class="sticky-top m-sm-0 m-lg-4">
-
             <div th:replace="fragments/search/results :: hide-properties-buttons"/>
-
-            <!--<div th:replace="fragments/search/results :: modify-search-button(${modifySearchUrl})"/>-->
-            <div th:replace="fragments/search/results :: search-facets"/>
+            <!--<div th:replace="fragments/search/results :: search-facets"/>-->
           </div>
         </div>
       </div>
 
+      <!-- No sentences found -->
       <div th:if="${searchResults.size} == 0" class="row">
-
-        <!-- no search results -->
         <div class="col-lg-8 content">
-             <strong th:text="#{result_page_no_results}">No results</strong>
+             <strong th:text="#{text_sentences_no_sentences}">No sentences in this text.</strong>
         </div>
-
-        <!-- sidebar -->
-        <!--<div class="col-lg-4 sidebar">
-          <div class="sticky-top m-4">
-            <div th:replace="fragments/search/results :: modify-search-button(${modifySearchUrl})"/>
-          </div>
-        </div>-->
       </div>
 
     </div>
 
-    <!-- no valid text search paramenter name -->
+    <!-- No valid text ID submitted -->
     <div th:if="${textID} == null OR ${textID} == ''">
       <div class="row">
         <div class="col-lg-8 content">
@@ -208,7 +193,9 @@
         });
     </script>
 	
+   <!-- Text sentences page -->
    </div>
+   
    </div>
   </body>
 </html>
