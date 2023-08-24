@@ -161,7 +161,18 @@ search:
                 - wordtokenid    
             translation: []
             dating: []
-            texteditor: []
+            texteditor: []        
+        hideable-textsentences-properties:
+            hieroglyphs: []
+            switchannotation: 
+                - wordclass
+                - tlaglossing
+                - linguisticglossing
+                - tokentranslation
+                - wordtokenid    
+            translation: []
+            dating: []
+            texteditor: []  
         context-information:
             text-id: []
         
