@@ -45,14 +45,7 @@ public class TextObjectController extends ObjectController<Text, TextSearch> {
     public ObjectService<Text> getService() {
         return service;
     }
-    
-    
-    @ModelAttribute("modifySentenceSearchUrl")
-    public String modifySentenceSearchUrl(String path) {
-        return templateUtils.replacePath(path).build().toString();
-    }
-    
-    
+      
     @Autowired
     private SentenceService sentenceService;
     
@@ -89,7 +82,7 @@ public class TextObjectController extends ObjectController<Text, TextSearch> {
                 List.of(
                     BREADCRUMB_HOME,
                     BreadCrumb.of(
-                        modifySentenceSearchUrl("text/" + textId), "menu_global_text"
+                    	modifySearchUrlbyPath("text/" + textId), "menu_global_text"
                     ),
                     BreadCrumb.of(
                         templateUtils.setQueryParam("page", "1"),

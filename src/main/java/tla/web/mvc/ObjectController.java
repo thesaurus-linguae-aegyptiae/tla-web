@@ -152,6 +152,11 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
     public String modifySearchUrl() {
         return templateUtils.replacePath("search").build().toString();
     }
+    
+    @ModelAttribute("modifySearchUrl")
+    public String modifySearchUrlbyPath(String path) {
+        return templateUtils.replacePath(path).build().toString();
+    }
 
     /**
      * Translate object passport to UI representation.
