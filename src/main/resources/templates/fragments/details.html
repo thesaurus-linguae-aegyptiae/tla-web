@@ -241,7 +241,10 @@ document.getElementById('ref').style.display="none";
         <hr/>
       
         <p>
-        <a th:href="|${@sentenceSearchController.getSearchResultsPageRoute(@__sentenceController__)}?context.textId=${obj.id}&sort=context.position|">
+        <!--  <a th:href="|${@searchController.getSearchResultsPageRoute(@__textSentencesController__)}?context.textId=${obj.id}&sort=context.position|">
+        -->  
+      <a th:href="|${obj.id}/sentences|">
+          
            <button id="text-content-button" type="button" class="btn btn-danger text-left text-decoration-none ">
               <span class="fas fa-arrow-circle-right"></span>&nbsp;
               <span th:text="#{button_text_content}">Sentences in the text</span>

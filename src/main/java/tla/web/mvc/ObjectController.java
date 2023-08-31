@@ -230,7 +230,6 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
             "breadcrumbs",
             List.of(
                 BREADCRUMB_HOME,
-                //BreadCrumb.of("/search", "menu_global_search"), // Lemma-Seite soll nicht unter Breadcrumb-Pfad "search" erscheinen
                 BreadCrumb.of(
                     String.format("caption_details_%s", getTemplatePath())
                 )
