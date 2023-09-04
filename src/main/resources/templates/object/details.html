@@ -17,20 +17,40 @@
       <div class="row">
         <div class="col-sm-12 col-lg-8" id="details-content" th:object="${obj}">
 
-       <div th:replace="fragments/details :: property-pid('object')"/>
-        <div th:replace="fragments/details :: object-property-type-subtype('object')"/>
+          <div th:replace="fragments/details :: property-pid('object')"/>
+          <div th:replace="fragments/details :: object-property-type-subtype('object')"/>
+          <div th:replace="fragments/details :: synonyms"/>
+          <div th:replace="fragments/details :: object-type"/>
+          <div th:replace="fragments/details :: object-components"/>
+          <div th:replace="fragments/details :: special-object-types"/>
+          <div th:replace="fragments/details :: materials"/>
+          <div th:replace="fragments/details :: dimensions"/>
+          <div th:replace="fragments/details :: object-technique"/>
+          <div th:replace="fragments/details :: object-condition"/>
+          <div th:replace="fragments/details :: materiality-comment"/>
+          <div th:replace="fragments/details :: find-spot"/>
+          <div th:replace="fragments/details :: object-grouping"/>
+          <div th:replace="fragments/details :: present-location"/>
           <div th:replace="fragments/details :: date"/>
+          <div th:replace="fragments/details :: date-comment"/>
          
+          <div th:replace="fragments/details :: object-owner"/>
+          <div th:replace="fragments/details :: object-context"/>
+          <div th:replace="fragments/details :: context-comment"/>
+          
           <div th:replace="fragments/details :: bibliography"/>
           <div th:replace="fragments/details :: external-references"/>
-          <div th:replace="fragments/details :: presloc"/>
-          <div>
+          <div th:replace="fragments/details :: file-description"/>
+          <!--<div>
              <hr/>
              <th:block th:replace="fragments/common :: construction(#{msg_more_metadata})"></th:block>
-          </div>
+          </div>-->
           <div th:replace="fragments/details :: object-property-object-paths('ths')"/>
           <div th:replace="fragments/details :: object-property-related-objects"/>
+          <div th:replace="fragments/details :: protocol"/>
+          <div th:replace="fragments/details :: file-comment"/>
           <div th:replace="fragments/details :: editor-info"/>
+      
         <!-- 
         
          <br/>ToDo: 

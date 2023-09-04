@@ -1,6 +1,7 @@
 package tla.web.model.mappings;
 
 import java.awt.geom.Rectangle2D;
+import java.io.File;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.List;
@@ -8,12 +9,14 @@ import java.util.List;
 import org.apache.commons.lang3.RegExUtils;
 import org.qenherkhopeshef.graphics.svg.SVGGraphics2D;
 
+import jsesh.hieroglyphs.graphics.DefaultHieroglyphicFontManager;
+import jsesh.hieroglyphs.graphics.DirectoryHieroglyphicFontManager;
 import jsesh.mdc.MDCParserModelGenerator;
 import jsesh.mdc.MDCSyntaxError;
 import jsesh.mdc.model.TopItem;
 import jsesh.mdc.model.TopItemList;
-import jsesh.mdcDisplayer.preferences.*;
 import jsesh.mdcDisplayer.draw.MDCDrawingFacade;
+import jsesh.mdcDisplayer.preferences.*;
 import jsesh.utils.DoubleDimensions;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,7 +38,13 @@ public class Util {
     public static final String SVG_ATTR_REGEX = "width=.([0-9.]+). height=.([0-9.]+).";
     public static final String SVG_ATTR_REPLACEMENT = "viewBox=\"0 0 $1 $2\"";
     private static MDCDrawingFacade facade = new MDCDrawingFacade();
-	 private static DrawingSpecification drawingSpecifications = new DrawingSpecificationsImplementation();
+	private static DrawingSpecification drawingSpecifications = new DrawingSpecificationsImplementation();
+	
+	public static void prepareFonts() {
+		DefaultHieroglyphicFontManager manager = DefaultHieroglyphicFontManager.getInstance();
+		manager.addHieroglyphicFontManager(new DirectoryHieroglyphicFontManager(new File("src/main/resources/static/jsesh")));
+}
+	
 
     public static String patchSVG(Writer writer) {
         var jsesh = writer.toString();
@@ -72,6 +81,7 @@ public class Util {
     public static String jseshRender(String mdc, boolean rubrum) {
         if (mdc != null && !mdc.isBlank()) {
             try (StringWriter writer = new StringWriter()) {
+           	prepareFonts();
             	//System.out.println("MDC "+mdc);
 					
 					

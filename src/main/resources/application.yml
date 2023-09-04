@@ -41,9 +41,26 @@ tla:
         oeb:
             default-format: https://oeb.griffith.ox.ac.uk/oeb_entry.aspx?item={id}
         trismegistos:
-            default-format: https://www.trismegistos.org/{type}/{id}
-            id-pattern: ^[1-9][0-9]*$
-            type-pattern: ^(text|collection|place)$
+            type-formats:
+                text: https://www.trismegistos.org/text/{id}
+                collection: https://www.trismegistos.org/collection/{id}
+                place: https://www.trismegistos.org/place/{id}
+                georef: https://www.trismegistos.org/georef/{id}
+                archive: https://www.trismegistos.org/archive/{id}
+                person: https://www.trismegistos.org/person/{id}
+                name: https://www.trismegistos.org/name/{id}
+                namvar: https://www.trismegistos.org/namvar/{id}
+                ref: https://www.trismegistos.org/ref/{id}
+                author: https://www.trismegistos.org/author/{id}
+                authorwork: https://www.trismegistos.org/authorwork/{id}
+                editor: https://www.trismegistos.org/editor/{id}
+                language: https://www.trismegistos.org/language/{id}
+                material: https://www.trismegistos.org/material/{id}
+                period: https://www.trismegistos.org/period/{id}
+                time: https://www.trismegistos.org/time/{id}
+                dateref: https://www.trismegistos.org/dateref/{id}
+                eponym: https://www.trismegistos.org/eponym/{id}
+                chronnam: https://www.trismegistos.org/chronnam/{id}
         topbib:
             type-formats:
                 griffith: http://topbib.griffith.ox.ac.uk/dtb.html?topbib={id}
@@ -61,6 +78,13 @@ tla:
         ramses:
             type-formats:
                 text: http://ramses.ulg.ac.be/text/legacy/{id}
+        dpdp:
+            type-formats:
+                lemmata: http://129.206.5.162/beta/palaeography/palaeography.html?q=tla:{id}
+                papyri: http://129.206.5.162/beta/palaeography/database/papyri/{id}.html
+        pleiades:
+            default-format: https://pleiades.stoa.org/places/{id}
+            id-pattern: ^[1-9][0-9]*$
 
 search:
     config:
