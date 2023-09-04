@@ -100,13 +100,111 @@
         <hr/>
       </div>
 
+
+
+     <!-- Text sentences -->
+
+      <div th:fragment="text-sentences-table" th:object="${obj}" >
+ 
+      <!-- Block view -->
+      <table class="sentence-line-mode">
+         <tr th:each="obj : ${searchResults}" class="occ-list-item" th:object="${obj}" th:with="hasGlyphs=*{hasGlyphs},isArtificiallyAligned=*{isArtificiallyAligned},position=*{getContextPosition}">
+              <td>(<a th:href="${(#mvc.url('SC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}" th:text="${position}">1</a>)</td>
+              
+              <td>
+                <div class="mt-sm-1 py-sm-1">
+                    <div th:replace="fragments/common :: sentence-hieroglyphs"/>
+                    <th:block th:if="${isArtificiallyAligned AND hasGlyphs}"><a th:replace="fragments/common :: artificial-alignment"></a></th:block>
+                </div>
+              </td>
+
+              <td>
+                <div class="mt-sm-1 py-sm-1">
+                  <div th:replace="fragments/common :: sentence-transcription"/>
+                </div>
+              </td>
+
+              <td class="translations">
+               <div class="mt-sm-1 py-sm-1">
+                <th:block th:each="entry : *{translations}"> 
+                  <p th:insert="fragments/common :: single-lang-translation(${entry})"/> 			
+                </th:block>
+                </div>
+              </td>
+           </tr>
+        </table>
+        
+        <!-- Annotation view --> 
+        <div class="container-annotation-switch">
+        <div th:each="obj : ${searchResults}" class="result-list-item occ-list-item" th:object="${obj}" th:with="hasGlyphs=*{hasGlyphs},isArtificiallyAligned=*{isArtificiallyAligned},position=*{getContextPosition}">
+        
+          <div class="mt-sm-3 py-sm-1">
+            <div class="container-annotation">
+				         <div th:each="token : *{tokens}"  th:id="|block-${token.id}|">
+								<!--Bug: ul/li-Struktur ungültig-->
+					         <ul class="annotation-block"  th:classappend="${(token.lemma.id != null and #request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }">
+							      <th:block th:if="${hasGlyphs}">
+									  <div class="occ-list-item-element hieroglyphs">
+											<a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank" rel="opener"><li th:replace="fragments/common :: token-hieroglyphs"/></a>
+											<hr class="blockline"> 
+									  </div>
+									  <div  th:unless="${token.lemma.id}"class="occ-list-item-element hieroglyphs">
+											<li th:replace="fragments/common :: token-hieroglyphs"/>
+											<hr class="blockline"> 
+									  </div>
+								  </th:block>
+								   <div class="occ-list-item-element">
+								  		<a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank" rel="opener"><li th:replace="fragments/common :: token-transcription"/></a>
+								  		<hr class="blockline"> 
+								  </div>
+								   <div th:unless="${token.lemma.id}" class="occ-list-item-element">
+								  		<li th:replace="fragments/common :: token-transcription"/>
+								  		<hr class="blockline"> 
+								  </div>
+						          <div class="occ-list-item-element">
+						          		<li th:replace="fragments/common :: token-word-class"/>
+						          		<hr class="blockline bwc">  
+								  </div>
+						          <div class="occ-list-item-element">
+						             	<li th:replace="fragments/common :: token-bts-glossing"/>
+						             	<hr class="blockline bgloss"> 
+					              </div>
+							      <div class="occ-list-item-element">      
+								        <li th:replace="fragments/common :: token-ling-glossing"/>
+								        <hr class="blockline bling">  
+								  </div>
+								  <div class="occ-list-item-element">
+								  		<li th:replace="fragments/common :: token-translation"/>
+								  		<hr class="blockline btr">  
+								  </div>
+								  <div class="occ-list-item-element">
+								  		<li th:replace="fragments/common :: token-word-id"/>
+								  		<hr class="blockline bid">  
+								  </div>
+						    </ul>
+			         	</div>
+                 <!--<th:block th:if="${hasGlyphs} AND ${isArtificiallyAligned}"><a th:replace="fragments/common :: artificial-alignment"></a></th:block>-->
+               </div>
+            </div>
+	          
+           <div class="result-list-item-element translations">
+             <th:block th:each="entry : *{translations}"> 
+               <p th:insert="fragments/common :: single-lang-translation(${entry})"/> 			
+             </th:block>
+           </div>
+         </div>
+       </div>
+      </div>
+
       <!-- SENTENCE search result -->
 
       <div th:fragment="sentence-search-result" class="result-list-item" th:object="${obj}" th:with="hasGlyphs=*{hasGlyphs},isArtificiallyAligned=*{isArtificiallyAligned}">
 
       <!-- Block view -->
         <div class="sentence-line-mode" >
+
           <div class="occ-list-item mt-sm-3 py-sm-1">
+            
             <th:block th:if="${hasGlyphs}">
 			    <th:block th:if="${isArtificiallyAligned}"><a th:replace="fragments/common :: artificial-alignment"></a></th:block>
               <div th:replace="fragments/common :: sentence-hieroglyphs"/>
@@ -212,74 +310,6 @@
 		</div>             
 
       </div>
-     
-	<!-- DOPPELUNG
-	<div th:fragment="sentence-search-result_anno" class="result-list-item" th:object="${obj}">
-        <div class="occ-list-item mt-sm-3 py-sm-1">
-          <div class="container-annotation-switch">
-            <div class="container-annotation">
-				         <div th:each="token : *{tokens}" th:id="${token.id}">
-					         <ul class="annotation-block">
-							      <div class="occ-list-item-element hieroglyphs">
-								  		<li th:replace="fragments/common :: token-hieroglyphs"/>
-								  		<hr class="blockline"> 
-								  </div>
-								   <div class="occ-list-item-element">
-								  		<li th:replace="fragments/common :: token-transcription"/>
-								  		<hr class="blockline"> 
-								  </div>
-						          <div class="occ-list-item-element">
-						          		<li th:replace="fragments/common :: token-word-class"/>
-						          		<hr class="blockline">  
-								  </div>
-						          <div class="occ-list-item-element">
-						             	<li th:replace="fragments/common :: token-bts-glossing"/>
-						             	<hr class="blockline"> 
-					              </div>
-							      <div class="occ-list-item-element">      
-								        <li th:replace="fragments/common :: token-ling-glossing"/>
-								        <hr class="blockline">  
-								  </div>
-								  <div class="occ-list-item-element">
-								  		<li th:replace="fragments/common :: token-translation"/>
-								  		<hr class="blockline">  
-								  </div>
-								  <div class="occ-list-item-element">
-								  		<li th:replace="fragments/common :: token-word-id"/>
-								  		<hr class="blockline">  
-								  </div>						      
-						    </ul>
-			         	</div>
-		            </div>
-	            </div>
-	             
-        </div> 
-        <div class="result-list-item-element translations">
-			<th:block th:each="entry : *{translations}" th:insert="fragments/common :: single-lang-translation(${entry})"/>
-		</div>
-	    <div class="result-list-item-element paths" th:insert=" :: search-result-object-paths('sentence')"/>
-	    <div class="result-list-item-element">
-        
-                 <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" th:onclick="" th:id="*{id}">
-                 <span class="fas fa-clipboard"></span>
-                 <span th:text="#{button_copy_sentenceID}">Copy sentence ID</span></button>   
-                 
-               <script th:inline="javascript">
-					/*<![CDATA[*/
-					var id = /*[[*{id}]]*/ '0';
-					   document.getElementById(id).setAttribute( "onClick", "javascript: copyStringToClipboard(id)");
-					/*]]>*/
-		 		</script>   
-                 
-                   
-		</div>
-		<div class="occ-list-item-element dates">
-	      	<div th:replace="fragments/common :: sentence-dating"/>
-		</div>
-		<div class="occ-list-item-element editors">
-				<div th:replace="fragments/common :: sentence-editor"/>	
-		</div>             
-</div>-->
 
 
 
@@ -319,6 +349,20 @@
          
         </div>
       </div>
+
+
+    <!-- Text metadata button  -->
+    
+    <div class="text-metadata-button" th:fragment="text-metadata-button" id="text-metadata-button"> 
+        <a th:href="${(#mvc.url('TOC#getSingleObjectDetailsPage').arg(0,obj.context.textId)).build()}">
+           <button id="text-metadata-button" type="button" class="btn btn-danger text-left text-decoration-none">
+              <span class="fas fa-arrow-circle-right"></span>&nbsp;
+              <span th:text="#{button_text_metadata}">Text metadata</span>
+           </button>
+           </a>
+     </div>
+        
+        
 
       <!-- search facets -->
 
@@ -364,6 +408,26 @@
      
       
       <th:block th:each="e : ${hideableProperties}" th:with="property=${e.key}">
+          <div th:replace=" :: hide-property-button(${property}, null)"/>
+          <th:block th:with="subProperties=${e.value}">
+            <div th:unless="${#lists.isEmpty(subProperties)}"
+                class="indented-buttons indented-buttons-annotation"
+                >
+              <th:block th:each="subProperty : ${subProperties}">
+                <div th:replace=" :: hide-property-button(${property}, ${subProperty})"/>
+              </th:block>
+            </div>
+          </th:block>
+        </th:block>
+      </div>
+      
+      <!-- hide search results properties button rack  general -->
+
+      <div th:fragment="hideTextsentences-properties-buttons" class="hideTextsentences-properties-buttons">
+      <!-- <input type="num_text" id="result" /> -->
+     
+      
+      <th:block th:each="e : ${hideableTextsentencesProperties}" th:with="property=${e.key}">
           <div th:replace=" :: hide-property-button(${property}, null)"/>
           <th:block th:with="subProperties=${e.value}">
             <div th:unless="${#lists.isEmpty(subProperties)}"

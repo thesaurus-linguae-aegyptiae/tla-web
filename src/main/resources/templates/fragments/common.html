@@ -247,7 +247,7 @@
       </div>
       -->
       <!-- ## selected help pages th:if ## -->
-      <th:block th:if="${helppage} == 'lemma-search-results' OR ${helppage} == 'sentence-search-results' OR ${helppage} == 'sentence-page'">
+      <th:block th:if="${helppage} == 'lemma-search-results' OR ${helppage} == 'sentence-search-results' OR ${helppage} == 'sentence-page' OR ${helppage} == 'text-sentences'">
       <div th:replace=" :: help-button(${helppage})"/>
       </th:block>
 
@@ -383,6 +383,14 @@
         </span>
 			</p>
          -->
+    </div>
+     <div th:fragment="sentence-fullhieroglyphs" class="result-list-item-element fullhieroglyphs">
+     
+			<p class="bbaw-libertine mb-sm-2">
+			<span th:if="${fullglyphs} ">
+				<span th:utext="${fullglyphs.unicode}"></span>
+			</span>
+			</p>
     </div>
 
     <!-- sentence transliteration -->

@@ -42,7 +42,7 @@
         },
         {
             "name": "search.sentence",
-            "type": "tla.web.config.SearchProperties"
+            "type": "tla.web.config.SentenceSearchProperties"
         },
         {
             "name": "search.lemma",

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}"
+>
+  <head>
+    <title>Sentences</title>
+  </head>
+
+  <body>
+  <div layout:fragment="content">
+
+   
+    <div  th:if="${textId}" th:with="textID=${textId}">
+    <!-- Text sentences page -->
+	
+		<div class="text-center spinner-wrapper">
+         <p><span class="spinner-border text-danger m-2" role="status"></span>
+			<span class="m-2" th:text="#{msg_loading_sentences}">Loading...</span></p>
+           <p><span class="text-secondary development-msg">
+              <i class="fas fa-wrench"></i> (<span th:utext="#{msg_loading_sentences_browser}">Performs ...</span>)
+           </span></p>
+        </div>
+			
+    <div class="hidden-content hide-content" th:if="${textID} != null AND ${textID} != ''">
+
+      <!-- result page heading -->
+      <div class="search-header row mb-sm-3 d-flex justify-content-between">
+         <div class="result">
+            <h2 class="id mt-sm-1" th:text="#{text_sentences_title}+' '+${textID}">Sentences of text ...</h2> 
+         </div>
+        <div th:replace="fragments/common :: social('text-sentences')"/>
+      </div>
+      
+       <div  th:if="${searchResults.size} > 0" class="row">
+      
+       <!-- search results -->
+        <div class="col-lg-8 content">
+          <div class= "result-list m-sm-0 m-lg-4">
+            <nav th:replace="fragments/search/results :: search-results-pagination"/>
+            
+            <div th:replace="fragments/search/results :: text-sentences-table"/>
+            
+            <nav th:replace="fragments/search/results :: search-results-pagination"/>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4 sidebar">
+          <div class="sticky-top m-sm-0 m-lg-4">
+            <div th:replace="fragments/search/results :: hideTextsentences-properties-buttons"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- No sentences found -->
+      <div th:if="${searchResults.size} == 0" class="row">
+        <div class="col-lg-8 content">
+             <strong th:text="#{text_sentences_no_sentences}">No sentences in this text.</strong>
+        </div>
+      </div>
+
+     <!-- Text infos -->
+      <div  th:if="${searchResults.size} > 0" class="row m-sm-0 m-lg-1" th:with="obj=${searchResults[0]}">
+        <div class="col-lg-8 content">
+         <strong th:text="#{text_sentences_property_object_paths}" class="details-property-label">Text path</strong>:
+         <p class="result-list-item-element paths" th:insert="fragments/search/results :: search-result-object-paths('sentence')"/>
+         <th:block th:object="${obj}">
+            <div th:replace="fragments/common :: sentence-dating"/>
+            <div th:replace="fragments/common :: sentence-editor"/>	
+         </th:block>
+         <div th:replace="fragments/search/results :: text-metadata-button"/>
+       </div>
+      </div>
+
+     <!-- Citation block -->
+      <div th:if="${searchResults.size} > 0" class="row">
+        <div class="col-sm-12 col-lg-8" id="details-content-2" th:with="obj=${searchResults[0]}">
+          <div th:replace="fragments/details :: object-property-citationBox('sentences/text')"/>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- No valid text ID submitted -->
+    <div th:if="${textID} == null OR ${textID} == ''">
+      <div class="row">
+        <div class="col-lg-8 content">
+             <strong>404: No valid text ID parameter submitted.</strong>
+        </div>
+
+        <!-- sidebar -->
+        <!--<div class="col-lg-4 sidebar">
+          <div class="sticky-top m-sm-0 m-lg-4">
+            <div th:replace="fragments/search/results :: modify-search-button(${modifySearchUrl})"/>
+          </div>
+        </div>-->
+      </div>
+    </div>
+	
+	 <script>
+        $(window).on("load",function(){
+          //$(".loader-wrapper").addClass("hide");
+          $(".spinner-wrapper").addClass("hide-content");
+          $(".hidden-content").addClass("show-content");
+        });
+    </script>
+	
+   <!-- Text sentences page -->
+   </div>
+   
+   </div>
+  </body>
+</html>

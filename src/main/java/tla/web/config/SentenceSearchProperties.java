@@ -1,5 +1,8 @@
 package tla.web.config;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -14,5 +17,5 @@ import tla.web.model.meta.ModelClass;
 @ModelClass(Sentence.class)
 @ConfigurationProperties(prefix = "search.sentence")
 public class SentenceSearchProperties extends SearchProperties {
-
+	private Map<String, List<String>> contextInformation;
 }

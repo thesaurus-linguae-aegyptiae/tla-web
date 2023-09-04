@@ -4,10 +4,13 @@ import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriTemplate;
+import org.springframework.web.client.RestTemplate;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import lombok.extern.slf4j.Slf4j;
 import tla.domain.command.SearchCommand;
@@ -16,6 +19,12 @@ import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.AbstractDto;
 import tla.web.model.meta.BackendPath;
 import tla.web.model.meta.TLAObject;
+import tla.web.model.ThsEntry;
+import tla.web.model.Text;
+import tla.web.model.Sentence;
+import java.util.Collections;
+import org.springframework.http.HttpMethod;
+import org.springframework.core.ParameterizedTypeReference;
 
 /**
  * Put all your model classes on top of this in the {@link ModelClasses} annotation so that
@@ -28,6 +37,7 @@ public class TlaClient {
     public static final UriTemplate URI_AUTOCOMPLETE = new UriTemplate("{url}/complete?q={q}&type={type}");
 
     private RestTemplate client;
+    
 
     private String backendUrl;
 
@@ -126,6 +136,74 @@ public class TlaClient {
             searchForm, SearchResultsWrapper.class,
             Map.of("page", Math.max(0, page - 1))
         );
+    }
+
+    private ThsEntry getThsEntry(String url, String id) {
+        ResponseEntity<String> response = client.getForEntity(url, String.class, id);
+        if (response.getStatusCode().is2xxSuccessful()) {
+            try {
+                String responseBody = response.getBody();
+                ObjectMapper objectMapper = new ObjectMapper();
+                JsonNode rootNode = objectMapper.readTree(responseBody);
+                JsonNode docNode = rootNode.get("doc");
+                ThsEntry thsEntry = objectMapper.treeToValue(docNode, ThsEntry.class);
+                return thsEntry;
+            } catch (Exception e)  {
+                // Handle the exception or log an error message
+               System.out.println("Error");
+               e.printStackTrace();
+            }
+        }
+
+        return null;
+    }
+    
+    private Text getText(String url, String id) {
+        ResponseEntity<String> response = client.getForEntity(url, String.class, id);
+        if (response.getStatusCode().is2xxSuccessful()) {
+            try {
+                String responseBody = response.getBody();
+                ObjectMapper objectMapper = new ObjectMapper();
+                JsonNode rootNode = objectMapper.readTree(responseBody);
+                JsonNode docNode = rootNode.get("doc");
+                Text textEntry = objectMapper.treeToValue(docNode, Text.class);
+                return textEntry;
+            } catch (Exception e)  {
+                // Handle the exception or log an error message
+               System.out.println("Error");
+               e.printStackTrace();
+            }
+        }
+
+        return null;
+    }
+    
+    public ThsEntry findById(String id) {
+        String url = String.format("%s/get/%s", getEndpointURLPrefix(ThsEntry.class), id);
+        System.out.println("URL"+url);
+        return getThsEntry(url, id);
+    }
+    public Text findTextById(String id) {
+        String url = String.format("%s/get/%s", getEndpointURLPrefix(Text.class), id);
+        System.out.println("URL"+url);
+        return getText(url, id);
+    }
+    
+    public List<Sentence> getSentencesByTextId(String textId) {
+        String endpointUrl = String.format("%s/sentences?textId=%s", backendUrl, textId);
+        ResponseEntity<List<Sentence>> response = client.exchange(
+            endpointUrl,
+            HttpMethod.GET,
+            null,
+            new ParameterizedTypeReference<List<Sentence>>() {}
+        );
+        if (response.getStatusCode().is2xxSuccessful()) {
+            return response.getBody();
+        } else {
+            // Handle error response
+            // You can throw an exception or return an empty list, depending on your use case
+            return Collections.emptyList();
+        }
     }
 
 }

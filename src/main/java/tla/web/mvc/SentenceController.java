@@ -11,14 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import tla.domain.command.LemmaSearch;
 import tla.domain.command.SentenceSearch;
 import tla.domain.model.meta.Hierarchic;
+import tla.web.config.LemmaSearchProperties;
 import tla.web.model.Sentence;
+import tla.domain.dto.SentenceDto;
 import tla.web.model.meta.TemplateModelName;
 import tla.web.model.ui.BreadCrumb;
 import tla.web.model.ui.CorpusPathSegment;
 import tla.web.service.ObjectService;
 import tla.web.service.SentenceService;
+import tla.web.config.SentenceSearchProperties;
 
 @Controller
 @RequestMapping("/sentence")
@@ -27,6 +31,9 @@ public class SentenceController extends HierarchicObjectController<Sentence, Sen
 
     @Autowired
     private SentenceService service;
+    
+    @Autowired
+    private SentenceSearchProperties searchConfig;
 
     @Override
     public ObjectService<Sentence> getService() {
@@ -75,7 +82,10 @@ public class SentenceController extends HierarchicObjectController<Sentence, Sen
         @RequestParam MultiValueMap<String, String> params,
         Model model
     ) {
+    	 model.addAttribute("contextInformation", searchConfig.getContextInformation());
         return super.getSearchResultsPage(form, page, params, model);
     }
 
+    
+   
 }

@@ -33,6 +33,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     // Text object date
     
     public static final String PASSPORT_PROP_DATE = "date.date.date";
+    public static final String PASSPORT_PROP_PRESLOC = "present_location.location.location";
     @Setter(AccessLevel.NONE)
     private List<String> date;
     
@@ -738,4 +739,10 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     }
        
 
+    public List<String> getPresloc() {
+        if (this.presloc == null) {
+            this.presloc = extractPresloc(this);
+        }
+        return this.presloc;
+    }
 }

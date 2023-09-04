@@ -27,4 +27,5 @@ public class ObjectDetailsProperties {
    private Map<String, List<String>> hideable1LemmaProperties;
    private Map<String, List<String>> showableProperties;
    private Map<String, List<String>> hideable2LemmaProperties;
+   private Map<String, List<String>> hideableTextsentencesProperties;
 }
