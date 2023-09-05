@@ -8,8 +8,9 @@
   </head>
 
   <body>
+  <div layout:fragment="content">
 
-   <div layout:fragment="content" th:with="lemmaID=${#request.getParameter('tokens[0].lemma.id')},lemmaID2=${#request.getParameter('tokens[1].lemma.id')}">
+   <div th:with="lemmaID=${#request.getParameter('tokens[0].lemma.id')},lemmaID2=${#request.getParameter('tokens[1].lemma.id')}">
    
     <!-- loading animation -->
 	 <!--<div class="loader-wrapper">
@@ -116,6 +117,8 @@
         });
     </script>
 	
+   </div>
+   
    </div>
   </body>
 </html>

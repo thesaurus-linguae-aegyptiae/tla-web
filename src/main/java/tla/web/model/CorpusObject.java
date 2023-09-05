@@ -737,5 +737,4 @@ public class CorpusObject extends BTSObject implements Hierarchic {
         return dimensions;
     }
        
-
 }

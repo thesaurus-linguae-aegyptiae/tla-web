@@ -152,6 +152,11 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
     public String modifySearchUrl() {
         return templateUtils.replacePath("search").build().toString();
     }
+    
+    @ModelAttribute("modifySearchUrl")
+    public String modifySearchUrlbyPath(String path) {
+        return templateUtils.replacePath(path).build().toString();
+    }
 
     /**
      * Translate object passport to UI representation.
@@ -230,13 +235,13 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
             "breadcrumbs",
             List.of(
                 BREADCRUMB_HOME,
-                //BreadCrumb.of("/search", "menu_global_search"), // Lemma-Seite soll nicht unter Breadcrumb-Pfad "search" erscheinen
                 BreadCrumb.of(
                     String.format("caption_details_%s", getTemplatePath())
                 )
             )
         );
         this.addHideableProperties(model);
+        this.addHideableTextsentencesProperties(model);
         this.addHideable1LemmaProperties(model);
         this.addShowableProperties(model);
         this.addHideable2LemmaProperties(model);
@@ -268,8 +273,10 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
         Model model
     ) {
 
-        // if(!params.containsKey("sort")) params.add("sort", "sortKey_asc");
-         //else if (!params.get("sort").contains("sortKey")) params.set("sort","sortKey_asc");
+   // if(!params.containsKey("sort")) params.add("sort", "sortKey_asc");
+   //else if (!params.get("sort").contains("sortKey")) params.set("sort","sortKey_asc");
+   // System.out.println("Submitted Form class "+form.getClass().toString());
+   
    if( form.getClass().toString().contains("LemmaSearch"))
     	if (form.getSort()==null) form.setSort("sortKey_asc");
       
@@ -289,6 +296,7 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
             )
         );
         this.addHideableProperties(model);
+        this.addHideableTextsentencesProperties(model);
         this.addShowableProperties(model);
         this.addHideable1LemmaProperties(model);
         this.addHideable2LemmaProperties(model);
@@ -361,5 +369,18 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
         }
         return model;
     }
+    
+    protected Model addHideableTextsentencesProperties(Model model) {
+        var searchProperties = this.getService().getSearchProperties();
+        if (searchProperties != null) {
+            model.addAttribute(
+                "hideableTextsentencesProperties",
+                searchProperties.getHideableTextsentencesProperties()
+            );
+           
+        }
+        return model;
+    } 
+
 
 }
