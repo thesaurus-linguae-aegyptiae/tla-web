@@ -125,9 +125,9 @@ public class Sentence extends TLAObject implements Hierarchic {
         return this.getId();
     }
     
-    /*public String getContextPosition() {
+    public String getContextPosition() {
         return this.getContext().getPosition()+"";
-    }*/
+    }
     
     @Getter
     public static class DatePair {

@@ -76,7 +76,7 @@ public class TextObjectController extends ObjectController<Text, TextSearch> {
         form.setContext(context);
         form.setId(null);
                
-        System.out.println("Submitted Form class "+form.getClass().toString());
+        //System.out.println("Submitted Form class "+form.getClass().toString());
         SearchResults results = this.getSentenceService().search(form, Integer.parseInt(page)); // TODO validate page           
             model.addAttribute("breadcrumbs",
                 List.of(
