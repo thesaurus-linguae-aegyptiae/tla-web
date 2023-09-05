@@ -19,14 +19,14 @@ import tla.domain.model.meta.Hierarchic;
 import tla.domain.model.meta.TLADTO;
 import tla.web.model.meta.BTSObject;
 import tla.web.model.meta.BackendPath;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+//import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @BackendPath("ths")
 @BTSeClass("BTSThsEntry")
-@JsonIgnoreProperties(ignoreUnknown = true)
+//@JsonIgnoreProperties(ignoreUnknown = true)
 @TLADTO(ThsEntryDto.class)
 public class ThsEntry extends BTSObject implements Hierarchic {
 

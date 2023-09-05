@@ -4,13 +4,13 @@ import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriTemplate;
-import org.springframework.web.client.RestTemplate;
-import com.fasterxml.jackson.databind.JsonNode;
+//import org.springframework.web.client.RestTemplate;
+//import com.fasterxml.jackson.databind.JsonNode;
 
 import lombok.extern.slf4j.Slf4j;
 import tla.domain.command.SearchCommand;
@@ -19,12 +19,12 @@ import tla.domain.dto.extern.SingleDocumentWrapper;
 import tla.domain.dto.meta.AbstractDto;
 import tla.web.model.meta.BackendPath;
 import tla.web.model.meta.TLAObject;
-import tla.web.model.ThsEntry;
+/*import tla.web.model.ThsEntry;
 import tla.web.model.Text;
 import tla.web.model.Sentence;
 import java.util.Collections;
 import org.springframework.http.HttpMethod;
-import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.ParameterizedTypeReference;*/
 
 /**
  * Put all your model classes on top of this in the {@link ModelClasses} annotation so that
@@ -37,7 +37,6 @@ public class TlaClient {
     public static final UriTemplate URI_AUTOCOMPLETE = new UriTemplate("{url}/complete?q={q}&type={type}");
 
     private RestTemplate client;
-    
 
     private String backendUrl;
 
@@ -138,7 +137,7 @@ public class TlaClient {
         );
     }
 
-    private ThsEntry getThsEntry(String url, String id) {
+/*    private ThsEntry getThsEntry(String url, String id) {
         ResponseEntity<String> response = client.getForEntity(url, String.class, id);
         if (response.getStatusCode().is2xxSuccessful()) {
             try {
@@ -204,6 +203,6 @@ public class TlaClient {
             // You can throw an exception or return an empty list, depending on your use case
             return Collections.emptyList();
         }
-    }
+    }*/
 
 }

@@ -89,7 +89,7 @@ tla:
 search:
     config:
         default: lemma
-        sentence: sentence
+        #sentence: sentence
 
     lemma:
         sort-orders:
@@ -195,8 +195,8 @@ search:
                 - tokentranslation
                 - wordtokenid    
             translation: []
-        context-information:
-            text-id: []
+        #context-information:
+        #    text-id: []
         
 
 details:

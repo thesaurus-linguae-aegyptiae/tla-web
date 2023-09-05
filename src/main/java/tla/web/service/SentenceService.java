@@ -2,25 +2,26 @@ package tla.web.service;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tla.web.model.Sentence;
 import tla.web.model.Text;
-import tla.web.model.ThsEntry;
+//import tla.web.model.ThsEntry;
 import tla.web.model.meta.ModelClass;
 import tla.web.model.meta.ObjectDetails;
 import tla.web.model.meta.ObjectsContainer;
 import tla.web.model.meta.SearchResults;
-import tla.web.repo.TlaClient;
+//import tla.web.repo.TlaClient;
 
-import java.util.List;
+//import java.util.List;
 
 @Service
 @ModelClass(Sentence.class)
 public class SentenceService extends ObjectService<Sentence> {
-	 @Autowired
-	    protected TlaClient backend;
+	 //@Autowired
+	 //protected TlaClient backend;
+    
     protected Text lookupSentenceText(Sentence sentence, ObjectsContainer container) {
         return (Text) container.getRelated().get("BTSText").getOrDefault(
             sentence.getContext().getTextId(), null
@@ -69,9 +70,9 @@ public class SentenceService extends ObjectService<Sentence> {
         return searchResults;
     }
     
-    public List<Sentence> searchSentencesByContextTextId(String textId) {
+    /*public List<Sentence> searchSentencesByContextTextId(String textId) {
     	System.out.println("Search all sentences with "+textId);
         return backend.getSentencesByTextId(textId);
-    }
+    }*/
 
 }

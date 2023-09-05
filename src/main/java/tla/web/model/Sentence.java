@@ -32,17 +32,13 @@ import tla.domain.model.ObjectReference;
 @BTSeClass("BTSSentence")
 @TLADTO(SentenceDto.class)
 public class Sentence extends TLAObject implements Hierarchic {
-	public static final String PASSPORT_PROP_DATE = "date.date.date";
+	 public static final String PASSPORT_PROP_DATE = "date.date.date";
 	
-	public static final String FULLHIEROGLYPHS = "";
-
-    private SentenceContext context;
+	 private SentenceContext context;
     
     private GlyphsSentence glyphs;
 
     private List<Token> tokens;
-    
-    private Glyphs fullglyphs;
 
     private int wordCount;
 
@@ -75,10 +71,6 @@ public class Sentence extends TLAObject implements Hierarchic {
 
     public String getName() {
         return this.getText() != null ? this.getText().getName() : null;
-    }
-    public String getFullhieroglyphs() {
-    	System.out.println("Full hieroglyphs"+this.getFullglyphs().getUnicode());
-        return this.getFullglyphs() != null ? this.getFullglyphs().getUnicode(): null;
     }
 
     public String reviewState() {
@@ -133,9 +125,10 @@ public class Sentence extends TLAObject implements Hierarchic {
         return this.getId();
     }
     
-    public String getContextPosition() {
+    /*public String getContextPosition() {
         return this.getContext().getPosition()+"";
-    }
+    }*/
+    
     @Getter
     public static class DatePair {
     	String id;

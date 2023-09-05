@@ -11,7 +11,6 @@ import lombok.Setter;
 @Builder
 public class ExternalReference {
 
-	
     @JsonAlias("id")
     private String value;
     private String type;
