@@ -426,7 +426,6 @@
       <div th:fragment="hideTextsentences-properties-buttons" class="hideTextsentences-properties-buttons">
       <!-- <input type="num_text" id="result" /> -->
      
-      
       <th:block th:each="e : ${hideableTextsentencesProperties}" th:with="property=${e.key}">
           <div th:replace=" :: hide-property-button(${property}, null)"/>
           <th:block th:with="subProperties=${e.value}">
