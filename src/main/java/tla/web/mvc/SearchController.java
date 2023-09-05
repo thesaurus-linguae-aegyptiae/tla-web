@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 import tla.domain.command.LemmaSearch;
 import tla.domain.command.SearchCommand;
 import tla.domain.command.SentenceSearch;
-//import tla.domain.command.TextSearch;
+import tla.domain.command.TextSearch;
 import tla.domain.command.SentenceSearch.TokenSpec;
 import tla.domain.model.Language;
 import tla.domain.model.Script;
@@ -87,7 +87,7 @@ public class SearchController {
         @ModelAttribute("lemmaSearchForm") LemmaSearch lemmaForm,
         @ModelAttribute("sentenceSearchForm") SentenceSearch sentenceForm,
         @ModelAttribute("collocationSearchForm") SentenceSearch collocationSearchForm,
-        //@ModelAttribute("textSearchForm") TextSearch textForm,
+        @ModelAttribute("textSearchForm") TextSearch textForm,
         //@ModelAttribute("objectSearchForm") ObjectSearch objectForm,
         @RequestParam MultiValueMap<String, String> params,
         Model model
