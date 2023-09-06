@@ -69,7 +69,7 @@ public class SentenceController extends HierarchicObjectController<Sentence, Sen
 
 	@RequestMapping(value = "/token/lookup", method = RequestMethod.GET)
 	public RedirectView lookup(@RequestParam String id) {
-		return new RedirectView(String.format("/token/" + id), true);
+		return new RedirectView(String.format("/sentence/token/" + id), true);
 	}
 
 	@RequestMapping(value = "/token/{id}", method = RequestMethod.GET)
