@@ -49,7 +49,7 @@ public class SearchController {
     private String defaultForm;
 
    // public static final List<String> SEARCH_FORMS = List.of("lemma-quick", "lemma", "sentence");
-    public static final List<String> SEARCH_FORMS = List.of("lemma", /*"sentence", "text", "object",*/ "collocation", "lemma-id", "sentence-id", "text-id", "object-id", "ths-id");
+    public static final List<String> SEARCH_FORMS = List.of("lemma", /*"sentence", "text", "object",*/ "collocation", "lemma-id", "token-id", "sentence-id", "text-id", "object-id", "ths-id");
 
     @ModelAttribute("allScripts")
     public Script[] getAllScripts() {
