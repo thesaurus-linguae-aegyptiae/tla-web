@@ -5,6 +5,23 @@
 
     <!-- ID lookup search forms -->
 	<!-- ## um unterschiedliche actions zu ermöglichen, sind die ID-Suchen in drei forms verteilt, leider damit aktuell auch jeweils ein Reiter auf der Suchseite ## -->
+    
+    
+    <form id="token-id-search" name="token-id-search" th:object="${lemma}"
+        th:action="@{/lemma/lookup}" method="get">  <!--##warum muss da th:object="${lemma}" stehen nicht th:object="${token}"-->
+      <fieldset class="form-group row">
+        <label class="col-form-label col-xl-2" th:text="#{field_label_lemma_id}" for="id-search-token">Token ID</label>
+        <div class="col-xl-10">
+          <input class="form-control mb-sm-1 token-id" type="text" th:field="*{id}"
+              th:id="id-search-token" th:list="id-search-token-suggestions">
+            <script th:replace="fragments/search/tools :: autocomplete('id-search-token')"></script>
+          </input>
+          <datalist th:id="id-search-token-suggestions"/>
+        </div>
+      </fieldset>
+	  </form>
+
+ 
     <form id="lemma-id-search" name="lemma-id-search" th:object="${lemma}"
         th:action="@{/lemma/lookup}" method="get"> 
       <fieldset class="form-group row">

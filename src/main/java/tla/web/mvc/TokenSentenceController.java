@@ -1,42 +1,47 @@
 package tla.web.mvc;
 
 import java.util.List;
+import static tla.web.mvc.GlobalControllerAdvisor.BREADCRUMB_HOME;
+
+import java.util.Iterator;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 
 import tla.domain.command.SentenceSearch;
+import tla.domain.command.SentenceSearch.TokenSpec;
 import tla.domain.model.meta.Hierarchic;
+import tla.error.ObjectNotFoundException;
 import tla.web.model.Sentence;
+import tla.web.model.meta.ObjectDetails;
+import tla.web.model.meta.SearchResults;
 import tla.web.model.meta.TemplateModelName;
 import tla.web.model.ui.BreadCrumb;
 import tla.web.model.ui.CorpusPathSegment;
+import tla.web.model.ui.Pagination;
 import tla.web.service.ObjectService;
 import tla.web.service.SentenceService;
 
 @Controller
 @RequestMapping("/token")
 @TemplateModelName("sentence")
-public class TokenSentenceController extends SentenceController<Sentence, SentenceSearch> {
+public class TokenSentenceController extends SentenceController {
 	@Autowired
 	private SentenceService service;
 
 	@Override
 	public ObjectService<Sentence> getService() {
 		return service;
-	}
-
-	private String templatePath = "token";
-
-	@Override
-	public String getTemplatePath() {
-		return this.templatePath;
 	}
 
 	@Override
