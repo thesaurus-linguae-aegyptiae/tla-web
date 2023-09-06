@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xml:lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}"
+>
+  <head>
+    <title th:text="#{object_id_label_BTSToken} + ' ' + ${obj.id}"></title>
+  </head>
+
+  <body>
+
+    <div layout:fragment="content">
+
+      <div th:replace="fragments/details :: sentence-token-page-header"/>
+
+      <div class="row" >
+        <div class="col-lg-8 content">
+          <div class= "result-list">
+				<th:block th:insert="fragments/search/results :: sentence-search-result"  th:object="${obj}"/>
+          </div>
+          <div class="mt-sm-2 text-secondary development-msg">
+             <i class="fas fa-wrench"></i> (<span th:utext="#{msg_sentence_comments}">Sentence comments coming.</span>)
+          </div>
+          <div th:replace="fragments/details :: object-property-related-objects"/>
+          <div th:replace="fragments/details :: property-pid('sentence')"/>
+          <div th:replace="fragments/details :: object-property-citationBox('sentence')"/>
+		</div>
+	  
+        <!--ALT: <div class="col-sm-12 col-lg-8 occ-list-item" id="details-content" th:object="${obj}">
+
+          <div class="mt-3 pt-1 pb-1" th:id="*{id}">
+            <div class="sentence-line-mode">
+              <div th:replace="fragments/common :: sentence-hieroglyphs"/>
+              <div th:replace="fragments/common :: sentence-transcription"/>
+            </div>
+          </div>
+
+          <div th:replace="fragments/details :: translations"/>
+          <div th:replace="fragments/details :: object-property-object-paths('sentence')"/>
+          <div th:replace="fragments/details :: editor-info"/>
+
+        </div>-->
+
+        <!-- sidebar -->
+        <div class="col-lg-4 sidebar">
+          <div class="sticky-top m-sm-0 m-lg-4">
+            <div th:replace="fragments/search/results :: hide-properties-buttons"/><!-- Buttons werden nicht angelegt, da Var. "hideableProperties" nicht für "details" angemeldet? -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
