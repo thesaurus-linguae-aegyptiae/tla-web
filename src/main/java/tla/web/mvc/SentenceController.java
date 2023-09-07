@@ -100,6 +100,8 @@ public class SentenceController extends HierarchicObjectController<Sentence, Sen
 		ObjectDetails<Sentence> container= getService().getDetails(results.getObjects().get(0).getId()).orElseThrow(
 	            () -> new ObjectNotFoundException(id, getTemplatePath())
 	        );
+      
+      String sentenceID = container.getObject().getId();
 		
 		model.addAttribute("breadcrumbs",
 				List.of(BREADCRUMB_HOME,
