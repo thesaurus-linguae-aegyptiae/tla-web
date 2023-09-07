@@ -753,13 +753,14 @@
     </div>
 	
    <!-- General citation block -->
-   <div th:fragment="object-property-citationBox(objtype)" id="object-property-citationBox" class="bg-light citation m-sm-2 m-lg-4"> 
+   <div th:fragment="object-property-citationBox(objtype, objid)" id="object-property-citationBox" class="bg-light citation m-sm-2 m-lg-4"> 
     	<div class="bg-light citation  m-sm-1 m-lg-2"> 
     <p class="h6" ><strong th:text="#{citeas_heading}">Please cite as</strong>:</p>
 				(<em th:text="#{citeas_full}">Full citation</em>)
 				<blockquote id="full-citation">
-            <th:block th:unless="${(obj.eclass == 'BTSThsEntry' or obj.eclass == 'BTSLemmaEntry' or objtype == 'sentences/text') and obj.type != 'root'}"><span th:text="${obj.edited.author}">author</span><span th:unless="${obj.edited.contributors} == null" class="editors">, <span class="details-property-label" th:text="#{object_property_editors}">contributors</span> <span th:each="contributor, nr : ${obj.edited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/></span>, <span  th:unless="${obj.eclass == 'BTSSentence'}" th:text="'&quot;' + ${(obj.type == 'root') ? '&radic;' : ''} + ${{'<shortlabel>'+obj.name+'</shortlabel>'}} + '&quot; ('"></span><span th:text="#{|object_id_label_${obj.eclass}|} +' '+ ${obj.id}"></span><span  th:unless="${obj.eclass == 'BTSSentence'}" th:text="') '"></span> <span th:text="'<' + ${env.baseUrl} + '/' + ${objtype} + '/' + ${obj.id} +'>,'"></span></th:block> 
-            <th:block th:if="${(obj.eclass == 'BTSThsEntry' or obj.eclass == 'BTSLemmaEntry') and obj.type != 'root'}"><span th:text="'&quot;' + ${{'<shortlabel>'+obj.name+'</shortlabel>'}} + '&quot; (' + #{|object_id_label_${obj.eclass}|} +' '+ ${obj.id} + ') <' + ${env.baseUrl} + '/' + ${objtype} + '/' + ${obj.id} +'>'"></span>, <span th:text="#{citeas_lemma_editor} + ' ' + ${obj.edited.author}">edited by author</span><span th:unless="${obj.edited.contributors} == null">, <span th:text="#{object_property_editors}">contributors</span> <span th:each="contributor, nr : ${obj.edited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/></span>, </th:block> 
+            <th:block th:unless="${(obj.eclass == 'BTSThsEntry' or obj.eclass == 'BTSLemmaEntry' or objtype == 'sentences/text' or objtype == 'sentence/token') and obj.type != 'root'}"><span th:text="${obj.edited.author}">author</span><span th:unless="${obj.edited.contributors} == null" class="editors">, <span class="details-property-label" th:text="#{object_property_editors}">contributors</span> <span th:each="contributor, nr : ${obj.edited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/></span>, <span  th:unless="${obj.eclass == 'BTSSentence'}" th:text="'&quot;' + ${(obj.type == 'root') ? '&radic;' : ''} + ${{'<shortlabel>'+obj.name+'</shortlabel>'}} + '&quot; ('"></span><span th:text="#{|object_id_label_${obj.eclass}|} +' '+ ${objid}"></span><span  th:unless="${obj.eclass == 'BTSSentence'}" th:text="') '"></span> <span th:text="'<' + ${env.baseUrl} + '/' + ${objtype} + '/' + ${objid} +'>,'"></span></th:block> 
+            <th:block th:if="${objtype == 'sentence/token'}"><span th:text="${obj.edited.author}">author</span><span th:unless="${obj.edited.contributors} == null" class="editors">, <span class="details-property-label" th:text="#{object_property_editors}">contributors</span> <span th:each="contributor, nr : ${obj.edited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/></span>, <span th:text="#{object_id_label_BTSToken} +' '+ ${objid}"></span> <span th:text="'<' + ${env.baseUrl} + '/' + ${objtype} + '/' + ${objid} +'>,'"></span></th:block> 
+            <th:block th:if="${(obj.eclass == 'BTSThsEntry' or obj.eclass == 'BTSLemmaEntry') and obj.type != 'root'}"><span th:text="'&quot;' + ${{'<shortlabel>'+obj.name+'</shortlabel>'}} + '&quot; (' + #{|object_id_label_${obj.eclass}|} +' '+ ${objid} + ') <' + ${env.baseUrl} + '/' + ${objtype} + '/' + ${objid} +'>'"></span>, <span th:text="#{citeas_lemma_editor} + ' ' + ${obj.edited.author}">edited by author</span><span th:unless="${obj.edited.contributors} == null">, <span th:text="#{object_property_editors}">contributors</span> <span th:each="contributor, nr : ${obj.edited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/></span>, </th:block> 
             <th:block th:if="${objtype == 'sentences/text'}"><span th:text="${obj.edited.author}">author</span><span th:unless="${obj.edited.contributors} == null" class="editors">, <span class="details-property-label" th:text="#{object_property_editors}">contributors</span> <span th:each="contributor, nr : ${obj.edited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/></span>, <span th:text="#{text_sentences_title} +' '+ '&quot;' + ${{'<shortlabel>'+obj.name+'</shortlabel>'}} + '&quot; (' + #{object_id_label_BTSText} +' '+ ${obj.context.textId} + ') <' + ${env.baseUrl} + '/text/' + ${obj.context.textId} +'/sentences>,'"></span></th:block> 
             in: <i th:text="#{tla_Title}"></i>, 
 					<span th:text="#{citeas_corpus_version} + ' ' + #{tla_corpusversion} + ', ' + #{citeas_tla_version} + ' ' + #{tla_version} + ', ' + #{tla_ReleaseDate} + ', ' + #{citeas_editor} +' ' + #{tla_Editor} + ' ('+ #{citeas_accessed} + ': '"></span>
@@ -767,8 +768,8 @@
 				</blockquote>
 				(<em th:text="#{citeas_short}">Short citation</em>)
 				<blockquote id="short-citation">
-					<span th:unless="${objtype == 'sentences/text'}" th:text="${env.baseUrl}+ '/' + ${objtype} + '/' + ${obj.id} +','"></span>
-					<span th:if="${objtype == 'sentences/text'}" th:text="${env.baseUrl}+ '/text/' + ${obj.id} +'/sentences, '"></span>
+					<span th:unless="${objtype == 'sentences/text'}" th:text="${env.baseUrl}+ '/' + ${objtype} + '/' + ${objid} +','"></span>
+					<span th:if="${objtype == 'sentences/text'}" th:text="${env.baseUrl}+ '/text/' + ${objid} +'/sentences, '"></span>
 					in: <span style="font-style: italic;" th:text="#{tla_Title}">Thesaurus Linguae Aegyptiae</span>
 					(<span th:text="#{citeas_accessed}"></span>: <span id="current-date-short">xx.xx.20xx</span>)
 				</blockquote>
@@ -790,18 +791,18 @@
     </div>
     
     <!-- Persitent Lemma ID  -->
-    <div th:fragment="property-pid(objtype)" id="property-pid">
+    <div th:fragment="property-pid(objtype, objid)" id="property-pid">
 		<hr/>
 		<p>         
 		  <strong th:text="#{property_pid}">Persistent ID</strong>:
-		  <span th:text="${obj.id}" id="id">ID</span>
+		  <span th:text="${objid}" id="id">ID</span>
 		  <script> 
 		  </script>
 		  <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" th:onclick="copyStringToClipboard(document.getElementById('id').textContent)" ><span class="fas fa-clipboard"></span>&nbsp;<span th:text="#{button_copy_ID}">Copy ID</span></button>
 		  <br/>
 		  <strong th:text="#{property_url}">Persistent URL</strong>:
 		  <!-- Zitationsbutton -->
-		  <span th:text="|${env.baseUrl}/${objtype}/${obj.id}|" id="page-url">https://thesaurus-linguae-aegyptiae.de/___</span>
+		  <span th:text="|${env.baseUrl}/${objtype}/${objid}|" id="page-url">https://thesaurus-linguae-aegyptiae.de/___</span>
 		  <!--<button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document.getElementById('page-url').textContent)"><span class="fas fa-clipboard"></span>&nbsp;<span th:text="#{button_copy_URL}">Copy URL</span></button>
 		  <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document.getElementById('full-citation').textContent.replaceAll(/\s+/g,' '))"><span class="fas fa-clipboard"></span>&nbsp;<span th:text="#{citeas_copy_button}">Copy citation</span></button>--><!-- take content of element "full-citation" from the page footer-->
 		</p>

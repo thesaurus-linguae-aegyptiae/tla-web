@@ -17,7 +17,7 @@
       <div class="row">
         <div class="col-sm-12 col-lg-8" id="details-content" th:object="${obj}">
 
-          <div th:replace="fragments/details :: property-pid('object')"/>
+          <div th:replace="fragments/details :: property-pid('object', ${obj.id})"/>
           <div th:replace="fragments/details :: object-property-type-subtype('object')"/>
           <div th:replace="fragments/details :: synonyms"/>
           <div th:replace="fragments/details :: object-type"/>
@@ -66,7 +66,7 @@
 
        <div class="row">
         <div class="col-sm-12 col-lg-8" id="details-content-2" th:object="${obj}">
-          <div th:replace="fragments/details :: object-property-citationBox('object')"/>
+          <div th:replace="fragments/details :: object-property-citationBox('object', ${obj.id})"/>
         </div>
       </div>
   </body>
