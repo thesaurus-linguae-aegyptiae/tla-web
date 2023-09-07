@@ -38,5 +38,4 @@ public class TemplateUtils {
     public UriComponentsBuilder replacePath(String path) {
         return ServletUriComponentsBuilder.fromCurrentRequest().replacePath(path);
     }
-
 }

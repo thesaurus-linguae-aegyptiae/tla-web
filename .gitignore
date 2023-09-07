@@ -9,6 +9,8 @@ bin
 .env
 .settings
 settings.gradle
+src/main/java/tla/domain/
+src/main/java/tla/error
 
 # ignore third party assets which are installed via gradle task
 src/main/resources/static/vendor/
