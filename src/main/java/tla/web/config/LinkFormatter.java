@@ -55,6 +55,9 @@ public class LinkFormatter {
      */
     public String format(String id, String type) {
         if (type != null) {
+            /*System.out.println("Type "+type);
+            System.out.println("Id "+id);
+            System.out.println("Default Format"+ this.defaultFormat);*/
             if (this.typeFormats.containsKey(type)) {
                 return this.typeFormats.get(type).expand(Map.of("id", id, "type", type)).toString();
             }
