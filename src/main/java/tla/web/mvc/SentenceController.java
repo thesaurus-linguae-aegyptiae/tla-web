@@ -88,7 +88,6 @@ public class SentenceController extends HierarchicObjectController<Sentence, Sen
 	            () -> new ObjectNotFoundException(id, getTemplatePath())
 	        );
 		
-		
 		model.addAttribute("breadcrumbs",
 				List.of(BREADCRUMB_HOME,
 						BreadCrumb.of("/sentence/" + sentenceID,
