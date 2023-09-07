@@ -4,6 +4,7 @@ import static tla.web.mvc.GlobalControllerAdvisor.BREADCRUMB_HOME;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import tla.domain.command.SentenceSearch;
 import tla.domain.command.SentenceSearch.TokenSpec;
 import tla.domain.model.meta.Hierarchic;
+import tla.error.ObjectNotFoundException;
 import tla.web.model.Sentence;
 import tla.web.model.meta.ObjectDetails;
 import tla.web.model.meta.SearchResults;
@@ -82,9 +84,11 @@ public class SentenceController extends HierarchicObjectController<Sentence, Sen
 		form.setTokens(tokens);
 
 		SearchResults results = this.getService().search(form, 1); // TODO validate page
-		ObjectDetails<Sentence> container = new ObjectDetails(results.getObjects().get(0));
-
-		String sentenceID = container.getObject().getId();
+		ObjectDetails<Sentence> container= getService().getDetails(results.getObjects().get(0).getId()).orElseThrow(
+	            () -> new ObjectNotFoundException(id, getTemplatePath())
+	        );
+		
+		
 		model.addAttribute("breadcrumbs",
 				List.of(BREADCRUMB_HOME,
 						BreadCrumb.of("/sentence/" + sentenceID,
