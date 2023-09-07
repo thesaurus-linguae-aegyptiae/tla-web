@@ -88,7 +88,9 @@ dependencies {
     implementation 'com.github.thesaurus-linguae-aegyptiae:tla-common:master-SNAPSHOT'
     implementation 'com.github.rosmord.jsesh:jsesh:release-7.5.5'
     implementation 'com.github.rosmord.jsesh:jseshGlyphs:release-7.5.5'
-
+    
+    //implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.15.2'  
+    
     testImplementation 'org.seleniumhq.selenium:selenium-remote-driver:4.0.0-beta-4'
     testImplementation 'org.seleniumhq.selenium:selenium-chrome-driver:4.0.0-beta-4'
     testImplementation 'org.seleniumhq.selenium:selenium-support:4.0.0-beta-4'
@@ -248,7 +250,6 @@ bootRun {
 application {
     mainClass = 'tla.web.App'
 }
-
 test {
     useJUnitPlatform {
       includeTags '!selenium'

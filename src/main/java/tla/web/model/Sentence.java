@@ -32,9 +32,9 @@ import tla.domain.model.ObjectReference;
 @BTSeClass("BTSSentence")
 @TLADTO(SentenceDto.class)
 public class Sentence extends TLAObject implements Hierarchic {
-	public static final String PASSPORT_PROP_DATE = "date.date.date";
-
-    private SentenceContext context;
+	 public static final String PASSPORT_PROP_DATE = "date.date.date";
+	
+	 private SentenceContext context;
     
     private GlyphsSentence glyphs;
 
@@ -124,6 +124,11 @@ public class Sentence extends TLAObject implements Hierarchic {
     public String getID() {
         return this.getId();
     }
+    
+    public String getContextPosition() {
+        return this.getContext().getPosition()+"";
+    }
+    
     @Getter
     public static class DatePair {
     	String id;

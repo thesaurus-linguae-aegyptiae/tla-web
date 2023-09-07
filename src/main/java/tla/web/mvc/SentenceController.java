@@ -16,17 +16,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+//import tla.domain.command.LemmaSearch;
 import tla.domain.command.SentenceSearch;
 import tla.domain.command.SentenceSearch.TokenSpec;
 import tla.domain.model.meta.Hierarchic;
+//import tla.web.config.LemmaSearchProperties;
 import tla.web.model.Sentence;
 import tla.web.model.meta.ObjectDetails;
 import tla.web.model.meta.SearchResults;
+//import tla.domain.dto.SentenceDto;
 import tla.web.model.meta.TemplateModelName;
 import tla.web.model.ui.BreadCrumb;
 import tla.web.model.ui.CorpusPathSegment;
 import tla.web.service.ObjectService;
 import tla.web.service.SentenceService;
+import tla.web.config.SentenceSearchProperties;
 
 @Controller
 @RequestMapping("/sentence")
@@ -35,7 +39,10 @@ public class SentenceController extends HierarchicObjectController<Sentence, Sen
 
 	@Autowired
 	private SentenceService service;
-
+  
+  @Autowired
+  private SentenceSearchProperties searchConfig;
+ 
 	@Override
 	public ObjectService<Sentence> getService() {
 		return service;
@@ -55,18 +62,22 @@ public class SentenceController extends HierarchicObjectController<Sentence, Sen
 		return paths;
 	}
 
-	/*
-	 * this needs to be here for the sake of the procedural redundant route
-	 * generation in {@link SearchController#onApplicationReady}
-	 */
-	@Override
-	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public String getSearchResultsPage(@ModelAttribute("sentenceSearchForm") SentenceSearch form,
-			@RequestParam(defaultValue = "1") String page, @RequestParam MultiValueMap<String, String> params,
-			Model model) {
-		return super.getSearchResultsPage(form, page, params, model);
-	}
-
+    /*
+     * this needs to be here for the sake of the procedural redundant route generation
+     * in {@link SearchController#onApplicationReady}
+     */
+    @Override
+    @RequestMapping(value="/search", method=RequestMethod.GET)
+    public String getSearchResultsPage(
+        @ModelAttribute("sentenceSearchForm") SentenceSearch form,
+        @RequestParam(defaultValue = "1") String page,
+        @RequestParam MultiValueMap<String, String> params,
+        Model model
+    ) {
+    	 model.addAttribute("contextInformation", searchConfig.getContextInformation());
+        return super.getSearchResultsPage(form, page, params, model);
+    }
+  
 	@RequestMapping(value = "/token/lookup", method = RequestMethod.GET)
 	public RedirectView lookup(@RequestParam String id) {
 		return new RedirectView(String.format("/sentence/token/" + id), true);
@@ -104,5 +115,6 @@ public class SentenceController extends HierarchicObjectController<Sentence, Sen
 		model = extendSingleObjectDetailsModel(model, container);
 		return "token/details";
 	}
+
 
 }
