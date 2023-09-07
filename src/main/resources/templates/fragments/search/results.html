@@ -121,7 +121,7 @@
             <div class="container-annotation">
 				         <div th:each="token : *{tokens}"  th:id="|block-${token.id}|">
 								<!--Bug: ul/li-Struktur ungültig-->
-					         <ul class="annotation-block"  th:classappend="${(token.lemma.id != null and ((#request.getParameter('tokens[0].lemma.id') == token.lemma.id) or (#request.getParameter('tokens[1].lemma.id') == token.lemma.id))) ? 'highlight' : '' }">
+					         <ul class="annotation-block"  th:classappend="${((token.lemma.id != null or token.id != null) and ((#request.getParameter('tokens[0].lemma.id') == token.lemma.id and token.lemma.id != null) or (#request.getParameter('tokens[1].lemma.id') == token.lemma.id and token.lemma.id != null)  or (searchTokenId == token.id))) ? 'highlight' : '' }">
 							      <th:block th:if="${hasGlyphs}">
 									  <div class="occ-list-item-element hieroglyphs">
 											<a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank" rel="opener"><li th:replace="fragments/common :: token-hieroglyphs"/></a>

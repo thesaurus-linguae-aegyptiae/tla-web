@@ -100,6 +100,7 @@ public class SentenceController extends HierarchicObjectController<Sentence, Sen
 		model.addAttribute("caption", getService().getLabel(container.getObject()));
 		model.addAttribute("related", container.getRelated());
 		model.addAttribute("relations", container.extractRelatedObjects());
+		model.addAttribute("searchTokenId", id);
 		model = extendSingleObjectDetailsModel(model, container);
 		return "token/details";
 	}

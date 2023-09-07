@@ -5,7 +5,7 @@
       layout:decorate="~{base}"
 >
   <head>
-    <title th:text="#{object_id_label_BTSToken} + ' ' + ${obj.id}"></title>
+    <title th:text="#{object_id_label_BTSToken} + ' ' + ${searchTokenId}"></title>
   </head>
 
   <body>
@@ -15,6 +15,7 @@
       <div th:replace="fragments/details :: sentence-token-page-header"/>
 
       <div class="row" >
+         
         <div class="col-lg-8 content">
           <div class= "result-list">
 				<th:block th:insert="fragments/search/results :: sentence-search-result"  th:object="${obj}"/>

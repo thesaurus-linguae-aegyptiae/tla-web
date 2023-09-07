@@ -7,7 +7,7 @@
     <div th:fragment="sentence-token-page-header" class="row mb-sm-3 d-flex justify-content-between details-header">
 		<div id="title-header">
 			<h2 class="id ml-3 mt-sm-1">
-			  <span class="words-breakable" th:text="#{object_id_label_BTSToken} + ' ' + ${obj.id}">Token ID</span>
+			  <span class="words-breakable" th:text="#{object_id_label_BTSToken} + ' ' + ${searchTokenId}">Token ID</span>
 			</h2>
 		</div>
 		<div th:replace="fragments/common :: social('sentence-page')"/>
