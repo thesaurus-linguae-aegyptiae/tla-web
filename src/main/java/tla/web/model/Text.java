@@ -36,8 +36,9 @@ public class Text extends CorpusObject {
     public static final String PASSPORT_PROP_COMMENTSCRIPT ="text.textual_metadata.comment_on_script";
     public static final String PASSPORT_PROP_TEXTTYPE ="text.textual_metadata.texttype";
     public static final String PASSPORT_PROP_SECINSCRIPTION ="text.textual_metadata.secondary_inscription";
+    
 
-    //TODO prüfen ob doppelt, da schon in CorpusObject.java
+    //TODO prüfen ob doppelt, da bereits in CorpusObject.java
     public static final String PASSPORT_PROP_ORIGPLACE ="find_spot.find_spot.place.place";
     public static final String PASSPORT_PROP_ISORIG ="find_spot.find_spot.place.is_origin";
     public static final String PASSPORT_PROP_PRESLOC ="present_location.location.location";
