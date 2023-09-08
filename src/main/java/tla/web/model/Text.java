@@ -37,7 +37,7 @@ public class Text extends CorpusObject {
     public static final String PASSPORT_PROP_SECINSCRIPTION ="text.textual_metadata.secondary_inscription";
     
 
-    //TODO prüfen ob doppelt, da bereits in CorpusObject.java
+    //TODO prï¿½fen ob doppelt, da bereits in CorpusObject.java
     public static final String PASSPORT_PROP_ORIGPLACE ="find_spot.find_spot.place.place";
     public static final String PASSPORT_PROP_ISORIG ="find_spot.find_spot.place.is_origin";
     public static final String PASSPORT_PROP_PRESLOC ="present_location.location.location";
@@ -238,12 +238,12 @@ public class Text extends CorpusObject {
         //Function to return a string from passport. Takes value from element number position
         //TODO think of move to passport.java
         private static String extractString(Text text, String searchField, Integer number) {
-        	String value;
+        	String value = new String();
         	try {
         		List<Passport> pass = text.getPassport().extractProperty(searchField);
         		value = pass.get(number).toString();
         	}catch (Exception e) {
-                System.out.println("could not extract " + searchfield + " from text {} "+text.getId());
+                System.out.println("could not extract " + searchField + " from text {} "+text.getId());
         	}
         	return value;
         }
@@ -253,16 +253,7 @@ public class Text extends CorpusObject {
         	return extractString( text, searchField, 0); 
         }
         
-        private static String extract(Text text) {
-        	try {
-        		
-        	}catch (Exception e) {
-                System.out.println("could not extract egytextname from text {} "+text.getId());
-        	}
-        }
-    
 
-    
     private static String extractIsOrigPlace(Text text) {
         String isOrigPl = new String();
         try {
