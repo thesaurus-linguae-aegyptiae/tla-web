@@ -25,7 +25,6 @@ import tla.web.model.meta.BackendPath;
 public class Text extends CorpusObject {
 
     private TextDto.WordCount wordCount;
-   // private List<Sentence> sentence;
     public static final String PASSPORT_PROP_BIBL = "bibliography.bibliographical_text_field";
     public static final String PASSPORT_PROP_DATE = "date.date.date";
     public static final String PASSPORT_PROP_LANGUAGE ="text.textual_metadata.language";
