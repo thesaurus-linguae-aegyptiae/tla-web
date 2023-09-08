@@ -27,20 +27,41 @@ public class Text extends CorpusObject {
     private TextDto.WordCount wordCount;
    // private List<Sentence> sentence;
     public static final String PASSPORT_PROP_BIBL = "bibliography.bibliographical_text_field";
-    public static final String PASSPORT_PROP_SCRIPT = "text.textual_metadata.script";
     public static final String PASSPORT_PROP_DATE = "date.date.date";
     public static final String PASSPORT_PROP_LANGUAGE ="text.textual_metadata.language";
+    public static final String PASSPORT_PROP_SCRIPT = "text.textual_metadata.script";
+    public static final String PASSPORT_PROP_EGYTEXTNAME ="text.textual_metadata.egytextname";
+    public static final String PASSPORT_PROP_COMMENTLANGUAGE ="text.textual_metadata.comment_on_language";
+    public static final String PASSPORT_PROP_COMMENTTEXTTYPE ="text.textual_metadata.comment_on_texttype";
+    public static final String PASSPORT_PROP_COMMENTSCRIPT ="text.textual_metadata.comment_on_script";
+    public static final String PASSPORT_PROP_TEXTTYPE ="text.textual_metadata.texttype";
+    public static final String PASSPORT_PROP_SECINSCRIPTION ="text.textual_metadata.secondary_inscription";
+
+    //TODO prüfen ob doppelt, da schon in CorpusObject.java
     public static final String PASSPORT_PROP_ORIGPLACE ="find_spot.find_spot.place.place";
     public static final String PASSPORT_PROP_ISORIG ="find_spot.find_spot.place.is_origin";
     public static final String PASSPORT_PROP_PRESLOC ="present_location.location.location";
     @Setter(AccessLevel.NONE)
     private List<String> bibliography;
     @Setter(AccessLevel.NONE)
+    private List<String>language;
+    @Setter(AccessLevel.NONE)
     private List<String>skript;
     @Setter(AccessLevel.NONE)
-    private List<String> date;
+    private String egytextname;
+    
     @Setter(AccessLevel.NONE)
-    private List<String>language;
+    private String commentlanguage;
+    @Setter(AccessLevel.NONE)
+    private String commenttexttype;
+    @Setter(AccessLevel.NONE)
+    private String commentscript;
+    @Setter(AccessLevel.NONE)
+    private List<String> texttype;
+    @Setter(AccessLevel.NONE)
+    private String secinscription;
+    @Setter(AccessLevel.NONE)
+    private List<String> date;
     @Setter(AccessLevel.NONE)
     private List<String>origplace;
     @Setter(AccessLevel.NONE)
@@ -56,24 +77,68 @@ public class Text extends CorpusObject {
         if (this.bibliography == null) {
             this.bibliography = extractBibliography(this);
         }
-      //  System.out.println("First Sentence "+ getOneSentence());
         return this.bibliography;
     }
-    public List<String> getSkript() {
-        if (this.skript == null) {
-            this.skript = extractScript(this);
-        }
-        //System.out.println ("Skript "+this.skript.toString());
-        return this.skript;
-    }
-    
+
+    //TODO Check if generic function could replace extractLanguage
     public List<String> getLanguage() {
         if (this.language == null) {
             this.language = extractLanguage(this);
         }
      
         return this.language;
+    }  
+    
+  //TODO Check if generic function could replace extractScript
+    public List<String> getSkript() {
+        if (this.skript == null) {
+            this.skript = extractScript(this);
+        }
+        return this.skript;
     }
+    
+    public String getEgytextname() {
+    	if (this.egytextname == null) {
+    		this.egytextname = extractString(this, PASSPORT_PROP_EGYTEXTNAME);
+    	}
+    	return this.egytextname;
+    }
+    
+    public String getCommentlanguage() {
+    	if(this.commentlanguage == null) {
+    		this.commentlanguage = extractString(this, PASSPORT_PROP_COMMENTLANGUAGE);
+    	}
+    	return this.commentlanguage;
+    }
+
+        public String getCommenttexttype() {
+    	if (this.commenttexttype == null) {
+    		this.commenttexttype = extractString(this,PASSPORT_PROP_COMMENTTEXTTYPE);
+    	}
+    	return this.commenttexttype;
+    }
+    
+    public String getCommentscript() {
+    	if(this.commentscript == null) {
+    		this.commentscript = extractString(this,PASSPORT_PROP_COMMENTSCRIPT );
+    	}
+    	return this.commentscript;
+    }
+    
+    public List<String> getTexttype(){
+    	if(this.texttype == null) {
+    		this.texttype = extractNamesOfArray(this, PASSPORT_PROP_TEXTTYPE);
+    	}
+    	return this.texttype;
+    }
+    
+    public String getSecinscription() {
+    	if(this.secinscription == null) {
+    	this.secinscription = extractString(this,PASSPORT_PROP_SECINSCRIPTION);	
+    	}
+    	return this.secinscription;
+    }
+    
     public List<String> getOrigplace() {
         if (this.origplace == null) {
             this.origplace = extractOrigplace(this);
@@ -129,36 +194,74 @@ public class Text extends CorpusObject {
     }
 /* Extract Script von Passport */
     
-    private static List<String> extractScript(Text text) {
-        List<String> skript = new ArrayList<>();
-        try {
-           List<Passport> pass= text.getPassport().extractProperty(PASSPORT_PROP_SCRIPT);
-            for(int i=0;i<pass.size();i++) {
-            	skript.add(pass.get(i).extractObjectReferences().get(0).getName());
-            }
-            
-           
-        } catch (Exception e) {
-          System.out.println("could not extract script from text {} "+text.getId());
-        }
-        return skript;
-    }
-    
-    
-    private static List<String> extractLanguage(Text text) {
+        private static List<String> extractLanguage(Text text) {
         List<String> language = new ArrayList<>();
         try {
            List<Passport> pass= text.getPassport().extractProperty(PASSPORT_PROP_LANGUAGE);
             for(int i=0;i<pass.size();i++) {
             	language.add(pass.get(i).extractObjectReferences().get(0).getName());
-            }
-            
-           
+            }         
         } catch (Exception e) {
           System.out.println("could not extract language from text {} "+text.getId());
         }
         return language;
     }
+                   
+        private static List<String> extractScript(Text text) {
+        List<String> skript = new ArrayList<>();
+        try {
+           List<Passport> pass= text.getPassport().extractProperty(PASSPORT_PROP_SCRIPT);
+            for(int i=0;i<pass.size();i++) {
+            	skript.add(pass.get(i).extractObjectReferences().get(0).getName());
+            }        
+        } catch (Exception e) {
+          System.out.println("could not extract script from text {} "+text.getId());
+        }
+        return skript;
+    }
+             
+        //Function to return a List of names form a passport Array
+        //TODO think of move to passport.java
+        private static List<String> extractNamesOfArray(Text text, String searchField) {
+            List<String> values = new ArrayList<>();
+            try {
+               List<Passport> pass= text.getPassport().extractProperty(searchField);
+                for(int i=0;i<pass.size();i++) {
+                	values.add(pass.get(i).extractObjectReferences().get(0).getName());
+                }           
+            } catch (Exception e) {
+              System.out.println("could not extract" + searchField + "from text {} "+text.getId());
+            }
+            return values;
+        }
+    
+        //Function to return a string from passport. Takes value from element number position
+        //TODO think of move to passport.java
+        private static String extractString(Text text, String searchField, Integer number) {
+        	String value;
+        	try {
+        		List<Passport> pass = text.getPassport().extractProperty(searchField);
+        		value = pass.get(number).toString();
+        	}catch (Exception e) {
+                System.out.println("could not extract " + searchfield + " from text {} "+text.getId());
+        	}
+        	return value;
+        }
+        
+        //Function to return a string from passport with default number 0. Takes value from first element
+        private static String extractString(Text text, String searchField) {
+        	return extractString( text, searchField, 0); 
+        }
+        
+        private static String extract(Text text) {
+        	try {
+        		
+        	}catch (Exception e) {
+                System.out.println("could not extract egytextname from text {} "+text.getId());
+        	}
+        }
+    
+
     
     private static String extractIsOrigPlace(Text text) {
         String isOrigPl = new String();
