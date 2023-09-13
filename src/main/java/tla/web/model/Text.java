@@ -43,13 +43,15 @@ public class Text extends CorpusObject {
     public static final String PASSPORT_PROP_PRESLOC ="present_location.location.location";
     @Setter(AccessLevel.NONE)
     private List<String> bibliography;
+    
+    @Setter(AccessLevel.NONE)
+    private String textualMetadata;
     @Setter(AccessLevel.NONE)
     private List<String>language;
     @Setter(AccessLevel.NONE)
     private List<String>skript;
     @Setter(AccessLevel.NONE)
     private String egytextname;
-    
     @Setter(AccessLevel.NONE)
     private String commentlanguage;
     @Setter(AccessLevel.NONE)
@@ -80,15 +82,22 @@ public class Text extends CorpusObject {
         return this.bibliography;
     }
 
+    //TODO prüfen auf schematischeren Weg
+    public boolean isEmptyTextualMetadata(){
+this.textualMetadata = extractString(this, "text.textual_metadata");
+if (this.textualMetadata == null) { return true;}
+else { return false;}
+    }
+
     //TODO Check if generic function could replace extractLanguage
     public List<String> getLanguage() {
         if (this.language == null) {
             this.language = extractLanguage(this);
         }
-     
         return this.language;
     }  
     
+    //TODO Skript vs. Script vereinheitlichen mit details.html und Datenmodell
   //TODO Check if generic function could replace extractScript
     public List<String> getSkript() {
         if (this.skript == null) {
@@ -111,7 +120,7 @@ public class Text extends CorpusObject {
     	return this.commentlanguage;
     }
 
-        public String getCommenttexttype() {
+    public String getCommenttexttype() {
     	if (this.commenttexttype == null) {
     		this.commenttexttype = extractString(this,PASSPORT_PROP_COMMENTTEXTTYPE);
     	}

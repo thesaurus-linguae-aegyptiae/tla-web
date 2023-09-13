@@ -551,6 +551,69 @@
         </p>
     </div>
     
+    
+    <!-- Textual metadata -->
+    <div class="textual-metadata" th:fragment="textual-metadata" id="date-comment" th:unless="${obj.isEmptyTextualMetadata()}">
+        <hr/>
+        <th:block th:unless="${obj.getLanguage}==null"> 
+        <p>
+            <strong th:text="#{object_property_date_comment}" class="details-property-label">Textual Metadata Language</strong>:
+            <br/>
+               <span th:utext="${obj.getLanguage}"></span>             
+        </p>
+        </th:block>
+        <th:block th:unless="${obj.getSkript}==null"> 
+            <p>
+            <strong th:text="#{object_property_date_comment}" class="details-property-label">Textual Metadata Script</strong>:
+            <br/>
+               <span th:utext="${obj.getSkript}"></span>
+        </p>
+        </th:block>
+        <th:block th:unless="${#lists.isEmpty(obj.getEgytextname)}">      
+            <p>
+            <strong th:text="#{object_property_egytextname}" class="details-property-label">Textual Metadata Egytextname</strong>:
+            <br/>
+               <span th:utext="${obj.getEgytextname}"></span>
+        </p>
+         </th:block>      
+             <th:block th:unless="${#lists.isEmpty(obj.getCommentlanguage)}">      
+            <p>
+            <strong th:text="#{object_property_commentlanguage}" class="details-property-label">Textual Metadata Egytextname</strong>:
+            <br/>
+               <span th:utext="${obj.getCommentlanguage}"></span>
+        </p>
+         </th:block> 
+       <th:block th:unless="${#lists.isEmpty(obj.getCommenttexttype)}">      
+            <p>
+            <strong th:text="#{object_property_commenttexttype}" class="details-property-label">Textual Metadata Egytextname</strong>:
+            <br/>
+               <span th:utext="${obj.getCommenttexttype}"></span>
+        </p>
+         </th:block>  
+                <th:block th:unless="${#lists.isEmpty(obj.Commentscript)}">      
+            <p>
+            <strong th:text="#{object_property_commentscript}" class="details-property-label">Textual Metadata Egytextname</strong>:
+            <br/>
+               <span th:utext="${obj.getCommentscript}"></span>
+        </p>
+         </th:block>  
+                <th:block th:unless="${#lists.isEmpty(obj.getTexttype)}">      
+            <p>
+            <strong th:text="#{object_property_texttype}" class="details-property-label">Textual Metadata Egytextname</strong>:
+            <br/>
+               <span th:utext="${obj.getTexttype}"></span>
+        </p>
+         </th:block>
+                <th:block th:unless="${#lists.isEmpty(obj.Secinscription)}">    
+            <p>
+            <strong th:text="#{object_property_secinscription}" class="details-property-label">Textual Metadata Egytextname</strong>:
+            <br/>
+               <span th:utext="${obj.getSecinscription}"></span>
+        </p>
+         </th:block>
+         </div>
+    
+    
     <!-- Text content button  -->
     
     <div class="text-content-button" th:fragment="text-content-button" id="text-content-button">
