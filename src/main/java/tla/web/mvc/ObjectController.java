@@ -375,7 +375,7 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
         if (searchProperties != null) {
             model.addAttribute(
                 "hideablesTextsentencesProperties",
-                searchProperties.getHideablesTextsentencesProperties()
+                searchProperties.getHideableTextsentencesProperties()
             );
            
         }
