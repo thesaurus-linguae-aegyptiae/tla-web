@@ -30,7 +30,7 @@ public abstract class SearchProperties {
    private Map<String, List<String>> hideable1LemmaProperties;
    private Map<String, List<String>> showableProperties;
    private Map<String, List<String>> hideable2LemmaProperties;
-   private Map<String, List<String>> hideableTextsentencesProperties;
+   private Map<String, List<String>> hideablesTextsentencesProperties;
     /**
      * Sort orders to be made available on search results page
      */

@@ -182,11 +182,12 @@ search:
                 - tlaglossing
                 - linguisticglossing
                 - tokentranslation
-                - wordtokenid    
+                - wordtokenid  
             translation: []
             dating: []
-            texteditor: []     
-        hideable-textsentences-properties:
+            texteditor: []
+            
+        hideables-textsentences-properties:
             hieroglyphs: []
             switchannotation: 
                 - wordclass
@@ -195,9 +196,6 @@ search:
                 - tokentranslation
                 - wordtokenid
             translation: []
-        context-information:
-            text-id: []
-        
 
 details:
     lemma:

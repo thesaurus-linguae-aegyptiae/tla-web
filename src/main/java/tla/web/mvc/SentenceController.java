@@ -110,6 +110,7 @@ public class SentenceController extends HierarchicObjectController<Sentence, Sen
 						BreadCrumb.of(String.format("caption_details_%s", "token"))));
 
 		this.addHideableProperties(model);
+		this.addHideablesTextsentencesProperties(model);
 		this.addHideable1LemmaProperties(model);
 		this.addShowableProperties(model);
 		this.addHideable2LemmaProperties(model);
