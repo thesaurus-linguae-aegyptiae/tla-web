@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import tla.domain.dto.TextDto;
+import tla.domain.model.ObjectReference;
 import tla.domain.model.Passport;
 import tla.domain.model.meta.BTSeClass;
 import tla.domain.model.meta.TLADTO;
@@ -42,14 +43,13 @@ public class Text extends CorpusObject {
     public static final String PASSPORT_PROP_ISORIG ="find_spot.find_spot.place.is_origin";
     public static final String PASSPORT_PROP_PRESLOC ="present_location.location.location";
     @Setter(AccessLevel.NONE)
-    private List<String> bibliography;
-    
+    private List<String> bibliography; 
     @Setter(AccessLevel.NONE)
     private String textualMetadata;
     @Setter(AccessLevel.NONE)
-    private List<String>language;
+    private ObjectReference language;
     @Setter(AccessLevel.NONE)
-    private List<String>skript;
+    private ObjectReference skript; 
     @Setter(AccessLevel.NONE)
     private String egytextname;
     @Setter(AccessLevel.NONE)
@@ -59,7 +59,7 @@ public class Text extends CorpusObject {
     @Setter(AccessLevel.NONE)
     private String commentscript;
     @Setter(AccessLevel.NONE)
-    private List<String> texttype;
+    private ObjectReference texttype; 
     @Setter(AccessLevel.NONE)
     private String secinscription;
     @Setter(AccessLevel.NONE)
@@ -90,18 +90,17 @@ else { return false;}
     }
 
     //TODO Check if generic function could replace extractLanguage
-    public List<String> getLanguage() {
+    public ObjectReference getLanguage() {
         if (this.language == null) {
-            this.language = extractLanguage(this);
+            this.language = extractObjectReference(this,PASSPORT_PROP_LANGUAGE);
         }
         return this.language;
     }  
     
     //TODO Skript vs. Script vereinheitlichen mit details.html und Datenmodell
-  //TODO Check if generic function could replace extractScript
-    public List<String> getSkript() {
+    public ObjectReference getSkript() {
         if (this.skript == null) {
-            this.skript = extractScript(this);
+            this.skript = extractObjectReference(this,PASSPORT_PROP_SCRIPT);
         }
         return this.skript;
     }
@@ -134,9 +133,9 @@ else { return false;}
     	return this.commentscript;
     }
     
-    public List<String> getTexttype(){
+    public ObjectReference getTexttype(){
     	if(this.texttype == null) {
-    		this.texttype = extractNamesOfArray(this, PASSPORT_PROP_TEXTTYPE);
+    		this.texttype = extractObjectReference(this, PASSPORT_PROP_TEXTTYPE);
     	}
     	return this.texttype;
     }
@@ -201,32 +200,17 @@ else { return false;}
         }
         return bibliography;
     }
-/* Extract Script von Passport */
-    
-        private static List<String> extractLanguage(Text text) {
-        List<String> language = new ArrayList<>();
+
+    //Extracts a single ObjectReference (Ths-Entry) from the first found passport according to searchString
+        private static ObjectReference extractObjectReference(Text text, String searchString) {
+        ObjectReference objectReference = null;
         try {
-           List<Passport> pass= text.getPassport().extractProperty(PASSPORT_PROP_LANGUAGE);
-            for(int i=0;i<pass.size();i++) {
-            	language.add(pass.get(i).extractObjectReferences().get(0).getName());
-            }         
+           Passport pass= text.getPassport().extractProperty(searchString).get(0);
+            objectReference = pass.extractObjectReferences().get(0);        
         } catch (Exception e) {
           System.out.println("could not extract language from text {} "+text.getId());
         }
-        return language;
-    }
-                   
-        private static List<String> extractScript(Text text) {
-        List<String> skript = new ArrayList<>();
-        try {
-           List<Passport> pass= text.getPassport().extractProperty(PASSPORT_PROP_SCRIPT);
-            for(int i=0;i<pass.size();i++) {
-            	skript.add(pass.get(i).extractObjectReferences().get(0).getName());
-            }        
-        } catch (Exception e) {
-          System.out.println("could not extract script from text {} "+text.getId());
-        }
-        return skript;
+        return objectReference;
     }
              
         //Function to return a List of names form a passport Array
@@ -263,6 +247,8 @@ else { return false;}
         }
         
 
+        
+        //TODO prüfen auf unnötig
     private static String extractIsOrigPlace(Text text) {
         String isOrigPl = new String();
         try {
@@ -271,9 +257,7 @@ else { return false;}
             	isOrigPl=pass.get(0).toString();
             	//System.out.println("isOrig "+ isOrigPl);
             		if (isOrigPl.equals("true")) isOrigPl="original";
-            		else isOrigPl=null;
-       
-           
+            		else isOrigPl=null;       
         } catch (Exception e) {
           System.out.println("could not extract is orig place from text {} "+text.getId());isOrigPl=null;
         }
