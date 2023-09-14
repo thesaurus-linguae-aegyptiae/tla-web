@@ -34,33 +34,16 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     
     public static final String PASSPORT_PROP_DATE = "date.date.date";
     @Setter(AccessLevel.NONE)
-    private List<String> date;
-    
-    public List<String> getDate() {
-        if (this.date == null) {
-            this.date = extractDate(this);
-        }
-        return this.date;
-    }
-       
-    private static List<String> extractDate(CorpusObject corpusobj) {
-        List<String> dates = new ArrayList<String>();
-        try {
-        
-          List<Passport> datesPassport =corpusobj.getPassport().extractProperty(PASSPORT_PROP_DATE);
-         
-          for(int i=0;i<datesPassport.size();i++) {
-        	  for(int j=0;j<datesPassport.get(i).extractObjectReferences().size();j++) {
+    private List<ObjectReference> date;
+    public List<ObjectReference> getDate(){
+    	if (this.date == null) {
+    		Passport passport;
+    		this.date = this.extractObjectReferences(this,PASSPORT_PROP_DATE);
+    	}
+    	tla.domain.util.IO.json(this.date);
+    	return this.date;
+    }     
 
-        	 dates.add(datesPassport.get(i).extractObjectReferences().get(j).getName());
-        	  }
-          }
-           
-        } catch (Exception e) {
-           System.out.println("INFO: Could not extract date from object "+corpusobj.getId());
-        }
-        return dates;
-    }
 
     // Text object date comment
     
@@ -266,6 +249,17 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     		System.out.println("INFO: Could not extract ObjectReference");
     	}
     	return object;
+    }
+    
+    private static List<ObjectReference> extractObjectReferences(CorpusObject object, String searchString) {
+        List<ObjectReference> objectReferences = new ArrayList();
+        try {
+          List<Passport> pass= object.getPassport().extractProperty(searchString);
+           pass.forEach(node -> objectReferences.add(node.extractObjectReferences().get(0)));
+        } catch (Exception e) {
+          System.out.println("could not extract language from text {} " + object.getId());
+        }
+        return objectReferences;
     }
     
     @Getter

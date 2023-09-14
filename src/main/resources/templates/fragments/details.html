@@ -579,11 +579,12 @@
         <p>
             <strong th:text="#{object_property_date}" class="details-property-label">Date</strong>:
             <span th:each="date, dateStat : ${obj.date}">
-              <span th:utext="${{'<shortlabel>'+date+'</shortlabel>'}}"/> <!-- filter cuts out parts in angles ininside <label/>-->
-              <span th:unless="${dateStat.last}">&nbsp;&ndash;&nbsp;</span>
+            	<a th:href="${'/thesaurus/'+date.getId()}"  th:text="${{'<shortlabel>'+date.getName()+'</shortlabel>'}}"></a> <!-- filter cuts out parts in angles ininside <label/>-->
+            <span th:unless="${dateStat.last}">&nbsp;&ndash;&nbsp;</span>
             </span>
         </p>
     </div>
+
     
     <!-- Dating comment -->
     

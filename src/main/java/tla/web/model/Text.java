@@ -63,8 +63,6 @@ public class Text extends CorpusObject {
     @Setter(AccessLevel.NONE)
     private String secinscription;
     @Setter(AccessLevel.NONE)
-    private List<String> date;
-    @Setter(AccessLevel.NONE)
     private List<String>origplace;
     @Setter(AccessLevel.NONE)
     private String isorig;
@@ -315,11 +313,6 @@ else { return false;}
     }
     
   
-    public List<String> getDate() {
-        if (this.date == null) {
-            this.date = extractDate(this);
-        }
-        return this.date;
-    }
+
 
 }
