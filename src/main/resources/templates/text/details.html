@@ -19,8 +19,13 @@
           <div th:replace="fragments/details :: property-pid('text', ${obj.id})"/>
           <div th:replace="fragments/details :: object-property-type-subtype('object')"/>
           <div th:replace="fragments/details :: synonyms"/>
+          <div th:replace="fragments/details :: is-secondary-inscription"/>
           <div th:replace="fragments/details :: textscript"/>
+          <div th:replace="fragments/details :: textscript-comment"/>
           <div th:replace="fragments/details :: language"/>
+          <div th:replace="fragments/details :: language-comment"/>
+          <div th:replace="fragments/details :: texttype"/>
+          <div th:replace="fragments/details :: texttype-comment"/>
           <div th:replace="fragments/details :: date"/>
           <div th:replace="fragments/details :: date-comment"/>
           <div th:replace="fragments/details :: bibliography"/>
