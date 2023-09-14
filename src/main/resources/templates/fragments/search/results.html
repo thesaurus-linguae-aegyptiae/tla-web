@@ -81,7 +81,7 @@
           <span class="result-list-item-element translations">
             <th:block th:each="entry : *{translations}" th:insert="fragments/common :: single-lang-translation(${entry})"/>
           </span>
-		   <span class="text-muted" th:if="${obj.annotated}"><i class="fas fa-sticky-note"></i> <span th:text="#{lemma_has_comment}">With comments</span></span>
+		   <span class="text-muted" th:if="${obj.annotated}"><i class="fas fa-sticky-note"></i> <span th:text="#{object_has_comment}">With comments</span></span>
           <span class="result-list-item-element attested-timespan" th:unless="*{timespan} == null">
 		     <i class="text-muted fas fa-calendar mr-0 ml-2"></i>
             <span th:insert="fragments/details :: display-year(*{timespan.begin})">3000 BCE</span>
@@ -121,6 +121,8 @@
               <td>
                 <div class="mt-sm-1 py-sm-1">
                   <div th:replace="fragments/common :: sentence-transcription"/>
+                  <div class="text-muted" th:if="*{hasComment}"><i class="fas fa-sticky-note"></i> <span th:text="#{object_has_comment}">With comment(s)</span></div>
+                  <!--<div class="text-muted" th:if="*{hasAnnotation}"><i class="fas fa-sticky-note"></i> <span th:text="#{object_has_annotation}">With annotation(s)</span></div>-->
                 </div>
               </td>
 

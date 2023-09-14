@@ -19,9 +19,8 @@
           <div class= "result-list">
 				<th:block th:insert="fragments/search/results :: sentence-search-result"  th:object="${obj}"/>
           </div>
-          <div class="mt-sm-2 text-secondary development-msg">
-             <i class="fas fa-wrench"></i> (<span th:utext="#{msg_sentence_comments}">Sentence comments coming.</span>)
-          </div>
+          <div th:replace="fragments/details :: object-property-comments"/>
+          <div th:replace="fragments/details :: object-property-annotations"/>
           <div th:replace="fragments/details :: object-property-related-objects"/>
           <div th:replace="fragments/details :: property-pid('sentence', ${obj.id})"/>
           <div th:replace="fragments/details :: object-property-citationBox('sentence', ${obj.id})"/>

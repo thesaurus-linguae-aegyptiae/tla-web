@@ -68,7 +68,38 @@ public class Sentence extends TLAObject implements Hierarchic {
 			token -> token.getGlyphs().isMdcArtificiallyAligned() == true
         );
     }
+    
+    public boolean hasComment() {
+         if (this.getRelations() == null) 
+            return false;
+         if (!this.getRelations().containsKey("contains")) 
+            return false;
+         
+         List<ObjectReference> objReferences;
+         objReferences =  this.getRelations().get("contains");
+        
+        return  objReferences.stream().anyMatch( // for at least one reference:
+			relationItem -> relationItem.getEclass().equals("BTSComment")
+        );
+    }    
 
+    public boolean hasAnnotation() {
+         if (this.getRelations() == null) 
+            return false;
+         if (!this.getRelations().containsKey("contains")) 
+            return false;
+         
+         List<ObjectReference> objReferences;
+         objReferences =  this.getRelations().get("contains");
+		  /*objReferences.stream().forEach( 
+			token -> System.out.println(token.getEclass())
+        );*/
+        
+        return  objReferences.stream().anyMatch( // for at least one reference:
+			relationItem -> (relationItem.getEclass().equals("BTSAnnotation") && (relationItem.getType() == null || !relationItem.getType().equals("rubrum")))
+        );
+    } 
+    
     public String getName() {
         return this.getText() != null ? this.getText().getName() : null;
     }
