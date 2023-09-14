@@ -127,6 +127,7 @@
     <!-- Script -->
     
     <div class="textscript" th:fragment="textscript" id="textscript" th:unless="${#lists.isEmpty(obj.skript)}">
+    <hr/>
         <p>
             <strong th:text="#{object_property_script}" class="details-property-label">Skript</strong>:
                              <a th:href="${'/thesaurus/'+obj.getSkript.id}"  th:text="${obj.getSkript.name}"></a>
@@ -135,7 +136,8 @@
     
     <!-- Comment on Script -->
     
-        <div class="textscript-comment" th:fragment="textscript-comment" id="textscript-comment" th:unless="${#lists.isEmpty(obj.Commentscript)}">   
+        <div class="textscript-comment" th:fragment="textscript-comment" id="textscript-comment" th:unless="${#lists.isEmpty(obj.Commentscript)}">
+        <hr th:if="${#lists.isEmpty(obj.skript)}"/>   
             <p>
             <strong th:text="#{object_property_commentscript}" class="details-property-label">Comment on script</strong>:
             <br/>
@@ -146,7 +148,7 @@
     <!-- Language -->    
     
     <div class="language" th:fragment="language" id="language" th:unless="${#lists.isEmpty(obj.language)}">
-        <hr  th:if="${#lists.isEmpty(obj.skript)}"/>
+        <hr>
         <p>
             <strong th:text="#{object_property_language}" class="details-property-label">Language</strong>:
                              <a th:href="${'/thesaurus/'+obj.getLanguage.id}"  th:text="${obj.getLanguage.name}"></a>
@@ -155,7 +157,8 @@
     
     <!-- Comment on Language -->
        
-        <div class="language-comment" th:fragment="language-comment" id="language-coomment" th:unless="${#lists.isEmpty(obj.Commentlanguage)}">   
+        <div class="language-comment" th:fragment="language-comment" id="language-coomment" th:unless="${#lists.isEmpty(obj.Commentlanguage)}"> 
+          <hr th:if="${#lists.isEmpty(obj.language)}"/> 
             <p>
             <strong th:text="#{object_property_commentlanguage}" class="details-property-label">Comment on language</strong>:
             <br/>
@@ -166,6 +169,7 @@
     <!-- Texttype -->
     
     <div class="texttype" th:fragment="texttype" id="texttype" th:unless="${#lists.isEmpty(obj.texttype)}">
+       <hr>
         <p>
             <strong th:text="#{object_property_texttype}" class="details-property-label">Texttype</strong>:
                              <a th:href="${'/thesaurus/'+obj.getTexttype.id}"  th:text="${obj.getTexttype.name}"></a>
@@ -175,7 +179,8 @@
          
     <!-- Comment on Texttype -->
                     
-        <div class="texttype-comment" th:fragment="texttype-comment" id="texttype-coomment" th:unless="${#lists.isEmpty(obj.Commenttexttype)}">   
+        <div class="texttype-comment" th:fragment="texttype-comment" id="texttype-coomment" th:unless="${#lists.isEmpty(obj.Commenttexttype)}">  
+          <hr th:if="${#lists.isEmpty(obj.texttype)}"/> 
             <p>
             <strong th:text="#{object_property_commenttexttype}" class="details-property-label">Comment on texttype</strong>:
             <br/>
@@ -185,6 +190,7 @@
       
        <!-- Is secondary Inscription -->
        <div class="is-secondary-inscription" th:fragment="is-secondary-inscription" id="is-secondary-inscription" th:unless="${#lists.isEmpty(obj.Secinscription)}">   
+          <hr/>
            <p>
             <strong th:text="#{object_property_is_secinscription}" class="details-property-label">Is a secondary Inscription</strong>
         </p>
