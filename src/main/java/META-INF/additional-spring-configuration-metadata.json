@@ -41,12 +41,12 @@
             "type": "tla.web.config.ApplicationProperties.Assets"
         },
         {
-            "name": "search.sentence",
-            "type": "tla.web.config.SentenceSearchProperties"
-        },
-        {
             "name": "search.lemma",
             "type": "tla.web.config.LemmaSearchProperties"
+        },
+        {
+            "name": "search.Sentence",
+            "type": "tla.web.config.SentenceSearchProperties"
         },
         {
             "name": "search.config",

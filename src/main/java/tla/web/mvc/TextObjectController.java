@@ -90,12 +90,16 @@ public class TextObjectController extends ObjectController<Text, TextSearch> {
                     )
                 )
             );
+            var searchProperties = sentenceService.getSearchProperties();
+            if (searchProperties != null) {
+                model.addAttribute(
+                    "hideableTextsentencesProperties",
+                    searchProperties.getHideableTextsentencesProperties()
+                );
+               
+            }
             // DW: die folgenden werden durch ObjectController ererbet? Hier nochmal nötig?
-            /*this.addHideableProperties(model);
-            this.addHideableTextsentencesProperties(model);
-            this.addShowableProperties(model);
-            this.addHideable1LemmaProperties(model);
-            this.addHideable2LemmaProperties(model);*/
+           
             model.addAttribute("objectType", "sentence");
             model.addAttribute("searchResults", results.getObjects());
             if(results.getQuery().getSort()==null ) results.getQuery().setSort("sortKey_asc");   

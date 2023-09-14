@@ -414,7 +414,7 @@
           <th:block th:with="subProperties=${e.value}">
             <div th:unless="${#lists.isEmpty(subProperties)}"
                 class="indented-buttons indented-buttons-annotation"
-                >
+                >  
               <th:block th:each="subProperty : ${subProperties}">
                 <div th:replace=" :: hide-property-button(${property}, ${subProperty})"/>
               </th:block>
@@ -427,15 +427,15 @@
 
       <div th:fragment="hideTextsentences-properties-buttons" class="hideTextsentences-properties-buttons">
       <!-- <input type="num_text" id="result" /> -->
-     
+   
       <th:block th:each="e : ${hideableTextsentencesProperties}" th:with="property=${e.key}">
-          <div th:replace=" :: hide-property-button(${property}, null)"/>
+          <div th:replace=" :: hideTextsentences-property-button(${property}, null)"/>
           <th:block th:with="subProperties=${e.value}">
             <div th:unless="${#lists.isEmpty(subProperties)}"
                 class="indented-buttons indented-buttons-annotation"
                 >
               <th:block th:each="subProperty : ${subProperties}">
-                <div th:replace=" :: hide-property-button(${property}, ${subProperty})"/>
+                <div th:replace=" :: hideTextsentences-property-button(${property}, ${subProperty})"/>
               </th:block>
             </div>
           </th:block>
@@ -689,6 +689,215 @@
           </script>
         </button>
       </th:block>
+      
+      <!-- Hide TextSentences properties buttons functionality -->
+      
+      
+      <th:block th:fragment="hideTextsentences-property-button(property, subProperty)"
+          th:with="suffix=${subProperty != null} ? |${property}-${subProperty}| : ${property}">
+        <button type="button"
+            class="btn btn-secondary btn-block text-left" th:id="|hideTextsentences-property-button-${suffix}|">
+          <i class="fas fa-plus-circle" id="on"></i>
+          <i class="fas fa-minus-circle" id="off"></i>
+          <span th:text="#{|button_label_hideTextsentences_property_${suffix}|}">Property name</span>
+          <script th:inline="javascript">
+            //<![CDATA[
+            {
+              let name = /*[[${suffix}]]*/ null;
+         
+              let property = /*[[${property}]]*/ null;
+              let subProperty = /*[[${subProperty}]]*/ null;
+              
+              let objectType = /*[[${objectType}]]*/ null;
+              let button = $(`#hideTextsentences-property-button-${name}`);
+             
+              let selector = `.result-list-item-element.${property}`;
+              let selectorSW = `.container-annotation-switch`;
+              let selectorSW2 = `.container-annotation`;
+             // let selectorWordClass =`.container-annotation.word-class`;
+              let selectorWordClass = `.switchannotation-wordclass`;
+              let selectorTLAGlossing = `.switchannotation-tlaglossing`;
+              let selectorLingGlossing = `.switchannotation-linguisticglossing`;
+              let selectorTransl = `.switchannotation-tokentranslation`;
+              let selectorId = `.switchannotation-wordtokenid`;
+              //let selectorTR=`.translation`;
+              //let selectorDate=`.dates`;
+              //let selectorEditor=`.simpleed`;
+              let selectorSW1=`.sentence-line-mode`;
+              let selh=`.token-glyphs`;
+           let selwc=`.bwc`;
+           let selgl=`.bgloss`;
+           let selling=`.bling`;
+           let seltr=`.btr`;
+           let selid=`.bid`;
+           let seltrgen=`.translation`;
+         
+          $(`#hideTextsentences-property-button-switchannotation`).addClass("btn-danger anno-block-btn");
+        	  if(name=="hieroglyphs"){
+        		  if(getUserSetting("corpus-hieroglyphs")=="true"){
+        			  button.children('i#off').toggle();        			
+        			  $(selh).toggle();
+                   }
+        		  else {
+        			  button.children('i#on').toggle();        			 
+        		  }
+        	  }
+        	  else if(name=="translation"){
+        		  if(getUserSetting("corpus-translation")=="true"){
+        			  button.children('i#off').toggle();        			
+        			  //$(selectorTR).toggle();     		   		 
+        	   		  $(seltrgen).toggle();
+                   }
+                 else {
+        			  button.children('i#on').toggle();        			 
+        		  }
+        	  }
+        	
+        	
+        else if(name=="switchannotation"){
+        		  if(getUserSetting("AnnotationBlockVisible")=="true"){
+        			  button.children('i#on').toggle();    
+        			  $('.sentence-line-mode').hide();
+                   }
+                 else {
+                	 $('.sentence-line-mode').show();
+        			  button.children('i#off').toggle();
+        		  }
+        }
+        else if(name=="switchannotation-wordclass"){
+            		  if(getUserSetting("WordClassVisible") != "false"){
+            			  button.children('i#on').toggle();        			
+            			  $(selwc).show(); 
+     	   		
+                       }
+                     else {
+            			  button.children('i#off').toggle();
+            			  $(selwc).hide(); 
+            		  }
+            	  }
+        else if(name=="switchannotation-tlaglossing"){
+  		  if(getUserSetting("TLAFlexcodeVisible") != "false"){
+  			  button.children('i#on').toggle();        			
+  			  $(selgl).show(); 
+  	                  }
+           else {
+  			  button.children('i#off').toggle();
+  			  $(selgl).hide(); 
+  			 
+  		  }
+  	  }
+        else if(name=="switchannotation-linguisticglossing"){
+    		  if(getUserSetting("LingGlossVisible") != "false"){
+    			  button.children('i#on').toggle();        			
+    			  $(selling).show(); 
+    	       
+               }
+             else {
+    			  button.children('i#off').toggle();
+    			  $(selling).hide(); 		 
+    		  }
+    	  } 
+        else if(name=="switchannotation-tokentranslation"){
+  		  if(getUserSetting("TranslVisible") != "false"){
+  			  button.children('i#on').toggle();        			
+  			  $(seltr).show(); 
+  	       
+             }
+           else {
+  			  button.children('i#off').toggle();
+  			  $(seltr).hide(); 
+  		  }
+  	  } 
+        else if(name=="switchannotation-wordtokenid"){
+  		  if(getUserSetting("WidVisible")=="true"){
+  			  button.children('i#on').toggle();        			
+  			  $(selid).show();   	       
+             }
+           else {
+  			  button.children('i#off').toggle();
+  			  $(selid).hide(); 
+  		  }
+  	  } 
+          	  
+           button.click(() => {
+         if(name=="hieroglyphs"){   
+        	  $(selh).fadeToggle('slow'); 
+     		  button.children('svg').toggle();
+     		 
+     		  storeUserSetting("corpus-hieroglyphs",""+ button.children('svg#off').attr('style') == 'display: none;');
+        }
+       if(name=="switchannotation-tlaglossing"){   
+        	// $(selectorWordClass).fadeToggle('slow');
+       	  $(selgl).fadeToggle('slow'); 
+       	// $(bgl).fadeToggle('slow'); 
+    		  button.children('svg').toggle();
+    	
+    		  storeUserSetting("TLAFlexcodeVisible",""+ button.children('svg#on').attr('style') == 'display: none;');
+       }
+       if(name=="switchannotation-linguisticglossing"){   
+       	
+      	  $(selling).fadeToggle('slow'); 
+      	
+   		  button.children('svg').toggle();
+   	
+   		  storeUserSetting("LingGlossVisible",""+ button.children('svg#on').attr('style') == 'display: none;');
+      }
+       if(name=="switchannotation-tokentranslation"){   
+       	
+      	  $(seltr).fadeToggle('slow'); 
+      	
+   		  button.children('svg').toggle();
+   	
+    	  storeUserSetting("TranslVisible",""+ button.children('svg#on').attr('style') == 'display: none;');
+      }
+       if(name=="switchannotation-wordtokenid"){   
+       	
+      	  $(selid).fadeToggle('slow'); 
+      	
+   		  button.children('svg').toggle();
+   	
+    	  storeUserSetting("WidVisible",""+ button.children('svg#on').attr('style') == 'display: none;');
+      }
+       if(name=="switchannotation-wordclass"){   
+       	
+      	  $(selwc).fadeToggle('slow'); 
+      	
+   		  button.children('svg').toggle();
+   	
+    	  storeUserSetting("WordClassVisible",""+ button.children('svg#on').attr('style') == 'display: none;');
+      }
+         if(name=="switchannotation"){   
+    		  button.children('svg').toggle();
+    		  $('.sentence-line-mode').toggle();
+
+/*   		  storeUserSetting("AnnotationBlockVisible",""+ button.children('svg#on').attr('style') == 'display: none;');*/
+
+         }
+         
+         if(name=="translation"){
+   		     //$(selectorTR).fadeToggle('slow'); 
+   		 
+   		  $(seltrgen).slideToggle('fast');
+   		  button.children('svg').toggle();
+   		  storeUserSetting("corpus-translation",""+ button.children('svg#off').attr('style') == 'display: none;');
+   	    }
+         
+  
+        	   
+           });
+            }
+   
+            //]]>
+          </script>
+        </button>
+      </th:block>
+      
+      
+      
+      
+      
+      <!-- End  -->
+      
 
 
       <!-- hide search results properties button rack  first part-->
