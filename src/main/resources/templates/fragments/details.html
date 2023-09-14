@@ -752,7 +752,7 @@
     </div>
     
     <!-- Sentence annotations -->
-    <div th:fragment="object-property-annotations" id="object-property-annotations" th:unless="${#maps.isEmpty(relations)}">
+    <div th:fragment="object-property-annotations" id="object-property-annotations" th:if="${related != null && #maps.containsKey(related, 'BTSAnnotation')}">
         <hr/>
         <strong th:text="#{|${objectType}_property_related_annotations|}" class="border-bottom details-property-label">Annotations</strong>
         <div class="row py-1 ml-2 mr-2" th:each="predicate : ${relations}">
@@ -773,7 +773,7 @@
    </p>
    
     <!-- Sentence comments -->
-    <div th:fragment="object-property-comments" id="object-property-comments" th:unless="${#maps.isEmpty(relations)}">
+    <div th:fragment="object-property-comments" id="object-property-comments" th:if="${related != null && #maps.containsKey(related, 'BTSComment')}">
         <hr/>
         <strong th:text="#{|${objectType}_property_related_comments|}" class="border-bottom details-property-label">Comments</strong>
         <div class="row py-1 ml-2 mr-2" th:each="predicate : ${relations}">
