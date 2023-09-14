@@ -148,7 +148,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
      * @param corpusobj The corpus object instance from whose passport the bibliography is to be extracted.
      * @return List of textual bibliographic references or an empty list
      */
-    private static List<String> extractBibliography(CorpusObject corpusobj) {
+    protected static List<String> extractBibliography(CorpusObject corpusobj) {
         List<String> bibliography = new ArrayList<>();
         try {
             corpusobj.getPassport().extractProperty(
