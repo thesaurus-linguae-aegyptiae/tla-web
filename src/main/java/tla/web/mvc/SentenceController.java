@@ -81,9 +81,9 @@ public class SentenceController extends HierarchicObjectController<Sentence, Sen
     	 model.addAttribute("contextInformation", searchConfig.getContextInformation());
         return super.getSearchResultsPage(form, page, params, model);
     }
-  
+    
 	@RequestMapping(value = "/token/lookup", method = RequestMethod.GET)
-	public RedirectView lookup(@RequestParam String id) {
+	public RedirectView lookupToken(@RequestParam String id) {
 		return new RedirectView(String.format("/sentence/token/" + id), true);
 	}
 
