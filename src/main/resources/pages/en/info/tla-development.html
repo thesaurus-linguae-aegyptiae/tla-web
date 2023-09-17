@@ -5,6 +5,13 @@
    <section>
       <h2>Version history</h2>
       <ul>
+         <li>9/22/2023: 
+            <ul>
+               <li>Web app: v2.1.0, improvements 
+               <br/><small>(New:) text content page, comments to sentences (yet without indication of scope), sentence token ID lookup; (improved:) metadata on text/object pages complete, linking of text/object metadata with thesaurus pages.</small></li>
+               <li>Text corpus: v17, <em>unchanged</em></li>
+            </ul>
+         </li>
          <li>8/8/2023: 
             <ul>
                <li>Web app: v2.0.2.1, improvements 
@@ -46,7 +53,7 @@
          <tr><td>Lemmata: French translation equivalents</td><td>partly (hiero. only)</td><td>partly (hiero. only) </td></tr>
          <tr><td class="text-success">Lemmata: comments</td><td>✕</td><td class="bg-success">✓ (esp. medical texts)</td></tr>
          <tr><td class="text-success">Lemmata: linking composites/parts (<span class="transliteration">ḥm-nṯr &gt; ḥm, ...</span>)</td><td>✓ (Demotic only)</td><td class="bg-success">✓</td></tr>
-         <tr><td class="text-warning">Sentences/sentence words: comments</td><td class="bg-success">✓</td><td class="bg-warning">to come (<strong>high priority</strong>)</td></tr>
+         <tr><td class="text-success">Sentences/sentence words: comments</td><td class="bg-success">✓ (scope: sentence)</td><td>✓ (scope: sentence); spec. of scope to come (medium priority)</td></tr>
          <tr><td class="text-success">Sentence words: hieroglyphs</td><td>(✓) (JSesh MdC; few)</td><td>✓ (JSesh-MdC; many)</td></tr>
          <tr><td class="text-success">Sentence words: word class</td><td>✕</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-success">Sentence words: grammatical annotation</td><td>✕</td><td class="bg-success">✓ (BTS, LMG)</td></tr>
@@ -71,9 +78,9 @@
          <tr><td>Lemma pages</td><td class="bg-success">✓ (stable IDs)</td><td class="bg-success">✓ (citable)</td></tr>
          <tr><td class="text-success">Single sentence pages</td><td>✕</td><td class="bg-success">✓ (citable)</td></tr>
          <tr><td>Occurences list</td><td class="bg-success">✓</td><td class="bg-success">✓</td></tr>
-         <tr><td class="text-warning">Occurences list: sorting</td><td class="bg-success">✓</td><td>to come (medium priority)</td></tr>
+         <tr><td class="text-warning">Occurences list: sorting</td><td class="bg-success">✓</td><td class="bg-warning">to come (<strong>high priority</strong>)</td></tr>
          <tr><td>Text pages: metadata</td><td class="bg-success">✓</td><td class="bg-success">✓ (citable)</td></tr>
-         <tr><td class="text-warning">Text pages: text content (sentences)</td><td class="bg-success">✓</td><td class="bg-warning">to come (<strong>highest priority</strong>)</td></tr>
+         <tr><td class="text-success">Text pages: text content (sentences)</td><td class="bg-success">✓</td><td class="bg-success">✓</td></tr>
          <tr><td>0bject page</td><td class="bg-success">✓</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-warning">Text/object search</td><td class="bg-success">✓</td><td class="bg-warning">to come (<strong>high priority</strong>)</td></tr>
          <tr><td class="text-warning">Text/object tree/browser</td><td class="bg-success">✓</td><td>to come (medium priority)</td></tr>
@@ -87,19 +94,19 @@
          <tr><td class="text-success">Look up lemma ID</td><td>(✓) (via URL)</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-success">Persistent sentence/sentence word IDs/URLs</td><td>✕</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-success">Look up sentence ID</td><td>✕</td><td class="bg-success">✓</td></tr>
-         <tr><td>Look up sentence word ID</td><td>✕</td><td>to come (medium priority)</td></tr>
+         <tr><td class="text-success">Look up sentence word ID</td><td>✕</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-success">Persistent text/object IDs/URLs</td><td>✕</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-success">Look up text/object ID</td><td>✕</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-success">Persistent thesaurus entry IDs/URLs</td><td>✕</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-success">Look up thesaurus entry ID</td><td>✕</td><td class="bg-success">✓</td></tr>
-         <tr><td>Content persistently verifiable</td><td>✕</td><td>to come: raw data publication <br/>(medium priority)</td></tr>
+         <tr><td>Content persistently verifiable</td><td>✕</td><td>to come: raw data publication <br/>(<strong>high priority</strong>)</td></tr>
          <tr><th colspan="3">Usability</th></tr>
          <tr><td>Web application languages</td><td class="bg-success">DE, EN</td><td class="bg-success">DE, EN; perspectively more</td></tr>
          <tr><td class="text-success">Smartphone compatibility (responsive design)</td><td>✕</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-success">Print support (layout)</td><td>✕</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-success">Citation assistance on pages</td><td>✕</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-success">Share functionality</td><td>✕</td><td class="bg-success">✓</td></tr>
-         <tr><td>Feedback form</td><td>✕</td><td>to come (<strong>high priority</strong>)
+         <tr><td>Feedback form</td><td>✕</td><td>to come (medium priority)
          <tr><th colspan="3">Reuse</th></tr>
          <tr><td class="text-success">Free licensing of data</td><td>✕</td><td class="bg-success">✓ (<a href="licenses">CC BY-SA 4.0 Int.</a>)</td></tr>
          <tr><td class="text-success">Transcription in Unicode</td><td>✕</td><td class="bg-success">✓</td></tr>

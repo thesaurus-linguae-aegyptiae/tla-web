@@ -5,6 +5,13 @@
    <section>
       <h2>Versionshistorie</h2>
       <ul>
+         <li>22.9.2023: 
+            <ul>
+               <li>Web app: v2.1.0, Verbesserungen 
+               <br/><small>(neu:) Text-Inhalte/Sätze-Seite, Kommentare zu Sätzen (noch ohne Angabe des Bezugs im Satz), Satz-Element('Wort')-ID nachschlagen; (verbessert:) Metadaten auf Text-/Objekt-Seiten vollständig, Verlinkung von Thesaurus-gestützten Metadaten vervollständigt.</small></li>
+               <li>Text corpus: v17, <em>unchanged</em></li>
+            </ul>
+         </li>
          <li>8.8.2023: 
             <ul>
                <li>Web app: v2.0.2.1, Verbesserungen 
@@ -46,7 +53,7 @@
          <tr><td>Lemmata: französische Übersetzungsäquivalente</td><td>teils (nur hiero.)</td><td>teils (nur hiero.)</td></tr>
          <tr><td class="text-success">Lemmata: Kommentare</td><td>✕</td><td class="bg-success">✓ (insb. medizinische Texte)</td></tr>
          <tr><td class="text-success">Lemmata: Verlinkung Zusammensetzungen/Teile (<span class="transliteration">ḥm-nṯr &gt; ḥm, ...</span>)</td><td>✓ (nur Demotisch)</td><td class="bg-success">✓</td></tr>
-         <tr><td class="text-warning">Sätze/Satzwörter: Kommentare</td><td class="bg-success">✓</td><td class="bg-warning">kommt (<strong>hohe Priorität</strong>)</td></tr>
+         <tr><td class="text-success">Sätze/Satzwörter: Kommentare</td><td class="bg-success">✓ (satzbezogen)</td><td>✓ (satzbezogen), Bezugsangabe kommt (mittlere Priorität)</td></tr>
          <tr><td class="text-success">Satzwörter: Hieroglyphen</td><td>(✓) (JSesh-MdC; vereinzelt)</td><td>✓ (JSesh-MdC; viele)</td></tr>
          <tr><td class="text-success">Satzwörter: Wortklasse</td><td>✕</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-success">Satzwörter: grammatische Annotation</td><td>✕</td><td class="bg-success">✓ (BTS, LMG)</td></tr>
@@ -71,9 +78,9 @@
          <tr><td>Lemmaanzeige-Seiten</td><td class="bg-success">✓ (stabile IDs)</td><td class="bg-success">✓ (zitierbar)</td></tr>
          <tr><td class="text-success">Satzanzeige-Seiten</td><td>✕</td><td class="bg-success">✓ (zitierbar)</td></tr>
          <tr><td>Belegstellen-Liste</td><td class="bg-success">✓</td><td class="bg-success">✓</td></tr>
-         <tr><td class="text-warning">Belegstellen-Sortierung</td><td class="bg-success">✓</td><td>kommt (mittlere Priorität)</td></tr>
+         <tr><td class="text-warning">Belegstellen-Sortierung</td><td class="bg-success">✓</td><td class="bg-warning">kommt (<strong>hohe</strong> Priorität)</td></tr>
          <tr><td>Text-Seite: Metadaten</td><td class="bg-success">✓</td><td class="bg-success">✓ (zitierbar)</td></tr>
-         <tr><td class="text-warning">Text-Seite: Textinhalt (Sätze)</td><td class="bg-success">✓</td><td class="bg-warning">kommt (<strong>höchste Priorität</strong>)</td></tr>
+         <tr><td class="text-success">Text-Seite: Textinhalt (Sätze)</td><td class="bg-success">✓</td><td class="bg-success">✓</td></tr>
          <tr><td>0bjektanzeige-Seite</td><td class="bg-success">✓</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-warning">Text-/Objekt-Suche</td><td class="bg-success">✓</td><td class="bg-warning">kommt (<strong>hohe Priorität</strong>)</td></tr>
          <tr><td class="text-warning">Text-/Objekt-Baum/Browser</td><td class="bg-success">✓</td><td>kommt (mittlere Priorität)</td></tr>
@@ -87,19 +94,19 @@
          <tr><td class="text-success">Lemma-ID nachschlagen</td><td>(✓) (via URL)</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-success">Persistente Satz/Satzwort-IDs/-URLs</td><td>✕</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-success">Satz-ID nachschlagen</td><td>✕</td><td class="bg-success">✓</td></tr>
-         <tr><td>Satzwort-ID nachschlagen</td><td>✕</td><td>kommt (mittlere Priorität)</td></tr>
+         <tr><td class="text-success">Satzwort-ID nachschlagen</td><td>✕</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-success">Persistente Text/Objekt-IDs/-URLs</td><td>✕</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-success">Text/Objekt-ID nachschlagen</td><td>✕</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-success">Persistente Thesaurus-Eintrag-IDs/-URLs</td><td>✕</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-success">Thesaurus-Eintrag-ID nachschlagen</td><td>✕</td><td class="bg-success">✓</td></tr>
-         <tr><td>Inhalt nachhaltig verifizierbar</td><td>✕</td><td>kommt: Rohdaten-Publikation <br/>(mittlere Priorität)</td></tr>
+         <tr><td>Inhalt nachhaltig verifizierbar</td><td>✕</td><td>kommt: Rohdaten-Publikation <br/>(<strong>hohe</strong> Priorität)</td></tr>
          <tr><th colspan="3">Usability</th></tr>
          <tr><td>Webanwendungssprachen</td><td class="bg-success">DE, EN</td><td class="bg-success">DE, EN; perspektivisch weitere</td></tr>
          <tr><td class="text-success">Smartphone-Tauglichkeit (Responsive Design)</td><td>✕</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-success">Druck-Unterstützung (Layout)</td><td>✕</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-success">Zitierhilfe auf Seiten</td><td>✕</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-success">Share-Funktionalität</td><td>✕</td><td class="bg-success">✓</td></tr>
-         <tr><td>Feedback-Formular</td><td>✕</td><td>kommt (<strong>hohe Priorität</strong>)
+         <tr><td>Feedback-Formular</td><td>✕</td><td>kommt (mittlere Priorität)
          <tr><th colspan="3">Nachnutzung</th></tr>
          <tr><td class="text-success">Freie Lizensierung der Daten</td><td>✕</td><td class="bg-success">✓ (<a href="licenses">CC BY-SA 4.0 Int.</a>)</td></tr>
          <tr><td class="text-success">Transkription in Unicode</td><td>✕</td><td class="bg-success">✓</td></tr>
