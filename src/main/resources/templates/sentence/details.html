@@ -20,7 +20,7 @@
 				<th:block th:insert="fragments/search/results :: sentence-search-result"  th:object="${obj}"/>
           </div>
           <div th:replace="fragments/details :: object-property-comments"/>
-          <div th:replace="fragments/details :: object-property-annotations"/>
+          <!--<div th:replace="fragments/details :: object-property-annotations"/>-->
           <div th:replace="fragments/details :: object-property-related-objects"/>
           <div th:replace="fragments/details :: property-pid('sentence', ${obj.id})"/>
           <div th:replace="fragments/details :: object-property-citationBox('sentence', ${obj.id})"/>
