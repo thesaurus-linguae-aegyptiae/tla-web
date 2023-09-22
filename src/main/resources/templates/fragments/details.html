@@ -808,9 +808,9 @@
         <strong th:text="#{|${objectType}_property_related_annotations|}" class="border-bottom details-property-label">Annotations</strong>
         <div class="row py-1 ml-2 mr-2" th:each="predicate : ${relations}">
             <ul class="col-md-12 no-bullet-list">
-                <th:block th:each="obj : ${predicate.value}" th:object="${obj}">
-                  <th:block th:if="${obj != null && obj.eclass == 'BTSAnnotation'}"> 
-                    <li th:unless="${obj.type == 'rubrum'}" class="result-list-item"  th:id="${obj.id}" th:include=" :: sentence-annotation"/>
+                <th:block th:each="relatedobj : ${predicate.value}">
+                  <th:block th:if="${relatedobj != null && relatedobj.eclass == 'BTSAnnotation'}"> 
+                    <li th:unless="${relatedobj.type == 'rubrum'}" class="result-list-item"  th:id="${relatedobj.id}" th:include=" :: sentence-annotation"/>
                   </th:block>
                 </th:block>
             </ul>
@@ -823,7 +823,8 @@
     <!-- Sentence annotation -->
    <p th:fragment="sentence-annotation" id="sentence-annotation"> 
        <span class="fas fa-arrow-circle-right"></span>
-       <span th:text="${related.BTSAnnotation.__${obj.id}__.name}"></span>
+       <span th:if="${'0' <= #strings.substring(relatedobj.id,0,1) and #strings.substring(relatedobj.id,0,1) <= '9'}" th:text="${'Cannot retrieve annotation ID ' + relatedobj.id + '.'}">Cannot retrieve annotation with inital digit in name</span>
+       <span th:unless="${'0' <= #strings.substring(relatedobj.id,0,1) and #strings.substring(relatedobj.id,0,1) <= '9'}" th:text="${related.BTSAnnotation.__${relatedobj.id}__.name}"></span>
    </p>
    
     <!-- Sentence comments -->
