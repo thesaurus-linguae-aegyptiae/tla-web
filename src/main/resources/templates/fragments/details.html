@@ -801,8 +801,7 @@
     <!-- Single sentence annotation -->
    <p th:fragment="sentence-annotation" id="sentence-annotation"> 
        <span class="fas fa-arrow-circle-right"></span>
-       <th:block th:if="${'0' <= #strings.substring(relatedobj.id,0,1) and #strings.substring(relatedobj.id,0,1) <= '9'}" th:include="fragments/common :: construction(#{msg_related_with_invalid_names}+' '+${relatedobj.id}+'.')"></th:block>
-       <span th:unless="${'0' <= #strings.substring(relatedobj.id,0,1) and #strings.substring(relatedobj.id,0,1) <= '9'}" th:text="${related.BTSAnnotation.__${relatedobj.id}__.name}"></span>
+       <span th:utext="${related.BTSAnnotation.get(relatedobj.id).name}"></span>
    </p>
    
     <!-- Sentence comments -->
@@ -824,8 +823,7 @@
     <!-- Single sentence comment -->
    <p th:fragment="sentence-comment" id="sentence-comment"> 
        <span class="fas fa-arrow-circle-right"></span>
-       <th:block th:if="${'0' <= #strings.substring(relatedobj.id,0,1) and #strings.substring(relatedobj.id,0,1) <= '9'}" th:include="fragments/common :: construction(#{msg_related_with_invalid_names}+' '+${relatedobj.id}+'.')"></th:block>
-       <span th:unless="${'0' <= #strings.substring(relatedobj.id,0,1) and #strings.substring(relatedobj.id,0,1) <= '9'}" th:utext="${related.BTSComment.__${relatedobj.id}__.body}"></span>
+       <span th:utext="${related.BTSComment.get(relatedobj.id).body}"></span> 
    </p>
    
    
