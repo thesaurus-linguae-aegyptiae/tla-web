@@ -619,23 +619,14 @@
     
 
     <!-- Lemma/Thesaurus entry annotations -->
+    
     <div class="comment pb-2" id="single-entry-annotations" th:fragment="single-entry-annotations" th:unless="${#lists.isEmpty(annotations)}">
         <hr/>
         <strong th:text="#{object_property_annotations}" class="details-property-label">Comments</strong>
-        <div th:each="annotation, counter : ${annotations}" class="comment-wrapper hide-comment">
+        <div th:each="annotation, counter : ${annotations}" class="comment-wrapper hide-comment" th:object="${annotation}">
             <p th:if="${counter.size} > 1" class="ml-3"><strong th:text="#{object_property_annotation} + ' ' + ${counter.index +1}">Comment 1<strong></p>
             <p class="comment-content text-justify ml-4" th:utext="${annotation.body}">annotation body</p>
-            <p class="comment-author pt-1 ml-4" th:with="formatter=#{date_formatter}">
-                <!-- authors in Leipzig always Strukturen und Transformationen ... -->
-                <th:block th:unless="${annotation.edited.author} == '  Strukturen und Transformationen'">
-                   <span class="details-property-label" th:text="#{object_property_editors_author_commentary}">Commentary author</span>:
-                   <span th:text="${annotation.edited.author}">author</span>, 
-                </th:block>
-                <span class="details-property-label" th:text="#{object_property_editors_created}">File created</span>:
-                <span th:text="${annotation.edited.wasCreatedBeforeBTS3()} ? #{created_before_BTS3} : ${#calendars.format(annotation.edited.created, formatter)}">xx.xx.20xx</span>, 
-                <span class="details-property-label" th:text="#{object_property_editors_updated}">latest revision</span>:
-                <span th:text="${#calendars.format(annotation.edited.updated, formatter)}">xx.xx.20xx</span>
-            </p>
+            <p th:replace=" :: comment-authorship"/>
         </div>
 			<div class="show-comment-button">
 				<button class="btn btn-sm btn-grey">Show Comment</button>
@@ -644,6 +635,20 @@
 				<button class="btn btn-sm btn-grey">Hide Comment</button>
 			</div>
     </div>
+
+   <!-- Comment authorship info -->
+   
+   <p class="comment-author pt-1 ml-4" id="comment-authorship" th:fragment="comment-authorship" th:with="formatter=#{date_formatter},edited=*{edited}">
+       <!-- authors in Leipzig always Strukturen und Transformationen ... -->
+       <th:block th:unless="${edited.author} == '  Strukturen und Transformationen'">
+          <span class="details-property-label" th:text="#{object_property_editors_author_commentary}">Commentary author</span>:
+          <span th:text="${edited.author}">author</span>, 
+       </th:block>
+       <span class="details-property-label" th:text="#{object_property_editors_created}">File created</span>:
+       <span th:text="${edited.wasCreatedBeforeBTS3()} ? #{created_before_BTS3} : ${#calendars.format(edited.created, formatter)}">xx.xx.20xx</span>,
+       <span class="details-property-label" th:text="#{object_property_editors_updated}">latest revision</span>:
+       <span th:text="${#calendars.format(edited.updated, formatter)}">xx.xx.20xx</span>
+   </p>
 
     <!-- Editor information -->
     <div class="editor-info" id="editor-info" th:fragment="editor-info">
@@ -791,7 +796,7 @@
             <ul class="col-md-12 no-bullet-list">
                 <th:block th:each="relatedobj : ${predicate.value}">
                   <th:block th:if="${relatedobj != null && relatedobj.eclass == 'BTSAnnotation'}"> 
-                    <li th:unless="${relatedobj.type == 'rubrum'}" class="result-list-item"  th:id="${relatedobj.id}" th:include=" :: sentence-annotation"/>
+                    <li th:unless="${relatedobj.type == 'rubrum'}" class="result-list-item"  th:id="${relatedobj.id}" th:include=" :: sentence-annotation" th:object="${relatedobj}"/>
                   </th:block>
                 </th:block>
             </ul>
@@ -800,10 +805,11 @@
     </div>
    
     <!-- Single sentence annotation -->
-   <p th:fragment="sentence-annotation" id="sentence-annotation"> 
+   <div th:fragment="sentence-annotation" id="sentence-annotation"> 
        <i class="fas fa-tag"></i>
-       <span th:utext="${related.BTSAnnotation.get(relatedobj.id).name}"></span>
-   </p>
+       <p class="ml-4" th:utext="${related.BTSAnnotation.get(relatedobj.id).name}"/>
+       <p th:replace=" :: comment-authorship"/>
+   </div>
    
     <!-- Sentence comments -->
     <div th:fragment="object-property-comments" id="object-property-comments" th:if="${related != null && #maps.containsKey(related, 'BTSComment')}">
@@ -813,7 +819,7 @@
             <ul class="col-md-12 no-bullet-list">
                 <th:block th:each="relatedobj : ${predicate.value}">
                   <th:block th:if="${relatedobj != null && relatedobj.eclass == 'BTSComment'}"> 
-                    <li class="result-list-item"  th:id="${relatedobj.id}" th:include=" :: sentence-comment"/>
+                    <li class="result-list-item"  th:id="${relatedobj.id}" th:include=" :: sentence-comment" th:object="${relatedobj}"/>
                   </th:block>
                 </th:block>
             </ul>
@@ -822,10 +828,11 @@
     </div>
 
     <!-- Single sentence comment -->
-   <p th:fragment="sentence-comment" id="sentence-comment"> 
+   <div th:fragment="sentence-comment" id="sentence-comment"> 
        <i class="fas fa-comment-alt"></i>
-       <span th:utext="${related.BTSComment.get(relatedobj.id).body}"></span> 
-   </p>
+       <p class="ml-4" th:utext="${related.BTSComment.get(relatedobj.id).body}"/>
+       <p th:replace=" :: comment-authorship"/>  
+   </div>
    
    
    <!-- Citation block for dynamic pages -->
@@ -914,9 +921,9 @@
             <th:block th:with="label=${#messages.msgOrNull(key)}">
                 <span th:if="${label} != null" th:text="${label}">Type/subtype</span>
                 <th:block th:unless="${label} != null">
-                    <i class="fas fa-tag"></i> <span th:text="#{|${objectType}_type_${obj.type}|}">Type</span>
+                    <span th:text="#{|${objectType}_type_${obj.type}|}">Type</span>
                     <span th:if="${obj.subtype}">
-                        (<i class="fas fa-tag"></i> <span th:text="#{|${objectType}_subtype_${obj.subtype}|}">Subtype</span>)
+                        (<span th:text="#{|${objectType}_subtype_${obj.subtype}|}">Subtype</span>)
                     </span>
                 </th:block>
             </th:block>
