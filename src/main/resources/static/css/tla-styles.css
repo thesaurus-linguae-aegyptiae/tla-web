@@ -475,6 +475,11 @@ span.lc:hover {
     color: var(--BBAWred) !important;
 }
 
+.fa-tag,
+.fa-folder {
+    color: var(--BBAWlightbluegrey);
+}
+
 .object-path-icon:before {
     display: none;
     font-family: 'Font Awesome 5 Free';

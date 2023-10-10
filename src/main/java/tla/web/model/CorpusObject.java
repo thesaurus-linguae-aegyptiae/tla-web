@@ -67,7 +67,8 @@ public class CorpusObject extends BTSObject implements Hierarchic {
             ).forEach(
                 node -> dateComment.addAll(
                     Arrays.asList(
-                        node.getLeafNodeValue().replaceAll("(\\r?\\n|^)[\\s\\-]+", "$1").replaceAll("\\r?\\n[\\r?\\n\\s]*", "||").split("\\|\\|")
+                        // .replaceAll("(\\r?\\n|^)[\\s\\-]+", "$1").replaceAll("\\r?\\n[\\r?\\n\\s]*", "||").split("\\|\\|") 
+                        node.getLeafNodeValue().replaceAll("\\s*\\r?\\n", "||").split("\\|\\|") 
                     ).stream().map(
                         para -> para.strip()
                     ).collect(
@@ -156,7 +157,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
             ).forEach(
                 node -> bibliography.addAll(
                     Arrays.asList(
-                        node.getLeafNodeValue().replaceAll("(\\r?\\n|^)[\\s\\-]+", "$1").replaceAll("\\r?\\n[\\r?\\n\\s]*", "||").split("\\|\\|")
+                        node.getLeafNodeValue().replaceAll("\\s*\\r?\\n", "||").split("\\|\\|") 
                     ).stream().map(
                         bibref -> bibref.strip()
                     ).collect(
@@ -227,7 +228,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
             passport.extractProperty(searchString).forEach(
                 node -> comment.addAll(
                     Arrays.asList(
-                        node.getLeafNodeValue().replaceAll("(\\r?\\n|^)[\\s\\-]+", "$1").replaceAll("\\r?\\n[\\r?\\n\\s]*", "||").split("\\|\\|")
+                        node.getLeafNodeValue().replaceAll("\\s*\\r?\\n", "||").split("\\|\\|") 
                     ).stream().map(
                         para -> para.strip()
                     ).collect(
@@ -430,7 +431,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
             ).forEach(
                 node -> protocol.addAll(
                     Arrays.asList(
-                        node.getLeafNodeValue().replaceAll("(\\r?\\n|^)[\\s\\-]+", "$1").replaceAll("\\r?\\n[\\r?\\n\\s]*", "||").split("\\|\\|")
+                        node.getLeafNodeValue().replaceAll("\\s*\\r?\\n", "||").split("\\|\\|") 
                     ).stream().map(
                         bibref -> bibref.strip()
                     ).collect(
@@ -480,7 +481,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
            descriptionPassport = corpusobj.getPassport().extractProperty(
                 PASSPORT_PROP_DESCR
             ).get(0);
-                        //node.getLeafNodeValue().replaceAll("(\\r?\\n|^)[\\s\\-]+", "$1").replaceAll("\\r?\\n[\\r?\\n\\s]*", "||").split("\\|\\|")
+                        //node.getLeafNodeValue().replaceAll("\\s*\\r?\\n", "||").split("\\|\\|") 
                    
            
         } catch (Exception e) {
@@ -511,7 +512,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
             ).forEach(
                 node -> fileComment.addAll(
                     Arrays.asList(
-                        node.getLeafNodeValue().replaceAll("(\\r?\\n|^)[\\s\\-]+", "$1").replaceAll("\\r?\\n[\\r?\\n\\s]*", "||").split("\\|\\|")
+                        node.getLeafNodeValue().replaceAll("\\s*\\r?\\n", "||").split("\\|\\|") 
                     ).stream().map(
                         bibref -> bibref.strip()
                     ).collect(

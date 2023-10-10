@@ -57,7 +57,7 @@ public class ThsEntry extends BTSObject implements Hierarchic {
             ).forEach(
                 node -> description.addAll(
                     Arrays.asList(
-                        node.getLeafNodeValue().replaceAll("(\\r?\\n|^)[\\s\\-]+", "$1").replaceAll("\\r?\\n[\\r?\\n\\s]*", "||").split("\\|\\|")
+                        node.getLeafNodeValue().replaceAll("\\s*\\r?\\n", "||").split("\\|\\|") 
                     ).stream().map(
                         descr -> descr.strip()
                     ).collect(
@@ -93,7 +93,7 @@ public class ThsEntry extends BTSObject implements Hierarchic {
             ).forEach(
                 node -> fileComment.addAll(
                     Arrays.asList(
-                        node.getLeafNodeValue().replaceAll("(\\r?\\n|^)[\\s\\-]+", "$1").replaceAll("\\r?\\n[\\r?\\n\\s]*", "||").split("\\|\\|")
+                        node.getLeafNodeValue().replaceAll("\\s*\\r?\\n", "||").split("\\|\\|") 
                     ).stream().map(
                         comment -> comment.strip()
                     ).collect(
