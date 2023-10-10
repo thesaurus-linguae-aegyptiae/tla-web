@@ -101,6 +101,7 @@ code {
 }
 
 a,
+.result-list-item a.highlighted-link,
 .result-list-item-element.variants-list a {
     color: var(--BBAWred);
 }

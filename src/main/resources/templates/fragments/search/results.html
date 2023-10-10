@@ -142,6 +142,7 @@
         
           <div class="mt-sm-3 py-sm-1">
             <div class="container-annotation">
+                   <div class="mr-sm-2">(<a class="highlighted-link" th:href="${(#mvc.url('SC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}" th:text="${position}+1">1</a>)</div>
 				         <div th:each="token : *{tokens}"  th:id="|block-${token.id}|">
 								<!--Bug: ul/li-Struktur ungültig-->
 					         <ul class="annotation-block"  th:classappend="${(token.lemma.id != null and #request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }">
