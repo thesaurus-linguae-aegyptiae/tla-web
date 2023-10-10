@@ -926,8 +926,7 @@
 		  <strong th:text="#{property_url}">Persistent URL</strong>:
 		  <!-- Zitationsbutton -->
 		  <span th:text="|${env.baseUrl}/${objtype}/${objid}|" id="page-url">https://thesaurus-linguae-aegyptiae.de/___</span>
-		  <!--<button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document.getElementById('page-url').textContent)"><span class="fas fa-clipboard"></span>&nbsp;<span th:text="#{button_copy_URL}">Copy URL</span></button>
-		  <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document.getElementById('full-citation').textContent.replaceAll(/\s+/g,' '))"><span class="fas fa-clipboard"></span>&nbsp;<span th:text="#{citeas_copy_button}">Copy citation</span></button>--><!-- take content of element "full-citation" from the page footer-->
+		  <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document.getElementById('page-url').textContent)"><span class="fas fa-clipboard"></span>&nbsp;<span th:text="#{button_copy_URL}">Copy URL</span></button>
 		</p>
 	  </div>
 
