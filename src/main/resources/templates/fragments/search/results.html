@@ -112,7 +112,7 @@
         
           <div class="mt-sm-3 py-sm-1">
             <div class="container-annotation">
-                   <div class="mr-sm-2">(<a class="highlighted-link" th:href="${(#mvc.url('SC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}" th:text="${position}+1">1</a>)</div>
+                   <div class="mr-sm-2"><a class="highlighted-link" th:href="${(#mvc.url('SC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}"><span class="fas fa-arrow-circle-right"></span>&nbsp;(<span th:text="${position}+1">1</span>)</a></div>
 				         <div th:each="token : *{tokens}"  th:id="|block-${token.id}|">
 								<!--Bug: ul/li-Struktur ungültig-->
 					         <ul class="annotation-block"  th:classappend="${(token.lemma.id != null and #request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }">
@@ -171,7 +171,7 @@
       <!-- Block view -->
       <table class="sentence-line-mode">
          <tr th:each="obj : ${searchResults}" class="occ-list-item" th:object="${obj}" th:with="hasGlyphs=*{hasGlyphs},isArtificiallyAligned=*{isArtificiallyAligned},position=*{getContextPosition}">
-              <td>(<a th:href="${(#mvc.url('SC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}" th:text="${position}+1">1</a>)</td>
+              <td><a th:href="${(#mvc.url('SC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">&nbsp;<span class="fas fa-arrow-circle-right"></span> (<span th:text="${position}+1">1</span>)</a></td>
               
               <td>
                 <div class="mt-sm-1 py-sm-1">
