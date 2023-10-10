@@ -607,33 +607,13 @@
     <div class="text-content-button" th:fragment="text-content-button" id="text-content-button">
         <hr/>
         <p>
-        <!--  <a th:href="|${@searchController.getSearchResultsPageRoute(@__textSentencesController__)}?context.textId=${obj.id}&sort=context.position|">
-        -->  
-      <a th:href="|${obj.id}/sentences|">
-          
+         <a th:href="${(#mvc.url('TOC#getSingleObjectDetailsPage').arg(0,obj.id)).build()+'/sentences'}">
            <button id="text-content-button" type="button" class="btn btn-danger text-left text-decoration-none ">
               <span class="fas fa-arrow-circle-right"></span>&nbsp;
               <span th:text="#{button_text_content}">Sentences in the text</span>
            </button>
            </a>
         </p>
-        
-        <!--  List of sentence IDs (Achtung nicht alle relations sind notwendigerweise sentences, teils subtexte)
-        
-           
-        <hr/> 
-        <th:block th:if="${obj.relations != null}">
-         
-          <div th:unless="${obj.relations.parts} == null" class="sentences">
-            <span th:each="sent, nr : ${obj.relations.parts}" >
-            <a th:href="@{/sentence/{id}(id=${sent.id})}"><span th:utext="${nr.first} ? ${sent.id} : ', ' + ${sent.id}"> xxx</span>
-            </a></span>
-          </div>
-          
-        </th:block>
-         -->
-        </div>
-        
     </div>
     
 

@@ -19,6 +19,7 @@
           <div class= "result-list">
 				<th:block th:insert="fragments/search/results :: sentence-search-result"  th:object="${obj}"/>
           </div>
+           <th:block th:insert="fragments/search/results :: sentence-cotext-button"/>
           <div th:replace="fragments/details :: object-property-comments"/>
           <!--<div th:replace="fragments/details :: object-property-annotations"/>-->
           <div th:replace="fragments/details :: object-property-related-objects"/>
