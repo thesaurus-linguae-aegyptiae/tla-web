@@ -631,7 +631,7 @@
                    <span th:text="${annotation.edited.author}">author</span>, 
                 </th:block>
                 <span class="details-property-label" th:text="#{object_property_editors_created}">File created</span>:
-                <span th:text="${(annotation.edited.wasCreatedBeforeBTS3()?'< ':'')+#calendars.format(annotation.edited.created, formatter)}">xx.xx.20xx</span>, 
+                <span th:text="${annotation.edited.wasCreatedBeforeBTS3()} ? #{created_before_BTS3} : ${#calendars.format(annotation.edited.created, formatter)}">xx.xx.20xx</span>, 
                 <span class="details-property-label" th:text="#{object_property_editors_updated}">latest revision</span>:
                 <span th:text="${#calendars.format(annotation.edited.updated, formatter)}">xx.xx.20xx</span>
             </p>
@@ -657,7 +657,7 @@
           </div>
           <div class="updated" th:with="formatter=#{date_formatter}">
             <strong class="details-property-label" th:text="#{object_property_editors_created}">File created</strong>:
-            <span th:text="${(obj.edited.wasCreatedBeforeBTS3()?'< ':'')+#calendars.format(obj.edited.created, formatter)}">xx.xx.20xx</span>, 
+            <span th:text="${obj.edited.wasCreatedBeforeBTS3()} ? #{created_before_BTS3} : ${#calendars.format(obj.edited.created, formatter)}">xx.xx.20xx</span>, 
             <strong class="details-property-label" th:text="#{object_property_editors_updated}">latest revision</strong>:
             <span th:text="${#calendars.format(obj.edited.updated, formatter)}">xx.xx.20xx</span>
           </div>
