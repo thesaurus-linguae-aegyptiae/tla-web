@@ -17,8 +17,9 @@
     
     <div th:fragment="sentence-page-header" class="row mb-sm-3 d-flex justify-content-between details-header">
 		<div id="title-header">
-			<h2 class="id ml-3 mt-sm-1">
-			  <span class="words-breakable" th:text="#{object_id_label_BTSSentence} + ' ' + ${obj.id}">Sentence ID</span>
+			<h2 class="id ml-3 mt-sm-1" th:with="isVariant=${#strings.contains(obj.id,'-')}, stableId=${isVariant ? #strings.substringBefore(obj.id,'-') : obj.id}, varNo=${isVariant ? #strings.substringAfter(obj.id,'-') : ''}">
+			  <span class="words-breakable" th:text="#{object_id_label_BTSSentence} + ' ' + ${stableId}">Sentence ID</span>
+          <span th:if="${isVariant}" th:text="'('+#{sentence_variant_label}+' '+(${varNo}+1)+')'">(Var. 00)</span>
 			</h2>
 		</div>
 		<div th:replace="fragments/common :: social('sentence-page')"/>
@@ -830,6 +831,7 @@
     <!-- Single sentence comment -->
    <div th:fragment="sentence-comment" id="sentence-comment"> 
        <i class="fas fa-comment-alt"></i>
+       <!--<span th:text="${relatedobj}"></span>-->
        <p class="ml-4" th:utext="${related.BTSComment.get(relatedobj.id).body}"/>
        <p th:replace=" :: comment-authorship"/>  
    </div>
@@ -845,7 +847,7 @@
 				<blockquote id="full-citation">
             <th:block th:unless="${obj.eclass == 'BTSThsEntry' or obj.eclass == 'BTSLemmaEntry' or objtype == 'sentences/text' or objtype == 'sentence/token'}">
                <!-- Default citation (with author [not editor] and page label) -->
-               <span th:text="${obj.edited.author}">author</span><span th:unless="${obj.edited.contributors} == null" class="editors">, <span class="details-property-label" th:text="#{object_property_editors}">contributors</span> <span th:each="contributor, nr : ${obj.edited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/></span>, <span  th:unless="${obj.eclass == 'BTSSentence'}" th:text="'&quot;' + ${(obj.type == 'root') ? '&radic;' : ''} + ${{'<shortlabel>'+obj.name+'</shortlabel>'}} + '&quot; ('"></span><span th:text="#{|object_id_label_${obj.eclass}|} +' '+ ${objid}"></span><span  th:unless="${obj.eclass == 'BTSSentence'}" th:text="') '"></span> <span th:text="'<' + ${env.baseUrl} + '/' + ${objtype} + '/' + ${objid} +'>,'"></span>
+               <span th:text="${obj.edited.author}">author</span><span th:unless="${obj.edited.contributors} == null" class="editors">, <span class="details-property-label" th:text="#{object_property_editors}">contributors</span> <span th:each="contributor, nr : ${obj.edited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/></span>, <span  th:unless="${obj.eclass == 'BTSSentence'}" th:text="'&quot;' + ${{'<shortlabel>'+obj.name+'</shortlabel>'}} + '&quot; ('"></span><span th:text="#{|object_id_label_${obj.eclass}|} +' '+ ${objid}"></span><span  th:unless="${obj.eclass == 'BTSSentence'}" th:text="') '"></span> <span th:text="'<' + ${env.baseUrl} + '/' + ${objtype} + '/' + ${objid} +'>,'"></span>
             </th:block> 
             <th:block th:if="${obj.eclass == 'BTSLemmaEntry' and obj.type == 'root'}">
                <!-- Root citation -->
@@ -896,7 +898,8 @@
      </div>  
     </div>
     
-    <!-- Persitent Lemma ID  -->
+    <!-- Persitent ID  -->
+    
     <div th:fragment="property-pid(objtype, objid)" id="property-pid">
 		<hr/>
 		<p>         
@@ -912,6 +915,10 @@
 		  <button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" onclick="copyStringToClipboard(document.getElementById('page-url').textContent)"><span class="fas fa-clipboard"></span>&nbsp;<span th:text="#{button_copy_URL}">Copy URL</span></button>
 		</p>
 	  </div>
+
+    <div th:fragment="property-pid-variant-warning" id="property-pid-variant-warning">
+		 <p th:utext="#{msg_pid_variant_warning}"/>
+	  </div>     
 
     <!-- "Atoms" -->
 

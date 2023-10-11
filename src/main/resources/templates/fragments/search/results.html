@@ -201,12 +201,19 @@
 
       <!-- SENTENCE search result -->
 
-      <div th:fragment="sentence-search-result" class="result-list-item" th:object="${obj}" th:with="hasGlyphs=*{hasGlyphs},isArtificiallyAligned=*{isArtificiallyAligned}">
+      <div th:fragment="sentence-search-result" class="result-list-item mt-3" th:object="${obj}" th:with="hasGlyphs=*{hasGlyphs},isArtificiallyAligned=*{isArtificiallyAligned}">
+
+      <!-- Same for Both views -->
+     <hr class="marked-hr"/>
+     
+ 		<div class="occ-list-item-element mt-2">
+	      	<div th:replace="fragments/common :: variants-info"/>
+		</div>     
 
       <!-- Block view -->
         <div class="sentence-line-mode" >
 
-          <div class="occ-list-item mt-sm-3 py-sm-1">
+          <div class="occ-list-item-element mt-sm-3 py-sm-1">
             
             <th:block th:if="${hasGlyphs}">
 			    <th:block th:if="${isArtificiallyAligned}"><a th:replace="fragments/common :: artificial-alignment"></a></th:block>
@@ -300,10 +307,6 @@
                    
 		</div>
 
-		<div class="occ-list-item-element">
-	      	<div th:replace="fragments/common :: variants-info"/>
-		</div>
-		
 		<div class="occ-list-item-element">
 	      	<div th:replace="fragments/common :: sentence-dating"/>
 		</div>

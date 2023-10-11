@@ -123,6 +123,9 @@ a:hover,
 hr {
     border-top: 2px solid #EEE;
 }
+hr.marked-hr {
+    border-top: 2px solid var(--BBAWred);
+}
 
 blockline
  {

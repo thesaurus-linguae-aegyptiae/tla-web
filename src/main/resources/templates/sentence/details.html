@@ -15,37 +15,23 @@
       <div th:replace="fragments/details :: sentence-page-header"/>
 
       <div class="row" >
-        <div class="col-lg-8 content">
+        <div class="col-lg-8 content" th:with="isVariant=${#strings.contains(obj.id,'-')}, stableId=${isVariant ? #strings.substringBefore(obj.id,'-') : obj.id}, varNo=${isVariant ? #strings.substringAfter(obj.id,'-') : ''}">
           <div class= "result-list">
-				<th:block th:insert="fragments/search/results :: sentence-search-result"  th:object="${obj}"/>
+				   <th:block th:insert="fragments/search/results :: sentence-search-result"  th:object="${obj}"/>
           </div>
-          <th:block th:insert="fragments/search/results :: sentence-cotext-button"/>
+          <div th:insert="fragments/search/results :: sentence-cotext-button"/>
           <div th:replace="fragments/details :: object-property-comments"/>
           <!--<div th:replace="fragments/details :: object-property-annotations"/>-->
           <div th:replace="fragments/details :: object-property-related-objects"/>
-          <div th:replace="fragments/details :: property-pid('sentence', ${obj.id})"/>
-          <div th:replace="fragments/details :: object-property-citationBox('sentence', ${obj.id})"/>
+          <div th:replace="fragments/details :: property-pid('sentence', ${stableId})"/>
+          <div th:if="${#bools.isTrue(isVariant)}" th:include="fragments/details :: property-pid-variant-warning"/>
+          <div th:replace="fragments/details :: object-property-citationBox('sentence', ${stableId})"/>
 		</div>
-	  
-        <!--ALT: <div class="col-sm-12 col-lg-8 occ-list-item" id="details-content" th:object="${obj}">
-
-          <div class="mt-3 pt-1 pb-1" th:id="*{id}">
-            <div class="sentence-line-mode">
-              <div th:replace="fragments/common :: sentence-hieroglyphs"/>
-              <div th:replace="fragments/common :: sentence-transcription"/>
-            </div>
-          </div>
-
-          <div th:replace="fragments/details :: translations"/>
-          <div th:replace="fragments/details :: object-property-object-paths('sentence')"/>
-          <div th:replace="fragments/details :: editor-info"/>
-
-        </div>-->
 
         <!-- sidebar -->
         <div class="col-lg-4 sidebar">
           <div class="sticky-top m-sm-0 m-lg-4">
-            <div th:replace="fragments/search/results :: hide-properties-buttons"/><!-- Buttons werden nicht angelegt, da Var. "hideableProperties" nicht für "details" angemeldet? -->
+            <div th:replace="fragments/search/results :: hide-properties-buttons"/>
           </div>
         </div>
       </div>
