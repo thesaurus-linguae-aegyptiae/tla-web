@@ -179,11 +179,11 @@ search:
         hideable-properties:
             hieroglyphs: []
             switchannotation: 
+                - wordtokenid  
                 - wordclass
+                - tokentranslation
                 - tlaglossing
                 - linguisticglossing
-                - tokentranslation
-                - wordtokenid  
             translation: []
             dating: []
             texteditor: []
@@ -191,11 +191,11 @@ search:
         hideable-textsentences-properties:
             hieroglyphs: []
             switchannotation: 
+                - wordtokenid
                 - wordclass
+                - tokentranslation
                 - tlaglossing
                 - linguisticglossing
-                - tokentranslation
-                - wordtokenid
             translation: []
 
 details:

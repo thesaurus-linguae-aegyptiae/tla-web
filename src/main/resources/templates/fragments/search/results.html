@@ -115,28 +115,36 @@
                    <div class="mr-sm-2"><a class="highlighted-link" th:href="${(#mvc.url('SC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}"><span class="fas fa-arrow-circle-right"></span>&nbsp;(<span th:text="${position}+1">1</span>)</a></div>
 				         <div th:each="token : *{tokens}"  th:id="|block-${token.id}|">
 								<!--Bug: ul/li-Struktur ungültig-->
-					         <ul class="annotation-block"  th:classappend="${(token.lemma.id != null and #request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }">
+					         <ul class="annotation-block"  th:classappend="${(token.lemma.id != null and #request.getParameter('tokens[0].lemma.id') == token.lemma.id) ? 'highlight' : '' }" th:with="isLinkable=${#bools.isTrue(token.lemma.id)}">
+								  <div class="occ-list-item-element">
+								  		<li th:replace="fragments/common :: token-word-id"/>
+								  		<hr class="blockline bid">  
+								  </div>
 							      <th:block th:if="${hasGlyphs}">
 									  <div class="occ-list-item-element hieroglyphs">
-											<a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank" rel="opener"><li th:replace="fragments/common :: token-hieroglyphs"/></a>
+											<a th:if="${isLinkable}" th:href="'/lemma/'+${token.lemma.id}" target="_blank" rel="opener"><li th:replace="fragments/common :: token-hieroglyphs"/></a>
 											<hr class="blockline"> 
 									  </div>
-									  <div  th:unless="${token.lemma.id}"class="occ-list-item-element hieroglyphs">
+									  <div  th:unless="${isLinkable}"class="occ-list-item-element hieroglyphs">
 											<li th:replace="fragments/common :: token-hieroglyphs"/>
 											<hr class="blockline"> 
 									  </div>
 								  </th:block>
 								   <div class="occ-list-item-element">
-								  		<a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank" rel="opener"><li th:replace="fragments/common :: token-transcription"/></a>
+								  		<a th:if="${isLinkable}" th:href="'/lemma/'+${token.lemma.id}" target="_blank" rel="opener"><li th:replace="fragments/common :: token-transcription"/></a>
 								  		<hr class="blockline"> 
 								  </div>
-								   <div th:unless="${token.lemma.id}" class="occ-list-item-element">
+								   <div th:unless="${isLinkable}" class="occ-list-item-element">
 								  		<li th:replace="fragments/common :: token-transcription"/>
 								  		<hr class="blockline"> 
 								  </div>
 						          <div class="occ-list-item-element">
 						          		<li th:replace="fragments/common :: token-word-class"/>
 						          		<hr class="blockline bwc">  
+								  </div>
+								  <div class="occ-list-item-element">
+								  		<li th:replace="fragments/common :: token-translation"/>
+								  		<hr class="blockline btr">  
 								  </div>
 						          <div class="occ-list-item-element">
 						             	<li th:replace="fragments/common :: token-bts-glossing"/>
@@ -145,14 +153,6 @@
 							      <div class="occ-list-item-element">      
 								        <li th:replace="fragments/common :: token-ling-glossing"/>
 								        <hr class="blockline bling">  
-								  </div>
-								  <div class="occ-list-item-element">
-								  		<li th:replace="fragments/common :: token-translation"/>
-								  		<hr class="blockline btr">  
-								  </div>
-								  <div class="occ-list-item-element">
-								  		<li th:replace="fragments/common :: token-word-id"/>
-								  		<hr class="blockline bid">  
 								  </div>
 						    </ul>
 			         	</div>
@@ -230,28 +230,36 @@
             <div class="container-annotation">
 				         <div th:each="token : *{tokens}"  th:id="|block-${token.id}|">
 								<!--Bug: ul/li-Struktur ungültig-->
-					         <ul class="annotation-block"  th:classappend="${((token.lemma.id != null or token.id != null) and ((#request.getParameter('tokens[0].lemma.id') == token.lemma.id and token.lemma.id != null) or (#request.getParameter('tokens[1].lemma.id') == token.lemma.id and token.lemma.id != null)  or (searchTokenId == token.id))) ? 'highlight' : '' }">
+					         <ul class="annotation-block"  th:classappend="${((token.lemma.id != null or token.id != null) and ((#request.getParameter('tokens[0].lemma.id') == token.lemma.id and token.lemma.id != null) or (#request.getParameter('tokens[1].lemma.id') == token.lemma.id and token.lemma.id != null)  or (searchTokenId == token.id))) ? 'highlight' : '' }" th:with="isLinkable=${#bools.isTrue(token.lemma.id)}">
+								  <div class="occ-list-item-element">
+								  		<li th:replace="fragments/common :: token-word-id"/>
+								  		<hr class="blockline bid">  
+								  </div>
 							      <th:block th:if="${hasGlyphs}">
 									  <div class="occ-list-item-element hieroglyphs">
-											<a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank" rel="opener"><li th:replace="fragments/common :: token-hieroglyphs"/></a>
+											<a th:if="${isLinkable}" th:href="'/lemma/'+${token.lemma.id}" target="_blank" rel="opener"><li th:replace="fragments/common :: token-hieroglyphs"/></a>
 											<hr class="blockline"> 
 									  </div>
-									  <div  th:unless="${token.lemma.id}"class="occ-list-item-element hieroglyphs">
+									  <div  th:unless="${isLinkable}"class="occ-list-item-element hieroglyphs">
 											<li th:replace="fragments/common :: token-hieroglyphs"/>
 											<hr class="blockline"> 
 									  </div>
 								  </th:block>
 								   <div class="occ-list-item-element">
-								  		<a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}" target="_blank" rel="opener"><li th:replace="fragments/common :: token-transcription"/></a>
+								  		<a th:if="${isLinkable}" th:href="'/lemma/'+${token.lemma.id}" target="_blank" rel="opener"><li th:replace="fragments/common :: token-transcription"/></a>
 								  		<hr class="blockline"> 
 								  </div>
-								   <div th:unless="${token.lemma.id}" class="occ-list-item-element">
+								   <div th:unless="${isLinkable}" class="occ-list-item-element">
 								  		<li th:replace="fragments/common :: token-transcription"/>
 								  		<hr class="blockline"> 
 								  </div>
 						          <div class="occ-list-item-element">
 						          		<li th:replace="fragments/common :: token-word-class"/>
 						          		<hr class="blockline bwc">  
+								  </div>
+								  <div class="occ-list-item-element">
+								  		<li th:replace="fragments/common :: token-translation"/>
+								  		<hr class="blockline btr">  
 								  </div>
 						          <div class="occ-list-item-element">
 						             	<li th:replace="fragments/common :: token-bts-glossing"/>
@@ -260,14 +268,6 @@
 							      <div class="occ-list-item-element">      
 								        <li th:replace="fragments/common :: token-ling-glossing"/>
 								        <hr class="blockline bling">  
-								  </div>
-								  <div class="occ-list-item-element">
-								  		<li th:replace="fragments/common :: token-translation"/>
-								  		<hr class="blockline btr">  
-								  </div>
-								  <div class="occ-list-item-element">
-								  		<li th:replace="fragments/common :: token-word-id"/>
-								  		<hr class="blockline bid">  
 								  </div>
 						    </ul>
 			         	</div>
