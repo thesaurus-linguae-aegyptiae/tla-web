@@ -182,8 +182,9 @@
 
               <td>
                 <div class="mt-sm-1 py-sm-1">
+                  <div th:replace="fragments/common :: variants-info"/>
                   <div th:replace="fragments/common :: sentence-transcription"/>
-                  <div class="text-muted" th:if="*{hasComment}"><i class="fas fa-sticky-note"></i> <span th:text="#{object_has_comment}">With comment(s)</span></div>
+                  <div class="text-muted" th:if="*{hasComment}"><i class="fas fa-sticky-note"></i> <a th:href="${(#mvc.url('SC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}" th:text="#{object_has_comment}">With comment(s)</a></div>
                   <!--<div class="text-muted" th:if="*{hasAnnotation}"><i class="fas fa-sticky-note"></i> <span th:text="#{object_has_annotation}">With annotation(s)</span></div>-->
                 </div>
               </td>
@@ -1262,7 +1263,7 @@
                   <span th:text="#{button_sentence_in_text_start}+' '+${obj.context.position + 1}+' '+#{button_sentence_in_text_end}">Sentence in text</span>
                </button>
             </a>
-            <th:block th:include="fragments/common :: construction(#{button_sentence_in_text_warning})"></th:block>
+            <!--<th:block th:include="fragments/common :: construction(#{button_sentence_in_text_warning})"></th:block>-->
       </span>    
 
       
