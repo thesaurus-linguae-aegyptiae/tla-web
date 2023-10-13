@@ -5,11 +5,13 @@
    <section>
       <h2>Version history</h2>
       <ul>
-         <li>9/22/2023: 
+         <li>10/13/2023: 
             <ul>
                <li>Web app: v2.1.0, improvements 
-               <br/><small>(New:) text content page, comments to sentences (yet without indication of scope), sentence token ID lookup; (improved:) metadata on text/object pages complete, linking of text/object metadata with thesaurus pages.</small></li>
-               <li>Text corpus: v17, <em>unchanged</em></li>
+               <br/><small>(New:) Text content page, comments to sentences (yet without indication of scope), sentence token ID lookup; 
+               <br/>(Changed:) Change of citation of sentence reading variants (permanent IDs/URLs can be guaranteed only for the sentence, not reliably for its individual reading variants);
+               <br/>(Improved:) Metadata on text/object pages complete, linking of text/object metadata with thesaurus pages, more consistency in metadata/link icons.</small></li>
+               <li>Text corpus: v17, <em>unchanged</em> (Note: By mistake, only sentence comments from before 2015 are present in this corpus edition.)</li>
             </ul>
          </li>
          <li>8/8/2023: 
@@ -53,12 +55,14 @@
          <tr><td>Lemmata: French translation equivalents</td><td>partly (hiero. only)</td><td>partly (hiero. only) </td></tr>
          <tr><td class="text-success">Lemmata: comments</td><td>✕</td><td class="bg-success">✓ (esp. medical texts)</td></tr>
          <tr><td class="text-success">Lemmata: linking composites/parts (<span class="transliteration">ḥm-nṯr &gt; ḥm, ...</span>)</td><td>✓ (Demotic only)</td><td class="bg-success">✓</td></tr>
-         <tr><td class="text-success">Sentences/sentence words: comments</td><td class="bg-success">✓ (scope: sentence)</td><td>✓ (scope: sentence); spec. of scope to come (medium priority)</td></tr>
+         <tr><td class="text-success">Sentences/sentence words: comments</td><td class="bg-success">✓ (scope: sentence)</td><td>(✓) (scope: sentence; Bug: comments <br/>from before 2015 only in corpus v17); <br/>spec. of scope to come (medium priority)</td></tr>
+         <tr><td>Sentences/sentence words: annotations</td><td>✕</td><td>to come (medium priority)</td></tr>
          <tr><td class="text-success">Sentence words: hieroglyphs</td><td>(✓) (JSesh MdC; few)</td><td>✓ (JSesh-MdC; many)</td></tr>
          <tr><td class="text-success">Sentence words: word class</td><td>✕</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-success">Sentence words: grammatical annotation</td><td>✕</td><td class="bg-success">✓ (BTS, LMG)</td></tr>
          <tr><td class="text-success">Sentence words: contextual meaning</td><td>(✓) (for searched lemma only)</td><td class="bg-success">✓</td></tr>
          <tr><td>Texts/objects: authorship</td><td class="bg-success">✓ (main author)</td><td class="bg-success">✓ (main author, further editors)</td></tr>
+         <tr><td>Texts/objects: comments/annotations</td><td>✕</td><td>to come (medium priority)</td></tr>
          <tr><td class="text-success">Content with free license</td><td>✕</td><td class="bg-success">✓ (<a href="licenses">CC BY-SA 4.0 Int.</a>)</td></tr>
          <tr><td class="text-danger">Content without free license</td><td class="bg-success">✓</td><td class="bg-info">✕ (<a href="https://aaew.bbaw.de/tla/" target="_blank">continued usage in legacy TLA</a>; <br/>concerns Edfu project data)</td></tr>
          <tr><th colspan="3">Digital references</th></tr>
@@ -99,7 +103,7 @@
          <tr><td class="text-success">Look up text/object ID</td><td>✕</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-success">Persistent thesaurus entry IDs/URLs</td><td>✕</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-success">Look up thesaurus entry ID</td><td>✕</td><td class="bg-success">✓</td></tr>
-         <tr><td>Content persistently verifiable</td><td>✕</td><td>to come: raw data publication <br/>(<strong>high priority</strong>)</td></tr>
+         <tr><td>Content persistently verifiable</td><td>✕</td><td class="bg-warning">to come: raw data publication <br/>(<strong>high priority</strong>)</td></tr>
          <tr><th colspan="3">Usability</th></tr>
          <tr><td>Web application languages</td><td class="bg-success">DE, EN</td><td class="bg-success">DE, EN; perspectively more</td></tr>
          <tr><td class="text-success">Smartphone compatibility (responsive design)</td><td>✕</td><td class="bg-success">✓</td></tr>

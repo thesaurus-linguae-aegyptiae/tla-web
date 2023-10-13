@@ -5,11 +5,13 @@
    <section>
       <h2>Versionshistorie</h2>
       <ul>
-         <li>22.9.2023: 
+         <li>13.10.2023: 
             <ul>
                <li>Web app: v2.1.0, Verbesserungen 
-               <br/><small>(neu:) Text-Inhalte/Sätze-Seite, Kommentare zu Sätzen (noch ohne Angabe des Bezugs im Satz), Satz-Element('Wort')-ID nachschlagen; (verbessert:) Metadaten auf Text-/Objekt-Seiten vollständig, Verlinkung von Thesaurus-gestützten Metadaten vervollständigt.</small></li>
-               <li>Text corpus: v17, <em>unchanged</em></li>
+               <br/><small>(neu:) Text-Inhalte/Sätze-Seite, Kommentare zu Sätzen (noch ohne Angabe des Bezugs im Satz), Satz-Element('Wort')-ID nachschlagen;  
+               <br/>(geändert:) Umstellung der Zitation von Satzlesevarianten (permanente IDs/URLs können nur für Satz garantierbar, nicht voll verlässlich für spezielle Lesevarianten des Satzes);
+               <br/>(verbessert:) Metadaten auf Text-/Objekt-Seiten vollständig, Verlinkung von Thesaurus-gestützten Metadaten vervollständigt, Vereinheitlichung bei Metadaten/Link-Icons.</small></li>
+               <li>Text corpus: v17, <em>unchanged</em> (Achtung: Leider sind irrtümlich nur Satzkommentare von vor 2015 in dieser Korpus-Edition vorhanden.)</li>
             </ul>
          </li>
          <li>8.8.2023: 
@@ -53,12 +55,14 @@
          <tr><td>Lemmata: französische Übersetzungsäquivalente</td><td>teils (nur hiero.)</td><td>teils (nur hiero.)</td></tr>
          <tr><td class="text-success">Lemmata: Kommentare</td><td>✕</td><td class="bg-success">✓ (insb. medizinische Texte)</td></tr>
          <tr><td class="text-success">Lemmata: Verlinkung Zusammensetzungen/Teile (<span class="transliteration">ḥm-nṯr &gt; ḥm, ...</span>)</td><td>✓ (nur Demotisch)</td><td class="bg-success">✓</td></tr>
-         <tr><td class="text-success">Sätze/Satzwörter: Kommentare</td><td class="bg-success">✓ (satzbezogen)</td><td>✓ (satzbezogen), Bezugsangabe kommt (mittlere Priorität)</td></tr>
+         <tr><td class="text-success">Sätze/Satzwörter: Kommentare</td><td class="bg-success">✓ (satzbezogen)</td><td>✓ (satzbezogen; Bug: in Korpus v17 <br/>nur Kommentare von vor 2015), <br/>Bezugsangabe kommt (mittlere Priorität)</td></tr>
+         <tr><td>Sätze/Satzwörter: Annotationen</td><td>✕</td><td>kommt (mittlere Priorität)</td></tr>
          <tr><td class="text-success">Satzwörter: Hieroglyphen</td><td>(✓) (JSesh-MdC; vereinzelt)</td><td>✓ (JSesh-MdC; viele)</td></tr>
          <tr><td class="text-success">Satzwörter: Wortklasse</td><td>✕</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-success">Satzwörter: grammatische Annotation</td><td>✕</td><td class="bg-success">✓ (BTS, LMG)</td></tr>
          <tr><td class="text-success">Satzwörter: Spezifizierung Kontextbedeutung</td><td>(✓) (nur für gesuchtes Lemma)</td><td class="bg-success">✓</td></tr>
          <tr><td>Texte/Objekte: Autor:innenschaft</td><td class="bg-success">✓ (Hauptautor:in)</td><td class="bg-success">✓ (Hauptautor:in, weitere Editor:innen)</td></tr>
+         <tr><td>Texte/Objekte: Kommentare/Annotationen</td><td>✕</td><td>kommt (mittlere Priorität)</td></tr>
          <tr><td class="text-success">Inhalte mit freier Lizenz</td><td>✕</td><td class="bg-success">✓ (<a href="licenses">CC BY-SA 4.0 Int.</a>)</td></tr>
          <tr><td class="text-danger">Inhalte ohne freie Lizenz</td><td class="bg-success">✓</td><td class="bg-info">✕ (<a href="https://aaew.bbaw.de/tla/" target="_blank">Weiternutzung im alten TLA</a>; <br/>betrifft Edfu-Projekt-Daten)</td></tr>
          <tr><th colspan="3">Digitale Verweise</th></tr>
@@ -99,7 +103,7 @@
          <tr><td class="text-success">Text/Objekt-ID nachschlagen</td><td>✕</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-success">Persistente Thesaurus-Eintrag-IDs/-URLs</td><td>✕</td><td class="bg-success">✓</td></tr>
          <tr><td class="text-success">Thesaurus-Eintrag-ID nachschlagen</td><td>✕</td><td class="bg-success">✓</td></tr>
-         <tr><td>Inhalt nachhaltig verifizierbar</td><td>✕</td><td>kommt: Rohdaten-Publikation <br/>(<strong>hohe</strong> Priorität)</td></tr>
+         <tr><td>Inhalt nachhaltig verifizierbar</td><td>✕</td><td class="bg-warning">kommt: Rohdaten-Publikation <br/>(<strong>hohe</strong> Priorität)</td></tr>
          <tr><th colspan="3">Usability</th></tr>
          <tr><td>Webanwendungssprachen</td><td class="bg-success">DE, EN</td><td class="bg-success">DE, EN; perspektivisch weitere</td></tr>
          <tr><td class="text-success">Smartphone-Tauglichkeit (Responsive Design)</td><td>✕</td><td class="bg-success">✓</td></tr>
