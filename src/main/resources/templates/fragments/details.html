@@ -18,8 +18,11 @@
     <div th:fragment="sentence-page-header" class="row mb-sm-3 d-flex justify-content-between details-header">
 		<div id="title-header">
 			<h2 class="id ml-3 mt-sm-1" th:with="isVariant=${#strings.contains(obj.id,'-')}, stableId=${isVariant ? #strings.substringBefore(obj.id,'-') : obj.id}, varNo=${isVariant ? #strings.substringAfter(obj.id,'-') : ''}">
-			  <span class="words-breakable" th:text="#{object_id_label_BTSSentence} + ' ' + ${stableId}">Sentence ID</span>
-          <span th:if="${isVariant}" th:text="'('+#{sentence_variant_label}+' '+(${varNo}+1)+')'">(Var. 00)</span>
+			  <span class="words-breakable" th:text="#{object_id_label_BTSSentence} + ' ' + ${stableId}">Sentence ID</span><span th:if="${isVariant}">(Var. 
+          <script th:inline="javascript">
+                  var  varID = /*[[${#strings.substringAfter(obj.id,'-')}]]*/ '00';
+                  document.write(parseInt(varID, 16)+1);
+            </script>)</span>
 			</h2>
 		</div>
 		<div th:replace="fragments/common :: social('sentence-page')"/>
