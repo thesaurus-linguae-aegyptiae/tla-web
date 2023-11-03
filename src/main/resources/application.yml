@@ -82,7 +82,7 @@ tla:
         dpdp:
             type-formats:
                 lemmata: http://129.206.5.162/beta/palaeography/palaeography.html?q=tla:{id}
-                papyri: http://129.206.5.162/beta/palaeography/database/papyri/{id}.html
+                papyri: http://129.206.5.162/beta/palaeography/database/papyri/{id}
         pleiades:
             default-format: https://pleiades.stoa.org/places/{id}
             id-pattern: ^[1-9][0-9]*$
