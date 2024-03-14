@@ -158,7 +158,7 @@ public class Lemma extends BTSObject {
                 )
             );
         } catch (Exception e) {
-            log.debug("could not extract bibliography from lemma {}", lemma.getId());
+            // log.debug("INFO: could not extract bibliography from lemma {}", lemma.getId());
         }
         return bibliography;
     }
@@ -194,7 +194,7 @@ public class Lemma extends BTSObject {
                 )
             );
         } catch (Exception e) {
-          System.out.println("INFO: Could not extract description from lemma "+lemma.getId());
+          // System.out.println("INFO: Could not extract description from lemma "+lemma.getId());
         }
         return description;
     }
@@ -230,7 +230,7 @@ public class Lemma extends BTSObject {
                 )
             );
         } catch (Exception e) {
-          System.out.println("INFO: Could not extract file comment from lemma "+lemma.getId());
+          // System.out.println("INFO: Could not extract file comment from lemma "+lemma.getId());
         }
         return fileComment;
     }

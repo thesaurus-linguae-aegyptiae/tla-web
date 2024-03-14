@@ -42,7 +42,8 @@ public class Util {
 	
 	public static void prepareFonts() {
 		DefaultHieroglyphicFontManager manager = DefaultHieroglyphicFontManager.getInstance();
-		manager.addHieroglyphicFontManager(new DirectoryHieroglyphicFontManager(new File("src/main/resources/static/jsesh")));
+		manager.addHieroglyphicFontManager(new DirectoryHieroglyphicFontManager(new File("../app/libs/jsesh")));
+		manager.addHieroglyphicFontManager(new DirectoryHieroglyphicFontManager(new File("src/main/resources/static/jsesh/")));
 }
 	
 
