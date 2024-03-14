@@ -177,7 +177,7 @@ else { return false;}
            Passport pass= text.getPassport().extractProperty(searchString).get(0);
             objectReference = pass.extractObjectReferences().get(0);        
         } catch (Exception e) {
-          System.out.println("could not extract language from text {} "+text.getId());
+          // System.out.println("could not extract language from text {} "+text.getId());
         }
         return objectReference;
     }
@@ -192,7 +192,7 @@ else { return false;}
                 	values.add(pass.get(i).extractObjectReferences().get(0).getName());
                 }           
             } catch (Exception e) {
-              System.out.println("could not extract" + searchField + "from text {} "+text.getId());
+              // System.out.println("could not extract" + searchField + "from text {} "+text.getId());
             }
             return values;
         }
@@ -205,7 +205,7 @@ else { return false;}
         		List<Passport> pass = text.getPassport().extractProperty(searchField);
         		value = pass.get(number).toString();
         	}catch (Exception e) {
-                System.out.println("could not extract " + searchField + " from text {} "+text.getId());
+                // System.out.println("could not extract " + searchField + " from text {} "+text.getId());
         	}
         	return value;
         }
@@ -228,7 +228,7 @@ else { return false;}
             		if (isOrigPl.equals("true")) isOrigPl="original";
             		else isOrigPl=null;       
         } catch (Exception e) {
-          System.out.println("could not extract is orig place from text {} "+text.getId());isOrigPl=null;
+          // System.out.println("could not extract is orig place from text {} "+text.getId());isOrigPl=null;
         }
         return isOrigPl;
     }
@@ -243,7 +243,7 @@ else { return false;}
             
            
         } catch (Exception e) {
-          System.out.println("could not extract original place from text {} "+text.getId());
+          // System.out.println("could not extract original place from text {} "+text.getId());
         }
         return origplace;
     }
@@ -258,7 +258,7 @@ else { return false;}
             
            
         } catch (Exception e) {
-          System.out.println("could not extract present place from text {} "+text.getId());
+          // System.out.println("could not extract present place from text {} "+text.getId());
         }
         return presloc;
     }
@@ -278,7 +278,7 @@ else { return false;}
            
         } catch (Exception e) {
            // log.debug("could not extract date from text {}", text.getId());
-           System.out.println("could not extract date from text "+  text.getId());
+           // System.out.println("could not extract date from text "+  text.getId());
         }
         return datierung;
     }

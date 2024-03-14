@@ -29,8 +29,7 @@ tla:
         aegyptiaca:
             default-format: https://aegyptiaca.uni-muenster.de/Record/{id}
         bm:
-            type-formats:
-                object: https://www.britishmuseum.org/collection/object/{id}
+            default-format: https://www.britishmuseum.org/collection/object/{id}
         dwl:
             default-format: https://www.dwl.aegyptologie.lmu.de/suche.php?nummer={id}
         dza:
@@ -82,7 +81,7 @@ tla:
         dpdp:
             type-formats:
                 lemmata: http://129.206.5.162/beta/palaeography/palaeography.html?q=tla:{id}
-                papyri: http://129.206.5.162/beta/palaeography/database/papyri/{id}.html
+                papyri: http://129.206.5.162/beta/palaeography/database/papyri/{id}
         pleiades:
             default-format: https://pleiades.stoa.org/places/{id}
             id-pattern: ^[1-9][0-9]*$
@@ -92,6 +91,10 @@ tla:
             default-format: https://collections.louvre.fr/en/ark:/53355/{id}
         pnm:
             default-format: https://pnm.uni-mainz.de/name/{id}
+        vega:
+            default-format: https://app.vega-lexique.fr/?entries=w{id}
+        smb:
+            default-format: https://id.smb.museum/object/{id}
 
 search:
     config:

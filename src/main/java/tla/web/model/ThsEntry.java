@@ -66,7 +66,7 @@ public class ThsEntry extends BTSObject implements Hierarchic {
                 )
             );
         } catch (Exception e) {
-          System.out.println("INFO: Could not extract description from thesaurus entry "+thsEntry.getId());
+          // System.out.println("INFO: Could not extract description from thesaurus entry "+thsEntry.getId());
         }
         return description;
     }
@@ -102,7 +102,7 @@ public class ThsEntry extends BTSObject implements Hierarchic {
                 )
             );
         } catch (Exception e) {
-          System.out.println("INFO: Could not extract file comment from thesaurus entry "+thsEntry.getId());
+          // System.out.println("INFO: Could not extract file comment from thesaurus entry "+thsEntry.getId());
         }
         return fileComment;
     }

@@ -18,11 +18,8 @@
     <div th:fragment="sentence-page-header" class="row mb-sm-3 d-flex justify-content-between details-header">
 		<div id="title-header">
 			<h2 class="id ml-3 mt-sm-1" th:with="isVariant=${#strings.contains(obj.id,'-')}, stableId=${isVariant ? #strings.substringBefore(obj.id,'-') : obj.id}, varNo=${isVariant ? #strings.substringAfter(obj.id,'-') : ''}">
-			  <span class="words-breakable" th:text="#{object_id_label_BTSSentence} + ' ' + ${stableId}">Sentence ID</span><span th:if="${isVariant}">(Var. 
-          <script th:inline="javascript">
-                  var  varID = /*[[${#strings.substringAfter(obj.id,'-')}]]*/ '00';
-                  document.write(parseInt(varID, 16)+1);
-            </script>)</span>
+				<span class="words-breakable" th:text="#{object_id_label_BTSSentence} + ' ' + ${stableId}">Sentence ID</span>
+				<span th:if="${isVariant}" th:text="'('+#{sentence_variant_label}+' '+(${varNo}+1)+')'">(Var. 00)</span>
 			</h2>
 		</div>
 		<div th:replace="fragments/common :: social('sentence-page')"/>
@@ -145,7 +142,7 @@
             <p>
             <strong th:text="#{object_property_commentscript}" class="details-property-label">Comment on script</strong>:
             <br/>
-               <span th:utext="${obj.getCommentscript}"></span>
+               <span th:utext="${{obj.getCommentscript}}"></span>
         </p>
       </div> 
        
@@ -166,7 +163,7 @@
             <p>
             <strong th:text="#{object_property_commentlanguage}" class="details-property-label">Comment on language</strong>:
             <br/>
-               <span th:utext="${obj.getCommentlanguage}"></span>
+               <span th:utext="${{obj.getCommentlanguage}}"></span>
         </p>
       </div> 
      
@@ -188,7 +185,7 @@
             <p>
             <strong th:text="#{object_property_commenttexttype}" class="details-property-label">Comment on texttype</strong>:
             <br/>
-               <span th:utext="${obj.getCommenttexttype}"></span>
+               <span th:utext="${{obj.getCommenttexttype}}"></span>
         </p>
       </div> 
       
@@ -330,7 +327,7 @@
                   </th:block>
                      <th:block th:unless="${place.getComment}==null"> 
                      <br/><strong  th:text="#{object_property_place_comment}" class="details-property-label"></strong>:
-                        <span  th:text="${place.getComment}"></span>
+                        <span  th:text="${{place.getComment}}"></span>
                   </th:block>            
                </p>
                </li>
@@ -401,7 +398,7 @@
                
              	<th:block th:unless="${location.getComment}==null"> 
 	            <br/><strong  th:text="#{object_property_place_comment}" class="details-property-label"></strong>:
-						<br/><span  th:text="${location.getComment}"></span>
+						<br/><span  th:text="${{location.getComment}}"></span>
 				    </th:block>
              </p>
             </li>
@@ -463,7 +460,7 @@
             <br/>
             <ul class="no-bullet-list">
             <li th:each="elem, elemStat : ${obj.materialityComment}">
-                <span th:text="${elem}"></span>
+                <span th:text="${{elem}}"></span>
                 <br th:unless="${elemStat.last}"/>
             </li>
             </ul>
@@ -501,7 +498,7 @@
             <br/>
             <ul class="no-bullet-list">
             <li th:each="elem, elemStat : ${obj.contextComment}">
-                <span th:utext="${elem}"></span>
+                <span th:utext="${{elem}}"></span>
                 <br th:unless="${elemStat.last}"/>
             </li>
             </ul>
@@ -524,7 +521,26 @@
             </ul>
         </p>
     </div>
-    
+
+
+     <!-- Special object types -->
+    			
+    <div class="ths-description" th:fragment="ths-description" id="ths-description" th:unless="${#lists.isEmpty(obj.getDescription)}">
+            <th:block th:unless="${obj.getDescription}==null"> 
+           <hr/>
+           <p>
+	            <strong  th:text="#{object_property_description}" class="details-property-label"></strong>
+            <br/>
+            <ul class="no-bullet-list">
+            <li th:each="elem, elemStat : ${obj.getDescription}">
+                <span th:utext="${elem}"></span>
+                <br th:unless="${elemStat.last}"/>
+            </li>
+            </ul>
+			  </p>
+ 				</th:block>
+   </div>				
+	
     <!-- File description  -->
     <!-- TODO obj.getDescription. zu einem Datum hinzuweisen um mehrfach Aufrufe zu vermeiden -->
     <div class="file-description" th:fragment="file-description" id="file-description" th:unless="${#lists.isEmpty(obj.getDescription)}">
@@ -538,7 +554,7 @@
             <th:block th:unless="${obj.getDescription.getDefinition}==null"> 
            <hr/>
            <p>
-	            <br/><strong  th:text="#{object_property_description}" class="details-property-label"></strong>
+	            <strong  th:text="#{object_property_description}" class="details-property-label"></strong>
 					 <br/><span  th:text="${obj.getDescription.getDefinition}"></span>
         </p>
  				</th:block>
@@ -554,7 +570,7 @@
             <br/>
             <ul class="no-bullet-list">
             <li th:each="elem, elemStat : ${obj.fileComment}">
-                <span th:utext="${elem}"></span>
+                <span th:utext="${{elem}}"></span>
                 <br th:unless="${elemStat.last}"/>
             </li>
             </ul>
@@ -600,7 +616,7 @@
             <br/>
             <ul class="no-bullet-list">
             <li th:each="elem, elemStat : ${obj.dateComment}">
-                <span th:utext="${elem}"></span>
+                <span th:utext="${{elem}}"></span>
                 <br th:unless="${elemStat.last}"/>
             </li>
             </ul>
@@ -629,7 +645,7 @@
         <strong th:text="#{object_property_annotations}" class="details-property-label">Comments</strong>
         <div th:each="annotation, counter : ${annotations}" class="comment-wrapper hide-comment" th:object="${annotation}">
             <p th:if="${counter.size} > 1" class="ml-3"><strong th:text="#{object_property_annotation} + ' ' + ${counter.index +1}">Comment 1<strong></p>
-            <p class="comment-content text-justify ml-4" th:utext="${annotation.body}">annotation body</p>
+            <p class="comment-content text-justify ml-4" th:utext="${{annotation.body}}">annotation body</p>
             <p th:replace=" :: comment-authorship"/>
         </div>
 			<div class="show-comment-button">
@@ -643,11 +659,11 @@
    <!-- Comment authorship info -->
    
    <p class="comment-author pt-1 ml-4" id="comment-authorship" th:fragment="comment-authorship" th:with="formatter=#{date_formatter},edited=*{edited}">
-       <!-- authors in Leipzig always Strukturen und Transformationen ... -->
-       <th:block th:unless="${edited.author} == '  Strukturen und Transformationen'">
-          <span class="details-property-label" th:text="#{object_property_editors_author_commentary}">Commentary author</span>:
-          <span th:text="${edited.author}">author</span>, 
-       </th:block>
+       <!-- lemma comment authors in Leipzig always Strukturen und Transformationen ... -->
+		 <span class="details-property-label" th:text="#{object_property_editors_author_commentary}">Commentary author</span>:
+		 <span th:text="${edited.author}">author</span><span th:unless="${edited.contributors} == null" class="editors">;
+				<span class="details-property-label" th:text="#{object_property_editors}">with contributions by</span>:
+				<span th:each="contributor, nr : ${edited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/></span>; 
        <span class="details-property-label" th:text="#{object_property_editors_created}">File created</span>:
        <span th:text="${edited.wasCreatedBeforeBTS3()} ? #{created_before_BTS3} : ${#calendars.format(edited.created, formatter)}">xx.xx.20xx</span>,
        <span class="details-property-label" th:text="#{object_property_editors_updated}">latest revision</span>:
@@ -662,8 +678,7 @@
             <strong class="details-property-label" th:text="${((obj.eclass == 'BTSThsEntry' or obj.eclass == 'BTSLemmaEntry') and obj.type != 'root')} ? #{object_property_editors_editor} : #{object_property_editors_author}">Author</strong>:
             <span th:text="${obj.edited.author}">author</span><span th:unless="${obj.edited.contributors} == null" class="editors">;
                <span class="details-property-label" th:text="#{object_property_editors}">with contributions by</span>:
-               <span th:each="contributor, nr : ${obj.edited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/>
-             </span>
+               <span th:each="contributor, nr : ${obj.edited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/></span>
           </div>
           <div class="updated" th:with="formatter=#{date_formatter}">
             <strong class="details-property-label" th:text="#{object_property_editors_created}">File created</strong>:
@@ -835,7 +850,7 @@
    <div th:fragment="sentence-comment" id="sentence-comment"> 
        <i class="fas fa-comment-alt"></i>
        <!--<span th:text="${relatedobj}"></span>-->
-       <p class="ml-4" th:utext="${related.BTSComment.get(relatedobj.id).body}"/>
+       <p class="ml-4" th:utext="${{related.BTSComment.get(relatedobj.id).body}}"/>
        <p th:replace=" :: comment-authorship"/>  
    </div>
    

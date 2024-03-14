@@ -49,10 +49,14 @@
               <li class="nav-item">
                 <a class="nav-link" href="/info/text-corpus" th:text="#{editorial_title_info_text-corpus}">Text Corpus</a>
               </li>
+              <li class="nav-item">
+                
+              </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{menu_global_listings}">Listings</a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown2">
-                  <a class="dropdown-item" href="/listings/bts-glossings" th:text="#{editorial_title_listings_bts-glossings}">BTS glossing</a>
+                  <a class="dropdown-item" href="/listings/thesauri" th:text="#{editorial_title_listings_thesauri}">Thesauri</a>
+						<a class="dropdown-item" href="/listings/bts-glossings" th:text="#{editorial_title_listings_bts-glossings}">BTS glossing</a>
                   <a class="dropdown-item" href="/listings/ling-glossings" th:text="#{editorial_title_listings_ling-glossings}">Linguistic glossing</a>
                   <a class="dropdown-item" href="/listings/digital-references" th:text="#{editorial_title_listings_digital-references}">Digital references</a>
                   <a class="dropdown-item" href="/listings/bibliography" th:text="#{editorial_title_listings_bibliography}">Abbreviated literature</a>
@@ -492,26 +496,11 @@
     
     <!-- variants information -->
     <div th:fragment="variants-info" class="result-list-item-element variants-list" th:object="${obj}" th:with="vars =${obj.getContext().getVariants()}">
-		<th:block th:if="${vars > 1}">
-			(<span th:text="#{sentence_variants1}"></span> <strong th:text="${obj.getContext().getVariants()}"></strong> <strong th:text="#{sentence_variants2}"></strong>:
-        <script th:inline="javascript">
-               var  noOfVariants = /*[[${obj.getContext().getVariants()}]]*/ 0; 
-               var  sentenceID = /*[[${#strings.substringBefore(obj.id,'-')}]]*/ '0';
-               var  varID = /*[[${#strings.substringAfter(obj.id,'-')}]]*/ '00';
-               for (var i = 0; i < noOfVariants; i++) { // iterate number variants
-                  var  iHex = i.toString(16).padStart(2, '0'); // hex string in TLA (00...0f, 10...ff, 100...)
-                  if  (iHex.localeCompare(varID)) { 
-                      document.write('<a href="/sentence/'+sentenceID+'-'+i.toString(16).padStart(2, '0')+'">#'+(i+1)+'</a>'); // link to variant
-                  } else { // the current variant 
-                      document.write('<strong>&gt;&gt; #'+(i+1)+' &lt;&lt;</strong>');  // simply in bold, w/o link
-                  }
-                  if (i < noOfVariants -1) { 
-                      document.write(', ');  // comma if non-final entry
-                   } else {
-                      document.write('.');  // period if final entry
-                   }
-               }
-         </script>
+		<th:block th:if="${vars > 1}" th:with="sentenceID=${#strings.substringBefore(obj.id,'-')},varID=${#strings.substringAfter(obj.id,'-')}">
+			(<span th:text="#{sentence_variants1}"></span> <strong th:text="${vars}"></strong> <strong th:text="#{sentence_variants2}"></strong>:
+			<th:block th:each="i: ${#numbers.sequence(0, vars - 1)}">
+				<a th:unless="${varID} == ${i}" th:href="${'/sentence/'+sentenceID+'-'+i}" th:text="${'#'+ (i+1)}" target="_blank" rel="opener"></a><strong th:if="${varID} == ${i}" th:utext="${'&gt;&gt;&nbsp;#'+ (i +1) +'&nbsp;&lt;&lt;'}"></strong><span th:unless="${i >= vars -1}">, </span></th:block>)
+		</th:block>
     </div>
     
     <!-- sentence dating -->
