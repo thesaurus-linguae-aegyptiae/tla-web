@@ -77,7 +77,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
                 )
             );
         } catch (Exception e) {
-          System.out.println("INFO: Could not extract dating comment from object "+corpusobj.getId());
+          // System.out.println("INFO: Could not extract dating comment from object "+corpusobj.getId());
         }
         return dateComment;
     }
@@ -122,7 +122,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
                 node -> synonymGroups.add(new SynonymGroup(node))
             );
         } catch (Exception e) {
-          System.out.println("INFO: Could not extract synonyms from object "+corpusobj.getId());
+          // System.out.println("INFO: Could not extract synonyms from object "+corpusobj.getId());
         }
         return synonymGroups;
     }
@@ -166,7 +166,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
                 )
             );
         } catch (Exception e) {
-          System.out.println("INFO: Could not extract bibliography from object "+corpusobj.getId());
+          // System.out.println("INFO: Could not extract bibliography from object "+corpusobj.getId());
         }
         return bibliography;
     }
@@ -187,7 +187,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     		passports = passport.extractProperty(searchString);
     		passports.forEach( node -> result.add(node.getLeafNodeValue()));
     	}catch(Exception e) {
-    		System.out.println("INFO: Could not extract " + searchString);
+    		// System.out.println("INFO: Could not extract " + searchString);
     	}
     	return result;
     }
@@ -197,7 +197,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     	try{
     		result = passport.extractProperty(searchString).get(0).getLeafNodeValue();
     	}catch(Exception e) {
-    		System.out.println("INFO: Could not extract " + searchString);
+    		// System.out.println("INFO: Could not extract " + searchString);
     	}
     	return result;
     }
@@ -207,7 +207,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     	try{
     		result = passport.extractProperty(searchString).get(0).extractObjectReferences().get(0);
     	}catch(Exception e) {
-    		System.out.println("INFO: Could not extract " + searchString);
+    		// System.out.println("INFO: Could not extract " + searchString);
     	}
     	return result;
     }
@@ -217,7 +217,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
         try {       
           result =passport.extractProperty(searchString).get(0).extractObjectReferences();
     	}catch(Exception e) {
-    		System.out.println("INFO: Could not extract " + searchString);
+    		// System.out.println("INFO: Could not extract " + searchString);
     	}
     	return result;
     }
@@ -237,7 +237,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
                 )
             );
         } catch (Exception e) {
-          System.out.println("INFO: Could not extract "+searchString);
+          // System.out.println("INFO: Could not extract "+searchString);
         }
         return comment;
     }
@@ -247,7 +247,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     	try{
     		object = passport.extractObjectReferences().get(0);
     	}catch(Exception e) {
-    		System.out.println("INFO: Could not extract ObjectReference");
+    		// System.out.println("INFO: Could not extract ObjectReference");
     	}
     	return object;
     }
@@ -258,7 +258,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
           List<Passport> pass= object.getPassport().extractProperty(searchString);
            pass.forEach(node -> objectReferences.add(node.extractObjectReferences().get(0)));
         } catch (Exception e) {
-          System.out.println("could not extract language from text {} " + object.getId());
+          // System.out.println("INFO: could not extract language from text {} " + object.getId());
         }
         return objectReferences;
     }
@@ -316,7 +316,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
          findSpotPassports.forEach(
         		 entry -> findspots.add(new FindSpot(entry)));        
         } catch (Exception e) {
-          System.out.println("INFO: Could not extract find spot (origin) from object "+corpusobj.getId());
+          // System.out.println("INFO: Could not extract find spot (origin) from object "+corpusobj.getId());
         }
         return findspots;
     }
@@ -330,7 +330,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
         		 entry -> places.add(new Place(entry)));
          
         } catch (Exception e) {
-          System.out.println("INFO: Could not extract a place from findspot from object ");
+          // System.out.println("INFO: Could not extract a place from findspot from object ");
         }
         return places;	
     }
@@ -375,7 +375,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
         		  passport -> locations.add(new Location(passport))
         		  );
         } catch (Exception e) {
-          System.out.println("INFO: Could not extract locations from object "+corpusobj.getId());
+          // System.out.println("INFO: Could not extract locations from object "+corpusobj.getId());
         }
         return locations;
     }
@@ -403,7 +403,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
                 node -> invNos.add(node.getLeafNodeValue())
             );
         } catch (Exception e) {
-          System.out.println("INFO: Could not extract location inventory nos. from object "+corpusobj.getId());
+          // System.out.println("INFO: Could not extract location inventory nos. from object "+corpusobj.getId());
         }
         
         return invNos;
@@ -440,7 +440,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
                 )
             );
         } catch (Exception e) {
-          System.out.println("INFO: Could not extract protocol from object "+corpusobj.getId());
+          // System.out.println("INFO: Could not extract protocol from object "+corpusobj.getId());
         }
         return protocol;
     }
@@ -485,7 +485,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
                    
            
         } catch (Exception e) {
-          System.out.println("INFO: Could not extract description from object "+corpusobj.getId());
+          // System.out.println("INFO: Could not extract description from object "+corpusobj.getId());
         }
         return descriptionPassport;
     }
@@ -521,7 +521,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
                 )
             );
         } catch (Exception e) {
-          System.out.println("INFO: Could not extract file comment from object "+corpusobj.getId());
+          // System.out.println("INFO: Could not extract file comment from object "+corpusobj.getId());
         }
         return fileComment;
     }
@@ -709,7 +709,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
                 node -> dimensions.add(node.getLeafNodeValue())
             );
         } catch (Exception e) {
-          System.out.println("INFO: Could not extract length from object "+corpusobj.getId());
+          // System.out.println("INFO: Could not extract length from object "+corpusobj.getId());
         }
         try {
             corpusobj.getPassport().extractProperty(
@@ -718,7 +718,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
                 node -> dimensions.add(node.getLeafNodeValue())
             );
         } catch (Exception e) {
-          System.out.println("INFO: Could not extract width from object "+corpusobj.getId());
+          // System.out.println("INFO: Could not extract width from object "+corpusobj.getId());
         }
         try {
             corpusobj.getPassport().extractProperty(
@@ -727,7 +727,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
                 node -> dimensions.add(node.getLeafNodeValue())
             );
         } catch (Exception e) {
-          System.out.println("INFO: Could not extract thickness from object "+corpusobj.getId());
+          // System.out.println("INFO: Could not extract thickness from object "+corpusobj.getId());
         }
         return dimensions;
     }
