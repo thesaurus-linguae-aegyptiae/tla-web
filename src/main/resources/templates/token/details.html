@@ -26,26 +26,11 @@
           <div th:replace="fragments/details :: property-pid('sentence/token', ${searchTokenId})"/>
           <div th:replace="fragments/details :: object-property-citationBox('sentence/token', ${searchTokenId})"/>
 		</div>
-	  
-        <!--ALT: <div class="col-sm-12 col-lg-8 occ-list-item" id="details-content" th:object="${obj}">
-
-          <div class="mt-3 pt-1 pb-1" th:id="*{id}">
-            <div class="sentence-line-mode">
-              <div th:replace="fragments/common :: sentence-hieroglyphs"/>
-              <div th:replace="fragments/common :: sentence-transcription"/>
-            </div>
-          </div>
-
-          <div th:replace="fragments/details :: translations"/>
-          <div th:replace="fragments/details :: object-property-object-paths('sentence')"/>
-          <div th:replace="fragments/details :: editor-info"/>
-
-        </div>-->
 
         <!-- sidebar -->
         <div class="col-lg-4 sidebar">
           <div class="sticky-top m-sm-0 m-lg-4">
-            <div th:replace="fragments/search/results :: hide-properties-buttons"/><!-- Buttons werden nicht angelegt, da Var. "hideableProperties" nicht für "details" angemeldet? -->
+            <div th:replace="fragments/search/results :: hide-properties-buttons"/><!-- Buttons werden nicht angelegt, da Var. "hideableProperties" nicht fï¿½r "details" angemeldet? -->
           </div>
         </div>
       </div>

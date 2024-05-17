@@ -17,5 +17,7 @@ import tla.web.model.meta.ModelClass;
 @ModelClass(Sentence.class)
 @ConfigurationProperties(prefix = "search.sentence")
 public class SentenceSearchProperties extends SearchProperties {
+	
+	
 	private Map<String, List<String>> contextInformation;
 }

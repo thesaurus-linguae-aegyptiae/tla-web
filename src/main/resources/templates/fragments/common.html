@@ -326,10 +326,18 @@
 
     <!-- icon indicating review state -->
     <a th:fragment="review-state(obj)" class="review-state" th:title="|Review status: #{|review_state_${obj.reviewState}}|">
-      <span class="solo-icon red-status float-right badge badge-pill badge-light">
+      <span class="solo-icon red-status float-right badge badge-pill badge-light py-1">
         <span class="font-weight-light" th:text="#{|review_state_${obj.reviewState}}|">Reviewed</span>
         <span class="icon" th:classappend="${#strings.equals(obj.reviewState, 'published')} ? ok : (${#strings.endsWith(obj.reviewState, 'inactive')} ? notok : pending)"/>
       </span>
+    </a>
+    
+    <!-- number of attestations in lemma search result block -->
+    <a th:fragment="lemmaAttestationsCount(obj)" class="lemma-attestations-info" th:href="|${@searchController.getSearchResultsPageRoute(@__sentenceController__)}?tokens[0].lemma.id=${obj.id}|" th:if="${obj.attestedSentencesCount} > 0">
+       <button id="lemma-attestation-count-texts" type="button" class="btn btn-red btn-sm py-0 float-right text-left text-decoration-none">
+	       <span class="fas fa-arrow-circle-right"></span>
+	       <span th:text="${obj.attestedSentencesCount} + ' ' + #{sentences_abbreviation}">12 sent.</span> 
+       </button> 
     </a>
 	
 	<!-- icon indicating artificial alignment -->
@@ -375,7 +383,7 @@
       <p class="bbaw-libertine mb-sm-2">
         <span th:each="token : *{tokens}" th:id="|hieroglyphs-${token.id}|">
 		    <a  th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}"
-			       th:class="|sentence-token token-${token.type}|" th:classappend="${((token.lemma.id != null or token.id != null) and ((#request.getParameter('tokens[0].lemma.id') == token.lemma.id) or (#request.getParameter('tokens[1].lemma.id') == token.lemma.id) or (searchTokenId== token.id))) ? 'highlight' : '' }" target="_blank" rel="opener"><th:block th:replace=" :: token-hieroglyphs"/></a>
+			       th:class="|sentence-token token-${token.type}|" th:classappend="${((token.lemma.id != null or token.id != null) and ((#request.getParameter('tokens[0].lemma.id') == token.lemma.id) or (#request.getParameter('tokens[1].lemma.id') == token.lemma.id) or (#request.getParameter('tokens[2].lemma.id') == token.lemma.id) or (searchTokenId== token.id))) ? 'highlight' : '' }" target="_blank" rel="opener"><th:block th:replace=" :: token-hieroglyphs"/></a>
 			 <span th:unless="${token.lemma.id}"><th:block th:replace=" :: token-hieroglyphs"/></span>
 		</span>
 	   </p>
@@ -392,7 +400,7 @@
     <!-- sentence transliteration -->
     <div th:fragment="sentence-transcription" class="result-list-item-element transcription">
       <p class="bbaw-libertine mb-sm-2">
-        <span th:each="token : *{tokens}" th:id="|transliteration-${token.id}|" th:class="${((token.lemma.id != null or token.id != null)  and ((#request.getParameter('tokens[0].lemma.id') == token.lemma.id) or (#request.getParameter('tokens[1].lemma.id') == token.lemma.id) or (searchTokenId == token.id))) ? 'highlight' : '' }">
+        <span th:each="token : *{tokens}" th:id="|transliteration-${token.id}|" th:class="${((token.lemma.id != null or token.id != null)  and ((#request.getParameter('tokens[0].lemma.id') == token.lemma.id) or (#request.getParameter('tokens[1].lemma.id') == token.lemma.id) or (#request.getParameter('tokens[2].lemma.id') == token.lemma.id) or (searchTokenId == token.id))) ? 'highlight' : '' }">
 			<a th:if="${token.lemma.id}" th:href="'/lemma/'+${token.lemma.id}"
 				th:utext="${{token.transcription.unicode}}" 
 				th:class="|sentence-token token-${token.type}|" th:classappend="${token.rubrum} ? rubrum" target="_blank" rel="opener"/>

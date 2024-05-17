@@ -76,7 +76,7 @@
      <!-- Citation block -->
       <div th:if="${searchResults.size} > 0" class="row">
         <div class="col-sm-12 col-lg-8" id="details-content-2" th:with="obj=${searchResults[0]}">
-          <div th:replace="fragments/details :: object-property-citationBox('sentences/text', obj.id)"/>
+          <div th:replace="fragments/details :: object-property-citationBox('sentences/text', ${textId})"/>
         </div>
       </div>
 

@@ -19,6 +19,7 @@
 		<div id="title-header">
 			<h2 class="id ml-3 mt-sm-1" th:with="isVariant=${#strings.contains(obj.id,'-')}, stableId=${isVariant ? #strings.substringBefore(obj.id,'-') : obj.id}, varNo=${isVariant ? #strings.substringAfter(obj.id,'-') : ''}">
 				<span class="words-breakable" th:text="#{object_id_label_BTSSentence} + ' ' + ${stableId}">Sentence ID</span>
+				<!--<span class="words-breakable" th:text="#{object_id_label_BTSSentence} + ' ' + ${stableId} + ' in text ' + ${caption}">Sentence ID</span>-->
 				<span th:if="${isVariant}" th:text="'('+#{sentence_variant_label}+' '+(${varNo}+1)+')'">(Var. 00)</span>
 			</h2>
 		</div>
@@ -104,10 +105,9 @@
         <p>
             <strong th:text="#{object_property_translation}" class="details-property-label">Translation</strong>
         </p>
-        <div th:each="entry : ${obj.translations}" th:insert="fragments/common :: single-lang-translation(${entry})">
-        </div>
+        <div th:each="entry : ${obj.translations}" th:insert="fragments/common :: single-lang-translation(${entry})"></div>
     </div>
-
+ 
     <!-- bibliography -->
     
     <div class="bibliography" th:fragment="bibliography" id="bibliography" th:unless="${#lists.isEmpty(obj.bibliography)}">
@@ -190,7 +190,7 @@
       </div> 
       
        <!-- Is secondary Inscription -->
-       <div class="is-secondary-inscription" th:fragment="is-secondary-inscription" id="is-secondary-inscription" th:unless="${#lists.isEmpty(obj.Secinscription)}">   
+       <div class="is-secondary-inscription" th:fragment="is-secondary-inscription" id="is-secondary-inscription" th:if="${obj.getSecinscription()}">   
           <hr/>
            <p>
             <strong th:text="#{object_property_is_secinscription}" class="details-property-label">Is a secondary Inscription</strong>
@@ -505,9 +505,26 @@
         </p>
     </div>
     
-    <!-- Protocol -->
+    <!-- Metadata editing protocol -->
     
-    <div class="protocol" th:fragment="protocol" id="protocol" th:unless="${#lists.isEmpty(obj.protocol)}">
+    <div class="metadata-protocol" th:fragment="metadata-protocol" id="metadata-protocol" th:unless="${#lists.isEmpty(obj.metadata_editing)}"> 
+        <hr/>
+        <p>
+            <strong th:text="#{object_property_metadata_editing}" class="details-property-label">Metadata editing</strong>
+            <br/>
+            <ul class="no-bullet-list">
+            <li th:each="elem, elemStat : ${obj.metadata_editing}">
+                <!--<span class="fas fa-arrow-circle-right"></span>-->
+                <span th:utext="${elem}"></span>
+                <br th:unless="${elemStat.last}"/>
+            </li>
+            </ul>
+        </p>
+    </div>
+
+    <!-- General text/object protocol -->
+    
+    <div class="protocol" th:fragment="protocol" id="protocol" th:unless="${#lists.isEmpty(obj.protocol)}"> 
         <hr/>
         <p>
             <strong th:text="#{object_property_protocol}" class="details-property-label">Protocol</strong>
@@ -522,11 +539,80 @@
         </p>
     </div>
 
-
+    <!-- Text protocol -->
+    
+    <div class="text-protocol" th:fragment="text-protocol" id="text-protocol"> 
+        <hr th:if="${#lists.isEmpty(obj.protocol)}"/>
+        <p th:unless="${#lists.isEmpty(obj.transliteration_by)}">
+            <strong th:text="#{object_property_transliteration_by}" class="details-property-label">Transliteration by</strong>
+            <br/>
+            <ul class="no-bullet-list">
+	            <li th:each="elem, elemStat : ${obj.transliteration_by}">
+	                <!--<span class="fas fa-arrow-circle-right"></span>-->
+	                <span th:utext="${elem}"></span>
+	                <br th:unless="${elemStat.last}"/>
+	            </li>
+            </ul>
+        </p>
+        <p th:unless="${#lists.isEmpty(obj.getTranslations)}">
+            <strong th:text="#{object_property_translation_by}" class="details-property-label">Translation by</strong>
+             <ul class="no-bullet-list">
+	             <li th:each="translGroup, elemStat : ${obj.getTranslations}">
+                    <ul class="no-bullet-list">
+			            <li th:each="elem2, elem2Stat : ${translGroup.getTranslation}">
+			                <!--<span class="fas fa-arrow-circle-right"></span>-->
+			                <span class="lang-icon text-uppercase" th:text="${translGroup.getLanguage}" th:unless="${#strings.isEmpty(translGroup.getLanguage)}">DE</span>
+			                <span th:utext="${elem2}"></span>
+			                <br th:unless="${elem2Stat.last}"/>
+			            </li>
+		            </ul>
+	                <br th:unless="${elemStat.last}">
+	            </li>
+            </ul>
+        </p>
+        <p th:unless="${#lists.isEmpty(obj.lemmatization)}">
+            <strong th:text="#{object_property_lemmatization}" class="details-property-label">Lemmatization</strong>
+            <br/>
+            <ul class="no-bullet-list">
+            <li th:each="elem, elemStat : ${obj.lemmatization}">
+                <!--<span class="fas fa-arrow-circle-right"></span>-->
+                <span th:utext="${elem}"></span>
+                <br th:unless="${elemStat.last}"/>
+            </li>
+            </ul>
+        </p>
+        <p th:unless="${#lists.isEmpty(obj.grammatical_encoding)}">
+            <strong th:text="#{object_property_grammatical_encoding}" class="details-property-label">Grammatical encoding</strong>
+            <br/>
+            <ul class="no-bullet-list">
+            <li th:each="elem, elemStat : ${obj.grammatical_encoding}">
+                <!--<span class="fas fa-arrow-circle-right"></span>-->
+                <span th:utext="${elem}"></span>
+                <br th:unless="${elemStat.last}"/>
+            </li>
+            </ul>
+        </p>
+        <p th:unless="${#lists.isEmpty(obj.hieroglyphic_encoding)}">
+            <strong th:text="#{object_property_hieroglyphic_encoding}" class="details-property-label">Hieroglyphic encoding</strong>
+            <br/>
+            <ul class="no-bullet-list">
+            <li th:each="elem, elemStat : ${obj.hieroglyphic_encoding}">
+                <!--<span class="fas fa-arrow-circle-right"></span>-->
+                <span th:utext="${elem}"></span>
+                <br th:unless="${elemStat.last}"/>
+            </li>
+            </ul>
+        </p>
+		<p th:if="${obj.isHieroglyphs_sequential}">
+            <strong th:text="#{object_property_isHieroglyphs_sequential}" class="details-property-label"></strong>:
+            <span th:text="#{object_property_yes}"></span>
+        </p>
+    </div>
+    
      <!-- Special object types -->
     			
     <div class="ths-description" th:fragment="ths-description" id="ths-description" th:unless="${#lists.isEmpty(obj.getDescription)}">
-            <th:block th:unless="${obj.getDescription}==null"> 
+        <th:block th:unless="${obj.getDescription}==null"> 
            <hr/>
            <p>
 	            <strong  th:text="#{object_property_description}" class="details-property-label"></strong>
@@ -538,7 +624,7 @@
             </li>
             </ul>
 			  </p>
- 				</th:block>
+ 		</th:block>
    </div>				
 	
     <!-- File description  -->
@@ -755,32 +841,32 @@
         <p>
             <strong th:text="#{lemma_property_attestation}" class="details-property-label">Attestation</strong>
         </p>
-		 <p th:if="${obj.attestationCount} > 0">
-           <span th:text="${obj.attestationCount}" id="attestationCount" style="visibility:hidden">0</span>
+		 <p th:if="${obj.attestedSentencesCount} > 0">
+           <span th:text="${obj.attestedSentencesCount}" id="attestationCount" style="visibility:hidden">0</span>
    
             <a th:href="|${@searchController.getSearchResultsPageRoute(@__sentenceController__)}?tokens[0].lemma.id=${obj.id}|">
                <button id="lemma-attestation-count-texts" type="button" class="btn btn-danger text-left text-decoration-none">
                <span class="fas fa-arrow-circle-right"></span>&nbsp;
-               <span th:text="#{lemma_property_attestation_occurrences} + ' ' + ${(obj.attestationCount >= 10000) ? '>' : ''} + ${obj.attestationCount} + ' ' + #{|lemma_property_instance${(obj.attestationCount > 1) ? 's' : ''}|}">Occurrences in __ sentences</span>
+               <span th:text="#{lemma_property_attestation_occurrences} + ' ' + ${(obj.attestedSentencesCount >= 10000) ? '>' : ''} + ${obj.attestedSentencesCount} + ' ' + #{|lemma_property_instance${(obj.attestedSentencesCount > 1) ? 's' : ''}|}">Occurrences in __ sentences</span>
                </button>
             </a>
             <br/>
             <th:block th:replace=" :: lemma-timespan"/>
         </p>
-		 <p th:unless="${obj.attestationCount} > 0">
+		 <p th:unless="${obj.attestedSentencesCount} > 0">
             <span th:text="#{lemma_property_no_instances}">No occurrences</span>
         </p>		 
     </div>
 
     <!-- Lemma Attestations timespan -->
-    <span th:fragment="lemma-timespan" th:if="${obj.timespan != null}">
+    <span th:fragment="lemma-timespan" th:if="${obj.timeSpan != null}">
         <strong th:text="#{lemma_property_attestation_timespan}" class="details-property-label">Attestation time</strong>:
         <span th:text="#{object_property_aux_attestation_time_from}">from</span>
-        <span th:insert=" :: display-year(${obj.timespan.begin})" id="attestation-timespan-from">
+        <span th:insert=" :: display-year(${obj.timeSpan.begin})" id="attestation-timespan-from">
             420 BCE
         </span>
         <span th:text="#{object_property_aux_attestation_time_to}">to</span>
-        <span th:insert=" :: display-year(${obj.timespan.end})" id="attestation-timespan-to">
+        <span th:insert=" :: display-year(${obj.timeSpan.end})" id="attestation-timespan-to">
             60 CE
         </span>
     </span>

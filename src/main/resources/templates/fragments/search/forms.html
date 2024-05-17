@@ -98,10 +98,14 @@
       </fieldset>
 	  </form>
 	
-	   <form id="text-search" name="text-search"
+	   <!--<form id="text-search" name="text-search"
         th:action="@{${@searchController.getSearchResultsPageRoute(@__textController__)}}"
         th:object="${textSearchForm}" method="get">
       <div th:replace=" :: translation-spec('text', 'textSearchForm', ${allTranslationLanguages})"/>
+      </form>-->
+      
+      <form id="text-search" name="text-search" method="get" action="https://nubes.bbaw.de/s/xD7MYJrmE8xNBNt" target="_blank">
+      	<p th:utext="#{msg_search_for_texts}">Workaround PDF</p>
       </form>
       
         <form id="object-search" name="object-search"
@@ -165,7 +169,15 @@
           <input class="form-control" type="text" maxlength="10" th:field="*{tokens[1].lemma.id}" id="collocation_lemma_2" placeholder="32820"/>
         </div>
       </div>
-      
+       <div class="form-group row">
+        <label class="col-form-label col-xl-3" for="collocation_lemma_3">
+          <span th:text="#{field_label_collocation_lemma_3}">Lemma ID 3 (optional)</span>
+        </label>
+			<div class="col-xl-9">
+          <input class="form-control" type="text" maxlength="10" th:field="*{tokens[2].lemma.id}" id="collocation_lemma_3" placeholder="(optional)"/>
+        </div>
+      </div>
+            
       <div class="ml-2 mb-sm-3"><th:block th:replace="fragments/common :: construction(#{msg_collocation_search})"></th:block></div>
     </form>
 

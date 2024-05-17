@@ -5,13 +5,22 @@
    <section>
       <h2>Versionshistorie</h2>
       <ul>
+         <li>16.5.2024: 
+            <ul>
+               <li>Web app: v2.1.3, Verbesserungen  
+               <br/><small>(verbessert:) Kollokationssuche auch mit drei (verschiedenen) Lemmata möglich, Vervollständigung der Protokollmetadaten von Texten und Objekten, Lemmasuchergebnisse bei zeitlicher Sortierung sekundär nach Name sortiert, Hinweis auf Texte/Objekte-PDF auf der Suchen-Seite;
+               <br/>(korrigiert:) fehlerhafte Anzeige von "Ist eine sekundäre Inschrift", Highlight von gesuchten Lemmata auch in Blockansicht;
+               <br/>(neu:) Sortierung von Lemma-Belegstellen nach Datierung, Anzeige der Belegstellenmenge in Lemmasuchergebnisliste.</small></li>
+               <li>Text-Korpus: v18, <em>unverändert</em></li>
+            </ul>
+         </li>
          <li>24.11.2023: 
             <ul>
                <li>Web app: v2.1.2, Verbesserungen  
                <br/><small>(verbessert:) Glossierungsabkürzungsliste;
                <br/>(aktualisiert:) Infos über Korpusinhalte, Autor:innen, Bibliographie; 
-               <br/>(geändert:) Zählweise von Satzlesevarianten nun dezimal, Lizenzinformationen,
-					<br/>(neu:) Übersichtsliste <a href="../listings/thesauri">Metadaten-Thesauri</a>.</small></li>
+               <br/>(geändert:) Zählweise von Satzlesevarianten nun dezimal, Lizenzinformationen;
+			   <br/>(neu:) Übersichtsliste <a href="../listings/thesauri">Metadaten-Thesauri</a>.</small></li>
                <li><strong>Text-Korpus: <a href="text-corpus">v18, <em>erweitert</em></a></strong></li>
             </ul>
          </li>
@@ -80,8 +89,7 @@
          <tr><td class="text-success">Satzwörter: Spezifizierung Kontextbedeutung</td><td>(✓) (nur für gesuchtes Lemma)</td><td class="bg-success">✓</td></tr>
          <tr><td>Texte/Objekte: Autor:innenschaft</td><td class="bg-success">✓ (Hauptautor:in)</td><td class="bg-success">✓ (Hauptautor:in, weitere Editor:innen)</td></tr>
          <tr><td>Texte/Objekte: Kommentare/Annotationen</td><td>✕</td><td>kommt (mittlere Priorität)</td></tr>
-         <tr><td>Inhalte unter freier Lizenz</td><td>✕</td><td>(✓) (separate Rohdatenpublikation, <br/>noch zu veröffentlichen)</td></tr>
-         <tr><td class="text-danger">Inhalte ohne freie Lizenz</td><td class="bg-success">✓</td><td class="bg-info">✕ (<a href="https://aaew.bbaw.de/tla/" target="_blank">Weiternutzung im alten TLA</a>; <br/>betrifft Edfu-Projekt-Daten)</td></tr>
+         <tr><td class="text-danger">Inhalte des alten TLA</td><td class="bg-success">✓</td><td class="bg-info">(✓) (ohne Edfu-Projekt-Daten, <br/>diese nur im <a href="https://aaew.bbaw.de/tla/" target="_blank">alten TLA)</a></td></tr>
          <tr><th colspan="3">Digitale Verweise</th></tr>
          <tr><td>Verweise auf DZA</td><td class="bg-success">✓ (Website-intern)</td><td class="bg-success">✓ (vorerst Verweis auf alten TLA)</td></tr>
          <tr><td class="text-success">Verweise auf andere digitale Projekte</td><td>✓ (wenige)</td><td>✓ (<a href="/listings/digital-references">erweitert</a>)</td></tr>
@@ -99,14 +107,14 @@
          <tr><td>Lemmaanzeige-Seiten</td><td class="bg-success">✓ (stabile IDs)</td><td class="bg-success">✓ (zitierbar)</td></tr>
          <tr><td class="text-success">Satzanzeige-Seiten</td><td>✕</td><td class="bg-success">✓ (zitierbar)</td></tr>
          <tr><td>Belegstellen-Liste</td><td class="bg-success">✓</td><td class="bg-success">✓</td></tr>
-         <tr><td class="text-warning">Belegstellen-Sortierung</td><td class="bg-success">✓</td><td class="bg-warning">kommt (<strong>hohe</strong> Priorität)</td></tr>
+         <tr><td>Belegstellen-Sortierung</td><td class="bg-success">✓</td><td class="bg-success">✓</td></tr>
          <tr><td>Text-Seite: Metadaten</td><td class="bg-success">✓</td><td class="bg-success">✓ (zitierbar)</td></tr>
          <tr><td class="text-success">Text-Seite: Textinhalt (Sätze)</td><td class="bg-success">✓</td><td class="bg-success">✓</td></tr>
          <tr><td>0bjektanzeige-Seite</td><td class="bg-success">✓</td><td class="bg-success">✓</td></tr>
-         <tr><td class="text-warning">Text-/Objekt-Suche</td><td class="bg-success">✓</td><td class="bg-warning">kommt (<strong>hohe Priorität</strong>)</td></tr>
-         <tr><td>Text-/Objekt-Baum/Browser</td><td class="bg-success">✓</td><td>(✓) (PDF)</td></tr>
+         <tr><td>Text-/Objekt-Baum/Browser</td><td class="bg-success">✓</td><td>(✓) (<a href="https://nubes.bbaw.de/s/xD7MYJrmE8xNBNt" target="_blank">PDF</a>)</td></tr>
+         <tr><td class="text-warning">Text-/Objekt-Suche</td><td class="bg-success">(✓) (nur Name)</td><td class="bg-warning">kommt (<strong>hohe Priorität</strong>)</td></tr>
          <tr><td class="text-success">Thesauruseintrag-Seiten</td><td>✕</td><td class="bg-success">✓ (zitierbar)</td></tr>
-         <tr><th colspan="3">Auswertung</td><td></td><td></th></tr>
+         <tr><th colspan="3">Auswertung</th></tr>
          <tr><td class="text-warning">Wortstatistiken</td><td class="bg-success">✓</td><td>(niedrige Priorität)</td></tr>
          <tr><td class="text-warning">Kollokationsanalyse</td><td class="bg-success">✓</td><td>(niedrige Priorität)</td></tr>
          <tr><td class="text-warning">Lexikalische Gravitation</td><td class="bg-success">✓</td><td>✕</td></tr>

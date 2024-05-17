@@ -10,7 +10,7 @@
   <body>
   <div layout:fragment="content">
 
-   <div th:with="lemmaID=${#request.getParameter('tokens[0].lemma.id')},lemmaID2=${#request.getParameter('tokens[1].lemma.id')}">
+   <div th:with="lemmaID=${#request.getParameter('tokens[0].lemma.id')},lemmaID2=${#request.getParameter('tokens[1].lemma.id')},lemmaID3=${#request.getParameter('tokens[2].lemma.id')}">
    
     <!-- loading animation -->
 	 <!--<div class="loader-wrapper">
@@ -26,8 +26,10 @@
         </div>
 			
     <div class="hidden-content hide-content" th:if="${lemmaID} != null AND ${lemmaID} != ''">
+    
 
       <!-- result page heading -->
+      <!--xxxxx: <span th:text="${lemmaIDs[0]}"></span>-->
       <div class="search-header row mb-sm-3 d-flex justify-content-between">
          <div class="result">
             <h2 class="id mt-sm-1" th:text="${lemmaID2} != null AND ${lemmaID2} != ''?#{result_page_title_collocation}:#{result_page_title_sentence}">Attestation Search Results</h2> 
@@ -37,16 +39,13 @@
       
       <div class="row ml-sm-2"><strong th:text="#{result_page_description_query}">Search parameter</strong>:&nbsp;
          <span id="queryLemmaIDHeader" th:text="#{field_label_lemma_id}+(${lemmaID2} != null AND ${lemmaID2} != ''?' 1':'')"></span> = <span id="queryLemmaID" th:text="${lemmaID}"> </span>
-         <th:block th:if="${lemmaID2} != null AND ${lemmaID2} != ''"><span  id="queryLemmaID2Header" th:text="', '+#{field_label_lemma_id}+' 2'"></span> = <span id="queryLemmaID2" th:text="${lemmaID2}"> </span></th:block>
+         <th:block th:if="${lemmaID2} != null AND ${lemmaID2} != ''"><span id="queryLemmaID2Header" th:text="', '+#{field_label_lemma_id}+' 2'"></span> = <span id="queryLemmaID2" th:text="${lemmaID2}"> </span></th:block>
+         <th:block th:if="${lemmaID3} != null AND ${lemmaID3} != ''"><span id="queryLemmaID3Header" th:text="', '+#{field_label_lemma_id}+' 3'"></span> = <span id="queryLemmaID3" th:text="${lemmaID3}"> </span></th:block>
        </div>
              
       <div class="row ml-sm-2" th:if="${searchResults.size} > 0">
            <div th:replace="fragments/search/results :: result-page-desc"/>
       </div>
-      <div class="row ml-sm-2 text-secondary development-msg" th:if="${searchResults.size} > 0">
-           <i class="fas fa-wrench"></i>&nbsp;(<span th:utext="#{msg_occurences_sorting}">Sorting being implemented.</span>)
-      </div>
-
 
       <div  th:if="${searchResults.size} > 0" class="row">
 
@@ -68,7 +67,7 @@
         <!-- sidebar -->
         <div class="col-lg-4 sidebar">
           <div class="sticky-top m-sm-0 m-lg-4">
-
+			<div th:replace="fragments/search/results :: attestations-sort-order-select"/>
             <div th:replace="fragments/search/results :: hide-properties-buttons"/>
 
             <!--<div th:replace="fragments/search/results :: modify-search-button(${modifySearchUrl})"/>-->

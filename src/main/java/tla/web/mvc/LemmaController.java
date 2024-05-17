@@ -22,7 +22,6 @@ import tla.web.model.Lemma;
 import tla.web.model.meta.ObjectDetails;
 import tla.web.model.meta.SearchResults;
 import tla.web.model.meta.TemplateModelName;
-import tla.web.model.ui.AttestationTimeline;
 import tla.web.service.LemmaService;
 import tla.web.service.ObjectService;
 

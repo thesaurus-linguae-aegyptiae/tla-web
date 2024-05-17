@@ -50,7 +50,8 @@
       <div th:fragment="lemma-search-result" class="result-list-item"
           th:object="${obj}" th:id="|lemma-${obj.id}|">
         <a th:replace="fragments/common :: review-state(${obj})"/>
-         <div th:class="${(obj.reviewState =='published-inactive') ? 'inactive' :''}">
+        <a th:replace="fragments/common :: lemmaAttestationsCount(${obj})"/>
+        <div th:class="${(obj.reviewState =='published-inactive') ? 'inactive' :''}">
          <!-- line 1 -->
           <a th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">
           <span th:if="${obj.type} == 'root'">&radic;</span><h2 class="result-list-item-element transcription bbaw-libertine" th:text="*{name}">nfr</h2>
@@ -72,7 +73,7 @@
 					/*]]>*/
 		     </script> 
          </div>
-        <div th:class="${(obj.reviewState =='published-inactive') ? 'inactive' :''}">
+      <div th:class="${(obj.reviewState =='published-inactive') ? 'inactive' :''}">
           <!-- line 2 -->
           <a th:href="${(#mvc.url('LC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">
           <span class="result-list-item-element wordClass font-italic font-weight-light">
@@ -82,11 +83,11 @@
             <th:block th:each="entry : *{translations}" th:insert="fragments/common :: single-lang-translation(${entry})"/>
           </span>
 		   <span class="text-muted" th:if="${obj.annotated}"><i class="fas fa-sticky-note"></i> <span th:text="#{object_has_comment}">With comments</span></span>
-          <span class="result-list-item-element attested-timespan" th:unless="*{timespan} == null">
+          <span class="result-list-item-element attested-timespan" th:unless="*{timeSpan} == null">
 		     <i class="text-muted fas fa-calendar mr-0 ml-2"></i>
-            <span th:insert="fragments/details :: display-year(*{timespan.begin})">3000 BCE</span>
+            <span th:insert="fragments/details :: display-year(*{timeSpan.begin})">3000 BCE</span>
             <span>&#8212;</span>
-            <span th:insert="fragments/details :: display-year(*{timespan.end})">1500 CE</span>
+            <span th:insert="fragments/details :: display-year(*{timeSpan.end})">1500 CE</span>
           </span>
           <span class="result-list-item-element bibliography" th:unless="${#lists.isEmpty(obj.bibliography)}">
             <i class="text-muted fas fa-book mr-0 ml-2"></i>
@@ -103,7 +104,7 @@
 
      <!-- Text sentences -->
 
-      <div th:fragment="text-sentences-table" th:object="${obj}" >
+      <div th:fragment="text-sentences-table" th:object="${obj}">
       
         <!-- Annotation view (first in line for href to sentence-id) --> 
         <div class="container-annotation-switch">
@@ -230,7 +231,7 @@
             <div class="container-annotation">
 				         <div th:each="token : *{tokens}"  th:id="|block-${token.id}|">
 								<!--Bug: ul/li-Struktur ungültig-->
-					         <ul class="annotation-block"  th:classappend="${((token.lemma.id != null or token.id != null) and ((#request.getParameter('tokens[0].lemma.id') == token.lemma.id and token.lemma.id != null) or (#request.getParameter('tokens[1].lemma.id') == token.lemma.id and token.lemma.id != null)  or (searchTokenId == token.id))) ? 'highlight' : '' }" th:with="isLinkable=${#bools.isTrue(token.lemma.id)}">
+					         <ul class="annotation-block"  th:classappend="${((token.lemma.id != null or token.id != null) and ((#request.getParameter('tokens[0].lemma.id') == token.lemma.id and token.lemma.id != null) or (#request.getParameter('tokens[1].lemma.id') == token.lemma.id and token.lemma.id != null) or (#request.getParameter('tokens[2].lemma.id') == token.lemma.id and token.lemma.id != null)  or (searchTokenId == token.id))) ? 'highlight' : '' }" th:with="isLinkable=${#bools.isTrue(token.lemma.id)}">
 								  <div class="occ-list-item-element">
 								  		<li th:replace="fragments/common :: token-word-id"/>
 								  		<hr class="blockline bid">  
@@ -287,25 +288,7 @@
         </span>
 
         <div class="result-list-item-element paths" th:insert=" :: search-result-object-paths('sentence')"/>
-         <div class="result-list-item-element">
-            <!--<a th:href="${(#mvc.url('SC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">
-               <button id="lemma-attestation-count-texts" type="button" class="btn btn-sm btn-outline-danger text-left text-decoration-none m-2">
-                  <span class="fas fa-arrow-circle-right"></span>&nbsp;
-                  <span th:text="#{button_sentence_page}">Go to/quote sentence</span>
-               </button>
-            </a>-->
-                 <!--<button type="button" class="btn btn-light btn-sm text-left text-decoration-none copy-to-clipboard-btn" th:onclick="" th:id="*{id}">
-                 <span class="fas fa-clipboard"></span>
-                 <span th:text="#{button_copy_sentenceID}">Copy sentence ID</span></button>   
-                 
-               <script th:inline="javascript">
-					/*<![CDATA[*/
-					var id = /*[[*{id}]]*/ '0';
-					   document.getElementById(id).setAttribute( "onClick", "javascript: copyStringToClipboard(id)");
-					/*]]>*/
-		 		</script>-->   
-                 
-                   
+         <div class="result-list-item-element">  
 		</div>
 
 		<div class="occ-list-item-element">
@@ -354,6 +337,25 @@
              
           </div> 
          
+        </div>
+      </div>
+      
+         <!-- Attestations search results sort order select -->
+
+      <div th:fragment="attestations-sort-order-select">      
+        <div class="input-group mb-sm-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="select-sort-order" th:text="#{field_label_sort_order}">Order by</label>
+          </div>	
+          		
+          <select class="custom-select select-sort-order" id="select-sort-order" th:field="${searchQuery.sort}" form="sentence-search" 
+          th:onchange="'window.location.href = \'' + @{/search/sentence?tokens[0].lemma.id=} + ${lemmaIDs[0]} + '&sort=\' + this.value' "   >
+            <option th:each="value : ${sortOrders}" th:value="${value}" th:text="#{|field_value_label_sort_by_${value}_type_sentence|}">Alphabetic asc.</option>
+          </select>
+           
+      <div class="input-group-append" style="display: none">
+            <button form="sentence-search" id="submit-sentence-search" type="submit"/>              
+          </div>        
         </div>
       </div>
 

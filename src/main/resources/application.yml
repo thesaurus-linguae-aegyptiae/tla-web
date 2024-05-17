@@ -25,7 +25,7 @@ tla:
                 hieratic_hieroglyphic: https://aaew.bbaw.de/tla/servlet/GetWcnDetails?u=guest&f=0&l=0&wn={id}&db=0
                 demotic: https://aaew.bbaw.de/tla/servlet/GetWcnDetails?u=guest&f=0&l=0&wn={id}&db=1
                 demotic_texts: https://aaew.bbaw.de/tla/servlet/GetTextDetails?u=guest&f=0&l=0&tc={id}&db=1
-            id-pattern: ^-?[1-9][0-9]*$
+            id-pattern: ^-?[1-9][0-9/]*$
         aegyptiaca:
             default-format: https://aegyptiaca.uni-muenster.de/Record/{id}
         bm:
@@ -109,19 +109,18 @@ search:
             - timeSpan.begin_desc
             - timeSpan.end_asc
             - timeSpan.end_desc
+        # buttons
         hideable1-lemma-properties:
             hieroglyphs: []
             lemma-id: []
             wordClass: []
-        
-        hideable2-lemma-properties:  
-            attested-timespan: []   
-            bibliography: []
-           
         showable-properties:
              de: []
              en: []
              fr: []   
+        hideable2-lemma-properties:  
+            attested-timespan: []   
+            bibliography: [] 
         word-classes:
             excl_names: []
             excl_namestitlesepithets: []
@@ -186,6 +185,12 @@ search:
             lemma: []
             
     sentence:
+        sort-orders:
+            - context.notBefore_asc
+            - context.notBefore_desc
+            - context.notAfter_asc
+            - context.notAfter_desc
+        # Buttons for sentence display?
         hideable-properties:
             hieroglyphs: []
             switchannotation: 
@@ -196,8 +201,8 @@ search:
                 - linguisticglossing
             translation: []
             dating: []
-            texteditor: []
-            
+            texteditor: []            
+        # Buttons for sentences in cotext?
         hideable-textsentences-properties:
             hieroglyphs: []
             switchannotation: 

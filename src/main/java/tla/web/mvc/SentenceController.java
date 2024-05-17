@@ -51,6 +51,11 @@ public class SentenceController extends HierarchicObjectController<Sentence, Sen
 	public ObjectService<Sentence> getService() {
 		return service;
 	}
+	
+	 @ModelAttribute("sortOrders")
+	    public List<String> getSortOrders() {
+	    return searchConfig.getSortOrders();
+	 }
 
 	@Override
 	public List<List<BreadCrumb>> createObjectPathLinks(Hierarchic object) {
@@ -78,7 +83,19 @@ public class SentenceController extends HierarchicObjectController<Sentence, Sen
         @RequestParam MultiValueMap<String, String> params,
         Model model
     ) {
+       	 if (form.getSort()==null) form.setSort("context.notBefore_asc");
     	 model.addAttribute("contextInformation", searchConfig.getContextInformation());
+    	 int tokenCount = 0;
+    	 tokenCount = form.getTokens().size();
+    	 int[] lemmaIDs= new int[tokenCount];
+    	 for (int i = 0; i < tokenCount; i++) {
+    		 try {
+    			 lemmaIDs[i] = Integer.parseInt(form.getTokens().get(i).getLemma().getId());
+    		 }
+    		 catch(Exception e) {    			 
+    		 }
+    	 }
+    	 model.addAttribute("lemmaIDs", lemmaIDs);
         return super.getSearchResultsPage(form, page, params, model);
     }
     
@@ -108,12 +125,13 @@ public class SentenceController extends HierarchicObjectController<Sentence, Sen
 						BreadCrumb.of("/sentence/" + sentenceID,
 								String.format("caption_details_%s", getTemplatePath())),
 						BreadCrumb.of(String.format("caption_details_%s", "token"))));
-
+		// buttons in the frontend
 		this.addHideableProperties(model);
 		this.addHideablesTextsentencesProperties(model);
 		this.addHideable1LemmaProperties(model);
 		this.addShowableProperties(model);
 		this.addHideable2LemmaProperties(model);
+		// data available for the frontend
 		model.addAttribute("obj", container.getObject());
 		model.addAttribute("passport", getPassportPropertyValues(container));
 		model.addAttribute("caption", getService().getLabel(container.getObject()));
@@ -123,6 +141,4 @@ public class SentenceController extends HierarchicObjectController<Sentence, Sen
 		model = extendSingleObjectDetailsModel(model, container);
 		return "token/details";
 	}
-
-
 }

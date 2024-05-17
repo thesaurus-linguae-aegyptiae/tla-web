@@ -73,9 +73,15 @@
    </section>
    <section>
       <h2>Sortierung</h2>
-      <p class="text-secondary development-msg ml-sm-4 mb-3">
-         <i class="fas fa-wrench"></i> (<span th:utext="#{msg_occurences_sorting}">Sorting being implemented.</span>)
-      </p>
+      <div class="ml-sm-4 mb-3">
+         <p>Mit diesem Auswahlmenü können Sie die Sortierung der Ergebnisliste ändern. Grundsätzlich gibt es die Möglichkeit, auf- und absteigend nach folgenden Kriterien zu sortieren:</p>
+         <ul>
+            <li>Datierungszeitspanne, Anfang (<i>terminus ante quem non</i>)</li>
+            <li>Datierungszeitspanne, Ende (<i>terminus post quem non</i>)</li>
+         </ul>
+         <p>Bei der Sortierung nach Datierungsgrenzen werden Texte/Sätze ohne Datierung (aktuell noch unsortiert) am Ende der Liste eingereit.</p>
+         <p>Die Grundeinstellung ist „<span th:text="#{field_value_label_sort_by_context.notBefore_asc_type_sentence}">Belegzeit, Anfang (aufsteigend)</span>‟.</p>
+      </div>
    </section>
    <section>
       <h2>Satzdarstellung</h2>

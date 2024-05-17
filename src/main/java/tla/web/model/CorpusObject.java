@@ -54,32 +54,9 @@ public class CorpusObject extends BTSObject implements Hierarchic {
 
     public List<String> getDateComment() {
         if (this.dateComment == null) {
-            this.dateComment = extractDateComment(this);
+            this.dateComment = extractMultilineText(this.getPassport(), PASSPORT_PROP_DATECOMMENT);
         }
         return this.dateComment;
-    }
-
-    private static List<String> extractDateComment(CorpusObject corpusobj) {
-        List<String> dateComment = new ArrayList<>();
-        try {
-            corpusobj.getPassport().extractProperty(
-                PASSPORT_PROP_DATECOMMENT
-            ).forEach(
-                node -> dateComment.addAll(
-                    Arrays.asList(
-                        // .replaceAll("(\\r?\\n|^)[\\s\\-]+", "$1").replaceAll("\\r?\\n[\\r?\\n\\s]*", "||").split("\\|\\|") 
-                        node.getLeafNodeValue().replaceAll("\\s*\\r?\\n", "||").split("\\|\\|") 
-                    ).stream().map(
-                        para -> para.strip()
-                    ).collect(
-                        Collectors.toList()
-                    )
-                )
-            );
-        } catch (Exception e) {
-          // System.out.println("INFO: Could not extract dating comment from object "+corpusobj.getId());
-        }
-        return dateComment;
     }
     
     // Synonyms
@@ -135,40 +112,9 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     
     public List<String> getBibliography() {
         if (this.bibliography == null) {
-            this.bibliography = extractBibliography(this);
+            this.bibliography = extractMultilineText(this.getPassport(), PASSPORT_PROP_BIBL);
         }
         return this.bibliography;
-    }
-    
-   /**
-     * Extract bibliographic information from coprus object passport.
-     *
-     * Bibliography is being copied from the <code>bibliography.bibliographical_text_field</code>
-     * passport field. The value(s) found under that locator are split at line breaks <code>\r\n</code>.
-     *
-     * @param corpusobj The corpus object instance from whose passport the bibliography is to be extracted.
-     * @return List of textual bibliographic references or an empty list
-     */
-    protected static List<String> extractBibliography(CorpusObject corpusobj) {
-        List<String> bibliography = new ArrayList<>();
-        try {
-            corpusobj.getPassport().extractProperty(
-                PASSPORT_PROP_BIBL
-            ).forEach(
-                node -> bibliography.addAll(
-                    Arrays.asList(
-                        node.getLeafNodeValue().replaceAll("\\s*\\r?\\n", "||").split("\\|\\|") 
-                    ).stream().map(
-                        bibref -> bibref.strip()
-                    ).collect(
-                        Collectors.toList()
-                    )
-                )
-            );
-        } catch (Exception e) {
-          // System.out.println("INFO: Could not extract bibliography from object "+corpusobj.getId());
-        }
-        return bibliography;
     }
  
     // Object origin Find-spot
@@ -221,27 +167,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     	}
     	return result;
     }
-
-    private static List<String> extractComment(Passport passport, String searchString) {
-        List<String> comment = new ArrayList<>();
-        try {
-            passport.extractProperty(searchString).forEach(
-                node -> comment.addAll(
-                    Arrays.asList(
-                        node.getLeafNodeValue().replaceAll("\\s*\\r?\\n", "||").split("\\|\\|") 
-                    ).stream().map(
-                        para -> para.strip()
-                    ).collect(
-                        Collectors.toList()
-                    )
-                )
-            );
-        } catch (Exception e) {
-          // System.out.println("INFO: Could not extract "+searchString);
-        }
-        return comment;
-    }
-    
+  
     public static ObjectReference extractObjectReference(Passport passport) {
     	ObjectReference object=null;
     	try{
@@ -418,33 +344,11 @@ public class CorpusObject extends BTSObject implements Hierarchic {
 
     public List<String> getProtocol() {
         if (this.protocol == null) {
-            this.protocol = extractProtocol(this);
+            this.protocol = extractMultilineText(this.getPassport(), PASSPORT_PROP_PROTOCOL);
         }
         return this.protocol;
     }
-
-    private static List<String> extractProtocol(CorpusObject corpusobj) {
-        List<String> protocol = new ArrayList<>();
-        try {
-            corpusobj.getPassport().extractProperty(
-                PASSPORT_PROP_PROTOCOL
-            ).forEach(
-                node -> protocol.addAll(
-                    Arrays.asList(
-                        node.getLeafNodeValue().replaceAll("\\s*\\r?\\n", "||").split("\\|\\|") 
-                    ).stream().map(
-                        bibref -> bibref.strip()
-                    ).collect(
-                        Collectors.toList()
-                    )
-                )
-            );
-        } catch (Exception e) {
-          // System.out.println("INFO: Could not extract protocol from object "+corpusobj.getId());
-        }
-        return protocol;
-    }
-        
+      
     // Description
     
     public static final String PASSPORT_PROP_DESCR = "definition.main_group";
@@ -499,31 +403,9 @@ public class CorpusObject extends BTSObject implements Hierarchic {
 
     public List<String> getFileComment() {
         if (this.fileComment == null) {
-            this.fileComment = extractFileComment(this);
+            this.fileComment = extractMultilineText(this.getPassport(), PASSPORT_PROP_FILECOMMENT);
         }
         return this.fileComment;
-    }
-
-    private static List<String> extractFileComment(CorpusObject corpusobj) {
-        List<String> fileComment = new ArrayList<>();
-        try {
-            corpusobj.getPassport().extractProperty(
-                PASSPORT_PROP_FILECOMMENT
-            ).forEach(
-                node -> fileComment.addAll(
-                    Arrays.asList(
-                        node.getLeafNodeValue().replaceAll("\\s*\\r?\\n", "||").split("\\|\\|") 
-                    ).stream().map(
-                        bibref -> bibref.strip()
-                    ).collect(
-                        Collectors.toList()
-                    )
-                )
-            );
-        } catch (Exception e) {
-          // System.out.println("INFO: Could not extract file comment from object "+corpusobj.getId());
-        }
-        return fileComment;
     }
     
     // Object description
@@ -601,7 +483,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     
     public List<String> getMaterialityComment() {
         if (this.materialityComment == null) {
-            this.materialityComment = extractComment(this.getPassport(), PASSPORT_PROP_OBJ_TECH_COMMENT);
+            this.materialityComment = extractMultilineText(this.getPassport(), PASSPORT_PROP_OBJ_TECH_COMMENT);
         }
         return this.materialityComment;
     }
@@ -637,7 +519,7 @@ public class CorpusObject extends BTSObject implements Hierarchic {
     
     public List<String> getContextComment() {
         if (this.contextComment == null) {
-            this.contextComment = extractComment(this.getPassport(), PASSPORT_PROP_OBJ_ARCH_COMMENT);
+            this.contextComment = extractMultilineText(this.getPassport(), PASSPORT_PROP_OBJ_ARCH_COMMENT);
         }
         return this.contextComment;
     }

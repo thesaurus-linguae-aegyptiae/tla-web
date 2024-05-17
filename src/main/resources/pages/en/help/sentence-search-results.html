@@ -73,9 +73,15 @@
    </section>
    <section>
       <h2>Sorting</h2>
-      <p class="text-secondary development-msg ml-sm-4 mb-3">
-         <i class="fas fa-wrench"></i> (<span th:utext="#{msg_occurences_sorting}">Sorting being implemented.</span>)
-      </p>
+      <div class="ml-sm-4 mb-3">
+         <p>With this drop-down menu you can change the sorting of the result list. Basically, there is the possibility to sort in ascending and descending order according to the following criteria:</p>
+         <ul>
+            <li>Dating time span, start (<i>terminus ante quem non</i>)</li>
+            <li>Dating time span, end (<i>terminus post quem non</i>)</li>
+         </ul>
+         <p>If sorting by dating, texts/sentences without a dating will be listed at the end of the list (currently still unsorted).</p>
+         <p>The default setting is „<span th:text="#{field_value_label_sort_by_context.notBefore_asc_type_sentence}">Attestation time, start (asc.)</span>‟.</p>
+      </div>
    </section>
    <section>
       <h2>Sentence presentation</h2>

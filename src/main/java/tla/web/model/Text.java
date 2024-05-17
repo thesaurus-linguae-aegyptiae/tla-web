@@ -3,17 +3,21 @@ package tla.web.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.SortedMap;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.Singular;
 import tla.domain.dto.TextDto;
+import tla.domain.model.Language;
 import tla.domain.model.ObjectReference;
 import tla.domain.model.Passport;
 import tla.domain.model.meta.BTSeClass;
 import tla.domain.model.meta.TLADTO;
+import tla.web.model.CorpusObject.SynonymGroup;
 import tla.web.model.Sentence.DatePair;
 import tla.web.model.meta.BackendPath;
 
@@ -36,12 +40,20 @@ public class Text extends CorpusObject {
     public static final String PASSPORT_PROP_COMMENTSCRIPT ="text.textual_metadata.comment_on_script";
     public static final String PASSPORT_PROP_TEXTTYPE ="text.textual_metadata.texttype";
     public static final String PASSPORT_PROP_SECINSCRIPTION ="text.textual_metadata.secondary_inscription";
+   
+    public static final String PASSPORT_PROP_TRANSLITERATION = "definition.main_group.transliteration";
+    public static final String PASSPORT_PROP_LEMMATIZATION = "definition.main_group.lemmatization";
+    public static final String PASSPORT_PROP_GRAMMATICAL_ENCODING = "definition.main_group.grammatical_encoding";
+    public static final String PASSPORT_PROP_HIEROGLYPHIC_ENCODING = "definition.main_group.hieroglyphic_encoding";
+    public static final String PASSPORT_PROP_HIEROGLYPHS_SEQUENTIAL = "definition.main_group.hieroglyphs_sequential"; 
+    public static final String PASSPORT_PROP_TRANSLATIONS = "definition.main_group.translations";
     
-
-    //TODO pr�fen ob doppelt, da bereits in CorpusObject.java
+    //TODO prüfen ob doppelt, da bereits in CorpusObject.java
     public static final String PASSPORT_PROP_ORIGPLACE ="find_spot.find_spot.place.place";
     public static final String PASSPORT_PROP_ISORIG ="find_spot.find_spot.place.is_origin";
     public static final String PASSPORT_PROP_PRESLOC ="present_location.location.location";
+    
+    
     @Setter(AccessLevel.NONE)
     private List<String> bibliography; 
     @Setter(AccessLevel.NONE)
@@ -61,7 +73,7 @@ public class Text extends CorpusObject {
     @Setter(AccessLevel.NONE)
     private ObjectReference texttype; 
     @Setter(AccessLevel.NONE)
-    private String secinscription;
+    private Boolean secinscription;
     @Setter(AccessLevel.NONE)
     private List<String>origplace;
     @Setter(AccessLevel.NONE)
@@ -69,22 +81,53 @@ public class Text extends CorpusObject {
     @Setter(AccessLevel.NONE)
     private List<String> presloc;
     
+    @Setter(AccessLevel.NONE)
+    private List<String> transliteration_by;
+    @Setter(AccessLevel.NONE)
+    private List<String> lemmatization;
+    @Setter(AccessLevel.NONE)
+    private List<String> grammatical_encoding;
+    @Setter(AccessLevel.NONE)
+    private List<String> hieroglyphic_encoding;
+    @Setter(AccessLevel.NONE)
+    private String hieroglyphs_sequential;
+    @Setter(AccessLevel.NONE)
+    private List<TranslationGroup> translations;
+    
+	public static class TranslationGroup {
+		private String language;
+		private List<String> translation;
+
+		public TranslationGroup(Passport passport) {
+			this.language = extractString(passport, "language");
+			this.translation = extractMultilineText(passport, "translation");
+		}
+
+		public String getLanguage() {
+			return this.language;
+		}
+
+		public List<String> getTranslation() {
+			return this.translation;
+		}
+	}
+        
  /*  public String getOneSentence() {
 	   return this.getSentence().get(0).getTranscription().getUnicode();
    }
     */
     public List<String> getBibliography() {
         if (this.bibliography == null) {
-            this.bibliography = this.extractBibliography(this);
+            this.bibliography = extractMultilineText(this.getPassport(), PASSPORT_PROP_BIBL);
         }
         return this.bibliography;
     }
 
     //TODO prüfen auf schematischeren Weg
     public boolean isEmptyTextualMetadata(){
-this.textualMetadata = extractString(this, "text.textual_metadata");
-if (this.textualMetadata == null) { return true;}
-else { return false;}
+		this.textualMetadata = extractString(this.getPassport(), "text.textual_metadata");
+		if (this.textualMetadata == null) { return true;}
+		else { return false;}
     }
 
     //TODO Check if generic function could replace extractLanguage
@@ -105,28 +148,28 @@ else { return false;}
     
     public String getEgytextname() {
     	if (this.egytextname == null) {
-    		this.egytextname = extractString(this, PASSPORT_PROP_EGYTEXTNAME);
+    		this.egytextname = extractString(this.getPassport(), PASSPORT_PROP_EGYTEXTNAME);
     	}
     	return this.egytextname;
     }
     
     public String getCommentlanguage() {
     	if(this.commentlanguage == null) {
-    		this.commentlanguage = extractString(this, PASSPORT_PROP_COMMENTLANGUAGE);
+    		this.commentlanguage = extractString(this.getPassport(), PASSPORT_PROP_COMMENTLANGUAGE);
     	}
     	return this.commentlanguage;
     }
 
     public String getCommenttexttype() {
     	if (this.commenttexttype == null) {
-    		this.commenttexttype = extractString(this,PASSPORT_PROP_COMMENTTEXTTYPE);
+    		this.commenttexttype = extractString(this.getPassport(),PASSPORT_PROP_COMMENTTEXTTYPE);
     	}
     	return this.commenttexttype;
     }
     
     public String getCommentscript() {
     	if(this.commentscript == null) {
-    		this.commentscript = extractString(this,PASSPORT_PROP_COMMENTSCRIPT );
+    		this.commentscript = extractString(this.getPassport(),PASSPORT_PROP_COMMENTSCRIPT );
     	}
     	return this.commentscript;
     }
@@ -138,9 +181,9 @@ else { return false;}
     	return this.texttype;
     }
     
-    public String getSecinscription() {
+    public Boolean getSecinscription() {
     	if(this.secinscription == null) {
-    	this.secinscription = extractString(this,PASSPORT_PROP_SECINSCRIPTION);	
+    	this.secinscription = Boolean.parseBoolean(extractString(this.getPassport(),PASSPORT_PROP_SECINSCRIPTION));
     	}
     	return this.secinscription;
     }
@@ -163,12 +206,68 @@ else { return false;}
     public String getIsorig() {
         if (this.isorig == null) {
             this.isorig = extractIsOrigPlace(this);
-        }
-     
+        }  
         return this.isorig;
     }
+    
+    public List<String> getTransliteration_by() {
+        if (this.transliteration_by == null) {
+            this.transliteration_by = extractMultilineText(this.getPassport(), PASSPORT_PROP_TRANSLITERATION);
+        }
+        return this.transliteration_by;
+    }
 
-
+    public List<String> getLemmatization() {
+        if (this.lemmatization == null) {
+            this.lemmatization = extractMultilineText(this.getPassport(), PASSPORT_PROP_LEMMATIZATION);
+        }
+        return this.lemmatization;
+    }
+    
+    public List<String> getGrammatical_encoding() {
+        if (this.grammatical_encoding == null) {
+            this.grammatical_encoding = extractMultilineText(this.getPassport(), PASSPORT_PROP_GRAMMATICAL_ENCODING);
+        }
+        return this.grammatical_encoding;
+    }
+    
+    public List<String> getHieroglyphic_encoding() {
+        if (this.hieroglyphic_encoding == null) {
+            this.hieroglyphic_encoding = extractMultilineText(this.getPassport(),PASSPORT_PROP_HIEROGLYPHIC_ENCODING);
+        }
+        return this.hieroglyphic_encoding;
+    }
+    
+    public Boolean isHieroglyphs_sequential(){
+    	return this.getHieroglyphs_sequential().equalsIgnoreCase("true");
+    }
+    
+    public String getHieroglyphs_sequential() { 
+	   	 if (this.hieroglyphs_sequential == null) {
+	         this.hieroglyphs_sequential = extractString(this.getPassport(),PASSPORT_PROP_HIEROGLYPHS_SEQUENTIAL);
+	     }
+		 return this.hieroglyphs_sequential;
+	 }
+    
+    public List<TranslationGroup> getTranslations() {
+    	if(this.translations == null) {
+    		this.translations = extractGroups(this.getPassport(), PASSPORT_PROP_TRANSLATIONS);
+    	}
+		return this.translations;
+	}
+    
+   
+    
+    //TODO generic
+    private static List<TranslationGroup> extractGroups(Passport passport, String searchString) {
+		List<TranslationGroup> groups = new ArrayList<TranslationGroup>();
+		try {
+			passport.extractProperty(searchString)
+					.forEach(node -> groups.add(new TranslationGroup(node)));
+		} catch (Exception e) {
+		}
+		return groups;
+	}
 
     //Extracts a single ObjectReference (Ths-Entry) from the first found passport according to searchString
         private static ObjectReference extractObjectReference(Text text, String searchString) {
@@ -183,7 +282,7 @@ else { return false;}
     }
              
         //Function to return a List of names form a passport Array
-        //TODO think of move to passport.java
+        //TODO think of move to passport.java ; also a copy in BTSObject.java (why is it not inherited properly?)
         private static List<String> extractNamesOfArray(Text text, String searchField) {
             List<String> values = new ArrayList<>();
             try {
@@ -195,28 +294,8 @@ else { return false;}
               // System.out.println("could not extract" + searchField + "from text {} "+text.getId());
             }
             return values;
-        }
-    
-        //Function to return a string from passport. Takes value from element number position
-        //TODO think of move to passport.java
-        private static String extractString(Text text, String searchField, Integer number) {
-        	String value = new String();
-        	try {
-        		List<Passport> pass = text.getPassport().extractProperty(searchField);
-        		value = pass.get(number).toString();
-        	}catch (Exception e) {
-                // System.out.println("could not extract " + searchField + " from text {} "+text.getId());
-        	}
-        	return value;
-        }
-        
-        //Function to return a string from passport with default number 0. Takes value from first element
-        private static String extractString(Text text, String searchField) {
-        	return extractString( text, searchField, 0); 
-        }
-        
-
-        
+        }    
+      
         //TODO prüfen auf unnötig
     private static String extractIsOrigPlace(Text text) {
         String isOrigPl = new String();
@@ -282,8 +361,4 @@ else { return false;}
         }
         return datierung;
     }
-    
-  
-
-
 }

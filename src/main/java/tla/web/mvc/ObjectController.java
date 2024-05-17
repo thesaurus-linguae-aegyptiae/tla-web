@@ -240,11 +240,13 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
                 )
             )
         );
+        // buttons for the frontend
         this.addHideableProperties(model);
         this.addHideablesTextsentencesProperties(model);
         this.addHideable1LemmaProperties(model);
         this.addShowableProperties(model);
         this.addHideable2LemmaProperties(model);
+		// data available for the frontend
         model.addAttribute("obj", container.getObject());
         model.addAttribute("passport", getPassportPropertyValues(container));
         model.addAttribute("caption", getService().getLabel(container.getObject()));
@@ -277,9 +279,9 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
    //else if (!params.get("sort").contains("sortKey")) params.set("sort","sortKey_asc");
    // System.out.println("Submitted Form class "+form.getClass().toString());
    
-   if( form.getClass().toString().contains("LemmaSearch"))
+   if( form.getClass().toString().contains("LemmaSearch"))	//TODO verschieben in LemmaController
     	if (form.getSort()==null) form.setSort("sortKey_asc");
-      
+         
         log.info("Submitted search form: {}", tla.domain.util.IO.json(form));
         log.info("URL params: {}", params);
         SearchResults results = this.getService().search(form, Integer.parseInt(page)); // TODO validate page
@@ -295,22 +297,21 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
                 )
             )
         );
+        // buttons for the frontend
         this.addHideableProperties(model);
-        this.addHideablesTextsentencesProperties(model);
+        this.addHideablesTextsentencesProperties(model); // TODO: macht das hier Sinn?
         this.addShowableProperties(model);
         this.addHideable1LemmaProperties(model);
         this.addHideable2LemmaProperties(model);
+		// data available for the frontend
         model.addAttribute("objectType", getTemplatePath());
         model.addAttribute("searchResults", results.getObjects());
      if  (results.getQuery().getSort()==null ) results.getQuery().setSort("sortKey_asc");
-    
         model.addAttribute("searchQuery", results.getQuery());
-     //  System.out.println("Sort "+results.getQuery().getSort());
         model.addAttribute("facets", results.getFacets());
         model.addAttribute("page", results.getPage());
         model.addAttribute("pagination", new Pagination(results.getPage()));
         model = extendSearchResultsPageModel(model, results, form);
-       // System.out.println("Search "+ String.format("%s/search", getTemplatePath()));
         return String.format("%s/search", getTemplatePath());
     }
 
