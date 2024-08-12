@@ -24,7 +24,6 @@
           <!--<div th:replace="fragments/details :: object-property-annotations"/>-->
           <div th:replace="fragments/details :: object-property-related-objects"/>
           <div th:replace="fragments/details :: property-pid('sentence/token', ${searchTokenId})"/>
-          <div th:replace="fragments/details :: object-property-citationBox('sentence/token', ${searchTokenId})"/>
 		</div>
 
         <!-- sidebar -->
@@ -33,6 +32,10 @@
             <div th:replace="fragments/search/results :: hide-properties-buttons"/><!-- Buttons werden nicht angelegt, da Var. "hideableProperties" nicht f�r "details" angemeldet? -->
           </div>
         </div>
+        
+        <div class="col-lg-12 content">
+          <div th:replace="fragments/details :: object-property-citationBox('sentence/token', ${searchTokenId})"/>
+		</div>
       </div>
     </div>
 

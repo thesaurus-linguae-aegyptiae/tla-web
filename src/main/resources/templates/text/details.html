@@ -5,7 +5,7 @@
       xml:lang="en"
 >
   <head>
-    <title th:text="|${{'<shortlabel>' + obj.name + '</shortlabel>'}} (#{object_id_label_BTSText} ${obj.id})|"></title>
+    <title th:utext="|${{'<shortlabel>' + obj.name + '</shortlabel>'}} (#{object_id_label_BTSText} ${obj.id})|"></title>
   </head>
 
   <body>
@@ -15,7 +15,15 @@
       <div th:replace="fragments/details :: details-page-header"/>
 
       <div class="row">
-        <div class="col-sm-12 col-lg-8" id="details-content" th:object="${obj}">
+        <!-- Sidebar -->
+        <div class="col-lg-4 order-lg-last col-sm-12 order-sm-first sidebar">
+          <div class="sticky-top m-sm-1 m-lg-4">
+            <div th:replace="fragments/details :: text-content-button"/>
+          </div>
+        </div>         
+
+        <!-- Main content -->
+        <div class="col-lg-8 order-lg-first col-sm-12 order-sm-last" id="details-content" th:object="${obj}">
           <div th:replace="fragments/details :: property-pid('text', ${obj.id})"/>
           <div th:replace="fragments/details :: object-property-type-subtype('object')"/>
           <div th:replace="fragments/details :: synonyms"/>
@@ -28,11 +36,11 @@
           <div th:replace="fragments/details :: texttype-comment"/>
           <div th:replace="fragments/details :: date"/>
           <div th:replace="fragments/details :: date-comment"/>
+          <div th:replace="fragments/details :: line-count-info"/>
           <div th:replace="fragments/details :: bibliography"/>
           <div th:replace="fragments/details :: external-references"/>
           <div th:replace="fragments/details :: object-property-object-paths('ths')"/>
           <div th:replace="fragments/details :: object-property-related-objects"/>
-          <div th:replace="fragments/details :: text-content-button"/>
           <div th:replace="fragments/details :: file-description"/>
           <div th:replace="fragments/details :: protocol"/>
           <div th:replace="fragments/details :: text-protocol"/>
@@ -40,10 +48,11 @@
           <div th:replace="fragments/details :: file-comment"/>
           <div th:replace="fragments/details :: editor-info"/>
         </div>
+
       </div>
           
       <div class="row">
-        <div class="col-sm-12 col-lg-8" id="details-content-2" th:object="${obj}">
+        <div class="col-sm-12 col-lg-12" id="details-content-2" th:object="${obj}">
           <div th:replace="fragments/details :: object-property-citationBox('text', ${obj.id})"/>
         </div>
       </div>

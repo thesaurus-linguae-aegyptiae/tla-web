@@ -336,7 +336,7 @@
     <a th:fragment="lemmaAttestationsCount(obj)" class="lemma-attestations-info" th:href="|${@searchController.getSearchResultsPageRoute(@__sentenceController__)}?tokens[0].lemma.id=${obj.id}|" th:if="${obj.attestedSentencesCount} > 0">
        <button id="lemma-attestation-count-texts" type="button" class="btn btn-red btn-sm py-0 float-right text-left text-decoration-none">
 	       <span class="fas fa-arrow-circle-right"></span>
-	       <span th:text="${obj.attestedSentencesCount} + ' ' + #{sentences_abbreviation}">12 sent.</span> 
+	       <span th:text="${obj.attestedSentencesCount} + ' ' + #{|sentence${(obj.attestedSentencesCount > 1) ? 's' : ''}_abbreviation|}">12 sent.</span> 
        </button> 
     </a>
 	
@@ -349,10 +349,8 @@
     </a>
 
     <!-- translation for a single language -->
-    <span th:fragment="single-lang-translation(entry)">
-      <span th:each="tr,iter : ${entry.value}" th:class="|tr-${entry.key}|">
-         <span class="lang-icon text-uppercase" th:text="${entry.key}">DE</span>
-       </span>        
+    <span th:fragment="single-lang-translation(entry)" th:dir="${#strings.equals(entry.key, 'ar') ? 'rtl' : 'ltr'}">
+      <span class="lang-icon text-uppercase" th:classappend="|tr-${entry.key}|" th:text="${entry.key}">DE</span> 
       <span th:each="translation,iter : ${entry.value}" th:class="|translation-${entry.key}|">
         <span class="translation" th:utext="${{translation}}">
           Translation
@@ -360,6 +358,11 @@
         <span th:unless="${iter.last}">|</span>
       </span>
     </span>
+    
+    <!-- bidi aligned block translation for a single language -->
+    <p th:fragment="single-lang-translation-block(entry)" th:class="${#strings.equals(entry.key, 'ar') ? 'rtl-block' : 'ltr-block'}" th:dir="${#strings.equals(entry.key, 'ar') ? 'rtl' : 'ltr'}">
+      <th:block th:insert=" :: single-lang-translation(${entry})"/>
+    </p>    
 
     <!-- object path (thesaurus, text corpus, sentences) -->
     <div th:fragment="object-paths(objectPaths, collapse)" class="object-paths">
@@ -537,7 +540,7 @@
 			  </span>
 			  <!-- fehlt hier: <span th:text="#{|review_state_${obj.reviewState}|}">status</span>-->
 			  (<span th:text="#{sentence_created}"/>: <span th:text="${obj.edited.wasCreatedBeforeBTS3()} ? #{created_before_BTS3} : ${#calendars.format(obj.edited.created, formatter)}"/>, 
-           <span th:text="#{sentence_latest_access}"/>: <span th:text="${#calendars.format(obj.edited.updated, formatter)}" />)
+           <span th:text="#{sentence_latest_access}"/>: <span th:text="${obj.edited.wasLastEditedBeforeBTS3()} ? #{created_before_BTS3} : ${#calendars.format(obj.edited.updated, formatter)}" />)
          </span>
     </div>
    

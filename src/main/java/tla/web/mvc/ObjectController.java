@@ -153,7 +153,7 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
         return templateUtils.replacePath("search").build().toString();
     }
     
-    @ModelAttribute("modifySearchUrl")
+    //@ModelAttribute("modifySearchUrl") // TODO: Button does not work with this; why?
     public String modifySearchUrlbyPath(String path) {
         return templateUtils.replacePath(path).build().toString();
     }
@@ -226,7 +226,7 @@ public abstract class ObjectController<T extends TLAObject, S extends SearchComm
      * can use it.
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String getSingleObjectDetailsPage(@PathVariable String id, Model model) {
+    public String getSingleObjectDetailsPage(@PathVariable String id, Model model) { //TODO Move to Lemma
         log.debug("Compile lemma detail view data for {} {}", getTemplatePath(), id);
         ObjectDetails<T> container = getService().getDetails(id).orElseThrow(
             () -> new ObjectNotFoundException(id, getTemplatePath())

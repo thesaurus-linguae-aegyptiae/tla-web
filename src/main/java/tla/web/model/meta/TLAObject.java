@@ -21,8 +21,14 @@ public abstract class TLAObject extends AbstractBTSBaseClass implements Relatabl
     private String id;
 
     private String type;
+    
+    private String name;
 
     private TreeMap<String, List<ObjectReference>> relations;
+    
+    public <T extends TLAObject> int compareObjects(T b) {
+    	return 0;
+    }
 
     /**
      * Creates an {@link ObjectReference} instance identifying this object.

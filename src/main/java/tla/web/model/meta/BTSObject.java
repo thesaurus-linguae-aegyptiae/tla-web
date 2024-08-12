@@ -29,14 +29,20 @@ public class BTSObject extends TLAObject { // earlier: abstract
 
     private String subtype;
 
-    private String name;
-
     private TreeMap<String, List<ExternalReference>> externalReferences;
     
     public static final String PASSPORT_PROP_METADATA_EDITING = "definition.main_group.metadata_editing";
     
     @Setter(AccessLevel.NONE)
     private List<String> metadata_editing;
+    
+    @Override
+    public <T extends TLAObject> int compareObjects(T b) {
+    	if(this.getName() != null && b.getName() != null) {
+		return this.getName().compareTo(b.getName());
+    	}
+    	return 0;
+	}
 
     public List<String> getMetadata_editing() {
         if (this.metadata_editing == null) {

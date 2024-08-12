@@ -109,6 +109,8 @@ search:
             - timeSpan.begin_desc
             - timeSpan.end_asc
             - timeSpan.end_desc
+            - attestedSentencesCount_desc
+            - attestedSentencesCount_asc
         # buttons
         hideable1-lemma-properties:
             hieroglyphs: []

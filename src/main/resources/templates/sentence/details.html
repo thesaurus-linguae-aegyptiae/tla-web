@@ -14,8 +14,8 @@
 
       <div th:replace="fragments/details :: sentence-page-header"/>
 
-      <div class="row" >
-        <div class="col-lg-8 content" th:with="isVariant=${#strings.contains(obj.id,'-')}, stableId=${isVariant ? #strings.substringBefore(obj.id,'-') : obj.id}, varNo=${isVariant ? #strings.substringAfter(obj.id,'-') : ''}">
+      <div class="row"  th:with="isVariant=${#strings.contains(obj.id,'-')}, stableId=${isVariant ? #strings.substringBefore(obj.id,'-') : obj.id}, varNo=${isVariant ? #strings.substringAfter(obj.id,'-') : ''}">
+        <div class="col-lg-8 content">
           <div class= "result-list">
 				   <th:block th:insert="fragments/search/results :: sentence-search-result"  th:object="${obj}"/>
           </div>
@@ -25,7 +25,6 @@
           <div th:replace="fragments/details :: object-property-related-objects"/>
           <div th:replace="fragments/details :: property-pid('sentence', ${stableId})"/>
           <div th:if="${#bools.isTrue(isVariant)}" th:include="fragments/details :: property-pid-variant-warning"/>
-          <div th:replace="fragments/details :: object-property-citationBox('sentence', ${stableId})"/>
 		</div>
 
         <!-- sidebar -->
@@ -34,7 +33,13 @@
             <div th:replace="fragments/search/results :: hide-properties-buttons"/>
           </div>
         </div>
+
+        <div class="col-lg-12 content">
+          <div th:replace="fragments/details :: object-property-citationBox('sentence', ${stableId})"/>
+		</div>
+		
       </div>
+          
     </div>
 
   </body>

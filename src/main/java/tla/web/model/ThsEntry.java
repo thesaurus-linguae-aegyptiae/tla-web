@@ -32,9 +32,6 @@ import tla.web.model.meta.BackendPath;
 @TLADTO(ThsEntryDto.class)
 public class ThsEntry extends BTSObject implements Hierarchic {
 
-    @Singular
-    private SortedMap<Language, List<String>> translations;
-
     private List<ObjectPath> paths;
    
     // 

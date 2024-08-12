@@ -15,6 +15,7 @@ import tla.domain.model.meta.BTSeClass;
 import tla.domain.model.meta.TLADTO;
 import tla.web.model.mappings.Util;
 import tla.web.model.meta.BTSObject;
+import tla.web.model.meta.TLAObject;
 
 @Getter
 @Setter
@@ -38,5 +39,13 @@ public class Comment extends BTSObject {
        //return this.body;
        return Util.escapeMarkup(this.body);
     }
+    
+    @Override
+    public <T extends TLAObject> int compareObjects(T b) {
+    	if(this.getId() != null && b.getId() != null) {
+		return this.getId().compareTo(b.getId());
+    	}
+    	return 0;
+	}
 
 }

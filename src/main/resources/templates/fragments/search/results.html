@@ -34,12 +34,9 @@
         <span class="float-right result-list-item-element type-subtype font-italic font-weight-light">
           <span th:replace="fragments/details :: type-subtype">Term category</span>
         </span>
-        <a th:href="${(#mvc.url('TC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">
+     <a th:href="${(#mvc.url('TC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">
           <h2 class="result-list-item-element label bbaw-libertine" th:utext="${{'<shortlabel>'+obj.name+'</shortlabel>'}}">Theben</h2>
         </a>
-        <div>
-          <th:block th:each="entry : *{translations}" th:unless="*{translations} == null" th:insert="fragments/common :: single-lang-translation(${entry})"/>
-        </div>
         <small class="text-muted text-monospace d-flex" th:text="'ID '+*{id}">ID</small>
         <hr/>
       </div>
@@ -106,10 +103,41 @@
 
       <div th:fragment="text-sentences-table" th:object="${obj}">
       
-        <!-- Annotation view (first in line for href to sentence-id) --> 
+      <!-- Block view (first in line for href to sentence-id) -->
+      <table class="sentence-line-mode">
+         <tr th:each="obj : ${searchResults}" class="occ-list-item" th:object="${obj}" th:with="hasGlyphs=*{hasGlyphs},isArtificiallyAligned=*{isArtificiallyAligned},position=*{getContextPosition}">
+              <td th:id="'sentence-'+(${position} +1)"><a th:href="${(#mvc.url('SC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">&nbsp;<span class="fas fa-arrow-circle-right"></span> (<span th:text="${position}+1">1</span>)</a></td>
+              
+              <td>
+                <div class="mt-sm-1 py-sm-1">
+                    <div th:replace="fragments/common :: sentence-hieroglyphs"/>
+                    <th:block th:if="${isArtificiallyAligned AND hasGlyphs}"><a th:replace="fragments/common :: artificial-alignment"></a></th:block>
+                </div>
+              </td>
+
+              <td>
+                <div class="mt-sm-1 py-sm-1">
+                  <div th:replace="fragments/common :: variants-info"/>
+                  <div th:replace="fragments/common :: sentence-transcription"/>
+                  <div class="text-danger" th:if="*{hasComment}"><i class="fas fa-sticky-note"></i> <a th:href="${(#mvc.url('SC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}" class="text-dark" th:text="#{object_has_comment}">With comment(s)</a></div>
+                  <!--<div class="text-muted" th:if="*{hasAnnotation}"><i class="fas fa-sticky-note"></i> <span th:text="#{object_has_annotation}">With annotation(s)</span></div>-->
+                </div>
+              </td>
+
+              <td class="translations">
+               <div class="mt-sm-1 py-sm-1">
+                <th:block th:each="entry : *{translations}"> 
+                  <p th:replace="fragments/common :: single-lang-translation-block(${entry})"/> 			
+                </th:block>
+                </div>
+              </td>
+           </tr>
+        </table>
+
+        <!-- Annotation view --> 
         <div class="container-annotation-switch">
         
-        <div th:id="'sentence-'+(${position} +1)" th:each="obj : ${searchResults}" class="result-list-item occ-list-item" th:object="${obj}" th:with="hasGlyphs=*{hasGlyphs},isArtificiallyAligned=*{isArtificiallyAligned},position=*{getContextPosition}">
+        <div th:each="obj : ${searchResults}" class="result-list-item occ-list-item" th:object="${obj}" th:with="hasGlyphs=*{hasGlyphs},isArtificiallyAligned=*{isArtificiallyAligned},position=*{getContextPosition}">
         
           <div class="mt-sm-3 py-sm-1">
             <div class="container-annotation">
@@ -160,45 +188,17 @@
                  <!--<th:block th:if="${hasGlyphs} AND ${isArtificiallyAligned}"><a th:replace="fragments/common :: artificial-alignment"></a></th:block>-->
                </div>
             </div>
+            
+            <div th:if="*{hasComment}"><i class="fas fa-sticky-note"></i> <a th:href="${(#mvc.url('SC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}" th:text="#{object_has_comment}" class="text-danger">With comment(s)</a></div>
 	          
            <div class="result-list-item-element translations">
              <th:block th:each="entry : *{translations}"> 
-               <p th:insert="fragments/common :: single-lang-translation(${entry})"/> 			
+               <p th:replace="fragments/common :: single-lang-translation-block(${entry})"/> 			
              </th:block>
            </div>
          </div>
        </div>
  
-      <!-- Block view -->
-      <table class="sentence-line-mode">
-         <tr th:each="obj : ${searchResults}" class="occ-list-item" th:object="${obj}" th:with="hasGlyphs=*{hasGlyphs},isArtificiallyAligned=*{isArtificiallyAligned},position=*{getContextPosition}">
-              <td><a th:href="${(#mvc.url('SC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}">&nbsp;<span class="fas fa-arrow-circle-right"></span> (<span th:text="${position}+1">1</span>)</a></td>
-              
-              <td>
-                <div class="mt-sm-1 py-sm-1">
-                    <div th:replace="fragments/common :: sentence-hieroglyphs"/>
-                    <th:block th:if="${isArtificiallyAligned AND hasGlyphs}"><a th:replace="fragments/common :: artificial-alignment"></a></th:block>
-                </div>
-              </td>
-
-              <td>
-                <div class="mt-sm-1 py-sm-1">
-                  <div th:replace="fragments/common :: variants-info"/>
-                  <div th:replace="fragments/common :: sentence-transcription"/>
-                  <div class="text-muted" th:if="*{hasComment}"><i class="fas fa-sticky-note"></i> <a th:href="${(#mvc.url('SC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}" th:text="#{object_has_comment}">With comment(s)</a></div>
-                  <!--<div class="text-muted" th:if="*{hasAnnotation}"><i class="fas fa-sticky-note"></i> <span th:text="#{object_has_annotation}">With annotation(s)</span></div>-->
-                </div>
-              </td>
-
-              <td class="translations">
-               <div class="mt-sm-1 py-sm-1">
-                <th:block th:each="entry : *{translations}"> 
-                  <p th:insert="fragments/common :: single-lang-translation(${entry})"/> 			
-                </th:block>
-                </div>
-              </td>
-           </tr>
-        </table>
      </div>
 
       <!-- SENTENCE search result -->
@@ -280,10 +280,11 @@
         
         
          <!-- Same for Both views -->
-
+		<div class="text-danger" th:if="*{hasComment}"><i class="fas fa-sticky-note"></i> <a th:href="${(#mvc.url('SC#getSingleObjectDetailsPage').arg(0,obj.id)).build()}" class="text-dark" th:text="#{object_has_comment}">With comment(s)</a></div>
+		
         <span class="result-list-item-element translations">
           <th:block th:each="entry : *{translations}"> 
-				<p th:insert="fragments/common :: single-lang-translation(${entry})"/> 			
+				<p th:replace="fragments/common :: single-lang-translation-block(${entry})"/> 			
 		    </th:block>
         </span>
 

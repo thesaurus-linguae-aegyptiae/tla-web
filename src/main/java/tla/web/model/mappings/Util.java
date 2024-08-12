@@ -28,11 +28,18 @@ public class Util {
 
     public static final String TRANSLITERATION_FONT_MARKUP_REGEX = "\\$([^$]*?)\\$";
     public static final String GREEK_FONT_MARKUP_VITTMANN_REGEX = "#g\\+([^#]*?)#g\\-";
-    public static final String GREEK_FONT_MARKUP_REGEX = "<gr>([<]*?)</gr>";
-    public static final String HIERO_FONT_MARKUP_REGEX = "<hiero>([<]*?)</hiero>";
+    public static final String GREEK_FONT_MARKUP_REGEX = "<gr>([^<]*?)</gr>";
+    public static final String HIERO_FONT_MARKUP_REGEX = "<hiero>([^<]*?)</hiero>";
+    public static final String TLA_ID_REF_REGEX = "<(sentence|lemma|text|object|thesaurus|token)(ID|Id|id)>\\s*([^<\\s]*?)\\s*</(sentence|lemma|text|object|thesaurus|token)(ID|Id|id)>";
+    public static final String URL_PATTERN_REGEX = "(?<!href=\")((https?|ftp)\\:\\/\\/[-A-Za-z0-9+&@#\\/%?=~_|!:,.;]*[-A-Za-z0-9+&@#\\/%=~_|])"; 
+    		// TODO: result corrupt without lookahead (recursive replacement??)
+    
+    public static final String URL_WITH_BRACKETS_REGEX = "<" + URL_PATTERN_REGEX + ">";
 
     public static final String MULTILING_FONT_MARKUP_REPLACEMENT = "<span class=\"bbaw-libertine\">$1</span>";
     public static final String HIERO_FONT_MARKUP_REPLACEMENT = "<span class=\"unicode-hieroglyphs\">$1</span>";
+    public static final String URL_PATTERN_REGEX_REPLACEMENT = "<a href=\"$1\" target=\"_blank\">$1</a>";
+    public static final String TLA_ID_REF_REGEX_REPLACEMENT = "<a href=\"https://thesaurus-linguae-aegyptiae.de/$1/$3\">$3</a>";
 
     public static final String XML_HEAD = "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>";
     public static final String SVG_ATTR_REGEX = "width=.([0-9.]+). height=.([0-9.]+).";
@@ -152,6 +159,9 @@ public class Util {
 				text = text.replaceAll(GREEK_FONT_MARKUP_REGEX, MULTILING_FONT_MARKUP_REPLACEMENT);
 				text = text.replaceAll(HIERO_FONT_MARKUP_REGEX, HIERO_FONT_MARKUP_REPLACEMENT);
 				text = text.replaceAll(TRANSLITERATION_FONT_MARKUP_REGEX, MULTILING_FONT_MARKUP_REPLACEMENT);
+				text = text.replaceAll(URL_WITH_BRACKETS_REGEX, "&lt;$1&gt;"); // replace < and > around URLs
+				text = text.replaceAll(URL_PATTERN_REGEX, URL_PATTERN_REGEX_REPLACEMENT); // add href to URL
+				text = text.replaceAll(TLA_ID_REF_REGEX, TLA_ID_REF_REGEX_REPLACEMENT);
 				
 				// line breaks to HTML
 				text = text.replaceAll("\\r?\\n", "<br/>");

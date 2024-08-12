@@ -33,27 +33,29 @@
           <div th:replace="fragments/details :: metadata-protocol"/>
           <div th:replace="fragments/details :: file-comment"/>
           <div th:replace="fragments/details :: editor-info"/>
-        </div>  <!-- close content col-sm-12 -->
-      </div>
-      <div class="row">
-        <div class="col-sm-12 col-lg-8" id="details-content-2" th:object="${obj}">
           <div th:replace="fragments/details :: object-property-related-objects"/>
+        </div>  <!-- close content col-sm-12 -->
+        
+		<!-- Sidebar large -->
+		<div class="sidebar col-lg-4 d-none d-lg-block"  th:object="${obj}">
+			<div class="sticky-top" th:unless="${#maps.isEmpty(relations)}">
+				<div th:replace="fragments/search/results :: hide1Lemma-properties-buttons"/>
+				  <button class="btn btn-block btn-secondary text-left text-decoration-none show-detail languages-btn" type="button" th:text="#{field_label_translation}" >Translations</button>
+				  <div class="indented-buttons indented-buttons-lang hide" style="display: block;">
+					 <div  th:replace="fragments/search/results :: show-properties-buttons"/>
+				</div>
+            	<div th:replace="fragments/search/results :: hide2Lemma-properties-buttons"/>
+			</div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-sm-12 col-lg-12" id="details-content-2" th:object="${obj}">
 		  
           <div th:replace="fragments/details :: object-property-citationBox('lemma', ${obj.id})"/>
 
         </div>  <!-- close content col-sm-12 -->
 
-				<!-- Sidebar large -->
-			<div class="sidebar col-lg-4 d-none d-lg-block"  th:object="${obj}"  th:unless="${#maps.isEmpty(relations)}">
-				<div class="sticky-top">
-					<div th:replace="fragments/search/results :: hide1Lemma-properties-buttons"/>
-					  <button class="btn btn-block btn-secondary text-left text-decoration-none show-detail languages-btn" type="button" th:text="#{field_label_translation}" >Translations</button>
-					  <div class="indented-buttons indented-buttons-lang hide" style="display: block;">
-						 <div  th:replace="fragments/search/results :: show-properties-buttons"/>
-					</div>
-            <div th:replace="fragments/search/results :: hide2Lemma-properties-buttons"/>
-			</div>
-        </div>
       </div>
     </div>  
   </body>

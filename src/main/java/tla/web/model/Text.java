@@ -47,7 +47,8 @@ public class Text extends CorpusObject {
     public static final String PASSPORT_PROP_HIEROGLYPHIC_ENCODING = "definition.main_group.hieroglyphic_encoding";
     public static final String PASSPORT_PROP_HIEROGLYPHS_SEQUENTIAL = "definition.main_group.hieroglyphs_sequential"; 
     public static final String PASSPORT_PROP_TRANSLATIONS = "definition.main_group.translations";
-    
+    public static final String PASSPORT_PROP_LINE_COUNT = "definition.main_group.line_count";
+
     //TODO prüfen ob doppelt, da bereits in CorpusObject.java
     public static final String PASSPORT_PROP_ORIGPLACE ="find_spot.find_spot.place.place";
     public static final String PASSPORT_PROP_ISORIG ="find_spot.find_spot.place.is_origin";
@@ -93,6 +94,8 @@ public class Text extends CorpusObject {
     private String hieroglyphs_sequential;
     @Setter(AccessLevel.NONE)
     private List<TranslationGroup> translations;
+    @Setter(AccessLevel.NONE)
+    private List<String> lineCountInfo;
     
 	public static class TranslationGroup {
 		private String language;
@@ -254,6 +257,13 @@ public class Text extends CorpusObject {
     		this.translations = extractGroups(this.getPassport(), PASSPORT_PROP_TRANSLATIONS);
     	}
 		return this.translations;
+	}
+    
+    public List<String> getLineCountInfo() {
+    	if(this.lineCountInfo== null) {
+    		this.lineCountInfo = extractMultilineText(this.getPassport(), PASSPORT_PROP_LINE_COUNT);
+    	}
+		return this.lineCountInfo;
 	}
     
    

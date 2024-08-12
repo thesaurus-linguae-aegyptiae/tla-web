@@ -524,20 +524,31 @@ public class CorpusObject extends BTSObject implements Hierarchic {
         return this.contextComment;
     }
 
-    // Object type
+    // Object Description_Of_Object type
     
     public static final String PASSPORT_PROP_OBJ_TYPE = "object.description_of_object.type";
-    
     @Setter(AccessLevel.NONE)
     private ObjectReference objType;
-    
     public ObjectReference getObjType() {
         if (this.objType == null) {
             this.objType = extractThsEntry(this.getPassport(), PASSPORT_PROP_OBJ_TYPE);
         }
         return this.objType;
     }
+    
+    // Object Description_Of_Object description
 
+    public static final String PASSPORT_PROP_OBJ_DESCRIPTION = "object.description_of_object.description";
+    //Maybe new Datatype description_of_object
+    @Setter(AccessLevel.NONE)
+    private List<String> objectDescription;
+    public List<String> getObjectDescription(){
+    	if(this.objectDescription == null) {
+    		this.objectDescription = extractMultilineText(this.getPassport(), PASSPORT_PROP_OBJ_DESCRIPTION);
+    	}
+    	return this.objectDescription;
+    }
+    
     // Object component
     
     public static final String PASSPORT_PROP_OBJ_COMPONENT = "object.description_of_object.component";
@@ -614,4 +625,5 @@ public class CorpusObject extends BTSObject implements Hierarchic {
         return dimensions;
     }
        
+  
 }

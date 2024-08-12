@@ -105,7 +105,7 @@
         <p>
             <strong th:text="#{object_property_translation}" class="details-property-label">Translation</strong>
         </p>
-        <div th:each="entry : ${obj.translations}" th:insert="fragments/common :: single-lang-translation(${entry})"></div>
+        <div th:each="entry : ${obj.translations}" th:insert="fragments/common :: single-lang-translation-block(${entry})"></div>
     </div>
  
     <!-- bibliography -->
@@ -149,7 +149,7 @@
     <!-- Language -->    
     
     <div class="language" th:fragment="language" id="language" th:unless="${#lists.isEmpty(obj.language)}">
-        <hr>
+        <hr/>
         <p>
             <strong th:text="#{object_property_language}" class="details-property-label">Language</strong>:
             <i class="fas fa-tag"></i> <a th:href="${'/thesaurus/'+obj.getLanguage.id}"  th:text="${obj.getLanguage.name}"></a>
@@ -170,7 +170,7 @@
     <!-- Texttype -->
     
     <div class="texttype" th:fragment="texttype" id="texttype" th:unless="${#lists.isEmpty(obj.texttype)}">
-       <hr>
+       <hr/>
         <p>
             <strong th:text="#{object_property_texttype}" class="details-property-label">Texttype</strong>:
             <i class="fas fa-tag"></i> <a th:href="${'/thesaurus/'+obj.getTexttype.id}"  th:text="${obj.getTexttype.name}"></a>
@@ -197,7 +197,23 @@
         </p>
          </th:block>
        </div>
-         
+
+
+    <!-- Line count information -->
+    
+    <div class="line-count-info" th:fragment="line-count-info" id="line-count-info" th:unless="${#lists.isEmpty(obj.lineCountInfo)}">
+        <hr/>
+        <p>
+            <strong th:text="#{object_property_line_count_info}" class="details-property-label">Line count information</strong>
+            <br/>
+            <ul class="no-bullet-list">
+            <li th:each="elem, elemStat : ${obj.lineCountInfo}">
+                <span th:utext="${{elem}}"></span>
+                <br th:unless="${elemStat.last}"/>
+            </li>
+            </ul>
+        </p>
+    </div>         
     
     <!-- Object type -->
     
@@ -276,10 +292,10 @@
             <!-- Places -->
             <p>
               <strong th:text="#{object_property_origplace}" class="details-property-label" th:unless="${#lists.isEmpty(findspot.getPlaces)}">Find Spot</strong>
-               
                <ul class="no-bullet-list">
                <li th:each="place, placeStat : ${findspot.getPlaces}">
                <p>
+               <th:block th:unless="${place.getPlace()==null}">
                  <i class="fas fa-tag"></i>
                  <a th:href="${'/thesaurus/'+place.getPlace().getId()}"  th:text="${place.getPlace().getName()}"></a>
                <th:block th:unless="${place.getCertainty}==null"> 
@@ -295,9 +311,10 @@
                         <span  th:text="#{object_property_no}"></span>
                   </th:block>
                </th:block>
+               </th:block>
                   <th:block th:unless="${place.getComment}==null"> 
                   <br/><strong  th:text="#{object_property_place_comment}" class="details-property-label"></strong>:
-                     <span  th:text="${place.getComment}"></span>
+                     <span  th:utext="${{place.getComment}}"></span>
                </th:block>
                </p>
                </li>
@@ -327,7 +344,7 @@
                   </th:block>
                      <th:block th:unless="${place.getComment}==null"> 
                      <br/><strong  th:text="#{object_property_place_comment}" class="details-property-label"></strong>:
-                        <span  th:text="${{place.getComment}}"></span>
+                        <span  th:utext="${{place.getComment}}"></span>
                   </th:block>            
                </p>
                </li>
@@ -398,7 +415,7 @@
                
              	<th:block th:unless="${location.getComment}==null"> 
 	            <br/><strong  th:text="#{object_property_place_comment}" class="details-property-label"></strong>:
-						<br/><span  th:text="${{location.getComment}}"></span>
+						<br/><span  th:utext="${{location.getComment}}"></span>
 				    </th:block>
              </p>
             </li>
@@ -460,7 +477,7 @@
             <br/>
             <ul class="no-bullet-list">
             <li th:each="elem, elemStat : ${obj.materialityComment}">
-                <span th:text="${{elem}}"></span>
+                <span th:utext="${{elem}}"></span>
                 <br th:unless="${elemStat.last}"/>
             </li>
             </ul>
@@ -476,6 +493,24 @@
             <i class="fas fa-tag"></i> <a th:href="${'/thesaurus/'+obj.owner.getId()}"  th:text="${obj.owner.getName()}"></a>
         </p>
     </div>
+
+     <!-- Object description -->
+    			
+    <div class="object-description" th:fragment="object-description" id="object-description" th:unless="${#lists.isEmpty(obj.getObjectDescription)}">
+        <th:block th:unless="${obj.getObjectDescription}==null"> 
+           <hr/>
+           <p>
+	            <strong  th:text="#{object_property_description}" class="details-property-label"></strong>
+            <br/>
+            <ul class="no-bullet-list">
+            <li th:each="elem, elemStat : ${obj.getObjectDescription}">
+                <span th:utext="${elem}"></span>
+                <br th:unless="${elemStat.last}"/>
+            </li>
+            </ul>
+			  </p>
+ 		</th:block>
+   </div>	
 
     <!-- Object context -->
     
@@ -641,7 +676,7 @@
            <hr/>
            <p>
 	            <strong  th:text="#{object_property_description}" class="details-property-label"></strong>
-					 <br/><span  th:text="${obj.getDescription.getDefinition}"></span>
+					 <br/><span th:utext="${{obj.getDescription.getDefinition}}"></span>
         </p>
  				</th:block>
    </div>
@@ -712,7 +747,6 @@
     <!-- Text content button  -->
     
     <div class="text-content-button" th:fragment="text-content-button" id="text-content-button">
-        <hr/>
         <p>
          <a th:href="${(#mvc.url('TOC#getSingleObjectDetailsPage').arg(0,obj.id)).build()+'/sentences'}">
            <button id="text-content-button" type="button" class="btn btn-danger text-left text-decoration-none ">
@@ -730,7 +764,7 @@
         <hr/>
         <strong th:text="#{object_property_annotations}" class="details-property-label">Comments</strong>
         <div th:each="annotation, counter : ${annotations}" class="comment-wrapper hide-comment" th:object="${annotation}">
-            <p th:if="${counter.size} > 1" class="ml-3"><strong th:text="#{object_property_annotation} + ' ' + ${counter.index +1}">Comment 1<strong></p>
+            <p th:if="${counter.size} > 1" class="ml-3"><strong th:text="#{object_property_annotation} + ' ' + ${counter.index +1}">Comment 1</strong></p>
             <p class="comment-content text-justify ml-4" th:utext="${{annotation.body}}">annotation body</p>
             <p th:replace=" :: comment-authorship"/>
         </div>
@@ -753,7 +787,7 @@
        <span class="details-property-label" th:text="#{object_property_editors_created}">File created</span>:
        <span th:text="${edited.wasCreatedBeforeBTS3()} ? #{created_before_BTS3} : ${#calendars.format(edited.created, formatter)}">xx.xx.20xx</span>,
        <span class="details-property-label" th:text="#{object_property_editors_updated}">latest revision</span>:
-       <span th:text="${#calendars.format(edited.updated, formatter)}">xx.xx.20xx</span>
+       <span th:text="${obj.edited.wasLastEditedBeforeBTS3()} ? #{created_before_BTS3} : ${#calendars.format(edited.updated, formatter)}">xx.xx.20xx</span>
    </p>
 
     <!-- Editor information -->
@@ -770,7 +804,7 @@
             <strong class="details-property-label" th:text="#{object_property_editors_created}">File created</strong>:
             <span th:text="${obj.edited.wasCreatedBeforeBTS3()} ? #{created_before_BTS3} : ${#calendars.format(obj.edited.created, formatter)}">xx.xx.20xx</span>, 
             <strong class="details-property-label" th:text="#{object_property_editors_updated}">latest revision</strong>:
-            <span th:text="${#calendars.format(obj.edited.updated, formatter)}">xx.xx.20xx</span>
+            <span th:text="${obj.edited.wasLastEditedBeforeBTS3()} ? #{created_before_BTS3} : ${#calendars.format(obj.edited.updated, formatter)}">xx.xx.20xx</span>
           </div>
         </th:block>
         <div class="review-state">
@@ -847,7 +881,7 @@
             <a th:href="|${@searchController.getSearchResultsPageRoute(@__sentenceController__)}?tokens[0].lemma.id=${obj.id}|">
                <button id="lemma-attestation-count-texts" type="button" class="btn btn-danger text-left text-decoration-none">
                <span class="fas fa-arrow-circle-right"></span>&nbsp;
-               <span th:text="#{lemma_property_attestation_occurrences} + ' ' + ${(obj.attestedSentencesCount >= 10000) ? '>' : ''} + ${obj.attestedSentencesCount} + ' ' + #{|lemma_property_instance${(obj.attestedSentencesCount > 1) ? 's' : ''}|}">Occurrences in __ sentences</span>
+               <span th:text="#{lemma_property_attestation_occurrences} + ' ' + ${obj.attestedSentencesCount} + ' ' + #{|lemma_property_instance${(obj.attestedSentencesCount > 1) ? 's' : ''}|}">Occurrences in __ sentences</span>
                </button>
             </a>
             <br/>
@@ -917,7 +951,7 @@
    </div>
    
     <!-- Sentence comments -->
-    <div th:fragment="object-property-comments" id="object-property-comments" th:if="${related != null && #maps.containsKey(related, 'BTSComment')}">
+    <div th:fragment="object-property-comments" id="object-property-comments" class="object-property-comments" th:if="${related != null && #maps.containsKey(related, 'BTSComment')}">
         <hr/>
         <strong th:text="#{|${objectType}_property_related_comments|}" class="border-bottom details-property-label">Comments</strong>
         <div class="row py-1 ml-2 mr-2" th:each="predicate : ${relations}">
@@ -951,7 +985,7 @@
 				<blockquote id="full-citation">
             <th:block th:unless="${obj.eclass == 'BTSThsEntry' or obj.eclass == 'BTSLemmaEntry' or objtype == 'sentences/text' or objtype == 'sentence/token'}">
                <!-- Default citation (with author [not editor] and page label) -->
-               <span th:text="${obj.edited.author}">author</span><span th:unless="${obj.edited.contributors} == null" class="editors">, <span class="details-property-label" th:text="#{object_property_editors}">contributors</span> <span th:each="contributor, nr : ${obj.edited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/></span>, <span  th:unless="${obj.eclass == 'BTSSentence'}" th:text="'&quot;' + ${{'<shortlabel>'+obj.name+'</shortlabel>'}} + '&quot; ('"></span><span th:text="#{|object_id_label_${obj.eclass}|} +' '+ ${objid}"></span><span  th:unless="${obj.eclass == 'BTSSentence'}" th:text="') '"></span> <span th:text="'<' + ${env.baseUrl} + '/' + ${objtype} + '/' + ${objid} +'>,'"></span>
+               <span th:text="${obj.edited.author}">author</span><span th:unless="${obj.edited.contributors} == null" class="editors">, <span class="details-property-label" th:text="#{object_property_editors}">contributors</span> <span th:each="contributor, nr : ${obj.edited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/></span>, <span  th:unless="${obj.eclass == 'BTSSentence'}" th:utext="'&quot;' + ${{'<shortlabel>'+obj.name+'</shortlabel>'}} + '&quot; ('"></span><span th:text="#{|object_id_label_${obj.eclass}|} +' '+ ${objid}"></span><span  th:unless="${obj.eclass == 'BTSSentence'}" th:text="') '"></span> <span th:text="'<' + ${env.baseUrl} + '/' + ${objtype} + '/' + ${objid} +'>,'"></span>
             </th:block> 
             <th:block th:if="${obj.eclass == 'BTSLemmaEntry' and obj.type == 'root'}">
                <!-- Root citation -->
@@ -963,7 +997,7 @@
             </th:block> 
             <th:block th:if="${obj.eclass == 'BTSThsEntry'}">
                <!-- Thesaurus entry citation -->
-               <span th:text="'&quot;' + ${{'<shortlabel>'+obj.name+'</shortlabel>'}} + '&quot; (' + #{|object_id_label_${obj.eclass}|} +' '+ ${objid} + ') <' + ${env.baseUrl} + '/' + ${objtype} + '/' + ${objid} +'>'"></span>, <span th:text="#{citeas_lemma_editor} + ' ' + ${obj.edited.author}">edited by author</span><span th:unless="${obj.edited.contributors} == null">, <span th:text="#{object_property_editors}">contributors</span> <span th:each="contributor, nr : ${obj.edited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/></span>, 
+               <span th:utext="'&quot;' + ${{'<shortlabel>'+obj.name+'</shortlabel>'}} + '&quot; (' + #{|object_id_label_${obj.eclass}|} +' '+ ${objid} + ') <' + ${env.baseUrl} + '/' + ${objtype} + '/' + ${objid} +'>'"></span>, <span th:text="#{citeas_lemma_editor} + ' ' + ${obj.edited.author}">edited by author</span><span th:unless="${obj.edited.contributors} == null">, <span th:text="#{object_property_editors}">contributors</span> <span th:each="contributor, nr : ${obj.edited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/></span>, 
             </th:block> 
             <th:block th:if="${obj.eclass == 'BTSLemmaEntry' and obj.type != 'root'}">
                <!-- Lemma citation -->
@@ -971,7 +1005,7 @@
             </th:block> 
             <th:block th:if="${objtype == 'sentences/text'}">
                <!-- Text sentences citation -->
-               <span th:text="${obj.edited.author}">author</span><span th:unless="${obj.edited.contributors} == null" class="editors">, <span class="details-property-label" th:text="#{object_property_editors}">contributors</span> <span th:each="contributor, nr : ${obj.edited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/></span>, <span th:text="#{text_sentences_title} +' '+ '&quot;' + ${{'<shortlabel>'+obj.name+'</shortlabel>'}} + '&quot; (' + #{object_id_label_BTSText} +' '+ ${obj.context.textId} + ') <' + ${env.baseUrl} + '/text/' + ${obj.context.textId} +'/sentences>,'"></span>
+               <span th:text="${obj.edited.author}">author</span><span th:unless="${obj.edited.contributors} == null" class="editors">, <span class="details-property-label" th:text="#{object_property_editors}">contributors</span> <span th:each="contributor, nr : ${obj.edited.contributors}" th:utext="${nr.first} ? ${contributor} : ', ' + ${contributor}"/></span>, <span th:utext="#{text_sentences_title} +' '+ '&quot;' + ${{'<shortlabel>'+obj.name+'</shortlabel>'}} + '&quot; (' + #{object_id_label_BTSText} +' '+ ${obj.context.textId} + ') <' + ${env.baseUrl} + '/text/' + ${obj.context.textId} +'/sentences>,'"></span>
             </th:block> 
             in: <i th:text="#{tla_Title}"></i>, 
 					<span th:text="#{citeas_corpus_version} + ' ' + #{tla_corpusversion} + ', ' + #{citeas_tla_version} + ' ' + #{tla_version} + ', ' + #{tla_ReleaseDate} + ', ' + #{citeas_editor} +' ' + #{tla_Editor} + ' ('+ #{citeas_accessed} + ': '"></span>

@@ -120,6 +120,21 @@ public class TlaClient {
             SingleDocumentWrapper.class
         );
     }
+    
+    /**
+     * checks if single id exists at the backend application.//TODO returns/receives.
+     */
+    @SuppressWarnings("unchecked")
+    public String getTypeOfIdFromAllIndices(String id) {
+        return client.getForObject(
+        		   String.format(
+                           "%s/typeofid/%s",
+                           this.backendUrl,
+                           id
+            ),
+            String.class
+        );
+    }
 
     /**
      * Send search form/command to backend endpoint configured for specified frontend

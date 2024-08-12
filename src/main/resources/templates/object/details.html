@@ -5,7 +5,7 @@
       xml:lang="en"
 >
   <head>
-    <title th:text="|#{object_id_label_BTSTCObject} ${obj.id}|"></title>
+    <title th:utext="|${{'<shortlabel>' + obj.name + '</shortlabel>'}} (#{object_id_label_BTSTCObject} ${obj.id})|"></title>
   </head>
 
   <body>
@@ -33,6 +33,7 @@
           <div th:replace="fragments/details :: present-location"/>
           <div th:replace="fragments/details :: date"/>
           <div th:replace="fragments/details :: date-comment"/>
+          <div th:replace="fragments/details :: object-description"/>
          
           <div th:replace="fragments/details :: object-owner"/>
           <div th:replace="fragments/details :: object-context"/>
@@ -66,7 +67,7 @@
       </div>
 
        <div class="row">
-        <div class="col-sm-12 col-lg-8" id="details-content-2" th:object="${obj}">
+        <div class="col-sm-12 col-lg-12" id="details-content-2" th:object="${obj}">
           <div th:replace="fragments/details :: object-property-citationBox('object', ${obj.id})"/>
         </div>
       </div>

@@ -62,7 +62,7 @@
 
      <!-- Text infos -->
       <div  th:if="${searchResults.size} > 0" class="row m-sm-0 m-lg-1" th:with="obj=${searchResults[0]}">
-        <div class="col-lg-8 content">
+        <div class="col-lg-12 content">
          <strong th:text="#{text_sentences_property_object_paths}" class="details-property-label">Text path</strong>:
          <p class="result-list-item-element paths" th:insert="fragments/search/results :: search-result-object-paths('sentence')"/>
          <th:block th:object="${obj}">
@@ -75,7 +75,7 @@
 
      <!-- Citation block -->
       <div th:if="${searchResults.size} > 0" class="row">
-        <div class="col-sm-12 col-lg-8" id="details-content-2" th:with="obj=${searchResults[0]}">
+        <div class="col-sm-12 col-lg-12" id="details-content-2" th:with="obj=${searchResults[0]}">
           <div th:replace="fragments/details :: object-property-citationBox('sentences/text', ${textId})"/>
         </div>
       </div>

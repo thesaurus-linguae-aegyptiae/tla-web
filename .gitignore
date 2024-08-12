@@ -16,6 +16,9 @@ src/main/java/tla/error
 src/main/resources/static/vendor/
 src/main/resources/static/font/
 
+# ignore TLA css
+src/main/resources/static/css/tla-styles.css 
+
 # ignore new JSesh Glyphs
 src/main/resources/static/jsesh 
 

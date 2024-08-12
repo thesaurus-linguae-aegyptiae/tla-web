@@ -6,97 +6,18 @@
 
     <!-- ID lookup search forms -->
 	<!-- ## um unterschiedliche actions zu ermöglichen, sind die ID-Suchen in drei forms verteilt, leider damit aktuell auch jeweils ein Reiter auf der Suchseite ## -->
-    <form id="lemma-id-search" name="lemma-id-search" th:object="${lemma}"
-        th:action="@{/lemma/lookup}" method="get"> 
+    <form id="id-search" name="form_label_id-search" th:object="${lemma}"
+        th:action="@{/id}" method="get">
+        <p th:utext="#{msg_search_for_tla_id}">Please edit ... ID.</p> 
       <fieldset class="form-group row">
-        <label class="col-form-label col-xl-2" th:text="#{field_label_lemma_id}" for="id-search-lemma">Lemma ID</label>
+        <label class="col-form-label col-xl-2" th:text="#{field_label_id}" for="id-search">ID</label>
         <div class="col-xl-10">
-          <input class="form-control mb-sm-1 lemma-id" type="text" maxlength="10" th:field="*{id}" placeholder="80"
-              th:id="id-search-lemma" th:list="id-search-lemma-suggestions">
-            <script th:replace="fragments/search/tools :: autocomplete('id-search-lemma')"></script>
-          </input>
-          <datalist th:id="id-search-lemma-suggestions"/>
+          <input class="form-control mb-sm-1 lemma-id" type="text" maxlength="40" th:field="*{id}" placeholder="80 / JGW3VR2VCJCKHI26IYDZVWPSIM"
+              th:id="id-search">
         </div>
       </fieldset>
 	  </form> 
 	  
-	  <form id="token-id-search" name="token-id-search" th:object="${lemma}"
-        th:action="@{/sentence/token/lookup}" method="get">  <!--##warum muss da th:object="${lemma}" stehen nicht th:object="${token}"-->
-      <fieldset class="form-group row">
-        <label class="col-form-label col-xl-2" th:text="#{field_label_token_id}" for="id-search-token">Token ID</label>
-        <div class="col-xl-10">
-          <input class="form-control mb-sm-1 token-id" type="text" maxlength="50" th:field="*{id}"
-              th:id="id-search-token" th:list="id-search-token-suggestions">
-            <script th:replace="fragments/search/tools :: autocomplete('id-search-token')"></script>
-          </input>
-          <datalist th:id="id-search-token-suggestions"/>
-        </div>
-      </fieldset>
-	  </form>
-	  
-    <form id="sentence-id-search" name="sentence-id-search" th:object="${lemma}"
-        th:action="@{/sentence/lookup}" method="get">
-      <fieldset class="form-group row bg-grey">
-        <label class="col-form-label col-xl-2" th:text="#{field_label_sentence_id}" for="id-search-sentence">
-          Sentence ID
-        </label>
-        <div class="col-xl-10">
-          <input class="form-control mb-sm-1 sentence-id" type="text" maxlength="50" th:field="*{id}"
-              th:id="id-search-sentence" th:list="id-search-sentence-suggestions">
-            <script th:replace="fragments/search/tools :: autocomplete('id-search-sentence')"></script>
-          </input>
-          <datalist th:id="id-search-sentence-suggestions"/>
-        </div>
-      </fieldset>
-	  </form>
-	  
-    <form id="text-id-search" name="text-id-search" th:object="${lemma}"
-        th:action="@{/text/lookup}" method="get"> <!--##warum muss da th:object="${lemma}" stehen nicht th:object="${text}"-->
-      <fieldset class="form-group row">
-        <label class="col-form-label col-xl-2" th:text="#{field_label_text_id}" for="id-search-text">
-          Sentence ID
-        </label>
-        <div class="col-xl-10">
-          <input class="form-control mb-sm-1 text-id" type="text" maxlength="50" th:field="*{id}"
-              th:id="id-search-text" th:list="id-search-text-suggestions">
-            <script th:replace="fragments/search/tools :: autocomplete('id-search-text')"></script>
-          </input>
-          <datalist th:id="id-search-text-suggestions"/>
-        </div>
-      </fieldset>
-	  </form>
-	
-    <form id="object-id-search" name="object-id-search" th:object="${lemma}"
-        th:action="@{/object/lookup}" method="get"> <!--##warum muss da th:object="${lemma}" stehen nicht th:object="${text}"-->
-      <fieldset class="form-group row bg-grey">
-        <label class="col-form-label col-xl-2" th:text="#{field_label_object_id}" for="id-search-object">
-          Sentence ID
-        </label>
-        <div class="col-xl-10">
-          <input class="form-control mb-sm-1 object-id" type="text" maxlength="50" th:field="*{id}"
-              th:id="id-search-object" th:list="id-search-object-suggestions">
-            <script th:replace="fragments/search/tools :: autocomplete('id-search-object')"></script>
-          </input>
-          <datalist th:id="id-search-object-suggestions"/>
-        </div>
-      </fieldset>
-	  </form>
-	
-    <form id="ths-id-search" name="ths-id-search" th:object="${lemma}"
-        th:action="@{/thesaurus/lookup}" method="get"> <!--##warum muss da th:object="${lemma}" stehen nicht th:object="${text}"-->
-      <fieldset class="form-group row">
-        <label class="col-form-label col-xl-2" th:text="#{field_label_ths_id}" for="id-search-ths">
-          Sentence ID
-        </label>
-        <div class="col-xl-10">
-          <input class="form-control mb-sm-1 ths-id" type="text" maxlength="50" th:field="*{id}"
-              th:id="id-search-ths" th:list="id-search-ths-suggestions">
-            <script th:replace="fragments/search/tools :: autocomplete('id-search-ths')"></script>
-          </input>
-          <datalist th:id="id-search-ths-suggestions"/>
-        </div>
-      </fieldset>
-	  </form>
 	
 	   <!--<form id="text-search" name="text-search"
         th:action="@{${@searchController.getSearchResultsPageRoute(@__textController__)}}"
@@ -341,7 +262,7 @@
     -->
         <div th:fragment="submit-form-button(form)" th:with="formId=|${form.key}-search|">
        
-      <button class="btn btn-block btn-danger text-left text-decoration-none mt-sm-4 mb-sm-2"
+      <button class="btn btn-danger text-left text-decoration-none m-1"
           th:id="|submit-${formId}|"
           th:form="${formId}" type="submit">
       
@@ -359,7 +280,7 @@
         form (string): id of the search form to clear
     -->
     <div th:fragment="clear-form-button(form)">
-      <button th:id="|clear-form-button-${form}|" type="button" class="btn btn-block btn-secondary text-left text-decoration-none">
+      <button th:id="|clear-form-button-${form}|" type="button" class="btn btn-secondary m-1 text-left text-decoration-none">
         <span class="fas fa-times-circle"></span>
         <span th:text="#{button_label_clear_form}">Clear all</span>
         <script th:inline="javascript">

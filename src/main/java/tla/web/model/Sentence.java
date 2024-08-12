@@ -50,6 +50,11 @@ public class Sentence extends TLAObject implements Hierarchic {
 
     @Singular
     private SortedMap<Language, List<String>> translations;
+    
+    @Override
+    public <T extends TLAObject> int compareObjects(T b) {
+		return 0;
+	}
 
     /**
      * Determine whether any of a sentence's tokens have any hieroglyph encodings.

@@ -18,7 +18,20 @@
         }
       </script>
       <div class="row search">
-        <div class="col-lg-8 col-sm-12">
+        <!-- Sidebar -->
+        <div class="col-lg-4 order-lg-last order-sm-first sidebar">
+          <div class="stick-top m-sm-1 m-lg-4">
+            <div th:each="searchForm : ${forms}" th:with="formId=|${searchForm.key}-search|"
+                th:id="|${formId}-sidebar-controls|" class="sidebar-controls"
+                th:style="${searchForm.expanded} ? '' : 'display: none;'">
+              <div th:replace="fragments/search/forms :: submit-form-button(${searchForm})"/>
+              <div th:replace="fragments/search/forms :: clear-form-button(__${formId}__)"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="col-lg-8 order-lg-first col-sm-12 order-sm-last">
           <div class="accordion" id="search-forms-container">
 
             <div class="card" th:each="searchForm : ${forms}" th:with="formId=|${searchForm.key}-search|">
@@ -61,18 +74,6 @@
                   th:aria-labelledby="|#${formId}-heading|"
                   data-parent="#search-forms-container"
                   th:insert="fragments/search/forms :: #__${formId}__"/>
-            </div>
-          </div>
-        </div>
-
-        <div class="sidebar col-lg-4">
-          <div class="stick-top">
-            <div th:each="searchForm : ${forms}" th:with="formId=|${searchForm.key}-search|"
-                th:id="|${formId}-sidebar-controls|" class="sidebar-controls"
-                th:style="${searchForm.expanded} ? '' : 'display: none;'"
-            >
-              <div th:replace="fragments/search/forms :: submit-form-button(${searchForm})"/>
-              <div th:replace="fragments/search/forms :: clear-form-button(__${formId}__)"/>
             </div>
           </div>
         </div>
